@@ -1,0 +1,354 @@
+// Main Admin  Area
+#adminmain{
+	padding: 0px 20px 20px;
+	min-height: 500px;
+	background-color: $admin-body;
+	.btn{background-color:$admin-bg;border-radius:0px;
+		&:hover{border-radius: 4px;}
+	}
+	input[type='text'],input[type='email'],input[type='date'],textarea{border: 0px;background-color: $admin-top;font-size: 17px;color: #737879;}
+	input[type='text'],input[type='email'],input[type='date']{height: 53px;margin-bottom: 28px;}
+	.custom-radio,.custom-checkbox{margin-top: 14px;}
+	.cross_btn{margin-top: 37px;color: white;}
+	form{padding-top: 20px;}
+	.date_input{
+		[type="date"] {
+			  background:$admin-top url(https://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/calendar_2.png)  97% 50% no-repeat ;
+			  width: 100%;
+			}
+			[type="date"]::-webkit-inner-spin-button {
+			  display: none;
+			}
+			[type="date"]::-webkit-calendar-picker-indicator {
+			  opacity: 0;
+			}
+			
+	}
+	//  input type date icon csss
+	.input-group-text{
+		height: 53px;
+		background-color: $admin-top;
+		border:none;
+		font-size: 20px;
+	}
+
+	label{color: #ada9a9;font-size: 15px;margin-left: 20px;}
+	.radiolabel{margin-left: 0px;}
+	.price_align{
+		h5{margin-top: 12px;}
+	}
+	//Buttons for the admin panel
+	.itrn_add_btn{
+		padding: 10px 75px !important;
+		border: 3px solid  $admin-bg;
+		font-weight: 600;
+		background-color:transparent;
+		color: black !important;
+		font-size: 18px;
+		margin-top: 30px;
+		min-width: 323px;
+		&:hover{
+			background-color:  $admin-bg;
+			color: white !important;
+			 min-width: 323px;
+			 border-radius:0px;
+		}
+	}
+	.itinerary_list{
+		padding:19px 0px 5px 10px;
+		box-shadow: 0 6px 5px rgba(0, 0, 0, 0.19), 0 7px 6px rgba(0, 0, 0, 0);
+		background-color: $admin-top;
+		border:none;
+		h5{
+		    font-weight: 700;
+			font-size: 16px;
+			color: #928e8e;
+			padding-bottom: 5px;
+		}
+		p{
+			font-size: 16px;
+			font-weight: 500;
+			color: #403b3b;
+		}
+	}
+	.container_admin_body{
+		padding: 10px 30px;
+		#example_filter{
+			input[type='search']{
+				border-radius: 4px;
+                height: 29px;
+                background-color: $admin-top;
+                border:none;
+                padding-left:5px;
+                margin-left: 10px;
+			}
+		}
+		// #example{
+		// 	tr{
+		// 		border: none;
+		// 		border-bottom:10px solid $admin-body;
+		// 	}
+		// 	tr th:first-child{
+		// 		border-radius:6px 0px 0px 13px;
+		// 	}
+		// 	tr th:last-child{
+		// 		border-radius:0px 6px 13px 0px;
+		// 	}
+		// 	tr td:first-child{
+		// 		border-radius:13px 0px 0px 13px;
+		// 	}
+		// 	tr td:last-child {
+		// 	    border-radius:0px 13px 13px 0px;
+		// 	}
+		// 	th{
+		// 		padding:20px 13px;
+		// 		background-color: $admin-bg;
+		// 		color: white;
+		// 		font-size: 15px;
+		// 	}
+		// 	tbody{
+		// 		    tr{
+		// 		    border-right: 0px;border-left: 0px;
+		// 		    border-radius:4px;
+		// 		    &:hover { box-shadow: 0px 2px 18px 0px rgba(0,0,0,0.5); cursor: pointer; }
+		// 	    }
+		// 	    td{
+		// 			  background-color: #eae9e9;
+
+		// 			  padding: 20px 13px;
+		// 			  font-size: 15px;
+		// 	    }
+		// 	}
+		// }
+		    table { box-sizing: border-box; }
+		    th{border-bottom: black;}
+			td, th {
+				min-width: 250px; 
+				text-align: left; 
+				padding: 20px;
+				font-size: 15px;
+				background-color:white;
+				border:none;
+			}
+			th{background-color: black;color: white;}
+			tr { display: block;border-radius: 5px;}
+			th:first-child,td:first-child{
+				border-radius:5px 0px 0px 5px;
+			}
+			th:last-child,td:last-child{
+				border-radius:0px 5px 5px 0px;
+			}
+			tr{ 
+				-webkit-box-shadow: 0px 2px 9px -2px rgba(0,0,0,0.60);
+				-moz-box-shadow: 0px 2px 9px -2px rgba(0,0,0,0.60);
+				box-shadow: 0px 1px 6px -2px rgba(0,0,0,0.60);
+				margin-bottom:7px;
+			 }
+		#example_info{width: 210px !important;float: left;margin-left: 0px;}
+		.dataTables_paginate{
+			float: right;margin-right: 0px;
+			.paginate_button{
+				border:1px solid grey;
+				    padding: 5px 10px;				    
+				    background: #cecece;
+				    color: black;
+				    border: none;
+				    margin-right: 2px;
+				    border-radius: 2px;
+				    cursor: pointer;
+				    &:hover{
+				    	background-color: #a59e9e;
+					    color: white;
+					    text-decoration: none;
+				    }
+
+			}
+		}
+		.buttonload {
+		  background-color: #4CAF50; /* Green background */
+		  border: none; /* Remove borders */
+		  color: white; /* White text */
+		  padding: 12px 24px; /* Some padding */
+		  font-size: 16px; /* Set a font-size */
+		  .fa-spin{
+		  	  margin-left: -12px;
+              margin-right: 8px;
+		  }
+		}
+		.dataTables_length{
+			float: left;
+			margin-left: 0px;
+			label{
+				margin-left: 0px !important;
+			}
+		}
+		#example_filter{
+			float: right;
+		}
+	}
+	.card_view{
+		.row{
+			margin-bottom: 20px;
+			h5{
+		    font-weight: 700;
+			font-size: 18px;
+			color: #928e8e;
+			padding-bottom: 5px;
+			}
+			p{
+				font-size: 18px;
+				font-weight: 500;
+				color: #403b3b;
+			}
+			h4{
+				margin-bottom: 20px;
+				font-size: 18px;
+			}
+		}
+	}
+	.department_itinerary{
+		.h5_class,form{
+			margin-left: 19px;
+			label{
+				margin-left: 0px !important;
+			}
+		}
+	}
+	.itinerary_day_record{
+		margin-top: 20px;
+		margin-left: 9px;
+		h5{
+			font-weight: 700;
+			font-size: 18px;
+			color: #928e8e;
+			padding-bottom: 5px;
+		}
+		p{
+			font-size: 18px;
+			font-weight: 500;
+			color: #403b3b;
+		}
+	}
+	#example_wrapper{
+		.table_search{height: 35px !important;margin-bottom: 0px !important;font-size: 13px !important;}
+		select{height: 30px;padding: 0px;width: 58px;}
+	}	
+	
+	// Admin dashboard selected color
+	
+
+}
+// Active Link in admin navigation
+.router-link-active{background-color: $admin-sidebar;color: white !important;}
+// Top navigation bar with searchbar
+#sidebarnavigation{
+	background-color: $admin-top;height: 100px;
+	.admin_top_right_icon{
+		.user_icon{
+			font-size: 20px;
+		    background-color: #a0a0a5;
+		    padding: 1px 8px;
+		    border-radius: 50%;
+		    color: white;
+		}
+		.nav-link{padding-top: 0px;}
+	}
+}
+
+// Dashboard 
+#fronthome{
+	padding-top: 30px;
+	.dashboard_card{margin-left: 50px;position: relative;
+		img{
+			box-shadow:red;
+			border-radius:9px;
+			&:hover{
+				box-shadow:none;
+			}
+		}
+		p{
+			position: absolute;
+			right: 0px;
+			color: white;
+			font-weight: 600;
+			font-size: 18px;
+			right: 54px;
+		}
+		.down{
+			top: 66px;
+            
+		}
+		.up{
+			top: 45px;
+			
+		}
+	}
+}
+//Admin top logo
+#admin_top_logo{
+	.logo_link{line-height: 155px !important;color: $admin-bg;border-bottom:none;}
+	img{
+		min-height: 87px;
+        margin: 16px 42px;
+	}
+	background-color: $admin-bg;
+	.nav-sidebar{
+		.nav-link{padding: 15px;border-radius: 0px;}
+		.nav{
+			p{margin-left: 36px;font-size: 13px;}
+		}
+	}
+	.sidebar{padding-left: 0px;padding-right: 0px;}
+	.dashboard_color{
+		background-color: $admin-bg;
+	}
+}
+/*
+*
+*
+*
+*
+Admin Login page
+*
+*
+*
+*/
+#admin_login{
+	background-color: $admin-bg;
+    height: 657px;
+	font-family: $fontfamily;
+	
+    color: $admin-login-form;
+    #admin_login_form{
+    	padding: 40px;
+		input[type='email'],input[type='password']{
+			background-color: $admin-bg !important;
+		    border-left:0px;
+		    border-top:0px;
+		    border-right:0px;
+		    border-radius:0px;
+		    height: 47px;
+		    border-bottom: 2px solid $admin-login-form;
+		    color: white;
+		    font-size: 19px;
+		}
+		img{
+			margin-bottom: 50px;
+			margin-top: 15px;
+		}
+		button{
+		    height: 44px;
+		    border-radius: 0px;
+		    margin-top: 32px;
+		    border: 2px solid $admin-login-form;
+		    background-color: transparent;
+		    font-size: 19px;
+		    &:hover{
+		    	background-color: $admin-login-form;
+		    	color: $admin-bg;
+		    	font-weight: 600;
+		    }
+		}
+		a{color: $admin-login-form}
+	}
+}

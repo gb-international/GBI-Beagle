@@ -1,0 +1,1137 @@
+/* Start Contact Us*/
+.contactus {
+
+    width: 100%;
+    height: auto;
+    margin-top: 0px;
+}	
+	.contact-form {
+
+		width: 100%;
+		display: inline-block;
+		margin: 0 auto;
+		height: 645px;
+		float: left;
+		background-color: $primarycolor;
+		
+		
+		form {
+		padding: 20px;
+		}
+		
+		.lable-title 
+			{
+				color: #fff;
+				margin-top: 10px;
+				margin-bottom: 10px;
+			}
+
+		.title-contact{
+			width: 100%;
+			height: 25px;
+			margin: 0 auto;
+			background-color: $primarycolor;
+		}
+		h2
+		{
+			font-size: 21px;
+			padding-top: 26px;
+			width: 100%;
+			margin: 0 auto;
+			text-align: center;
+			color: $text-white;
+		}
+	 		
+}
+
+	.contact-address {
+		width: 49%;
+		display: inline-block;
+		margin: 0 auto;
+		height: 645px;
+		float: left;
+		
+	}
+.address-detail
+{
+	width: 100%;
+	margin: 0 auto;
+	float: left;
+	height: 350px;
+	display: inline-block;
+
+	h2
+	{
+		font-size: 18px;
+		width: 100%;
+		margin: 0 auto;
+		display: block;
+		padding: 20px;
+		text-align: left;
+		color: $text-grey;
+		font-weight: 600;
+	}
+	.headline
+	{
+		width: 100%;
+		float: left;
+		margin: 0 auto;
+	}
+}
+.icon-con
+{
+	width: 8%;
+	padding: 10px;
+	display: block;
+	float: left;
+}
+.cont-add
+{
+	width: 85%;
+	padding: 4px;
+	display: block;
+	float: right;
+
+	p 
+	{
+		color: $text-grey;
+		margin-left: -21px;
+	}
+}
+.map 
+{
+	width: 100%;
+	height: 225px;
+	float: left;
+	margin-top: 50px;
+	display: block;
+	.map-detail
+	{
+		color: #fff;
+		height: 225px;
+		margin: 45px 10px 0px 18px;	
+
+		iframe
+		{
+			height: 199px;
+		}
+	}
+}
+.map-res
+{
+	display: none;
+}
+.icon-con
+{
+	.ic-add
+	{
+		margin-top: 2px;
+	}
+	.ic-call
+	{
+		margin-top: 18px;	
+	}
+	.ic-cal-re
+	{
+		margin-top: 18px;	
+	}
+	.ic-mail
+	{
+		margin-top: 15px;			
+	}
+}
+input[type="submit"]:hover{
+
+    background-color: $primarycolor;
+    color: $text-white;
+    padding: 12px 35px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    border: solid 1px $text-white;
+
+}
+.table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+
+    border-top: 0px solid #ddd;
+
+}
+.pa-t-15
+{
+	padding-top: 15px;
+}
+/* End Contact Us*/
+
+/* RESPONSIVE STYLE */
+
+@media (max-width: 320px) {
+
+.contact-form {
+
+		width: 100%;
+		display: inline-block;
+		margin: 0 auto;
+		height: 510px;
+		float: left;
+		background-color: $primarycolor;
+		
+		
+		form {
+		padding: 20px;
+		}
+		
+		.lable-title 
+			{
+				color: #fff;
+				margin-top: 10px;
+			}
+
+		.title-contact{
+			width: 100%;
+			height: 25px;
+			margin: 0 auto;
+			background-color: $primarycolor;
+		}
+		h2
+		{
+			font-size: 21px;
+			padding-top: 26px;
+			width: 100%;
+			margin: 0 auto;
+			text-align: center;
+			color: $text-white;
+		}
+	 		
+}
+
+	.contact-address {
+		width: 100%;
+		display: inline-block;
+		margin: 0 auto;
+		height: 490px;
+		float: left;
+		
+	}
+.address-detail
+{
+	width: 100%;
+	margin: 0 auto;
+	float: left;
+	height: 350px;
+	display: inline-block;
+
+	h2
+	{
+		font-size: 18px;
+		width: 100%;
+		margin: 0 auto;
+		display: block;
+		padding: 24px;
+		text-align: left;
+		color: $text-grey;
+		font-weight: 600;
+	}
+}
+.icon-con
+{
+	width: 14%;
+	padding: 10px;
+	display: block;
+	float: left;
+
+}
+.cont-add
+{
+	width: 85%;
+	padding: 10px;
+	display: block;
+	float: right;
+
+	p 
+	{
+		color: $text-grey;
+		font-size: 14px;
+	}
+}
+.map 
+{
+	display: none;
+}
+.map-res 
+{
+	width: 100%;
+	height: 250px;
+	float: left;
+	margin-top: 0px;
+	display: block;
+	.map-detail
+	{
+		iframe
+		{
+			width: 286px;
+		}	
+	}
+}
+.icon-con
+{
+	.ic-add
+	{
+		margin-top: 4px;
+	}
+	.ic-call
+	{
+		margin-top: 47px !important;	
+	}
+	.ic-cal-re
+	{
+		margin-top: 47px;	
+	}
+	.ic-mail
+	{
+		margin-top: 27px;			
+	}
+}
+
+}
+@media (max-width: 360px) {
+	.contact-form {
+
+		width: 100%;
+		display: inline-block;
+		margin: 0 auto;
+		height: 563px;
+		float: left;
+		background-color: $primarycolor;
+		
+		
+		form {
+		padding: 20px;
+		}
+		
+		.lable-title 
+			{
+				color: #fff;
+				margin-top: 10px;
+			}
+
+		.title-contact{
+			width: 100%;
+			height: 25px;
+			margin: 0 auto;
+			background-color: $primarycolor;
+		}
+		h2
+		{
+			font-size: 21px;
+			padding-top: 26px;
+			width: 100%;
+			margin: 0 auto;
+			text-align: center;
+			color: $text-white;
+		}
+	 		
+}
+
+	.contact-address {
+		width: 100%;
+		display: inline-block;
+		margin: 0 auto;
+		height: 490px;
+		float: left;
+		
+	}
+.address-detail
+{
+	width: 100%;
+	margin: 0 auto;
+	float: left;
+	height: 350px;
+	display: inline-block;
+
+	h2
+	{
+		font-size: 18px;
+		width: 100%;
+		margin: 0 auto;
+		display: block;
+		padding: 24px;
+		text-align: left;
+		color: $text-grey;
+		font-weight: 600;
+	}
+}
+.icon-con
+{
+	width: 14%;
+	padding: 10px;
+	display: block;
+	float: left;
+}
+.cont-add
+{
+	width: 85%;
+	padding: 10px;
+	display: block;
+	float: right;
+
+	p 
+	{
+		color: $text-grey;
+		font-size: 14px;
+	}
+}
+.map 
+{
+	display: none;
+}
+.map-res 
+{
+	width: 100%;
+	height: 250px;
+	float: left;
+	margin-top: 0px;
+	display: block;
+	.map-detail
+	{
+		iframe
+		{
+			width: 286px;
+		}	
+	}
+}
+.icon-con
+{
+	.ic-add
+	{
+		margin-top: 4px;
+	}
+	.ic-call
+	{
+		margin-top: 47px !important;	
+	}
+	.ic-cal-re
+	{
+		margin-top: 47px;	
+	}
+	.ic-mail
+	{
+		margin-top: 30px;			
+	}
+}
+}
+@media (max-width: 480px) {
+	.contact-form {
+
+		width: 100%;
+		display: inline-block;
+		margin: 0 auto;
+		height: 563px;
+		float: left;
+		background-color: $primarycolor;
+		
+		
+		form {
+		padding: 20px;
+		}
+		
+		.lable-title 
+			{
+				color: #fff;
+				margin-top: 10px;
+			}
+
+		.title-contact{
+			width: 100%;
+			height: 25px;
+			margin: 0 auto;
+			background-color: $primarycolor;
+		}
+		h2
+		{
+			font-size: 21px;
+			padding-top: 26px;
+			width: 100%;
+			margin: 0 auto;
+			text-align: center;
+			color: $text-white;
+		}
+	 		
+}
+
+	.contact-address {
+		width: 100%;
+		display: inline-block;
+		margin: 0 auto;
+		height: 490px !important;
+		float: left;
+		
+	}
+.address-detail
+{
+	width: 100%;
+	margin: 0 auto;
+	float: left;
+	height: 350px;
+	display: inline-block;
+
+	h2
+	{
+		font-size: 18px;
+		width: 100%;
+		margin: 0 auto;
+		display: block;
+		padding: 24px;
+		text-align: left;
+		color: $text-grey;
+		font-weight: 600;
+	}
+}
+.icon-con
+{
+	width: 14%;
+	padding: 10px;
+	display: block;
+	float: left;
+	margin-top: 0px !important;
+}
+.cont-add
+{
+	width: 85%;
+	padding: 10px;
+	display: block;
+	float: right;
+
+	p 
+	{
+		color: $text-grey;
+		font-size: 14px;
+	}
+}
+.map 
+{
+	display: none;
+}
+.map-res 
+{
+	width: 100%;
+	height: 250px;
+	float: left;
+	margin-top: 0px;
+	display: block;
+	.map-detail
+	{
+		iframe
+		{
+			width: 320px;
+		}	
+	}
+}
+.icon-con
+{
+	.ic-add
+	{
+		margin-top: 3px;
+	}
+	.ic-call
+	{
+		margin-top: 9px !important;	
+	}
+	.ic-cal-re
+	{
+		margin-top: 9px !important;	
+	}
+	.ic-mail
+	{
+		margin-top: 27px;			
+	}
+}
+
+}
+@media (max-width: 640px) {
+.contactus {
+
+    width: 100%;
+    height: auto;
+    margin-top: 10px;
+}	
+
+.contact-form {
+
+		width: 100%;
+		display: inline-block;
+		margin: 0 auto;
+		height: 563px;
+		float: left;
+		background-color: $primarycolor;
+		
+		
+		form {
+		padding: 20px;
+		}
+		
+		.lable-title 
+			{
+				color: #fff;
+				margin-top: 10px;
+			}
+
+		.title-contact{
+			width: 100%;
+			height: 25px;
+			margin: 0 auto;
+			background-color: $primarycolor;
+		}
+		h2
+		{
+			font-size: 21px;
+			padding-top: 26px;
+			width: 100%;
+			margin: 0 auto;
+			text-align: center;
+			color: $text-white;
+		}
+	 		
+}
+
+	.contact-address {
+		width: 100%;
+		display: inline-block;
+		margin: 0 auto;
+		height: 460px;
+		float: left;
+		
+	}
+.address-detail
+{
+	width: 100%;
+	margin: 0 auto;
+	float: left;
+	height: 350px;
+	display: inline-block;
+
+	h2
+	{
+		font-size: 18px;
+		width: 100%;
+		margin: 0 auto;
+		display: block;
+		padding: 24px;
+		text-align: left;
+		color: $text-grey;
+		font-weight: 600;
+	}
+}
+.icon-con
+{
+	width: 14%;
+	padding: 10px;
+	display: block;
+	float: left;
+	margin-top: 15px !important;
+}
+.cont-add
+{
+	width: 85%;
+	padding: 10px;
+	display: block;
+	float: right;
+
+	p 
+	{
+		color: $text-grey;
+		font-size: 14px;
+	}
+}
+.map 
+{
+	display: none;
+}
+.map-res 
+{
+	width: 100%;
+	height: 250px;
+	float: left;
+	margin-top: 0px;
+	display: block;
+	.map-detail
+	{
+		iframe
+		{
+			width: 429px;
+			margin-top: 10px;
+		}	
+	}
+}
+.icon-con
+{
+	.ic-add
+	{
+		margin-top: 0px;
+	}
+	.ic-call
+	{
+		margin-top: 10px !important;	
+	}
+	.ic-cal-re
+	{
+		margin-top: 10px !important;	
+	}
+	.ic-mail
+	{
+		margin-top: 4px !important;			
+	}
+}
+}
+@media (max-width: 767px) {
+.contactus {
+
+    width: 100%;
+    height: auto;
+    margin-top: 10px;
+}	
+
+.contact-form {
+
+		width: 100%;
+		display: inline-block;
+		margin: 0 auto;
+		height: 505px;
+		float: left;
+		background-color: $primarycolor;
+		
+		
+		form {
+		padding: 20px;
+		}
+		
+		.lable-title 
+			{
+				color: #fff;
+				margin-top: 10px;
+			}
+
+		.title-contact{
+			width: 100%;
+			height: 25px;
+			margin: 0 auto;
+			background-color: $primarycolor;
+		}
+		h2
+		{
+			font-size: 21px;
+			padding-top: 26px;
+			width: 100%;
+			margin: 0 auto;
+			text-align: center;
+			color: $text-white;
+		}
+	 		
+}
+
+	.contact-address {
+		width: 100%;
+		display: inline-block;
+		margin: 0 auto;
+		height: 460px;
+		float: left;
+		
+	}
+.address-detail
+{
+	width: 100%;
+	margin: 0 auto;
+	float: left;
+	height: 350px;
+	display: inline-block;
+
+	h2
+	{
+		font-size: 18px;
+		width: 100%;
+		margin: 0 auto;
+		display: block;
+		padding: 24px;
+		text-align: left;
+		color: $text-grey;
+	}
+}
+.icon-con
+{
+	width: 14%;
+	padding: 3px;
+	display: block;
+	float: left;
+	margin-top: 18px !important;
+}
+.cont-add
+{
+	width: 85%;
+	padding: 10px;
+	display: block;
+	float: right;
+
+	p 
+	{
+		color: $text-grey;
+		font-size: 14px;
+	}
+}
+.map 
+{
+	display: none;
+}
+.map-res 
+{
+	width: 100%;
+	height: 250px;
+	float: left;
+	margin-top: 0px;
+	display: block;
+	.map-detail
+	{
+		iframe
+		{
+			width: 562px;
+			margin-top: 10px;
+			margin-left: 10px;
+		}	
+	}
+}
+.icon-con
+{
+	.ic-add
+	{
+		margin-top: 0px;
+	}
+	.ic-call
+	{
+		margin-top: 0px !important;	
+	}
+	.ic-cal-re
+	{
+		margin-top: 2px !important;	
+	}
+	.ic-mail
+	{
+		margin-top: 4px !important;			
+	}
+}
+input[type="submit"]
+{
+	margin-top: 15px;
+}
+}
+@media (min-width: 768px) and (max-width: 1024px) {
+.contactus {
+
+    width: 100%;
+    height: auto;
+    margin-top: 40px;
+}	
+	.contact-form {
+
+		width: 100%;
+		display: inline-block;
+		margin: 0 auto;
+		height: 645px;
+		float: left;
+		background-color: $primarycolor;
+		
+		
+		form {
+		padding: 20px;
+		}
+		
+		.lable-title 
+			{
+				color: #fff;
+				margin-top: 10px;
+				margin-bottom: 10px;
+			}
+
+		.title-contact{
+			width: 100%;
+			height: 25px;
+			margin: 0 auto;
+			background-color: $primarycolor;
+		}
+		h2
+		{
+			font-size: 21px;
+			padding-top: 26px;
+			width: 100%;
+			margin: 0 auto;
+			text-align: center;
+			color: $text-white;
+		}
+	 		
+}
+
+
+	.contact-address {
+		width: 49%;
+		display: inline-block;
+		margin: 0 auto;
+		height: 645px;
+		float: left;
+		
+	}
+.address-detail
+{
+	width: 100%;
+	margin: 0 auto;
+	float: left;
+	height: 350px;
+	display: inline-block;
+
+	h2
+	{
+		font-size: 18px;
+		width: 100%;
+		margin: 0 auto;
+		display: block;
+		padding: 20px;
+		text-align: left;
+		color: $text-grey;
+		font-weight: 600;
+	}
+}
+.icon-con
+{
+	width: 12%;
+	padding: 10px;
+	display: block;
+	float: left;
+
+}
+.cont-add
+{
+	width: 85%;
+	padding: 10px;
+	display: block;
+	float: right;
+
+	p 
+	{
+		color: $text-grey;
+		margin-left: -21px;
+	}
+}
+.map 
+{
+	width: 100%;
+	height: 225px;
+	float: left;
+	margin-top: 50px;
+	display: block;
+	.map-detail
+	{
+		color: #fff;
+		height: 225px;
+		margin: 45px 10px 0px 18px;	
+
+		iframe
+		{
+			height: 199px;
+			width: 359px;
+		}
+	}
+}
+.map-res
+{
+	display: none;
+}
+.icon-con
+{
+	.ic-add
+	{
+		margin-top: 2px;
+	}
+	.ic-call
+	{
+		margin-top: 43px;	
+	}
+	.ic-cal-re
+	{
+		margin-top: 18px;	
+	}
+	.ic-mail
+	{
+		margin-top: 10px;			
+	}
+}
+input[type="submit"]:hover{
+
+    background-color: $primarycolor;
+    color: $text-white;
+    padding: 12px 35px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    border: solid 1px $text-white;
+
+}
+input[type="submit"]
+{
+	margin-top: 20px;
+}
+}
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+.contactus {
+
+    width: 100%;
+    height: auto;
+    margin-top: 40px;
+}	
+	.contact-form {
+
+		width: 49%;
+		display: inline-block;
+		margin: 0 auto;
+		height: 645px;
+		float: left;
+		background-color: $primarycolor;
+		
+		
+		form {
+		padding: 20px;
+		}
+		
+		.lable-title 
+			{
+				color: #fff;
+				margin-top: 10px;
+				margin-bottom: 10px;
+			}
+
+		.title-contact{
+			width: 100%;
+			height: 25px;
+			margin: 0 auto;
+			background-color: $primarycolor;
+		}
+		h2
+		{
+			font-size: 21px;
+			padding-top: 26px;
+			width: 100%;
+			margin: 0 auto;
+			text-align: center;
+			color: $text-white;
+		}
+	 		
+}
+
+	.contact-address {
+		width: 49%;
+		display: inline-block;
+		margin: 0 auto;
+		height: 645px;
+		float: left;
+		
+	}
+.address-detail
+{
+	width: 100%;
+	margin: 0 auto;
+	float: left;
+	height: 350px;
+	display: inline-block;
+
+	h2
+	{
+		font-size: 18px;
+		width: 100%;
+		margin: 0 auto;
+		display: block;
+		padding: 20px;
+		text-align: left;
+		color: $text-grey;
+		font-weight: 600;
+	}
+}
+.icon-con
+{
+	width: 10%;
+	padding: 10px;
+	display: block;
+	float: left;
+}
+.cont-add
+{
+	width: 85%;
+	padding: 10px;
+	display: block;
+	float: right;
+
+	p 
+	{
+		color: $text-grey;
+		margin-left: -21px;
+	}
+}
+.map 
+{
+	width: 100%;
+	height: 225px;
+	float: left;
+	margin-top: 50px;
+	display: block;
+	.map-detail
+	{
+		color: #fff;
+		height: 225px;
+		margin: 45px 10px 0px 18px;	
+
+		iframe
+		{
+			height: 199px;
+			width: 424px;
+		}
+	}
+}
+.map-res
+{
+	display: none;
+}
+.icon-con
+{
+	.ic-add
+	{
+		margin-top: 2px;
+	}
+	.ic-call
+	{
+		margin-top: 18px;	
+	}
+	.ic-cal-re
+	{
+		margin-top: 18px;	
+	}
+	.ic-mail
+	{
+		margin-top: 15px;			
+	}
+}
+input[type="submit"]:hover{
+
+    background-color: $primarycolor;
+    color: $text-white;
+    padding: 12px 35px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    border: solid 1px $text-white;
+
+}
+
+}
+
+
+
+
+
+
+
+/* End Contact Us*/

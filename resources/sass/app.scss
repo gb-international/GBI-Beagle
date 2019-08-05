@@ -1,0 +1,36 @@
+
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+
+// Variables
+@import 'variables';
+@import 'menufront';
+@import 'about';
+@import 'contactus';
+@import 'faq';
+@import 'form';
+@import 'resources';
+@import 'slider';
+@import 'sections';
+@import 'responsive';
+@import 'explore-destination';
+@import 'admin';
+
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+@import "~admin-lte/dist/css/adminlte.css";
+
+@import "~@fortawesome/fontawesome-free/css/fontawesome.css";
+@import "~@fortawesome/fontawesome-free/css/all.css";
+@import "~@fortawesome/fontawesome-free/css/brands.css";
+@import "~@fortawesome/fontawesome-free/css/regular.css";
+@import "~@fortawesome/fontawesome-free/css/solid.css"; 
+
+
+.navbar-laravel {
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+

@@ -1,0 +1,1124 @@
+/* Start resources*/
+.edutravel-heading
+{ h1 {
+
+    color: $text-black;
+    font-size: $dedutravelh-font-size;
+    margin-bottom: 15px;
+	margin-top: 25px;
+	width: 100%;
+}
+}
+.edutravel-content
+{
+	padding-bottom: 5px;
+	h2
+	{
+		color: $text-grey;
+		font-size: $dedutravelp-font-size;
+		margin-bottom: 15px;
+		padding-top: 32px;
+		font-weight: 600;
+		padding: 10px;
+	}
+	p 
+	{
+		color: $text-grey;
+		font-size: $dedutravelp-font-size;
+		margin-bottom: 20px;
+		text-align: justify;
+		padding: 10px;
+	}
+}
+.section-edu
+{
+	width: 100%;
+	margin: 0 auto;
+	height: 300px;
+
+	h2 
+	{
+		color: $text-grey;
+		font-size: $dedutravelh-font-size;
+		margin-bottom: 15px;
+		padding-top: 32px;
+		text-align: center;
+		width: 70%;
+		display: block;
+		margin-left: 169px;
+		font-family: $fontfamily;
+		font-weight: 600;
+	}
+
+	.edu-blockcontent
+	{
+		width: 33.33%;
+		height: 300px;
+		margin: 0 auto;
+		text-align: center;
+		float: left;
+			img
+			{
+				margin-top: 10px;
+				margin-bottom: 10px;
+				display: inline-block;
+			}
+			h3
+			{
+				color: $text-grey;
+				font-size: $dedutravelp-font-size;
+				margin-bottom: 5px;
+				padding-top: 10px;
+				text-align: center;
+				width: 100%;
+				display: block;
+				font-family: $fontfamily;
+			}
+			p 
+			{
+			color: $text-grey;
+			font-size: $dedutravelp-font-size;
+			margin-bottom: 20px;
+			text-align: center;
+    		padding: 12px;
+    		font-family: $fontfamily;
+			}
+
+			
+	}
+}
+.border-topcontent 
+{
+	border-top: 1px solid #ddd;
+}
+.border-leftcontent 
+{
+	border-left: 1px solid #ddd;
+}
+
+.safety-security
+{
+	width:100%;
+	margin-top: 60px;
+	margin-bottom: 70px;
+	text-align: justify;
+	h1 {
+	 	color:$text-black;
+	 	font-size:$dourstoryh-font-size;
+	 	margin-bottom: 15px;
+	 	font-family: $fontfamily;
+	}
+	h2{
+		color: $text-grey;
+		font-size:$dourstoryh2-font-size;
+		margin-bottom: 15px;
+		font-family: $fontfamily;
+	}
+	p{
+		color: lighten($text-black, 50%);
+		font-size:$dourstoryp-font-size;
+		margin-bottom: 20px;
+		font-family: $fontfamily;
+	}
+}
+.safety-paraimg
+{
+	width:49%;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	text-align: justify;
+	float: left;
+	h1{
+		color: $text-grey;
+		font-size:$dourstoryh2-font-size;
+		margin-bottom: 15px;
+		margin-top: 90px;
+		font-family: $fontfamily;
+		padding: 10px;
+	}
+	p{
+		color: lighten($text-black, 50%);
+		font-size:$dourstoryp-font-size;
+		font-family: $fontfamily;
+		padding: 10px;
+	}
+	img 
+	{
+		padding: 45px;
+	}
+}
+/* End resources*/
+
+/* RESPONSIVE STYLE */
+@media (max-width: 320px) {
+
+
+}
+@media (max-width: 360px) {
+
+.edutravel-heading
+{ 
+	padding-left: 0px;
+    padding-right: 0px;
+
+h1 {
+
+    color: $text-black;
+    font-size: $dedutravelh-font-size;
+    padding: 20px;
+	width: 100%;
+}
+}
+.edutravel-content
+{
+	padding: 20px;
+	
+	h2
+	{
+		color: $text-black;
+		font-size: $dedutravelp-font-size;
+		margin-bottom: 15px;
+		padding-top: 32px;
+		font-weight: 600;
+	}
+	p 
+	{
+		color: $text-grey;
+		font-size: $dedutravelp-font-size;
+		margin-bottom: 20px;
+		text-align: justify;
+	}
+}
+.section-edu
+{
+	width: 100%;
+	margin: 0 auto;
+	height: 300px;
+
+	h2 
+	{
+		color: $text-grey;
+		font-size: $medutravelh2-font-size;
+		margin-bottom: 15px;
+		padding-top: 32px;
+		text-align: center;
+		width: 80%;
+		display: block;
+		margin-left: 40px;
+		font-family: $fontfamily;
+	}
+
+	.edu-blockcontent
+	{
+		width: 100%;
+		height: 300px;
+		margin: 0 auto;
+		text-align: center;
+		float: left;
+		border-top: 1px solid #ddd;
+			img
+			{
+				margin-top: 15px;
+				margin-bottom: 15px;
+				display: inline-block;
+			}
+			h3
+			{
+				color: $text-grey;
+				font-size: $dedutravelp-font-size;
+				margin-bottom: 5px;
+				padding-top: 10px;
+				text-align: center;
+				width: 100%;
+				display: block;
+				font-family: $fontfamily;
+			}
+			p 
+			{
+			color: $text-grey;
+			font-size: $dedutravelp-font-size;
+			margin-bottom: 20px;
+			text-align: center;
+    		padding: 12px;
+    		font-family: $fontfamily;
+			}
+
+			
+	}
+}
+.border-topcontent 
+{
+	border-top: 0px solid #ddd;
+}
+.border-leftcontent 
+{
+	border-left: 0px solid #ddd;
+}
+/*safety-security*/
+.safety-security
+{
+	width:100%;
+	margin-top: 40px;
+	margin-bottom: 30px;
+	text-align: justify;
+	h1 {
+	 	color:$text-black;
+	 	font-size:$mourstoryh-font-size;
+	 	margin-bottom: 5px;
+	 	font-family: $fontfamily;
+	 	padding: 10px;
+	 	text-align: center;
+	}
+	h2{
+		color: $text-grey;
+		font-size:$mourstoryh2-font-size;
+		margin-bottom: 15px;
+		font-family: $fontfamily;
+		padding: 10px;
+
+	}
+	p{
+		color: lighten($text-black, 50%);
+		font-size:$dourstoryp-font-size;
+		margin-bottom: 20px;
+		font-family: $fontfamily;
+		padding: 10px;
+	}
+}
+.safety-paraimg
+{
+	width: 100%;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	text-align: justify;
+	float: left;
+	h1{
+		color: $text-grey;
+		font-size:$mourstoryh2-font-size;
+		margin-bottom: 10px;
+		margin-top: 5px;
+		font-family: $fontfamily;
+		padding: 10px;
+		text-align: center;
+	}
+	p{
+		color: lighten($text-black, 50%);
+		font-size:$dourstoryp-font-size;
+		font-family: $fontfamily;
+		padding: 10px;
+	}
+	img 
+	{
+		padding: 10px;
+	}
+}
+}
+@media (max-width: 480px) {
+
+.edutravel-heading
+{ 
+	padding-left: 0px;
+    padding-right: 0px;
+
+h1 {
+
+    color: $text-black;
+    font-size: $dedutravelh-font-size;
+    padding: 20px;
+	width: 100%;
+}
+}
+.edutravel-content
+{
+	padding: 20px;
+	
+	h2
+	{
+		color: $text-black;
+		font-size: $dedutravelp-font-size;
+		margin-bottom: 15px;
+		padding-top: 32px;
+		font-weight: 600;
+	}
+	p 
+	{
+		color: $text-grey;
+		font-size: $dedutravelp-font-size;
+		margin-bottom: 20px;
+		text-align: justify;
+	}
+}
+.section-edu
+{
+	width: 100%;
+	margin: 0 auto;
+	height: 300px;
+
+	h2 
+	{
+		color: $text-grey;
+		font-size: $medutravelh2-font-size;
+		margin-bottom: 15px;
+		padding-top: 32px;
+		text-align: center;
+		width: 80%;
+		display: block;
+		margin-left: 40px;
+		font-family: $fontfamily;
+	}
+
+	.edu-blockcontent
+	{
+		width: 100%;
+		height: 300px;
+		margin: 0 auto;
+		text-align: center;
+		float: left;
+		border-top: 1px solid #ddd;
+			img
+			{
+				margin-top: 15px;
+				margin-bottom: 15px;
+				display: inline-block;
+			}
+			h3
+			{
+				color: $text-grey;
+				font-size: $dedutravelp-font-size;
+				margin-bottom: 5px;
+				padding-top: 10px;
+				text-align: center;
+				width: 100%;
+				display: block;
+				font-family: $fontfamily;
+			}
+			p 
+			{
+			color: $text-grey;
+			font-size: $dedutravelp-font-size;
+			margin-bottom: 20px;
+			text-align: center;
+    		padding: 12px;
+    		font-family: $fontfamily;
+			}
+
+			
+	}
+}
+.border-topcontent 
+{
+	border-top: 0px solid #ddd;
+}
+.border-leftcontent 
+{
+	border-left: 0px solid #ddd;
+}
+/*safety-security*/
+.safety-security
+{
+	width:100%;
+	margin-top: 40px;
+	margin-bottom: 30px;
+	text-align: justify;
+	h1 {
+	 	color:$text-black;
+	 	font-size:$mourstoryh-font-size;
+	 	margin-bottom: 5px;
+	 	font-family: $fontfamily;
+	 	padding: 10px;
+	 	text-align: center;
+	}
+	h2{
+		color: $text-grey;
+		font-size:$mourstoryh2-font-size;
+		margin-bottom: 15px;
+		font-family: $fontfamily;
+		padding: 10px;
+	}
+	p{
+		color: lighten($text-black, 50%);
+		font-size:$dourstoryp-font-size;
+		margin-bottom: 20px;
+		font-family: $fontfamily;
+		padding: 10px;
+	}
+}
+.safety-paraimg
+{
+	width: 100%;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	text-align: justify;
+	float: left;
+	h1{
+		color: $text-grey;
+		font-size:$mourstoryh2-font-size;
+		margin-bottom: 10px;
+		margin-top: 5px;
+		font-family: $fontfamily;
+		padding: 10px;
+		text-align: center;
+	}
+	p{
+		color: lighten($text-black, 50%);
+		font-size:$dourstoryp-font-size;
+		font-family: $fontfamily;
+		padding: 10px;
+	}
+	img 
+	{
+		padding: 10px;
+	}
+}
+}
+@media (max-width: 640px) {
+
+.edutravel-heading
+{ 
+	padding-left: 0px;
+    padding-right: 0px;
+
+h1 {
+
+    color: $text-black;
+    font-size: $dedutravelh-font-size;
+    padding: 20px;
+	width: 100%;
+}
+}
+.edutravel-content
+{
+	padding: 20px;
+	
+	h2
+	{
+		color: $text-black;
+		font-size: $dedutravelp-font-size;
+		margin-bottom: 15px;
+		padding-top: 32px;
+		font-weight: 600;
+	}
+	p 
+	{
+		color: $text-grey;
+		font-size: $dedutravelp-font-size;
+		margin-bottom: 20px;
+		text-align: justify;
+	}
+}
+.section-edu
+{
+	width: 100%;
+	margin: 0 auto;
+	height: 300px;
+
+	h2 
+	{
+		color: $text-grey;
+		font-size: $medutravelh2-font-size;
+		margin-bottom: 15px;
+		padding-top: 32px;
+		text-align: center;
+		width: 80%;
+		display: block;
+		margin-left: 40px;
+		font-family: $fontfamily;
+	}
+
+	.edu-blockcontent
+	{
+		width: 100%;
+		height: 300px;
+		margin: 0 auto;
+		text-align: center;
+		float: left;
+		border-top: 1px solid #ddd;
+			img
+			{
+				margin-top: 15px;
+				margin-bottom: 15px;
+				display: inline-block;
+			}
+			h3
+			{
+				color: $text-grey;
+				font-size: $dedutravelp-font-size;
+				margin-bottom: 5px;
+				padding-top: 10px;
+				text-align: center;
+				width: 100%;
+				display: block;
+				font-family: $fontfamily;
+			}
+			p 
+			{
+			color: $text-grey;
+			font-size: $dedutravelp-font-size;
+			margin-bottom: 20px;
+			text-align: center;
+    		padding: 12px;
+    		font-family: $fontfamily;
+			}
+
+			
+	}
+}
+.border-topcontent 
+{
+	border-top: 0px solid #ddd;
+}
+.border-leftcontent 
+{
+	border-left: 0px solid #ddd;
+}
+}
+@media (max-width: 767px) {
+
+.edutravel-heading
+{ 
+	padding-left: 0px;
+    padding-right: 0px;
+
+h1 {
+
+    color: $text-black;
+    font-size: $dedutravelh-font-size;
+    padding: 20px;
+	width: 100%;
+
+}
+}
+.edutravel-content
+{
+	padding: 20px;
+	
+	h2
+	{
+		color: $text-black;
+		font-size: $dedutravelp-font-size;
+		margin-bottom: 15px;
+		padding-top: 32px;
+		font-weight: 600;
+	}
+	p 
+	{
+		color: $text-grey;
+		font-size: $dedutravelp-font-size;
+		margin-bottom: 20px;
+		text-align: justify;
+	}
+}
+.section-edu
+{
+	width: 100%;
+	margin: 0 auto;
+	height: 300px;
+
+	h2 
+	{
+		color: $text-grey;
+		font-size: $medutravelh2-font-size;
+		margin-bottom: 15px;
+		padding-top: 32px;
+		text-align: center;
+		width: 80%;
+		display: block;
+		margin-left: 40px;
+		font-family: $fontfamily;
+	}
+
+	.edu-blockcontent
+	{
+		width: 100%;
+		height: 300px;
+		margin: 0 auto;
+		text-align: center;
+		float: left;
+		border-top: 1px solid #ddd;
+			img
+			{
+				margin-top: 15px;
+				margin-bottom: 15px;
+				display: inline-block;
+			}
+			h3
+			{
+				color: $text-grey;
+				font-size: $dedutravelp-font-size;
+				margin-bottom: 5px;
+				padding-top: 10px;
+				text-align: center;
+				width: 100%;
+				display: block;
+				font-family: $fontfamily;
+			}
+			p 
+			{
+			color: $text-grey;
+			font-size: $dedutravelp-font-size;
+			margin-bottom: 20px;
+			text-align: center;
+    		padding: 12px;
+    		font-family: $fontfamily;
+			}
+
+			
+	}
+}
+.border-topcontent 
+{
+	border-top: 0px solid #ddd;
+}
+.border-leftcontent 
+{
+	border-left: 0px solid #ddd;
+}
+/*safety-security*/
+.safety-security
+{
+	width:100%;
+	margin-top: 40px;
+	margin-bottom: 30px;
+	text-align: justify;
+	h1 {
+	 	color:$text-black;
+	 	font-size:$mourstoryh-font-size;
+	 	margin-bottom: 0px;
+	 	font-family: $fontfamily;
+	 	padding: 10px;
+	 	text-align: center;
+	}
+	h2{
+		color: $text-grey;
+		font-size:$mourstoryh2-font-size;
+		margin-bottom: 15px;
+		font-family: $fontfamily;
+		padding: 10px;
+	}
+	p{
+		color: lighten($text-black, 50%);
+		font-size:$dourstoryp-font-size;
+		margin-bottom: 20px;
+		font-family: $fontfamily;
+		padding: 10px;
+	}
+}
+.safety-paraimg
+{
+	width: 100%;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	text-align: justify;
+	float: left;
+	h1{
+		color: $text-grey;
+		font-size:$mourstoryh2-font-size;
+		margin-bottom: 10px;
+		margin-top: 5px;
+		font-family: $fontfamily;
+		padding: 10px;
+		text-align: center;
+	}
+	p{
+		color: lighten($text-black, 50%);
+		font-size:$dourstoryp-font-size;
+		font-family: $fontfamily;
+		padding: 10px;
+	}
+	img 
+	{
+		padding: 10px;
+	}
+}
+}
+@media (min-width: 768px) and (max-width: 1024px) {
+.edutravel-heading
+{ 
+	padding-left: 18px;
+	padding-right: 50px;
+
+	h1 {
+
+    color: $text-black;
+    font-size: $dedutravelh-font-size;
+    padding: 20px;
+	width: 100%;
+}
+}
+.edutravel-content
+{
+	padding: 25px;
+	h2
+	{
+		color: $text-black;
+		font-size: $dedutravelp-font-size;
+		margin-bottom: 15px;
+		padding-top: 32px;
+		font-weight: 600;
+	}
+	p 
+	{
+		color: $text-grey;
+		font-size: $dedutravelp-font-size;
+		margin-bottom: 20px;
+		text-align: justify;
+	}
+}
+.section-edu
+{
+	width: 100%;
+	margin: 0 auto;
+	height: 300px;
+
+	h2 
+	{
+		color: $text-grey;
+		font-size: $dedutravelh-font-size;
+		margin-bottom: 15px;
+		padding-top: 32px;
+		text-align: center;
+		width: 70%;
+		display: block;
+		margin-left: 113px;
+		font-family: $fontfamily;
+	}
+
+	.edu-blockcontent
+	{
+		width: 33.33%;
+		height: 322px;
+		margin: 0 auto;
+		text-align: center;
+		float: left;
+			img
+			{
+				margin-top: 1px;
+				margin-bottom: 5px;
+				display: inline-block;
+			}
+			h3
+			{
+				color: $text-grey;
+				font-size: $dedutravelp-font-size;
+				margin-bottom: 5px;
+				padding-top: 10px;
+				text-align: center;
+				width: 100%;
+				display: block;
+				font-family: $fontfamily;
+			}
+			p 
+			{
+			color: $text-grey;
+			font-size: $dedutravelp-font-size;
+			margin-bottom: 20px;
+			text-align: center;
+    		padding: 1px;
+    		font-family: $fontfamily;
+			}
+
+			
+	}
+}
+.safety-security
+{
+	width:100%;
+	margin-top: 35px;
+	margin-bottom: 70px;
+	text-align: justify;
+	h1 {
+	 	color:$text-black;
+	 	font-size:$dourstoryh-font-size;
+	 	margin-bottom: 5px;
+	 	font-family: $fontfamily;
+	 	padding: 10px;
+	}
+	h2{
+		color: $text-grey;
+		font-size:$dourstoryh2-font-size;
+		margin-bottom: 5px;
+		font-family: $fontfamily;
+		padding: 10px;
+	}
+	p{
+		color: lighten($text-black, 50%);
+		font-size:$dourstoryp-font-size;
+		margin-bottom: 20px;
+		font-family: $fontfamily;
+		width: 100%;
+		padding: 10px;
+	}
+
+}
+.safety-paraimg
+{
+	width:49%;
+	margin-top: 20px;
+	margin-bottom: 30px;
+	text-align: justify;
+	float: left;
+	h1{
+		color: $text-grey;
+		font-size:$dourstoryh2-font-size;
+		margin-bottom: 10px;
+		margin-top: 0px;
+		font-family: $fontfamily;
+		padding: 10px;
+	}
+	p{
+		color: lighten($text-black, 50%);
+		font-size:$dourstoryp-font-size;
+		font-family: $fontfamily;
+		padding: 10px;
+	}
+	img 
+	{
+		padding: 10px;
+		margin-bottom: 41px;
+		margin-top: 40px;
+	}
+}
+}
+@media (min-width: 1025px) and (max-width: 1280px) {
+.edutravel-heading
+{ 
+	padding-left: 18px;
+	padding-right: 77px;
+
+	h1 {
+
+    color: $text-black;
+    font-size: $dedutravelh-font-size;
+    padding: 20px;
+    width: 100%;
+}
+}
+.edutravel-content
+{
+	padding-bottom: 5px;
+	padding-left: 18px;
+	padding-right: 77px;
+	h2
+	{
+		color: $text-grey;
+		font-size: $dedutravelp-font-size;
+		margin-bottom: 15px;
+		padding-top: 32px;
+	}
+	p 
+	{
+		color: $text-grey;
+		font-size: $dedutravelp-font-size;
+		margin-bottom: 20px;
+		text-align: justify;
+	}
+}
+.section-edu
+{
+	width: 100%;
+	margin: 0 auto;
+	height: 300px;
+
+	h2 
+	{
+		color: $text-grey;
+		font-size: $dedutravelh-font-size;
+		margin-bottom: 15px;
+		padding-top: 32px;
+		text-align: center;
+		width: 70%;
+		display: block;
+		margin-left: 113px;
+		font-family: $fontfamily;
+	}
+
+	.edu-blockcontent
+	{
+		width: 31.33%;
+		height: 333px;
+		margin: 0 auto;
+		text-align: center;
+		float: left;
+			img
+			{
+				margin-top: 10px;
+				margin-bottom: 15px;
+				display: inline-block;
+			}
+			h3
+			{
+				color: $text-grey;
+				font-size: $dedutravelp-font-size;
+				margin-bottom: 5px;
+				padding-top: 10px;
+				text-align: center;
+				width: 100%;
+				display: block;
+				font-family: $fontfamily;
+			}
+			p 
+			{
+			color: $text-grey;
+			font-size: $dedutravelp-font-size;
+			margin-bottom: 20px;
+			text-align: center;
+    		padding: 12px;
+    		font-family: $fontfamily;
+			}
+
+			
+	}
+}
+.safety-security
+{
+	width:100%;
+	margin-top: 35px;
+	margin-bottom: 70px;
+	text-align: justify;
+	h1 {
+	 	color:$text-black;
+	 	font-size:$dourstoryh-font-size;
+	 	margin-bottom: 15px;
+	 	font-family: $fontfamily;
+	 	padding: 10px;
+	}
+	h2{
+		color: $text-grey;
+		font-size:$dourstoryh2-font-size;
+		margin-bottom: 5px;
+		font-family: $fontfamily;
+		padding: 10px;
+	}
+	p{
+		color: lighten($text-black, 50%);
+		font-size:$dourstoryp-font-size;
+		margin-bottom: 20px;
+		font-family: $fontfamily;
+		width: 100%;
+		padding: 10px;
+	}
+
+}
+.safety-paraimg
+{
+	width:49%;
+	margin-top: 20px;
+	margin-bottom: 30px;
+	text-align: justify;
+	float: left;
+	h1{
+		color: $text-grey;
+		font-size:$dourstoryh2-font-size;
+		margin-bottom: 10px;
+		margin-top: 0px;
+		font-family: $fontfamily;
+		padding: 10px;
+	}
+	p{
+		color: lighten($text-black, 50%);
+		font-size:$dourstoryp-font-size;
+		font-family: $fontfamily;
+		padding: 10px;
+	}
+	img 
+	{
+		padding: 10px;
+		margin-bottom: 10px;
+		margin-top: 0px;
+	}
+}
+}
+
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+
+.edutravel-heading
+{ h1 {
+
+    color: $text-black;
+    font-size: $dedutravelh-font-size;
+    padding: 20px;
+	width: 100%;
+}
+}
+.edutravel-content
+{
+	padding-bottom: 5px;
+	h2
+	{
+		color: $text-grey;
+		font-size: $dedutravelp-font-size;
+		margin-bottom: 15px;
+		padding-top: 32px;
+	}
+	p 
+	{
+		color: $text-grey;
+		font-size: $dedutravelp-font-size;
+		margin-bottom: 20px;
+		text-align: justify;
+	}
+}
+.section-edu
+{
+	width: 100%;
+	margin: 0 auto;
+	height: 300px;
+
+	h2 
+	{
+		color: $text-grey;
+		font-size: $dedutravelh-font-size;
+		margin-bottom: 15px;
+		padding-top: 32px;
+		text-align: center;
+		width: 70%;
+		display: block;
+		margin-left: 169px;
+		font-family: $fontfamily;
+	}
+
+	.edu-blockcontent
+	{
+		width: 33.33%;
+		height: 300px;
+		margin: 0 auto;
+		text-align: center;
+		float: left;
+			img
+			{
+				margin-top: 10px;
+				margin-bottom: 15px;
+				display: inline-block;
+			}
+			h3
+			{
+				color: $text-grey;
+				font-size: $dedutravelp-font-size;
+				margin-bottom: 5px;
+				padding-top: 10px;
+				text-align: center;
+				width: 100%;
+				display: block;
+				font-family: $fontfamily;
+			}
+			p 
+			{
+			color: $text-grey;
+			font-size: $dedutravelp-font-size;
+			margin-bottom: 20px;
+			text-align: center;
+    		padding: 12px;
+    		font-family: $fontfamily;
+			}
+
+			
+	}
+}
+}
+
+
+
+
+
+/* End resources*/

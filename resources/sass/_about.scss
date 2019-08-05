@@ -1,0 +1,1080 @@
+/* Start about us How We Work*/
+.bgcolor-section {
+	width: 100%;
+	background-color: $oustorybgcolor;
+}
+
+.p-top-10
+{
+padding-top: 10px;
+}
+.p-bottom-20
+{
+	padding-bottom: 20px;
+}
+.whitebg-section
+{
+	width: 100%;
+	background-color: $oustorywhitebgcolor;
+}
+section
+{
+	width:100%;
+	margin:0 auto;
+
+}
+.errormsg
+{
+color: #e71b1b;
+box-shadow: 0 0 3px #CC0000;
+}
+
+.how-we-work
+{
+	width:100%;
+	margin-top: 20px;
+	margin-bottom: 30px;
+	text-align: justify;
+	h1 {
+	 	color:$text-black;
+	 	font-size:$dourstoryh-font-size;
+	 	margin-bottom: 15px;
+	 	font-family: $fontfamily;
+	}
+	h2{
+		color: $text-grey;
+		font-size:$dourstoryh2-font-size;
+		margin-bottom: 15px;
+		font-family: $fontfamily;
+	}
+	p{
+		color: lighten($text-black, 50%);
+		font-size:$dourstoryp-font-size;
+		margin-bottom: 20px;
+		font-family: $fontfamily;
+		text-align: justify;
+	}
+}
+
+.cards-img
+{
+	padding-top: 20px;
+	width: 100px;
+	margin: 0 auto;
+}
+
+.card-container
+{
+	text-align: center;
+}
+
+.experience-heading
+		{
+		color:$text-black;
+	 	font-size:$dourstoryh-font-size;
+	 	display: inline-block;
+		text-align: center;
+		width: 100%;
+		padding: 10px;
+		}
+
+/* End about us How We Work*/
+
+/* Start Our Story*/
+
+.about-story-face
+{
+	width:100%;
+	background-color:$oustorybgcolor;
+	height:410px;
+	
+	h1
+		{
+		color:$text-grey;
+	 	font-size:$dourstoryh-font-size;
+	 	display: inline-block;
+		text-align: center;
+		padding: 16px 0px 25px 0px;
+		width: 100%;
+		}
+
+	.our-experience
+	{
+		width: 33.33%;
+		float: left;
+		text-align: center;
+		display: block;
+		
+		h2
+		{
+			color: $text-grey;
+			font-size:$dourstoryp-font-size;
+			margin-top: 17px;
+		}
+		p
+		{
+			color: lighten($text-black, 50%);
+			font-size:$dourstoryp-font-size;
+			padding: 0px 25px 30px 25px;
+		}
+		
+	}
+}
+
+
+.about-story
+{
+	width:100%;
+	background-color:$oustorybgcolor;
+	height:300px;
+	margin-bottom: 10px;
+	
+	h1
+	{
+		color: $text-grey;
+		font-size:$dourstoryh-font-size;
+		display: inline-block;
+		text-align: justify;
+		margin-top: 10px;
+		font-family: $font-family-raleway;
+	}
+.ourstory-content
+{
+	width: 100%;
+	display: inline-block;
+	text-align: justify;
+	float: right;
+	
+	
+	h2
+	{
+		color: $text-grey;
+		font-size:$dourstoryh2-font-size;
+		margin-top: 10px;
+		margin-bottom: 10px;
+		font-family: $font-family-raleway;
+	}
+	p
+	 {
+		color: lighten($text-black, 50%);
+		font-size:$dourstoryp-font-size;
+		font-family: $font-family-raleway;
+			
+		}
+	img 
+		{
+			display: block;
+			margin: 0 auto;
+			font-family: $font-family-raleway;
+		}
+
+}
+}
+
+.about-vision
+{
+	width:100%;
+	background-color:$oustorywhitebgcolor;
+	height:300px;
+	margin-bottom: 10px;
+	
+
+	h1
+	{
+		color: $text-grey;
+		font-size:$dourstoryh-font-size;
+		display: inline-block;
+		text-align: justify;
+		
+	}
+
+.ourstory-content
+{
+	width: 100%;
+	display: inline-block;
+	text-align: justify;
+	float: left;
+
+
+	h2
+	{
+		color: $text-grey;
+		font-size:$dourstoryh2-font-size;
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
+	p
+	 {
+		color: lighten($text-black, 50%);
+		font-size:$dourstoryp-font-size;
+		margin-right: 24px;	
+		}
+	img 
+		{
+			display: block;
+			margin: 0 auto;
+			float: left;
+		}
+
+}
+}
+
+/* End our story*/
+
+/*--------------------*/
+/* RESPONSIVE STYLE */
+/*--------------------*/
+@media (max-width: 320px) {
+
+.about-story
+{
+	width:100%;
+	background-color:$oustorybgcolor;
+	height:675px;
+	margin-bottom: 10px;
+	
+	h1
+	{
+		color: $text-grey;
+		font-size:$dourstoryh-font-size;
+		display: inline-block;
+		text-align: justify;
+		padding: 53px 0px 2px 16px;
+	}
+
+.ourstory-content
+{
+	width: 100%;
+	display: inline-block;
+	text-align: justify;
+	float: left;
+
+	h2
+	{
+		color: $text-grey;
+		font-size:$mourstoryh2-font-size;
+		margin-top: 17px;
+	}
+	p
+	 {
+		color: lighten($text-black, 50%);
+		font-size:$dourstoryp-font-size;
+		}
+	img 
+		{
+			display: block;
+			margin: 0 auto;
+			float: left;
+		}
+
+}
+}
+
+.about-vision
+{
+	width:100%;
+	background-color:$oustorywhitebgcolor;
+	height:675px;
+	margin-bottom: 10px;
+	
+	h1
+	{
+		color: $text-grey;
+		font-size:$dourstoryh-font-size;
+		display: inline-block;
+		text-align: justify;
+		
+	}
+
+.ourstory-content
+{
+	width: 100%;
+	display: inline-block;
+	text-align: justify;
+	float: left;
+
+	h2
+	{
+		color: $text-grey;
+		font-size:$mourstoryh2-font-size;
+		margin-top: 17px;
+	}
+	p
+	 {
+		color: lighten($text-black, 50%);
+		font-size:$dourstoryp-font-size;
+		}
+	img 
+		{
+			display: block;
+			margin: 0 auto;
+			padding-top: 5px;
+			float: left;
+		}
+
+}
+}
+
+}
+@media (max-width: 360px) {
+.experience-content
+{
+	width:100%;
+	background-color:$oustorybgcolor;
+	height: 2126px;
+	
+		
+}
+
+.about-story
+{
+	width:100%;
+	background-color:$oustorybgcolor;
+	height:490px;
+	margin-bottom:0px;
+	
+	h1
+	{
+		color: $text-grey;
+		font-size:$dourstoryh-font-size;
+		display: inline-block;
+		text-align: justify;
+		padding: 30px 0px 0px 18px;
+	}
+
+.ourstory-content
+{
+	width: 100%;
+	display: inline-block;
+	text-align: justify;
+	float: left;
+
+	h2
+	{
+		color: $text-grey;
+		font-size:$mourstoryh2-font-size;
+		margin-top: 17px;
+	}
+	p
+	 {
+		color: lighten($text-black, 50%);
+		font-size:$dourstoryp-font-size;
+		}
+	img 
+		{
+			display: block;
+			margin: 0 auto;
+			padding-top: 6px;
+			float: left;
+			
+		}
+
+}
+}
+
+.about-vision
+{
+	width:100%;
+	background-color:$oustorywhitebgcolor;
+	height:541px;
+	
+	h1
+	{
+		color: $text-grey;
+		font-size:$dourstoryh-font-size;
+		display: inline-block;
+		text-align: justify;
+		
+	}
+
+.ourstory-content
+{
+	width: 100%;
+	display: inline-block;
+	text-align: justify;
+	float: left;
+
+
+	
+	h2
+	{
+		color: $text-grey;
+		font-size:$mourstoryh2-font-size;
+		margin-top: 17px;
+	}
+	p
+	 {
+		color: lighten($text-black, 50%);
+		font-size:$dourstoryp-font-size;
+		}
+	img 
+		{
+			display: block;
+			margin: 0 auto;
+			padding-top: 5px;
+			float: left;
+			
+		}
+
+}
+}
+
+.about-story-face
+{
+	width:100%;
+	background-color:$oustorybgcolor;
+	height:1036px;
+	
+	h1
+		{
+		color:$text-black;
+	 	font-size:$dourstoryh-font-size;
+	 	display: inline-block;
+		text-align: center;
+		padding: 35px 0px 45px 0px;
+		width: 100%;
+		}
+
+	.our-experience
+	{
+		width: 100%;
+		float: left;
+		text-align: center;
+		display: block;
+		
+		h2
+		{
+			color: $text-grey;
+			font-size:$mourstoryh2-font-size;
+			margin-top: 17px;
+		}
+		p
+		{
+			color: lighten($text-black, 50%);
+			font-size:$dourstoryp-font-size;
+			padding: 0px 25px 30px 25px;
+		}
+		
+	}
+}
+}
+@media (max-width: 480px) {
+.how-we-work
+{
+	width:100%;
+	margin-top: 16px;
+	margin-bottom: 21px;
+}
+
+.about-story
+{
+	width:100%;
+	background-color:$oustorybgcolor;
+	height:514px;
+	margin-bottom: 10px;
+	
+	h1
+	{
+		color: $text-grey;
+		font-size:$dourstoryh-font-size;
+		display: inline-block;
+		text-align: justify;
+		margin-bottom: 15px;
+	}
+
+.ourstory-content
+{
+	width: 100%;
+	display: inline-block;
+	text-align: justify;
+	float: left;
+		
+	h2
+	{
+		color: $text-grey;
+		font-size:$mourstoryh2-font-size;
+	
+	}
+	p
+	 {
+		color: lighten($text-black, 50%);
+		font-size:$dourstoryp-font-size;
+			
+		}
+	img 
+		{
+			display: block;
+			margin: 0 auto;
+			padding-top: 6px;
+			float: left;
+			
+		}
+
+}
+}
+
+.about-vision
+{
+	width:100%;
+	background-color:$oustorywhitebgcolor;
+	height:550px;
+	margin-bottom: 10px;
+	
+	h1
+	{
+		color: $text-grey;
+		font-size:$dourstoryh-font-size;
+		display: inline-block;
+		text-align: justify;
+		margin-bottom: 15px;
+	}
+
+.ourstory-content
+{
+	width: 100%;
+	display: inline-block;
+	text-align: justify;
+	float: left;
+
+
+	
+	h2
+	{
+		color: $text-grey;
+		font-size:$mourstoryh2-font-size;
+		
+	}
+	p
+	 {
+		color: lighten($text-black, 50%);
+		font-size:$dourstoryp-font-size;
+		}
+	img 
+		{
+			display: block;
+			margin: 0 auto;
+			float: left;
+			
+		}
+
+}
+}
+.about-story-face
+{
+	width: 100%;
+	background-color: $oustorybgcolor;
+	height: 920px;
+	
+	h1
+		{
+		color: $text-black;
+	 	font-size: $dourstoryh-font-size;
+	 	display: inline-block;
+		text-align: center;
+		width: 100%;
+		}
+
+	.our-experience
+	{
+		width: 100%;
+		float: left;
+		text-align: center;
+		display: block;
+				
+	}
+}
+}
+@media (max-width: 640px){
+
+.experience-content
+{
+	width:100%;
+	background-color:$oustorybgcolor;
+	height: 1903px !important;
+	
+	h1
+		{
+		color:$text-black;
+	 	font-size:$mourstoryh-font-size;
+	 	display: inline-block;
+		text-align: center;
+		padding: 84px 0px 45px 0px;
+		width: 100%;
+		}
+
+	.our-experience
+	{
+		width: 100% !important;
+		float: left;
+		text-align: center;
+		display: block;
+		
+		
+	}
+}
+
+.about-vision
+{
+	width:100%;
+	background-color:$oustorywhitebgcolor;
+	height:300px;
+	margin-bottom: 10px;
+
+.ourstory-content
+{
+	width: 100%;
+	display: inline-block;
+	text-align: justify;
+	float: left;
+	
+	h1
+	{
+		color: lighten($text-black, 50%);
+		font-size:$dourstoryh-font-size;
+		display: inline-block;
+		text-align: justify;
+		
+	}
+	h2
+	{
+		color: $text-grey;
+		font-size:$mourstoryh2-font-size;
+		
+	}
+	p
+	 {
+		color: lighten($text-black, 50%);
+		font-size:$dourstoryp-font-size;
+		}
+	img 
+		{
+			display: block;
+			margin: 0 auto;
+			float: left;
+		}
+
+}
+}
+}
+@media (max-width: 767px) {
+
+.how-we-work
+{
+	width:100%;
+		h1 {
+	 	color:$text-black;
+	 	font-size:$dourstoryh-font-size;
+	 	margin-bottom: 21px;
+	 	font-family: $fontfamily;
+	}
+	h2{
+		color: $text-grey;
+		font-size:$dourstoryh2-font-size;
+		margin-bottom: 21px;
+		font-family: $fontfamily;
+	}
+	p{
+		color: lighten($text-black, 50%);
+		font-size:$dourstoryp-font-size;
+		margin-bottom: 20px;
+		font-family: $fontfamily;
+	}
+
+}
+
+.about-story
+{
+	width: 100%;
+	background-color: $oustorybgcolor;
+	height: 535px;
+	margin-bottom: 10px;
+	
+	h1
+	{
+		color: $text-grey;
+		font-size:$dourstoryh-font-size;
+		display: inline-block;
+		text-align: justify;
+		
+
+	}
+.ourstory-content
+{
+	width: 100%;
+	display: inline-block;
+	text-align: justify;
+	float: right;
+	
+	
+	h2
+	{
+		color: $text-grey;
+		font-size:$dourstoryh2-font-size;
+		
+	}
+	p
+	 {
+		color: lighten($text-black, 50%);
+		font-size:$dourstoryp-font-size;
+			
+		}
+	img 
+		{
+			display: block;
+			margin: 0 auto;
+			float: right;
+			width: 100%;
+		}
+
+}
+}
+.about-vision
+{
+	width:100%;
+	background-color: $oustorywhitebgcolor;
+	height: 460px;
+	margin-bottom: 10px;
+
+.ourstory-content
+{
+	width: 100%;
+	display: inline-block;
+	text-align: justify;
+	float: left;
+	
+	h1
+	{
+		color: lighten($text-black, 50%);
+		font-size:$dourstoryh-font-size;
+		display: inline-block;
+		text-align: justify;
+		
+	}
+	h2
+	{
+		color: $text-grey;
+		font-size:$mourstoryh2-font-size;
+		margin-top: 17px;
+	}
+	p
+	 {
+		color: lighten($text-black, 50%);
+		font-size:$dourstoryp-font-size;
+		}
+	img 
+		{
+			display: block;
+			margin: 0 auto;
+			float: left;
+			width: 100%;
+		}
+
+}
+}
+.about-story-face
+{
+	width: 100%;
+	background-color: $oustorybgcolor;
+	height: 1030px;
+	
+	h1
+		{
+		color: $text-grey;
+	 	font-size: $dourstoryh-font-size;
+	 	display: inline-block;
+		text-align: center;
+		width: 100%;
+		}
+
+	.our-experience
+	{
+		width: 100%;
+		float: left;
+		text-align: center;
+		display: block;
+		
+		h2
+		{
+			color: $text-grey;
+			font-size:$dourstoryp-font-size;
+			margin-top: 17px;
+		}
+		p
+		{
+			color: lighten($text-black, 50%);
+			font-size:$dourstoryp-font-size;
+			padding: 0px 25px 30px 25px;
+		}
+		
+	}
+}
+
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+.how-we-work
+{
+	width:100%;
+	
+}
+
+
+.about-vision
+{
+	width:100%;
+	background-color:$oustorywhitebgcolor;
+	height:650px;
+	margin-bottom: 10px;
+
+.ourstory-content
+{
+	width: 100%;
+	display: inline-block;
+	text-align: justify;
+	float: left;
+	
+	h1
+	{
+		color: $text-grey;
+		font-size:$dourstoryh-font-size;
+		display: inline-block;
+		text-align: justify;
+		
+	}
+	h2
+	{
+		color: $text-grey;
+		font-size:$mourstoryh2-font-size;
+		margin-top: 20px;
+	}
+	p
+	 {
+		color: lighten($text-black, 50%);
+		font-size:$dourstoryp-font-size;
+		/*padding-right: 20px;*/	
+		}
+	img 
+		{
+			display: block;
+			margin: 0 auto;
+			float: left;
+			width: 100%;
+		}
+
+}
+}
+
+.about-story-face
+{
+	width:100%;
+	background-color:$oustorybgcolor;
+	height:410px;
+	
+	h1
+		{
+		color:$text-black;
+	 	font-size:$dourstoryh-font-size;
+	 	display: inline-block;
+		text-align: center;
+		padding: 16px 0px 25px 0px;
+		width: 100%;
+		}
+
+	.our-experience
+	{
+		width: 33.33%;
+		float: left;
+		text-align: center;
+		display: block;
+				
+	}
+}
+.about-story
+{
+	width:100%;
+	background-color:$oustorybgcolor;
+	height:620px;
+	margin-bottom: 10px;
+	h1
+	{
+		color: $text-grey;
+		font-size:$dourstoryh-font-size;
+		display: inline-block;
+		text-align: justify;
+		
+	}
+.ourstory-content
+{
+	width: 100%;
+	display: inline-block;
+	text-align: justify;
+	float: left;
+		
+	h2
+	{
+		color: $text-grey;
+		font-size:$mourstoryh2-font-size;
+		margin-top: 10px;
+	}
+	p
+	 {
+		color: lighten($text-black, 50%);
+		font-size:$dourstoryp-font-size;
+		}
+	img 
+		{
+			display: block;
+			margin: 0 auto;
+			float: right;
+			width: 100%;
+		}
+
+}
+}
+}
+
+
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+.how-we-work
+{
+	width:100%;
+	
+		h1 {
+	 	color:$text-black;
+	 	font-size:$dourstoryh-font-size;
+	 	margin-bottom: 15px;
+	}
+	h2{
+		color: $text-grey;
+		font-size:$mourstoryh2-font-size;
+		margin-bottom: 15px;
+		margin-top: 25px;
+		font-weight: 600;
+	}
+	p{
+		color: lighten($text-black, 50%);
+		font-size:$dourstoryp-font-size;
+		margin-right: 2px;
+	}
+}
+
+
+
+.about-story
+{
+	width:100%;
+	background-color:$oustorybgcolor;
+	height:300px;
+	margin-bottom: 10px;
+	h1
+	{
+		color: $text-grey;
+		font-size:$dourstoryh-font-size;
+		display: inline-block;
+		text-align: justify;
+		padding: 52px 0px 4px 11px;
+	}
+.ourstory-content
+{
+	width: 100%;
+	display: inline-block;
+	text-align: justify;
+	float: left;
+	
+
+	
+	h2
+	{
+		color: $text-grey;
+		font-size:$mourstoryh2-font-size;
+		
+	}
+	p
+	 {
+		color: lighten($text-black, 50%);
+		font-size:$dourstoryp-font-size;
+		padding-right: 0px;	
+		}
+	img 
+		{
+			display: block;
+			margin: 0 auto;
+			float: right;
+		}
+
+}
+}
+
+.about-vision
+{
+	width:100%;
+	background-color:$oustorywhitebgcolor;
+	height:300px;
+	margin-bottom: 10px;
+
+.ourstory-content
+{
+	width: 100%;
+	display: inline-block;
+	text-align: justify;
+	float: right;
+	
+	h1
+	{
+		color: $text-grey;
+		font-size:$dourstoryh-font-size;
+		display: inline-block;
+		text-align: justify;
+		
+	}
+	h2
+	{
+		color: $text-grey;
+		font-size:$mourstoryh2-font-size;
+		
+	}
+	p
+	 {
+		color: lighten($text-black, 50%);
+		font-size:$dourstoryp-font-size;
+		margin-right: 0px;	
+		}
+	img 
+		{
+			display: block;
+			margin: 0 auto;
+			padding-top: 70px;
+			float: left;
+		}
+
+}
+}
+
+.about-story-face
+{
+	width:100%;
+	background-color:$oustorybgcolor;
+	height:410px;
+	
+	h1
+		{
+		color:$text-black;
+	 	font-size:$dourstoryh-font-size;
+	 	display: inline-block;
+		text-align: center;
+		padding: 16px 0px 25px 0px;
+		width: 100%;
+		}
+
+	.our-experience
+	{
+		width: 31.33%;
+		float: left;
+		text-align: center;
+		display: block;
+				
+	}
+}
+}
+

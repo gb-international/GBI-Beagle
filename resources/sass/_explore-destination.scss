@@ -1,0 +1,487 @@
+/* explore-destination css*/
+.banner-img
+{
+	width: 100%;
+	padding-top: 4PX;
+	margin-bottom: -80px;
+}
+
+.imgcircle
+{
+	height: 70px;
+	border-radius: 50%;
+	width: 70px;
+}
+.border-none
+{
+	margin-right: 0px!important;
+}
+.bg-color-tour
+{
+	background-color: #eeeeee !important;
+
+	h1
+	{
+		text-transform: capitalize;
+		font-size: 20px;
+		font-weight: 700;
+		font-family: $fontfamily;
+	}
+}
+.border-color-tour
+{
+	border-bottom: 1px solid #dee2e6;
+	border-left: 1px solid #dee2e6;
+	border-right: 1px solid #dee2e6;
+	border-radius: 0px 5px 5px 5px;
+	padding: 20px;
+}
+
+.upcomin-days-tour
+{
+	position: relative;
+	right: 22px;
+	
+	h1
+	{
+		font-size: 15px;
+		font-weight: 700;
+		color: $fa-icon-color;
+		padding-top: 2px;
+		font-family: $fontfamily;
+		text-transform: capitalize;
+	}
+	p 
+	{
+		color: $fa-icon-color;
+		font-size: 16px;
+		font-family: $fontfamily;
+	}
+
+}
+.nav-sreach-explo
+{
+	position: relative;
+	bottom: 320px;
+	
+}
+
+.serch-explo-menu
+{
+	border-bottom: 1px solid #88b5c633 !important;
+
+	li
+	{
+		background-color: #00aeefa8;
+	}
+	a 
+	{
+		color: #fff;
+		font-weight: 700;
+	}
+}
+.explor-content
+{
+	padding-bottom: 11px;
+	background-color: #00aeefa8;
+	border-radius: 5px;
+}
+.button-explo
+{
+	margin-top: -270px;
+
+	button
+	{
+		padding: 7px 80px;
+	}
+}
+.p-t-30
+{
+	padding-top: 30px;
+	padding-bottom: 20px;
+}
+
+/*tab serach itienary*/
+/* select option css*/
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  outline: 0;
+  box-shadow: none;
+  border: 0 !important;
+  background: #fff;
+  background-image: none;
+}
+/* Remove IE arrow */
+select::-ms-expand {
+  display: none;
+}
+/* Custom Select */
+.select {
+  position: relative;
+  display: flex;
+  /* width: 160px; */
+ /* height: 3em; */
+  line-height: 3;
+  background: #fff;
+  overflow: hidden;
+  border-radius: .25em;
+}
+select {
+  flex: 1;
+  padding: 0 .5em;
+  color: #666;
+  cursor: pointer;
+}
+/* Arrow */
+.select::after {
+  content: '\25BC';
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0 1em;
+  background: #fff;
+  cursor: pointer;
+  pointer-events: none;
+  -webkit-transition: .25s all ease;
+  -o-transition: .25s all ease;
+  transition: .25s all ease;
+}
+/* Transition */
+.select:hover::after {
+  color: #666;
+}
+
+.nopadding {
+   padding-left: 5 !important;
+   padding-right: 5 !important;
+}
+
+/*end select css*/
+/* start explor list */
+.card-radis-list
+{
+	border-radius: 10px !important;
+	background-color: $card-back-color !important;
+}
+
+.card-horizontal {
+    display: flex;
+    flex: 1 1 auto;
+
+}
+.card-stacked {
+    max-height: 100px;
+    display: inline-block;
+}
+
+.card .card-content {
+    padding: 6px 25px !important;
+}
+.card-action {
+padding: 5px 25px !important;
+}
+.card-content{
+ h1
+{
+	font-size: 16px;
+	font-weight: 600;
+	color: $fa-icon-color;
+}
+
+p 
+{
+	color: $fa-icon-color;
+}
+router-link:hover
+{
+	text-decoration: none;
+}
+
+.fa, .fas
+{
+	font-size: 25px;
+	padding-right: 30px;
+	color: $fa-icon-color;
+}
+}
+.card-image
+{
+	width: 200px;
+	height: 120px;
+	display: block;
+	.cardimg 
+	{
+		width: 100%;
+		height: 100%;
+		border-radius: 10px 0px 0px 10px;
+	}
+}
+.icon-i
+{
+	font-size: 12px;
+
+}
+
+.search-p-top
+{
+	margin: 0 auto;
+	padding: 32px 0px;
+}
+
+.icon-search
+{
+	right: 12px;
+	position: absolute;
+	z-index: 5;
+	top: 17px;
+	font-size: 20px !important;
+}
+
+.explo-list-search
+{
+	background-color: $card-back-color !important;
+	border-radius: 5px !important;
+}
+/* end explor list */
+
+@media (max-width: 320px) {
+
+.search-source
+{
+	position: absolute;
+	bottom: 200px;
+	padding: 13px 15px 13px 18px;
+	background-color: #fff;
+}
+.search-sources
+{
+	position: absolute;
+	bottom: 190px;
+	padding: 13px 15px 13px 18px;
+	background-color: #fff;
+}
+}
+
+@media (max-width: 360px) {
+
+.search-source
+{
+	position: absolute;
+	bottom: 250px;
+	padding: 13px 15px 13px 18px;
+	background-color: #fff;
+}
+.search-sources
+{
+	position: absolute;
+	bottom: 240px;
+	padding: 13px 15px 13px 18px;
+	background-color: #fff;
+}
+}
+
+@media (max-width: 480px) {
+
+.search-source
+{
+	position: absolute;
+	bottom: 200px;
+	padding: 13px 15px 13px 18px;
+	background-color: #fff;
+}
+.search-sources
+{
+	position: absolute;
+	bottom: 190px;
+	padding: 13px 15px 13px 18px;
+	background-color: #fff;
+}
+}
+
+@media (max-width: 640px) {
+
+.search-source
+{
+	position: absolute;
+	bottom: 200px;
+	padding: 13px 15px 13px 18px;
+	background-color: #fff;
+}
+.search-sources
+{
+	position: absolute;
+	bottom: 190px;
+	padding: 13px 15px 13px 18px;
+	background-color: #fff;
+}
+.m-b-70
+{
+	margin-bottom: -300px;
+}
+
+
+.card .card-content {
+    padding: 6px 15px !important;
+}
+
+.card-content{
+.fa, .fas
+{
+	font-size: 20px;
+	padding-right: 14px;
+}
+}
+.card-image
+{
+	width: 200px;
+	height: 126px;
+	display: block;
+	
+}
+}
+
+@media (max-width: 767px) {
+
+.search-source
+{
+	position: absolute;
+	bottom: 440px;
+	padding: 13px 15px 13px 18px;
+	background-color: #fff;
+}
+.search-sources
+{
+	position: absolute;
+	bottom: 430px;
+	padding: 13px 15px 13px 18px;
+	background-color: #fff;
+}
+.banner-img
+{
+	height: 470px;
+}
+.serch-button
+{
+	position: absolute;
+	bottom: 380px;
+}
+/* start explor list */
+
+.card-horizontal {
+    display: flex;
+    flex: 1 1 auto;
+}
+
+.img-explor
+{
+	width: 100%;
+	height: 100%;
+}
+/* end explor list */
+.card-content{
+	 h1
+	{
+		font-size: 13px;
+		font-weight: 600;
+	}
+}
+.search-p-top {
+	padding: 13px 0px;
+}
+
+.nav-sreach-explo
+{
+	position: relative;
+	bottom: 300px;
+	
+}
+.button-explo
+{
+	margin-top: -260px;
+
+	button
+	{
+		padding: 7px 80px;
+	}
+}
+.banner-img
+{
+	height: 600px;
+	margin-bottom: -250px;
+	
+}
+.explor-content
+{
+	.input-p
+	{
+		padding: 2px;
+	}
+}
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+.imgcircle {
+
+    height: 35px;
+	border-radius: 50%;
+	width: 70px;
+}
+.upcomin-days-tour
+{
+	position: relative;
+	right: 22px;
+	
+	h1
+	{
+		font-size: 11px;
+		font-weight: 600;
+		color: $fa-icon-color;
+		padding-top: 0px;
+	}
+	p 
+	{
+		color: $fa-icon-color;
+		font-size: 11px;
+	}
+
+}
+.nav-sreach-explo
+{
+	position: relative;
+	bottom: 300px;
+	
+}
+.button-explo
+{
+	margin-top: -260px;
+
+	button
+	{
+		padding: 7px 80px;
+	}
+}
+.banner-img
+{
+	height: 500px;
+	margin-bottom: -140px;
+	
+}
+.explor-content
+{
+	.input-p
+	{
+		padding: 2px;
+	}
+}
+}
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+.m-b-70 {
+
+    margin-bottom: -110px;
+
+}
+}
