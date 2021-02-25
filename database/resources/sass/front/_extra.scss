@@ -1,0 +1,139 @@
+.serachExplor{
+	.top-imgs{
+		display: none;
+	}
+	.p-te-0{
+		padding: 0px;
+		padding-left: 7px;
+		padding-right: 10px;
+	}
+	.card-width {
+	  width: 520px !important;
+	}
+}
+
+#joinOurteam{
+	  button:hover{
+
+	    background-color: #eee;
+	  }
+	  input[type="submit"]:hover{
+
+	      background-color: #3490dc;
+	      color: white;
+	      padding: 12px 35px;
+	      border: none;
+	      border-radius: 4px;
+	      cursor: pointer;
+	      border: solid 0px white;
+
+
+	  }
+}
+
+#homecomponent{
+	.slidehome{
+		width:100%;
+		margin: 4px auto;
+		background:#ffffff;
+	}
+}
+
+#explorelist{
+
+	.main-head{
+	  text-decoration: underline;
+	}
+	.description{
+	      font-size: 17px;
+	    font-family: raleway;
+	}
+
+}
+
+#exploreDestination{
+	.nopadding{
+	  padding:0px 5px 10px;
+	}
+	.disable{
+	  pointer-events: none; 
+	}
+	option{
+	  border-top:1px solid #fafafa;
+	  padding:.78571429rem 1.14285714rem!important;
+	  white-space:normal;
+	  word-wrap:normal;
+	}
+
+	@media only screen and (max-width: 680px) {
+	.explore_banner{
+	    height: 480px;
+	  }
+	.content{ top: 11% !important; }
+
+	}
+}
+
+
+
+.itinerary_detail_list{
+	 .main-head{
+	    text-decoration: underline;
+	  }
+	  .description{
+	    width: 100%;
+	  }
+}
+
+#footer{
+	.fab{
+	  margin-right: 13px;
+	}
+}
+
+#myHeader{
+	.show{
+	  display: block !important;
+	}
+	.hide{
+	  display: none !important;
+	}
+
+	ul > li:hover {
+	  cursor:pointer;
+	}
+
+	.nav_active{
+	  border-bottom: 2px solid grey;
+	}
+}
+
+
+.errorpage{
+	img{
+		width: 100%;
+	}
+}
+
+
+.loading_spin{
+	  height: 0;
+	  width: 0;
+	  padding: 15px;
+	  border: 6px solid #ccc;
+	  border-right-color: #888;
+	  border-radius: 22px;
+	  -webkit-animation: rotate 1s infinite linear;
+	  /* left, top and position just for the demo! */
+	  position: absolute;
+	  left: 50%;
+	  top: 50%;
+	}
+
+	@-webkit-keyframes rotate {
+	  /* 100% keyframe for  clockwise. 
+	     use 0% instead for anticlockwise */
+	  100% {
+	    -webkit-transform: rotate(360deg);
+	 }
+}

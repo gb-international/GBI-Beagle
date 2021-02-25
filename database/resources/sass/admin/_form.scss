@@ -1,0 +1,197 @@
+label{color: #7f7f7f;font-size: 15px;font-weight: 600 !important;}
+form{padding-top: 20px;}
+.form-control{
+    box-shadow: #0745C7 !important;
+    outline: #073189 !important;
+}
+// Input box css
+input[type='text'],input[type='email'],
+input[type='date'],input[type='number'],.textarea,
+input[type='time'],input[type='datetime-local'],
+.ui.selection.dropdown,.ui.dropdown, .ui.dropdown input,
+input[type='datetime-local'],
+.select-field
+{
+	border: 0px;
+	font-size: 15px;
+	background-color: $input-box-white;
+	color: #737879;
+	display: block;
+	width: 100%;
+}
+.input-box-grey{ background-color: $input-box-grey;}
+
+
+input[type='text'],input[type='email'],
+input[type='date'],input[type='number'],
+input[type='time'],.select-field,
+.ui.selection.dropdown,
+.ui.dropdown, .ui.dropdown input,
+input[type='datetime-local']{
+	height: 53px;
+	margin-bottom: 5px;
+	font-weight: 600;
+}
+.input-group-text{
+	height: 53px;
+	background-color: $admin-top;
+	border:none;
+	font-size: 20px;
+}
+
+
+.form-control:placeholder-shown {
+/* if placeholder is shown - meaning - no value in input */
+    background-color: $input-box-white !important;
+}
+.form-control {
+    /* placeholder isn't shown - we have a value in input */
+    background-color: $input-box-grey !important;
+}
+
+
+
+.ui.selection.dropdown{ 
+	color: $input-box-text !important;
+	background: $input-box-white !important;
+	border:none !important;
+}
+
+
+.ui.search.dropdown>.text {	top: 7px; }
+.multiselect__tags{ 
+	min-height: 53px !important;
+	font-size: 17px !important;
+	padding: 11px 40px 0 8px !important;
+	color: #737879 !important;
+	background: $input-box-white !important;
+	font-weight: 600;
+	.multiselect__tag{
+		background: #a9a9a9 !important;
+	}
+}
+.multiselect__option--selected.multiselect__option--highlight{ 
+	background:#dee2e6 !important;
+}
+.multiselect__option--highlight{
+	background:#171f36 !important;
+}
+.multiselect__tag-icon:focus, .multiselect__tag-icon:hover{
+	background: hsla(0, 2%, 52%, 0.89) !important;
+}
+.multiselect__select{
+	top: 8px !important;
+}
+
+
+.ui.selection.dropdown>.delete.icon, .ui.selection.dropdown>.dropdown.icon, .ui.selection.dropdown>.search.icon{
+	top: 15px !important;
+}
+
+.ui.search.selection.dropdown>input.search, .ui.search.selection.dropdown>span.sizer{
+	padding: 20px 15px !important;
+}
+.ql-editor{ background-color: $input-box-white;}
+
+
+
+.ui.search.dropdown>.text{ top: 6px; }
+.calculator{
+    select,option{
+        font-size: 14px !important;
+        padding-left: 3px;
+    }
+}
+
+.detail_photo { height: 80px; width: 250px; }
+input[type="file"] { width: 200px; }
+.images_row img{ margin-bottom: 10px;}
+
+.btn-outline-blue{
+	background-color: transparent;
+	color: $admin-bg;
+	border-radius: 0px !important;
+	border:2px solid $admin-bg !important;
+}
+
+.filter-search{
+	input{
+		border-radius: 20px 0px 0px 20px;
+	}
+	.form-control{
+		background-color: $input-box-grey !important;
+		&:focus{
+			 border-color: none;
+        	box-shadow: none;
+		}
+	}
+	button{ 
+		border-radius: 0px 20px 20px 0px;
+		background-color: $input-box-grey !important;
+	}
+}
+.file-upload{
+	.file-input-group {
+		input[type="text"]{
+			background: #e5e5e5 !important;
+			height: 38px;
+			border-color: none;
+        	box-shadow: none;
+			border-radius: 20px 0px 0px 20px;
+		}
+		input[type="file"] {
+			width: 0.1px;
+			height: 0.1px;
+			opacity: 0;
+			overflow: hidden;
+			position: absolute;
+			z-index: -1;
+		}
+		.input-group-append{
+			label{
+				border-radius: 20px;
+				margin-left: -14px;
+			}
+		}
+	}
+}
+
+.add-row-input-button{
+	input{
+		border: 3px solid #332f58;
+		height: 35px;
+    	width: 112px;
+	}
+	button{
+		background-color: #403b3b;
+		border-radius: 20px;
+		border: 3px solid #403b3b;
+		&:hover{
+			background-color: #403b3b;
+			border-radius: 20px;
+			border: 3px solid #403b3b;
+		}
+	}
+	.pt-24{
+		padding-top: 24px;
+	}
+}
+
+.list-form{
+	input{ 
+		height: 38px !important;
+		background-color: white !important;
+		border-color: none !important;
+        box-shadow: none !important;
+		font-size: 12px;
+	}
+	table{ border-collapse: collapse;}
+	tr,td{ padding: 0px;}
+	.w-16{ width: 16px;}
+}
+.active_tab{ background: #888888; height: 1.5px;}
+
+.checkbox-select-all{
+	padding-left: 0px;
+	top: -15px;
+}
