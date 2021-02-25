@@ -1,4 +1,3 @@
-
 window._ = require('lodash');
 
 /**
@@ -12,9 +11,6 @@ try {
     window.$ = window.jQuery = require('jquery');
 
     require('bootstrap');
-    require('admin-lte');
-    require('datatables.net-dt');
-    // require('@fortawesome/fontawesome-free');
 } catch (e) {}
 
 /**

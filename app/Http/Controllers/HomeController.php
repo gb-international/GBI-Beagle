@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Auth;
 class HomeController extends Controller
 {
     /**
@@ -19,16 +19,10 @@ class HomeController extends Controller
     /**
      * Show the application dashboard.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
     {
         return view('admin.adminmaster');
     }
-//    public function all_category(){
-//        $categories = Category::all();
-//        return response()->json([
-//            'categories'=>$categories
-//        ],200);
-//    }
 }

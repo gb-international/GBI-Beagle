@@ -1,0 +1,237 @@
+#itinerary_detail_list{
+	.tour-code-card{
+		background: #f7f7f7;
+		padding: 40px 20px;
+		box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+	}
+	#roadmap{
+		ul.timeline {
+		    list-style-type: none;
+		    position: relative;
+		}
+		ul.timeline:before {
+		    content: ' ';
+		    background: #d4d9df;
+		    display: inline-block;
+		    position: absolute;
+		    left: 29px;
+		    width: 2px;
+		    height: 100%;
+		    z-index: 400;
+		}
+		ul.timeline > li {
+		    margin: 20px 0;
+		    padding-left: 60px;
+		}
+		ul.timeline > li:before {
+		    content: ' ';
+		    background: white;
+		    display: inline-block;
+		    position: absolute;
+		    border-radius: 50%;
+		    border: 3px solid #22c0e8;
+		    left: 20px;
+		    width: 20px;
+		    height: 20px;
+		    z-index: 400;
+		}
+	}
+	.hotel-section{
+		.hotel-card{
+			p{
+				margin:3px 0px !important;
+				font-size: 13px;
+			}
+			label{
+				float: right;
+				margin-bottom: 0px !important;
+				font-weight: normal;
+			}
+			padding: 10px;
+    		border: 1px solid lightgrey;
+    		.hotel_info{
+			    margin-top: 9px;
+		    }
+
+			  .star-rating {
+			    color: gold;
+			    display: inline-block;
+			    font-size: 15px;
+			    position: relative;
+			    transform: translate(-6px);
+			  }
+
+			.star-rating__max,
+			.star-rating__current {
+			  position: absolute;
+			  top: 0;
+			}
+
+			.star-rating__current {
+			  overflow: hidden;
+			  white-space: nowrap;
+			}
+		}
+	}
+	.things-to-carrry{
+		text-align: center;
+		.col-sm-4{
+			min-height: 160px;
+		}
+		.item{
+
+			padding: 30px;
+			p{ 
+				margin-top: 10px; 
+				font-style: normal;
+			}
+			.bottel{
+				width: 18px;
+			}
+			.common{
+				width: 45px;
+			}
+			.shoes{
+				margin-top: 24px;
+			}
+		}
+	}
+	.airline-section{
+		p{ margin:5px; }
+		.progress{
+			height: 0.5em;
+		}
+		.fas{
+			font-weight: 1000;
+		    font-size: 14px;
+		    color: lightgrey;
+		    margin-right: 0px !important;
+		}
+		
+	}
+	.map-section{
+		iframe{
+			width: 100%;
+			height: 400px;
+		}
+	}
+	.weather-section{
+		.bg-weather{
+			background-color: #3c5dab;
+    		padding: 30px;
+			border-radius: 10px;
+		}
+		.degree{ font-size: 44px;}
+		small{ font-size: 14px;}
+		.text_right{ text-align: right;}
+		.weather_card{
+			.data{
+			    width: 88px !important;
+				background: #2f3f79;
+				padding: 29px 0px 16px;
+				border-radius: 50px;
+				margin: auto;
+				img{
+					margin:auto;
+				}
+			}
+		}
+		.select-city{
+			select {
+					background-color: #2f3f79;
+					border: thin solid blue;
+					border-radius: 4px;
+					display: inline-block;
+					font: inherit;
+					line-height: 1.5em;
+					padding: 0.5em 3.5em 0.5em 1em;
+					width: 220px;
+					/* reset */
+
+					margin: 0;      
+					-webkit-box-sizing: border-box;
+					-moz-box-sizing: border-box;
+					box-sizing: border-box;
+					-webkit-appearance: none;
+					-moz-appearance: none;
+					}
+
+
+					select.minimal {
+					background-image:
+						linear-gradient(45deg, transparent 50%, gray 50%),
+						linear-gradient(135deg, gray 50%, transparent 50%),
+						linear-gradient(to right, #ccc, #ccc);
+					background-position:
+						calc(100% - 20px) calc(1em + 2px),
+						calc(100% - 15px) calc(1em + 2px),
+						calc(100% - 2.5em) 0.5em;
+					background-size:
+						5px 5px,
+						5px 5px,
+						1px 1.5em;
+					background-repeat: no-repeat;
+					}
+
+					select.minimal:focus {
+					background-image:
+						linear-gradient(45deg, green 50%, transparent 50%),
+						linear-gradient(135deg, transparent 50%, green 50%),
+						linear-gradient(to right, #ccc, #ccc);
+					background-position:
+						calc(100% - 15px) 1em,
+						calc(100% - 20px) 1em,
+						calc(100% - 2.5em) 0.5em;
+					background-size:
+						5px 5px,
+						5px 5px,
+						1px 1.5em;
+					background-repeat: no-repeat;
+					border-color: green;
+					outline: 0;
+					}
+
+
+					select:-moz-focusring {
+					color: transparent;
+					text-shadow: 0 0 0 #000;
+					}
+
+		}
+	}
+	@media screen and (max-width: 574px) {
+		.weather-section{
+			text-align: center !important;
+			.text_right { 
+				text-align: center;
+				margin-top: 20px;
+				margin-bottom: 20px;
+			}
+		}
+	}
+}
+
+@media screen and (min-width: 300px) and (max-width: 800px){
+	#itinerary_detail_list{
+		padding: 5px;
+		.shoes{
+			margin-top: 25px !important;
+		}
+		.things-to-carrry{
+			.mb-bottom{ border-bottom: 1px solid lightgrey; }
+			.mb-right{ border-right:1px solid lightgrey; }
+		}
+    }
+}
+
+@media screen and (min-width: 800px){
+	#itinerary_detail_list{
+		.bottom-border{
+			border-bottom:1px solid lightgrey;			
+		}
+		.border-right
+		{
+			border-right:1px solid lightgrey;
+		}	
+	}
+}

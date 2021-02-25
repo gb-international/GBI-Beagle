@@ -1,0 +1,99 @@
+#footer{
+    .footer-content{
+        background-image: url('/images/icons/footer-image.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        height: 275px;
+        padding:0px;
+        background-size: 100% 100%;
+        .footer-icons-section{
+            .icons{
+                width: 68%;
+                hr{ border: 1px solid white; width: 167px; }
+                .three-icons{
+                    img{
+                        width: 42px;
+                    }
+                }
+                .social{
+                    img{
+                        width: 39px;
+                        margin-right: 0px;
+                        margin-bottom: 4px;
+                    }
+                }
+            }
+        }
+    }
+    .footer-bottom{
+            background: #182265;
+            color: white;
+            font-size: 11px;
+            padding: 2px 0px;
+    }
+}
+.subscribe-form{
+    input{
+        border-radius: 43px !important;
+        padding-left: 16px;
+        height: 50px;
+    }
+    button{
+        color: white;
+        border: 2px solid white;
+        padding: 4px 30px;
+        border-radius: 20px;
+        &:hover{
+            color: #e9f8ff;
+        }
+    }
+}
+@media only screen and (max-width:1000px) and (min-width: 766px) {
+    #footer{
+        font-size: 13px;
+        .footer-icons-section{
+            .icons{
+                width: 100% !important;
+                hr{ border: 1px solid white; width: 167px; }
+                .three-icons{
+                    img{
+                        width: 42px;
+                    }
+                }
+                .social{
+                    img{
+                        width: 31px !important;
+                        margin-right: 0px !important;
+                        margin-bottom: 2px !important;
+                    }
+                }
+            }
+        }
+    }
+}
+.m-social-icon{
+    img{
+        width: 40px;
+        margin-right: 7px;
+    }
+}
+@media only screen and (max-width:1200px) and (min-width: 1001px) {
+    #footer{
+        .footer-icons-section{
+            .icons{
+                width: 80% !important;
+            }
+        }
+    }
+}
+@media (max-width: 767px) {
+    .mobile-subscription{
+        display: block;
+        margin-bottom: 90px;
+    }
+}
+@media (min-width: 768px) {
+    .mobile-subscription{
+        display: none;
+    }
+}
