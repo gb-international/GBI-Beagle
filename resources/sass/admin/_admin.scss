@@ -1,0 +1,606 @@
+// Main Admin  Area
+#adminmain{
+	min-height: 500px;
+	background-color: $admin-body;
+	
+	.custom-radio,.custom-checkbox{margin-top: 14px;}
+	.cross_btn{margin-top: 37px;color: white;}
+	// Form
+	
+	.date_input{
+		[type="date"] {
+			  background:$admin-top url(https://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/calendar_2.png)  97% 50% no-repeat ;
+			  width: 100%;
+			}
+			[type="date"]::-webkit-inner-spin-button {
+			  display: none;
+			}
+			[type="date"]::-webkit-calendar-picker-indicator {
+			  opacity: 0;
+			}
+			
+	}
+
+	.radiolabel{margin-left: 0px;}
+	.price_align{
+		h5{margin-top: 12px;}
+	}
+	
+	//Buttons for the admin panel
+
+	.itrn_add_btn{
+		padding: 10px 75px !important;
+		border: 3px solid  $admin-bg;
+		font-weight: 600;
+		background-color:transparent;
+		color: $admin-bg !important;
+		font-size: 18px;
+		margin-top: 30px;
+		min-width: 300px;
+		&:hover{
+			background-color:  $admin-bg;
+			color: white !important;
+			 min-width: 300px;
+			 border-radius:0px;
+		}
+	}
+
+	.notification_list{
+		max-height: 258 !important;
+		overflow: scroll;
+		.card{
+			.list{
+				a{
+					text-decoration: none;
+					p{
+						margin-bottom: 0px;
+						font-size: 16px;
+					}
+				}
+			}
+		}
+	}
+	.pull-right{
+		float: right;
+	}
+
+	.admin_encyclopedia{
+		
+		iframe{
+			width: 100%;
+			height: 300px;
+		}
+	}
+	
+
+	// Itinerary List css
+	.itinerary_list{
+		padding:19px 0px 5px 10px;
+		box-shadow: 0 6px 5px rgba(0, 0, 0, 0.19), 0 7px 6px rgba(0, 0, 0, 0);
+		background-color: $admin-top;
+		border:none;
+		h5{
+		    font-weight: 700;
+			font-size: 16px;
+			color: #928e8e;
+			padding-bottom: 5px;
+		}
+		p{
+			font-size: 16px;
+			font-weight: 500;
+			color: #403b3b;
+		}
+	}
+	.tour_list_block{
+		img{
+			width: 100%;
+		}
+		.aligen_top_input{
+			display: inline;
+		}
+	}
+	.payment_list{	
+		.card{
+			padding: 20px;
+		}
+	}
+
+	// role and permission 
+	// Admin body area
+	.container_admin_body{
+		#example_length{
+			width: 50% !important;
+            float: left;
+		    select{
+			    padding-left:7px !important;
+				height: 35px !important;
+				margin: 0px 12px;
+			}
+		}
+		padding: 10px 30px;
+		#example_filter{
+			float: right;
+			input[type='search']{
+				border-radius: 4px;
+                height: 29px;
+                background-color: $admin-top;
+                border:none;
+                padding-left:5px;
+                margin-left: 10px;
+			}
+		}
+		#example{
+			a{
+				color: black;
+				text-decoration: none;
+				&:hover{
+					text-decoration: none;
+				}
+			}
+			th,tr{padding: 20px;font-size: 15px;background-color:white;border:none;
+				.fa-sort,.fa-cog{
+					margin-left: 5px;
+				}
+			}
+			th{background-color: black;color: white;}
+			tr { border-radius: 5px !important;}
+			th:first-child,td:first-child{
+				border-radius:5px 0px 0px 5px;
+			}
+			th:last-child,td:last-child{
+				border-radius:0px 5px 5px 0px;
+			}
+			.row_list{
+				&:hover{
+					box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+					height: 50px;
+					color: orange;
+				}
+			}
+			tr{ 
+				-webkit-box-shadow: 0px 2px 9px -2px rgba(0,0,0,0.60);
+				-moz-box-shadow: 0px 2px 9px -2px rgba(0,0,0,0.60);
+				box-shadow: 0px 1px 6px -2px rgba(0,0,0,0.60);
+				margin-bottom:7px;
+			 }
+			#example_info{width: 210px !important;float: left;margin-left: 0px;}
+
+			.dataTables_length{
+				float: left;
+				margin-left: 0px;
+				label{
+					margin-left: 0px !important;
+				}
+			}
+			#example_filter{
+				float: right;
+			}
+			
+		}
+
+		.dataTables_paginate{
+			float: right;margin-right: 0px;
+			.paginate_button{
+			    padding: 5px 10px;				    
+			    background: #cecece;
+			    border: none;
+			    margin-right: 2px;
+			    border-radius: 2px;
+			    cursor: pointer;
+			    &:hover{
+			    	background-color: #a59e9e;
+				    color: white;
+				    text-decoration: none;
+				}
+				a{ color: #2e3031; }
+			}
+		}
+	}
+	.card_view{
+		.row{
+			margin-bottom: 20px;
+			h5{
+		    font-weight: 700;
+			font-size: 15px;
+			color: #928e8e;
+			padding-bottom: 5px;
+			}
+			p{
+				font-size: 18px;
+				font-weight: 400;
+				color: #403b3b;
+			}
+			h4{
+				margin-bottom: 20px;
+				font-size: 18px;
+			}
+		}
+	}
+	#student_list{
+		input{
+			height: 38px;
+		}
+	}
+	.department_itinerary{
+		.h5_class,form{
+			margin-left: 19px;
+			label{
+				margin-left: 0px !important;
+			}
+		}
+	}
+	.itinerary_day_record{
+		margin-top: 20px;
+		margin-left: 9px;
+		h5{
+			font-weight: 700;
+			font-size: 18px;
+			color: #928e8e;
+			padding-bottom: 5px;
+		}
+		p{
+			font-size: 18px;
+			font-weight: 500;
+			color: #403b3b;
+		}
+	}
+	#example_wrapper{
+		.table_search{height: 35px !important;margin-bottom: 0px !important;font-size: 13px !important;}
+		select{height: 30px;padding: 0px;width: 58px;}
+	}	
+	// *********************************************************************
+	//            Reservation
+	// Admin Reservation student table
+	.reservation{
+		.student_reservation{
+			color:red;
+			form{
+				padding-top:0px;
+				input[type='text']{
+					border-radius:34px 0px 0px 34px;
+				}
+				input[type='text']{
+					height:36px !important;
+					font-size:14px;
+					margin-bottom:0px;
+				}
+			}
+		}
+		.student_card{
+			padding: 20px !important;
+			select,input[type='text']{
+				height:36px !important;
+				font-size:14px;
+				margin-bottom:0px;
+			}
+		}
+		.custom-file-uploader {
+		  position: relative;
+		  padding: 7px;
+		  color: white;
+		  border-radius: 0px 34px 34px 0px;
+		  background:grey;
+		  input[type='file'] {
+		    display: block;
+		    position: absolute;
+		    top: 0;
+		    right: 0;
+		    bottom: 0;
+		    left: 0;
+		    z-index: 5;
+		    width: 100%;
+		    height: 100%;
+		    opacity: 0;
+		    cursor: default;
+		  }
+		}
+		.search_button{
+			margin-top:18px;
+			button{
+			    height: 36px;
+			    background-color: #e1e1e1e1;
+			    border: none;
+			    font-size: 14px;
+			    border-radius: 0px 34px 34px 0px;
+			    padding-right:14px;
+			}
+		}
+		table{
+			input[type='text']{
+				margin-bottom:0px;
+				height:38px;
+			}
+			.delete_icon{
+				i{
+					cursor:pointer;
+					&:hover{
+						color:red;
+					}
+				}
+			}
+		}
+		.reservation_bottom{
+			button{
+				min-width:100%;
+				padding:10px 40px !important;
+			}
+			.print{
+				font-size: 40px;
+			    float: right;
+			    padding-top: 25px;
+			}
+			label{
+				display: block;
+                margin-bottom: 0px;
+			}
+			input[type='number']{
+				height:47px;
+				width:100px;
+				margin-top:10px;
+				padding-left:10px;
+			}
+			.btn_go{
+				margin-top:-9px;
+				min-width: 15px;
+			    padding: 12px 30px !important;
+			    border-radius:4px;
+			    color: white;
+			}
+		}
+	}
+	// **********************************************End Reservation******************
+
+	// ************************** Hotel *********************************
+	.hotel_table{
+		input[type='text'],input[type='number'],input[type='date'],select{
+			margin-bottom:0px;
+			height:38px;
+		}
+	}
+
+	// ****************** Transport *******************************
+	.transport_data{
+		.card{
+			padding:20px;
+		}
+		form{
+			padding:0px 9px 17px;
+		}
+		.modal-mask {
+		  position: fixed;
+		  z-index: 9998;
+		  top: 0;
+		  left: 0;
+		  width: 100%;
+		  height: 100%;
+		  background-color: rgba(0, 0, 0, .5);
+		  display: table;
+		  transition: opacity .3s ease;
+		  padding-bottom:30px;
+		}
+
+		.modal-wrapper {
+		  display: table-cell;
+		  vertical-align: middle;
+		}
+		.modal-header {
+		  background: $admin-sidebar;
+		  font-weight: 300;
+		  font-size: 1em;
+		  color: #fff;
+		  line-height: 30px;
+		  button{
+		  	color:white;
+		  }
+		}
+		.modal-title {
+		  font-weight: 300;
+		  font-size: 2em;
+		  color: #fff;
+		  line-height: 30px;
+		}
+		input[type='text'],input[type='number'],input[type='datetime-local'],select{
+			margin-bottom:0px;
+			height:42px;
+		}
+
+	}
+	.transport_bottom{
+		.tabs {
+		    overflow: hidden;
+		    margin-bottom: -2px; // hide bottom border
+		}
+
+		.tabs ul {
+		    list-style-type: none;
+		    margin-left: 20px;
+		}
+
+		.tabs a{
+		    float: left;
+		    cursor: pointer;
+		    padding: 9px 25px;
+		    transition: background-color 0.2s;
+		    border: 1px solid #ccc;
+		    border-right: none;
+		    background-color: #e4e4e4;
+		    font-weight: bold;
+		}
+		.tabs a:last-child { 
+		    border-right: 1px solid #ccc;
+		}
+
+		/* Change background color of tabs on hover */
+		.tabs a:hover {
+		    background-color: #aaa;
+		    color: #fff;
+		}
+
+		/* Styling for active tab */
+		.tabs a.active {
+		    background-color: #f4f6f9;
+		    color: #484848;
+		    border-bottom: 2px solid #f4f6f9;
+		    cursor: default;
+		}
+
+		/* Style the tab content */
+		.tabcontent {
+		    padding: 21px 10px 0px;
+		    border: 1px solid #ccc;
+		    border-radius: 0px 10px 10px 10px;
+		    box-shadow: 3px 3px 6px #e1e1e1
+		}
+
+		input[type='text'],select{
+			height:37px;
+		}
+
+	}
+
+}
+// Active Link in admin navigation
+.router-link-active{background-color: $admin-sidebar;color: white !important;}
+// Top navigation bar with searchbar
+#sidebarnavigation{
+	background-color: $admin-top;height: 100px;
+	.admin_top_right_icon{
+		.user_icon{
+			font-size: 20px;
+		    background-color: #a0a0a5;
+		    padding: 1px 8px;
+		    border-radius: 50%;
+		    color: white;
+		}
+		.nav-link{
+			padding-top: 0px;
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+// Dashboard 
+#fronthome{
+	padding-top: 30px;
+	.dashboard_card{margin-left: 50px;position: relative;
+		img{
+			box-shadow:red;
+			border-radius:9px;
+			&:hover{
+				box-shadow:none;
+			}
+		}
+		p{
+			position: absolute;
+			right: 0px;
+			color: white;
+			font-weight: 600;
+			font-size: 18px;
+			right: 54px;
+		}
+		.down{
+			top: 66px;
+            
+		}
+		.up{
+			top: 45px;
+			
+		}
+	}
+}
+//Admin top logo
+#admin_top_logo{
+
+	
+//  End Scroll bar
+
+	.logo_link{line-height: 110px !important;color: $admin-bg;border-bottom:none;}
+	img{
+		min-height: 87px;
+        margin: 16px 42px;
+	}
+	background-color: $admin-bg;
+	.nav-sidebar{
+		.nav-link{
+			padding: 10px;
+			border-radius: 0px;
+			.right{
+				margin-top: 0px;
+			}
+			i{
+				font-size: 17px;
+			}
+		}
+		.nav{
+			p{margin-left: 36px;font-size: 13px;}
+		}
+	}
+	.sidebar{
+		padding-left: 0px;
+		padding-right: 0px;
+		padding-bottom: 100px;
+	}
+	.dashboard_color{
+		background-color: $admin-bg;
+	}
+}
+/*
+*
+*
+*
+*
+Admin Login page
+*
+*
+*
+*/
+#admin_login{
+	background-color: $admin-bg;
+    height: 657px;
+	font-family: $fontfamily;
+	
+    color: $admin-login-form;
+    #admin_login_form{
+    	padding: 40px;
+		input[type='email'],input[type='password']{
+			background-color: $admin-bg !important;
+		    border-left:0px;
+		    border-top:0px;
+		    border-right:0px;
+		    border-radius:0px;
+		    height: 47px;
+		    border-bottom: 2px solid $admin-login-form;
+		    color: white;
+			font-size: 19px;
+			outline: 0px;
+			box-shadow: none;
+
+		}
+		img{
+			margin-bottom: 50px;
+			margin-top: 15px;
+		}
+		button{
+		    height: 44px;
+		    border-radius: 0px;
+		    margin-top: 32px;
+		    border: 2px solid $admin-login-form;
+		    background-color: transparent;
+		    font-size: 19px;
+		    &:hover{
+		    	background-color: $admin-login-form;
+		    	color: $admin-bg;
+		    	font-weight: 600;
+		    }
+		}
+		a{color: $admin-login-form}
+	}
+}
+

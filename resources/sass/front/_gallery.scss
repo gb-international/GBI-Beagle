@@ -1,0 +1,101 @@
+#imagegallery{
+    .gallery-search{
+        .outer{
+            padding:5px;
+            padding: 9px;
+            background: rgba(43, 188, 255, 0.8);
+            .search-field{
+                height: 50px;
+                outline: none;
+            }
+        }
+    }
+    .fullimagecard{
+        margin-bottom: 28px;
+        .card{
+            max-height: 370px;
+        }
+        .card-img-overlay {
+            background-color: rgba(#000, 0.4);
+            padding:0px !important;
+        }
+        .card-image{
+            height: 370px;
+            width: 100%;
+        }
+    }
+
+}
+.shera-img{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: url('/images/icons/Mascot_Chita.png');
+    width: 56px;
+    height: 61px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 0px 0px 20px 17px;
+}
+.imageslist{
+    .blog-list{
+        .cardimage{
+            height: 330px !important;
+            text-align: center;
+            object-fit: cover;
+        }
+    }
+    // .shera-img-size{
+    //     width: 50px;
+    //     height: 61px;
+    // }
+}
+// img-preivew-modal
+
+#ImagePreviewModal{
+    .modal-color{ background: #f1f1f1;}
+    .fade-flip {
+      transform: rotateX(-90deg);
+      opacity: 0;
+      -webkit-transition: all .25s linear;
+      -o-transition: all .25s linear;
+      transition: all .25s linear;
+    }
+
+    .fade-flip.in {
+      opacity: 1;
+      transform: rotateX(0deg);
+    }
+    .fade-flip .modal-dialog {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%) !important;
+    }
+    .img-preview{
+        position: relative;
+        overflow: hidden;
+        min-height: 370px;
+        img{
+            -webkit-transition: 1 linear;
+            transition: 1 linear;
+            min-height: 370px;
+        }
+        .img-preview-bottom{
+            background: #c5cccca1;
+            position: absolute;
+            bottom: 0px;
+            width: 100%;
+            padding: 13px;
+            font-size: 23px;
+        }
+    }
+    .shera-img-modal{
+        height: 103px;
+        width: 90px;
+        margin: 0px 0px 0px 2px !important;
+    }
+}

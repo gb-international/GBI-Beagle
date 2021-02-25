@@ -1,0 +1,55 @@
+.join-team
+{
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+  border-radius: 5px;
+  background-color: #c3e2f5bd;
+  form{
+    .col-sm-6,.col-sm-12{
+      padding:10px;
+      .form-group{
+        margin-bottom: 0px;
+      }
+    }
+  }
+  h1{
+    margin: 0 auto;
+    font-size: 25px;
+    padding: 20px;
+    color: #000;
+  }
+
+  input,select{
+    padding: 12px;
+    border: 0px solid #ccc;
+    border-radius: 4px;
+    border-radius: 0px !important;
+    height: 47px;
+  }
+}
+
+// file upload (resume)
+
+.upload-btn-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  .btn {
+    border: 1px solid #d8d5d5;
+    color: #302f2f;;
+    background-color: white;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  input[type=file] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+  }
+}

@@ -1,0 +1,438 @@
+/* RESPONSIVE STYLE */
+@media (max-width: 320px) {
+    .wapper-main{
+        width: 100%;
+        margin: 0 auto;
+    }
+    .card-titles {
+        h1{
+        text-align: center;
+        font-size: $mch-font-size;
+        color: $text-black;
+        font-family: $fontfamily;
+        width: 100%;
+        margin: 0 auto;
+        padding-bottom: 15px;
+        }
+        h4{
+        text-align: center;
+        font-size: $mcp-font-size;
+        color: lighten($text-black, 50%);
+        margin-bottom: 25px;
+        font-family: $fontfamily;
+        }
+    }
+}
+
+@media screen and (min-width: 320px) and (max-width: 360px){
+        
+    .wapper-main{
+        width: 100%;
+        margin: 0 auto;
+    }
+    article {
+        width: 100%;
+        margin: 0 auto;
+    }
+    .card-titles {
+        h1{
+        text-align: center;
+        font-size: $mch-font-size;
+        color: $text-black;
+        font-family: $fontfamily;
+        width: 100%;
+        margin: 0 auto;
+        padding-bottom: 5px;
+        }
+        h4{
+            text-align: center;
+            font-size: $mcp-font-size;
+            color: lighten($text-black, 50%);
+            margin-bottom: 25px;
+            font-family: $fontfamily;
+        }
+    }
+    .card-imgs {
+        width: 150px;
+        margin: 0 auto;
+    }
+
+    /* gallary*/
+    .gallary {
+        display: none;
+        float: left;
+        width: 100%;
+        margin-top: 8px;
+        margin-bottom: 0px;
+    }
+}
+@media screen and (min-width: 360px) and (max-width: 480px){
+    .wapper-main{
+    width: 100%;
+    margin: 0 auto;
+    }
+
+    article {
+    width: 100%;
+    margin: 0 auto;
+    }
+    .card-titles {
+        h1{
+        text-align: center;
+        font-size: $mch-font-size;
+        color: $text-black;
+        font-family: $fontfamily;
+        width: 100%;
+        margin: 0 auto;
+        padding-bottom: 5px;
+        }
+
+        h4{
+        text-align: center;
+        font-size: $mcp-font-size;
+        color: lighten($text-black, 50%);
+        margin-bottom: 25px;
+        font-family: $fontfamily;
+        }
+    }
+    .card-imgs {
+        width: 150px;
+        margin: 0 auto;
+    }
+    /* gallary*/
+    .gallary {
+    display: none;
+    float: left;
+    width: 100%;
+    margin-top: 8px;
+    margin-bottom: 0px;
+    }
+}
+
+@media screen and (min-width: 480px) and (max-width: 640px){
+    .wapper-main{
+    width: 100%;
+    margin: 0 auto;
+    }
+
+    article {
+    width: 100%;
+    margin: 0 auto;
+    }
+    .card-titles {
+        h1{
+        text-align: center;
+        font-size: $mch-font-size;
+        color: $text-black;
+        font-family: $fontfamily;
+        width: 80%;
+        margin: 0 auto;
+        padding-bottom: 20px;
+        padding-top: 10px;
+        }
+
+        h4{
+        text-align: center;
+        font-size: $mch-font-size;
+        color: lighten($text-black, 50%);
+        margin-bottom: 25px;
+        font-family: $fontfamily;
+        }
+    }
+    .card-imgs {
+        width: 150px;
+        margin: 0 auto;
+    }
+
+
+    .vidchaVideo {
+    width: 90%;
+    margin: 0 auto;
+    display: block;
+    }
+    
+    /* gallary*/
+    .gallary {
+    display: inline;
+    float: left;
+    width: 100%;
+    margin-top: 8px;
+    margin-bottom: 40px;
+    }
+    .column {
+    display: block;
+    margin: 0 auto;
+    float: left;
+    padding: 4px;
+    width: 33.33%;
+    }
+    .gallary h2
+    {
+    text-align: center;
+    color: $text-black;
+    font-size: $dvpanelh-font-size;
+    font-family: $fontfamily;
+    margin-bottom: 20px;
+
+    }
+    .gallary  p
+    {
+    text-align: center;
+    color: lighten($text-black, 50%);
+    font-size: $dvpanelp-font-size;
+    font-family: $fontfamily;
+    margin-bottom: 39px;
+    }
+
+    /* gallary*/
+    .gallary {
+    display: none;
+    float: left;
+    width: 100%;
+    margin-top: 8px;
+    margin-bottom: 0px;
+    }
+}
+
+@media screen and (min-width: 640px) and (max-width: 767px){
+
+    .wapper-main{
+    width: 100%;
+    margin: 0 auto;
+    }
+
+    article {
+    width: 100%;
+    margin: 0 auto;
+    }
+    .card-titles {
+        h1{
+        text-align: center;
+        font-size: $mch-font-size;
+        color: $text-black;
+        font-family: $fontfamily;
+        width: 80%;
+        margin: 0 auto;
+        padding-bottom: 5px;
+        padding-top: 10px;
+        }
+
+        h4{
+        text-align: center;
+        font-size: $mch2-font-size;
+        color: lighten($text-black, 50%);
+        margin-bottom: 25px;
+        font-family: $fontfamily;
+        }
+    }
+    .card-title
+    {
+        text-align: center;
+        font-weight: 600;
+        font-size: $mch2-font-size;
+    }
+    .card-imgs {
+        width: 85px;
+        margin: 0 auto;
+    }
+
+
+    .vidchaVideo {
+    width: 90%;
+    margin: 0 auto;
+    display: block;
+    }
+
+    /* gallary*/
+    .gallary {
+    display: inline;
+    float: left;
+    width: 100%;
+    margin-top: 8px;
+    margin-bottom: 40px;
+    }
+    .column {
+    display: block;
+    margin: 0 auto;
+    float: left;
+    padding: 4px;
+    width: 33.33%;
+    }
+    .gallary h2
+    {
+    text-align: center;
+    color: $text-black;
+    font-size: $dvpanelh-font-size;
+    font-family: $fontfamily;
+    margin-bottom: 20px;
+
+    }
+    .gallary  p
+    {
+    text-align: center;
+    color: lighten($text-black, 50%);
+    font-size: $dvpanelp-font-size;
+    font-family: $fontfamily;
+    margin-bottom: 39px;
+    }
+
+    /* gallary*/
+    .gallary {
+    display: none;
+    float: left;
+    width: 100%;
+    margin-top: 8px;
+    margin-bottom: 0px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+
+    .wapper-main{
+    width: 100%;
+    margin: 0 auto;
+    }
+
+    article {
+    width: 100%;
+    margin: 0 auto;
+    }
+    .card-titles {
+        h1{
+        text-align: center;
+        font-size: $dch-font-size;
+        color: $text-black;
+        font-family: $fontfamily;
+        width: 80%;
+        margin: 0 auto;
+        padding-bottom: 20px;
+        padding-top: 10px;
+        }
+
+        h4{
+        text-align: center;
+        font-size: $dch-font-size;
+        color: lighten($text-black, 50%);
+        margin-bottom: 25px;
+        font-family: $fontfamily;
+        }
+    }
+    .card-imgs {
+        width: 100px;
+        margin: 0 auto;
+    }
+
+
+    .vidchaVideo {
+    width: 90%;
+    margin: 0 auto;
+    display: block;
+    }
+
+
+
+
+    /* gallary*/
+    .gallary {
+    display: inline;
+    float: left;
+    width: 100%;
+    margin-top: 8px;
+    margin-bottom: 40px;
+    }
+    .column {
+    display: block;
+    margin: 0 auto;
+    float: left;
+    padding: 4px;
+    width: 33.33%;
+    }
+    .gallary h2
+    {
+    text-align: center;
+    color: $text-black;
+    font-size: $dvpanelh-font-size;
+    font-family: $fontfamily;
+    margin-bottom: 20px;
+
+    }
+    .gallary  p
+    {
+    text-align: center;
+    color: lighten($text-black, 50%);
+    font-size: $dvpanelp-font-size;
+    font-family: $fontfamily;
+    margin-bottom: 39px;
+    }
+}
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+  
+    .wapper-main{
+        width: 920px;
+        margin: 0 auto;
+    }
+    article {
+        width: 100%;
+        margin: 0 auto;
+    }
+    .card-titles {
+        h1{
+        text-align: center;
+        font-size: $dch-font-size;
+        color: $text-black;
+        font-family: $fontfamily;
+        width: 80%;
+        margin: 0 auto;
+        padding-bottom: 10px;
+        padding-top: 35px;
+        }
+        h4{
+        text-align: center;
+        font-size: $dch4-font-size;
+        color: lighten($text-black, 50%);
+        margin-bottom: 25px;
+        font-family: $fontfamily;
+        }
+    }
+    .vidchaVideo {
+        width: 995px;
+        margin: 0 auto;
+        display: block;
+    }
+
+    /* gallary*/
+    .gallary {
+        display: inline;
+        float: left;
+        width: 100%;
+        margin-top: 45px;
+        margin-bottom: 40px;
+    }
+    .column {
+        display: block;
+        margin: 0 auto;
+        float: left;
+        padding: 4px;
+        width: 33.33%;
+    }
+    .gallary h2
+    {
+        text-align: center;
+        color: $text-black;
+        font-size: $dvpanelh-font-size;
+        font-family: $fontfamily;
+        margin-bottom: 6px;
+
+    }
+    .gallary  p{
+        text-align: center;
+        color: lighten($text-black, 50%);
+        font-size: $dvpanelp-font-size;
+        font-family: $fontfamily;
+        margin-bottom: 39px;
+    }
+}
+
+
+

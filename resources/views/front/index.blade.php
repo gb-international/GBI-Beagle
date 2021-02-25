@@ -1,224 +1,84 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="author" content="gbinternational" />
-        <meta name="language" content="en" />
-         @yield('meta')
-        <meta name="author" content="@GBI" /> 
-        <meta name="copyright" content="GB International" />
-        <meta name="robots" content="follow"/>
-        <!--<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">-->
-        <meta http-equiv="X-UA-Compatible" content="IE=10">
-        <meta http-equiv="cache-control" content="no-cache"/>
-        <meta http-equiv="expires" content="exercise date in seconds"/>
-        <meta http-equiv="expires" content="0"/> <meta http-equiv="expires" content="43200"/>
+  <head> 
+    <meta charset="utf-8"/>
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="author" content="gbinternational" />
+    <meta name="language" content="en" />
+    <meta name="author" content="@GBI" /> 
+    <meta name="copyright" content="GB International" />
+    <meta name="robots" content="follow"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=10">
+    <meta http-equiv="cache-control" content="no-cache"/>
+    <meta http-equiv="expires" content="exercise date in seconds"/>
+    <meta http-equiv="expires" content="0"/> <meta http-equiv="expires" content="43200"/>
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/icon" href="{{ asset('assets/front/images/favicon.png') }}"/>  
+    <!-- css stylesheet -->
+    <link rel="preload" href="{{ asset('assets/front/css/bootstrap.min.css') }}" as="style">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    {{-- <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> --}}
+    {{-- Global site tag (gtag.js) - Google Analytics --}}
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-138734768-1"></script>
+     <script>
+         window.dataLayer = window.dataLayer || [];
+         function gtag(){dataLayer.push(arguments);}
+         gtag('js', new Date());
+         gtag('config', 'UA-138734768-1');
+    </script>
+    <!-- css stylesheet -->
+    {{-- <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> --}}
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-138734768-1"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-138734768-1"></script>
 
-        <!-- Favicon -->
-        <link rel="shortcut icon" type="image/icon" href="{{ secure_asset('assets/front/images/favicon.png') }}"/>
-        <!-- Font Awesome -->
-     <!--    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"> -->
-          <!-- Bootstrap CSS -->
-        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-       <!-- Slick slider -->
-        <link href="{{ secure_asset('assets/front/css/slickcss.css') }}" rel="stylesheet">
-        <link href="{{ secure_asset('assets/front/css/reset.css') }}" rel="stylesheet">
-        <!-- Fonts -->
-        <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Raleway" /> 
-       <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-        <!-- css stylesheet -->
-        
-        <!-- <link href="{{ asset('assets/front/minify-css/app.min.css') }}" rel="stylesheet"> -->
-        <link href="{{ secure_asset('css/app.css') }}" rel="stylesheet">
-       <meta name="csrf-token" content="{{ csrf_token() }}">
-        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-       <!-- Global site tag (gtag.js) - Google Analytics -->
-       <script async src="https://www.googletagmanager.com/gtag/js?id=UA-138734768-1"></script>
-       <script>
-           window.dataLayer = window.dataLayer || [];
-           function gtag(){dataLayer.push(arguments);}
-           gtag('js', new Date());
-           gtag('config', 'UA-138734768-1');
-      </script>
-      </head>
-  <body>
-  
-    
-      <!--START SCROLL TOP BUTTON -->
-    <!-- <a class="scrollToTop" href="#">
-      <i class="fa fa-angle-up"></i>
-    </a> -->
-  
-  <!-- END SCROLL TOP BUTTON -->
-    
-    <!-- Start Header -->
-    <!-- id="contents" -->
-  <div class="container">  
-  <div class="row">
-  <section class="navigation" id="myHeader">
-  <div class="nav-container">
-    <div class="brand">
-      <a href="{{ url('/') }}"> <img src="{{ asset('assets/front/images/logo.png') }}" alt="GBI Logo"></a>
-    </div>
-    <div class="nav-custom">
-    <nav>
-      <div class="nav-mobile"><a id="nav-toggle" href="javascript:void(0);"><span></span></a></div>
-      <ul class="nav-list">
-        <li>
-          <a href="{{ route('explore-destination') }}">Explore Destination</a>
-        </li>
-         <li>
-          <a href="javascript:void(0);">Resources</a>
-          <ul class="nav-dropdown">
-            <li><a href="{{ route('travel-and-education') }}">Travel & Education</a></li>
-            <li><a href="{{ route('safety-and-security') }}">Safety & Security</a></li>
-            <li><a href="{{ route('faq') }}">FAQ</a></li>
-          </ul>
-        </li>
-         <li><a href="https://gowithgbi.wordpress.com/" target="_blank">GBI Travel Blog</a></li>
-        <li>
-          <a href="javascript:void(0);">About Us</a>
-          <ul class="nav-dropdown">
-            <li><a href="{{ route('ourstory') }}">Our Story</a></li>
-            <li><a href="{{ route('how-we-work') }}">How We Work</a></li>
-            <li><a href="{{ route('join-our-team') }}">Join Our Team</a></li>
-          </ul>
-        </li>
-         <li><a href="{{ route('contact-us') }}">Contact Us</a></li>
-      </ul>
-    </nav>
-  </div>
-  </div>
-</section>
+    <meta property="og:title" content="G.B International is a travel educational specialist for young minds.">
+    <meta property="og:site_name" content="gowithgbi.com">
+    <meta property="og:keywords" content="tour,gbi tour and travel, travel">
+    <meta property="og:url" content="https://www.gowithgbi.com/travel-and-education#/">
+    <meta property="og:description" content="GBI is a travel educationist rooted in experiential learning. It has tailored made itineraries reflect the classroom curricula and support academic objective.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://www.gowithgbi.com/assets/front/images/banner2.jpg">
+     <title>Home page</title>
+     <description></description>
+    <style type="text/css">
+      body { padding-right: 0 !important }
+    </style>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+  </head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WNXQXSR"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
- @yield('content') 
-   <!-- <div id="app">
-  
-        {{--Vue Routing--}}
-        <home-main></home-main>
-   
-  </div> -->
 
-<footer id="footer">
-    <div class="footer-top">
-      <div class="footer-content">
-          <div class="single-footer">
-              <h3>ACCREDITAION & RECOGNITIONS</h3> 
-                <ul>
-                   <li><img class="footr-img" src="{{ asset('assets/front/images/lato_logo.png') }}" alt="GBI tourisum"></li>
-                   <li><img class="footr-img" src="{{ asset('assets/front/images/telangana_tourisum.png') }}" alt="telangana tourisum"></li>
-                   <li><img class="footr-img" src="{{ asset('assets/front/images/mt_log.png') }}" alt="minisrty of tourism"></li>
-                </ul>
-            </div>
-            <div class="single-footer">
-              <ul>
-                  
-                   <li>
-                      <h3>GBI Holidays Pvt. ltd.</h3>
-                      <p>G-32,DDA Commercial Complex</p>
-                      <p>Sheikh Sarai Phase-1</p>
-                      <p>New Delhi 110017</p>
-                   </li>
-                   <li>
-                     <p><i class="fa fa-phone fa-lg" aria-hidden="true"></i> 011-41864453</p>
-                     <p><i class="fa fa-envelope-o fa-lg" aria-hidden="true"></i>csrikhi@gbinternational.in</p>
-                     <p>&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;info@gbinternational.in</p>
-                   </li>
-                    
-                   <li>
-                    <h3>Connect With Us</h3>
-                    <a href="https://www.facebook.com/gowithgbi/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a>
-                    <a href="https://twitter.com/gowithgbi"> <i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a>
-                    <a href="https://www.linkedin.com/company/13592478/admin/"> <i class="fa fa-linkedin-square fa-lg" aria-hidden="true"></i></a>
-                    <a href="https://wordpress.com/view/gowithgbi.wordpress.com"> <i class="fa fa-wordpress fa-lg" aria-hidden="true"></i></a>
-                    <a href="https://www.instagram.com/gbirikhi/">  <i class="fa fa-instagram fa-lg" aria-hidden="true"></i></a>
-                    <a href="#"> <i class="fa fa-youtube-play fa-lg" aria-hidden="true"></i></a>
-                   </li>
-                </ul>
-            </div>
-        </div>
-      </div>
-    <div class="footer-bottom">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="footer-bottom-area">
-              <p class="copy-right">&copy; 2019 GBI Holidays Pvt. ltd. All right reserved.</p>
-            </div>
-            <div class="footer-bottom-term">
-              <p class="copy-left"><a herf="#"> Terms & Condition</a></p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
 
-  </footer>
-         <div class="col-md-12 m-bottom">
-            <div class="navbar-bottom">
-                 <a href="{{ url('/') }}" class="active">
-                  <div class="nav-font">
-                    <i class="fas fa-home"></i>
-                    </div>
-                    <div class="nav-font"> home
-                    </div>
-                  </a>
-                  <a href="{{ route('explore-destination') }}">
-                  <div class="nav-font">
-                    <i class="fas fa-map-marked-alt"></i>
-                    </div>
-                    <div class="nav-font"> explore
-                    </div>
-                  </a>
-                  <a href="{{ route('explore-destination') }}">
-                  <div class="nav-font">
-                    <i class="fas fa-phone tranform-icon"></i>
-                    </div>
-                    <div class="nav-font"> call
-                    </div>
-                  </a>
-                  <a href="#home">
-                  <div class="nav-font">
-                    <i class="fas fa-user-alt"></i>
-                    </div>
-                    <div class="nav-font"> profile
-                    </div>
-                  </a>
-                  
-                 
-                </div>
-              </div>
-          
-  </div>
-</div>
-  <!-- End footer -->
-  <!-- vue JavaScript -->
-  <script src="{{secure_asset('js/app.js')}}"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js" type="text/javascript" ></script>
-   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
-        
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
-  <!-- Slick slider-->
-    <script type="text/javascript" src="{{ secure_asset('assets/front/js/slick.min.js') }}"></script>
-    <!-- Custom js -->
-    <script type="text/javascript" src="{{ secure_asset('assets/front/js/custom.js') }}"></script>
-    <script src="https://use.fontawesome.com/26d5579a34.js" type="text/javascript" ></script>
-    <script type="text/javascript" src="{{ secure_asset('assets/front/js/storage.js') }}"></script>
-  <!---slider script-->
-  
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta.2/js/bootstrap.js">
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js" ></script>  
- 
-<script type="text/javascript">
-/**/
+ {{-- {!! $ssr !!}
+  <script src="{{ asset('js/entry-client.js') }}" type="text/javascript"></script> --}}
 
- 
+  {!! ssr('js/entry-server.js')
+            // Share the packages with the server script through context
+            // If ssr fails, we need a container to render the app client-side
+            ->fallback('<div id="app"></div>')
+            ->render() !!}
+
+
+<script>
+  window.Laravel = <?php echo json_encode([
+      'csrfToken' => csrf_token(),
+    ]); ?>
 </script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+{{-- <script rel="preload" src="{{ asset('assets/front/js/jquery.min.js') }}" as="script"></script> --}}
+
+
+<script src="{{ asset('assets/front/js/bootstrap.min.js') }}"></script>
+
+
+
 <script type="text/javascript">
   (function($) { // Begin jQuery
   $(function() { // DOM ready
@@ -250,7 +110,7 @@
 window.onscroll = function() {myFunction()};
 
 var header = document.getElementById("myHeader");
-var sticky = header.offsetTop;
+// var sticky = header.offsetTop;
 
 function myFunction() {
   if (window.pageYOffset > sticky) {
@@ -258,6 +118,68 @@ function myFunction() {
   } else {
     header.classList.remove("sticky");
   }
+}
+
+$(document).ready(function(){
+    var login = localStorage.getItem("login");
+    if(login == '1'){
+      $(".login_link").hide();
+      $(".dashboard_link").show();
+    }else{
+      $(".login_link").show();
+      $(".dashboard_link").hide();
+    }
+});
+
+
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": ["TravelAgency","EducationalOrganization"],
+  "name": "GB INTERNATIONAL",
+    "description": "GB International is an educational travel partner for those who are looking out to explore and learn about new destinations ,cultural heritage  and scientific explorations across the globe",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "G32 TRIVENI COMMERCIAL COMPLEX SHEIKH SARAI 1",
+    "addressLocality": "NEW DELHI",
+    "addressRegion": "Delhi",
+    "postalCode": "110017"
+        
+  },
+  "image": "https://www.gowithgbi.com/assets/front/images/logo.png",
+  "email": "info@gbinternational.in",
+  "telePhone": ["+919717922240","01141864453","01126011683"],
+  "url": "https://www.gowithgbi.com",
+    "sameAs" : [
+    "https://www.facebook.com/gowithgbi",
+    "https://www.twitter.com/gowithgbi",
+    "https://instagram.com/gowithgbi",
+    "https://www.youtube.com/channel/UCYaTBxhqqXaMOUNZiAqvI_A/about?view_as=subscriber"
+  ],
+  "paymentAccepted": [ "cash", "check", "credit card", "invoice" ],
+  "openingHours": "Mo,Tu,We,Th,Fr,Sa 09:00-18:00",
+  "openingHoursSpecification": [ {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday"
+    ],
+    "opens": "09:00",
+    "closes": "18:00"
+  } ],
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "28.5364",
+    "longitude": "77.2236"
+  },
+    "hasMap": "https://g.page/GoWithGbi?share",
+  "priceRange":"Rs1000-Rs10,000"
 }
 </script>
  </body>
