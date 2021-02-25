@@ -1,0 +1,98 @@
+
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
+
+// Variables
+@import 'variables';
+@import 'navbar';
+@import 'about';
+@import 'contactus';
+@import 'faq';
+@import 'form';
+@import 'resources';
+@import 'sections';
+@import 'responsive';
+@import 'explore-destination';
+@import 'login';
+@import 'dashboard';
+@import 'profileedit';
+@import 'encyclopedia';
+@import 'images';
+@import 'extra';
+@import 'add_group';
+@import 'tour-detail';
+@import 'tour-list';
+@import 'payment';
+@import 'accept_cookies';
+@import 'blog';
+@import 'loading';
+@import 'gallery';
+@import 'intro';
+@import 'common';
+@import 'footer';
+@import 'join_team';
+@import 'payment_information';
+
+// Bootstrap
+// @import '~bootstrap/scss/bootstrap';
+// @import "~admin-lte/dist/css/adminlte.css";
+
+@import '~vue-search-select/dist/VueSearchSelect.css';
+@import '~vue-slick-carousel/dist/vue-slick-carousel.css';
+@import '~vue-slick-carousel/dist/vue-slick-carousel-theme.css';
+@import '~sweetalert2/dist/sweetalert2.min.css';
+@import '~vue-form-wizard/dist/vue-form-wizard.min.css';
+@import '~sweetalert2/dist/sweetalert2.min.css';
+@import '~vue-multiselect/dist/vue-multiselect.min.css';
+@import '~viewerjs/dist/viewer.css';
+
+
+#app{
+	width: 100%;
+	overflow: hidden;
+	background: $bodycolor;
+	color: #464444;
+}
+
+.navbar-laravel {
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+#frontmaster{width: 100%;}
+
+.error404
+{
+	margin: auto;
+	margin-bottom: 5px;
+	margin-top: 2px;
+}
+
+i{ font-style:italic; }
+
+
+#frontmaster,#myHeader{max-width: 100%;	margin:0 auto;}
+
+
+.sticky{padding: 0px 0px;}
+.how-we-work{padding: 10px;}
+@media screen and (max-width: 800px){
+	#frontmaster{
+		margin-bottom: 40px;
+	}
+}
+// @media (max-width: 767px){
+// 	body{
+// 		text-align: justify;
+// 	}
+// }
+.fade-enter-active,
+.fade-leave-active {
+  transition-duration: 0.2s;
+  transition-property: opacity;
+  transition-timing-function: ease;
+}
+
+.fade-enter,.fade-leave-active { opacity: 0 }
+
+.modal-backdrop { position:unset !important;}
+.modal-dialog{margin: 0px;}

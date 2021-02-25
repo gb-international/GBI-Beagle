@@ -1,0 +1,59 @@
+https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&appid={YOUR API KEY}
+
+https://api.openweathermap.org/data/2.5/onecall?lat=33.441792&lon=-94.037689&
+exclude=hourly,daily&appid=d538ded243ed895d75aa34b9eb928779
+
+lat, lon geographical coordinates (latitude, longitude)
+part (optional parameter) by using this parameter you can exclude some parts of weather data from the API response. The value parts should be a comma-delimited list (without spaces). Available values:
+
+Account : 
+ username : ajay_yadav_gbi 	email    : ajay_yadav@gbinternational.in  password : 12345678
+ api key: d538ded243ed895d75aa34b9eb928779
+
+city wise : api.openweathermap.org/data/2.5/weather?q=new delhi&units=metric&appid=d538ded243ed895d75aa34b9eb928779
+
+
+api.openweathermap.org/data/2.5/weather?q=mau,uttar pradesh&units=metric&appid=d538ded243ed895d75aa34b9eb928779
+
+
+api.openweathermap.org/data/2.5/forecast?q=new delhi&appid=d538ded243ed895d75aa34b9eb928779
+
+
+
+------------------------------
+aquee weather
+weather channel
+
+var sec = 19800;
+var date = new Date(sec * 1000);
+var timestr = date.toLocaleTimeString();
+
+dt: 1592468267, ( last update time )
+
+sunrise: 1592438002,
+sunset: 1592488268
+list.dt = Time of data forecasted, unix, UTC
+
+list.main.temp Temperature. Unit Default: Kelvin, Metric: Celsius, Imperial: Fahrenheit.
+
+list.main.humidity Humidity, %
+
+list.weather.main Group of weather parameters (Rain, Snow, Extreme etc.)
+
+list.weather.description Weather condition within the group. You can get the
+
+list.dt_txt Time of data forecasted, ISO, UTC
+
+3 hours interval in a day
+
+Icon Image url = http://openweathermap.org/img/w/10d.png
+
+
+
+
+
+
+
+
+
+

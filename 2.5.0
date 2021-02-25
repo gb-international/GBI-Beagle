@@ -1,0 +1,9 @@
++ vue@2.6.11
++ vue-server-renderer@2.6.11
+updated 2 packages and audited 1124 packages in 7.99s
+
+37 packages are looking for funding
+  run `npm fund` for details
+
+found 1 low severity vulnerability
+  run `npm audit fix` to fix them, or `npm audit` for details

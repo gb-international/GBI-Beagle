@@ -1,0 +1,60 @@
+#payment_information{
+    background-color:#f1f1f1;
+    font-weight: 500;
+    .payment-card{
+        background: white;
+        padding: 18px 15px;
+        border-radius: 8px 8px 0px 0px;
+        box-shadow: 0 0px 1px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        font-size: 14px;
+    }   
+    .payment-card-form{
+        img{
+            width: 12px;
+            margin-bottom: 2px;
+            margin-right: 2px;
+        }
+        hr{ margin: 10px 0px;}
+        .total{ background: #c5f2ff; }
+        .internet-icon{
+            background: #d6d6d6;
+            color: white;
+            padding: 1px 6px;
+            border-radius: 13px;
+        }
+        .internet-charge{
+            color: gray;
+        }
+    } 
+}
+@media only screen and (min-width: 766px) {
+    #payment_information{
+        .desktop{
+            display:block;
+            .submit-button{ 
+                border-radius: 0px 0px 8px 8px;
+            }
+        }
+        .mobile{
+            display: none;
+        }
+    }
+}
+
+@media only screen and (max-width: 765px) {
+    #payment_information{
+        .desktop{
+            display:none;
+        }
+        .mobile{
+            display: block;
+            .payment-card-form{
+                hr{ margin: 14px 0px;}
+            }
+            .active{ 
+                color: #17a2b8;
+                border-bottom: 1px solid #17a2b8;
+            }
+        }
+    }
+}

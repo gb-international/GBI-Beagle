@@ -1,0 +1,38 @@
+.faq_banner{
+	input{
+		height: 47px;
+	}
+	.content{
+		top: 32% !important;
+	}
+}
+.faq-question {
+    width: 100%;
+    display: inline-block;
+    margin: 0 auto 30px;
+    font-family: Raleway;
+	font-size: 17px;
+}
+@media (max-width: 525px) {
+	.faq-question{
+		.col-11{
+			padding-left: 30px;
+		}
+	}
+	.faq_banner{
+		.content{
+			top: 26% !important;
+		}
+	}
+}
+@media (min-width: 768px) {
+	.faq-question{
+		.col-11{
+			padding-left: 0px;
+		}
+	}
+}
+
+
+
+

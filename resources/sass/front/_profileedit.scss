@@ -1,0 +1,77 @@
+.grey-form{
+	.user_edit_image{
+		margin: auto;
+	}	
+	form{
+		width: 100%;
+		label{
+			color: #999999;
+		}
+		input,select{
+			color: #333333;
+			font-weight: 500;
+			background: #e1e1e1;
+			height: 45px;
+		}
+		
+		input{
+			//placeholder = #b2b2b2
+			font-size: 16px;
+		    ::placeholder {
+			  color: #b2b2b2;
+			  opacity: 1; /* Firefox */
+			}
+
+			:-ms-input-placeholder { /* Internet Explorer 10-11 */
+			 color: #b2b2b2;
+			}
+
+			::-ms-input-placeholder { /* Microsoft Edge */
+			 color: #b2b2b2;
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 950px){
+	#user_edit_form{
+		padding: 30px;
+	}
+}
+
+
+// *********************** User information ***********************
+#user_inform_model{
+	span.error{
+	  color:#e74c3c;
+	  font-size:13px;
+	  display:flex;
+	}
+	button{
+	  background: white !important;
+	  border-color: gray !important;
+	  color: grey !important;
+	  border-radius: 0px !important;
+	  padding: 10px !important;
+	  width: 235px !important;
+	  margin-top: 25px !important;
+	}
+	.wizard-header{
+	  display: none !important;
+	}
+	.wizard-nav-pills a{
+	  padding-top: 16px !important;
+	}
+	.wizard-icon-circle{
+	  width: 35px !important;
+	  height: 35px !important;
+	}
+	.wizard-icon{
+	  font-size: 15px !important;
+	}
+	select,input{
+	  border:1px solid lightgrey !important;
+	  border-radius: 4px;
+	  height: 45px;
+	}	
+}
