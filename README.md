@@ -1,3 +1,9 @@
+# GBI-Beagle
+1. Login :- Admin,Escort,Student,Teacher,Incharge
+2. Updated directory structure according to best pratices
+3. The updates that have been made are in the admin section
+    
+
 <p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
 
 <p align="center">
