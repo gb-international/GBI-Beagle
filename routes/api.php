@@ -163,6 +163,16 @@ Route::get('/state-city/{id}','AjaxController@StateCity');
 Route::post('/city-sightseeing','AjaxController@CitySightseeing');
 Route::get('/banknames','Front\SchoolbankdetailController@index');
 
+// School Trip Payment
+Route::group(['prefix' => '/school_trip_payment', 'as' => 'school_trip_payment.'], function () {
+	Route::controller(\Api\Payment\SchoolTripPaymentController::class)->group(function () {
+		Route::post('school_trip_payment', 'store');
+		Route::get('/all/{page?}', 'all');
+		Route::put('school_trip_payment/{id}', 'update');
+		Route::get('school_trip_payment/{id}', 'show');
+		Route::delete('school_trip_payment/{id}', 'delete');
+	});
+});
 
 
 
