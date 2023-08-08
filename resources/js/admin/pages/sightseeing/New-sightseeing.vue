@@ -16,20 +16,9 @@ to submit the data we are using a function.
           <div class="col-sm-4">
             <div class="form-group">
               <label for="state">State</label>
-              <select
-                class="form-control select-field"
-                v-model="form.state_id"
-                :class="{ 'is-invalid': form.errors.has('state_id') }"
-              >
-              <option value="" disabled hidden>Select State</option>
-                <option
-                  v-for="state in state_list"
-                  :value="state.id"
-                  :key="state.id"
-                >
-                  {{ state.name }}
-                </option>
-              </select>
+              <dropdown-filter class="mb-2" 
+                :itemList="state_list" 
+                @update:option="UpdateState" />
               <has-error :form="form" field="state_id"></has-error>
             </div>
           </div>
@@ -37,20 +26,10 @@ to submit the data we are using a function.
           <div class="col-sm-4">
             <div class="form-group">
               <label for="city">City</label>
-              <select
-                class="form-control select-field"
-                v-model="form.city_id"
-                :class="{ 'is-invalid': form.errors.has('city_id') }"
-              >
-              <option value="" disabled hidden>Select City</option>
-                <option
-                  v-for="city in city_list"
-                  :value="city.id"
-                  :key="city.id"
-                >
-                  {{ city.name }}
-                </option>
-              </select>
+              <dropdown-filter class="mb-2" 
+                :itemList="city_list" 
+                @update:option="UpdateCity" />
+
               <has-error :form="form" field="city_id"></has-error>
             </div>
           </div>
@@ -147,7 +126,7 @@ to submit the data we are using a function.
             <div class="form-group">
               <label for="image"></label>
               <br />
-              <img :src="img_image" alt class="image" />
+              <img :src="img_image" alt class="image width-140" />
               <has-error :form="form" field="image"></has-error>
             </div>
           </div>
@@ -162,20 +141,22 @@ to submit the data we are using a function.
 import { Form, HasError } from "vform";
 import FormButtons from "@/admin/components/buttons/FormButtons.vue";
 import FormLayout from "@/admin/components/layout/FormLayout.vue";
+import DropdownFilter from "@/admin/components/form/DropdownFilter.vue";
 export default {
-  name: "New",
+  name: "NewSightseeing",
   components: {
     Form,
     "has-error": HasError,
     "form-buttons": FormButtons,
     "form-layout": FormLayout,
+    "dropdown-filter": DropdownFilter,
   },
   data() {
     return {
       // Create a new form instance
       img_image: "",
-      state_list: "",
-      city_list: "",
+      state_list: [],
+      city_list: [],
       form: new Form({
         name: "",
         state_id: "",
@@ -198,15 +179,32 @@ export default {
     this.stateData();
   },
   methods: {
+    UpdateCity(v){ this.form.city_id = v.id },    
+    UpdateState(v){ this.form.state_id = v.id },
+
     stateData() {
-      axios.get("/api/state").then((response) => {
-        this.state_list = response.data;
+      axios.get("/api/state").then((res) => {
+        if (res) {
+          for(let i = 0;i<res.data.length;i++){
+            this.state_list.push({
+              name:res.data[i].name,
+              id:res.data[i].id
+            });
+          }
+        }
       });
     },
 
     cityData(id) {
-      axios.get("/api/state-city/" + id).then((response) => {
-        this.city_list = response.data;
+      axios.get("/api/state-city/" + id).then((res) => {
+        if (res) {
+          for(let i = 0;i<res.data.length;i++){
+            this.city_list.push({
+              name:res.data[i].name,
+              id:res.data[i].id
+            });
+          }
+        }
       });
     },
 

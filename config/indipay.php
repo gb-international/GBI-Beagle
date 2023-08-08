@@ -82,7 +82,9 @@ return [
     // Add your response link here. In Laravel 5.2+ you may use the VerifyCsrf Middleware.
     'remove_csrf_check' => [
         '/response',
-        '/cancel'
+        '/cancel',
+        '/test-data',
+        '/tour-payment'
     ],
 
 

@@ -10,15 +10,14 @@ to submit the data we are using a function.
         enctype="multipart/form-data"
         @submit.prevent="updateSightseeing()"
       >
-        <div class="row">
+        <div class="row" v-if="form.state_id">
           <div class="col-sm-4">
             <div class="form-group">
               <label for="state">State</label>
-              <dropdown-filter
+              <dropdown-list
                 class="mb-2"
                 :itemList="options"
-                @update:option="StateUpdate"
-                :selectedId="form.state_id"
+                v-model="form.state_id"
               />
               <has-error :form="form" field="state_id"></has-error>
             </div>
@@ -27,11 +26,10 @@ to submit the data we are using a function.
           <div class="col-sm-4">
             <div class="form-group">
               <label for="city">City</label>
-              <dropdown-filter
+              <dropdown-list
                 class="mb-2"
                 :itemList="city_list"
-                @update:option="CityUpdate"
-                :selectedId="form.city_id"
+                v-model="form.city_id"
               />
               <has-error :form="form" field="city_id"></has-error>
             </div>
@@ -129,7 +127,7 @@ to submit the data we are using a function.
             <div class="form-group">
               <label for="image"></label>
               <br />
-              <img :src="img_image" alt class="image w-100" />
+              <img :src="img_image" alt class="image width-140" />
               <has-error :form="form" field="image"></has-error>
             </div>
           </div>
@@ -144,20 +142,20 @@ to submit the data we are using a function.
 import { Form, HasError } from "vform";
 import FormButtons from "@/admin/components/buttons/FormButtons.vue";
 import FormLayout from "@/admin/components/layout/FormLayout.vue";
-import DropdownFilter from "@/admin/components/form/DropdownFilter.vue";
+import DropdownList from "@/admin/components/form/DropdownList.vue";
 export default {
-  name: "New",
+  name: "NewSightseeing",
   components: {
     Form,
     "has-error": HasError,
     "form-buttons": FormButtons,
     "form-layout": FormLayout,
-    "dropdown-filter":DropdownFilter
+    "dropdown-list": DropdownList,
   },
   data() {
     return {
       img_image: "",
-      options:[],
+      options: [],
       city_list: [],
       form: new Form({
         name: "",
@@ -178,7 +176,6 @@ export default {
     },
   },
   mounted() {
-    this.stateData();
     this.sightSeeing();
   },
   methods: {
@@ -186,12 +183,7 @@ export default {
       axios.get("/api/state").then((res) => {
         if (res.data) {
           this.options = [];
-          for(let i = 0;i<res.data.length;i++){
-            this.options.push({
-              name:res.data[i].name,
-              id:res.data[i].id
-            });
-          }
+          this.options = res.data;
         }
       });
     },
@@ -200,12 +192,7 @@ export default {
       axios.get("/api/state-city/" + id).then((res) => {
         if (res.data) {
           this.city_list = [];
-          for(let i = 0;i<res.data.length;i++){
-            this.city_list.push({
-              name:res.data[i].name,
-              id:res.data[i].id
-            });
-          }
+          this.city_list = res.data;
         }
       });
     },
@@ -214,7 +201,8 @@ export default {
         .get(`/api/sightseeings/${this.$route.params.id}/edit`)
         .then((response) => {
           this.form.fill(response.data);
-          this.img_image = "images/sightseeing/" + this.form.image;
+          this.img_image = this.form.image;
+          this.stateData();
         });
     },
     updateSightseeing() {

@@ -1,338 +1,209 @@
 <template>
   <!--************************************************
-      Author:@Ajay
+      Author:@Manas
       ****************************************************-->
-  <div id="user_edit_form" class="grey-form">
-    <div class="text-center">
-      <div class="avatar-upload user_edit_image">
-        <form role="form" enctype="multipart/form-data">
-          <div class="avatar-edit">
-            <input
-              type="file"
-              id="imageUpload"
-              accept=".png, .jpg, .jpeg"
-              @change="onChange"
-            />
-            <label for="imageUpload"
-              ><img src="/images/icons/edit.png" class="icon-width"
-            /></label>
+<div class="container py-5">
+    <div class="row">
+
+      <!-- First -->
+      <div class="col-lg-3 py-3" :style="{'display': leftDisplay}">
+        <div class="text-center d-flex justify-content-center align-items-center flex-column">
+          <div class="avatar-upload user_edit_image">
+            <form role="form" enctype="multipart/form-data">
+              <div class="avatar-edit">
+                <input
+                  type="file"
+                  id="imageUpload"
+                  accept=".png, .jpg, .jpeg"
+                  @change="onChange"
+                />
+                <label for="imageUpload"
+                  ><img :src="$gbiAssets+'/images/icons/edit.png'" class="icon-width"
+                /></label>
+              </div>
+              <div class="avatar-preview">
+                <div id="imagePreview" style="background-image: url()">
+                  <img
+                    v-if="image"
+                    :src="image"
+                    loading="lazy"
+                    class="img"
+                  />
+                  <img
+                    v-else
+                    :src="image"
+                    loading="lazy"
+                    class="img"
+                    alt="user profile"
+                  />
+                </div>
+              </div>
+            </form>
           </div>
-          <div class="avatar-preview">
-            <div id="imagePreview" style="background-image: url()">
-              <img
-                v-if="image"
-                :src="'/uploadimage/' + image"
-                loading="lazy"
-                class="img"
-              />
-              <img
-                v-else
-                :src="'/uploadimage/' + image"
-                loading="lazy"
-                class="img"
-                alt="user profile"
-              />
-            </div>
-          </div>
-        </form>
+        </div>
       </div>
-    </div>
-    <!-- user Edit form -->
-    <div class="container">
-      <form
-        role="form"
-        enctype="multipart/form-data"
-        @submit.prevent="updateUserData()"
-      >
-        <div class="row">
-          <div class="col-sm-4">
-            <div class="form-group">
-              <label for="name">Name</label>
-              <input
-                type="text"
-                class="form-control"
-                v-model="form.name"
-                :class="{ 'is-invalid': form.errors.has('name') }"
-                placeholder="Enter Name"
-              />
-              <has-error :form="form" field="name"></has-error>
-            </div>
-          </div>
-          <div class="col-sm-4">
-            <div class="form-group">
-              <label for="genderId">Gender</label>
-              <br />
-              <!-- <br /> -->
-              <div class="mt-2">
-                <div class="custom-control custom-radio custom-control-inline">
-                  <input
-                    type="radio"
-                    class="custom-control-input"
-                    id="maleId"
-                    value="male"
-                    v-model="form.gender"
-                  />
-                  <label class="custom-control-label" for="maleId">Male</label>
-                </div>
 
-                <!-- Default inline 2-->
-                <div class="custom-control custom-radio custom-control-inline">
-                  <input
-                    type="radio"
-                    class="custom-control-input"
-                    value="female"
-                    id="femaleId"
-                    v-model="form.gender"
-                  />
-                  <label class="custom-control-label" for="femaleId"
-                    >Female</label
-                  >
-                </div>
-              </div>
-              <div class="error" v-if="form.errors.has('gender')">
-                <lable class="danger text-danger">{{
-                  form.errors.get("gender")
-                }}</lable>
-              </div>
-            </div>
+      <!-- Second Web-->
+      <div class="col-lg-3 secondCol">
+        <div class="secondColWeb pr-5">
+          <div class="row border-top border-right p-4 secondRows" @click="selected = 'profileForm'" :style="selected == 'profileForm' ? 'background-color: rgb(216 214 214); border-right: none;' : ''">
+            Profile Detail
           </div>
-          <div class="col-sm-4">
-            <!-- Radio buttons -->
-            <div class="form-group">
-              <div>
-                <label>User profession</label>
-                <br />
-                <select class="form-control" v-model="form.user_profession">
-                  <option value="student">Student</option>
-                  <option value="teacher">Teacher/Principal/Dean</option>
-                  <option value="corporate">Corporate</option>
-                  <option value="other">Other</option>
-                </select>
-              </div>
-              <div class="error" v-if="form.errors.has('user_profession')">
-                <lable class="danger text-danger">{{
-                  form.errors.get("user_profession")
-                }}</lable>
-              </div>
-            </div>
+          <div class="row border-top border-right p-4 secondRows" @click="selected = 'loginDetailsForm'" :style="selected == 'loginDetailsForm' ? 'background-color: rgb(216 214 214); border-right: none;' : ''">
+            Login Detail
           </div>
-
-          <div class="col-sm-4" v-if="school_field">
-            <div class="form-group">
-              <label>School name</label>
-              <select class="form-control" v-model="form.school_id">
-                <option
-                  v-for="school in school_list"
-                  :value="school.id"
-                  :key="school.id"
-                >
-                  {{ school.school_name }}
-                </option>
-              </select>
-              <has-error :form="form" field="school_id"></has-error>
-            </div>
+          <div class="row border-top border-right p-4 secondRows" @click="selected = 'docsForm'" :style="selected == 'docsForm' ? 'background-color: rgb(216 214 214); border-right: none;' : ''">
+            Document Verfication
           </div>
-
-          <div class="col-sm-4" v-if="namefield">
-            <div class="form-group">
-              <label>{{ label_name }} Name</label>
-              <input
-                type="text"
-                class="form-control"
-                v-model="form.profession_name"
-              />
-            </div>
-          </div>
-
-          <div class="col-sm-4" v-if="addressfield">
-            <div class="form-group">
-              <label>Address</label>
-              <input
-                type="text"
-                class="form-control"
-                v-model="form.profession_address"
-              />
-            </div>
-          </div>
-
-          <div class="col-sm-4" v-if="form.institution_code">
-            <div class="form-group">
-              <label>Code</label>
-              <input
-                type="text"
-                class="form-control"
-                v-model="form.institution_code"
-              />
-            </div>
-          </div>
-
-          <div class="col-sm-4">
-            <div class="form-group">
-              <label for="name">Father's Name</label>
-              <input
-                type="text"
-                class="form-control"
-                v-model="form.father_name"
-                :class="{ 'is-invalid': form.errors.has('father_name') }"
-                placeholder="Enter Name"
-              />
-              <has-error :form="form" field="father_name"></has-error>
-            </div>
-          </div>
-
-          <div class="col-sm-4">
-            <div class="form-group">
-              <label for="name">Mother's Name</label>
-              <input
-                type="text"
-                class="form-control"
-                v-model="form.mother_name"
-                :class="{ 'is-invalid': form.errors.has('mother_name') }"
-                placeholder="Enter mother Name"
-              />
-              <has-error :form="form" field="mother_name"></has-error>
-            </div>
-          </div>
-
-          <div class="col-sm-4">
-            <div class="form-group">
-              <label for="email">Email ID</label>
-              <input
-                type="email"
-                class="form-control"
-                v-model="form.email"
-                :class="{ 'is-invalid': form.errors.has('email') }"
-                placeholder="Enter Email"
-              />
-              <has-error :form="form" field="email"></has-error>
-            </div>
-          </div>
-          <div class="col-sm-4">
-            <div class="form-group">
-              <label for="phone_no">Mobile Number</label>
-              <input
-                type="text"
-                class="form-control"
-                v-model="form.phone_no"
-                :class="{ 'is-invalid': form.errors.has('phone_no') }"
-                placeholder="Enter Phone No"
-              />
-              <has-error :form="form" field="phone_no"></has-error>
-            </div>
-          </div>
-
-          <div class="col-sm-4">
-            <div class="form-group">
-              <label for="phone_no">DOB</label>
-              <input
-                type="date"
-                class="form-control"
-                v-model="form.dob"
-                :class="{ 'is-invalid': form.errors.has('dob') }"
-                placeholder="Enter DOB"
-              />
-              <has-error :form="form" field="dob"></has-error>
-            </div>
-          </div>
-
-          <div class="col-sm-4">
-            <div class="form-group">
-              <label for="address">Address</label>
-              <input
-                type="text"
-                class="form-control"
-                v-model="form.address"
-                :class="{ 'is-invalid': form.errors.has('address') }"
-                placeholder="Enter Address"
-              />
-              <has-error :form="form" field="address"></has-error>
-            </div>
-          </div>
-          <div class="col-sm-4">
-            <div class="form-group">
-              <label for="phone_no">City</label>
-              <input
-                type="text"
-                class="form-control"
-                v-model="form.city"
-                :class="{ 'is-invalid': form.errors.has('city') }"
-                placeholder="Enter City"
-              />
-              <has-error :form="form" field="city"></has-error>
-            </div>
-          </div>
-
-          <div class="col-sm-4">
-            <div class="form-group">
-              <label for="phone_no">State</label>
-              <input
-                type="text"
-                class="form-control"
-                v-model="form.state"
-                :class="{ 'is-invalid': form.errors.has('state') }"
-                placeholder="Enter state"
-              />
-              <has-error :form="form" field="state"></has-error>
-            </div>
-          </div>
-
-          <div class="col-sm-4">
-            <div class="form-group">
-              <label for="country">Country</label>
-              <input
-                type="text"
-                class="form-control"
-                v-model="form.country"
-                :class="{ 'is-invalid': form.errors.has('country') }"
-                placeholder="Enter country"
-              />
-              <has-error :form="form" field="country"></has-error>
-            </div>
-          </div>
-          <div class="col-sm-4">
-            <div class="form-group">
-              <label for="phone_no">Zip Code</label>
-              <input
-                type="text"
-                class="form-control"
-                v-model="form.zip_code"
-                :class="{ 'is-invalid': form.errors.has('zip_code') }"
-                placeholder="Enter zip_code"
-              />
-              <has-error :form="form" field="zip_code"></has-error>
-            </div>
-          </div>
-
-          <div class="col-sm-4">
-            <div class="form-group pt-1">
-              <div class="form-check pt-3">
-                <input type="checkbox" class="form-check-input" id="subscribe" v-model="form.subscribe" :value="form.subscribe">
-                <label class="form-check-label pt-3" for="subscribe"> GBI Newsletter</label>
-              </div>
-              <has-error :form="form" field="subscribe"></has-error>
-            </div>
+          <div class="row border-top border-right border-bottom p-4" @click="selected = 'socialForm'" :style="selected == 'socialForm' ? 'background-color: rgb(216 214 214); border-right: none;' : ''">
+            Social Media
           </div>
         </div>
 
-        <div class="form-group text-center">
-          <button type="submit" class="btn btn-primary profile_button">
-            UPDATE
-          </button>
+        <!-- Second Mob -->
+        <div class="secondColMob" :style="{'display': leftDisplay}">
+          <div class="row border-top border-right p-4 secondRows" @click="selectForm('profileForm')" :style="selected == 'profileForm' ? 'background-color: rgb(216 214 214); border-right: none;' : ''">
+            Profile Detail
+          </div>
+          <div class="row border-top border-right p-4 secondRows" @click="selectForm('loginDetailsForm')" :style="selected == 'loginDetailsForm' ? 'background-color: rgb(216 214 214); border-right: none;' : ''">
+            Login Detail
+          </div>
+          <div class="row border-top border-right p-4 secondRows" @click="selectForm('docsForm')" :style="selected == 'docsForm' ? 'background-color: rgb(216 214 214); border-right: none;' : ''">
+            Document Verfication
+          </div>
+          <div class="row border-top border-right border-bottom p-4" @click="selectForm('socialForm')" :style="selected == 'socialForm' ? 'background-color: rgb(216 214 214); border-right: none;' : ''">
+            Social Media
+          </div>
         </div>
-      </form>
+      </div>
+
+
+      <!-- Third -->
+      <div class="col-lg-6 px-4 pt-4 thirdCol" :style="{ 'display': rightDisplay }">
+        <profile-form v-if="selected == 'profileForm'" @close="backPage"/>
+        <login-details-form v-if="selected == 'loginDetailsForm'" @close="backPage"/>
+        <docs-form v-if="selected == 'docsForm'" @close="backPage"/>
+        <social-form v-if="selected == 'socialForm'" @close="backPage"/>
+      </div>
+
     </div>
   </div>
 </template>
+
 <script>
 import ProfileEditMixin from '@/front/mixins/user/ProfileEditMixin';
+import ProfileForm from '@/front/components/form/ProfileForm';
+import LoginDetailsForm from '@/front/components/form/LoginDetailsForm';
+import UploadDocsForm from '@/front/components/form/UploadDocsForm';
+import SocialForm from '@/front/components/form/SocialForm'
+
 export default {
   name:"ProfileEdit",
   mixins:[ProfileEditMixin],
+  components: {
+        "profile-form": ProfileForm,
+        "login-details-form": LoginDetailsForm,
+        "docs-form": UploadDocsForm,
+        "social-form": SocialForm
+    },
   data(){
     return{
-
+      selected: 'profileForm',
+      windowHeight: window.innerHeight,
+      rightDisplay: '',
+      leftDisplay: ''
     }
-  }
+  },
+  watch: {
+        windowHeight(newHeight, oldHeight) {
+              this.rightDisplay = ''
+              this.leftDisplay = ''
+        }
+  },
+  beforeDestroy() { 
+      window.removeEventListener('resize', this.onResize); 
+  },
+  mounted() {
+      this.$nextTick(() => {
+          window.addEventListener('resize', this.onResize);
+      })
+  },
+  methods:{
+    onResize() {
+        this.windowHeight = window.innerHeight
+      },
+    selectForm(form){
+        this.selected = form
+        this.rightDisplay = 'inline';
+        this.leftDisplay = 'none';
+    },
+    backPage(){
+      this.rightDisplay = 'none';
+      this.leftDisplay = 'inline';
+    }
+  },
+}
+</script>
+
+<style scoped>
+.sideBarStg{
+  border-top: 1px solid grey; 
+  border-right: 1px solid grey;
+}
+.container {
+    width: 125%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+select{
+  border: 1px solid #ced4da !important;
+}
+secondRows{
+  cursor: pointer !important;
 }
 
-</script>
+.thirdCol {
+  padding-left: 30px !important;
+}
+
+.avatar-upload{
+  margin-left: 20% !important;
+}
+.secondColWeb{
+  display: inline;
+}
+
+.secondColMob{
+  display: none;
+}
+
+.customButton{
+  display: none;
+}
+
+@media only screen and (max-width: 824px) {
+  .container {
+    width: 100%;
+  }
+
+  .thirdCol {
+    padding-left: 0px;
+    display: none;
+  }
+  .secondColWeb{
+  display: none;
+  }
+  .secondColMob{
+    display: inline;
+  }
+  .avatar-upload{
+    margin-left: 0px !important;
+  }
+  .customButton{
+    display: inline;
+    float: right;
+  }
+}
+</style>

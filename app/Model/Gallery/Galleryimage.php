@@ -11,4 +11,13 @@ class Galleryimage extends Model
     public function gallery(){
         return $this->belongsTo('App\Model\Gallery\Gallery');
     }
+
+    public function getPathAttribute($image)
+    {
+        if($image){
+            return \Storage::disk('s3')->url(config('gbi.gallery_image').$image);
+        }else{
+            return '';
+        }
+    }
 }

@@ -5,9 +5,9 @@ const BankdetailView = () => import(/* webpackChunkName: "js/admin/BankdetailVie
 
 export default[
     // Bank detail
-    { path: '/schoolbankdetails', component: Bankdetail },
-    { path: '/schoolbankdetails/:id', component: BankdetailEdit },
-    { path: '/schoolbankdetails-view/:id', component: BankdetailView },
-    { path: '/schoolbankdetails-add', component: BankdetailAdd },
+    { meta: {permId: 75}, path: '/schoolbankdetails', component: Bankdetail },
+    { meta: {permId: 75}, path: '/schoolbankdetails/:id', component: BankdetailEdit },
+    { meta: {permId: 75}, path: '/schoolbankdetails-view/:id', component: BankdetailView },
+    { meta: {permId: 75}, path: '/schoolbankdetails-add', component: BankdetailAdd },
 
 ]

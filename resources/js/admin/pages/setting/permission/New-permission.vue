@@ -59,11 +59,12 @@ export default {
       this.form
         .post(path)
         .then((response) => {
+          this.form.reset();
           this.$toast.fire({
             icon: "success",
             title: "Successfully Updated !!!",
           });
-          this.$router.push(`/list-permission`);
+          // this.$router.push(`/list-permission`);
         })
         .catch((error) => {
           if (error.response.status === 422) {

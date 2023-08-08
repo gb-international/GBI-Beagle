@@ -92,6 +92,7 @@ export default {
       }
     },
     apiData(code) {
+      console.log(code);
       var api = "/api/flight-detail/" + code;
       fetch(api)
         .then((response) => response.text())

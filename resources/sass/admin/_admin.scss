@@ -20,6 +20,27 @@
 			}
 			
 	}
+	.formSection {
+        position: relative; 
+        z-index: 99
+     }
+	.LoaderDiv{
+		right: 50%;
+		top: 20%;
+	    margin: auto;
+	    position: absolute;
+	    z-index: 999;
+	}
+	.loadText{
+		padding-left: 32px; 
+		margin-top: 12px; 
+		font-weight: 500;
+	}
+	.loaderLogo{
+	    height: auto; 
+	    width: 15vh;
+	    z-index: 999;
+	  }
 
 	.radiolabel{margin-left: 0px;}
 	.price_align{
@@ -460,10 +481,10 @@
 
 }
 // Active Link in admin navigation
-.router-link-active{background-color: $admin-sidebar;color: white !important;}
+.router-link-active{background-color: #333059fa !important; color: white !important;}
 // Top navigation bar with searchbar
 #sidebarnavigation{
-	background-color: $admin-top;height: 100px;
+	background-color: rgb(255, 255, 255); border-bottom: 1px solid #e3e3e3; height: 100px;
 	.admin_top_right_icon{
 		.user_icon{
 			font-size: 20px;
@@ -526,7 +547,7 @@
 		min-height: 87px;
         margin: 16px 42px;
 	}
-	background-color: $admin-bg;
+	background-color: white;
 	.nav-sidebar{
 		.nav-link{
 			padding: 10px;
@@ -562,25 +583,26 @@ Admin Login page
 *
 */
 #admin_login{
-	background-color: $admin-bg;
+	background-color: white;
     height: 657px;
 	font-family: $fontfamily;
 	
-    color: $admin-login-form;
+    color: #333059;
     #admin_login_form{
     	padding: 40px;
 		input[type='email'],input[type='password']{
-			background-color: $admin-bg !important;
+			background-color: white !important;
 		    border-left:0px;
 		    border-top:0px;
 		    border-right:0px;
 		    border-radius:0px;
 		    height: 47px;
-		    border-bottom: 2px solid $admin-login-form;
-		    color: white;
+		    border-bottom: 2px solid #333059;
+		    color: #333059;
 			font-size: 19px;
 			outline: 0px;
 			box-shadow: none;
+			font-weight: 600;
 
 		}
 		img{
@@ -591,16 +613,15 @@ Admin Login page
 		    height: 44px;
 		    border-radius: 0px;
 		    margin-top: 32px;
-		    border: 2px solid $admin-login-form;
+		    border: 2px solid #333059;
 		    background-color: transparent;
 		    font-size: 19px;
 		    &:hover{
-		    	background-color: $admin-login-form;
-		    	color: $admin-bg;
+		    	background-color: #333059;
+		    	color: white;
 		    	font-weight: 600;
 		    }
 		}
-		a{color: $admin-login-form}
+		a{color: #333059}
 	}
 }
-

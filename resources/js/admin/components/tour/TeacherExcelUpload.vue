@@ -10,7 +10,7 @@
             type="button"
             class="btn btn-dark border-0"
             :disabled="checkbox_state == 0"
-            @click="sendLoginDetails()"
+            @click="sendLoginCreds()"
           >
             Send Login Credentails
           </button>
@@ -83,13 +83,14 @@
                 <input
                   class="form-check-input checkbox-select-all"
                   type="checkbox"
+                  id="teacherCheck"
                   v-model="selectAll"
                   title="Select All"
-                />All
+                /><label class="form-check-label font-12" for="teacherCheck"></label>
               </div>
               <div v-else>#</div>
             </th>
-            <th>Sr.No</th>
+            <th class="w-80">Sr no</th>
             <th>First Name</th>
             <th>Last Name</th>
             <th class="width-260">Email</th>
@@ -99,14 +100,14 @@
             <th class="w-192">Contact No.</th>
           </thead>
           <tbody>
-            <tr v-for="(data,index) in resultQuery" :key="data.email" class="hidden">
+            <tr v-for="(data,index) in resultQuery" :key="data.id" class="hidden">
             <td class="text-center">
               <div class="form-check">
                 <input class="form-check-input" type="checkbox" :value="data" :id="data.id" @change="checkedBox()" v-model="selected">
               </div>
             </td>
-            <td class="text-center">
-              {{ index + 1}}
+            <td class="text-center padding-top-10">
+              {{data.srNo}}
             </td>
             <td>
               <input
@@ -126,19 +127,17 @@
             </td>
             <td>
               <input
-                type="text"
+                type="email"
                 class="form-control"
                 v-model="data.email"
                 :readonly="index != edit_index"
               />
             </td>
             <td>
-              <input
-                type="text"
-                class="form-control"
-                v-model="data.gender"
-                :readonly="index != edit_index"
-              />
+             <select class="form-control" :disabled="index != edit_index" v-model="data.gender">
+                <option value="M">Male</option>
+                <option value="F">Female</option>
+             </select>
             </td>
             <td>
               <input
@@ -148,29 +147,17 @@
                 :readonly="index != edit_index"
               />
             </td>
-            <td class="pl-1 pr-1">
-              <div class="form-check">
-                <input
-                  :disabled="index != edit_index"
-                  class="form-check-input"
-                  type="checkbox"
-                  :value="data.is_paid"
-                  :id="data.email"
-                  v-model="data.is_paid"
-                />
-                <label
-                  class="form-check-label margin-top-11"
-                  :for="`${data.email}`"
-                >
-                  Paid
-                </label>
-              </div>
+            <td>
+              <select class="form-control" v-model="data.is_paid" :disabled="index != edit_index">
+                <option value="true">Paid</option>
+                <option value="false">Free</option>
+              </select>
             </td>
             <td>
               <div class="row">
                 <div class="col-8">
                   <input
-                    type="text"
+                    type="number"
                     class="form-control"
                     v-model="data.mobile"
                     :readonly="index != edit_index"
@@ -181,19 +168,19 @@
                     <img
                       v-if="index != edit_index"
                       class="edit mr-1"
-                      :src="`/assets/front/icons/edit.png`"
+                      :src="$gbiAssets+'/assets/front/icons/edit.png'"
                       @click="edit_row(index)"
                     />
                     <img
                       v-else
                       class="edit mr-1"
-                      :src="`/assets/front/icons/update.png`"
-                      @click="update_row(index)"
+                      :src="$gbiAssets+'/assets/front/icons/update.png'"
+                      @click="checkAndUpdateRow(data, index)"
                     />
                     <img
                       class="delete"
-                      :src="`/assets/front/icons/delete.png`"
-                      @click="delete_row(index, data.id)"
+                      :src="$gbiAssets+'/assets/front/icons/delete.png'"
+                      @click="delete_row(index, data.id);"
                     />
                   </div>
                 </div>
@@ -203,7 +190,7 @@
 
             <tr v-for="(data, index) in new_row" :key="index">
               <td></td>
-              <td class="text-center">{{ index + 1 }}</td>
+              <td class="text-center">{{data.srNo}}</td>
               <td>
                 <input
                   type="text"
@@ -219,41 +206,33 @@
                 />
               </td>
               <td>
-                <input type="text" class="form-control" v-model="data.email" />
+                <input type="email" class="form-control" v-model="data.email" />
               </td>
               <td>
-                <input type="text" class="form-control" v-model="data.gender" />
+                <select class="form-control" v-model="data.gender">
+                  <option value="M">Male</option>
+                  <option value="F">Female</option>
+                </select>
               </td>
               <td>
-                <input type="text" class="form-control" v-model="data.age" />
+                <input type="number" class="form-control" v-model="data.age" />
               </td>
-              <td class="pl-1 pr-1">
-                <div class="form-check">
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    :value="data.is_paid"
-                    :id="data.email"
-                    v-model="data.is_paid"
-                  />
-                  <label
-                    class="form-check-label margin-top-11"
-                    :for="`${data.email}`"
-                  >
-                    Paid
-                  </label>
-                </div>
+              <td>
+                <select class="form-control" v-model="data.is_paid">
+                  <option value="1">Paid</option>
+                  <option value="0">Free</option>
+                </select>
               </td>
               <td>
                 <div class="row">
                   <div class="col-sm-8">
-                    <input type="text" class="form-control" v-model="data.mobile" />
+                    <input type="number" class="form-control" v-model="data.mobile" />
                   </div>
                   <div class="col-sm-4 text-right pt-2">
                     <img
                       class="delete w-16"
-                      :src="`/assets/front/icons/delete.png`"
-                      @click="delete_new_row(index)"
+                      :src="$gbiAssets+'/assets/front/icons/delete.png'"
+                      @click="delete_new_row(index); lastSr-=1"
                     />
                   </div>
                 </div>
@@ -264,73 +243,58 @@
         </table>
 
         <p class="text-danger font-weight-bold" v-if="this.error==true">{{ message }}</p>
+      </div>
 
-        <!-- Buttons -->
-        <div
-          class="row reservation_bottom w-100 mt-5 mb-5 justify-content-center text-center"
-        >
-          <div class="col-sm-4 pt-1">
-            <button
-              type="button"
-              class="btn btn-default itrn_add_btn"
-              @click="demoFromHTML()"
-            >
-              DOWNLOAD PDF
-            </button>
-          </div>
+      <div class="row reservation_bottom w-100 mt-5 mb-5 justify-content-center text-center">
+        <div class="col-sm-5 m-0 p-0">
+          <button
+            type="button"
+            class="btn btn-default itrn_add_btn"
+            @click="generatePdf"
+          >DOWNLOAD PDF</button>
+        </div>
 
-          <div class="col-sm-5 pt-1">
-            <button
-              type="button"
-              class="btn btn-default itrn_add_btn"
-              @click="UserGroupSave()"
-              :disabled="new_row_add == false"
-            >
-              UPDATE
-            </button>
-          </div>
-          <div class="col-sm-3 add-row-input-button p-0 m-0 text-left">
-            <div class="row p-0 m-0">
-              <div class="col-sm-5 p-0 m-0">
-                <small>Add Row</small>
-                <input
-                  type="number"
-                  class="form-control"
-                  placeholder="Add Row.."
-                  v-model="row_input"
-                />
-              </div>
-              <div class="col-sm-5 pt-24">
-                <button
-                  class="btn btn-info text-white"
-                  type="button"
-                  @click="add_row()"
-                >
-                  Go
-                </button>
-              </div>
-              <div class="col-sm-2"></div>
+        <div class="col-sm-5 m-0 p-0">
+          <button
+            type="button"
+            class="btn btn-default itrn_add_btn"
+            @click="checkAndSave()"
+            :disabled="new_row_add == false"
+          >UPDATE</button>
+        </div>
+
+        <div class="col-sm-2 add-row-input-button text-left mt-29">
+          <div class="input-group mb-3">
+            <input
+            type="number"
+            class="form-control"
+            placeholder="Add Row.."
+            v-model="row_input"
+          />
+            <div class="input-group-append">
+              <button class="btn btn-info text-white pl-2" type="button" @click="add_row()">Go</button>
             </div>
-          </div>
+          </div>          
         </div>
       </div>
+      
     </div>
   </div>
 </template>
 
 <script>
 import { Form, HasError, AlertError } from "vform";
-import jsPDF from "jspdf";
 import XLSX from "xlsx";
 import GroupExcelUpload from "@/admin/mixins/GroupExcelUpload";
 export default {
-  name: "AddGroup",
+  name: "AddGroupTeacherExcelUpload",
   mixins: [GroupExcelUpload],
   components: {
     "has-error": HasError,
   },
   data() {
     return {
+      lastSr: 0,
       excel_form: new Form({
         excel_file: "",
       }),
@@ -338,11 +302,91 @@ export default {
   },
   mounted() {
     this.groupMember();
-    console.log(this.selectAll);
+    //console.log(this.selectAll);
   },
   methods: {
+
+    sendLoginCreds(){
+      //console.log(this.selected);
+      for (var i = 0; i < this.selected.length; i++) {
+            axios
+            .post("/api/groupmembers/send-member-login", this.selected[i], {
+            })
+            .then(response => {
+              if (response.data == "error") {
+                this.$swal.fire({
+                  icon: 'warning',
+                  title: "Error",
+                  text: "Error Occured, Please Try Again.",
+                });
+              }
+            })
+            .catch(error => {
+            });
+        }
+        this.$swal.fire(
+          "Success",
+          "Login Details Sent",
+          "success"
+        );
+    },
+
+     checkAndUpdateRow(data, index){
+
+      if(this.checkFields(data) == false){
+          return false;
+      }
+      this.update_row(index)
+    },
+
+    checkAndSave(){
+      for (var i = 0; i < this.new_row.length; i++) {
+          if(this.checkFields(this.new_row[i]) == false){
+            return false;
+          }
+        }
+        this.UserGroupSave();
+    },
+
+    checkFields(data){
+        //console.log(data)
+        if(!data.mobile || !data.email || !data.first_name || !data.last_name || !data.gender || !data.age || !data.is_paid){
+
+          this.$toast.fire({
+                  icon: "error",
+                  title: "Please fillup all the fields.",
+                });
+          return false;
+        }
+        else if(String(data.mobile).length !== 10){
+          this.$toast.fire({
+                  icon: "error",
+                  title: "Please provide a valid phone number.",
+                });
+          return false;
+        }
+        else if(this.checkEmail(data.email) == false){
+            this.$toast.fire({
+                icon: "error",
+                title: "Please provide a valid email address.",
+              });
+          return false;
+        }
+    },
+
+    checkEmail(emailID){
+      if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(emailID))
+      {
+        return (true)
+      }
+      return (false)
+    },
+
+
+
     add_row() {
       for (var i = 0; i < this.row_input; i++) {
+        this.lastSr +=1;
         this.new_row.push({
           first_name: "",
           last_name: "",
@@ -350,6 +394,7 @@ export default {
           gender: "",
           age: "",
           mobile: "",
+          srNo: this.lastSr,
           tour_id: this.$route.params.id,
           school_id: this.$route.params.school_id,
           user_type: "teacher",
@@ -362,36 +407,15 @@ export default {
       axios
         .get(`/api/groupmembers/${this.$route.params.id}/teacher`)
         .then((res) => {
-          if (res.data) {
+            if (res.data) {
+              for(let i = 0;i<res.data.length;i++){
+                res.data[i].srNo = i+1;
+                this.lastSr += 1;
+            }
             this.total_row = res.data;
           }
         });
     },
-    demoFromHTML() {
-      var doc = new jsPDF();
-      doc.setFont("courier");
-      doc.setFontStyle("normal");
-      doc.setFontSize(10);
-      var string = "";
-      for (var i = 0; i <= this.total_row.length - 1; i++) {
-        let current = this.total_row[i];
-        string +=
-          "first_name : " +
-          current.first_name +
-          " , last_name : " +
-          current.last_name +
-          " , Gender :" +
-          current.gender +
-          " , Age : " +
-          current.age +
-          " , Contact : " +
-          current.mobile +
-          "\n";
-      }
-      doc.text(string, 10, 10);
-      doc.save("sample.pdf");
-    },
-
     changeExcelFile(event) {
       var vm = this;
       let file = event.target.files[0];
@@ -441,3 +465,36 @@ export default {
   },
 };
 </script>
+<style scoped>
+select {
+  width: 100%;
+  height: 50px;
+  font-size: 90%;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 0;
+  border: none;
+  padding: 10px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding: 10px;
+  background: white !important;
+}
+/* For IE <= 11 */
+select::-ms-expand {
+  display: none; 
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+</style>

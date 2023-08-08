@@ -14,16 +14,11 @@ data from the api to display the data about the Hotel from the backend .
           <div class="col-sm-4">
             <div class="form-group">
               <label for="name">Hotel Name</label>
-              <select class="form-control select-field" v-model="form.hotel_id">
-                <option value="" disabled hidden>Select Hotel</option>
-                <option
-                  v-for="hotel in hotel_list"
-                  :value="hotel.id"
-                  :key="hotel.id"
-                >
-                  {{ hotel.name }}
-                </option>
-              </select>
+
+              <dropdown-filter class="mb-2" 
+                :itemList="hotel_list" 
+                @update:option="UpdatedItem" />
+                
               <has-error :form="form" field="name"></has-error>
             </div>
           </div>
@@ -80,18 +75,20 @@ data from the api to display the data about the Hotel from the backend .
 import { Form, HasError } from "vform";
 import FormButtons from "@/admin/components/buttons/FormButtons.vue";
 import FormLayout from "@/admin/components/layout/FormLayout.vue";
+import DropdownFilter from "@/admin/components/form/DropdownFilter.vue";
 export default {
-  name: "List",
+  name: "ListNewHOtels",
   components: {
     Form,
     "has-error": HasError,
     "form-buttons": FormButtons,
     "form-layout": FormLayout,
+    "dropdown-filter": DropdownFilter,
   },
   data() {
     return {
       row_input: "",
-      hotel_list: "",
+      hotel_list: [],
       tour: "",
       form: new Form({
         tour_id: "",
@@ -113,9 +110,18 @@ export default {
     hotelData() {
       axios.get(`/api/hotel`).then((res) => {
         if (res) {
-          this.hotel_list = res.data;
+          for(let i = 0;i<res.data.length;i++){
+            this.hotel_list.push({
+              name:res.data[i].name,
+              id:res.data[i].id
+            });
+          }
         }
       });
+    },
+    
+    UpdatedItem(value){
+      this.form.hotel_id = value.id;
     },
     tourData() {
       axios.get(`/api/tour/${this.$route.params.id}/edit`).then((response) => {

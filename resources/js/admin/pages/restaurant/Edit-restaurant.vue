@@ -12,15 +12,15 @@ to submit the data we are using a function.
         enctype="multipart/form-data"
         @submit.prevent="UpdateRestaurant()"
       >
-        <div class="row">
+        <div class="row" v-if="form.city_id">
           <div class="col-sm-4">
             <div class="form-group">
               <label for="city_id">Select City</label>
-              <model-select
-                :options="options"
-                v-model="form.city_id"
-                placeholder="From"
-              ></model-select>
+
+              <dropdown-list class="mb-2" 
+                :itemList="options" 
+                v-model.trim="form.city_id"
+              />
               <has-error :form="form" field="city_id"></has-error>
             </div>
           </div>
@@ -55,9 +55,9 @@ to submit the data we are using a function.
 
           <div class="col-sm-4">
             <div class="form-group">
-              <label for="contact_number">Contact number</label>
+              <label for="contact_number">Contact Number</label>
               <input
-                type="text"
+                type="number"
                 class="form-control"
                 v-model="form.contact_number"
                 :class="{ 'is-invalid': form.errors.has('contact_number') }"
@@ -87,18 +87,20 @@ to submit the data we are using a function.
 </template>
 
 <script>
-import { Form, HasError, AlertError } from "vform";
+import { Form, HasError } from "vform";
 import { ModelSelect } from "vue-search-select";
 import FormButtons from "@/admin/components/buttons/FormButtons.vue";
 import FormLayout from "@/admin/components/layout/FormLayout.vue";
+import DropdownList from "@/admin/components/form/DropdownList.vue";
 export default {
-  name: "New",
+  name: "NewRestaurant",
   components: {
     Form,
     "has-error": HasError,
     ModelSelect,
     "form-buttons": FormButtons,
     "form-layout": FormLayout,
+    "dropdown-list": DropdownList
   },
   data() {
     return {
@@ -122,18 +124,17 @@ export default {
         .get(`/api/restaurants/${this.$route.params.id}/edit`)
         .then((response) => {
           this.form.fill(response.data);
+          this.cityList();
         });
     },
     cityList() {
-      axios.get("/api/city").then((response) => {
-        for (var i = 0; i < response.data.data.length; i++) {
-          this.options.push({
-            value: response.data.data[i].id,
-            text: response.data.data[i].name,
-          });
+      axios.get(`/api/city`).then((res) => {
+        if (res) {
+          this.options = res.data.data;          
         }
       });
     },
+
     UpdateRestaurant() {
       this.form
         .put(`/api/restaurants/${this.$route.params.id}`)

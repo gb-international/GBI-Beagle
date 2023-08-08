@@ -51,7 +51,11 @@ class BookedflightController extends Controller
             'arrival' => 'required' 
         ]);
 
-        $check = Bookedflight::where(['tour_code' => $request->tour_code, 'flight_id' => $request->flight_id])->get();
+        $check = Bookedflight::where([
+            'tour_code' => $request->tour_code,
+            'flight_id' => $request->flight_id,
+            'flight_number' => $request->flight_number
+        ])->get();
         if(count($check->all()) > 0){
             return '1';
         }else{

@@ -74,7 +74,7 @@ import TableLoader from '@/admin/components/TableLoader.vue';
 import { mapState } from 'vuex';
 
 export default {
-  name: "List",
+  name: "ListUsers",
   components:{
     'list-layout':listLayout,
     'table-loader':TableLoader,
@@ -86,10 +86,10 @@ export default {
   data() {
     return {
       fields: [
-        {key:'name',label:'NAME',sortable:true,thClass: 'table-head'},
-        {key:'email',label:'EMAIL',sortable:true,thClass: 'table-head'},
-        {key:'updated_at',label:'LAST UPDATE',sortable:true,thClass: 'table-head'},
-        {key:'action',label:'ACTION',thClass: 'table-head'}
+        {key:'name',label:'name',sortable:true,thClass: 'table-head'},
+        {key:'email',label:'email',sortable:true,thClass: 'table-head'},
+        {key:'updated_at',label:'last update',sortable:true,thClass: 'table-head'},
+        {key:'action',label:'action',thClass: 'table-head'}
       ],
       limit:2,
       filter:'',

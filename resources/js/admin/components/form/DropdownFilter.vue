@@ -43,19 +43,22 @@
 </template>
 
 <script>
-import axios from "axios";
-import clickOutside from "@/admin/directive/click-away.js";
+import "@/admin/directive/click-away.js";
 
 export default {
+  name:"DropDownFilter",
   props: {
     itemList:{
       type:Array,
       required:true
     },
     selectedId:undefined,
+    value:{
+
+    },
     placeholder:{
       type:String,
-      default:'Enter an item name to search'
+      default:'Type to search'
     }
   },
   data() {
@@ -87,15 +90,19 @@ export default {
       } else if (event.keyCode == 40 && this.arrowCounter  < this.itemList.length-1) {
         this.arrowCounter ++;
          this.fixScrolling();
+      }else{
+  
       }
     },
     fixScrolling(){
+      if(this.showlist){
         if(this.$refs.options[this.arrowCounter]){
           var liH = this.$refs.options[this.arrowCounter].clientHeight;
         }
         if(this.$refs.scrollContainer){
           this.$refs.scrollContainer.scrollTop = liH * this.arrowCounter;
         }
+      }
     },
     getSelected(){
       if(this.itemList != undefined && this.edit_flag == false){
@@ -115,9 +122,10 @@ export default {
       this.$emit("update:option", this.selectedItem);
     },
     closeEvent: function () {
-      // console.log("close event called");
-      this.showlist = false;
-      this.arrowCounter  = 0;
+      if(this.showlist){
+        this.showlist = false;
+        this.arrowCounter  = 0;
+      }
     },
     resetSelection() {
       this.selectedItem = {};

@@ -1,5 +1,5 @@
 <?php
-
+namespace Database\Factories;
 use Faker\Generator as Faker;
 
 $factory->define(App\Escort::class, function (Faker $faker) {

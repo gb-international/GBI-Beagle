@@ -12,8 +12,14 @@ class FrontbookingController extends Controller
 
     public function all($size)
     {
-        return response()->json(Frontbooking::latest('updated_at')
-            ->paginate($size));
+        $bookings = Frontbooking::latest('updated_at')->paginate($size);
+        foreach ($bookings as $booking) {
+            $booking->type = 'Individual';
+            if($booking->person >= 10){
+                $booking->type = 'Group';
+            }
+        }
+        return response()->json($bookings);
     }
 
     public function show($id){

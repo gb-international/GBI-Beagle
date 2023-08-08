@@ -3,7 +3,7 @@
       Author:@Ajay
   ****************************************************-->
   <div class="container bg-white">
-    <div class="AddGroup p-t-15">
+    <div class="AddGroup p-t-15 pb-5">
       <div class="row text-center text-muted pt-2">
         <div class="col p-0 m-0">
           <span class="mb-0 pointer" @click="navigateTab(0)">Student</span>
@@ -28,7 +28,7 @@
 import StudentLayout from '@/admin/components/tour/StudentExcelUpload';
 import TeacherLayout from '@/admin/components/tour/TeacherExcelUpload';
 export default {
-  name: "AddGroup",
+  name: "AddGroupMembers",
   components:{
     'student-layout':StudentLayout,
     'teacher-layout':TeacherLayout,

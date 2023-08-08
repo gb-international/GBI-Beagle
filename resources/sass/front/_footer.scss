@@ -3,9 +3,12 @@
         background-image: url('/images/icons/footer-image.jpg');
         background-size: cover;
         background-repeat: no-repeat;
-        height: 275px;
+        height: 395px;
         padding:0px;
         background-size: 100% 100%;
+        .white-important{
+            color: white !important;
+        }
         .footer-icons-section{
             .icons{
                 width: 68%;
@@ -32,11 +35,15 @@
             padding: 2px 0px;
     }
 }
+
+.text-bold {
+    font-weight: 600!important;
+}
 .subscribe-form{
     input{
         border-radius: 43px !important;
         padding-left: 16px;
-        height: 50px;
+        height: 45px;
     }
     button{
         color: white;
@@ -45,6 +52,7 @@
         border-radius: 20px;
         &:hover{
             color: #e9f8ff;
+            background-color: #f77736;
         }
     }
 }
@@ -77,6 +85,13 @@
         margin-right: 7px;
     }
 }
+.m-bottom{
+    background-image: url('/images/icons/footer-image.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding:0px;
+    background-size: 100% 100%;
+}
 @media only screen and (max-width:1200px) and (min-width: 1001px) {
     #footer{
         .footer-icons-section{
@@ -89,7 +104,7 @@
 @media (max-width: 767px) {
     .mobile-subscription{
         display: block;
-        margin-bottom: 90px;
+        margin-bottom: 81px;
     }
 }
 @media (min-width: 768px) {

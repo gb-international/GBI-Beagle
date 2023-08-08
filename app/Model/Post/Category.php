@@ -4,6 +4,7 @@ namespace App\Model\Post;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use App\Traits\ImageTrait;
 
 class Category extends Model
 {
@@ -14,10 +15,18 @@ class Category extends Model
         return $this->belongsToMany('App\Model\Post\Post');
     }
 
+    public function getImageAttribute($image)
+    {
+        if($image){
+            return \Storage::disk('s3')->url(config('gbi.category_image').$image);
+        }else{
+            return '';
+        }
+    }
+
     public function setTitleAttribute($value)
     {
         $this->attributes['title'] = $value;
         $this->attributes['slug'] = Str::slug($value,'-');
-        
     }
 }

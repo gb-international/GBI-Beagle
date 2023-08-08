@@ -39,17 +39,17 @@ data from the api to display the data about the encyclopedia from the backend .
         :items="items.data"
         :busy="$store.getters.isBusy"
         :filter="filter"
-        primary-key="updated_at"
+        primary-key="id"
       >
         <template #table-busy>
           <table-loader />
         </template>
         <template #cell(thumbnail)="data">
-          <img :src="getImgUrl(data.item.thumbnail)" class="w-60" />
+          <img :src="data.item.thumbnail" class="w-60" />
         </template>
         
         <template #cell(banner_image)="data">
-          <img :src="getImgUrl(data.item.banner_image)" class="w-60" />
+          <img :src="data.item.banner_image" class="w-60" />
         </template>
 
         <template #cell(action)="data">
@@ -83,7 +83,7 @@ import TableLoader from '@/admin/components/TableLoader.vue';
 import { mapState } from 'vuex';
 
 export default {
-  name: "List",
+  name: "ListEncyclopedia",
   components:{
     'list-layout':listLayout,
     'table-loader':TableLoader,
@@ -95,11 +95,11 @@ export default {
   data() {
     return {
       fields: [
-        {key:'state_name',label:'TITLE',sortable:true,thClass: 'table-head'},
-        {key:'thumbnail',label:'THUMBNAIL',sortable:true,thClass: 'table-head'},
-        {key:'banner_image',label:'BANNER',sortable:true,thClass: 'table-head'},
-        {key:'updated_at',label:'LAST UPDATE',sortable:true,thClass: 'table-head'},
-        {key:'action',label:'ACTION',thClass: 'table-head'}
+        {key:'state_name',label:'title',sortable:true,thClass: 'table-head'},
+        {key:'thumbnail',label:'thumbnail',sortable:true,thClass: 'table-head'},
+        {key:'banner_image',label:'banner',sortable:true,thClass: 'table-head'},
+        {key:'updated_at',label:'last update',sortable:true,thClass: 'table-head'},
+        {key:'action',label:'action',thClass: 'table-head'}
       ],
       filter:'',
       perPage:7,
@@ -125,10 +125,7 @@ export default {
     deleteItem(id,index=-1) {
       let payload = {'api':"/encyclopedias/"+id,index,'index':index};
       this.$store.dispatch('deleteItem',payload);
-    },
-    getImgUrl(img) {
-      return "/encyclopedia/" + img;
-    },
+    }
   },
 };
 </script>

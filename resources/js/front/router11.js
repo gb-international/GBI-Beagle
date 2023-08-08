@@ -15,6 +15,8 @@ import States from '@/front/pages/Encyclopedia/States.vue'
 import StateView from '@/front/pages/Encyclopedia/State-view.vue'
 import ContactUs from '@/front/pages/ContactUs/ContactUs.vue'
 import OurStory from '@/front/pages/AboutUs/OurStory.vue'
+import FeedbackForm from '@/front/pages/Feedback/feedbackform.vue'
+import FeedbackForm2 from '@/front/pages/Feedback/feedbackform.vue'
 import HowWework from '@/front/pages/AboutUs/HowWework.vue'
 import JoinOurTeam from '@/front/pages/AboutUs/JoinOurTeam.vue'
 import ImageGallery from '@/front/pages/AboutUs/ImageGallery.vue'
@@ -61,6 +63,8 @@ export function createRouter() {
         { path: '/about-us/how-we-work', component: HowWework },
         { path: '/about-us/join-our-team', component: JoinOurTeam },
         { path: '/about-us/image-gallery', component: ImageGallery },
+        { path: '/feedback-link/:tourID', component: FeedbackForm },
+        { path: '/feedback-form/:tourID', component: FeedbackForm2 },
         { path: '/image-gallery/domestic', component: Domestic,name: 'domestic' },
         { path: '/image-gallery/international', component: International, name: 'international' },
         { path: '/image-gallery/images/:slug', component: ImageList,name: 'images' },

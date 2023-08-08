@@ -149,7 +149,8 @@ export function createStore() {
             },
             ITEMS(state,payload){
                 state.items = payload;
-                state.isBusy = !state.isBusy
+                state.isBusy = !state.isBusy;
+                console.log(state.items.data[0])
             },            
             POSTGETITEMS(state,payload){
                 state.post_get_items = payload;

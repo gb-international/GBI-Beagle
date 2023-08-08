@@ -6,7 +6,7 @@
         enctype="multipart/form-data"
         @submit.prevent="updateEscort()"
       >
-        <div class="row">
+        <div class="row" v-if="form.name">
           <div class="col-sm-4">
             <div class="form-group">
               <label for="name">Name</label>
@@ -25,20 +25,12 @@
           <div class="col-sm-4">
             <div class="form-group">
               <label for="bank_name">Bank Name</label>
-              <select
-                class="form-control select-field"
-                v-model="form.bank_name"
-                :class="{ 'is-invalid': form.errors.has('bank_name') }"
-              >
-              <option value="" disabled hidden>Select Bank</option>
-                <option
-                  v-for="bank in banknames"
-                  :value="bank.name"
-                  :key="bank.id"
-                >
-                  {{ bank.name }}
-                </option>
-              </select>
+              
+               <dropdown-list class="mb-2"
+                :itemList="banknames" 
+                v-model="form.bank_name" 
+              />
+
               <has-error :form="form" field="bank_name"></has-error>
             </div>
           </div>
@@ -61,16 +53,13 @@
           <div class="col-sm-4">
             <div class="form-group">
               <label for="account_type">Account Type</label>
-              <select
-                class="form-control select-field"
+              
+              <dropdown-list 
+                class="mb-2" 
+                :itemList="account_type" 
                 v-model="form.account_type"
-                :class="{ 'is-invalid': form.errors.has('account_type') }"
-              >
-              <option value="" disabled hidden>Select Account Type</option>
-                <option v-for="type in account_type" :value="type" :key="type">
-                  {{ type }}
-                </option>
-              </select>
+              />
+
               <has-error :form="form" field="account_type"></has-error>
             </div>
           </div>
@@ -113,24 +102,27 @@ import { Form, HasError } from "vform";
 import BackButton from "@/admin/components/buttons/BackButton.vue";
 import SubmitButton from "@/admin/components/buttons/SubmitButton.vue";
 import FormLayout from "@/admin/components/layout/FormLayout.vue";
+import DropdownList from "@/admin/components/form/DropdownList.vue";
 export default {
-  name: "Edit",
+  name: "EditBankDetail",
   components: {
     Form,
     "has-error": HasError,
     "back-button": BackButton,
     "submit-button": SubmitButton,
     "form-layout": FormLayout,
+    "dropdown-list": DropdownList,
   },
   data() {
     return {
       banknames: [],
-      account_type: [
-        "Current Account",
-        "Saving Account",
-        "Recurring Deposit Account",
-        "Fixed Deposit Account",
+      account_type : [
+        {name:'Current Account',id:'Current Account'},
+        {name:'Saving Account',id:'Saving Account'},
+        {name:'Recurring Deposit Account',id:'Recurring Deposit Account'},
+        {name:'Fixed Deposit Account',id:'Fixed Deposit Account'},
       ],
+
       form: new Form({
         name: "",
         bank_name: "",
@@ -146,8 +138,15 @@ export default {
   },
   methods: {
     bankNameList() {
-      axios.get("/api/banknames").then((response) => {
-        this.banknames = response.data;
+      axios.get("/api/banknames").then((res) => {
+        if (res.data) {
+          for (let i = 0; i < res.data.length; i++) {
+            this.banknames.push({
+              name: res.data[i].name,
+              id: res.data[i].name,
+            });
+          }
+        }
       });
     },
     bankDetailData() {
@@ -169,6 +168,8 @@ export default {
         })
         .catch(() => {});
     },
+    UpdateBank(v){ this.form.bank_name = v.name },    
+    updateAccountType(v){ this.form.account_type = v.name },
   },
 };
 </script>

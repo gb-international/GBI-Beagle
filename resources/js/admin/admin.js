@@ -12,12 +12,22 @@ import  './filter'
 import swal from 'sweetalert2'
 import { Form, HasError, AlertError } from 'vform'
 import DisableAutocomplete from 'vue-disable-autocomplete';
-import { BootstrapVue,TablePlugin } from 'bootstrap-vue'
-
+import { BootstrapVue,TablePlugin } from 'bootstrap-vue';
+import vuecookies from 'vue-cookies';
+//import  'firebase'
 
 Vue.use(VueSession);
 Vue.mixin(Permissions);
+Vue.use(vuecookies);
 Vue.config.productionTip = false;
+
+//Dsiabled Console messages
+Vue.config.devtools = false;
+Vue.config.debug = false;
+Vue.config.silent = true;
+console.log = function() {};
+// End
+
 Vue.use(responsive)
 Vue.use(Vuex)
 window.$ = window.jQuery = require('jquery');
@@ -43,9 +53,8 @@ const options = {
 }
 Vue.use(VueHtmlToPaper, options);
 const store = new createStore();
-
-
 Vue.component('admin-main', require('@/admin/pages/AdminMaster.vue').default);
+Vue.component('admin-nav-top', require('@/admin/pages/AdminNavTop.vue').default);
 Vue.component(HasError.name, HasError)
 Vue.component(AlertError.name, AlertError)
 Vue.prototype.$Form = Form;
@@ -57,14 +66,33 @@ const toast = swal.mixin({
     showConfirmButton: false,
     timer: 3000
 });
-Vue.prototype.$toast = toast
+Vue.prototype.$toast = toast;
+Vue.prototype.$gbiAssets = 'https://gbi-assets.s3.ap-south-1.amazonaws.com';
+Vue.prototype.$hostName = 'https://gowithgbi.com:3000'
+//Vue.prototype.$hostName = 'localhost:3000'
+
 const router = new VueRouter({
     // mode : 'history',
+    base:'/admin',
     routes, // short for `routes: routes`
-    mode: 'hash',
+    mode: 'history',
     scrollBehavior() { return { x: 0, y: 0 }; },
-})
+});
 
+// Check if user Has Route perms
+router.beforeEach((to, from, next) => {
+    const routePerms = window.viewPerms;
+    const hasRoutePerm = (perm) => perm.permission_id === to.meta.permId;
+
+    if(routePerms.some(hasRoutePerm) || window.userRole == 1 || !to.meta.permId)
+     {
+      next(); // allow to enter route
+     } 
+     else
+     {
+      next({ name: 'Dashboard' }); // go to dashboard;
+     }
+})
 const app = new Vue({
     el: '#app',
     router,

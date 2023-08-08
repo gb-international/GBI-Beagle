@@ -20,7 +20,7 @@ class ContactUs extends Mailable
 
     public function build()
     {
-        return $this->subject('GBI-Contact Us')
+        return $this->subject('GBI-Enquiry')
                 ->markdown('emails.contactus')->with('data',$this->user);
     }
 }

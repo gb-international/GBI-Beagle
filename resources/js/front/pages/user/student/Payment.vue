@@ -526,12 +526,8 @@ export default {
 
     submitPayment() {
 
-      this.teacherform.tour_code = this.$route.params.id;
-      if(this.userinfo.profession == 'teacher'){
-        this.teacherform.amount = this.userinfo.tour_price * this.userinfo.no_of_person;
-      }else{
-        this.teacherform.amount = this.userinfo.tour_price;        
-      }
+     
+      this.teacherform.amount = this.userinfo.tour_price;   
       this.teacherform.user_id = this.userinfo.user_id;
       this.teacherform.school_id = this.userinfo.school_id;
       
@@ -595,6 +591,7 @@ export default {
 
 
     submitForm() {
+      this.teacherform.amount = this.userinfo.tour_price;
       this.$axios
         .post("/api/tour-submit-payment", this.teacherform, {
           headers: { Authorization: `Bearer ${localStorage.token}` },

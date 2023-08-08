@@ -4,7 +4,6 @@ Created by : Ajay yadav
 Purpose : Manage accountant itinerary which is sent to sales man 
 
 */
-
 namespace App\Http\Controllers\Admin\Account;
 use App\Http\Controllers\Controller; 
 use Illuminate\Http\Request;
@@ -15,8 +14,6 @@ use App\Model\Tour\Tour;
 use Auth;
 use Notification;
 use App\Notifications\NewSalesAlertNotification;
-
-
 class AccountController extends Controller
 {
     /**
@@ -28,10 +25,11 @@ class AccountController extends Controller
     {
         $data['data'] = Account::leftjoin('itineraries', 'itineraries.id', '=', 'accounts.itinerary_id')
                 ->leftjoin('users', 'users.id', '=' ,'accounts.salesdp_id')
-                ->select('itineraries.title','accounts.price','accounts.status','accounts.id','users.name')
+                ->select('itineraries.title','accounts.price','accounts.status','accounts.id','users.name','accounts.itinerary_id')
                 ->where('accounts.status' ,'!=', 'confirm')
                 ->orderBy('accounts.id','desc')
                 ->paginate($size);
+          
         return response()->json($data['data']);
     }
 
@@ -70,7 +68,10 @@ class AccountController extends Controller
             'salesdp_id'=>'required'
         ]);
 
-        $check = Account::where(['itinerary_id'=>$request->input('itinerary_id'),'salesdp_id'=>$request->input('salesdp_id')])->get();
+        $check = Account::where([
+            'itinerary_id'=>$request->input('itinerary_id'),'salesdp_id'=>$request->input('salesdp_id')
+            ])
+            ->get();
          if(count($check) > 0){
             return $response['error'] = 'error';
          }else{
@@ -223,13 +224,11 @@ class AccountController extends Controller
     {
 
         $user = User::find($data['id']);
-
         $details = [
-                'from' => $data['from'],
-                'body' => $data['body'],
-                'itinerary_id' => $data['itinerary_id']
+            'from' => $data['from'],
+            'body' => $data['body'],
+            'itinerary_id' => $data['itinerary_id']
         ];
-
         Notification::send($user,new NewSalesAlertNotification($details));
         return 'success';
     }
@@ -243,7 +242,6 @@ class AccountController extends Controller
     public function markRead($id)
     {
         $notification = auth()->user()->notifications()->where('id', $id)->first();
-
         if ($notification) {
             $notification->markAsRead();
             return response()->json('success');

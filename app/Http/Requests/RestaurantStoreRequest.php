@@ -3,6 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Rules\EmailValidate;
+use App\Rules\PhoneNubmerValidate;
+use App\Rules\AlphaSpace;
 
 class RestaurantStoreRequest extends FormRequest
 {
@@ -24,11 +27,11 @@ class RestaurantStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>'required',
+            'name'=> 'required',
             'city_id'=>'required',
             'address'=>'required',
-            'contact_name'=>'required',
-            'contact_number'=>'required',
+            'contact_name'=> ['required',new AlphaSpace],
+            'contact_number'=> ['required','numeric',new PhoneNubmerValidate],
         ];
     }
 }

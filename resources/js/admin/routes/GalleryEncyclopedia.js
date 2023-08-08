@@ -16,16 +16,16 @@ const EncyclopediacommentAdd = () => import(/* webpackChunkName: "js/admin/Encyc
 
 export default[
     // Gallery
-    { path: '/gallery', component: Gallery },
-    { path: '/gallery-add', component: GalleryAdd },
-    { path: '/gallery/:id', component: GalleryEdit },
+    { meta: {permId: 76}, path: '/gallery', component: Gallery },
+    { meta: {permId: 76}, path: '/gallery-add', component: GalleryAdd },
+    { meta: {permId: 76}, path: '/gallery/:id', component: GalleryEdit },
 
-    { path: '/encyclopedias', component: EncyclopediaList },
-    { path: '/encyclopedias-view/:id', component: EncyclopediaView },
-    { path: '/encyclopedias/:id', component: EncyclopediaEdit },
-    { path: '/encyclopedias-add', component: EncyclopediaAdd },
+    //{ meta: {permId: 72}, path: '/encyclopedias', component: EncyclopediaList },
+    //{ meta: {permId: 72}, path: '/encyclopedias-view/:id', component: EncyclopediaView },
+    //{ meta: {permId: 72}, path: '/encyclopedias/:id', component: EncyclopediaEdit },
+    //{ meta: {permId: 72}, path: '/encyclopedias-add', component: EncyclopediaAdd },
 
-    { path: '/encyclopediacomment-list', component: EncyclopediacommentList },
-    { path:'/encyclopediacomment-view/:id', component: EncyclopediacommentView},
-    { path:'/encyclopediacomment-add', component: EncyclopediacommentAdd},
+    { meta: {permId: 72}, path: '/encyclopediacomment-list', component: EncyclopediacommentList },
+    { meta: {permId: 72}, path:'/encyclopediacomment-view/:id', component: EncyclopediacommentView},
+    { meta: {permId: 72}, path:'/encyclopediacomment-add', component: EncyclopediacommentAdd},
 ]

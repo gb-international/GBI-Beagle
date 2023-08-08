@@ -16,7 +16,7 @@
             </div>
           </div>
 
-          <div class="row">
+        <!--   <div class="row">
             <div class="col-sm-12">
               <div class="student-section">
                 <div class="col-sm-6" v-if="student_bank">
@@ -65,7 +65,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
 
           <div class="row mt-20" v-if="studentForm.payment_mode == 'self'">
             <div class="col-sm-4">
@@ -395,7 +395,7 @@ export default {
 
     submitPayment() {
       this.studentForm.tour_code = this.tour_id;
-      this.studentForm.amount = this.tour_info.price;
+      this.studentForm.amount = this.tour_info.base_price;
       this.studentForm.user_id = this.tour_info.user_id;
       if (this.robot == false) {
         this.$swal.fire({
@@ -449,12 +449,14 @@ export default {
           this.student_bank = response.data;
           console.log(response);
         })
-        .catch((error) => {
+        /*.catch((error) => {
           this.handleError(error);
-        });
+        });*/
     },
 
     submitForm() {
+      this.studentForm.payment_mode = 'student'
+      console.log(this.studentForm, 'hi')
       this.$axios
         .post("/api/tour-submit-payment", this.studentForm, {
           headers: {
@@ -475,9 +477,9 @@ export default {
           });
           this.$router.push("/tour-list");
         })
-        .catch((error) => {
+        /*.catch((error) => {
           this.handleError(error);
-        });
+        });*/
     },
     onlinePayment() {
       if (this.robot == false) {
@@ -487,7 +489,16 @@ export default {
         });
         return false;
       }
-      var data = {
+    this.studentForm.tour_code = this.tour_id;
+      if (this.tour_info.profession == "teacher") {
+        this.studentForm.amount =
+          this.tour_info.price * this.tour_info.no_of_person;
+      } else {
+        this.studentForm.amount = this.tour_info.price;
+      }
+      this.studentForm.user_id = this.tour_info.user_id;
+      this.studentForm.travel_code = this.tour_info.travel_code;
+     var data = {
         user_id: "",
         travel_code: "",
         tour_id: "",
@@ -498,6 +509,7 @@ export default {
         paid_person: 0,
         unpaid_person: 0,
         total_members: 0,
+        customer_type: 'school',
         price: 0,
       };
       data.user_id = this.tour_info.user_id;
@@ -505,12 +517,16 @@ export default {
       data.unpaid_person = this.tour_info.unpaid_person;
       data.total_members = this.tour_info.total_members;
       data.base_price = this.tour_info.base_price;
-      data.price = this.tour_info.price;
+      data.price = this.studentForm.amount;
       data.travel_code = this.tour_info.travel_code;
       data.tour_id = this.tour_id;
       data.school_id = this.userinfo.school_id;
-      this.$cookies.set("payment-data", data, 60 * 60 * 1); // expire in 1 hour
-      this.$router.push("/payment-billing");
+      //data.customer_type = this.studentForm.customer_type
+     
+    //console.log(data)
+    this.$cookies.set("payment-data", data, 60 * 60 * 1); // expire in 1 hour
+    this.$router.push("/payment-billing");
+    //this.$refs.submitNetPayForm.click()
     },
 
     backReset() {

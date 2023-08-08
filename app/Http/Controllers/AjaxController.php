@@ -1,12 +1,9 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Model\Location\City;
 use App\Model\Location\State;
 use App\Model\Reservation\Sightseeing;
-
 class AjaxController extends Controller
 {
     public function CountryState($id){

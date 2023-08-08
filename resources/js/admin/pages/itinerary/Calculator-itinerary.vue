@@ -21,7 +21,7 @@ It takes id from the url and get the data from the api .
             <h6>Hotel</h6>
             <form class="form">
               <div class="row">
-                <div class="col-sm-11">
+                <div class="col-sm-12">
                   <div
                     class="row"
                     v-for="(data, index) in hotel_row"
@@ -29,7 +29,15 @@ It takes id from the url and get the data from the api .
                   >
                     <div class="col-sm-3">
                       <label>Select Hotel</label>
-                      <select
+
+                      <dropdown-list 
+                        :itemList="hotel_list" 
+                        v-model="data.hotel_id" 
+                        @change="onChange(index, 'hotel',data.hotel_id)" 
+                      />
+
+
+                      <!-- <select
                         class="form-control select-field"
                         v-model="data.hotel_id"
                         @change="onChange(index, $event, 'hotel')"
@@ -41,17 +49,16 @@ It takes id from the url and get the data from the api .
                         >
                           {{ hotel.name }}
                         </option>
-                      </select>
+                      </select> -->
                     </div>
-                    <div class="col-sm-9">
+                    <div class="col-sm-8" v-if="data.hotel_id != ''">
                       <div class="row">
                         <!-- APAI -->
-
                         <div class="col-sm-2">
                           <label>APAI Single</label>
                           <div
                             class="custom-control custom-checkbox"
-                            v-if="data.apai_single != null"
+                            v-if="data.apai_single != undefined"
                           >
                             <input
                               type="checkbox"
@@ -307,21 +314,33 @@ It takes id from the url and get the data from the api .
                       </div>
                       <hr />
                     </div>
+                    <div v-else class="col-sm-8"></div>
+
+                    <div class="col-sm-1 pt-2">
+                      <button
+                        type="button"
+                        class="btn btn_plus text-white"
+                        title="Add Row"
+                        v-if="hotel_row.length >= 0 && index == 0"
+                        @click="add_row('hotel')"
+                      >
+                        <i class="fas fa-plus"></i>
+                      </button>
+                      <!-- remove hotel button -->
+                      <button
+                        type="button"
+                        class="btn btn_plus text-white"
+                        title="Remove Row"
+                        v-else
+                        @click="remove_row('hotel',index)"
+                      >
+                        <i class="fas fa-minus"></i>
+                      </button>
+                    </div>
                     <hr />
                   </div>
                 </div>
-                <div class="col-sm-1">
-                  <div class="col-sm-1">
-                    <button
-                      type="button"
-                      class="btn btn_plus text-white"
-                      title="Add Row"
-                      @click="add_row('hotel')"
-                    >
-                      <i class="fas fa-plus"></i>
-                    </button>
-                  </div>
-                </div>
+                
               </div>
             </form>
           </div>
@@ -331,7 +350,7 @@ It takes id from the url and get the data from the api .
             <div class="bus">
               <h6>Bus Price :</h6>
               <div class="row">
-                <div class="col-sm-11">
+                <div class="col-sm-12">
                   <div
                     class="row"
                     v-for="(bus_data, index) in bus_row"
@@ -339,21 +358,14 @@ It takes id from the url and get the data from the api .
                   >
                     <div class="col-sm-3">
                       <label>Select Bus</label>
-                      <select
-                        class="form-control select-field"
-                        v-model="bus_data.bus_id"
-                        @change="onChange(index, $event, 'bus')"
-                      >
-                        <option
-                          v-for="bus in bus_list"
-                          :value="bus.id"
-                          :key="bus.id"
-                        >
-                          {{ bus.company_name }}
-                        </option>
-                      </select>
+                      <dropdown-list 
+                        :itemList="bus_list" 
+                        v-model="bus_data.bus_id" 
+                        @change="onChange(index, 'bus',bus_data.bus_id)" 
+                      />
+
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-2">
                       <label>Seater</label>
                       <p>{{ bus_data.seater }}</p>
                     </div>
@@ -365,18 +377,27 @@ It takes id from the url and get the data from the api .
                       <label>Price</label>
                       <p>{{ bus_data.price }} /-</p>
                     </div>
-                  </div>
-                </div>
-                <div class="col-sm-1">
-                  <div class="col-sm-1">
-                    <button
-                      type="button"
-                      class="btn btn_plus text-white"
-                      title="Add Row"
-                      @click="add_row('bus')"
-                    >
-                      <i class="fas fa-plus"></i>
-                    </button>
+                    <div class="col-sm-1 pt-2">
+                      <button
+                        type="button"
+                        class="btn btn_plus text-white"
+                        title="Add Row"
+                        v-if="bus_row.length >= 0 && index == 0"
+                        @click="add_row('bus')"
+                      >
+                        <i class="fas fa-plus"></i>
+                      </button>
+                      <!-- remove bus button -->
+                      <button
+                        type="button"
+                        class="btn btn_plus text-white"
+                        title="Remove Row"
+                        v-else
+                        @click="remove_row('bus',index)"
+                      >
+                        <i class="fas fa-minus"></i>
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -388,7 +409,7 @@ It takes id from the url and get the data from the api .
             <div class="bus">
               <h6>Train Price :</h6>
               <div class="row">
-                <div class="col-sm-11">
+                <div class="col-sm-12">
                   <div
                     class="row"
                     v-for="(train_data, index) in train_row"
@@ -396,25 +417,19 @@ It takes id from the url and get the data from the api .
                   >
                     <div class="col-sm-3">
                       <label>Select Train</label>
-                      <select
-                        class="form-control select-field"
-                        v-model="train_data.train_id"
-                        @change="onChange(index, $event, 'train')"
-                      >
-                        <option
-                          v-for="train in train_list"
-                          :value="train.id"
-                          :key="train.id"
-                        >
-                          {{ train.name }}
-                        </option>
-                      </select>
+
+                      <dropdown-list 
+                        :itemList="train_list" 
+                        v-model="train_data.train_id" 
+                        @change="onChange(index, 'train',train_data.train_id)" 
+                      />
+
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                       <label>Code</label>
                       <p>{{ train_data.code }}</p>
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                       <label>Price</label>
                       <input
                         type="number"
@@ -422,18 +437,27 @@ It takes id from the url and get the data from the api .
                         v-model="train_data.price"
                       />
                     </div>
-                  </div>
-                </div>
-                <div class="col-sm-1">
-                  <div class="col-sm-1">
-                    <button
-                      type="button"
-                      class="btn btn_plus text-white"
-                      title="Add Row"
-                      @click="add_row('train')"
-                    >
-                      <i class="fas fa-plus"></i>
-                    </button>
+                    <div class="col-sm-1 pt-2">
+                      <button
+                        type="button"
+                        class="btn btn_plus text-white"
+                        title="Add Row"
+                        v-if="train_row.length >= 0 && index == 0"
+                        @click="add_row('train')"
+                      >
+                        <i class="fas fa-plus"></i>
+                      </button>
+                      <!-- remove train button -->
+                      <button
+                        type="button"
+                        class="btn btn_plus text-white"
+                        title="Remove Row"
+                        v-else
+                        @click="remove_row('train',index)"
+                      >
+                        <i class="fas fa-minus"></i>
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -445,7 +469,7 @@ It takes id from the url and get the data from the api .
             <div class="bus">
               <h6>Flight Price :</h6>
               <div class="row">
-                <div class="col-sm-11">
+                <div class="col-sm-12">
                   <div
                     class="row"
                     v-for="(flight_data, index) in flight_row"
@@ -453,25 +477,19 @@ It takes id from the url and get the data from the api .
                   >
                     <div class="col-sm-3">
                       <label>Select Flight</label>
-                      <select
-                        class="form-control select-field"
-                        v-model="flight_data.flight_id"
-                        @change="onChange(index, $event, 'flight')"
-                      >
-                        <option
-                          v-for="flight in flight_list"
-                          :value="flight.id"
-                          :key="flight.id"
-                        >
-                          {{ flight.name }}
-                        </option>
-                      </select>
+
+                      <dropdown-list 
+                        :itemList="flight_list" 
+                        v-model="flight_data.flight_id" 
+                        @change="onChange(index, 'flight',flight_data.flight_id)" 
+                      />
+
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                       <label>Code</label>
                       <p>{{ flight_data.code }}</p>
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                       <label>Price</label>
                       <input
                         type="number"
@@ -479,18 +497,27 @@ It takes id from the url and get the data from the api .
                         v-model="flight_data.price"
                       />
                     </div>
-                  </div>
-                </div>
-                <div class="col-sm-1">
-                  <div class="col-sm-1">
-                    <button
-                      type="button"
-                      class="btn btn_plus text-white"
-                      title="Add Row"
-                      @click="add_row('flight')"
-                    >
-                      <i class="fas fa-plus"></i>
-                    </button>
+                    <div class="col-sm-1 pt-2">
+                      <button
+                        type="button"
+                        class="btn btn_plus text-white"
+                        title="Add Row"
+                        v-if="flight_row.length >= 0 && index == 0"
+                        @click="add_row('flight')"
+                      >
+                        <i class="fas fa-plus"></i>
+                      </button>
+                      <!-- remove flight button -->
+                      <button
+                        type="button"
+                        class="btn btn_plus text-white"
+                        title="Remove Row"
+                        v-else
+                        @click="remove_row('flight',index)"
+                      >
+                        <i class="fas fa-minus"></i>
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -500,9 +527,9 @@ It takes id from the url and get the data from the api .
           <!-- Start sightseeing -->
           <div class="card_calculator">
             <div class="bus">
-              <h6>SightSeeing Price :</h6>
+              <h6>Sightseeing Price :</h6>
               <div class="row">
-                <div class="col-sm-11">
+                <div class="col-sm-12">
                   <div
                     class="row"
                     v-for="(sight_data, index) in sight_row"
@@ -510,19 +537,13 @@ It takes id from the url and get the data from the api .
                   >
                     <div class="col-sm-3">
                       <label>Select SightSeeing</label>
-                      <select
-                        class="form-control select-field"
-                        v-model="sight_data.sight_id"
-                        @change="onChange(index, $event, 'sight')"
-                      >
-                        <option
-                          v-for="sight in sight_list"
-                          :value="sight.id"
-                          :key="sight.id"
-                        >
-                          {{ sight.name }}
-                        </option>
-                      </select>
+
+                      <dropdown-list 
+                        :itemList="sight_list" 
+                        v-model="sight_data.sight_id" 
+                        @change="onChange(index, 'sight',sight_data.sight_id)" 
+                      />
+
                     </div>
                     <div class="col-sm-3">
                       <label>City</label>
@@ -530,12 +551,11 @@ It takes id from the url and get the data from the api .
                     </div>
                     <div class="col-sm-3">
                       <label>Adult Price</label>
-                      <div class="custom-control custom-checkbox">
+                      <div class="custom-control custom-checkbox" v-if="sight_data.adult_price">
                         <input
                           type="checkbox"
                           class="custom-control-input"
                           :id="index + 'adultprice'"
-                          name="example1"
                           :value="sight_data.adult_price"
                           v-model="sight_selected"
                           @click="check($event)"
@@ -547,14 +567,13 @@ It takes id from the url and get the data from the api .
                         >
                       </div>
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-2">
                       <label>Child Price</label>
-                      <div class="custom-control custom-checkbox">
+                      <div class="custom-control custom-checkbox" v-if="sight_data.child_price">
                         <input
                           type="checkbox"
                           class="custom-control-input"
                           :id="index + 'childchild'"
-                          name="example1"
                           :value="sight_data.child_price"
                           v-model="sight_selected"
                           @click="check($event)"
@@ -566,18 +585,27 @@ It takes id from the url and get the data from the api .
                         >
                       </div>
                     </div>
-                  </div>
-                </div>
-                <div class="col-sm-1">
-                  <div class="col-sm-1">
-                    <button
-                      type="button"
-                      class="btn btn_plus text-white"
-                      title="Add Row"
-                      @click="add_row('sight')"
-                    >
-                      <i class="fas fa-plus"></i>
-                    </button>
+                    <div class="col-sm-1 pt-2">
+                      <button
+                        type="button"
+                        class="btn btn_plus text-white"
+                        title="Add Row"
+                        v-if="sight_row.length >= 0 && index == 0"
+                        @click="add_row('sight')"
+                      >
+                        <i class="fas fa-plus"></i>
+                      </button>
+                      <!-- remove sight button -->
+                      <button
+                        type="button"
+                        class="btn btn_plus text-white"
+                        title="Remove Row"
+                        v-else
+                        @click="remove_row('sight',index)"
+                      >
+                        <i class="fas fa-minus"></i>
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -589,7 +617,7 @@ It takes id from the url and get the data from the api .
             <div class="bus">
               <h6>Escort Price :</h6>
               <div class="row">
-                <div class="col-sm-11">
+                <div class="col-sm-12">
                   <div
                     class="row"
                     v-for="(escort_data, index) in escort_row"
@@ -597,40 +625,44 @@ It takes id from the url and get the data from the api .
                   >
                     <div class="col-sm-3">
                       <label>Select Escort</label>
-                      <select
-                        class="form-control select-field"
-                        v-model="escort_data.escort_id"
-                        @change="onChange(index, $event, 'escort')"
-                      >
-                        <option
-                          v-for="sight in escort_list"
-                          :value="sight.id"
-                          :key="sight.it"
-                        >
-                          {{ sight.name }}
-                        </option>
-                      </select>
+
+                      <dropdown-list 
+                        :itemList="escort_list" 
+                        v-model="escort_data.escort_id" 
+                        @change="onChange(index, 'escort',escort_data.escort_id)" 
+                      />
+
+
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                       <label>Phone No</label>
                       <p>{{ escort_data.phoneno }}</p>
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                       <label>Per Day Salary</label>
                       <p>{{ escort_data.salaryPerday }}/-</p>
                     </div>
-                  </div>
-                </div>
-                <div class="col-sm-1">
-                  <div class="col-sm-1">
-                    <button
-                      type="button"
-                      class="btn btn_plus text-white"
-                      title="Add Row"
-                      @click="add_row('escort')"
-                    >
-                      <i class="fas fa-plus"></i>
-                    </button>
+                    <div class="col-sm-1 pt-2">
+                      <button
+                        type="button"
+                        class="btn btn_plus text-white"
+                        title="Add Row"
+                        v-if="escort_row.length >= 0 && index == 0"
+                        @click="add_row('escort')"
+                      >
+                        <i class="fas fa-plus"></i>
+                      </button>
+                      <!-- remove escort button -->
+                      <button
+                        type="button"
+                        class="btn btn_plus text-white"
+                        title="Remove Row"
+                        v-else
+                        @click="remove_row('escort',index)"
+                      >
+                        <i class="fas fa-minus"></i>
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -675,7 +707,7 @@ It takes id from the url and get the data from the api .
                             <td>{{ flight_total }}</td>
                           </tr>
                           <tr>
-                            <td><b>Sight Seeing</b></td>
+                            <td><b>Sightseeing</b></td>
                             <td>{{ sight_seeing_total }}</td>
                           </tr>
                         </table>
@@ -717,8 +749,12 @@ It takes id from the url and get the data from the api .
 </template>
 
 <script>
+import DropdownList from "@/admin/components/form/DropdownList.vue";
 export default {
   name: "ListCalculator",
+  components:{
+    "dropdown-list": DropdownList,
+  },
   data() {
     return {
       showModal: false,
@@ -726,12 +762,12 @@ export default {
       itineraryData: "",
       row_input: "hotel",
       hotel_counter: 0,
-      hotel_list: "",
-      bus_list: "",
-      train_list: "",
-      flight_list: "",
-      sight_list: "",
-      escort_list: "",
+      hotel_list: [],
+      bus_list: [],
+      train_list: [],
+      flight_list: [],
+      sight_list: [],
+      escort_list: [],
       hotel_selected: [],
       bus_selected: [],
       sight_selected: [],
@@ -775,13 +811,18 @@ export default {
     });
     axios.get(`/api/hotel`).then((response) => {
       if (response.data) {
-        this.hotel_list = response.data.data;
+        this.hotel_list = response.data;
       }
     });
 
     axios.get(`/api/bus`).then((response) => {
       if (response.data) {
-        this.bus_list = response.data.data;
+        for(let i = 0;i<response.data.data.length;i++){
+          this.bus_list.push({
+            name:response.data.data[i].company_name,
+            id:response.data.data[i].id
+          });
+        }
       }
     });
 
@@ -815,8 +856,8 @@ export default {
   methods: {
     check: function (e) {},
     sumData() {
-      var sum = 0;
       this.hotel_total = this.calculate(this.hotel_selected);
+      console.log(this.hotel_selected);
       this.escort_total = this.calculate(this.escort_selected);
       this.sight_seeing_total = this.calculate(this.sight_selected);
       this.bus_total = this.calculate(this.bus_selected);
@@ -889,8 +930,7 @@ export default {
         this.escort_row.push({ escort_id: "", phoneno: "", salaryPerday: "" });
       }
     },
-    onChange(index, event, type) {
-      var value = event.target.value;
+    onChange(index, type,value) {
       if (type == "hotel") {
         var path = `/api/hotel/` + value + "/edit";
         axios.get(path).then((response) => {
@@ -949,6 +989,28 @@ export default {
         });
       }
     },
+    remove_row(data, index){
+      if(data == 'hotel'){
+        this.hotel_row.splice(index,1);
+      }
+      else if(data == 'bus'){
+        this.bus_row.splice(index,1);
+      }
+      else if(data == 'train'){
+        this.train_row.splice(index,1);
+      }
+      else if(data == 'flight'){
+        this.flight_row.splice(index,1);
+      }
+      else if(data == 'sight'){
+        this.sight_row.splice(index,1);
+      }
+      else if(data == 'escort'){
+        this.escort_row.splice(index,1);
+      }else{
+        console.log('no selected item');
+      }
+    }
   },
 };
 </script>

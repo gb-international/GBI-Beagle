@@ -54,7 +54,7 @@ import FormButtons from "@/admin/components/buttons/FormButtons.vue";
 import FormLayout from "@/admin/components/layout/FormLayout.vue";
 
 export default {
-  name: "New",
+  name: "NewFlight",
   components: {
     Form,
     "has-error": HasError,

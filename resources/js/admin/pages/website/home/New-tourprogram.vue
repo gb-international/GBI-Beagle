@@ -57,6 +57,12 @@ to submit the data we are using a function.
               <vue-editor
                 v-model="form.description"
                 :class="{ 'is-invalid': form.errors.has('description') }"
+                :customModules="customModulesForEditor"
+                :editorOptions="editorSettings"
+                id="editor"
+                useCustomImageHandler
+                @image-added="handleImageAdded"
+                @image-removed="handleImageRemoved"
               ></vue-editor>
               <has-error :form="form" field="description"></has-error>
             </div>
@@ -105,23 +111,23 @@ to submit the data we are using a function.
 import { ModelSelect } from "vue-search-select";
 import Multiselect from "vue-multiselect";
 import { Form, HasError } from "vform";
-import { VueEditor, Quill } from "vue2-editor";
+import Vue2EditorMixin from '@/admin/mixins/Vue2EditorMixin';
 
 import BackButton from "@/admin/components/buttons/BackButton.vue";
 import SubmitButton from "@/admin/components/buttons/SubmitButton.vue";
 import FormLayout from "@/admin/components/layout/FormLayout.vue";
 export default {
-  name: "New",
+  name: "NewTourProgram",
   components: {
     ModelSelect,
     Multiselect,
-    VueEditor,
     Form,
     "has-error": HasError,
     "back-button": BackButton,
     "submit-button": SubmitButton,
     "form-layout": FormLayout,
   },
+  mixins:[Vue2EditorMixin],
   data() {
     return {
       itinerary_list: [],

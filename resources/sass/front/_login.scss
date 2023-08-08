@@ -13,9 +13,9 @@
    }
    .nav-item{
       a{ color: grey !important; }
-         .active{ color: $primary !important; }
+         .active{ color: #f77736 !important; }
       }
-   a{ color: $primary; }
+   a{ color: #f77736; }
    .otp_verify{
       font-size: 30px;
       margin-top: 25px;
@@ -65,14 +65,14 @@
 
    .btn{
    	background-color: white;
-   	border:2px solid $primary;
+   	border:2px solid #f77736;
    	border-radius:0px;
    	margin-top: 44px;
    	padding:11px;
-      color: $primary;
+      color: #f77736;
       font-size: 14px;
       &:hover{
-         background-color: $primary;
+         background-color: #f77736;
          color: white;
       }
    }

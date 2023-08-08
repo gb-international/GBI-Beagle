@@ -42,11 +42,15 @@
                 <div v-else>
                     <div :class="[tour.class_name]" class="pt-3 text-white border-radius-7 mb-3 font-weight-bolder pb-2">
                         <div class="row m-0 pr-2 pl-2">
-                            <div class="col-sm-8">
+                            <div class="col-sm-7">
                                 <label class="f-12">Tour</label>
                                 <p>{{ tour.tour.itinerary.title }}</p>
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-2">
+                                <label class="f-12">Sights</label>
+                                <p><i class="fas fa-flag ml-2" style="font-size: 20px; cursor: pointer;"></i></p>
+                            </div>
+                            <div class="col-sm-3">
                                 <div class="row">
                                     <div class="col">
                                         <label class="f-12">Date</label>

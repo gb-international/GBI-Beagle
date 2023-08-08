@@ -1,0 +1,40 @@
+diff --git a/node_modules/vue-bot-ui/src/components/BotUI.vue b/node_modules/vue-bot-ui/src/components/BotUI.vue
+index f58b35f..8209f80 100644
+--- a/node_modules/vue-bot-ui/src/components/BotUI.vue
++++ b/node_modules/vue-bot-ui/src/components/BotUI.vue
+@@ -91,8 +91,8 @@ export default {
+     return {
+       botActive: false,
+       defaultOptions: {
+-        botTitle: 'Chatbot',
+-        colorScheme: '#1b53d0',
++        botTitle: 'GBI Chat',
++        colorScheme: '#2f2a52',
+         textColor: '#fff',
+         bubbleBtnSize: 56,
+         animation: true,
+diff --git a/node_modules/vue-bot-ui/src/components/MessageBubble/ButtonOptions.vue b/node_modules/vue-bot-ui/src/components/MessageBubble/ButtonOptions.vue
+index 2f9c01f..8b5ee2f 100644
+--- a/node_modules/vue-bot-ui/src/components/MessageBubble/ButtonOptions.vue
++++ b/node_modules/vue-bot-ui/src/components/MessageBubble/ButtonOptions.vue
+@@ -8,8 +8,8 @@
+       :key="index"
+     )
+       button.qkb-mb-button-options__btn(
+-        v-if="item.action === 'postback'",
+-        @click="selectOption(item)"
++        v-if="item.action === 'function'",
++        @click="callFunc"
+       )
+         span {{ item.text }}
+       a.qkb-mb-button-options__btn.qkb-mb-button-options__url(
+@@ -36,6 +36,9 @@ export default {
+   },
+ 
+   methods: {
++    callFunc(){
++      alert('Hi')
++    }
+     selectOption (value) {
+       this.selectedItem = value
+       EventBus.$emit('select-button-option', value)

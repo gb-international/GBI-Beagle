@@ -54,7 +54,7 @@ import PlusButton from "@/admin/components/buttons/PlusButton.vue";
 import MinusButton from "@/admin/components/buttons/MinusButton.vue";
 import FormLayout from "@/admin/components/layout/FormLayout.vue";
 export default {
-  name: "List",
+  name: "ListSightseeingsNew",
   components: {
     Form,
     "has-error": HasError,

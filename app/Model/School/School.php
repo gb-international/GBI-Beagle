@@ -11,6 +11,15 @@ class School extends Model
         'school_name', 'street', 'city_name','state_name','country_name','pincode','finance_email_id','principal_email_id','mobile','address','principal_name','principal_mobile_number','user_id'
     ];
 
+    public function setFinanceEmailIdEmailAttribute($value){
+        return $this->attributes['finance_email_id'] = strtolower($value);
+    }
+    
+    public function setPrincipalEmailIdEmailAttribute($value){
+        return $this->attributes['principal_email_id'] = strtolower($value);
+    }
+
+
     public function students()
     {
     	return $this->hasMany('App\Model\School\Student');

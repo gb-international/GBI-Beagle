@@ -1,3 +1,5 @@
+import jsPDF from "jspdf";
+import 'jspdf-autotable';
 const GroupExcelUpload = {
     data(){
         return{
@@ -36,6 +38,25 @@ const GroupExcelUpload = {
         },
     },
     methods:{
+        generatePdf() {
+            var doc = new jsPDF('p', 'pt', 'A4');
+            var margins = { top: 10, bottom: 10, left: 10, width: 810 };
+            var data = [];
+            let j = 1;
+            for (let i = 0; i < this.resultQuery.length; i++) {
+                let d = this.resultQuery[i];
+                let rows = [
+                    j++, d.first_name, d.last_name, d.email, d.gender, d.age, d.mobile
+                ];
+                data.push(rows);
+            }
+            doc.autoTable({
+
+                head: [['S.No', 'First Name', 'Last Name', 'Email', 'Gender', 'Age', 'Contact']],
+                body: data,
+            })
+            doc.save('gbi-groupmember.pdf');
+        },
         sendLoginDetails() {
             axios.post("/api/groupmembers/addlogindetail", this.selected)
                 .then((response) => {

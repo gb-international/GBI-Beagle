@@ -399,18 +399,6 @@ screen and (max-device-width: 525px) {
                                         <p>GBI Team</p>
                                     </td>
                                 </tr>
-
-                                <tr>
-                                    <td align="left" style="font-family: Arial, sans-serif; font-size:12px; line-height:24px; color:#001041; padding-top:15px;border-top:1px solid #001041">
-                                        If you  are still having trouble clicking the password reset button ,kindly copy and paste  the below URL to your web browser 
-
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td align="left" style="font-family: Arial, sans-serif; font-size:12px; line-height:24px; color:#001041; padding-top:5px;text-decoration: underline">
-                                        https://www.gowithgbi.com
-                                    </td>
-                                </tr>
                             </table>
                         </td>
                     </tr>

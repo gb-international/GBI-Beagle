@@ -42,7 +42,7 @@ to submit the data we are using a function.
                     v-model="items[index].id"
                     :true-value="permission.id"
                   />
-                  {{ permission.name }}
+                  <span class="text-capitalize">{{ permission.name }}</span>
                 </label>
                 <hr />
               </div>
@@ -119,7 +119,6 @@ export default {
       this.form
         .put(`/api/role/${this.$route.params.id}`)
         .then((response) => {
-          this.$router.push(`/list-role/`);
           this.$toast.fire({
             icon: "success",
             title: "Successfully Updated",

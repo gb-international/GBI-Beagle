@@ -23,7 +23,6 @@
 
         <link href="{{ asset('assets/front/css/reset.css') }}" rel="stylesheet">
         
-
         <!-- Fonts -->
         <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Raleway" /> 
         <!-- css stylesheet -->

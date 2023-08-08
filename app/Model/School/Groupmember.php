@@ -7,12 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 class Groupmember extends Model
 {
     protected $fillable = [
-        'tour_id','school_id','user_id','first_name', 'last_name', 'email','gender','mobile','age','user_type','is_paid'
+        'tour_id','school_id','user_id','first_name', 'last_name', 'email','gender','mobile','age','user_type','is_paid', 'payment_status'
     ];
 
     protected $casts = [
         'is_paid'=>'boolean'
     ];
+
+    public function setEmailAttribute($value){
+        return $this->attributes['email'] = strtolower($value);
+    }
 
     public function setIsPaidAttribute($value)
     {

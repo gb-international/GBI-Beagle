@@ -10,87 +10,93 @@ It takes id from the url and get the data from the api .
       <div class="row pl-3">
         <div class="col-sm-4">
           <h5>Name</h5>
-          <p>{{ viewData.name }}</p>
+          <p>{{ hotels.name }}</p>
         </div>
         <div class="col-sm-4">
           <h5>Email</h5>
-          <p>{{ viewData.email }}</p>
+          <p>{{ hotels.email }}</p>
         </div>
         <div class="col-sm-4">
           <h5>Phone Number</h5>
-          <p>{{ viewData.phoneno }}</p>
+          <p>{{ hotels.phoneno }}</p>
         </div>
         <div class="col-sm-4">
           <h5>Hotel Star</h5>
-          <p>{{ viewData.type }}</p>
+          <p>{{ hotels.type }}</p>
         </div>
         <div class="col-sm-4">
           <h5>Address</h5>
-          <p>{{ viewData.address }}</p>
+          <p>{{ hotels.address }}</p>
         </div>
         <div class="col-sm-4">
           <h5>Room</h5>
-          <p>{{ viewData.room }}/-</p>
+          <p>{{ hotels.room }}/-</p>
         </div>
         <div class="col-sm-4">
           <h5>Api Single</h5>
-          <p>{{ viewData.api_single }}</p>
+          <p>{{ hotels.api_single }}</p>
         </div>
         <div class="col-sm-4">
           <h5>Api Double</h5>
-          <p>{{ viewData.api_double }}</p>
+          <p>{{ hotels.api_double }}</p>
         </div>
         <div class="col-sm-4">
           <h5>Api Triple</h5>
-          <p>{{ viewData.api_triple }}</p>
+          <p>{{ hotels.api_triple }}</p>
         </div>
         <div class="col-sm-4">
           <h5>Api Quad</h5>
-          <p>{{ viewData.api_quad }}</p>
+          <p>{{ hotels.api_quad }}</p>
         </div>
 
         <div class="col-sm-4">
           <h5>Mapai Single</h5>
-          <p>{{ viewData.mapi_single }}</p>
+          <p>{{ hotels.mapi_single }}</p>
         </div>
         <div class="col-sm-4">
           <h5>Mapai Double</h5>
-          <p>{{ viewData.mapi_double }}</p>
+          <p>{{ hotels.mapi_double }}</p>
         </div>
         <div class="col-sm-4">
           <h5>Mapai Triple</h5>
-          <p>{{ viewData.mapi_triple }}</p>
+          <p>{{ hotels.mapi_triple }}</p>
         </div>
         <div class="col-sm-4">
           <h5>Mapai Quad</h5>
-          <p>{{ viewData.mapi_quad }}</p>
+          <p>{{ hotels.mapi_quad }}</p>
         </div>
 
         <div class="col-sm-4">
           <h5>Cpai Single</h5>
-          <p>{{ viewData.cpai_single }}</p>
+          <p>{{ hotels.cpai_single }}</p>
         </div>
         <div class="col-sm-4">
           <h5>Cpai Double</h5>
-          <p>{{ viewData.cpai_double }}</p>
+          <p>{{ hotels.cpai_double }}</p>
         </div>
         <div class="col-sm-4">
           <h5>Cpai Triple</h5>
-          <p>{{ viewData.cpai_triple }}</p>
+          <p>{{ hotels.cpai_triple }}</p>
         </div>
         <div class="col-sm-4">
           <h5>Cpai Quad</h5>
-          <p>{{ viewData.cpai_quad }}</p>
+          <p>{{ hotels.cpai_quad }}</p>
         </div>
 
         <div class="col-sm-4">
           <h5>Created At</h5>
-          <p>{{ viewData.created_at }}</p>
+          <p>{{ hotels.created_at }}</p>
         </div>
         <div class="col-sm-4">
           <h5>Updated At</h5>
-          <p>{{ viewData.updated_at }}</p>
+          <p>{{ hotels.updated_at }}</p>
         </div>
+        
+        <div class="col-sm-4">
+          <h5>Image</h5>
+          <p><img :src="hotels.image" class="width-140" /></p>
+        </div>
+
       </div>
     </template>
   </view-layout>
@@ -100,24 +106,24 @@ It takes id from the url and get the data from the api .
 <script>
 import ViewLayout from "@/admin/components/layout/ViewLayout.vue";
 export default {
-  name: "View",
+  name: "ViewHotel",
   components:{
     "view-layout": ViewLayout,
   },
   data() {
     return {
-      client_view: [],
+      hotels: [],
     };
   },
-  mounted() {
-    this.$store.dispatch(
-      "getEditData",
-      `/api/hotel/${this.$route.params.id}/edit`
-    );
+  created() {
+    this.hotelView();
   },
-  computed: {
-    viewData() {
-      return this.$store.getters.getEditData; // Fill the form with the data
+  methods: {
+    hotelView() {
+      axios.get(`/api/hotel/${this.$route.params.id}`).then((res) => {
+        this.hotels = res.data;
+        console.log(res);
+      });
     },
   },
 };

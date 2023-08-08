@@ -19,6 +19,8 @@
     <!-- css stylesheet -->
     <link rel="preload" href="{{ asset('assets/front/css/bootstrap.min.css') }}" as="style">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     {{-- <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> --}}
     {{-- Global site tag (gtag.js) - Google Analytics --}}
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-138734768-1"></script>
@@ -31,7 +33,6 @@
     <!-- css stylesheet -->
     {{-- <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> --}}
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-138734768-1"></script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-138734768-1"></script>
 
     <meta property="og:title" content="G.B International is a travel educational specialist for young minds.">
@@ -182,5 +183,6 @@ $(document).ready(function(){
   "priceRange":"Rs1000-Rs10,000"
 }
 </script>
+
  </body>
 </html>

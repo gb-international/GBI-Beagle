@@ -1,1 +1,2563 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[40],{15:function(t,o,e){"use strict";var a=e(0),s=Object(a.a)({},(function(){var t=this.$createElement;return(this._self._c||t)("button",{staticClass:"btn btn-primary itrn_add_btn back_btn text-uppercase font-weight-bold"},[this._t("default",[this._v("submit")])],2)}),[],!1,null,null,null);o.a=s.exports},17:function(t,o,e){"use strict";var a={props:["url"],methods:{goBack:function(){this.$router.back()}}},s=e(0),r=Object(s.a)(a,(function(){var t=this,o=t.$createElement,e=t._self._c||o;return e("span",[t.url?e("router-link",{staticClass:"btn btn-primary itrn_add_btn back_btn text-uppercase font-weight-bold",attrs:{to:t.url},on:{click:function(o){return t.goBack()}}},[t._t("default",[t._v("Back")])],2):e("button",{staticClass:"btn btn-primary itrn_add_btn back_btn text-uppercase font-weight-bold",attrs:{type:"button"},on:{click:function(o){return t.goBack()}}},[t._t("default",[t._v("Back")])],2)],1)}),[],!1,null,null,null);o.a=r.exports},287:function(t,o,e){"use strict";e.r(o);var a=e(14),s=e(21),r=e.n(s),i=e(1),n=e(16),l=e(4),c=e(3),d={name:"EditItinerary",components:{Form:i.Form,ModelSelect:a.ModelSelect,Multiselect:r.a,"has-error":i.HasError,"vue-editor":n.a,"form-buttons":l.a,"form-layout":c.a},data:function(){return{cities:[],sources:"",destinations:"",itinerarydays:[],tour_type_list:[],selected:null,photo:"",detail_photo:"",form:new i.Form({source:"",destination:"",noofdays:"",title:"",description:"",tourtype:"",hotel_type:"",photo:"",photo_alt:"",detail_photo:"",detail_photo_alt:"",food:"",train:"",bus:"",flight:"",transport:"",tourtypes:[],itinerarydays:[{day:1,day_source:"",day_destination:"",day_description:""}]})}},created:function(){this.itineraryList(),this.cityList(),this.tourTypeData()},methods:{itineraryList:function(){var t=this;axios.get("/api/itinerary/".concat(this.$route.params.itineraryid,"/edit")).then((function(o){setTimeout((function(){return $("#example").DataTable()}),1e3),t.form.fill(o.data),t.form.photo="",t.form.detail_photo="",t.photo="/uploadimage/"+o.data.photo,t.detail_photo="/uploadimage/"+o.data.detail_photo;for(var e=o.data.itinerarydays,a=0;a<e.length;a++)t.itinerarydays.length!=e.length&&t.itinerarydays.push({day:e[a].day,day_source:e[a].day_source,day_destination:e[a].day_destination,day_description:e[a].day_description});t.img_photo="/uploadimage/"+t.form.photo,t.img_detail_photo="/uploadimage/"+t.form.detail_photo}))},cityList:function(){var t=this;axios.get("/api/city").then((function(o){t.cities=o.data.data}))},tourTypeData:function(){var t=this;axios.get("/api/tourtype").then((function(o){t.tour_type_list=o.data}))},changePhoto:function(t){var o=this,e=t.target.files[0],a=new FileReader;a.onload=function(t){o.form.photo=t.target.result,o.form.photo_alt=e.name,o.photo=t.target.result},a.readAsDataURL(e)},changeDetailPhoto:function(t){var o=this,e=t.target.files[0],a=new FileReader;a.onload=function(t){o.form.detail_photo=t.target.result,o.form.detail_photo_alt=e.name,o.detail_photo=t.target.result},a.readAsDataURL(e)},updateItinerary:function(){var t=this;console.log(this.form),localStorage.setItem("noofdays",this.form.noofdays),1!=this.form.bus&&1!=this.form.train&&1!=this.form.flight||(this.form.transport="1");for(var o=0;o<this.itinerarydays.length;o++){if(""==this.itinerarydays[o].day_source||""==this.itinerarydays[o].day_destination||""==this.itinerarydays[o].day_description)return this.$toast.fire({icon:"error",title:"Make sure you fill all the fields"}),!1;this.form.itinerarydays[o].day_source=this.itinerarydays[o].day_source,this.form.itinerarydays[o].day_destination=this.itinerarydays[o].day_destination,this.form.itinerarydays[o].day_description=this.itinerarydays[o].day_description}this.form.put("/api/itinerary/".concat(this.$route.params.itineraryid)).then((function(o){t.$toast.fire({icon:"success",title:"Itinerary Updated successfully"})})).catch((function(){}))},addRow:function(){this.form.noofdays+=1;var t=this.form.itinerarydays.length;this.itinerarydays.push({day:t+1,day_source:"",day_destination:"",day_description:""}),this.form.itinerarydays.push({day:t+1,day_source:"",day_destination:"",day_description:""})},removeRow:function(){if(0==this.form.noofdays)return!1;this.form.noofdays-=1;var t=this.form.itinerarydays.length-1;this.itinerarydays.splice(t,1)}}},u=e(0),m=Object(u.a)(d,(function(){var t=this,o=t.$createElement,e=t._self._c||o;return e("form-layout",{scopedSlots:t._u([{key:"formdata",fn:function(){return[e("form",{attrs:{role:"form",enctype:"multipart/form-data"},on:{submit:function(o){return o.preventDefault(),t.updateItinerary()}}},[e("div",{staticClass:"row mb-30"},[e("div",{staticClass:"col-sm-4"},[e("div",{staticClass:"form-group"},[e("label",{attrs:{for:"sourceId"}},[t._v("Source")]),t._v(" "),e("select",{directives:[{name:"model",rawName:"v-model",value:t.form.source,expression:"form.source"}],staticClass:"form-control select-field",on:{change:function(o){var e=Array.prototype.filter.call(o.target.options,(function(t){return t.selected})).map((function(t){return"_value"in t?t._value:t.value}));t.$set(t.form,"source",o.target.multiple?e:e[0])}}},[e("option",{attrs:{value:"",disabled:"",hidden:""}},[t._v("Select Source")]),t._v(" "),t._l(t.cities,(function(o){return e("option",{key:o.id,domProps:{value:o.name}},[t._v(t._s(o.name))])}))],2),t._v("\n            "+t._s(t.form.source)+"\n            "),t._v(" "),e("has-error",{attrs:{form:t.form,field:"source"}})],1)]),t._v(" "),e("div",{staticClass:"col-sm-4"},[e("div",{staticClass:"form-group"},[e("label",{attrs:{for:"destinationId"}},[t._v("Destination")]),t._v(" "),e("select",{directives:[{name:"model",rawName:"v-model",value:t.form.destination,expression:"form.destination"}],staticClass:"form-control select-field",on:{change:function(o){var e=Array.prototype.filter.call(o.target.options,(function(t){return t.selected})).map((function(t){return"_value"in t?t._value:t.value}));t.$set(t.form,"destination",o.target.multiple?e:e[0])}}},[e("option",{attrs:{value:"",disabled:"",hidden:""}},[t._v("Select Destination")]),t._v(" "),t._l(t.cities,(function(o){return e("option",{key:o.id,domProps:{value:o.name}},[t._v(t._s(o.name))])}))],2),t._v("\n            "+t._s(t.form.destination)+"\n            "),t._v(" "),e("has-error",{attrs:{form:t.form,field:"destination"}})],1)]),t._v(" "),e("div",{staticClass:"col-sm-4"},[e("div",{staticClass:"row"},[e("div",{staticClass:"col-sm-6"},[e("div",{staticClass:"form-group"},[e("label",{attrs:{for:"noofdaysId"}},[t._v("Number Of Days")]),t._v(" "),e("input",{directives:[{name:"model",rawName:"v-model",value:t.form.noofdays,expression:"form.noofdays"}],staticClass:"form-control",class:{"is-invalid":t.form.errors.has("noofdays")},attrs:{type:"text",readonly:"readonly",placeholder:"Enter Number Of Days",name:"noofdays",min:"1"},domProps:{value:t.form.noofdays},on:{input:function(o){o.target.composing||t.$set(t.form,"noofdays",o.target.value)}}}),t._v(" "),e("has-error",{attrs:{form:t.form,field:"noofdays"}})],1)]),t._v(" "),e("div",{staticClass:"col-sm-3"},[e("button",{staticClass:"btn btn_plus text-white mt-35",attrs:{type:"button"},on:{click:function(o){return t.addRow()}}},[e("i",{staticClass:"fas fa-plus"})])]),t._v(" "),e("div",{staticClass:"col-sm-3"},[e("button",{staticClass:"btn btn_plus text-white mt-35",attrs:{type:"button"},on:{click:function(o){return t.removeRow()}}},[e("i",{staticClass:"fas fa-minus"})])])])])]),t._v(" "),e("div",{staticClass:"row mb-30"},[e("div",{staticClass:"col-sm-4"},[e("div",{staticClass:"form-group"},[e("label",{attrs:{for:"tourtypeId"}},[t._v("Tour Type")]),t._v(" "),e("div",[e("div",{staticClass:"custom-control custom-radio custom-control-inline"},[e("input",{directives:[{name:"model",rawName:"v-model",value:t.form.tourtype,expression:"form.tourtype"}],staticClass:"custom-control-input",attrs:{type:"radio",id:"NationalId",value:"National",name:"tourtype"},domProps:{checked:t._q(t.form.tourtype,"National")},on:{change:function(o){return t.$set(t.form,"tourtype","National")}}}),t._v(" "),e("label",{staticClass:"custom-control-label",attrs:{for:"NationalId"}},[t._v("National")])]),t._v(" "),e("div",{staticClass:"custom-control custom-radio custom-control-inline"},[e("input",{directives:[{name:"model",rawName:"v-model",value:t.form.tourtype,expression:"form.tourtype"}],staticClass:"custom-control-input",attrs:{type:"radio",value:"International",id:"InternationalId",name:"tourtype"},domProps:{checked:t._q(t.form.tourtype,"International")},on:{change:function(o){return t.$set(t.form,"tourtype","International")}}}),t._v(" "),e("label",{staticClass:"custom-control-label",attrs:{for:"InternationalId"}},[t._v("International")])])]),t._v(" "),t.form.errors.has("tourtype")?e("div",{staticClass:"error"},[t._v("\n              "+t._s(t.form.errors.get("tourtype"))+"\n            ")]):t._e()])]),t._v(" "),e("div",{staticClass:"col-sm-5"},[e("div",{staticClass:"form-group aligen_top_input"},[e("label",{attrs:{for:"hotel_type"}},[t._v("Hotel Type")]),t._v(" "),e("br"),t._v(" "),e("div",{staticClass:"custom-control custom-radio custom-control-inline"},[e("input",{directives:[{name:"model",rawName:"v-model",value:t.form.hotel_type,expression:"form.hotel_type"}],staticClass:"custom-control-input",class:{"is-invalid":t.form.errors.has("hotel_type")},attrs:{type:"radio",id:"nohotelRadio",value:"0",name:"hotel_type"},domProps:{checked:t._q(t.form.hotel_type,"0")},on:{change:function(o){return t.$set(t.form,"hotel_type","0")}}}),t._v(" "),e("label",{staticClass:"custom-control-label",attrs:{for:"nohotelRadio"}},[t._v("No Hotel")])]),t._v(" "),e("div",{staticClass:"custom-control custom-radio custom-control-inline"},[e("input",{directives:[{name:"model",rawName:"v-model",value:t.form.hotel_type,expression:"form.hotel_type"}],staticClass:"custom-control-input",class:{"is-invalid":t.form.errors.has("hotel_type")},attrs:{type:"radio",id:"hotelRadio",value:"3",name:"hotel_type"},domProps:{checked:t._q(t.form.hotel_type,"3")},on:{change:function(o){return t.$set(t.form,"hotel_type","3")}}}),t._v(" "),e("label",{staticClass:"custom-control-label",attrs:{for:"hotelRadio"}},[t._v("3 Star")])]),t._v(" "),e("div",{staticClass:"custom-control custom-radio custom-control-inline"},[e("input",{directives:[{name:"model",rawName:"v-model",value:t.form.hotel_type,expression:"form.hotel_type"}],staticClass:"custom-control-input",class:{"is-invalid":t.form.errors.has("hotel_type")},attrs:{type:"radio",id:"hotelRadio1",name:"hotel_type",value:"4"},domProps:{checked:t._q(t.form.hotel_type,"4")},on:{change:function(o){return t.$set(t.form,"hotel_type","4")}}}),t._v(" "),e("label",{staticClass:"custom-control-label",attrs:{for:"hotelRadio1"}},[t._v("4 Star")])]),t._v(" "),e("div",{staticClass:"custom-control custom-radio custom-control-inline"},[e("input",{directives:[{name:"model",rawName:"v-model",value:t.form.hotel_type,expression:"form.hotel_type"}],staticClass:"custom-control-input",class:{"is-invalid":t.form.errors.has("hotel_type")},attrs:{type:"radio",id:"hotelRadio2",name:"hotel_type",value:"5"},domProps:{checked:t._q(t.form.hotel_type,"5")},on:{change:function(o){return t.$set(t.form,"hotel_type","5")}}}),t._v(" "),e("label",{staticClass:"custom-control-label",attrs:{for:"hotelRadio2"}},[t._v("5 Star")])]),t._v(" "),e("has-error",{attrs:{form:t.form,field:"hotel_type"}})],1)]),t._v(" "),e("div",{staticClass:"col-sm-3"},[e("div",{staticClass:"form-group"},[e("label",{attrs:{for:"mode_of_transport"}},[t._v("Mode of Transport")]),t._v(" "),e("br"),t._v(" "),e("div",{staticClass:"custom-control custom-checkbox custom-control-inline"},[e("input",{directives:[{name:"model",rawName:"v-model",value:t.form.flight,expression:"form.flight"}],staticClass:"custom-control-input",attrs:{type:"checkbox",id:"transport","true-value":"1","false-value":"0"},domProps:{checked:Array.isArray(t.form.flight)?t._i(t.form.flight,null)>-1:t._q(t.form.flight,"1")},on:{change:function(o){var e=t.form.flight,a=o.target,s=a.checked?"1":"0";if(Array.isArray(e)){var r=t._i(e,null);a.checked?r<0&&t.$set(t.form,"flight",e.concat([null])):r>-1&&t.$set(t.form,"flight",e.slice(0,r).concat(e.slice(r+1)))}else t.$set(t.form,"flight",s)}}}),t._v(" "),e("label",{staticClass:"custom-control-label",attrs:{for:"transport"}},[t._v("Flight")])]),t._v(" "),e("div",{staticClass:"custom-control custom-checkbox custom-control-inline"},[e("input",{directives:[{name:"model",rawName:"v-model",value:t.form.bus,expression:"form.bus"}],staticClass:"custom-control-input",attrs:{type:"checkbox",id:"transport1","true-value":"1","false-value":"0"},domProps:{checked:Array.isArray(t.form.bus)?t._i(t.form.bus,null)>-1:t._q(t.form.bus,"1")},on:{change:function(o){var e=t.form.bus,a=o.target,s=a.checked?"1":"0";if(Array.isArray(e)){var r=t._i(e,null);a.checked?r<0&&t.$set(t.form,"bus",e.concat([null])):r>-1&&t.$set(t.form,"bus",e.slice(0,r).concat(e.slice(r+1)))}else t.$set(t.form,"bus",s)}}}),t._v(" "),e("label",{staticClass:"custom-control-label",attrs:{for:"transport1"}},[t._v("Bus")])]),t._v(" "),e("div",{staticClass:"custom-control custom-checkbox custom-control-inline"},[e("input",{directives:[{name:"model",rawName:"v-model",value:t.form.train,expression:"form.train"}],staticClass:"custom-control-input",attrs:{type:"checkbox",id:"transport2","true-value":"1","false-value":"0"},domProps:{checked:Array.isArray(t.form.train)?t._i(t.form.train,null)>-1:t._q(t.form.train,"1")},on:{change:function(o){var e=t.form.train,a=o.target,s=a.checked?"1":"0";if(Array.isArray(e)){var r=t._i(e,null);a.checked?r<0&&t.$set(t.form,"train",e.concat([null])):r>-1&&t.$set(t.form,"train",e.slice(0,r).concat(e.slice(r+1)))}else t.$set(t.form,"train",s)}}}),t._v(" "),e("label",{staticClass:"custom-control-label",attrs:{for:"transport2"}},[t._v("Train")])]),t._v(" "),t.form.errors.has("transport")?e("div",{staticClass:"error"},[e("lable",{staticClass:"danger text-danger"},[t._v(t._s(t.form.errors.get("transport")))])],1):t._e()])])]),t._v(" "),e("div",{staticClass:"row"},[e("div",{staticClass:"col-sm-6"},[e("div",{staticClass:"form-group"},[e("label",{attrs:{for:"mode_of_transport"}},[t._v("Tour category")]),t._v(" "),e("br"),t._v(" "),e("multiselect",{attrs:{options:t.tour_type_list,multiple:!0,"close-on-select":!0,"show-labels":!1,placeholder:"Pick some",label:"name","track-by":"name"},model:{value:t.form.tourtypes,callback:function(o){t.$set(t.form,"tourtypes",o)},expression:"form.tourtypes"}})],1)])]),t._v(" "),e("div",{staticClass:"row mb-30"},[e("div",{staticClass:"col-sm-8"},[e("div",{staticClass:"form-group"},[e("label",{attrs:{for:"titleId"}},[t._v("Title")]),t._v(" "),e("input",{directives:[{name:"model",rawName:"v-model",value:t.form.title,expression:"form.title"}],staticClass:"form-control",class:{"is-invalid":t.form.errors.has("title")},attrs:{type:"text",placeholder:"Enter Title",name:"title"},domProps:{value:t.form.title},on:{input:function(o){o.target.composing||t.$set(t.form,"title",o.target.value)}}}),t._v(" "),e("has-error",{attrs:{form:t.form,field:"title"}})],1)]),t._v(" "),e("div",{staticClass:"col-sm-4"},[e("div",{staticClass:"form-group"},[e("label",{attrs:{for:"tourtypeId"}},[t._v("Food")]),t._v(" "),e("div",[e("div",{staticClass:"custom-control custom-radio custom-control-inline"},[e("input",{directives:[{name:"model",rawName:"v-model",value:t.form.food,expression:"form.food"}],staticClass:"custom-control-input",attrs:{type:"radio",id:"food_yes",value:"1",name:"food"},domProps:{checked:t._q(t.form.food,"1")},on:{change:function(o){return t.$set(t.form,"food","1")}}}),t._v(" "),e("label",{staticClass:"custom-control-label",attrs:{for:"food_yes"}},[t._v("Yes")])]),t._v(" "),e("div",{staticClass:"custom-control custom-radio custom-control-inline"},[e("input",{directives:[{name:"model",rawName:"v-model",value:t.form.food,expression:"form.food"}],staticClass:"custom-control-input",attrs:{type:"radio",value:"0",id:"food_no",name:"food"},domProps:{checked:t._q(t.form.food,"0")},on:{change:function(o){return t.$set(t.form,"food","0")}}}),t._v(" "),e("label",{staticClass:"custom-control-label",attrs:{for:"food_no"}},[t._v("No")])])]),t._v(" "),t.form.errors.has("food")?e("div",{staticClass:"error"},[t._v("\n              "+t._s(t.form.errors.get("food"))+"\n            ")]):t._e()])])]),t._v(" "),e("div",{staticClass:"form-group mb-30"},[e("label",{attrs:{for:"descriptionId"}},[t._v("Description")]),t._v(" "),e("vue-editor",{class:{"is-invalid":t.form.errors.has("description")},model:{value:t.form.description,callback:function(o){t.$set(t.form,"description",o)},expression:"form.description"}}),t._v(" "),e("has-error",{attrs:{form:t.form,field:"description"}})],1),t._v(" "),e("div",{staticClass:"row mb-30"},[e("div",{staticClass:"col-sm-6"},[e("div",{staticClass:"row"},[e("div",{staticClass:"col-sm-6"},[e("div",{staticClass:"form-group"},[e("input",{staticClass:"overflow-hidden",class:{"is-invalid":t.form.errors.has("photo")},attrs:{name:"photo",type:"file"},on:{change:function(o){return t.changePhoto(o)}}})])]),t._v(" "),e("div",{staticClass:"col-sm-6"},[""!=t.photo?e("img",{attrs:{src:t.photo,alt:"",width:"80",height:"80"}}):t._e()])])]),t._v(" "),e("div",{staticClass:"col-sm-6"},[e("div",{staticClass:"row"},[e("div",{staticClass:"col-sm-5"},[e("div",{staticClass:"form-group"},[e("input",{staticClass:"overflow-hidden",class:{"is-invalid":t.form.errors.has("detail_photo")},attrs:{type:"file"},on:{change:function(o){return t.changeDetailPhoto(o)}}})])]),t._v(" "),e("div",{staticClass:"col-sm-7"},[""!=t.detail_photo?e("img",{staticClass:"detail_photo",attrs:{src:t.detail_photo,alt:"",width:"80",height:"80"}}):t._e()])])])]),t._v(" "),e("hr"),t._v(" "),t._l(t.itinerarydays,(function(o,a){return e("div",{key:a,staticClass:"card content"},[e("h4",[t._v("Day "+t._s(o.day))]),t._v(" "),e("div",{staticClass:"row"},[e("div",{staticClass:"col-sm-6"},[e("label",[t._v("Source")]),t._v(" "),e("select",{directives:[{name:"model",rawName:"v-model",value:o.day_source,expression:"data.day_source"}],staticClass:"form-control select-field",on:{change:function(e){var a=Array.prototype.filter.call(e.target.options,(function(t){return t.selected})).map((function(t){return"_value"in t?t._value:t.value}));t.$set(o,"day_source",e.target.multiple?a:a[0])}}},[e("option",{attrs:{value:"",disabled:"",hidden:""}},[t._v("Select Source")]),t._v(" "),t._l(t.cities,(function(o){return e("option",{key:o.id,domProps:{value:o.name}},[t._v(t._s(o.name))])}))],2),t._v(" "),t._v("\n\n            "+t._s(o.day_source)+"\n          ")]),t._v(" "),e("div",{staticClass:"col-sm-6"},[e("label",[t._v("Destination")]),t._v(" "),e("select",{directives:[{name:"model",rawName:"v-model",value:o.day_destination,expression:"data.day_destination"}],staticClass:"form-control select-field",on:{change:function(e){var a=Array.prototype.filter.call(e.target.options,(function(t){return t.selected})).map((function(t){return"_value"in t?t._value:t.value}));t.$set(o,"day_destination",e.target.multiple?a:a[0])}}},[e("option",{attrs:{value:"",disabled:"",hidden:""}},[t._v("Select Destination")]),t._v(" "),t._l(t.cities,(function(o){return e("option",{key:o.id,domProps:{value:o.name}},[t._v(t._s(o.name))])}))],2),t._v(" "),t._v("\n            "+t._s(o.day_destination)+"\n          ")]),t._v(" "),e("div",{staticClass:"col-sm-12"},[e("label",[t._v("Description")]),t._v(" "),e("vue-editor",{class:{"is-invalid":t.form.errors.has("description")},model:{value:o.day_description,callback:function(e){t.$set(o,"day_description",e)},expression:"data.day_description"}})],1)])])})),t._v(" "),e("form-buttons")],2)]},proxy:!0}])})}),[],!1,null,null,null);o.default=m.exports},3:function(t,o,e){"use strict";var a=e(0),s=Object(a.a)({},(function(){var t=this.$createElement,o=this._self._c||t;return o("section",{staticClass:"content"},[o("div",{staticClass:"container-fluid"},[o("div",{staticClass:"row justify-content-around"},[o("div",{staticClass:"col-md-12 pl-4 pb-5"},[this._t("formdata")],2)])])])}),[],!1,null,null,null);o.a=s.exports},4:function(t,o,e){"use strict";var a=e(17),s=e(15),r={components:{"back-button":a.a,"submit-button":s.a}},i=e(0),n=Object(i.a)(r,(function(){var t=this.$createElement,o=this._self._c||t;return o("div",{staticClass:"row justify-content-center"},[o("div",{staticClass:"col-sm-8"},[o("back-button"),this._v(" "),o("submit-button")],1)])}),[],!1,null,null,null);o.a=n.exports}}]);
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["js/admin/ItineraryEdit"],{
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/admin/pages/itinerary/Edit-itinerary.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/admin/pages/itinerary/Edit-itinerary.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue_search_select__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-search-select */ "./node_modules/vue-search-select/dist/VueSearchSelect.common.js");
+/* harmony import */ var vue_search_select__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_search_select__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-multiselect */ "./node_modules/vue-multiselect/dist/vue-multiselect.min.js");
+/* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_multiselect__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vform */ "./node_modules/vform/dist/vform.common.js");
+/* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vform__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _admin_components_buttons_FormButtons_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/admin/components/buttons/FormButtons.vue */ "./resources/js/admin/components/buttons/FormButtons.vue");
+/* harmony import */ var _admin_components_layout_FormLayout_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/admin/components/layout/FormLayout.vue */ "./resources/js/admin/components/layout/FormLayout.vue");
+/* harmony import */ var _admin_mixins_Vue2EditorMixin__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/admin/mixins/Vue2EditorMixin */ "./resources/js/admin/mixins/Vue2EditorMixin.js");
+/* harmony import */ var _admin_components_form_DropdownList_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/admin/components/form/DropdownList.vue */ "./resources/js/admin/components/form/DropdownList.vue");
+/* harmony import */ var _voerro_vue_tagsinput__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @voerro/vue-tagsinput */ "./node_modules/@voerro/vue-tagsinput/src/main.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "EditItinerary",
+  components: {
+    Form: vform__WEBPACK_IMPORTED_MODULE_2__["Form"],
+    ModelSelect: vue_search_select__WEBPACK_IMPORTED_MODULE_0__["ModelSelect"],
+    Multiselect: vue_multiselect__WEBPACK_IMPORTED_MODULE_1___default.a,
+    "has-error": vform__WEBPACK_IMPORTED_MODULE_2__["HasError"],
+    "form-buttons": _admin_components_buttons_FormButtons_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
+    "form-layout": _admin_components_layout_FormLayout_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
+    "dropdown-list": _admin_components_form_DropdownList_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
+    "tags-input": _voerro_vue_tagsinput__WEBPACK_IMPORTED_MODULE_7__["default"]
+  },
+  mixins: [_admin_mixins_Vue2EditorMixin__WEBPACK_IMPORTED_MODULE_5__["default"]],
+  data: function data() {
+    return {
+      cities: [],
+      sources: '',
+      destinations: '',
+      itinerarydays: [],
+      tour_type_list: [],
+      season_list: [],
+      tags: [],
+      meta_key: [],
+      selected: null,
+      summeryWarn: false,
+      meta_titleWarn: false,
+      meta_keywordWarn: false,
+      tagsWarn: false,
+      photo: "",
+      detail_photo: "",
+      form: new vform__WEBPACK_IMPORTED_MODULE_2__["Form"]({
+        meta_description: "",
+        meta_title: "",
+        meta_keyword: "",
+        tags: [],
+        source: "",
+        destination: "",
+        noofdays: "",
+        title: "",
+        description: "",
+        tourtype: "",
+        hotel_type: "",
+        photo: "",
+        photo_alt: "",
+        detail_photo: "",
+        detail_photo_alt: "",
+        food: "",
+        train: "",
+        bus: "",
+        flight: "",
+        transport: "",
+        client_type: "",
+        tourtypes: [],
+        seasons: [],
+        itinerarydays: [{
+          day: 1,
+          day_source: "",
+          day_destination: "",
+          day_description: ""
+        }]
+      }),
+      loading: false
+    };
+  },
+  created: function created() {
+    this.itineraryList();
+    this.cityList();
+    this.tourTypeData();
+    this.seasonsData();
+    this.getTags();
+    this.meta_key = this.form.tags;
+  },
+  methods: {
+    changeField: function changeField(field, input) {
+      if (field === 'meta_description') {
+        if (input === '') {
+          this.summeryWarn = true;
+        } else {
+          this.summeryWarn = false;
+        }
+      }
+
+      if (field === 'meta_title') {
+        if (input === '') {
+          this.meta_titleWarn = true;
+        } else {
+          this.meta_titleWarn = false;
+        }
+      }
+      /*if(field === 'meta_keyword'){
+          if(input === ''){
+            this.meta_keywordWarn = true;
+          } else {
+            this.meta_keywordWarn = false;
+          }
+          
+      }*/
+
+    },
+    itineraryList: function itineraryList() {
+      var _this = this;
+
+      axios.get("/api/itinerary/".concat(this.$route.params.itineraryid, "/edit")).then(function (response) {
+        setTimeout(function () {
+          return $("#example").DataTable();
+        }, 1000);
+
+        _this.form.fill(response.data);
+
+        _this.photo = response.data.photo;
+        _this.detail_photo = response.data.detail_photo;
+        var day_data = response.data.itinerarydays;
+
+        for (var i = 0; i < day_data.length; i++) {
+          if (_this.itinerarydays.length != day_data.length) {
+            _this.itinerarydays.push({
+              day: day_data[i].day,
+              day_source: day_data[i].day_source,
+              day_destination: day_data[i].day_destination,
+              day_description: day_data[i].day_description
+            });
+          }
+        }
+
+        for (var _i = 0; _i < response.data.tags.length; _i++) {
+          _this.meta_key.push({
+            value: response.data.tags[_i].title,
+            key: response.data.tags[_i].id
+          });
+        }
+
+        _this.img_photo = _this.form.photo;
+        _this.img_detail_photo = _this.form.detail_photo;
+      });
+    },
+    updateTags: function updateTags() {
+      this.form.meta_keyword = [];
+
+      for (var i = 0; i < this.meta_key.length; i++) {
+        this.form.meta_keyword.push({
+          title: this.meta_key[i].value,
+          id: this.meta_key[i].key
+        });
+      }
+    },
+    getTags: function getTags() {
+      var _this2 = this;
+
+      axios.get("/api/tags").then(function (res) {
+        //this.tags = response.data;
+        if (res) {
+          for (var i = 0; i < res.data.length; i++) {
+            _this2.tags.push({
+              value: res.data[i].title,
+              key: res.data[i].id
+            });
+          } //console.log(this.form.tags)
+
+        }
+      });
+    },
+    cityList: function cityList() {
+      var _this3 = this;
+
+      axios.get("/api/city").then(function (res) {
+        if (res.data) {
+          for (var i = 0; i < res.data.data.length; i++) {
+            _this3.cities.push({
+              name: res.data.data[i].name,
+              id: res.data.data[i].name
+            });
+          }
+        }
+      });
+    },
+    tourTypeData: function tourTypeData() {
+      var _this4 = this;
+
+      axios.get("/api/tourtype").then(function (response) {
+        _this4.tour_type_list = response.data;
+      });
+    },
+    seasonsData: function seasonsData() {
+      var _this5 = this;
+
+      axios.get("/api/season").then(function (response) {
+        _this5.season_list = response.data;
+      });
+    },
+    changePhoto: function changePhoto(event) {
+      var _this6 = this;
+
+      var file = event.target.files[0];
+      var reader = new FileReader();
+
+      reader.onload = function (event) {
+        _this6.form.photo = event.target.result;
+        _this6.form.photo_alt = file.name;
+        _this6.photo = event.target.result;
+      };
+
+      reader.readAsDataURL(file);
+    },
+    changeDetailPhoto: function changeDetailPhoto(event) {
+      var _this7 = this;
+
+      var file = event.target.files[0];
+      var reader = new FileReader();
+
+      reader.onload = function (event) {
+        _this7.form.detail_photo = event.target.result;
+        _this7.form.detail_photo_alt = file.name;
+        _this7.detail_photo = event.target.result;
+      };
+
+      reader.readAsDataURL(file);
+    },
+    updateItinerary: function updateItinerary() {
+      var _this8 = this;
+
+      if (!this.form.meta_keyword.length) {
+        this.meta_keywordWarn = true;
+        this.$toast.fire({
+          icon: "error",
+          title: "Meta Keywords Required"
+        });
+        return false;
+      } else if (this.form.meta_description == '') {
+        this.$toast.fire({
+          icon: "error",
+          title: "Meta Description Required"
+        });
+        return false;
+      } else if (this.form.meta_title == '') {
+        this.$toast.fire({
+          icon: "error",
+          title: "Meta Title Required"
+        });
+        return false;
+      } else if (!this.form.seasons || this.form.seasons <= 0) {
+        this.$toast.fire({
+          icon: "error",
+          title: "Season field is required"
+        });
+        return false;
+      } // Set noofdays in the local storage to make it avaliable to the daypage....
+      //console.log(this.form);
+
+
+      localStorage.setItem("noofdays", this.form.noofdays);
+
+      if (this.form.bus == 1 || this.form.train == 1 || this.form.flight == 1) {
+        this.form.transport = "1";
+      } // check if all the no of days fields are filled out
+
+
+      for (var i = 0; i < this.itinerarydays.length; i++) {
+        if (this.itinerarydays[i]["day_source"] == "" || this.itinerarydays[i]["day_destination"] == "" || this.itinerarydays[i]["day_description"] == "") {
+          this.$toast.fire({
+            icon: "error",
+            title: "Make sure you fill all the fields"
+          });
+          return false;
+        }
+
+        this.loading = true;
+        this.form.itinerarydays[i]["day_source"] = this.itinerarydays[i]["day_source"];
+        this.form.itinerarydays[i]["day_destination"] = this.itinerarydays[i]["day_destination"];
+        this.form.itinerarydays[i]["day_description"] = this.itinerarydays[i]["day_description"];
+      }
+
+      this.form.tags = this.form.meta_keyword; // Submit the form via a itinerary request
+
+      this.form.put("/api/itinerary/".concat(this.$route.params.itineraryid)).then(function (response) {
+        _this8.$toast.fire({
+          icon: "success",
+          title: "Itinerary Updated successfully"
+        });
+
+        _this8.loading = false;
+      })["catch"](function () {});
+    },
+    addRow: function addRow() {
+      this.form.noofdays += 1;
+      var index = this.form.itinerarydays.length;
+      this.itinerarydays.push({
+        day: index + 1,
+        day_source: '',
+        day_destination: '',
+        day_description: ""
+      });
+      this.form.itinerarydays.push({
+        day: index + 1,
+        day_source: "",
+        day_destination: "",
+        day_description: ""
+      });
+    },
+    removeRow: function removeRow() {
+      if (this.form.noofdays == 0) {
+        return false;
+      }
+
+      this.form.noofdays -= 1;
+      var index = this.form.itinerarydays.length - 1;
+      this.itinerarydays.splice(index, 1);
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/admin/pages/itinerary/Edit-itinerary.vue?vue&type=style&index=0&id=0a775956&scoped=true&lang=css&":
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/admin/pages/itinerary/Edit-itinerary.vue?vue&type=style&index=0&id=0a775956&scoped=true&lang=css& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.customSelect[data-v-0a775956]{\n    min-height: 53px !important;\n    font-size: 17px !important;\n    padding: 0px 40px 0 8px !important;\n    color: #737879 !important;\n    background: #fff !important;\n    font-weight: 600;\n}\n.warn-error[data-v-0a775956] {\n    width: 100%;\n    margin-top: 0.25rem;\n    font-size: 80%;\n    color: #dc3545;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/admin/pages/itinerary/Edit-itinerary.vue?vue&type=style&index=0&id=0a775956&scoped=true&lang=css&":
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/admin/pages/itinerary/Edit-itinerary.vue?vue&type=style&index=0&id=0a775956&scoped=true&lang=css& ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../../node_modules/css-loader??ref--6-1!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--6-2!../../../../../node_modules/vue-loader/lib??vue-loader-options!./Edit-itinerary.vue?vue&type=style&index=0&id=0a775956&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/admin/pages/itinerary/Edit-itinerary.vue?vue&type=style&index=0&id=0a775956&scoped=true&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/admin/pages/itinerary/Edit-itinerary.vue?vue&type=template&id=0a775956&scoped=true&":
+/*!****************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/admin/pages/itinerary/Edit-itinerary.vue?vue&type=template&id=0a775956&scoped=true& ***!
+  \****************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("form-layout", {
+    scopedSlots: _vm._u([
+      {
+        key: "formdata",
+        fn: function () {
+          return [
+            _c("section", { staticClass: "formSection" }, [
+              _c(
+                "div",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.loading,
+                      expression: "loading",
+                    },
+                  ],
+                  staticClass: "LoaderDiv",
+                },
+                [
+                  _c("img", {
+                    staticClass: "loaderLogo",
+                    attrs: { src: "/loader/logo_gif.gif" },
+                  }),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "loadText" }, [_vm._v("Loading..")]),
+                ]
+              ),
+              _vm._v(" "),
+              _c("div", [
+                _c(
+                  "form",
+                  {
+                    style: !_vm.loading ? "" : "opacity: 0.5",
+                    attrs: { role: "form", enctype: "multipart/form-data" },
+                    on: {
+                      submit: function ($event) {
+                        $event.preventDefault()
+                        return _vm.updateItinerary()
+                      },
+                    },
+                  },
+                  [
+                    _vm.form.title
+                      ? _c("div", { staticClass: "row mb-30" }, [
+                          _c("div", { staticClass: "col-sm-6" }, [
+                            _c(
+                              "div",
+                              { staticClass: "form-group" },
+                              [
+                                _c("label", { attrs: { for: "meta_title" } }, [
+                                  _vm._v("Meta Title"),
+                                ]),
+                                _vm._v(" "),
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.form.meta_title,
+                                      expression: "form.meta_title",
+                                    },
+                                  ],
+                                  staticClass: "form-control",
+                                  class: {
+                                    "is-invalid":
+                                      _vm.form.errors.has("meta_title"),
+                                  },
+                                  attrs: {
+                                    type: "text",
+                                    placeholder: "Enter meta title",
+                                  },
+                                  domProps: { value: _vm.form.meta_title },
+                                  on: {
+                                    change: function ($event) {
+                                      return _vm.changeField(
+                                        "meta_title",
+                                        $event.target.value
+                                      )
+                                    },
+                                    input: function ($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.form,
+                                        "meta_title",
+                                        $event.target.value
+                                      )
+                                    },
+                                  },
+                                }),
+                                _vm._v(" "),
+                                _c("has-error", {
+                                  attrs: {
+                                    form: _vm.form,
+                                    field: "meta_title",
+                                  },
+                                }),
+                                _vm._v(" "),
+                                _vm.meta_titleWarn
+                                  ? _c("p", { staticClass: "warn-error" }, [
+                                      _vm._v(" Please input Meta Title."),
+                                    ])
+                                  : _vm._e(),
+                              ],
+                              1
+                            ),
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-sm-6" }, [
+                            _c(
+                              "div",
+                              { staticClass: "form-group" },
+                              [
+                                _c(
+                                  "label",
+                                  { attrs: { for: "meta_keyword" } },
+                                  [_vm._v("Meta Keywords")]
+                                ),
+                                _vm._v(" "),
+                                _c("tags-input", {
+                                  attrs: {
+                                    "element-id": "tags",
+                                    "existing-tags": _vm.tags,
+                                    typeahead: true,
+                                  },
+                                  on: { "tags-updated": _vm.updateTags },
+                                  model: {
+                                    value: _vm.meta_key,
+                                    callback: function ($$v) {
+                                      _vm.meta_key = $$v
+                                    },
+                                    expression: "meta_key",
+                                  },
+                                }),
+                                _vm._v(" "),
+                                _c("has-error", {
+                                  attrs: { form: _vm.form, field: "tags" },
+                                }),
+                                _vm._v(" "),
+                                _vm.tagsWarn && _vm.meta_key.length < 1
+                                  ? _c("p", { staticClass: "warn-error" }, [
+                                      _vm._v("Please choose keywords."),
+                                    ])
+                                  : _vm._e(),
+                              ],
+                              1
+                            ),
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-sm-12" }, [
+                            _c(
+                              "div",
+                              { staticClass: "form-group" },
+                              [
+                                _c("label", { attrs: { for: "description" } }, [
+                                  _vm._v("Meta Description"),
+                                ]),
+                                _vm._v(" "),
+                                _c("textarea", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.form.meta_description,
+                                      expression: "form.meta_description",
+                                    },
+                                  ],
+                                  staticClass: "form-control",
+                                  class: {
+                                    "is-invalid":
+                                      _vm.form.errors.has("meta_description"),
+                                  },
+                                  attrs: {
+                                    row: "3",
+                                    type: "text",
+                                    placeholder: "Enter Meta Description",
+                                  },
+                                  domProps: {
+                                    value: _vm.form.meta_description,
+                                  },
+                                  on: {
+                                    change: function ($event) {
+                                      return _vm.changeField(
+                                        "meta_description",
+                                        $event.target.value
+                                      )
+                                    },
+                                    input: function ($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.form,
+                                        "meta_description",
+                                        $event.target.value
+                                      )
+                                    },
+                                  },
+                                }),
+                                _vm._v(" "),
+                                _c("has-error", {
+                                  attrs: {
+                                    form: _vm.form,
+                                    field: "meta_description",
+                                  },
+                                }),
+                                _vm._v(" "),
+                                _vm.summeryWarn
+                                  ? _c("p", { staticClass: "warn-error" }, [
+                                      _vm._v(" Please input meta description."),
+                                    ])
+                                  : _vm._e(),
+                              ],
+                              1
+                            ),
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-sm-4" }, [
+                            _c(
+                              "div",
+                              { staticClass: "form-group" },
+                              [
+                                _c("label", { attrs: { for: "sourceId" } }, [
+                                  _vm._v("Source"),
+                                ]),
+                                _vm._v(" "),
+                                _c("dropdown-list", {
+                                  staticClass: "mb-2",
+                                  attrs: { itemList: _vm.cities },
+                                  model: {
+                                    value: _vm.form.source,
+                                    callback: function ($$v) {
+                                      _vm.$set(
+                                        _vm.form,
+                                        "source",
+                                        typeof $$v === "string"
+                                          ? $$v.trim()
+                                          : $$v
+                                      )
+                                    },
+                                    expression: "form.source",
+                                  },
+                                }),
+                                _vm._v(" "),
+                                _c("has-error", {
+                                  attrs: { form: _vm.form, field: "source" },
+                                }),
+                              ],
+                              1
+                            ),
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-sm-4" }, [
+                            _c(
+                              "div",
+                              { staticClass: "form-group" },
+                              [
+                                _c(
+                                  "label",
+                                  { attrs: { for: "destinationId" } },
+                                  [_vm._v("Destination")]
+                                ),
+                                _vm._v(" "),
+                                _c("dropdown-list", {
+                                  staticClass: "mb-2",
+                                  attrs: { itemList: _vm.cities },
+                                  model: {
+                                    value: _vm.form.destination,
+                                    callback: function ($$v) {
+                                      _vm.$set(_vm.form, "destination", $$v)
+                                    },
+                                    expression: "form.destination",
+                                  },
+                                }),
+                                _vm._v(" "),
+                                _c("has-error", {
+                                  attrs: {
+                                    form: _vm.form,
+                                    field: "destination",
+                                  },
+                                }),
+                              ],
+                              1
+                            ),
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-sm-4" }, [
+                            _c("div", { staticClass: "row" }, [
+                              _c("div", { staticClass: "col-sm-6" }, [
+                                _c(
+                                  "div",
+                                  { staticClass: "form-group" },
+                                  [
+                                    _c(
+                                      "label",
+                                      { attrs: { for: "noofdaysId" } },
+                                      [_vm._v("Number Of Days")]
+                                    ),
+                                    _vm._v(" "),
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.form.noofdays,
+                                          expression: "form.noofdays",
+                                        },
+                                      ],
+                                      staticClass: "form-control",
+                                      class: {
+                                        "is-invalid":
+                                          _vm.form.errors.has("noofdays"),
+                                      },
+                                      attrs: {
+                                        type: "text",
+                                        readonly: "readonly",
+                                        placeholder: "Enter Number Of Days",
+                                        name: "noofdays",
+                                        min: "1",
+                                      },
+                                      domProps: { value: _vm.form.noofdays },
+                                      on: {
+                                        input: function ($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.$set(
+                                            _vm.form,
+                                            "noofdays",
+                                            $event.target.value
+                                          )
+                                        },
+                                      },
+                                    }),
+                                    _vm._v(" "),
+                                    _c("has-error", {
+                                      attrs: {
+                                        form: _vm.form,
+                                        field: "noofdays",
+                                      },
+                                    }),
+                                  ],
+                                  1
+                                ),
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "col-sm-3" }, [
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass:
+                                      "btn btn_plus text-white mt-35",
+                                    attrs: { type: "button" },
+                                    on: {
+                                      click: function ($event) {
+                                        return _vm.addRow()
+                                      },
+                                    },
+                                  },
+                                  [_c("i", { staticClass: "fas fa-plus" })]
+                                ),
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "col-sm-3" }, [
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass:
+                                      "btn btn_plus text-white mt-35",
+                                    attrs: { type: "button" },
+                                    on: {
+                                      click: function ($event) {
+                                        return _vm.removeRow()
+                                      },
+                                    },
+                                  },
+                                  [_c("i", { staticClass: "fas fa-minus" })]
+                                ),
+                              ]),
+                            ]),
+                          ]),
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row mb-30" }, [
+                      _c("div", { staticClass: "col-sm-4" }, [
+                        _c("div", { staticClass: "form-group" }, [
+                          _c("label", { attrs: { for: "tourtypeId" } }, [
+                            _vm._v("Tour Type"),
+                          ]),
+                          _vm._v(" "),
+                          _c("div", [
+                            _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "custom-control custom-radio custom-control-inline",
+                              },
+                              [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.form.tourtype,
+                                      expression: "form.tourtype",
+                                    },
+                                  ],
+                                  staticClass: "custom-control-input",
+                                  attrs: {
+                                    type: "radio",
+                                    id: "NationalId",
+                                    value: "National",
+                                    name: "tourtype",
+                                  },
+                                  domProps: {
+                                    checked: _vm._q(
+                                      _vm.form.tourtype,
+                                      "National"
+                                    ),
+                                  },
+                                  on: {
+                                    change: function ($event) {
+                                      return _vm.$set(
+                                        _vm.form,
+                                        "tourtype",
+                                        "National"
+                                      )
+                                    },
+                                  },
+                                }),
+                                _vm._v(" "),
+                                _c(
+                                  "label",
+                                  {
+                                    staticClass: "custom-control-label",
+                                    attrs: { for: "NationalId" },
+                                  },
+                                  [_vm._v("National")]
+                                ),
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "custom-control custom-radio custom-control-inline",
+                              },
+                              [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.form.tourtype,
+                                      expression: "form.tourtype",
+                                    },
+                                  ],
+                                  staticClass: "custom-control-input",
+                                  attrs: {
+                                    type: "radio",
+                                    value: "International",
+                                    id: "InternationalId",
+                                    name: "tourtype",
+                                  },
+                                  domProps: {
+                                    checked: _vm._q(
+                                      _vm.form.tourtype,
+                                      "International"
+                                    ),
+                                  },
+                                  on: {
+                                    change: function ($event) {
+                                      return _vm.$set(
+                                        _vm.form,
+                                        "tourtype",
+                                        "International"
+                                      )
+                                    },
+                                  },
+                                }),
+                                _vm._v(" "),
+                                _c(
+                                  "label",
+                                  {
+                                    staticClass: "custom-control-label",
+                                    attrs: { for: "InternationalId" },
+                                  },
+                                  [_vm._v("International")]
+                                ),
+                              ]
+                            ),
+                          ]),
+                          _vm._v(" "),
+                          _vm.form.errors.has("tourtype")
+                            ? _c("div", { staticClass: "error" }, [
+                                _vm._v(
+                                  "\n                " +
+                                    _vm._s(_vm.form.errors.get("tourtype")) +
+                                    "\n              "
+                                ),
+                              ])
+                            : _vm._e(),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-sm-5" }, [
+                        _c(
+                          "div",
+                          { staticClass: "form-group aligen_top_input" },
+                          [
+                            _c("label", { attrs: { for: "hotel_type" } }, [
+                              _vm._v("Hotel Type"),
+                            ]),
+                            _vm._v(" "),
+                            _c("br"),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "custom-control custom-radio custom-control-inline",
+                              },
+                              [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.form.hotel_type,
+                                      expression: "form.hotel_type",
+                                    },
+                                  ],
+                                  staticClass: "custom-control-input",
+                                  class: {
+                                    "is-invalid":
+                                      _vm.form.errors.has("hotel_type"),
+                                  },
+                                  attrs: {
+                                    type: "radio",
+                                    id: "nohotelRadio",
+                                    value: "0",
+                                    name: "hotel_type",
+                                  },
+                                  domProps: {
+                                    checked: _vm._q(_vm.form.hotel_type, "0"),
+                                  },
+                                  on: {
+                                    change: function ($event) {
+                                      return _vm.$set(
+                                        _vm.form,
+                                        "hotel_type",
+                                        "0"
+                                      )
+                                    },
+                                  },
+                                }),
+                                _vm._v(" "),
+                                _c(
+                                  "label",
+                                  {
+                                    staticClass: "custom-control-label",
+                                    attrs: { for: "nohotelRadio" },
+                                  },
+                                  [_vm._v("No Hotel")]
+                                ),
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "custom-control custom-radio custom-control-inline",
+                              },
+                              [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.form.hotel_type,
+                                      expression: "form.hotel_type",
+                                    },
+                                  ],
+                                  staticClass: "custom-control-input",
+                                  class: {
+                                    "is-invalid":
+                                      _vm.form.errors.has("hotel_type"),
+                                  },
+                                  attrs: {
+                                    type: "radio",
+                                    id: "hotelRadio",
+                                    value: "3",
+                                    name: "hotel_type",
+                                  },
+                                  domProps: {
+                                    checked: _vm._q(_vm.form.hotel_type, "3"),
+                                  },
+                                  on: {
+                                    change: function ($event) {
+                                      return _vm.$set(
+                                        _vm.form,
+                                        "hotel_type",
+                                        "3"
+                                      )
+                                    },
+                                  },
+                                }),
+                                _vm._v(" "),
+                                _c(
+                                  "label",
+                                  {
+                                    staticClass: "custom-control-label",
+                                    attrs: { for: "hotelRadio" },
+                                  },
+                                  [_vm._v("3 Star")]
+                                ),
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "custom-control custom-radio custom-control-inline",
+                              },
+                              [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.form.hotel_type,
+                                      expression: "form.hotel_type",
+                                    },
+                                  ],
+                                  staticClass: "custom-control-input",
+                                  class: {
+                                    "is-invalid":
+                                      _vm.form.errors.has("hotel_type"),
+                                  },
+                                  attrs: {
+                                    type: "radio",
+                                    id: "hotelRadio1",
+                                    name: "hotel_type",
+                                    value: "4",
+                                  },
+                                  domProps: {
+                                    checked: _vm._q(_vm.form.hotel_type, "4"),
+                                  },
+                                  on: {
+                                    change: function ($event) {
+                                      return _vm.$set(
+                                        _vm.form,
+                                        "hotel_type",
+                                        "4"
+                                      )
+                                    },
+                                  },
+                                }),
+                                _vm._v(" "),
+                                _c(
+                                  "label",
+                                  {
+                                    staticClass: "custom-control-label",
+                                    attrs: { for: "hotelRadio1" },
+                                  },
+                                  [_vm._v("4 Star")]
+                                ),
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "custom-control custom-radio custom-control-inline",
+                              },
+                              [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.form.hotel_type,
+                                      expression: "form.hotel_type",
+                                    },
+                                  ],
+                                  staticClass: "custom-control-input",
+                                  class: {
+                                    "is-invalid":
+                                      _vm.form.errors.has("hotel_type"),
+                                  },
+                                  attrs: {
+                                    type: "radio",
+                                    id: "hotelRadio2",
+                                    name: "hotel_type",
+                                    value: "5",
+                                  },
+                                  domProps: {
+                                    checked: _vm._q(_vm.form.hotel_type, "5"),
+                                  },
+                                  on: {
+                                    change: function ($event) {
+                                      return _vm.$set(
+                                        _vm.form,
+                                        "hotel_type",
+                                        "5"
+                                      )
+                                    },
+                                  },
+                                }),
+                                _vm._v(" "),
+                                _c(
+                                  "label",
+                                  {
+                                    staticClass: "custom-control-label",
+                                    attrs: { for: "hotelRadio2" },
+                                  },
+                                  [_vm._v("5 Star")]
+                                ),
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c("has-error", {
+                              attrs: { form: _vm.form, field: "hotel_type" },
+                            }),
+                          ],
+                          1
+                        ),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-sm-3" }, [
+                        _c("div", { staticClass: "form-group" }, [
+                          _c("label", { attrs: { for: "mode_of_transport" } }, [
+                            _vm._v("Mode of Transport"),
+                          ]),
+                          _vm._v(" "),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "custom-control custom-checkbox custom-control-inline",
+                            },
+                            [
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.form.flight,
+                                    expression: "form.flight",
+                                  },
+                                ],
+                                staticClass: "custom-control-input",
+                                attrs: {
+                                  type: "checkbox",
+                                  id: "transport",
+                                  "true-value": "1",
+                                  "false-value": "0",
+                                },
+                                domProps: {
+                                  checked: Array.isArray(_vm.form.flight)
+                                    ? _vm._i(_vm.form.flight, null) > -1
+                                    : _vm._q(_vm.form.flight, "1"),
+                                },
+                                on: {
+                                  change: function ($event) {
+                                    var $$a = _vm.form.flight,
+                                      $$el = $event.target,
+                                      $$c = $$el.checked ? "1" : "0"
+                                    if (Array.isArray($$a)) {
+                                      var $$v = null,
+                                        $$i = _vm._i($$a, $$v)
+                                      if ($$el.checked) {
+                                        $$i < 0 &&
+                                          _vm.$set(
+                                            _vm.form,
+                                            "flight",
+                                            $$a.concat([$$v])
+                                          )
+                                      } else {
+                                        $$i > -1 &&
+                                          _vm.$set(
+                                            _vm.form,
+                                            "flight",
+                                            $$a
+                                              .slice(0, $$i)
+                                              .concat($$a.slice($$i + 1))
+                                          )
+                                      }
+                                    } else {
+                                      _vm.$set(_vm.form, "flight", $$c)
+                                    }
+                                  },
+                                },
+                              }),
+                              _vm._v(" "),
+                              _c(
+                                "label",
+                                {
+                                  staticClass: "custom-control-label",
+                                  attrs: { for: "transport" },
+                                },
+                                [_vm._v("Flight")]
+                              ),
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "custom-control custom-checkbox custom-control-inline",
+                            },
+                            [
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.form.bus,
+                                    expression: "form.bus",
+                                  },
+                                ],
+                                staticClass: "custom-control-input",
+                                attrs: {
+                                  type: "checkbox",
+                                  id: "transport1",
+                                  "true-value": "1",
+                                  "false-value": "0",
+                                },
+                                domProps: {
+                                  checked: Array.isArray(_vm.form.bus)
+                                    ? _vm._i(_vm.form.bus, null) > -1
+                                    : _vm._q(_vm.form.bus, "1"),
+                                },
+                                on: {
+                                  change: function ($event) {
+                                    var $$a = _vm.form.bus,
+                                      $$el = $event.target,
+                                      $$c = $$el.checked ? "1" : "0"
+                                    if (Array.isArray($$a)) {
+                                      var $$v = null,
+                                        $$i = _vm._i($$a, $$v)
+                                      if ($$el.checked) {
+                                        $$i < 0 &&
+                                          _vm.$set(
+                                            _vm.form,
+                                            "bus",
+                                            $$a.concat([$$v])
+                                          )
+                                      } else {
+                                        $$i > -1 &&
+                                          _vm.$set(
+                                            _vm.form,
+                                            "bus",
+                                            $$a
+                                              .slice(0, $$i)
+                                              .concat($$a.slice($$i + 1))
+                                          )
+                                      }
+                                    } else {
+                                      _vm.$set(_vm.form, "bus", $$c)
+                                    }
+                                  },
+                                },
+                              }),
+                              _vm._v(" "),
+                              _c(
+                                "label",
+                                {
+                                  staticClass: "custom-control-label",
+                                  attrs: { for: "transport1" },
+                                },
+                                [_vm._v("Bus")]
+                              ),
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "custom-control custom-checkbox custom-control-inline",
+                            },
+                            [
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.form.train,
+                                    expression: "form.train",
+                                  },
+                                ],
+                                staticClass: "custom-control-input",
+                                attrs: {
+                                  type: "checkbox",
+                                  id: "transport2",
+                                  "true-value": "1",
+                                  "false-value": "0",
+                                },
+                                domProps: {
+                                  checked: Array.isArray(_vm.form.train)
+                                    ? _vm._i(_vm.form.train, null) > -1
+                                    : _vm._q(_vm.form.train, "1"),
+                                },
+                                on: {
+                                  change: function ($event) {
+                                    var $$a = _vm.form.train,
+                                      $$el = $event.target,
+                                      $$c = $$el.checked ? "1" : "0"
+                                    if (Array.isArray($$a)) {
+                                      var $$v = null,
+                                        $$i = _vm._i($$a, $$v)
+                                      if ($$el.checked) {
+                                        $$i < 0 &&
+                                          _vm.$set(
+                                            _vm.form,
+                                            "train",
+                                            $$a.concat([$$v])
+                                          )
+                                      } else {
+                                        $$i > -1 &&
+                                          _vm.$set(
+                                            _vm.form,
+                                            "train",
+                                            $$a
+                                              .slice(0, $$i)
+                                              .concat($$a.slice($$i + 1))
+                                          )
+                                      }
+                                    } else {
+                                      _vm.$set(_vm.form, "train", $$c)
+                                    }
+                                  },
+                                },
+                              }),
+                              _vm._v(" "),
+                              _c(
+                                "label",
+                                {
+                                  staticClass: "custom-control-label",
+                                  attrs: { for: "transport2" },
+                                },
+                                [_vm._v("Train")]
+                              ),
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _vm.form.errors.has("transport")
+                            ? _c(
+                                "div",
+                                { staticClass: "error" },
+                                [
+                                  _c(
+                                    "lable",
+                                    { staticClass: "danger text-danger" },
+                                    [
+                                      _vm._v(
+                                        _vm._s(_vm.form.errors.get("transport"))
+                                      ),
+                                    ]
+                                  ),
+                                ],
+                                1
+                              )
+                            : _vm._e(),
+                        ]),
+                      ]),
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col-sm-4" }, [
+                        _c(
+                          "div",
+                          { staticClass: "form-group" },
+                          [
+                            _c("label", { attrs: { for: "category" } }, [
+                              _vm._v("Category"),
+                            ]),
+                            _vm._v(" "),
+                            _c("br"),
+                            _vm._v(" "),
+                            _c("multiselect", {
+                              attrs: {
+                                options: _vm.tour_type_list,
+                                multiple: true,
+                                "close-on-select": true,
+                                "show-labels": false,
+                                placeholder: "Pick categories",
+                                label: "name",
+                                "track-by": "name",
+                              },
+                              model: {
+                                value: _vm.form.tourtypes,
+                                callback: function ($$v) {
+                                  _vm.$set(_vm.form, "tourtypes", $$v)
+                                },
+                                expression: "form.tourtypes",
+                              },
+                            }),
+                          ],
+                          1
+                        ),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-sm-4" }, [
+                        _c(
+                          "div",
+                          { staticClass: "form-group" },
+                          [
+                            _c("label", { attrs: { for: "client_type" } }, [
+                              _vm._v("Client Type"),
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "select",
+                              {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.form.client_type,
+                                    expression: "form.client_type",
+                                  },
+                                ],
+                                staticClass: "form-control customSelect",
+                                on: {
+                                  change: function ($event) {
+                                    var $$selectedVal = Array.prototype.filter
+                                      .call(
+                                        $event.target.options,
+                                        function (o) {
+                                          return o.selected
+                                        }
+                                      )
+                                      .map(function (o) {
+                                        var val =
+                                          "_value" in o ? o._value : o.value
+                                        return val
+                                      })
+                                    _vm.$set(
+                                      _vm.form,
+                                      "client_type",
+                                      $event.target.multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0]
+                                    )
+                                  },
+                                },
+                              },
+                              [
+                                _c(
+                                  "option",
+                                  { attrs: { value: "eduInstitute" } },
+                                  [_vm._v("Educational Institute")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "option",
+                                  { attrs: { value: "corporate" } },
+                                  [_vm._v("Corporate")]
+                                ),
+                                _vm._v(" "),
+                                _c("option", { attrs: { value: "general" } }, [
+                                  _vm._v("General"),
+                                ]),
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c("has-error", {
+                              attrs: { form: _vm.form, field: "client_type" },
+                            }),
+                          ],
+                          1
+                        ),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-sm-4" }, [
+                        _c(
+                          "div",
+                          { staticClass: "form-group" },
+                          [
+                            _c("label", { attrs: { for: "season" } }, [
+                              _vm._v("Season"),
+                            ]),
+                            _vm._v(" "),
+                            _c("br"),
+                            _vm._v(" "),
+                            _c("multiselect", {
+                              attrs: {
+                                options: _vm.season_list,
+                                multiple: true,
+                                "close-on-select": true,
+                                "show-labels": false,
+                                placeholder: "Pick seasons",
+                                label: "name",
+                                "track-by": "name",
+                              },
+                              model: {
+                                value: _vm.form.seasons,
+                                callback: function ($$v) {
+                                  _vm.$set(_vm.form, "seasons", $$v)
+                                },
+                                expression: "form.seasons",
+                              },
+                            }),
+                          ],
+                          1
+                        ),
+                      ]),
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row mb-30" }, [
+                      _c("div", { staticClass: "col-sm-8" }, [
+                        _c(
+                          "div",
+                          { staticClass: "form-group" },
+                          [
+                            _c("label", { attrs: { for: "titleId" } }, [
+                              _vm._v("Title"),
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.title,
+                                  expression: "form.title",
+                                },
+                              ],
+                              staticClass: "form-control",
+                              class: {
+                                "is-invalid": _vm.form.errors.has("title"),
+                              },
+                              attrs: {
+                                type: "text",
+                                placeholder: "Enter Title",
+                                name: "title",
+                              },
+                              domProps: { value: _vm.form.title },
+                              on: {
+                                input: function ($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.form,
+                                    "title",
+                                    $event.target.value
+                                  )
+                                },
+                              },
+                            }),
+                            _vm._v(" "),
+                            _c("has-error", {
+                              attrs: { form: _vm.form, field: "title" },
+                            }),
+                          ],
+                          1
+                        ),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-sm-4" }, [
+                        _c("div", { staticClass: "form-group" }, [
+                          _c("label", { attrs: { for: "tourtypeId" } }, [
+                            _vm._v("Food"),
+                          ]),
+                          _vm._v(" "),
+                          _c("div", [
+                            _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "custom-control custom-radio custom-control-inline",
+                              },
+                              [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.form.food,
+                                      expression: "form.food",
+                                    },
+                                  ],
+                                  staticClass: "custom-control-input",
+                                  attrs: {
+                                    type: "radio",
+                                    id: "food_yes",
+                                    value: "1",
+                                    name: "food",
+                                  },
+                                  domProps: {
+                                    checked: _vm._q(_vm.form.food, "1"),
+                                  },
+                                  on: {
+                                    change: function ($event) {
+                                      return _vm.$set(_vm.form, "food", "1")
+                                    },
+                                  },
+                                }),
+                                _vm._v(" "),
+                                _c(
+                                  "label",
+                                  {
+                                    staticClass: "custom-control-label",
+                                    attrs: { for: "food_yes" },
+                                  },
+                                  [_vm._v("Yes")]
+                                ),
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "custom-control custom-radio custom-control-inline",
+                              },
+                              [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.form.food,
+                                      expression: "form.food",
+                                    },
+                                  ],
+                                  staticClass: "custom-control-input",
+                                  attrs: {
+                                    type: "radio",
+                                    value: "0",
+                                    id: "food_no",
+                                    name: "food",
+                                  },
+                                  domProps: {
+                                    checked: _vm._q(_vm.form.food, "0"),
+                                  },
+                                  on: {
+                                    change: function ($event) {
+                                      return _vm.$set(_vm.form, "food", "0")
+                                    },
+                                  },
+                                }),
+                                _vm._v(" "),
+                                _c(
+                                  "label",
+                                  {
+                                    staticClass: "custom-control-label",
+                                    attrs: { for: "food_no" },
+                                  },
+                                  [_vm._v("No")]
+                                ),
+                              ]
+                            ),
+                          ]),
+                          _vm._v(" "),
+                          _vm.form.errors.has("food")
+                            ? _c("div", { staticClass: "error" }, [
+                                _vm._v(
+                                  "\n                " +
+                                    _vm._s(_vm.form.errors.get("food")) +
+                                    "\n              "
+                                ),
+                              ])
+                            : _vm._e(),
+                        ]),
+                      ]),
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group mb-30" },
+                      [
+                        _c("label", { attrs: { for: "descriptionId" } }, [
+                          _vm._v("Description"),
+                        ]),
+                        _vm._v(" "),
+                        _c("vue-editor", {
+                          class: {
+                            "is-invalid": _vm.form.errors.has("description"),
+                          },
+                          attrs: {
+                            customModules: _vm.customModulesForEditor,
+                            editorOptions: _vm.editorSettings,
+                            id: "editor",
+                            useCustomImageHandler: "",
+                          },
+                          on: {
+                            "image-added": _vm.handleImageAdded,
+                            "image-removed": _vm.handleImageRemoved,
+                          },
+                          model: {
+                            value: _vm.form.description,
+                            callback: function ($$v) {
+                              _vm.$set(_vm.form, "description", $$v)
+                            },
+                            expression: "form.description",
+                          },
+                        }),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "description" },
+                        }),
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row mb-30" }, [
+                      _c("div", { staticClass: "col-sm-6" }, [
+                        _c("div", { staticClass: "row" }, [
+                          _c("div", { staticClass: "col-sm-6" }, [
+                            _c("div", { staticClass: "form-group" }, [
+                              _c("input", {
+                                staticClass: "overflow-hidden",
+                                class: {
+                                  "is-invalid": _vm.form.errors.has("photo"),
+                                },
+                                attrs: { name: "photo", type: "file" },
+                                on: {
+                                  change: function ($event) {
+                                    return _vm.changePhoto($event)
+                                  },
+                                },
+                              }),
+                            ]),
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-sm-6" }, [
+                            _vm.photo != ""
+                              ? _c("img", {
+                                  attrs: {
+                                    src: _vm.photo,
+                                    alt: "",
+                                    width: "80",
+                                    height: "80",
+                                  },
+                                })
+                              : _vm._e(),
+                          ]),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-sm-6" }, [
+                        _c("div", { staticClass: "row" }, [
+                          _c("div", { staticClass: "col-sm-5" }, [
+                            _c("div", { staticClass: "form-group" }, [
+                              _c("input", {
+                                staticClass: "overflow-hidden",
+                                class: {
+                                  "is-invalid":
+                                    _vm.form.errors.has("detail_photo"),
+                                },
+                                attrs: { type: "file" },
+                                on: {
+                                  change: function ($event) {
+                                    return _vm.changeDetailPhoto($event)
+                                  },
+                                },
+                              }),
+                            ]),
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-sm-7" }, [
+                            _vm.detail_photo != ""
+                              ? _c("img", {
+                                  staticClass: "detail_photo",
+                                  attrs: {
+                                    src: _vm.detail_photo,
+                                    alt: "",
+                                    width: "80",
+                                    height: "80",
+                                  },
+                                })
+                              : _vm._e(),
+                          ]),
+                        ]),
+                      ]),
+                    ]),
+                    _vm._v(" "),
+                    _c("hr"),
+                    _vm._v(" "),
+                    _vm._l(_vm.itinerarydays, function (data, index) {
+                      return _c(
+                        "div",
+                        { key: index, staticClass: "card content" },
+                        [
+                          _c("h4", [_vm._v("Day " + _vm._s(data.day))]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "row" }, [
+                            _c(
+                              "div",
+                              { staticClass: "col-sm-6" },
+                              [
+                                _c("label", [_vm._v("Source")]),
+                                _vm._v(" "),
+                                _c("dropdown-list", {
+                                  staticClass: "mb-2",
+                                  attrs: { itemList: _vm.cities },
+                                  model: {
+                                    value: data.day_source,
+                                    callback: function ($$v) {
+                                      _vm.$set(data, "day_source", $$v)
+                                    },
+                                    expression: "data.day_source",
+                                  },
+                                }),
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              { staticClass: "col-sm-6" },
+                              [
+                                _c("label", [_vm._v("Destination")]),
+                                _vm._v(" "),
+                                _c("dropdown-list", {
+                                  staticClass: "mb-2",
+                                  attrs: { itemList: _vm.cities },
+                                  model: {
+                                    value: data.day_destination,
+                                    callback: function ($$v) {
+                                      _vm.$set(data, "day_destination", $$v)
+                                    },
+                                    expression: "data.day_destination",
+                                  },
+                                }),
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              { staticClass: "col-sm-12" },
+                              [
+                                _c("label", [_vm._v("Description")]),
+                                _vm._v(" "),
+                                _c("vue-editor", {
+                                  class: {
+                                    "is-invalid":
+                                      _vm.form.errors.has("description"),
+                                  },
+                                  attrs: {
+                                    customModules: _vm.customModulesForEditor,
+                                    editorOptions: _vm.editorSettings,
+                                    id: "editor",
+                                    useCustomImageHandler: "",
+                                  },
+                                  on: {
+                                    "image-added": _vm.handleImageAdded,
+                                    "image-removed": _vm.handleImageRemoved,
+                                  },
+                                  model: {
+                                    value: data.day_description,
+                                    callback: function ($$v) {
+                                      _vm.$set(data, "day_description", $$v)
+                                    },
+                                    expression: "data.day_description",
+                                  },
+                                }),
+                              ],
+                              1
+                            ),
+                          ]),
+                        ]
+                      )
+                    }),
+                    _vm._v(" "),
+                    _c("form-buttons"),
+                  ],
+                  2
+                ),
+              ]),
+            ]),
+          ]
+        },
+        proxy: true,
+      },
+    ]),
+  })
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./resources/js/admin/mixins/Vue2EditorMixin.js":
+/*!******************************************************!*\
+  !*** ./resources/js/admin/mixins/Vue2EditorMixin.js ***!
+  \******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue2_editor__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue2-editor */ "./node_modules/vue2-editor/dist/vue2-editor.esm.js");
+/* harmony import */ var quill_image_drop_module__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! quill-image-drop-module */ "./node_modules/quill-image-drop-module/index.js");
+/* harmony import */ var quill_image_resize_module__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! quill-image-resize-module */ "./node_modules/quill-image-resize-module/image-resize.min.js");
+/* harmony import */ var quill_image_resize_module__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(quill_image_resize_module__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+var Vue2EditorMixin = {
+  components: {
+    "vue-editor": vue2_editor__WEBPACK_IMPORTED_MODULE_0__["VueEditor"]
+  },
+  data: function data() {
+    return {
+      customModulesForEditor: [{
+        alias: "imageDrop",
+        module: quill_image_drop_module__WEBPACK_IMPORTED_MODULE_1__["ImageDrop"]
+      }, {
+        alias: "imageResize",
+        module: quill_image_resize_module__WEBPACK_IMPORTED_MODULE_2___default.a
+      }],
+      editorSettings: {
+        modules: {
+          imageDrop: true,
+          imageResize: {}
+        }
+      }
+    };
+  },
+  methods: {
+    handleImageAdded: function handleImageAdded(file, Editor, cursorLocation, resetUploader) {
+      var formData = new FormData();
+      formData.append("image", file);
+      axios({
+        url: "/api/images",
+        method: "POST",
+        data: formData
+      }).then(function (result) {
+        var url = result.data.url; // Get url from response
+
+        Editor.insertEmbed(cursorLocation, "image", url);
+        resetUploader();
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    handleImageRemoved: function handleImageRemoved(file, Editor, cursorLocation, resetUploader) {
+      var formData = new FormData();
+      formData.append("image", file);
+      axios({
+        url: "/api/images/delete",
+        method: "POST",
+        data: formData
+      }).then(function (result) {
+        var url = result.data.url; // Get url from response
+
+        Editor.insertEmbed(cursorLocation, "image", url);
+        resetUploader();
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    }
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = (Vue2EditorMixin);
+
+/***/ }),
+
+/***/ "./resources/js/admin/pages/itinerary/Edit-itinerary.vue":
+/*!***************************************************************!*\
+  !*** ./resources/js/admin/pages/itinerary/Edit-itinerary.vue ***!
+  \***************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Edit_itinerary_vue_vue_type_template_id_0a775956_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Edit-itinerary.vue?vue&type=template&id=0a775956&scoped=true& */ "./resources/js/admin/pages/itinerary/Edit-itinerary.vue?vue&type=template&id=0a775956&scoped=true&");
+/* harmony import */ var _Edit_itinerary_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Edit-itinerary.vue?vue&type=script&lang=js& */ "./resources/js/admin/pages/itinerary/Edit-itinerary.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _Edit_itinerary_vue_vue_type_style_index_0_id_0a775956_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Edit-itinerary.vue?vue&type=style&index=0&id=0a775956&scoped=true&lang=css& */ "./resources/js/admin/pages/itinerary/Edit-itinerary.vue?vue&type=style&index=0&id=0a775956&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _Edit_itinerary_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Edit_itinerary_vue_vue_type_template_id_0a775956_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Edit_itinerary_vue_vue_type_template_id_0a775956_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "0a775956",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/admin/pages/itinerary/Edit-itinerary.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/admin/pages/itinerary/Edit-itinerary.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************!*\
+  !*** ./resources/js/admin/pages/itinerary/Edit-itinerary.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Edit_itinerary_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./Edit-itinerary.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/admin/pages/itinerary/Edit-itinerary.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Edit_itinerary_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/admin/pages/itinerary/Edit-itinerary.vue?vue&type=style&index=0&id=0a775956&scoped=true&lang=css&":
+/*!************************************************************************************************************************!*\
+  !*** ./resources/js/admin/pages/itinerary/Edit-itinerary.vue?vue&type=style&index=0&id=0a775956&scoped=true&lang=css& ***!
+  \************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Edit_itinerary_vue_vue_type_style_index_0_id_0a775956_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader!../../../../../node_modules/css-loader??ref--6-1!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--6-2!../../../../../node_modules/vue-loader/lib??vue-loader-options!./Edit-itinerary.vue?vue&type=style&index=0&id=0a775956&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/admin/pages/itinerary/Edit-itinerary.vue?vue&type=style&index=0&id=0a775956&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Edit_itinerary_vue_vue_type_style_index_0_id_0a775956_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Edit_itinerary_vue_vue_type_style_index_0_id_0a775956_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Edit_itinerary_vue_vue_type_style_index_0_id_0a775956_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Edit_itinerary_vue_vue_type_style_index_0_id_0a775956_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+
+
+/***/ }),
+
+/***/ "./resources/js/admin/pages/itinerary/Edit-itinerary.vue?vue&type=template&id=0a775956&scoped=true&":
+/*!**********************************************************************************************************!*\
+  !*** ./resources/js/admin/pages/itinerary/Edit-itinerary.vue?vue&type=template&id=0a775956&scoped=true& ***!
+  \**********************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Edit_itinerary_vue_vue_type_template_id_0a775956_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./Edit-itinerary.vue?vue&type=template&id=0a775956&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/admin/pages/itinerary/Edit-itinerary.vue?vue&type=template&id=0a775956&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Edit_itinerary_vue_vue_type_template_id_0a775956_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Edit_itinerary_vue_vue_type_template_id_0a775956_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ })
+
+}]);

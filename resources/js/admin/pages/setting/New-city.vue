@@ -54,7 +54,7 @@ import FormButtons from "@/admin/components/buttons/FormButtons.vue";
 import FormLayout from "@/admin/components/layout/FormLayout.vue";
 import DropdownFilter from "@/admin/components/form/DropdownFilter.vue";
 export default {
-  name: "New",
+  name: "NewCity",
   components: {
     Form,
     "has-error": HasError,
@@ -120,6 +120,7 @@ export default {
             icon: "success",
             title: "Successfully Updated !!!",
           });
+          this.$router.push(`/list-city/`);
         })
         .catch((error) => {
           if (error.response.status === 422) {

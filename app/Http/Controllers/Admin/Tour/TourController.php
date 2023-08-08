@@ -29,6 +29,28 @@ class TourController extends Controller
             ->latest('updated_at')
             ->paginate($size));
     }
+
+    public function school($size)
+    {
+        return response()->json(Tour::where('customer_type', 'school')->with('school:id,school_name')
+            ->latest('updated_at')
+            ->paginate($size));
+    }
+
+    public function corporate($size)
+    {
+        return response()->json(Tour::where('customer_type', 'corporate')->with('company:id,company_name')
+            ->latest('updated_at')
+            ->paginate($size));
+    }
+
+    public function general($size)
+    {
+        return response()->json(Tour::where('customer_type', 'general')->with('family:id,family_name')
+            ->latest('updated_at')
+            ->paginate($size));
+    }
+
     public function index()
     {
         return new TourCollection(Tour::with('school')->get());
@@ -75,8 +97,15 @@ class TourController extends Controller
         $restaurant = Bookedrestaurant::with('restaurant')->where('tour_id',$tour->id)->get();
         $sightseeing = Bookedsightseeing::with('sightseeing')->where('tour_id',$tour->id)->get()->groupBy('itineraryday_id');
         
-        
-        $data = ['itinerary'=>$tour->itinerary,'school'=>$tour->school,'tour'=>$tour,'escort'=>$escorts,'train'=>$trains,'flight'=>$flights,'hotel'=>$hotels,'restaurant'=>$restaurant,'bus'=>$buses,'sightseeing'=>$sightseeing];
+        if($tour->customer_type == 'school'){
+            $data = ['itinerary'=>$tour->itinerary,'entity'=>$tour->school,'tour'=>$tour,'escort'=>$escorts,'train'=>$trains,'flight'=>$flights,'hotel'=>$hotels,'restaurant'=>$restaurant,'bus'=>$buses,'sightseeing'=>$sightseeing];
+        }
+        else if($tour->customer_type == 'corporate'){
+            $data = ['itinerary'=>$tour->itinerary,'entity'=>$tour->company,'tour'=>$tour,'escort'=>$escorts,'train'=>$trains,'flight'=>$flights,'hotel'=>$hotels,'restaurant'=>$restaurant,'bus'=>$buses,'sightseeing'=>$sightseeing];
+        }
+        else if($tour->customer_type == 'general'){
+            $data = ['itinerary'=>$tour->itinerary,'entity'=>$tour->family,'tour'=>$tour,'escort'=>$escorts,'train'=>$trains,'flight'=>$flights,'hotel'=>$hotels,'restaurant'=>$restaurant,'bus'=>$buses,'sightseeing'=>$sightseeing];
+        }
         
         
         return response()->json($data);
@@ -122,7 +151,10 @@ class TourController extends Controller
     public function validateTour($request)
     {
       return $this->validate($request, [
-            'school_id' => 'required',
+            'school_id' => '',
+            'company_id' => '',
+            'family_id' => '',
+            'customer_type' => 'required',
             'itinerary_id' => 'required',
             'tour_id' => 'required',
             'travel_code' => 'required',
@@ -131,4 +163,5 @@ class TourController extends Controller
             'tour_price' => 'required',
       ]);
     }
+
 }

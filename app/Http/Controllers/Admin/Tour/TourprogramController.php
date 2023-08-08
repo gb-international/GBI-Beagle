@@ -60,7 +60,10 @@ class TourprogramController extends Controller
             'alt'=>'',
         ]);
         
-        $validate['image'] = $this->singleFile($request->image,'/images/tourprogram/',$request->alt);
+        if($request->image){
+            $validate['image'] = $this->AwsFileUpload($request->image,config('gbi.tourprogram_image'),$request->alt);
+        }
+
         $tourprogram = Tourprogram::create($validate);
 
         $data = [];
@@ -109,10 +112,12 @@ class TourprogramController extends Controller
             'description'=>'required',
             'alt'=>'',
         ]);
-        $validate['image'] = $tourprogram->image;
-
-        if($request->input('image') != $validate['image']){
-            $validate['image'] = $this->singleFile($request->image,'/images/tourprogram/',$request->alt);
+        if($request->image != $tourprogram->image){
+            $validate['image'] = $this->AwsFileUpload($request->image,config('gbi.tourprogram_image'),$request->alt);
+            $this->AwsDeleteImage($tourprogram->image);
+        }else{
+            unset($validate['image']);
+            unset($validate['alt']);
         }
 
         $tourprogram->update($validate);
@@ -133,6 +138,7 @@ class TourprogramController extends Controller
      */
     public function destroy(Tourprogram $tourprogram)
     {
+        $this->AwsDeleteImage($tourprogram->image);
         $tourprogram->delete();
         return response()->json('successfully deleted');
     }

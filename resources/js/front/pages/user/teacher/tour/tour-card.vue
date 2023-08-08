@@ -26,7 +26,7 @@
           <div class="col p-0">
             <router-link :to="`/tour-detail/${tour.tour.tour_id}`">
               <div class="text-center bg-transparent-card p-t-15 pb-15 text-white">
-                <img src="/images/icons/viewitinerary.png" class="w-20 mr-1">View Itinerary
+                <img :src="$gbiAssets+'/images/icons/viewitinerary.png'" class="w-20 mr-1">View Itinerary
               </div>
             </router-link>
           </div>
@@ -34,7 +34,7 @@
           <div class="col p-0">
             <router-link :to="`/group-member/${tour.tour.tour_id}`">
               <div class="text-cente bg-transparent-card p-t-15 pb-15 ml-1 text-white">
-                <img src="/images/icons/viewmemberlist.png" class="w-20 mr-1"> Group Members
+                <img :src="$gbiAssets+'/images/icons/viewmemberlist.png'" class="w-20 mr-1"> All Members
               </div>
             </router-link>
           </div>
@@ -44,7 +44,7 @@
           <div class="col p-0">
             <router-link :to="`/tour-detail/${tour.tour.tour_id}`">
               <div class="text-center bg-transparent-card p-t-15 pb-15 text-white">
-                <img src="/images/icons/viewitinerary.png" class="w-20 mr-1"> View Itinerary
+                <img :src="$gbiAssets+'/images/icons/viewitinerary.png'" class="w-20 mr-1"> View Itinerary
               </div>
             </router-link>
           </div>

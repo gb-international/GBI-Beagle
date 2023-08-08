@@ -1,28 +1,23 @@
 <?php
-
 namespace App\Http\Controllers\Front;
 use App\Model\Encyclopedia\Encyclopedia;
 use App\Model\Encyclopedia\Encyclopediacomment;
 use App\Model\Itinerary\Itinerary;
+use App\Model\Itinerary\Itinerarypdf;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\User;
-
-
 class EncyclopediaController extends Controller
 {
     public function index()
     {
-    	return response()->json(Encyclopedia::select('thumbnail','state_name','slug')->get());
+      return response()->json(Encyclopedia::whereNotNull('thumbnail')->select('thumbnail','state_name', 'country', 'slug')->get());
     }
     public function view($slug)
-    {    	
-
-
-        $data = Encyclopedia::with('comments','images','itinerarypdfs','comments.user','comments.user.information')->where('slug',$slug)->first();
-        
-    	return response()->json($data);
+    {     
+      $data = Encyclopedia::with('comments','images','itinerarypdfs','comments.user','comments.user.information')->where('slug',$slug)->first();
+      return response()->json($data);
     }
 
     public function getComment($id){
@@ -42,6 +37,13 @@ class EncyclopediaController extends Controller
             'parent_id' => $request->parent_id
         ];
         $data = Encyclopediacomment::create($data);
+        return response()->json($data);
+    }
+
+    public function Pdf($slug){
+        $data = Itinerarypdf::where('slug',$slug)
+            ->select(['name','slug','id'])
+            ->first();
         return response()->json($data);
     }
 }

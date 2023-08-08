@@ -10,10 +10,21 @@ to submit the data we are using a function.
         Author:@Ajay
         ****************************************************-->
       <div class="row justify-content-around">
-        <div class="col-md-12 pl-4 pb-5">
+        <div class="col-md-12 pl-4 pb-5" style="position: relative;">
           <slot name="formdata"></slot>
+          
         </div>
       </div>
     </div>
   </section>
 </template>
+<script>
+    export default{
+        name:"FromLayoutGBI",
+        data(){
+            return{
+
+            }
+        }
+    }
+</script>

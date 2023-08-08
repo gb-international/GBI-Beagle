@@ -1,12 +1,10 @@
 <?php
-
 namespace App\Http\Controllers\Escort;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Escort\Escort;
 use App\Helpers\SendSms;
 use App\Otp;
-
 class LoginController extends Controller 
 {
     public function login(Request $request){

@@ -1,5 +1,9 @@
 <?php
+/*
+Created by : Ajay yadav 
+Purpose : GBI States (Blog ) manage here
 
+*/
 namespace App\Http\Controllers\Admin\Location;
 
 use App\Model\Location\State;

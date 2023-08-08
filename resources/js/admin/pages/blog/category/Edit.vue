@@ -1,3 +1,9 @@
+<!--************************************************
+      Author:@Ajay 
+      Edited by: @Manas
+      ****************************************************-->
+<!-- Edits: Added custom error to meta keyword field, the data element meta_keywordWarn was added -->
+
 <!-- 
 
 This template helps us to create a new hotel it takes the data from the form and sumbit with the help of the api
@@ -5,12 +11,14 @@ to submit the data we are using a function.
 
  -->
 <template>
+<section>
   <form-layout>
     <template #formdata>
       <form
         role="form"
         enctype="multipart/form-data"
         @submit.prevent="UpdateCategory()"
+
       >
         <div class="row">
           <div class="col-sm-12">
@@ -67,9 +75,10 @@ to submit the data we are using a function.
                 class="form-control"
                 v-model="form.meta_keyword"
                 :class="{ 'is-invalid': form.errors.has('meta_keyword') }"
-                placeholder="Enter meta title"
+                placeholder="Enter meta keyword"
               />
               <has-error :form="form" field="meta_keyword"></has-error>
+              <p v-if="meta_keywordWarn && form.meta_keyword === '' " class="warn-error"> The meta keyword field is required.</p>
             </div>
           </div>
         </div>
@@ -77,7 +86,7 @@ to submit the data we are using a function.
         <div class="row">
           <div class="col-sm-4">
             <div class="form-group">
-              <label for="image">Please upload a Banner image !</label>
+              <label for="image">Please upload a Banner image!</label>
               <br />
               <input
                 @change="changeDetailPhoto($event)"
@@ -101,39 +110,28 @@ to submit the data we are using a function.
       </form>
     </template>
   </form-layout>
+</section>
 </template>
 
 <script>
 import { Form, HasError } from "vform";
-import { VueEditor, Quill } from "vue2-editor";
-
-import { ImageDrop } from "quill-image-drop-module";
-import ImageResize from "quill-image-resize-module";
+import Vue2EditorMixin from '@/admin/mixins/Vue2EditorMixin';
 import FormButtons from "@/admin/components/buttons/FormButtons.vue";
 import FormLayout from "@/admin/components/layout/FormLayout.vue";
 
 export default {
-  name: "New",
+  name: "NewCategory",
   components: {
     Form,
     "has-error": HasError,
-    "vue-editor": VueEditor,
     "form-buttons": FormButtons,
     "form-layout": FormLayout,
   },
+  mixins:[Vue2EditorMixin],
   data() {
     return {
       img_image: false,
-      customModulesForEditor: [
-        { alias: "imageDrop", module: ImageDrop },
-        { alias: "imageResize", module: ImageResize },
-      ],
-      editorSettings: {
-        modules: {
-          imageDrop: true,
-          imageResize: {},
-        },
-      },
+      meta_keywordWarn: false,
       form: new Form({
         title: "",
         description: "",
@@ -141,23 +139,28 @@ export default {
         meta_title: "",
         meta_keyword: "",
       }),
+      loading: false
     };
   },
   created() {
     this.editCategory();
   },
   methods: {
-    editCategory() {
+    editCategory(){
       axios
         .get(`/api/categories/${this.$route.params.id}/edit`)
         .then((response) => {
-          setTimeout(() => $("#example").DataTable(), 1000);
           this.form.fill(response.data);
           this.form.image = [];
-          this.img_image = "/images/category/" + response.data.image;
+          this.img_image = response.data.image;
         });
     },
     UpdateCategory() {
+      if (!this.form.meta_keyword) {
+        this.meta_keywordWarn = true
+        return false
+      }
+      this.loading = true
       this.form
         .put(`/api/categories/${this.$route.params.id}`)
         .then((response) => {
@@ -166,6 +169,7 @@ export default {
             "Item Updated successfully",
             "success"
           );
+        this.loading = false
         })
         .catch(() => {});
     },
@@ -182,49 +186,18 @@ export default {
       };
       reader.readAsDataURL(file);
     },
-    handleImageAdded: function (file, Editor, cursorLocation, resetUploader) {
-      var formData = new FormData();
-      formData.append("image", file);
-      axios({
-        url: "/api/images",
-        method: "POST",
-        data: formData,
-      })
-        .then((result) => {
-          let url = result.data.url; // Get url from response
-          Editor.insertEmbed(cursorLocation, "image", url);
-          resetUploader();
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-
-    handleImageRemoved: function (file, Editor, cursorLocation, resetUploader) {
-      var formData = new FormData();
-      formData.append("image", file);
-      axios({
-        url: "/api/images/delete",
-        method: "POST",
-        data: formData,
-      })
-        .then((result) => {
-          console.log(result);
-          let url = result.data.url; // Get url from response
-          Editor.insertEmbed(cursorLocation, "image", url);
-          resetUploader();
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-
-    imagePath() {
-      return "/images/post/" + this.form.image;
-    },
     back() {
       this.$router.push("/categories");
     },
   },
 };
 </script> 
+
+<style scoped>
+  .warn-error {
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 80%;
+    color: #dc3545;
+  }
+</style>

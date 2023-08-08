@@ -1,20 +1,25 @@
 <?php
-
 namespace App\Http\Controllers\Front;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Model\School\Groupmember;
 use App\User;
 use Auth;
-
 class GroupmemberController extends Controller
 {
     public function index(Request $request){
         $this->validate($request, [ 
             'tour_id' => 'required',
+            'user_type'=>'required'
         ]);
-
-        return response()->json(Groupmember::where('tour_id',$request->tour_id)->get());
+        $where = ['tour_id'=>$request->tour_id,'user_type'=>$request->user_type];
+        $data = Groupmember::where($where)
+            ->get([
+                'id','user_type','tour_id',
+                'first_name','last_name',
+                'email','gender','mobile','age'
+            ]);
+        return response()->json($data);
     }
 
     public function studentStore(Request $request){

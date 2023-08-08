@@ -6,31 +6,33 @@
   <div id="howwework">
     <div class="howwework_banner text_on_image banner_bg">
       <div class="content">
-        <p class="heading">HOW WE WORK</p>
+        <p class="heading">How We Work</p>
       </div>
     </div>
 
-    <article class="how-we-work">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12">
-            <h1>HOW WE WORK</h1>
-          </div>
-          <div class="col-lg-12">
-            <h2>What makes GB International a valuable travel educationalist?</h2>
-            <p>Designed with academic standards in mind, GBI’s travel program feature observation, experiential learning and skill development along with fun loaded activities. We strive to provide a real world context for concepts learned in classroom. We, therefore, create enriching programs tailored to specific curricula and our tours are designed to support more than one disciplinary connection such as history and culture, heritage and arts to name a few. Travel, we believe, can do a lot more than a change in the way a person looks at the world; it can enhance their skills and their ability to make the world a better place.</p>
-          </div>
-        </div>
-      </div>
-    </article>
+    <div class="container mt-2">
+      <heading text="How We Work" />
+      <paragraph text="We at GB International follow a  ROFRE mechanism  which helps our teams to execute and plan the excursions based on the requirements of the clients (students and travelers). Every GBI  team member takes into the consideration the scope of the travel and based on the custom needs we plan and execute the trip. Our 40 years of research and experimental approach has helped us understand the customer and their needs better."/>
+        <paragraph text="R-Requirement gathering"/>
+        <paragraph text="O-Objective"/>
+        <paragraph text="F-Financial Planning"/>
+        <paragraph text="R-Road Map"/>
+        <paragraph text="E-Execution"/>
+        <paragraph text="Travel research for destination and market"/>
+        <sub-heading text="Itinerary Development" />
+        <paragraph text="Understanding the objective of travel plan include the main curriculum handpicked ,collaborate ,research problem, research and resource material, curriculum connection."/>
+        <sub-heading text="Financial Planning" />
+        <paragraph text="Gathering requirements and scope, creating a road map, performing analysis , travel and implementation planning and executing  the plan."/>
+    </div>
+
     <!-- End how we work -->
 
     <!-- Start experience include-->
-    <section class="bgcolor-section p-bottom-20">
-      <h1 class="experience-heading">YOUR EXPERIENCE INCLUDES</h1>
+    <section class="bgcolor-section p-bottom-20 mt-4">
+      <heading class="text-center" text="Your Experience Includes" />
       <div class="container">
         <div class="row">
-          <div class="col-md-6 col-lg-4">
+          <div class="col-sm-6 col-md-6 col-lg-4">
             <div class="card-container">
               <figure v-lazyload class="image__wrapper">
                 <ImageSpinner class="image__spinner" />
@@ -49,7 +51,7 @@
               </div>
             </div>
           </div>
-          <div class="col-md-6 col-lg-4">
+          <div class="col-sm-6 col-md-6 col-lg-4">
             <div class="card-container">
               <figure v-lazyload class="image__wrapper">
                 <ImageSpinner class="image__spinner" />
@@ -66,7 +68,7 @@
               </div>
             </div>
           </div>
-          <div class="col-md-6 col-lg-4">
+          <div class="col-sm-6 col-md-6 col-lg-4">
             <div class="card-container">
               <figure v-lazyload class="image__wrapper">
                 <ImageSpinner class="image__spinner" />
@@ -82,7 +84,7 @@
               </div>
             </div>
           </div>
-          <div class="col-md-6 col-lg-4">
+          <div class="col-sm-6 col-md-6 col-lg-4">
             <div class="card-container">
               <figure v-lazyload class="image__wrapper">
                 <ImageSpinner class="image__spinner" />
@@ -99,7 +101,7 @@
               </div>
             </div>
           </div>
-          <div class="col-md-6 col-lg-4">
+          <div class="col-sm-6 col-md-6 col-lg-4">
             <div class="card-container">
               <figure v-lazyload class="image__wrapper">
                 <ImageSpinner class="image__spinner" />
@@ -118,7 +120,7 @@
               </div>
             </div>
           </div>
-          <div class="col-md-6 col-lg-4">
+          <div class="col-sm-6 col-md-6 col-lg-4">
             <div class="card-container">
               <figure v-lazyload class="image__wrapper">
                 <ImageSpinner class="image__spinner" />
@@ -135,7 +137,7 @@
               </div>
             </div>
           </div>
-          <div class="col-md-6 col-lg-4">
+          <div class="col-sm-6 col-md-6 col-lg-4">
             <div class="card-container">
               <figure v-lazyload class="image__wrapper">
                 <ImageSpinner class="image__spinner" />
@@ -152,7 +154,7 @@
               </div>
             </div>
           </div>
-          <div class="col-md-6 col-lg-4">
+          <div class="col-sm-6 col-md-6 col-lg-4">
             <div class="card-container">
               <figure v-lazyload class="image__wrapper">
                 <ImageSpinner class="image__spinner" />
@@ -171,7 +173,7 @@
               </div>
             </div>
           </div>
-          <div class="col-md-6 col-lg-4">
+          <div class="col-sm-6 col-md-6 col-lg-4">
             <div class="card-container">
               <figure v-lazyload class="image__wrapper">
                 <ImageSpinner class="image__spinner" />
@@ -197,8 +199,16 @@
 </template>
 
 <script>
+import Heading from '@/front/components/layout/Heading.vue';
+import SubHeading from '@/front/components/layout/SubHeading.vue';
+import Paragraph from '@/front/components/layout/Paragraph.vue';
 export default {
   name: "HowWework",
+  components:{
+    "heading":Heading,
+    "sub-heading":SubHeading,
+    "paragraph" : Paragraph
+  },
    metaInfo: {
     title: 'How We Work',
     meta:[
@@ -214,6 +224,24 @@ export default {
     return {
 
     }
+  },
+  beforeCreate(){
+    let metaInfo = {
+      title: 'How We Work',
+      description: '@GoWithGBI takes you on a tour behind the scenes where you will get to learn about the process and hard work GBI team puts to make your educational travel program a successful one',
+      keywords: '@GoWithGBI,GBI Process,Program Engineering Process ,GBI How we work,learn,explore,discover,dream travel journeys,behind the scenes,dream,educational programs,corporate events,team building programs,international programs,domestic programs',
+      url: 'https://www.gowithgbi.com/about-us/how-we-work',
+      type: 'website'
+    }
+    document.cookie = "GBIMeta =" + JSON.stringify(metaInfo) +"; path=/";
   }
 };
 </script>
+
+<style scoped>
+.card-title {
+    font-family: 'Nunito Sans' !important;
+    text-align: center !important;
+    font-weight: 600 !important;
+}
+</style>

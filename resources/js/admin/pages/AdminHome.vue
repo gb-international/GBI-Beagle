@@ -32,12 +32,8 @@
           Start creating your amazing application .....!
           <h1>Hello</h1>
         </div>
-        <!-- /.card-body -->
         <div class="card-footer">Footer</div>
-        <!-- /.card-footer-->
       </div>
-      <!-- /.card -->
     </section>
-    <!-- /.content -->
   </div>
 </template>

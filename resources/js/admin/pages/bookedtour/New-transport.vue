@@ -167,7 +167,7 @@ data from the api to display the data about the transport from the backend .
 <script>
 
     export default {
-        name: "List",
+        name: "ListBookedtranspot",
         data(){
           return{
             row_input:'',

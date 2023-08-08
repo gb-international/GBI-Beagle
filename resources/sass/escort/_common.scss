@@ -9,6 +9,22 @@
         background-color:#3c3c78;
     }
 }
+
+.btn-reset{
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+    border-radius: 25px;
+    border: solid 2px;
+    padding: 3px 22px;
+    margin-top: -6px;
+}
+.btn-reset:hover{
+	color: #fff;
+    background-color: #c12a38;
+    border-color: #c12a38;
+}
+
 .btn-slot {
     font-weight: 700 !important;
     border: 1px solid $btn-indigo !important;

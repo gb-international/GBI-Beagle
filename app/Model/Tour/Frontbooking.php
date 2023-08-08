@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Frontbooking extends Model
 {
-    protected $fillable = ['user_id','itinerary_id','start_date','end_date','person','room','occupancy_type','noofday','accomodation','city','transport','sightseen'];
+    protected $fillable = ['user_id','itinerary_id','start_date','end_date','person','room','occupancy_type','noofday','accomodation','city','transport','sightseen', 'adults', 'children', 'infants'];
 
     public function user(){
         return $this->belongsTo('App\User');

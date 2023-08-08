@@ -69,7 +69,7 @@ import TableLoader from '@/admin/components/TableLoader.vue';
 import { mapState } from 'vuex';
 
 export default {
-  name: "List",
+  name: "ListCountry",
   components:{
     'list-layout':listLayout,
     'table-loader':TableLoader,
@@ -79,8 +79,8 @@ export default {
   data() {
     return {
       fields: [
-        {key:'name',label:'STATE',sortable:true,thClass: 'table-head'},
-        {key:'action',label:'ACTION',thClass: 'table-head'}
+        {key:'name',label:'state',sortable:true,thClass: 'table-head'},
+        {key:'action',label:'action',thClass: 'table-head'}
       ],
       limit:2,
       filter:'',

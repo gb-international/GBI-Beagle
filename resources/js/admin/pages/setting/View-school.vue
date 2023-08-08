@@ -84,7 +84,7 @@ It takes id from the url and get the data from the api .
 
 <script>
     export default {
-        name: "ViewSchool",
+        name: "ViewSchoolList",
         data(){
           return{
             client_view:[]   

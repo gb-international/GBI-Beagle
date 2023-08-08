@@ -12,6 +12,25 @@
 	}
 }
 
+.trip-icon{
+	width: 22px;
+	margin-right: 5px;
+}
+
+.btn-reset{
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+    border-radius: 25px;
+    border: solid 2px;
+    padding: 3px 22px;
+    margin-top: -6px;
+}
+.btn-reset:hover{
+	color: #fff;
+    background-color: #c12a38;
+    border-color: #c12a38;
+}
 #joinOurteam{
 	  button:hover{
 
@@ -67,7 +86,8 @@
 
 	@media only screen and (max-width: 680px) {
 	.explore_banner{
-	    height: 480px;
+	    height: 820px;
+	    background-size: cover !important;
 	  }
 	.content{ top: 11% !important; }
 
@@ -136,4 +156,29 @@
 	  100% {
 	    -webkit-transform: rotate(360deg);
 	 }
+}
+
+
+@media (min-width: 992px) {
+	#itinerayrFormModal{
+		.modal-lg {
+			max-width: 80% !important;
+		}
+	}
+}
+
+#tourPage {
+	/*.text_on_image{
+		.content {
+			color: black !important;
+		}
+	}*/
+	.gbi_paragraph{
+		color: #737373;
+    	font-size: 20px;
+	}
+	.gbi_sub-heading{
+		color: #333333;
+		font-size: 23px;
+	}
 }

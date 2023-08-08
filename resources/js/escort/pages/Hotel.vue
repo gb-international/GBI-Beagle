@@ -1,7 +1,7 @@
 <template>
     <div class="container p-4">
         <div class="back mb-1">
-            <img class="back-icon cursor-pointer" @click="$router.go(-1)" src="/assets/front/icons/back.png">
+            <img class="back-icon cursor-pointer" @click="$router.go(-1)" :src="$gbiAssets+'/assets/front/icons/back.png'">
         </div>
         <h5 class="text-muted">
             Hotel

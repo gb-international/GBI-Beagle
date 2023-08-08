@@ -12,14 +12,6 @@ data from the api to display the data about the Hotel from the backend .
       <div class="col-md-12">
         <div class="container container_admin_body">
           <div class="reservation">
-            <h5 class="mb-3">
-              <img
-                class="back-icon cursor-pointer"
-                @click="$router.go(-1)"
-                src="/assets/front/icons/back.png"
-              />
-              Escort Update
-            </h5>
             <div class="ml-4">
               <div class="ml-1">
                 <p><label>Update from Escort</label></p>
@@ -74,7 +66,7 @@ data from the api to display the data about the Hotel from the backend .
 </template>
 <script>
 export default {
-  name: "List",
+  name: "ListEscrtUpdate",
   data() {
     return {
       escort: "",

@@ -57,13 +57,10 @@ class GalleryController extends Controller
         
         foreach ($request->images as $imagedata) {
             $imagename = explode('.',$imagedata['name'])[0];
-            $path = $this->singleFile($imagedata['file'],'/images/gallery/',$imagename);
-            Galleryimage::create([
-                'gallery_id'=>$gallery->id,
-                'path'=>$path,
-                'alt'=>$imagename
-                ]);
-            }
+            $path=$this->AwsFileUpload($imagedata['file'],config('gbi.gallery_image'),$imagename);
+            $data = ['gallery_id'=>$gallery->id,'path'=>$path,'alt'=>$imagename];
+            Galleryimage::create($data);
+        }
             
         $gallery = $gallery->update(['slug'=>$gallery->slug.'-'.$gallery->id]);
         return response()->json('succesfull created');
@@ -112,12 +109,9 @@ class GalleryController extends Controller
         $gallery->update($data);
         foreach ($request->images as $imagedata) {
             $imagename = explode('.',$imagedata['name'])[0];
-            $path = $this->singleFile($imagedata['file'],'/images/gallery/',$imagename);
-            Galleryimage::create([
-                'gallery_id'=>$gallery->id,
-                'path'=>$path,
-                'alt'=>$imagename
-            ]);
+            $path=$this->AwsFileUpload($imagedata['file'],config('gbi.gallery_image'),$imagename);
+            $data = ['gallery_id'=>$gallery->id,'path'=>$path,'alt'=>$imagename];
+            Galleryimage::create($data);
         }
         $gallery = $gallery->update(['slug'=>$gallery->slug.'-'.$gallery->id]);
         return response()->json('succesfull updated');
@@ -132,7 +126,7 @@ class GalleryController extends Controller
     public function destroy(Gallery $gallery)
     {
         foreach ($gallery->images as $image) {
-            $this->deleteImg('/images/gallery/'.$image->path);
+            $this->AwsDeleteImage($image->path);
         }
         $gallery->delete();
         return response()->json('Successfully Deleted');
@@ -141,7 +135,7 @@ class GalleryController extends Controller
     public function galleryImageDelete(Request $request){
         $galleryimage = Galleryimage::where('id',$request->id)->first();
         // delete image 
-        $this->deleteImg('/images/gallery/'.$galleryimage->path);
+        $this->AwsDeleteImage($galleryimage->path);
         $galleryimage->delete();
         return response()->json('Successfully deleted');
     }

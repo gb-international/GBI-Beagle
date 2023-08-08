@@ -46,6 +46,13 @@ main
 	margin-bottom: 10px;
 }
 /* card */
+
+.card-horizontal {
+  display: flex;
+  height: auto;
+  width: 100%;
+}
+
 .card-titles {
 
 	padding-top: 15px;
@@ -271,6 +278,11 @@ margin-top: -2px;
 
 /* card layout*/
 
+
+.card-magazine {
+ display: flex !important;
+}
+
 .card {
   background: #fff;
   position: relative;
@@ -308,7 +320,7 @@ margin-top: -2px;
 .card-title
 {
   font-family: $fontfamily;
-  text-align: center;
+  text-align: start;
   font-weight: 600;
 }
 

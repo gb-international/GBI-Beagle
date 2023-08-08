@@ -6,14 +6,15 @@
     left: 0;
     z-index: 999;
     width: 100%;
-    padding: 10px 0;
+    padding: 35px 0px 22px 0px;
     color: #fff;
-    font-size: 13px;
+    font-size: 16px;
     line-height: 20px;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    background: $background-color;
+    background: #333059;
+    opacity: 1.0;
     color: $text-color;
   }
   .cookies .container {
@@ -47,10 +48,10 @@
     border-bottom:none;
   }
 
-   .cookie__accept, 
+  .cookie__accept, 
   .cookie__decline,
   .cookie__link {
-    padding: 0.2rem 0.8rem;
+    padding: 0.5rem 1.0rem;
     border: 0;
     background: white;
     margin: 0 0.5rem;
@@ -68,24 +69,37 @@
   }
 
 
-  .cookie__accept {
-    background: $highlight-color;
+  // .cookie__accept {
+  //   background: $cookie-bg;
+  //   color: $text-color;
+  //   &:hover, &:focus {
+  //     background: lighten($cookie-bg, 8%);
+  //   }
+  //   &:active {
+  //     background: lighten($cookie-bg, 12%);
+  //   }
+  // }
+
+
+  /* .cookie__decline {
+    background: darken($cookie-bg, 8%);
     color: $text-color;
     &:hover, &:focus {
-      background: lighten($highlight-color, 8%);
+      background: darken($cookie-bg, 5%);
     }
     &:active {
-      background: lighten($highlight-color, 12%);
+      background: darken($cookie-bg, 8%);
     }
-  }
-  .cookie__decline {
-    background: darken($background-color, 8%);
+  } */
+  .cookie__decline,.cookie__accept{
+    background: darken($cookie-bg, 8%);
     color: $text-color;
+    font-weight: 500;
     &:hover, &:focus {
-      background: darken($background-color, 5%);
+      background: lighten($cookie-bg, 8%);
     }
     &:active {
-      background: darken($background-color, 8%);
+      background: lighten($cookie-bg, 12%);
     }
   }
 }

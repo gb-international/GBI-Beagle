@@ -7,13 +7,13 @@
 
     <div class="mt-3">
       <div class="images">
-        <div class="row">
+        <div class="row" v-if="gallery.images">
           <div class="col-sm-4 mb-4 pb-1 blog-list" v-for="(data,index) in gallery.images" :key="data.id">
             <div class="card p-3 border-radius-0" @click="show(index)" data-toggle="modal"
             data-target="#ImagePreviewModal">
               <img
                 class="card-img border-radius-0 cardimage"
-                :src="`/images/gallery/${data.path}`"
+                :src="data.path"
                 :alt="data.alt"
                 :title="data.alt"
                 />
@@ -21,6 +21,13 @@
             </div>
           </div>
         </div>
+
+        <div class="row card-titles" v-else>
+          <div class="col-sm-4"  v-for="(index) in 6" :key="index">
+            <cardLoader />
+          </div>
+        </div>
+
       </div>
     </div>
 
@@ -30,14 +37,14 @@
         <div class="modal-content border-radius-0">
           <div class="modal-body">
             <div class="img-preview">
-              <img :src="preview_img" :class="imgclass" >              
+              <img :src="preview_img" :class="`main-img ${imgclass}`" >              
               <div class="shera-img shera-img-modal"></div>
               <div class="img-preview-bottom">
                 <div class="row text-center">
-                  <div class="col"><i class="fas fa-angle-left link" @click="LeftImage()"></i></div>
-                  <div class="col"><i class="fas fa-search-minus link" @click="zoomOut()"></i></div>
-                  <div class="col"><i class="fas fa-search-plus link" @click="zoomIn()"></i></div>
-                  <div class="col"><i class="fas fa-angle-right link" @click="RightImage()"></i></div>
+                  <div class="col"><img :src="$gbiAssets+'/images/icons/back.png'" @click="LeftImage()" class="w-35"/></div>
+                  <div class="col"><img :src="$gbiAssets+'/images/icons/zoom-out.png'" @click="zoomOut()" class="w-20"/></div>
+                  <div class="col"><img :src="$gbiAssets+'/images/icons/zoom-in.png'" @click="zoomIn()" class="w-20"/></div>
+                  <div class="col"><img :src="$gbiAssets+'/images/icons/forward.png'" @click="RightImage()" class="w-35"/></div>
                 </div>
               </div>
             </div>
@@ -51,8 +58,13 @@
   </div>
 </template>
 <script>
+import cardLoader from '@/front/components/loaders/cardImgLoader.vue';
 
 export default {
+
+  components:{
+    cardLoader
+  },
 
   data() {
     return {
@@ -66,8 +78,26 @@ export default {
       zoom_level:0,
     };
   },
+  beforeCreate(){
+      let metaInfo = {
+        title: 'GBI Domestic Image Gallery',
+        description: '@GoWithGBI takes you on a tour behind the scenes where you will get to learn about the process and hard work GBI team puts to make your educational travel program a successful one',
+        keywords: '@GoWithGBI,GBI Process,Program Engineering Process ,GBI How we work,learn,explore,discover,dream travel journeys,behind the scenes,dream,educational programs,corporate events,team building programs,international programs,domestic programs',
+        url: 'https://www.gowithgbi.com/image-gallery',
+        type: 'website'
+      }
+      document.cookie = "GBIMeta =" + JSON.stringify(metaInfo) +"; path=/";
+    },
   mounted(){
     this.getGallery();
+    let metaInfo = {
+        title: `GBI Image Gallery | ${this.gallery.title}`,
+        description: '@GoWithGBI takes you on a tour behind the scenes where you will get to learn about the process and hard work GBI team puts to make your educational travel program a successful one',
+        keywords: '@GoWithGBI,GBI Process,Program Engineering Process ,GBI How we work,learn,explore,discover,dream travel journeys,behind the scenes,dream,educational programs,corporate events,team building programs,international programs,domestic programs',
+        url: `https://www.gowithgbi.com/image-gallery/images/${this.gallery.slug}`,
+        type: 'website'
+      }
+     document.cookie = "GBIMeta =" + JSON.stringify(metaInfo) +"; path=/";
   },
   methods: {
     getGallery(){
@@ -78,7 +108,7 @@ export default {
     },
     show (i) {
       this.preview_img_index = i;
-      this.preview_img = '/images/gallery/'+ this.gallery.images[i].path;
+      this.preview_img = this.gallery.images[i].path;
     },
     LeftImage(){
       if((this.preview_img_index <= this.img_length)&&(this.preview_img_index != 0)){

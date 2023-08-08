@@ -166,13 +166,14 @@ return [
         /*
          * Package Service Providers...
          */
+        GoogleMaps\ServiceProvider\GoogleMapsServiceProvider::class,
 
         /*
          * Application Service Providers...
          */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
+        App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
@@ -180,6 +181,8 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         Softon\Indipay\IndipayServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
+        ijeffro\Airports\AirportsServiceProvider::class,
+
 
     ],
 
@@ -195,7 +198,7 @@ return [
     */
 
     'aliases' => [
-
+        'Airports' => ijeffro\Airports\AirportsFacade::class,
         'App' => Illuminate\Support\Facades\App::class,
         'Arr' => Illuminate\Support\Arr::class,
         'Artisan' => Illuminate\Support\Facades\Artisan::class,
@@ -212,6 +215,7 @@ return [
         'Event' => Illuminate\Support\Facades\Event::class,
         'File' => Illuminate\Support\Facades\File::class,
         'Gate' => Illuminate\Support\Facades\Gate::class,
+        'GoogleMaps' => GoogleMaps\Facade\GoogleMapsFacade::class,
         'Hash' => Illuminate\Support\Facades\Hash::class,
         'Lang' => Illuminate\Support\Facades\Lang::class,
         'Log' => Illuminate\Support\Facades\Log::class,

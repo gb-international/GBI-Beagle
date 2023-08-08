@@ -1,20 +1,20 @@
 <?php
 /* 
-Created by : Ajay yadav 
+Created by : Manas
 Purpose : Manage Hotel 
 
 */
 namespace App\Http\Controllers\Admin\Hotel;
 use App\Http\Resources\Admin\HotelCollection;
-use App\Model\Hotel\Hotel;
+use App\Model\Hotel\Hotel as Hotel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Traits\ImageTrait;
 use Image;
-
 use App\Rules\EmailValidate;
 use App\Rules\PhoneNubmerValidate;
 use App\Rules\AlphaSpace;
+
 class HotelController extends Controller
 {
     /**
@@ -24,19 +24,27 @@ class HotelController extends Controller
      */
     use ImageTrait;
 
-    public function all($size)
+    public function all($size, $state)
     {
-        return response()->json(Hotel::select([
-            'id','type','name','address','phoneno'
-            ])
-            ->latest('updated_at')
-            ->paginate($size));
+        $state = str_replace('-', ' ', $state);
+        $data = Hotel::where('state', $state)
+        ->latest('updated_at')
+        ->paginate($size);
+        foreach ($data as $d){
+            $d->images = unserialize($d->images);
+            $d->banquet_categories = unserialize($d->banquet_categories);
+            $d->amenities = unserialize($d->amenities);
+            $d->alt = unserialize($d->alt);
+            $d->meta_keywords = unserialize($d->meta_keywords);
+            $d->room_categories = unserialize($d->room_categories);
+        }
+        return response()->json($data);
     }
     public function index()
     {
         $hotel = Hotel::select('name','id')->get();
         return response()->json($hotel);
-        return HotelCollection::collection(Hotel::all());
+        //return HotelCollection::collection(Hotel::all());
     }
 
     /**
@@ -57,19 +65,25 @@ class HotelController extends Controller
      */
     public function store(Request $request)
     {
-       $hotel = Hotel::create($this->validateHotel($request));
+        //$data = $this->validateHotel($request);
+        $data = $request->all();
+        $data['meta_keywords'] = serialize($request->meta_keywords);
+        $data['room_categories'] = serialize($request->room_categories);
+        $data['banquet_categories'] = serialize($request->banquet_categories);
+        $data['amenities'] = serialize($request->amenities);
+        $data['alt'] = serialize($request->alt);
 
-       if($request->image){
-            $imagename = explode('.',$request->image[0]['name'])[0];
-            $path = $this->singleFile($request->image[0]['file'],'/images/hotel/',$imagename);
-            $hotel->alt = $imagename;
-
-        }else{
-            $path = $hotel->image;
+        $images = array();
+        if($request->images){
+            $count = 0;
+            foreach($request->images as $img){
+              $images[$count] = $this->AwsFileUpload($img,config('gbi.hotel_image'),$request->alt[$count]);
+              $count++;
+            }
         }
-        $hotel->image = $path;
-        $hotel->save();
-
+        $data['images'] = serialize($images);
+        
+        $hotel = Hotel::create($data);
         return response()->json(['Message'=> 'Successfully Added...']);
     }
 
@@ -81,7 +95,13 @@ class HotelController extends Controller
      */
     public function show(Hotel $hotel)
     {
-        //
+        $hotel->images = unserialize($hotel->images);
+        $hotel->banquet_categories = unserialize($hotel->banquet_categories);
+        $hotel->amenities = unserialize($hotel->amenities);
+        $hotel->alt = unserialize($hotel->alt);
+        $hotel->meta_keywords = unserialize($hotel->meta_keywords);
+        $hotel->room_categories = unserialize($hotel->room_categories);
+        return response()->json($hotel);
     }
 
     /**
@@ -92,6 +112,12 @@ class HotelController extends Controller
      */
     public function edit(Hotel $hotel)
     {
+        $hotel->images = unserialize($hotel->images);
+        $hotel->banquet_categories = unserialize($hotel->banquet_categories);
+        $hotel->amenities = unserialize($hotel->amenities);
+        $hotel->alt = unserialize($hotel->alt);
+        $hotel->meta_keywords = unserialize($hotel->meta_keywords);
+        $hotel->room_categories = unserialize($hotel->room_categories);
         return response()->json($hotel);
     }
 
@@ -105,19 +131,40 @@ class HotelController extends Controller
     public function update(Request $request, Hotel $hotel)
     {
 
-        $data = $hotel->update($this->validateHotel($request));
-        if($request->image){
-            $imagename = explode('.',$request->image[0]['name'])[0];
-            $path = $this->singleFile($request->image[0]['file'],'/images/hotel/',$imagename);
-            $hotel->alt = $imagename;
+        //$data = $this->validateHotel($request);
+        $data = $request->all();
+        $data['meta_keywords'] = serialize($data['meta_keywords']);
+        $data['room_categories'] = serialize($data['room_categories']);
+        $data['banquet_categories'] = serialize($data['banquet_categories']);
+        $data['amenities'] = serialize($data['amenities']);
 
-        }else{
-            $path = $hotel->image;
+       $newImages = array();
+       $newAlts = array();
+        if($data['newImages']){
+            $count = 0;
+            foreach($data['newImages'] as $img){
+              $newImages[$count] = $this->AwsFileUpload($img,config('gbi.hotel_image'),'hotel_image_'.uniqid());
+              $newAlts[$count] = 'hotel_image_'.uniqid();
+              $count++;
+            }
+            array_push($data['images'], $newImages);
+            array_push($data['alt'], $newAlts);
         }
-        $hotel->image = $path;
-        $hotel->save();
 
+        if($data['delImages']){
+            $count = 0;
+            foreach($data['delImages'] as $img){
+               // $this->AwsDeleteImage($img);
+                $count++;
+            }
+        }
 
+        unset($data['newImages'], $data['delImages']);
+
+        $data['images'] = serialize($data['images']);
+        $data['alt'] = serialize($data['alt']);
+
+        $hotel->update($data);
         return response()->json(['message'=>$data]);
     }
 
@@ -129,6 +176,7 @@ class HotelController extends Controller
      */
     public function destroy(Hotel $hotel)
     {
+        $this->AwsDeleteImage($hotel->image);
         $hotel->delete();
         return response()->json('successfully deleted');
     }
@@ -140,30 +188,22 @@ class HotelController extends Controller
     {
          return $this->validate($request, [
 
-            'address' => 'required|min:3',
-            'type' => 'required',
             'name' => ['required',new AlphaSpace],
             'state'=>'required',
             'city' =>'required',
+            'pincode' => 'required',
+            'country' => 'required',
             'address' => 'required',
             'phoneno' => ['required','numeric',new PhoneNubmerValidate],
             'email' => ['required','email',new EmailValidate],
-            'room'=>'required|numeric|min:1',
-
-            'apai_single' => '',
-            'apai_double' => '',
-            'apai_triple' => '',
-            'apai_quad' => '',
-
-            'mapai_single' => '',
-            'mapai_double' => '',
-            'mapai_triple' => '',
-            'mapai_quad' => '',
-
-            'cpai_single' => '',
-            'cpai_double' => '',
-            'cpai_triple' => '',
-            'cpai_quad' => '',
+            'rooms'=>'required|numeric|min:1',
+            'room_category' => 'required',
+            'star_category' => 'required',
+            'banquets' => 'required',
+            'banquet_category' => 'required',
+            'amenities' => 'required',
+            'images' => 'required',
+            'description' => 'required'
           
       ]);
     }

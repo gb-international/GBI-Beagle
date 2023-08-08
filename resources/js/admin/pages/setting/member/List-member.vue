@@ -1,6 +1,6 @@
 <!--
-This Template is for listing for the Category profile using function to get the 
-data from the api to display the data about the Category from the backend .
+This Template is for listing for the Memeber profile using function to get the 
+data from the api to display the data about the GBI Memebrs from the backend .
 -->
 <template>
   <list-layout addurl="/add-member" buttontext="add member">
@@ -44,6 +44,11 @@ data from the api to display the data about the Category from the backend .
           <table-loader />
         </template>
         <template #cell(action)="data">
+          <assignUser-icon :url="`/assign-users/${data.item.role}/${data.item.id}/${data.item.department}`"></assignUser-icon>
+          <check-icon :url="`/check-permissions/${data.item.user_role_id}`"></check-icon>
+          <assign-icon :url="`/assign-permission/${data.item.user_role_id}/${data.item.role}`"></assign-icon>
+          <view-icon :url="`/user/${data.item.id}`"></view-icon>
+          <edit-icon :url="`/edit-member/${data.item.id}`"></edit-icon>
           <delete-icon 
             @click.native="deleteItem(data.item.id,data.index)"
             >
@@ -66,13 +71,16 @@ data from the api to display the data about the Category from the backend .
 import listLayout from '@/admin/components/layout/ListLayout.vue';
 import pagination  from 'laravel-vue-pagination';
 import EditIcon from '@/admin/components/icons/EditIcon.vue';
+import AssignPermissionIcon from '@/admin/components/icons/AssignPermissionIcon.vue';
+import CheckPermissionsIcon from '@/admin/components/icons/CheckPermissionsIcon.vue';
 import DeleteIcon from '@/admin/components/icons/DeleteIcon.vue';
 import ViewIcon from '@/admin/components/icons/ViewIcon.vue';
+import AssignUserIcon from '@/admin/components/icons/AssignUserIcon.vue';
 import TableLoader from '@/admin/components/TableLoader.vue';
 import { mapState } from 'vuex';
 
 export default {
-  name: "List",
+  name: "ListMember",
   components:{
     'list-layout':listLayout,
     'table-loader':TableLoader,
@@ -80,13 +88,18 @@ export default {
     'edit-icon':EditIcon,
     'delete-icon':DeleteIcon,
     'view-icon':ViewIcon,
+    'assign-icon':AssignPermissionIcon,
+    'check-icon':CheckPermissionsIcon,
+    'assignUser-icon':AssignUserIcon
   },
   data() {
     return {
       fields: [
-        {key:'name',label:'PERMISSION NAME',sortable:true,thClass: 'table-head'},
-        {key:'updated_at',label:'LAST UPDATE',sortable:true,thClass: 'table-head'},
-        {key:'action',label:'ACTION',thClass: 'table-head'}
+        {key:'name',label:'Member name',sortable:true,thClass: 'table-head'},
+        {key:'role_name',label:'Role',sortable:true,thClass: 'table-head'},
+        {key:'department_name',label:'Department',sortable:true,thClass: 'table-head'},
+        {key:'updated_at',label:'last update',sortable:true,thClass: 'table-head'},
+        {key:'action',label:'action',thClass: 'table-head'}
       ],
       filter:'',
       limit:2,

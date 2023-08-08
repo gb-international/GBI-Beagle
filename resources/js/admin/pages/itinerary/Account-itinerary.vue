@@ -65,7 +65,7 @@ data from the api to display the data about the Itinerary from the backend .
             @click.native="deleteItem(data.item.id,data.index)"
             >
           </delete-icon>
-          <view-icon :url="`/view-itinerary/${data.item.id}`"></view-icon>
+          <view-icon :url="`/view-itinerary/${data.item.itinerary_id}`"></view-icon>
         </template>
       </b-table> 
     </template>

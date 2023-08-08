@@ -2,7 +2,7 @@
   <!--*****    Author:@Ajay  **********-->
   <div id="BlogList">
     <div class="banner-image-parent">
-      <img :src="getImgPath(category.image)" />
+      <img :src="category.image" />
       <div class="container">
         <h1 class="text-center blog-heading">{{category.title }}</h1>
       </div>
@@ -54,8 +54,19 @@ export default {
       category:'',
     };
   },
+  beforeCreate(){
+    var metaInfo = {
+      title: 'GBI Blog',
+      description: '@GoWithGBI takes you on a tour behind the scenes where you will get to learn about the process and hard work GBI team puts to make your educational travel program a successful one',
+      keywords: '@GoWithGBI,GBI Process,Program Engineering Process ,GBI How we work,learn,explore,discover,dream travel journeys,behind the scenes,dream,educational programs,corporate events,team building programs,international programs,domestic programs',
+      url: 'https://www.gowithgbi.com/blog',
+      type: 'website'
+    }
+    document.cookie = "GBIMeta =" + JSON.stringify(metaInfo) +"; path=/";
+  },
   mounted(){
     this.blogList();
+
   },
   methods:{
     blogList(){
@@ -68,9 +79,6 @@ export default {
       this.$axios.get(`/api/related-blog/${this.category.id}`).then(response => {
         this.RelatedPosts = response.data;
       });
-    },
-    getImgPath(img){
-      return `/images/category/`+img;
     },
   }
 };

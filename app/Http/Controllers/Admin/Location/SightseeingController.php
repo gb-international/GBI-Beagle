@@ -1,11 +1,15 @@
 <?php
+/*
+Created by : Ajay yadav 
+Purpose : GBI Sightseeing manage here
 
+*/
 namespace App\Http\Controllers\Admin\Location;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-use App\Http\Resources\SightseeingCollection;
+use App\Http\Resources\SightSeeingCollection;
 use App\Model\Reservation\Sightseeing;
 use App\Traits\ImageTrait;
 use App\Rules\AlphaSpace;
@@ -26,7 +30,7 @@ class SightseeingController extends Controller
     }
     public function index()
     {
-        return new SightseeingCollection(Sightseeing::with(['city','state'])->get());
+        return new SightSeeingCollection(Sightseeing::with(['city','state'])->get());
     }
 
     /**
@@ -47,14 +51,21 @@ class SightseeingController extends Controller
      */
     public function store(Request $request)
     {
-        $sightseeing = Sightseeing::create($this->validateSightseeing($request));
-
-       if($request->image!=$sightseeing->image){
-            $name = $this->singleFile($request->image,'/images/sightseeing/',$request->alt);
+        $data = $this->validateSightseeing($request);
+        if($request->image){
+            $data['image'] = $this->AwsFileUpload($request->image,config('gbi.sightseeing_image'),$request->alt);
         }else{
-            $name = $sightseeing->image;
+            unset($data['image']);
+            unset($data['alt']);
         }
-        $sightseeing->image = $name;
+        $sightseeing = Sightseeing::create($data);
+
+        $mapData = \GoogleMaps::load('geocoding')
+        ->setParam (['address' => $sightseeing->address])
+        ->get('results.geometry.location');
+
+        $sightseeing->latlng = $mapData['results'][0]['geometry']['location'];
+
         $sightseeing->save();
         return response()->json(['Message'=> 'Successfully Added...']);
     }
@@ -90,14 +101,22 @@ class SightseeingController extends Controller
      */
     public function update(Request $request, Sightseeing $sightseeing)
     {
-        $sightseeing->update($this->validateSightseeing($request));
-       if($request->image!=$sightseeing->image){
-            $name = $this->singleFile($request->image,'/images/sightseeing/',$request->alt);
-            $this->deleteImg("/images/sightseeing/{$sightseeing->image}");
+        $data = $this->validateSightseeing($request);
+        if($request->image!=$sightseeing->image){
+            $data['image'] = $this->AwsFileUpload($request->image,config('gbi.sightseeing_image'),$request->alt);
+            $this->AwsDeleteImage($sightseeing->image);
         }else{
-            $name = $sightseeing->image;
+            unset($data['image']);
+            unset($data['alt']);
         }
-        $sightseeing->image = $name;
+        $sightseeing->update($data);
+
+        $mapData = \GoogleMaps::load('geocoding')
+        ->setParam (['address' => $sightseeing->address])
+        ->get('results.geometry.location');
+
+        $sightseeing->latlng = $mapData['results'][0]['geometry']['location'];
+
         $sightseeing->save();
         return response()->json(['success'=>'Successfully update']);
     }
@@ -108,11 +127,10 @@ class SightseeingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Sightseeing $sightseeing)
-    {
-        $this->deleteImg("/images/sightseeing/{$sightseeing->image}");
+    public function destroy(Sightseeing $sightseeing){
+        $this->AwsDeleteImage($sightseeing->image);
         $sightseeing->delete();
-        return response()->json(['success','Brand deleted successfully...']);
+        return response()->json(['success','Sightseeing deleted successfully...']);
     }
 
     // Validate sightseeing

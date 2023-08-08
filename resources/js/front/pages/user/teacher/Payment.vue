@@ -587,7 +587,7 @@ export default {
         })
         .then((response) => {
           this.student_bank = response.data;
-          console.log(response);
+          //console.log(response);
         })
         .catch((error) => {
           this.handleError(error);
@@ -642,8 +642,9 @@ export default {
       data.added_by = this.userinfo.profession;
       data.tour_price = this.userinfo.tour_price;
       data.no_of_person = this.userinfo.no_of_person;
-      this.$cookies.set('payment-data',data,60 * 60 * 1);// expire in 1 hour
-      this.$router.push('/payment-billing')
+      //this.$cookies.set('payment-data',data,60 * 60 * 1);
+      //this.$router.push('/payment-billing')
+      console.log(this.userinfo.no_of_person)
     },
 
     backReset() {

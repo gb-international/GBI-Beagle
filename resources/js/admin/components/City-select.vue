@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  name: "CitySelect",
+  name: "CitySelectGBI",
   data() {
     return {
       list: [],

@@ -1,12 +1,6 @@
 <?php
-/* 
-Created by : Ajay yadav 
-Purpose : Manage Front user 
-
-*/
 namespace App\Http\Controllers\Front;
 use App\Http\Controllers\Controller;
-
 use Illuminate\Http\Request;
 use App\Model\Tour\Tour;
 use App\Model\Itinerary\Itinerary;

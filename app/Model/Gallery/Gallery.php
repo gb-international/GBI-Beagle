@@ -8,6 +8,8 @@ class Gallery extends Model
 {
     protected $fillable = ['category','title','slug','school_id'];
 
+    
+
     public function images(){
         return $this->hasMany('App\Model\Gallery\Galleryimage');
     }

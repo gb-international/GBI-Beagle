@@ -1,6 +1,6 @@
 <template>
   <div class="container" id="payment_information">
-    <form class="form" method="POST" action="/payment">
+    <form class="form" method="POST" action="/test-data">
       <div class="desktop">
         <!-- desktop view -->
         <div class="row pt-4 pb-4">
@@ -262,7 +262,7 @@
           <div class="col-sm-4 pl-4 pr-4">
             <div class="payment-card">
               <payment-card
-                :amount="amount"
+                :amount="form.amount"
                 :pax="1"
               ></payment-card>
             </div>
@@ -645,8 +645,8 @@ export default {
         school_id: "",
         base_price: "",
         no_of_person: "",
+        amount: 0,
       },
-      amount: 0,
     };
   },
   watch: {
@@ -682,8 +682,8 @@ export default {
       this.$router.push("/");
     }
     var data = this.$cookies.get("payment-data");
-    console.log(data);
-    this.amount = parseInt(data.base_price);
+    //console.log(data);
+    this.form.amount = parseInt(data.base_price);
     this.form.user_id = data.user_id;
     this.form.travel_code = data.travel_code;
     this.form.tour_id = data.tour_id;
@@ -787,3 +787,17 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+</style>

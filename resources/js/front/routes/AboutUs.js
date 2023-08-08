@@ -7,12 +7,18 @@ const Domestic = () => import(/* webpackChunkName: "js/front/Domestic" */ '@/fro
 const International = () => import(/* webpackChunkName: "js/front/International" */ '@/front/pages/gallery/International.vue');
 const ImageList = () => import(/* webpackChunkName: "js/front/ImageList" */ '@/front/pages/gallery/ImageList.vue');
 
+//Join our team
+const jobType = () => import(/* webpackChunkName: "js/front/JobTypeGBI" */ '@/front/pages/AboutUs/JobType.vue');
+const JobPage = () => import(/* webpackChunkName: "js/front/JobPageGBI" */ '@/front/pages/AboutUs/JobPage.vue');
 
 export default [
-    //Escort
+
     { path: '/about-us/our-story', component: OurStory },
     { path: '/about-us/how-we-work', component: HowWework },
     { path: '/about-us/join-our-team', component: JoinOurTeam },
+
+    { path: '/about-us/join-our-team/:jobType', component: jobType },
+    { path: '/about-us/join-our-team/job/:id', component: JobPage },
 
     { path: '/image-gallery/domestic', component: Domestic, name: 'domestic' },
     { path: '/image-gallery/international', component: International, name: 'international' },

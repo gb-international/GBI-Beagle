@@ -49,6 +49,7 @@ export default {
                 user_profession: "",
                 institution_code: "",
                 subscribe: false,
+                idProof: "aadhar"
             }),
         };
     },
@@ -147,39 +148,32 @@ export default {
             this.createFile(files[0]);
         },
         onChange(e) {
-            var files = e.target.files;
-            this.createFile(files[0]);
+            this.createFile(e.target.files[0]);
         },
         createFile(file) {
             if (!file.type.match("image.*")) {
                 alert("Select an image");
                 return;
             }
-            var img = new Image();
-            var reader = new FileReader();
             var vm = this;
-            reader.onload = function (e) {
-                vm.image = e.target.result;
-                let data = new FormData();
-                data.append("photo", vm.image);
-                data.append("_method", "post"); // add this
-
-                vm.$axios
-                    .post("/api/update-user-image", data, {
-                        headers: {
-                            Authorization: `Bearer ${localStorage.token}`,
-                        },
-                    })
-                    .then((response) => {
-                        vm.image = response.data.photo;
-                        vm.$swal.fire({
-                            icon: "success",
-                            title: "Profile image updated !!",
-                        });
-                    })
-                    .catch((error) => console.log()); //
-            };
-            reader.readAsDataURL(file);
+            const data = new FormData();
+            data.append("photo", file);
+            vm.$axios.post("/api/update-user-image", data, {
+                    headers: {
+                    Authorization: `Bearer ${this.$cookies.get('access_token')}`,
+                    },
+                }).then((res) => {
+                    var data = vm.$cookies.get('user');
+                    data.photo = res.data.photo;
+                    vm.image = data.photo;
+                    vm.$cookies.set('user',data);
+                    vm.$swal.fire({
+                        icon: "success",
+                        title: "Profile image updated !!",
+                    });
+                })
+                .catch((error) => console.log()); //
+            
         },
         removeFile() {
             this.image = "";
@@ -197,7 +191,7 @@ export default {
                     headers: { Authorization: `Bearer ${localStorage.token}` },
                 })
                 .then((response) => {
-                    this.$swal.fire({ icon: "success", title: "Profile updated!!" });
+                    this.$swal.fire({ icon: "success", title: "Updated Successfully!!" });
                 })
                 .catch((error) => {
                     this.handleError(error);

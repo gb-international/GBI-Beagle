@@ -9,14 +9,16 @@ use App\Model\Itinerary\Itinerary;
 class Tour extends Model
 {
     protected $fillable = [
-        'tour_id','travel_code','itinerary_id','school_id','tour_start_date','tour_end_date','tour_price','status'
+        'tour_id','travel_code','itinerary_id','school_id', 'company_id', 'customer_type','tour_start_date','tour_end_date','tour_price','status'
     ];
-
     public function itinerary(){
     	return $this->belongsTo(itinerary::class);
     }
     public function school(){
     	return $this->belongsTo('App\Model\School\School');
+    }
+    public function company(){
+        return $this->belongsTo('App\Model\Corporate\Company');
     }
     public function bookedescorts()
     {
@@ -26,12 +28,10 @@ class Tour extends Model
     {
         return $this->hasMany('App\Model\Reservation\Bookedhotel');
     }
-    
     public function bookedrestaurants()
     {
         return $this->hasMany('App\Model\Reservation\Bookedrestaurant');
     }
-
     public function bookedbuses()
     {
         return $this->hasMany('App\Model\Reservation\Bookedbus');
@@ -44,7 +44,6 @@ class Tour extends Model
     {
         return $this->hasMany('App\Model\Reservation\Bookedflight');
     }
-
     public function travel(){
         return $this->belongsTo('App\User','travel_code');
     }

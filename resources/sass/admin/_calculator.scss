@@ -1,10 +1,17 @@
 .calculator{
-	label{
+	label,.dropdown-selected{
 		font-size: 12px !important;
 		margin-left: 0px !important;
 	}
-	input,select{
-		height: 40px !important;
+	input,select,.dropdown-selected{
+		height: 40px !important;		
+	}
+	.dropdown-selected{
+		padding-top:5px !important;
+		
+	}
+	.dropdown-field .fa-caret-down{
+		top: 11px;
 	}
 	input{
 		padding-left:10px;

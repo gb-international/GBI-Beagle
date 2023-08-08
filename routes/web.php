@@ -8,12 +8,29 @@ use App\Mail\ForgetPasswordMail;
 use App\Mail\PasswordResetMail;
 use App\Mail\WelcomeMail;
 
+/*Route::post('/t', function () {
+    event(new \App\Events\SendNotification('test'));
+    dd('Event Run Successfully.');
+});*/
 
+Route::get('/event-test', function () {
+    event(new App\Events\SendNotification('Guest'));
+    return "Notif has been sent!";
+});
 
+Route::resource('projects', 'ProjectsController');
+
+Route::get('/sh/{shCode}','Front\ShortLinkController@index');
 
 Route::post('/payment','Front\PaymentController@payment');
 Route::post('/response','Front\PaymentController@response');
 Route::post('/cancel','Front\PaymentController@cancel');
+
+// Admin Net Banking
+Route::post('admin/payment','Admin\Reservation\PaymentController@payment');
+Route::post('admin/response','Admin\Reservation\PaymentController@response');
+Route::post('admin/cancel','Admin\Reservation\PaymentController@cancel');
+
 // marketing
 Route::get('/marketings/{slug}','Front\MarketingController@index');
 Route::post('/marketings','Front\MarketingController@store');
@@ -32,7 +49,7 @@ Route::get('/check',function(){
     //      $message->from('xyz@gmail.com','Virat Gandhi');
     //   });
 
-        $data = ['name'=>'Ajay','email'=>'ajay_yadav@gbinternational.in','link'=>'https:sdjf.com'];
+        $data = ['name'=>'Ajay','email'=>'jackteny@gmail.com','link'=>'https:sdjf.com'];
         // Mail::to($data['email'])->send( new PasswordResetMail($data));
         Mail::to($data['email'])->send( new WelcomeMail($data));
 
@@ -93,7 +110,63 @@ Route::group(['middleware' => ['web']], function () {
     }); 
 }); 
 
+// Route::get('/', function () {
+//   return File::get(public_path() . '/index.html');
+// });
 Route::get('escort/{any}', 'Escort\AppController@index')->where('any', '.*');
+Route::get('admin/{any}', 'HomeController@index')->where('any', '.*');
 
+//Home
+Route::get('/', 'Front\AppController@get');
+
+//About Us
+Route::get('/about-us/our-story', 'Front\AppController@get');
+Route::get('/about-us/how-we-work', 'Front\AppController@get');
+Route::get('/about-us/join-our-team', 'Front\AppController@get');
+Route::get('/image-gallery/domestic', 'Front\AppController@get');
+Route::get('/image-gallery/international', 'Front\AppController@get');
+Route::get('/image-gallery/images/{slug}', 'Front\AppController@get');
+
+//Contact Us
+Route::get('/contact-us', 'Front\AppController@get');
+
+//Explore Destination
+Route::get('/explore-destination', 'Front\AppController@get');
+Route::get('/explore-list', 'Front\AppController@get');
+Route::get('/explore-detail/{id}', 'Front\AppController@get');
+
+//Feedback Form (is needed?)
+//Route::get('/feedback-link/{tourID}', 'Front\AppController@get');
+//Route::get('/feedback-form/{tourID}', 'Front\AppController@get');
+
+//GBI Blog
+Route::get('/blog', 'Front\AppController@get');
+Route::get('/blog/{slug}', 'Front\AppController@get');
+//Route::get('/blog/category/{slug}', 'Front\AppController@get');
+
+//GBI Ntifications (is needed?)
+//Route::get('/notifications', 'Front\AppController@get');
+
+//Payment Link
+//Route::get('/payment-link/{tourID}/{amount}', 'Front\AppController@get');
+
+//Popular Tours
+//Route::get('/popular-tours/{userID}', 'Front\AppController@get');
+
+//Recent Searches
+//Route::get('/recent-search/{userID}', 'Front\AppController@get');
+
+//Resources
+Route::get('/resources/travel-education', 'Front\AppController@get');
+Route::get('/resources/faq', 'Front\AppController@get');
+Route::get('/resources/safety-security', 'Front\AppController@get');
+Route::get('/resources/travel-encyclopedia', 'Front\AppController@get');
+Route::get('/resources/travel-encyclopedia-international', 'Front\AppController@get');
+Route::get('/encyclopedia/{id}', 'Front\AppController@get');
+Route::get('/itinerary-pdf/{slug}', 'Front\AppController@get');
+
+//Support
+Route::get('/support', 'Front\AppController@get');
+
+//Any
 Route::get('/{any}', 'Front\AppController@get')->where('any', '.*');
-

@@ -12,6 +12,8 @@ export function createStore() {
             itinerary_title: '',
             tour_code: Vue.$cookies.get('tour_code'),
             sightseeings: [],
+            sights: null,
+            locs: null,
             foods: [],
             hotels: [],
             flights: [],
@@ -19,6 +21,7 @@ export function createStore() {
             trains: [],
             restaurants: [],
             pax: [],
+            mapKey: 1
         },
         getters: {
             isLoggedIn(state){
@@ -32,6 +35,12 @@ export function createStore() {
             },
             getSightseeings(state){
                 return state.sightseeings
+            },
+            getSights(state){
+                return state.sights
+            },
+            getLocs(state){
+                return state.locs
             }
         },
         actions: {
@@ -43,14 +52,18 @@ export function createStore() {
                     .then(response => context.commit('ITINERARY_TITLE',response ))
                     .catch(error => console.error(error));
             },
-            
             getSightseeing: (context) => {
                 Api.get('/sightseeing/' + Vue.$cookies.get('tour_code'))
                     .then(response => context.commit('SIGHTSEEING',response ))
                     // eslint-disable-next-line
                     .catch(error => console.error(error));
             },
-            
+            getSights: (context) => {
+                Api.get('/sights/' + Vue.$cookies.get('tour_code'))
+                    .then(response => context.commit('SIGHTS',response.data ))
+                    // eslint-disable-next-line
+                    .catch(error => console.error(error));
+            },
             getFoods: (context) => {
                 Api.get('/packs/' + Vue.$cookies.get('tour_code'))
                     .then(response => context.commit('FOODS',response ))
@@ -105,7 +118,14 @@ export function createStore() {
                 state.itinerary_title = payload.itinerary.title;
             },
             SIGHTSEEING(state,payload){
-                state.sightseeings = payload;
+                state.sightseeings = payload.sightseeings;
+                state.locs = payload.locs;
+                //console.log(payload.locs)
+            },
+            SIGHTS(state,payload){
+                state.sights = payload;
+                state.mapKey ++
+                //console.log(payload)
             },
             FOODS(state,payload){
                 state.foods = payload;

@@ -1,7 +1,9 @@
 <?php
 /* 
-Created by : Ajay yadav 
+Created by : Ajay yadav
+Edited by: Manas
 Purpose : Manage Permission 
+Edits: Changes in the Index & Validate request with new fields.
 
 */
 namespace App\Http\Controllers\Admin\RoleAndPermission;
@@ -10,8 +12,12 @@ namespace App\Http\Controllers\Admin\RoleAndPermission;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
+//use App\Model\RoleAndPermission\Permission;
+//use Spatie\Permission\Models\Role;
+
+use App\Model\RoleAndPermission\Role;
+use App\Model\RoleAndPermission\Permission;
+
 
 class PermissionController extends Controller
 {
@@ -30,7 +36,16 @@ class PermissionController extends Controller
     }
     public function index()
     {
-        return Permission::all();
+        return response()->json(Permission::all());
+    }
+
+    public function sub_perms()
+    {
+        return response()->json(Permission::select([
+            'id','name'
+            ])
+            ->all()
+        );
     }
 
     /**

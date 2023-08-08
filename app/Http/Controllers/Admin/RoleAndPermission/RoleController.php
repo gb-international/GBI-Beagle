@@ -1,7 +1,9 @@
 <?php
 /* 
-Created by : Ajay yadav 
-Purpose : Manage Role 
+Created by : Ajay yadav
+Edited by: Manas
+Purpose : Manage Role
+Edits: Changes in the Index & Validate request with new fields.
 
 */
 namespace App\Http\Controllers\Admin\RoleAndPermission;
@@ -9,8 +11,12 @@ namespace App\Http\Controllers\Admin\RoleAndPermission;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
+//use Spatie\Permission\Models\Permission;
+//use Spatie\Permission\Models\Role;
+
+use App\Model\RoleAndPermission\Roles as Role;
+use App\Model\RoleAndPermission\Permission;
+
 use DB;
 
 class RoleController extends Controller
@@ -32,7 +38,7 @@ class RoleController extends Controller
 
     public function index()
     {
-        return \Spatie\Permission\Models\Role::all();
+        return Role::all();
     }
 
     /**
@@ -89,7 +95,7 @@ class RoleController extends Controller
      */
     public function update(Request $request, Role $role)
     {
-        $role->syncPermissions($request->permissions);
+        //$role->syncPermissions($request->permissions);
         $role->update($this->validateRequest($request));        
         return response()->json(['message'=>'Successfully Updated']);
     }
