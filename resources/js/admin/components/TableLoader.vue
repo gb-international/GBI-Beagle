@@ -4,3 +4,8 @@
     <strong>Loading...</strong>
     </div>
 </template>
+<script>
+export default{
+    name:"TableLoader",
+}
+</script>

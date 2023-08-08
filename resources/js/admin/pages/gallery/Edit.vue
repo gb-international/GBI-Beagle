@@ -12,19 +12,17 @@ to submit the data we are using a function.
         enctype="multipart/form-data"
         @submit.prevent="updateGallery()"
       >
-        <div class="row">
+        <div class="row" v-if="form.title">
           <div class="col-sm-4">
             <div class="form-group">
               <label for="category">Gallery Category</label>
-              <select
-                class="form-control select-field"
-                :class="{ 'is-invalid': form.errors.has('category') }"
-                v-model="form.category"
-              >
-                <option default="default" value="" hidden>Select Category</option>
-                <option value="domestic">Domestic</option>
-                <option value="international">International</option>
-              </select>
+
+              
+              <dropdown-list class="mb-2" 
+                :itemList="categories" 
+                v-model="form.category" 
+              />
+
               <has-error :form="form" field="category"></has-error>
             </div>
           </div>
@@ -46,11 +44,11 @@ to submit the data we are using a function.
           <div class="col-sm-8">
             <div class="form-group">
               <label for="category">School</label>
-              <model-select
-                :options="schools"
-                v-model="form.school_id"
-                placeholder="Select School"
-              ></model-select>
+              <dropdown-list class="mb-2" 
+                :itemList="schools" 
+                v-model="form.school_id" 
+              />
+
               <has-error :form="form" field="school_id"></has-error>
             </div>
           </div>
@@ -64,7 +62,7 @@ to submit the data we are using a function.
           >
             <div class="card">
               <div class="card-body">
-                <img :src="`/images/gallery/${img.path}`" class="w-100" />
+                <img :src="`${img.path}`" class="w-100" />
               </div>
             </div>
             <span
@@ -97,23 +95,27 @@ to submit the data we are using a function.
 
 <script>
 import { Form, HasError } from "vform";
-import { ModelSelect } from "vue-search-select";
 import FormButton from "@/admin/components/buttons/FormButtons.vue";
 import FormLayout from "@/admin/components/layout/FormLayout.vue";
+import DropdownList from "@/admin/components/form/DropdownList.vue";
 export default {
-  name: "New",
+  name: "EditGallery",
   components: {
     Form,
     "has-error": HasError,
-    ModelSelect,
     "form-buttons": FormButton,
     "form-layout": FormLayout,
+    "dropdown-list": DropdownList,
   },
   data() {
     return {
       options: [],
       schools: [],
       images: [],
+      categories:[
+        {name:"Domestic",id:"domestic"},
+        {name:"International",id:"international"}
+      ],
       form: new Form({
         category: "",
         title: "",
@@ -141,15 +143,18 @@ export default {
     },
 
     getSchools() {
-      axios.get("/api/school").then((response) => {
-        for (var i = 0; i < response.data.data.length; i++) {
+      axios.get("/api/school").then((res) => {
+        for (var i = 0; i < res.data.length; i++) {
           this.schools.push({
-            value: response.data.data[i].id,
-            text: response.data.data[i].school_name,
+            id: res.data[i].id,
+            name: res.data[i].school_name,
           });
         }
       });
     },
+
+    UpdateCategory(v){ this.form.category = v.id },    
+    updateSchool(v){ this.form.school_id = v.id },
 
     updateGallery() {
       this.form
@@ -182,10 +187,6 @@ export default {
       axios.post("/api/gallery-img-delete", data).then((response) => {
         this.getGalleryList();
       });
-    },
-
-    imagePath() {
-      return "/images/gallery/" + this.form.image;
     },
     back() {
       this.$router.push("/gallery");

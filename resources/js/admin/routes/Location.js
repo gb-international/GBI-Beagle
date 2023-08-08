@@ -4,6 +4,7 @@
 const ListCity = () => import(/* webpackChunkName: "js/admin/CityList" */ '@/admin/pages/setting/List-city.vue');
 const AddCity = () => import(/* webpackChunkName: "js/admin/CityAdd" */ '@/admin/pages/setting/New-city.vue');
 const EditCity = () => import(/* webpackChunkName: "js/admin/CityEdit" */ '@/admin/pages/setting/Edit-city.vue');
+
 // // Add State 
 const ListState = () => import(/* webpackChunkName: "js/admin/State" */ '@/admin/pages/setting/state/List-state.vue');
 const AddState = () => import(/* webpackChunkName: "js/admin/StateAdd" */ '@/admin/pages/setting/state/New-state.vue');
@@ -13,13 +14,16 @@ const ListCountry = () => import(/* webpackChunkName: "js/admin/CountryList" */ 
 const AddCountry = () => import(/* webpackChunkName: "js/admin/CountryAdd" */ '@/admin/pages/setting/country/New-country.vue');
 
 export default[
-    { path: '/list-city', component: ListCity },
-    { path: '/add-city', component: AddCity },
-    { path: '/city/:id', component: EditCity },
-    { path: '/list-state', component: ListState },
-    { path: '/add-state', component: AddState },
+	// City
+    { meta: {permId: 67}, path: '/list-city', component: ListCity },
+    { meta: {permId: 67}, path: '/add-city', component: AddCity },
+    { meta: {permId: 67}, path: '/city/:id', component: EditCity },
 
-    // country
-    { path: '/country-list', component: ListCountry },
-    { path: '/country-add', component: AddCountry },
+    // State
+    { meta: {permId: 68}, path: '/list-state', component: ListState },
+    { meta: {permId: 68}, path: '/add-state', component: AddState },
+
+    // Country
+    { meta: {permId: 69}, path: '/country-list', component: ListCountry },
+    { meta: {permId: 69}, path: '/country-add', component: AddCountry },
 ]

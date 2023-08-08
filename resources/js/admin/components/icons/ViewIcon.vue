@@ -3,13 +3,19 @@
         :to="url"
         class="edit_link"
         >
-        <span class="badge badge-primary" title="View Item"
+        <span class="badge badge-primary incrIconSize" title="View Item"
             ><i class="fas fa-eye"></i
         ></span>
         </router-link>
 </template>
 <script>
-export default {
-    props:['url']
-}
+    export default{
+        name:"ViewsIconButtonGBI",
+        props:['url'],
+        data(){
+            return{
+
+            }
+        }
+    }
 </script>

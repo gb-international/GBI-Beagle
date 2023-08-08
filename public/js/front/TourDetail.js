@@ -1,1 +1,2234 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[34],{222:function(t,e,s){"use strict";s.r(e);var a={props:{itinerary:{required:!0}}},i=s(0),r=Object(i.a)(a,(function(){var t=this,e=t.$createElement,s=t._self._c||e;return s("div",[s("span",{staticClass:"underline"},[s("b",[t._v("Day "+t._s(t.itinerary.day))])]),t._v(" "),t.itinerary.day_source!=t.itinerary.day_destination?s("span",[s("b",[t._v(t._s(t.itinerary.day_source.toUpperCase())+" -\n      "+t._s(t.itinerary.day_destination.toUpperCase()))])]):s("a",{attrs:{target:"_blank",href:"https://www.totoprayogo.com/#"}},[t._v(t._s(t.itinerary.day_source.toUpperCase()))]),t._v(" "),s("span",{staticClass:"float-right"}),t._v(" "),s("p",{domProps:{innerHTML:t._s(t.itinerary.day_description)}})])}),[],!1,null,null,null).exports,n=s(9),o={props:["cityList"],components:{VueSlickCarousel:s.n(n).a},data:function(){return{settings:{dots:!1,infinite:!1,speed:500,slidesToShow:6,slidesToScroll:5,initialSlide:0,responsive:[{breakpoint:1024,settings:{slidesToShow:5,slidesToScroll:3,infinite:!0,dots:!0}},{breakpoint:600,settings:{slidesToShow:4,slidesToScroll:3,initialSlide:2}},{breakpoint:480,settings:{slidesToShow:3,slidesToScroll:2}}]},current:[],forcast:[],cityName:""}},mounted:function(){this.cityName=this.cityList[0]},watch:{cityName:function(t){this.currentWeather(this.cityName),this.forcastWeather(this.cityName)}},methods:{CityChange:function(t){console.log(t)},currentWeather:function(t){var e=this,s="/api/current-weather/"+t;fetch(s).then((function(t){return t.text()})).then((function(t){return e.current=JSON.parse(t)})).catch((function(){return console.log("Can’t access "+s+" response. Blocked by browser?")}))},forcastWeather:function(t){var e=this,s="/api/forcast-weather/"+t;fetch(s).then((function(t){return t.text()})).then((function(t){return e.forcast=JSON.parse(t)})).catch((function(){return console.log("Can’t access "+s+" response. Blocked by browser?")}))},ForcastDateConvert:function(t){var e=new Date(t);return e.toDateString().split(e.getFullYear())[0]},dateToString:function(t){return(t=new Date(1e3*t)).toLocaleTimeString()},toDayDate:function(){return(new Date).toDateString()},RemoveDecimal:function(t){return Math.trunc(t)},tConvert:function(t){return(t=t.toString().match(/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/)||[t]).length>1&&((t=t.slice(1))[5]=+t[0]<12?"AM":"PM",t[0]=+t[0]%12||12),(t=t.join("")).replace(":00:00"," ")}}},l=Object(i.a)(o,(function(){var t=this,e=t.$createElement,s=t._self._c||e;return s("div",{staticClass:"content"},[s("h3",{staticClass:"text-center mb-35"},[t._v("WEATHER REPORT")]),t._v(" "),t.current.main?s("div",{staticClass:"weather-parent bg-weather text-white"},[s("div",{staticClass:"row"},[s("div",{staticClass:"col-sm-6"},[s("h3",[s("img",{staticClass:"w-45",attrs:{src:"http://openweathermap.org/img/w/"+t.current.weather[0].icon+".png"}}),t._v("Today\n        ")]),t._v(" "),s("small",[t._v(t._s(t.toDayDate()))])]),t._v(" "),s("div",{staticClass:"col-sm-6 text_right"},[s("h2",{staticClass:"degree"},[t._v("\n          "+t._s(t.RemoveDecimal(t.current.main.temp))+"\n          "),s("sup",[t._v("℃")])]),t._v(" "),s("div",{staticClass:"select-city"},[s("select",{directives:[{name:"model",rawName:"v-model",value:t.cityName,expression:"cityName"}],staticClass:"minimal text-white",on:{change:function(e){var s=Array.prototype.filter.call(e.target.options,(function(t){return t.selected})).map((function(t){return"_value"in t?t._value:t.value}));t.cityName=e.target.multiple?s:s[0]}}},t._l(t.cityList,(function(e){return s("option",{key:e,domProps:{value:e}},[t._v(t._s(e))])})),0)]),t._v(" "),s("small",[t._v(t._s(t.current.name)+", "+t._s(t.current.sys.country))]),t._v(" "),s("br"),t._v(" "),s("small",[t._v("Feels like "+t._s(t.RemoveDecimal(t.current.main.feels_like)))]),t._v(".\n        "),s("small",[t._v(" Sunset "+t._s(t.dateToString(t.current.sys.sunset)))])])]),t._v(" "),t.forcast.list?s("div",{staticClass:"row p-20"},[t._m(0),t._v(" "),s("VueSlickCarousel",t._b({staticClass:"w-100",attrs:{arrows:!0}},"VueSlickCarousel",t.settings,!1),t._l(t.forcast.list,(function(e){return s("div",{key:e.dt,staticClass:"weather_card"},[s("div",{staticClass:"data"},[s("div",{staticClass:"text-center"},[s("small",[t._v(t._s(t.tConvert(e.dt_txt.split(" ")[1])))]),t._v(" "),s("img",{staticClass:"img img-circle w-45",attrs:{src:"http://openweathermap.org/img/w/"+e.weather[0].icon+".png"}}),t._v(" "),s("p",[t._v("\n                "+t._s(t.RemoveDecimal(e.main.temp))+"\n                "),s("sup",[t._v("℃")])])])]),t._v(" "),s("p",{staticClass:"text-center"},[t._v(t._s(t.ForcastDateConvert(e.dt_txt.split(" ")[0])))])])})),0)],1):t._e()]):t._e()])}),[function(){var t=this.$createElement,e=this._self._c||t;return e("div",{staticClass:"col"},[e("p",{staticClass:"text-center p-1"},[this._v("Weather Forcast")])])}],!1,null,null,null).exports,c={name:"FlightApp",props:["list","flightDate"],data:function(){return{flights:[],time_left:!1,progress:25,progress_seconds:0}},mounted:function(){this.apiData(this.list)},methods:{makeProgress:function(){this.progress<100&&(this.progress+=5)},apiData:function(t){var e=this,s="/api/flight-detail/"+t;fetch(s).then((function(t){return t.text()})).then((function(t){return e.flights=JSON.parse(t)})).catch((function(){return console.log("Can’t access "+s+" response. Blocked by browser?")}))},timeFormat:function(t){var e=t,s=new Date(e.split("T")[0]).toDateString(),a=e.split("T")[1],i=(a=(a=a.split("+")[0]).split(":"))[0],r=a[1],n=i>=12?"pm":"am";return s+" "+((i=(i%=12)||12)+":"+(r=r<10?"0"+r:r)+" "+n)},progressBar:function(t,e){var s=new Date(t),a=(new Date(e).getTime()-s.getTime())/1e3,i=e,r=(i=i.split("T"))[1].split("+")[0],n=i[0]+" "+r;i=new Date(n);var o=new Date,l=(i.getTime()-o.getTime())/1e3,c=a-Math.trunc(l);this.progress=Math.trunc(c/a*100),console.log(this.progress)},timeCalculate:function(t){var e=(t=t.split("T"))[1].split("+")[0],s=t[0]+" "+e;t=new Date(s);var a=new Date,i=(t.getTime()-a.getTime())/1e3;this.progress_seconds=i;var r=Math.floor(i/86400),n=Math.floor(i%86400/3600),o=Math.floor(i%86400%3600/60),l=Math.floor(i%86400%3600%60),c="";return r>0&&(c+=r+" Day "),n>0&&(c+=n+" Hour "),o>0&&(c+=o+" Minutes "),l>0&&(c+=l+" Seconds "),c}}},u=Object(i.a)(c,(function(){var t=this,e=t.$createElement,s=t._self._c||e;return t.flights.data?s("div",t._l(t.flights.data,(function(e,a){return s("div",{key:a},[e.flight_date==t.flightDate?s("div",{staticClass:"row align-items-center mb-20"},[s("div",{staticClass:"col-md-3 col"},[s("p",[s("b",{staticClass:"underline"},[t._v(t._s(e.airline.name))]),t._v(" "),s("b",{staticClass:"text-upper"},[t._v(t._s(t.list))])]),t._v(" "),s("p",[t._v("\n          Flying from\n          "),s("b",{staticClass:"text-info"},[t._v(t._s(e.departure.airport)+" ( "+t._s(e.departure.iata)+" )")])]),t._v(" "),s("p",[t._v(t._s(t.timeFormat(e.departure.scheduled)))]),t._v(" "),s("p",[t._v("\n          Terminal : "+t._s(e.departure.terminal)+", Gate :\n          "+t._s(e.departure.gate)+"\n        ")])]),t._v(" "),s("div",{staticClass:"col-md-6 col-sm-6 col-xm-12 order-xm-3"},["active"==e.flight_status?s("div",{staticClass:"progressbar"},[t._v("\n          "+t._s(t.progressBar(e.departure.scheduled,e.arrival.scheduled))+"\n          "),s("i",{staticClass:"fas fa-plane-departure",style:{"margin-left":t.progress+"%"}}),t._v(" "),s("div",{staticClass:"progress"},[s("div",{staticClass:"progress-bar progress-bar-striped progress-bar-animated",style:{width:t.progress+"%"}})]),t._v(" "),s("p",{staticClass:"text-center"},[t._v("\n            Journy time left: "+t._s(t.timeCalculate(e.arrival.estimated))+"\n          ")])]):t._e(),t._v(" "),s("p",{staticClass:"text-center w-100"},[t._v("\n          Flight Status : "),s("b",[t._v(t._s(e.flight_status))])])]),t._v(" "),s("div",{staticClass:"col-md-3 col text-left"},[s("p",[s("b",{staticClass:"underline"},[t._v(t._s(e.airline.name))])]),t._v(" "),s("P",[t._v("\n          Flying To\n          "),s("b",{staticClass:"text-info"},[t._v(t._s(e.arrival.airport)+" ( "+t._s(e.arrival.iata)+" )")])]),t._v(" "),s("p",[t._v(t._s(t.timeFormat(e.arrival.scheduled)))]),t._v(" "),s("p",[t._v("\n          Terminal : "+t._s(e.arrival.terminal)+", Gate :\n          "+t._s(e.arrival.gate)+"\n        ")])],1)]):t._e()])})),0):t._e()}),[],!1,null,null,null).exports,d={props:{hotel:{required:!0}},data:function(){return{max:5}},methods:{getRating:function(t){return t/this.max*100},integer:function(t){return parseInt(t)},dateFormat:function(t){return new Date(t).toDateString()},days:function(t,e){t=new Date(t),e=new Date(e);var s=Math.abs(e-t);return Math.ceil(s/864e5)-1}}},m=Object(i.a)(d,(function(){var t=this,e=t.$createElement,s=t._self._c||e;return s("div",{staticClass:"hotel-card"},[s("img",{attrs:{src:"/images/hotel/1590495923.png"}}),t._v(" "),s("div",{staticClass:"row"},[s("div",{staticClass:"col hotel_info"},[s("div",{staticClass:"rating-hotel"},[s("p",[s("b",[t._v("Hotel Name")]),t._v(" "),s("label",[s("div",{staticClass:"star-rating"},[t._l(t.max,(function(e){return s("span",{key:e.id},[t._v("☆")])})),t._v(" "),s("div",{staticClass:"star-rating__current",style:{width:t.getRating(t.hotel.hotel.type)+"%"}},t._l(t.integer(t.hotel.hotel.type),(function(e){return s("span",{key:e.id},[t._v("★")])})),0)],2)])])]),t._v(" "),s("p",[t._v("\n        "+t._s(t.hotel.hotel.name)+"\n        "),s("label",[s("b",[t._v("Check in date")]),t._v("\n          : "+t._s(t.dateFormat(t.hotel.check_in))+"\n        ")])]),t._v(" "),s("p",[s("b",[t._v("Days stay")]),t._v("\n        : "+t._s(t.days(t.hotel.check_in,t.hotel.check_out))+"\n        "),s("label",[s("b",[t._v("Check out date")]),t._v("\n          : "+t._s(t.dateFormat(t.hotel.check_out))+"\n        ")])])])])])}),[],!1,null,null,null).exports;function v(t){return function(t){if(Array.isArray(t))return _(t)}(t)||function(t){if("undefined"!=typeof Symbol&&Symbol.iterator in Object(t))return Array.from(t)}(t)||function(t,e){if(!t)return;if("string"==typeof t)return _(t,e);var s=Object.prototype.toString.call(t).slice(8,-1);"Object"===s&&t.constructor&&(s=t.constructor.name);if("Map"===s||"Set"===s)return Array.from(t);if("Arguments"===s||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(s))return _(t,e)}(t)||function(){throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}()}function _(t,e){(null==e||e>t.length)&&(e=t.length);for(var s=0,a=new Array(e);s<e;s++)a[s]=t[s];return a}var h={name:"Tour-detail",components:{"has-error":s(2).HasError,"weather-app":l,"flight-app":u,"hotel-card":m,"itinerary-day":r},data:function(){return{upcoming_list:[],current:3,oddclass:!1,evenclass:!0,itineraryData:{},hotelData:"",flightData:[],alldata:[],cityList:[],tour_code:""}},beforeMount:function(){this.tour_code=this.$cookies.get("tour_code"),this.tourListData(this.tour_code)},methods:{simpleDate:function(t){return t.split("T")[0]},tourListData:function(t){var e=this,s={travel_id:t};this.$api.POST("/api/tour-detail",s).then((function(t){e.alldata=t,e.itineraryData=t.itinerary,e.flightData=t.bookedflights,e.hotelData=t.bookedhotels,e.DestinationCity(e.itineraryData.itinerarydays)})).catch((function(t){e.handleError(t)}))},DestinationCity:function(t){for(var e=[],s=0;s<t.length;s++)e.push(t[s].day_destination);this.cityList=v(new Set(e))}}},p=Object(i.a)(h,(function(){var t=this,e=t.$createElement,s=t._self._c||e;return s("div",{staticClass:"container"},[s("div",{attrs:{id:"itinerary_detail_list"}},[t.alldata.itinerary?s("div",{staticClass:"mb-35 w-100",attrs:{id:"roadmap"}},[s("div",{staticClass:"row w-100"},[s("div",{staticClass:"col-md-6 offset-md-2"},[s("h4",[t._v("TOUR PATH")]),t._v(" "),s("ul",{staticClass:"timeline"},t._l(t.itineraryData.itinerarydays,(function(t){return s("li",{key:t.id},[s("itinerary-day",{attrs:{itinerary:t}})],1)})),0)])]),t._v(" "),t._m(0),t._v(" "),t.hotelData?s("div",{staticClass:"hotel-section mb-35"},[s("h3",{staticClass:"text-center mb-35"},[t._v("YOU WILL STAY HERE")]),t._v(" "),s("div",{staticClass:"row justify-content-center"},t._l(t.hotelData,(function(t){return s("div",{key:t.id,staticClass:"col-sm-4"},[s("hotel-card",{attrs:{hotel:t}})],1)})),0)]):t._e(),t._v(" "),t.flightData?s("div",{staticClass:"airline-section mb-35"},[s("h3",{staticClass:"text-center mb-35"},[t._v("AIRLINES DETAILS")]),t._v(" "),s("hr"),t._v(" "),t._l(t.flightData,(function(e){return s("div",{key:e.id},[s("flight-app",{attrs:{list:e.flight_number,flightDate:t.simpleDate(e.departure)}})],1)}))],2):t._e(),t._v(" "),t._m(1),t._v(" "),s("div",{staticClass:"weather-section mb-35"},[s("weather-app",{attrs:{cityList:t.cityList}})],1)]):t._e()])])}),[function(){var t=this,e=t.$createElement,s=t._self._c||e;return s("div",{staticClass:"things-to-carrry mb-35"},[s("h3",{staticClass:"text-center mb-35"},[t._v("THINGS TO CARRY")]),t._v(" "),s("div",{staticClass:"row align-items-center"},[s("div",{staticClass:"col-md-4 col-sm-6 col-6 bottom-border border-right mb-bottom"},[s("div",{staticClass:"item"},[s("img",{staticClass:"bottel",attrs:{src:"/images/tour/bottel.png"}}),t._v(" "),s("p",[t._v("Water Bottel")])])]),t._v(" "),s("div",{staticClass:"col-md-4 col-sm-6 col-6 bottom-border border-right mb-bottom"},[s("div",{staticClass:"item text-center"},[s("img",{staticClass:"common shoes",attrs:{src:"/images/tour/shoes.png"}}),t._v(" "),s("p",[t._v("Light Shoes")])])]),t._v(" "),s("hr"),t._v(" "),s("div",{staticClass:"col-md-4 col-sm-6 col-6 bottom-border mb-bottom mb-right"},[s("div",{staticClass:"item"},[s("img",{staticClass:"common",attrs:{src:"/images/tour/tourch.png"}}),t._v(" "),s("p",[t._v("Tourch")])])]),t._v(" "),s("div",{staticClass:"col-md-4 col-sm-6 col-6 border-right mb-bottom"},[s("div",{staticClass:"item text-center"},[s("img",{staticClass:"common",attrs:{src:"/images/tour/towel.png"}}),t._v(" "),s("p",[t._v("Towel")])])]),t._v(" "),s("div",{staticClass:"col-md-4 col-sm-6 col-6 border-right"},[s("div",{staticClass:"item"},[s("img",{staticClass:"common",attrs:{src:"/images/tour/umbrelaa.png"}}),t._v(" "),s("p",[t._v("Umbrelaa")])])]),t._v(" "),s("div",{staticClass:"col-md-4 col-sm-6 col-6"},[s("div",{staticClass:"item"},[s("img",{staticClass:"common",attrs:{src:"/images/tour/jacket.png"}}),t._v(" "),s("p",[t._v("Jacket")])])])])])},function(){var t=this.$createElement,e=this._self._c||t;return e("div",{staticClass:"map-section mb-35"},[e("h3",{staticClass:"text-center mb-35"},[this._v("LIVE LOCATION")]),this._v(" "),e("div",{staticClass:"row"},[e("div",{staticClass:"col-sm-3 card"}),this._v(" "),e("div",{staticClass:"col-sm-9"},[e("iframe",{staticStyle:{border:"0"},attrs:{src:"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d448183.73907005717!2d76.81307299667618!3d28.646677259922765!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cfd5b347eb62d%3A0x37205b715389640!2sDelhi!5e0!3m2!1sen!2sin!4v1590745497079!5m2!1sen!2sin",frameborder:"0",allowfullscreen:"","aria-hidden":"false",tabindex:"0"}})])])])}],!1,null,null,null);e.default=p.exports}}]);
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["js/front/TourDetail"],{
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/front/components/tour/FlightApp.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/front/components/tour/FlightApp.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "FlightApp",
+  props: ["list", "flightDate"],
+  data: function data() {
+    return {
+      flights: [],
+      time_left: false,
+      progress: 25,
+      progress_seconds: 0
+    };
+  },
+  mounted: function mounted() {
+    this.apiData(this.list);
+  },
+  methods: {
+    makeProgress: function makeProgress() {
+      if (this.progress < 100) {
+        this.progress += 5;
+      }
+    },
+    apiData: function apiData(code) {
+      var _this = this;
+
+      console.log(code);
+      var api = "/api/flight-detail/" + code;
+      fetch(api).then(function (response) {
+        return response.text();
+      }).then(function (contents) {
+        return _this.flights = JSON.parse(contents);
+      })["catch"](function () {
+        return console.log("Can’t access " + api + " response. Blocked by browser?");
+      });
+    },
+    timeFormat: function timeFormat(nDate) {
+      var don = nDate;
+      var d = new Date(don.split("T")[0]).toDateString();
+      var date = don.split("T")[1];
+      date = date.split("+")[0];
+      date = date.split(":");
+      var hours = date[0];
+      var minutes = date[1];
+      var ampm = hours >= 12 ? "pm" : "am";
+      hours = hours % 12;
+      hours = hours ? hours : 12; // the hour '0' should be '12'
+
+      minutes = minutes < 10 ? "0" + minutes : minutes;
+      var strTime = hours + ":" + minutes + " " + ampm;
+      return d + " " + strTime;
+    },
+    progressBar: function progressBar(t1, t2) {
+      var dt1 = new Date(t1);
+      var dt2 = new Date(t2);
+      var total = (dt2.getTime() - dt1.getTime()) / 1000;
+      var d2 = t2;
+      d2 = d2.split("T");
+      var hour = d2[1].split("+")[0];
+      var newd = d2[0] + " " + hour;
+      d2 = new Date(newd);
+      var d1 = new Date();
+      var inputSeconds = (d2.getTime() - d1.getTime()) / 1000;
+      var need_time = total - Math.trunc(inputSeconds);
+      this.progress = Math.trunc(need_time / total * 100);
+      console.log(this.progress);
+    },
+    timeCalculate: function timeCalculate(d2) {
+      var d2 = d2.split("T");
+      var hour = d2[1].split("+")[0];
+      var newd = d2[0] + " " + hour;
+      d2 = new Date(newd);
+      var d1 = new Date();
+      var inputSeconds = (d2.getTime() - d1.getTime()) / 1000;
+      this.progress_seconds = inputSeconds;
+      var Days = Math.floor(inputSeconds / (60 * 60 * 24));
+      var Hour = Math.floor(inputSeconds % (60 * 60 * 24) / (60 * 60));
+      var Minutes = Math.floor(inputSeconds % (60 * 60 * 24) % (60 * 60) / 60);
+      var Seconds = Math.floor(inputSeconds % (60 * 60 * 24) % (60 * 60) % 60);
+      var ddhhmmss = "";
+
+      if (Days > 0) {
+        ddhhmmss += Days + " Day ";
+      }
+
+      if (Hour > 0) {
+        ddhhmmss += Hour + " Hour ";
+      }
+
+      if (Minutes > 0) {
+        ddhhmmss += Minutes + " Minutes ";
+      }
+
+      if (Seconds > 0) {
+        ddhhmmss += Seconds + " Seconds ";
+      }
+
+      return ddhhmmss;
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/front/components/tour/HotelCard.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/front/components/tour/HotelCard.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    hotel: {
+      required: true
+    }
+  },
+  data: function data() {
+    return {
+      max: 5
+    };
+  },
+  methods: {
+    getRating: function getRating(current) {
+      return current / this.max * 100;
+    },
+    integer: function integer(num) {
+      return parseInt(num);
+    },
+    dateFormat: function dateFormat(date) {
+      return new Date(date).toDateString();
+    },
+    days: function days(date1, date2) {
+      var date1 = new Date(date1);
+      var date2 = new Date(date2);
+      var diffTime = Math.abs(date2 - date1);
+      var diff = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      return diff - 1;
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/front/components/tour/ItineraryDay.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/front/components/tour/ItineraryDay.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    itinerary: {
+      required: true
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/front/components/tour/WeatherApp.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/front/components/tour/WeatherApp.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue_slick_carousel__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-slick-carousel */ "./node_modules/vue-slick-carousel/dist/vue-slick-carousel.umd.js");
+/* harmony import */ var vue_slick_carousel__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_slick_carousel__WEBPACK_IMPORTED_MODULE_0__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ["cityList"],
+  components: {
+    VueSlickCarousel: vue_slick_carousel__WEBPACK_IMPORTED_MODULE_0___default.a
+  },
+  data: function data() {
+    return {
+      settings: {
+        dots: false,
+        infinite: false,
+        speed: 500,
+        slidesToShow: 6,
+        slidesToScroll: 5,
+        initialSlide: 0,
+        responsive: [{
+          breakpoint: 1024,
+          settings: {
+            slidesToShow: 5,
+            slidesToScroll: 3,
+            infinite: true,
+            dots: true
+          }
+        }, {
+          breakpoint: 600,
+          settings: {
+            slidesToShow: 4,
+            slidesToScroll: 3,
+            initialSlide: 2
+          }
+        }, {
+          breakpoint: 480,
+          settings: {
+            slidesToShow: 3,
+            slidesToScroll: 2
+          }
+        }]
+      },
+      current: [],
+      forcast: [],
+      cityName: ''
+    };
+  },
+  mounted: function mounted() {
+    this.cityName = this.cityList[0];
+  },
+  watch: {
+    cityName: function cityName(value) {
+      this.currentWeather(this.cityName);
+      this.forcastWeather(this.cityName);
+    }
+  },
+  methods: {
+    CityChange: function CityChange(event) {
+      console.log(event);
+    },
+    currentWeather: function currentWeather(city) {
+      var _this = this;
+
+      var api = "/api/current-weather/" + city;
+      fetch(api).then(function (response) {
+        return response.text();
+      }).then(function (contents) {
+        return _this.current = JSON.parse(contents);
+      })["catch"](function () {
+        return console.log("Can’t access " + api + " response. Blocked by browser?");
+      });
+    },
+    forcastWeather: function forcastWeather(city) {
+      var _this2 = this;
+
+      var api = "/api/forcast-weather/" + city;
+      fetch(api).then(function (response) {
+        return response.text();
+      }).then(function (contents) {
+        return _this2.forcast = JSON.parse(contents);
+      })["catch"](function () {
+        return console.log("Can’t access " + api + " response. Blocked by browser?");
+      });
+    },
+    ForcastDateConvert: function ForcastDateConvert(date) {
+      var d = new Date(date);
+      var newdate = d.toDateString();
+      return newdate.split(d.getFullYear())[0];
+    },
+    dateToString: function dateToString(date) {
+      var date = new Date(date * 1000);
+      return date.toLocaleTimeString();
+    },
+    toDayDate: function toDayDate() {
+      var d = new Date();
+      return d.toDateString();
+    },
+    RemoveDecimal: function RemoveDecimal(data) {
+      return Math.trunc(data);
+    },
+    tConvert: function tConvert(time) {
+      time = time.toString().match(/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
+
+      if (time.length > 1) {
+        // If time format correct
+        time = time.slice(1); // Remove full string match value
+
+        time[5] = +time[0] < 12 ? "AM" : "PM"; // Set AM/PM
+
+        time[0] = +time[0] % 12 || 12; // Adjust hours
+      }
+
+      var time = time.join(""); // return adjusted time or original string
+
+      return time.replace(":00:00", " ");
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/front/pages/user/tour/TourDetail.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/front/pages/user/tour/TourDetail.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _front_components_tour_ItineraryDay__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/front/components/tour/ItineraryDay */ "./resources/js/front/components/tour/ItineraryDay.vue");
+/* harmony import */ var _front_components_tour_WeatherApp__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/front/components/tour/WeatherApp */ "./resources/js/front/components/tour/WeatherApp.vue");
+/* harmony import */ var _front_components_tour_FlightApp__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/front/components/tour/FlightApp */ "./resources/js/front/components/tour/FlightApp.vue");
+/* harmony import */ var _front_pages_user_tour_maps__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/front/pages/user/tour/maps */ "./resources/js/front/pages/user/tour/maps.vue");
+/* harmony import */ var _front_components_tour_HotelCard__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/front/components/tour/HotelCard */ "./resources/js/front/components/tour/HotelCard.vue");
+/* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vform */ "./node_modules/vform/dist/vform.common.js");
+/* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(vform__WEBPACK_IMPORTED_MODULE_5__);
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "Tour-detail",
+  components: {
+    "has-error": vform__WEBPACK_IMPORTED_MODULE_5__["HasError"],
+    "weather-app": _front_components_tour_WeatherApp__WEBPACK_IMPORTED_MODULE_1__["default"],
+    "flight-app": _front_components_tour_FlightApp__WEBPACK_IMPORTED_MODULE_2__["default"],
+    "hotel-card": _front_components_tour_HotelCard__WEBPACK_IMPORTED_MODULE_4__["default"],
+    "itinerary-day": _front_components_tour_ItineraryDay__WEBPACK_IMPORTED_MODULE_0__["default"],
+    "live-map": _front_pages_user_tour_maps__WEBPACK_IMPORTED_MODULE_3__["default"]
+  },
+  data: function data() {
+    return {
+      upcoming_list: [],
+      current: 3,
+      oddclass: false,
+      evenclass: true,
+      itineraryData: {},
+      hotelData: "",
+      flightData: [],
+      alldata: [],
+      cityList: [],
+      tour_code: ''
+    };
+  },
+  beforeMount: function beforeMount() {
+    this.tour_code = this.$cookies.get('tour_code');
+    this.tourListData(this.tour_code);
+  },
+  methods: {
+    // timeFormat(date) {
+    //   var str = new Date(date).toDateString();
+    //   date = new Date(date);
+    //   var hours = date.getHours();
+    //   var minutes = date.getMinutes();
+    //   var ampm = hours >= 12 ? "pm" : "am";
+    //   hours = hours % 12;
+    //   hours = hours ? hours : 12; // the hour '0' should be '12'
+    //   minutes = minutes < 10 ? "0" + minutes : minutes;
+    //   var strTime = hours + ":" + minutes + " " + ampm;
+    //   return str + " " + strTime;
+    // },
+    simpleDate: function simpleDate(data) {
+      // 2020-06-23
+      return data.split("T")[0];
+    },
+    tourListData: function tourListData(id) {
+      var _this = this;
+
+      var data = {
+        travel_id: id
+      };
+      this.$api.POST("/api/tour-detail", data).then(function (response) {
+        _this.alldata = response; //console.log(response);
+
+        _this.itineraryData = response.itinerary;
+        _this.flightData = response.bookedflights;
+        _this.hotelData = response.bookedhotels;
+
+        _this.DestinationCity(_this.itineraryData.itinerarydays);
+      })["catch"](function (error) {
+        _this.handleError(error);
+      });
+    },
+    DestinationCity: function DestinationCity(itineraryData) {
+      var city = [];
+
+      for (var i = 0; i < itineraryData.length; i++) {
+        city.push(itineraryData[i].day_destination);
+      }
+
+      this.cityList = _toConsumableArray(new Set(city));
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/front/pages/user/tour/maps.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/front/pages/user/tour/maps.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "Maps",
+  data: function data() {
+    return {
+      //markers: [],
+      place: null,
+      cStart: null,
+      cEnd: null,
+      sights: null,
+      mapZoom: 8,
+      next: 1,
+      center: null,
+      showSights: false,
+      completed: false
+    };
+  },
+  props: ['start', 'end', 'aSights'],
+  mounted: function mounted() {
+    if (this.aSights[0].stR) {
+      this.cStart = _objectSpread({}, this.aSights[0].stR);
+    } else {
+      this.cStart = _objectSpread({}, this.start);
+    }
+
+    if (this.aSights[0].onG) {
+      this.cEnd = _objectSpread({}, this.aSights[0].onG);
+    } else {
+      this.cEnd = _objectSpread({}, this.end);
+    }
+
+    this.center = _objectSpread({}, this.cEnd.latLng);
+    this.sights = _toConsumableArray(this.aSights);
+
+    if (this.aSights[0].completed) {
+      this.completed = true;
+      this.mapZoom = 8;
+      this.center = _objectSpread({}, this.aSights[0].stR.latLng);
+    }
+  },
+  methods: {
+    resetMap: function resetMap() {
+      this.mapZoom = 8;
+    },
+    changeZoom: function changeZoom() {
+      if (this.showSights) {
+        this.mapZoom = 12;
+      } else {
+        this.mapZoom = 8;
+      }
+    },
+    zoomSight: function zoomSight(index, item) {
+      this.next = index;
+      this.mapZoom = 14;
+      this.center = {
+        lat: item.latLng.lat,
+        lng: item.latLng.lng
+      };
+    },
+    allSights: function allSights() {
+      this.showSights = true;
+      this.center = {
+        lat: this.aSights[0].onG.lat,
+        lng: this.aSights[0].onG.lng
+      };
+      this.sights = _toConsumableArray(this.aSights);
+      this.mapZoom = 12;
+      this.next = 0;
+    },
+    unShowSights: function unShowSights() {
+      if (this.next > 0) {
+        this.next--;
+        this.cStart = _objectSpread({}, this.sights[this.next]);
+        this.cEnd = _objectSpread({}, this.sights[this.next + 1]);
+        this.mapZoom = 10;
+      } else {
+        this.mapZoom = 8;
+      }
+    }
+  },
+  computed: {
+    curvedPath: function curvedPath() {
+      var _this = this;
+
+      /*
+        FIXME: This formula will work for short distances away from
+          the poles. It will not work once the curvature of the earth is
+          too great
+      */
+      if (this.cStart && this.cEnd) {
+        return Object(lodash__WEBPACK_IMPORTED_MODULE_0__["range"])(100).map(function (i) {
+          var tick = i / 99;
+          /* Bezier curve -- set up the control points */
+
+          var dlat = _this.cEnd.latLng.lat - _this.cStart.latLng.lat;
+          var dlng = _this.cEnd.latLng.lng - _this.cStart.latLng.lng;
+          /*const cp1 = {
+            lat: this.start.latLng.lat + 0.33 * dlat + 0.33 * dlng,
+            lng: this.start.latLng.lng - 0.33 * dlat + 0.33 * dlng,
+          }
+          const cp2 = {
+            lat: this.end.latLng.lat - 0.33 * dlat + 0.33 * dlng,
+            lng: this.end.latLng.lng - 0.33 * dlat - 0.33 * dlng,
+          }*/
+
+          var cp1 = {
+            lat: _this.cStart.latLng.lat,
+            lng: _this.cStart.latLng.lng
+          };
+          var cp2 = {
+            lat: _this.cEnd.latLng.lat,
+            lng: _this.cEnd.latLng.lng
+          };
+          /* Bezier curve formula */
+
+          return {
+            lat: tick * tick * tick * _this.cStart.latLng.lat + 3 * ((1 - tick) * tick * tick) * cp1.lat + 3 * ((1 - tick) * (1 - tick) * tick) * cp2.lat + (1 - tick) * (1 - tick) * (1 - tick) * _this.cEnd.latLng.lat,
+            lng: tick * tick * tick * _this.cStart.latLng.lng + 3 * ((1 - tick) * tick * tick) * cp1.lng + 3 * ((1 - tick) * (1 - tick) * tick) * cp2.lng + (1 - tick) * (1 - tick) * (1 - tick) * _this.cEnd.latLng.lng
+            /*lat:
+              this.start.latLng.lat +
+              3 * ((1 - tick) * tick * tick) +
+              3 * ((1 - tick) * (1 - tick) * tick) +
+              ((1 - tick) * (1 - tick) * (1 - tick)) * this.end.latLng.lat,
+            lng:
+              this.start.latLng.lng +
+              3 * ((1 - tick) * tick * tick) +
+              3 * ((1 - tick) * (1 - tick) * tick)  +
+              ((1 - tick) * (1 - tick) * (1 - tick)) * this.end.latLng.lng,*/
+
+          };
+        });
+      }
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/front/pages/user/tour/maps.vue?vue&type=style&index=0&id=92d0580e&scoped=true&lang=css&":
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/front/pages/user/tour/maps.vue?vue&type=style&index=0&id=92d0580e&scoped=true&lang=css& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.btn-reset[data-v-92d0580e]{\r\n    color: #fff;\r\n    background-color: #dc3545;\r\n    border-color: #dc3545;\r\n    border-radius: 25px;\r\n    border: solid 2px;\r\n    padding: 3px 22px;\r\n    margin-top: -6px;\n}\n.btn-reset[data-v-92d0580e]:hover{\r\n\tcolor: #fff;\r\n    background-color: #c12a38;\r\n    border-color: #c12a38;\n}\r\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/front/pages/user/tour/maps.vue?vue&type=style&index=0&id=92d0580e&scoped=true&lang=css&":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/front/pages/user/tour/maps.vue?vue&type=style&index=0&id=92d0580e&scoped=true&lang=css& ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../../../node_modules/css-loader??ref--6-1!../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../node_modules/postcss-loader/src??ref--6-2!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./maps.vue?vue&type=style&index=0&id=92d0580e&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/front/pages/user/tour/maps.vue?vue&type=style&index=0&id=92d0580e&scoped=true&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/front/components/tour/FlightApp.vue?vue&type=template&id=15551cc2&":
+/*!***********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/front/components/tour/FlightApp.vue?vue&type=template&id=15551cc2& ***!
+  \***********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm.flights.data
+    ? _c(
+        "div",
+        _vm._l(_vm.flights.data, function (flight, index) {
+          return _c("div", { key: index }, [
+            flight.flight_date == _vm.flightDate
+              ? _c("div", { staticClass: "row align-items-center mb-20" }, [
+                  _c("div", { staticClass: "col-md-3 col" }, [
+                    _c("p", [
+                      _c("b", { staticClass: "underline" }, [
+                        _vm._v(_vm._s(flight.airline.name)),
+                      ]),
+                      _vm._v(" "),
+                      _c("b", { staticClass: "text-upper" }, [
+                        _vm._v(_vm._s(_vm.list)),
+                      ]),
+                    ]),
+                    _vm._v(" "),
+                    _c("p", [
+                      _vm._v("\n          Flying from\n          "),
+                      _c("b", { staticClass: "text-info" }, [
+                        _vm._v(
+                          _vm._s(flight.departure.airport) +
+                            " ( " +
+                            _vm._s(flight.departure.iata) +
+                            " )"
+                        ),
+                      ]),
+                    ]),
+                    _vm._v(" "),
+                    _c("p", [
+                      _vm._v(
+                        _vm._s(_vm.timeFormat(flight.departure.scheduled))
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _c("p", [
+                      _vm._v(
+                        "\n          Terminal : " +
+                          _vm._s(flight.departure.terminal) +
+                          ", Gate :\n          " +
+                          _vm._s(flight.departure.gate) +
+                          "\n        "
+                      ),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "col-md-6 col-sm-6 col-xm-12 order-xm-3" },
+                    [
+                      flight.flight_status == "active"
+                        ? _c("div", { staticClass: "progressbar" }, [
+                            _vm._v(
+                              "\n          " +
+                                _vm._s(
+                                  _vm.progressBar(
+                                    flight.departure.scheduled,
+                                    flight.arrival.scheduled
+                                  )
+                                ) +
+                                "\n          "
+                            ),
+                            _c("i", {
+                              staticClass: "fas fa-plane-departure",
+                              style: { "margin-left": _vm.progress + "%" },
+                            }),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "progress" }, [
+                              _c("div", {
+                                staticClass:
+                                  "progress-bar progress-bar-striped progress-bar-animated",
+                                style: { width: _vm.progress + "%" },
+                              }),
+                            ]),
+                            _vm._v(" "),
+                            _c("p", { staticClass: "text-center" }, [
+                              _vm._v(
+                                "\n            Journy time left: " +
+                                  _vm._s(
+                                    _vm.timeCalculate(flight.arrival.estimated)
+                                  ) +
+                                  "\n          "
+                              ),
+                            ]),
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "text-center w-100" }, [
+                        _vm._v("\n          Flight Status : "),
+                        _c("b", [_vm._v(_vm._s(flight.flight_status))]),
+                      ]),
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "col-md-3 col text-left" },
+                    [
+                      _c("p", [
+                        _c("b", { staticClass: "underline" }, [
+                          _vm._v(_vm._s(flight.airline.name)),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c("P", [
+                        _vm._v("\n          Flying To\n          "),
+                        _c("b", { staticClass: "text-info" }, [
+                          _vm._v(
+                            _vm._s(flight.arrival.airport) +
+                              " ( " +
+                              _vm._s(flight.arrival.iata) +
+                              " )"
+                          ),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c("p", [
+                        _vm._v(
+                          _vm._s(_vm.timeFormat(flight.arrival.scheduled))
+                        ),
+                      ]),
+                      _vm._v(" "),
+                      _c("p", [
+                        _vm._v(
+                          "\n          Terminal : " +
+                            _vm._s(flight.arrival.terminal) +
+                            ", Gate :\n          " +
+                            _vm._s(flight.arrival.gate) +
+                            "\n        "
+                        ),
+                      ]),
+                    ],
+                    1
+                  ),
+                ])
+              : _vm._e(),
+          ])
+        }),
+        0
+      )
+    : _vm._e()
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/front/components/tour/HotelCard.vue?vue&type=template&id=75315f72&":
+/*!***********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/front/components/tour/HotelCard.vue?vue&type=template&id=75315f72& ***!
+  \***********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "hotel-card" }, [
+    _c("img", { attrs: { src: _vm.hotel.hotel.image } }),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col hotel_info" }, [
+        _c("div", { staticClass: "rating-hotel" }, [
+          _c("p", [
+            _c("b", [_vm._v("Hotel Name")]),
+            _vm._v(" "),
+            _c("label", [
+              _c(
+                "div",
+                { staticClass: "star-rating" },
+                [
+                  _vm._l(_vm.max, function (n) {
+                    return _c("span", { key: n.id }, [_vm._v("☆")])
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "star-rating__current",
+                      style: {
+                        width: _vm.getRating(_vm.hotel.hotel.type) + "%",
+                      },
+                    },
+                    _vm._l(_vm.integer(_vm.hotel.hotel.type), function (n) {
+                      return _c("span", { key: n.id }, [_vm._v("★")])
+                    }),
+                    0
+                  ),
+                ],
+                2
+              ),
+            ]),
+          ]),
+        ]),
+        _vm._v(" "),
+        _c("p", [
+          _vm._v("\n        " + _vm._s(_vm.hotel.hotel.name) + "\n        "),
+          _c("label", [
+            _c("b", [_vm._v("Check in date")]),
+            _vm._v(
+              "\n          : " +
+                _vm._s(_vm.dateFormat(_vm.hotel.check_in)) +
+                "\n        "
+            ),
+          ]),
+        ]),
+        _vm._v(" "),
+        _c("p", [
+          _c("b", [_vm._v("Days stay")]),
+          _vm._v(
+            "\n        : " +
+              _vm._s(_vm.days(_vm.hotel.check_in, _vm.hotel.check_out)) +
+              "\n        "
+          ),
+          _c("label", [
+            _c("b", [_vm._v("Check out date")]),
+            _vm._v(
+              "\n          : " +
+                _vm._s(_vm.dateFormat(_vm.hotel.check_out)) +
+                "\n        "
+            ),
+          ]),
+        ]),
+      ]),
+    ]),
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/front/components/tour/ItineraryDay.vue?vue&type=template&id=3b2f08f3&":
+/*!**************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/front/components/tour/ItineraryDay.vue?vue&type=template&id=3b2f08f3& ***!
+  \**************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("span", { staticClass: "underline" }, [
+      _c("b", [_vm._v("Day " + _vm._s(_vm.itinerary.day))]),
+    ]),
+    _vm._v(" "),
+    _vm.itinerary.day_source != _vm.itinerary.day_destination
+      ? _c("span", [
+          _c("b", [
+            _vm._v(
+              _vm._s(_vm.itinerary.day_source.toUpperCase()) +
+                " -\n      " +
+                _vm._s(_vm.itinerary.day_destination.toUpperCase())
+            ),
+          ]),
+        ])
+      : _c(
+          "a",
+          {
+            attrs: { target: "_blank", href: "https://www.totoprayogo.com/#" },
+          },
+          [_vm._v(_vm._s(_vm.itinerary.day_source.toUpperCase()))]
+        ),
+    _vm._v(" "),
+    _c("span", { staticClass: "float-right" }),
+    _vm._v(" "),
+    _c("p", { domProps: { innerHTML: _vm._s(_vm.itinerary.day_description) } }),
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/front/components/tour/WeatherApp.vue?vue&type=template&id=00e1706f&":
+/*!************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/front/components/tour/WeatherApp.vue?vue&type=template&id=00e1706f& ***!
+  \************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "content" }, [
+    _c("h3", { staticClass: "text-center mb-35" }, [_vm._v("WEATHER REPORT")]),
+    _vm._v(" "),
+    _vm.current.main
+      ? _c("div", { staticClass: "weather-parent bg-weather text-white" }, [
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-sm-6" }, [
+              _c("h3", [
+                _c("img", {
+                  staticClass: "w-45",
+                  attrs: {
+                    src:
+                      "http://openweathermap.org/img/w/" +
+                      _vm.current.weather[0].icon +
+                      ".png",
+                  },
+                }),
+                _vm._v("Today\n        "),
+              ]),
+              _vm._v(" "),
+              _c("small", [_vm._v(_vm._s(_vm.toDayDate()))]),
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-sm-6 text_right" }, [
+              _c("h2", { staticClass: "degree" }, [
+                _vm._v(
+                  "\n          " +
+                    _vm._s(_vm.RemoveDecimal(_vm.current.main.temp)) +
+                    "\n          "
+                ),
+                _c("sup", [_vm._v("℃")]),
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "select-city" }, [
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.cityName,
+                        expression: "cityName",
+                      },
+                    ],
+                    staticClass: "minimal text-white",
+                    on: {
+                      change: function ($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function (o) {
+                            return o.selected
+                          })
+                          .map(function (o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.cityName = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      },
+                    },
+                  },
+                  _vm._l(_vm.cityList, function (city) {
+                    return _c(
+                      "option",
+                      { key: city, domProps: { value: city } },
+                      [_vm._v(_vm._s(city))]
+                    )
+                  }),
+                  0
+                ),
+              ]),
+              _vm._v(" "),
+              _c("small", [
+                _vm._v(
+                  _vm._s(_vm.current.name) +
+                    ", " +
+                    _vm._s(_vm.current.sys.country)
+                ),
+              ]),
+              _vm._v(" "),
+              _c("br"),
+              _vm._v(" "),
+              _c("small", [
+                _vm._v(
+                  "Feels like " +
+                    _vm._s(_vm.RemoveDecimal(_vm.current.main.feels_like))
+                ),
+              ]),
+              _vm._v(".\n        "),
+              _c("small", [
+                _vm._v(
+                  " Sunset " + _vm._s(_vm.dateToString(_vm.current.sys.sunset))
+                ),
+              ]),
+            ]),
+          ]),
+          _vm._v(" "),
+          _vm.forcast.list
+            ? _c(
+                "div",
+                { staticClass: "row p-20" },
+                [
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _c(
+                    "VueSlickCarousel",
+                    _vm._b(
+                      { staticClass: "w-100", attrs: { arrows: true } },
+                      "VueSlickCarousel",
+                      _vm.settings,
+                      false
+                    ),
+                    _vm._l(_vm.forcast.list, function (list) {
+                      return _c(
+                        "div",
+                        { key: list.dt, staticClass: "weather_card" },
+                        [
+                          _c("div", { staticClass: "data" }, [
+                            _c("div", { staticClass: "text-center" }, [
+                              _c("small", [
+                                _vm._v(
+                                  _vm._s(
+                                    _vm.tConvert(list.dt_txt.split(" ")[1])
+                                  )
+                                ),
+                              ]),
+                              _vm._v(" "),
+                              _c("img", {
+                                staticClass: "img img-circle w-45",
+                                attrs: {
+                                  src:
+                                    "http://openweathermap.org/img/w/" +
+                                    list.weather[0].icon +
+                                    ".png",
+                                },
+                              }),
+                              _vm._v(" "),
+                              _c("p", [
+                                _vm._v(
+                                  "\n                " +
+                                    _vm._s(_vm.RemoveDecimal(list.main.temp)) +
+                                    "\n                "
+                                ),
+                                _c("sup", [_vm._v("℃")]),
+                              ]),
+                            ]),
+                          ]),
+                          _vm._v(" "),
+                          _c("p", { staticClass: "text-center" }, [
+                            _vm._v(
+                              _vm._s(
+                                _vm.ForcastDateConvert(
+                                  list.dt_txt.split(" ")[0]
+                                )
+                              )
+                            ),
+                          ]),
+                        ]
+                      )
+                    }),
+                    0
+                  ),
+                ],
+                1
+              )
+            : _vm._e(),
+        ])
+      : _vm._e(),
+  ])
+}
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col" }, [
+      _c("p", { staticClass: "text-center p-1" }, [_vm._v("Weather Forcast")]),
+    ])
+  },
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/front/pages/user/tour/TourDetail.vue?vue&type=template&id=dc9bc46a&":
+/*!************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/front/pages/user/tour/TourDetail.vue?vue&type=template&id=dc9bc46a& ***!
+  \************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { attrs: { id: "itinerary_detail_list" } }, [
+      _vm.alldata.itinerary
+        ? _c("div", { staticClass: "mb-35 w-100", attrs: { id: "roadmap" } }, [
+            _c("div", { staticClass: "row w-100" }, [
+              _c("div", { staticClass: "col-md-6 offset-md-2" }, [
+                _c("h4", [_vm._v("TOUR PATH")]),
+                _vm._v(" "),
+                _c(
+                  "ul",
+                  { staticClass: "timeline" },
+                  _vm._l(_vm.itineraryData.itinerarydays, function (data) {
+                    return _c(
+                      "li",
+                      { key: data.id },
+                      [_c("itinerary-day", { attrs: { itinerary: data } })],
+                      1
+                    )
+                  }),
+                  0
+                ),
+              ]),
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "things-to-carrry mb-35" }, [
+              _c("h3", { staticClass: "text-center mb-35" }, [
+                _vm._v("THINGS TO CARRY"),
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "row align-items-center" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "col-md-4 col-sm-6 col-6 bottom-border border-right mb-bottom",
+                  },
+                  [
+                    _c("div", { staticClass: "item" }, [
+                      _c("img", {
+                        staticClass: "bottel",
+                        attrs: {
+                          src: _vm.$gbiAssets + "/images/tour/bottel.png",
+                        },
+                      }),
+                      _vm._v(" "),
+                      _c("p", [_vm._v("Water Bottel")]),
+                    ]),
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "col-md-4 col-sm-6 col-6 bottom-border border-right mb-bottom",
+                  },
+                  [
+                    _c("div", { staticClass: "item text-center" }, [
+                      _c("img", {
+                        staticClass: "common shoes",
+                        attrs: {
+                          src: _vm.$gbiAssets + "/images/tour/shoes.png",
+                        },
+                      }),
+                      _vm._v(" "),
+                      _c("p", [_vm._v("Light Shoes")]),
+                    ]),
+                  ]
+                ),
+                _vm._v(" "),
+                _c("hr"),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "col-md-4 col-sm-6 col-6 bottom-border mb-bottom mb-right",
+                  },
+                  [
+                    _c("div", { staticClass: "item" }, [
+                      _c("img", {
+                        staticClass: "common",
+                        attrs: {
+                          src: _vm.$gbiAssets + "/images/tour/tourch.png",
+                        },
+                      }),
+                      _vm._v(" "),
+                      _c("p", [_vm._v("Tourch")]),
+                    ]),
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "col-md-4 col-sm-6 col-6 border-right mb-bottom",
+                  },
+                  [
+                    _c("div", { staticClass: "item text-center" }, [
+                      _c("img", {
+                        staticClass: "common",
+                        attrs: {
+                          src: _vm.$gbiAssets + "/images/tour/towel.png",
+                        },
+                      }),
+                      _vm._v(" "),
+                      _c("p", [_vm._v("Towel")]),
+                    ]),
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "col-md-4 col-sm-6 col-6 border-right" },
+                  [
+                    _c("div", { staticClass: "item" }, [
+                      _c("img", {
+                        staticClass: "common",
+                        attrs: {
+                          src: _vm.$gbiAssets + "/images/tour/umbrelaa.png",
+                        },
+                      }),
+                      _vm._v(" "),
+                      _c("p", [_vm._v("Umbrelaa")]),
+                    ]),
+                  ]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-4 col-sm-6 col-6" }, [
+                  _c("div", { staticClass: "item" }, [
+                    _c("img", {
+                      staticClass: "common",
+                      attrs: {
+                        src: _vm.$gbiAssets + "/images/tour/jacket.png",
+                      },
+                    }),
+                    _vm._v(" "),
+                    _c("p", [_vm._v("Jacket")]),
+                  ]),
+                ]),
+              ]),
+            ]),
+            _vm._v(" "),
+            _vm.hotelData
+              ? _c("div", { staticClass: "hotel-section mb-35" }, [
+                  _c("h3", { staticClass: "text-center mb-35" }, [
+                    _vm._v("YOU WILL STAY HERE"),
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "row justify-content-center" },
+                    _vm._l(_vm.hotelData, function (hotel) {
+                      return _c(
+                        "div",
+                        { key: hotel.id, staticClass: "col-sm-4" },
+                        [_c("hotel-card", { attrs: { hotel: hotel } })],
+                        1
+                      )
+                    }),
+                    0
+                  ),
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.flightData
+              ? _c(
+                  "div",
+                  { staticClass: "airline-section mb-35" },
+                  [
+                    _c("h3", { staticClass: "text-center mb-35" }, [
+                      _vm._v("AIRLINES DETAILS"),
+                    ]),
+                    _vm._v(" "),
+                    _c("hr"),
+                    _vm._v(" "),
+                    _vm._l(_vm.flightData, function (air) {
+                      return _c(
+                        "div",
+                        { key: air.id },
+                        [
+                          _c("flight-app", {
+                            attrs: {
+                              list: air.flight_number,
+                              flightDate: _vm.simpleDate(air.departure),
+                            },
+                          }),
+                        ],
+                        1
+                      )
+                    }),
+                  ],
+                  2
+                )
+              : _vm._e(),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "map-section mb-35" },
+              [
+                _c("live-map", {
+                  attrs: {
+                    start: { latLng: _vm.alldata.startLoc },
+                    end: { latLng: _vm.alldata.endLoc },
+                    aSights: _vm.alldata.sights,
+                  },
+                }),
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "weather-section mb-35" },
+              [_c("weather-app", { attrs: { cityList: _vm.cityList } })],
+              1
+            ),
+          ])
+        : _vm._e(),
+    ]),
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/front/pages/user/tour/maps.vue?vue&type=template&id=92d0580e&scoped=true&":
+/*!******************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/front/pages/user/tour/maps.vue?vue&type=template&id=92d0580e&scoped=true& ***!
+  \******************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("div", { staticClass: "mb-4 d-flex justify-content-center" }, [
+      _c("h3", { staticClass: "text-center mr-4" }, [_vm._v("TOUR MAP")]),
+      _vm._v(" "),
+      _c(
+        "button",
+        { staticClass: "btn btn-reset", on: { click: _vm.resetMap } },
+        [_vm._v("Reset")]
+      ),
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c(
+        "div",
+        { staticClass: "col-sm-12" },
+        [
+          _vm.center
+            ? _c(
+                "GmapMap",
+                {
+                  ref: "map",
+                  staticStyle: { width: "100%", height: "500px" },
+                  attrs: { zoom: _vm.mapZoom, center: this.center },
+                  on: { click: _vm.changeZoom },
+                },
+                [
+                  _vm.cStart && !_vm.completed
+                    ? _c("GmapMarker", {
+                        attrs: { position: _vm.cStart.latLng, label: "◉" },
+                        on: {
+                          click: function ($event) {
+                            return _vm.zoomSight(_vm.index, _vm.cStart)
+                          },
+                        },
+                      })
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.cEnd && !_vm.completed && !_vm.cEnd.mark_arrive
+                    ? _c("GmapMarker", {
+                        attrs: {
+                          position: _vm.cEnd.latLng,
+                          label: _vm.cEnd.mark_arrive ? "✔" : "🏳️",
+                        },
+                        on: {
+                          click: function ($event) {
+                            return _vm.zoomSight(_vm.index, _vm.cEnd)
+                          },
+                        },
+                      })
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm._l(_vm.sights, function (item, index) {
+                    return item.mark_arrive
+                      ? _c("GmapMarker", {
+                          key: item.latLng.lat,
+                          attrs: {
+                            position: item.latLng,
+                            label: item.mark_arrive ? "✔" : "🏳️",
+                          },
+                          on: {
+                            click: function ($event) {
+                              return _vm.zoomSight(index, item)
+                            },
+                          },
+                        })
+                      : _vm._e()
+                  }),
+                  _vm._v(" "),
+                  _vm.curvedPath && !_vm.completed
+                    ? _c("GmapPolyline", { attrs: { path: _vm.curvedPath } })
+                    : _vm._e(),
+                ],
+                2
+              )
+            : _vm._e(),
+        ],
+        1
+      ),
+    ]),
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./resources/js/front/components/tour/FlightApp.vue":
+/*!**********************************************************!*\
+  !*** ./resources/js/front/components/tour/FlightApp.vue ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _FlightApp_vue_vue_type_template_id_15551cc2___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FlightApp.vue?vue&type=template&id=15551cc2& */ "./resources/js/front/components/tour/FlightApp.vue?vue&type=template&id=15551cc2&");
+/* harmony import */ var _FlightApp_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FlightApp.vue?vue&type=script&lang=js& */ "./resources/js/front/components/tour/FlightApp.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _FlightApp_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _FlightApp_vue_vue_type_template_id_15551cc2___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _FlightApp_vue_vue_type_template_id_15551cc2___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/front/components/tour/FlightApp.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/front/components/tour/FlightApp.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/front/components/tour/FlightApp.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FlightApp_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./FlightApp.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/front/components/tour/FlightApp.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FlightApp_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/front/components/tour/FlightApp.vue?vue&type=template&id=15551cc2&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/front/components/tour/FlightApp.vue?vue&type=template&id=15551cc2& ***!
+  \*****************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FlightApp_vue_vue_type_template_id_15551cc2___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./FlightApp.vue?vue&type=template&id=15551cc2& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/front/components/tour/FlightApp.vue?vue&type=template&id=15551cc2&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FlightApp_vue_vue_type_template_id_15551cc2___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FlightApp_vue_vue_type_template_id_15551cc2___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/front/components/tour/HotelCard.vue":
+/*!**********************************************************!*\
+  !*** ./resources/js/front/components/tour/HotelCard.vue ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _HotelCard_vue_vue_type_template_id_75315f72___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./HotelCard.vue?vue&type=template&id=75315f72& */ "./resources/js/front/components/tour/HotelCard.vue?vue&type=template&id=75315f72&");
+/* harmony import */ var _HotelCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./HotelCard.vue?vue&type=script&lang=js& */ "./resources/js/front/components/tour/HotelCard.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _HotelCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _HotelCard_vue_vue_type_template_id_75315f72___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _HotelCard_vue_vue_type_template_id_75315f72___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/front/components/tour/HotelCard.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/front/components/tour/HotelCard.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/front/components/tour/HotelCard.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_HotelCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./HotelCard.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/front/components/tour/HotelCard.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_HotelCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/front/components/tour/HotelCard.vue?vue&type=template&id=75315f72&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/front/components/tour/HotelCard.vue?vue&type=template&id=75315f72& ***!
+  \*****************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_HotelCard_vue_vue_type_template_id_75315f72___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./HotelCard.vue?vue&type=template&id=75315f72& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/front/components/tour/HotelCard.vue?vue&type=template&id=75315f72&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_HotelCard_vue_vue_type_template_id_75315f72___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_HotelCard_vue_vue_type_template_id_75315f72___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/front/components/tour/ItineraryDay.vue":
+/*!*************************************************************!*\
+  !*** ./resources/js/front/components/tour/ItineraryDay.vue ***!
+  \*************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ItineraryDay_vue_vue_type_template_id_3b2f08f3___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ItineraryDay.vue?vue&type=template&id=3b2f08f3& */ "./resources/js/front/components/tour/ItineraryDay.vue?vue&type=template&id=3b2f08f3&");
+/* harmony import */ var _ItineraryDay_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ItineraryDay.vue?vue&type=script&lang=js& */ "./resources/js/front/components/tour/ItineraryDay.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _ItineraryDay_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ItineraryDay_vue_vue_type_template_id_3b2f08f3___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ItineraryDay_vue_vue_type_template_id_3b2f08f3___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/front/components/tour/ItineraryDay.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/front/components/tour/ItineraryDay.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************!*\
+  !*** ./resources/js/front/components/tour/ItineraryDay.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ItineraryDay_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./ItineraryDay.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/front/components/tour/ItineraryDay.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ItineraryDay_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/front/components/tour/ItineraryDay.vue?vue&type=template&id=3b2f08f3&":
+/*!********************************************************************************************!*\
+  !*** ./resources/js/front/components/tour/ItineraryDay.vue?vue&type=template&id=3b2f08f3& ***!
+  \********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ItineraryDay_vue_vue_type_template_id_3b2f08f3___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./ItineraryDay.vue?vue&type=template&id=3b2f08f3& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/front/components/tour/ItineraryDay.vue?vue&type=template&id=3b2f08f3&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ItineraryDay_vue_vue_type_template_id_3b2f08f3___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ItineraryDay_vue_vue_type_template_id_3b2f08f3___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/front/components/tour/WeatherApp.vue":
+/*!***********************************************************!*\
+  !*** ./resources/js/front/components/tour/WeatherApp.vue ***!
+  \***********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _WeatherApp_vue_vue_type_template_id_00e1706f___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./WeatherApp.vue?vue&type=template&id=00e1706f& */ "./resources/js/front/components/tour/WeatherApp.vue?vue&type=template&id=00e1706f&");
+/* harmony import */ var _WeatherApp_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./WeatherApp.vue?vue&type=script&lang=js& */ "./resources/js/front/components/tour/WeatherApp.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _WeatherApp_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _WeatherApp_vue_vue_type_template_id_00e1706f___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _WeatherApp_vue_vue_type_template_id_00e1706f___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/front/components/tour/WeatherApp.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/front/components/tour/WeatherApp.vue?vue&type=script&lang=js&":
+/*!************************************************************************************!*\
+  !*** ./resources/js/front/components/tour/WeatherApp.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_WeatherApp_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./WeatherApp.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/front/components/tour/WeatherApp.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_WeatherApp_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/front/components/tour/WeatherApp.vue?vue&type=template&id=00e1706f&":
+/*!******************************************************************************************!*\
+  !*** ./resources/js/front/components/tour/WeatherApp.vue?vue&type=template&id=00e1706f& ***!
+  \******************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_WeatherApp_vue_vue_type_template_id_00e1706f___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./WeatherApp.vue?vue&type=template&id=00e1706f& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/front/components/tour/WeatherApp.vue?vue&type=template&id=00e1706f&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_WeatherApp_vue_vue_type_template_id_00e1706f___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_WeatherApp_vue_vue_type_template_id_00e1706f___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/front/pages/user/tour/TourDetail.vue":
+/*!***********************************************************!*\
+  !*** ./resources/js/front/pages/user/tour/TourDetail.vue ***!
+  \***********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _TourDetail_vue_vue_type_template_id_dc9bc46a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TourDetail.vue?vue&type=template&id=dc9bc46a& */ "./resources/js/front/pages/user/tour/TourDetail.vue?vue&type=template&id=dc9bc46a&");
+/* harmony import */ var _TourDetail_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./TourDetail.vue?vue&type=script&lang=js& */ "./resources/js/front/pages/user/tour/TourDetail.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _TourDetail_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _TourDetail_vue_vue_type_template_id_dc9bc46a___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _TourDetail_vue_vue_type_template_id_dc9bc46a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/front/pages/user/tour/TourDetail.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/front/pages/user/tour/TourDetail.vue?vue&type=script&lang=js&":
+/*!************************************************************************************!*\
+  !*** ./resources/js/front/pages/user/tour/TourDetail.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TourDetail_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./TourDetail.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/front/pages/user/tour/TourDetail.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TourDetail_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/front/pages/user/tour/TourDetail.vue?vue&type=template&id=dc9bc46a&":
+/*!******************************************************************************************!*\
+  !*** ./resources/js/front/pages/user/tour/TourDetail.vue?vue&type=template&id=dc9bc46a& ***!
+  \******************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TourDetail_vue_vue_type_template_id_dc9bc46a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./TourDetail.vue?vue&type=template&id=dc9bc46a& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/front/pages/user/tour/TourDetail.vue?vue&type=template&id=dc9bc46a&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TourDetail_vue_vue_type_template_id_dc9bc46a___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TourDetail_vue_vue_type_template_id_dc9bc46a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/front/pages/user/tour/maps.vue":
+/*!*****************************************************!*\
+  !*** ./resources/js/front/pages/user/tour/maps.vue ***!
+  \*****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _maps_vue_vue_type_template_id_92d0580e_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./maps.vue?vue&type=template&id=92d0580e&scoped=true& */ "./resources/js/front/pages/user/tour/maps.vue?vue&type=template&id=92d0580e&scoped=true&");
+/* harmony import */ var _maps_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./maps.vue?vue&type=script&lang=js& */ "./resources/js/front/pages/user/tour/maps.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _maps_vue_vue_type_style_index_0_id_92d0580e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./maps.vue?vue&type=style&index=0&id=92d0580e&scoped=true&lang=css& */ "./resources/js/front/pages/user/tour/maps.vue?vue&type=style&index=0&id=92d0580e&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _maps_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _maps_vue_vue_type_template_id_92d0580e_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _maps_vue_vue_type_template_id_92d0580e_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "92d0580e",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/front/pages/user/tour/maps.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/front/pages/user/tour/maps.vue?vue&type=script&lang=js&":
+/*!******************************************************************************!*\
+  !*** ./resources/js/front/pages/user/tour/maps.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_maps_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./maps.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/front/pages/user/tour/maps.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_maps_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/front/pages/user/tour/maps.vue?vue&type=style&index=0&id=92d0580e&scoped=true&lang=css&":
+/*!**************************************************************************************************************!*\
+  !*** ./resources/js/front/pages/user/tour/maps.vue?vue&type=style&index=0&id=92d0580e&scoped=true&lang=css& ***!
+  \**************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_maps_vue_vue_type_style_index_0_id_92d0580e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/style-loader!../../../../../../node_modules/css-loader??ref--6-1!../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../node_modules/postcss-loader/src??ref--6-2!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./maps.vue?vue&type=style&index=0&id=92d0580e&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/front/pages/user/tour/maps.vue?vue&type=style&index=0&id=92d0580e&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_maps_vue_vue_type_style_index_0_id_92d0580e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_maps_vue_vue_type_style_index_0_id_92d0580e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_maps_vue_vue_type_style_index_0_id_92d0580e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_maps_vue_vue_type_style_index_0_id_92d0580e_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+
+
+/***/ }),
+
+/***/ "./resources/js/front/pages/user/tour/maps.vue?vue&type=template&id=92d0580e&scoped=true&":
+/*!************************************************************************************************!*\
+  !*** ./resources/js/front/pages/user/tour/maps.vue?vue&type=template&id=92d0580e&scoped=true& ***!
+  \************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_maps_vue_vue_type_template_id_92d0580e_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./maps.vue?vue&type=template&id=92d0580e&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/front/pages/user/tour/maps.vue?vue&type=template&id=92d0580e&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_maps_vue_vue_type_template_id_92d0580e_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_maps_vue_vue_type_template_id_92d0580e_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ })
+
+}]);

@@ -79,7 +79,7 @@ import TableLoader from '@/admin/components/TableLoader.vue';
 import { mapState } from 'vuex';
 
 export default {
-  name: "List",
+  name: "ListBus",
   components:{
     'list-layout':listLayout,
     'table-loader':TableLoader,
@@ -91,11 +91,11 @@ export default {
   data() {
     return {
       fields: [
-        {key:'company_name',label:'COMPANY NAME',sortable:true,thClass: 'table-head'},
-        {key:'seater',label:'ADDRESS',sortable:true,thClass: 'table-head'},
-        {key:'seat_type',label:'PERSON',sortable:true,thClass: 'table-head'},
-        {key:'price',label:'PRICE',sortable:true,thClass: 'table-head'},
-        {key:'action',label:'ACTION',thClass: 'table-head'}
+        {key:'company_name',label:'company name',sortable:true,thClass: 'table-head'},
+        {key:'seater',label:'address',sortable:true,thClass: 'table-head'},
+        {key:'seat_type',label:'person',sortable:true,thClass: 'table-head'},
+        {key:'price',label:'price',sortable:true,thClass: 'table-head'},
+        {key:'action',label:'action',thClass: 'table-head'}
       ],
       filter:'',
       limit:2,

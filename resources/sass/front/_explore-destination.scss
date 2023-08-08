@@ -90,26 +90,34 @@
 	
 }
 
-
+.newCardList{
+	width: 100%;
+	margin-bottom: 25px;
+}
 
 .cardlist{
 	width: 100%;
-	.image-col{
-		width: 38%;
-		float: left;
-		height: 128px;
+}
+
+.explore-icon-width {
+    width: 35px;
+    cursor: pointer;
+}
+
+.image-col{
+		width: 100%;
+		height: 250px;
 		img{
-			height: 128px;
-			border-radius: 10px 0px 0px 10px;
+			height: 250px;
+			border-radius: 0px 0px 0px 0px;
 		}
 	}
 	.cardtext-col{
-		background-color: #f0f0f0;
+		background-color: #ffffff;
 		color: #666666;
 		border-radius: 0px 10px 10px 0px;
-		width: 62%;
-		height: 128px;
-		float: right;
+		width: 100%;
+		height: 205px;
 		padding-top: 5px;
 		.heading{ font-size: 13px;}
 		.day{ font-size: 14px;}
@@ -120,45 +128,24 @@
 			text-align: center;
 			font-size: 12px;
 		}
-		.card-icon{ width: 70px;}
+		.card-icon{ width: 35px;}
 	}
-}
 
 @media only screen and (max-width:510px){
 	.cardlist{
 		.cardtext-col{
-			.card-icon{ width: 43px;}			
+			.card-icon{ width: 35px;}			
 		}
+
 	}
 }
 @media only screen and (max-width:1205px) and (min-width:990px){
 	.cardlist{
 		.cardtext-col{
-			.card-icon{ width: 55px;}			
+			.card-icon{ width: 33px;}			
 		}
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 #explore_detail_part{
 	.col-sm-4{
@@ -186,6 +173,176 @@
 	}
 }
 
+	.container-custom {
+		margin-left: auto;
+		margin-right: auto;
+		margin-top: 1vh;
+		padding-left: 15px;
+		padding-right: 15px;
+		width: 100%;
+	}
+	.addCity{
+		font-size: 13px;
+		font-weight: 600;
+		text-align: left;
+		color: #f77736; 
+	}
+	.removeCity{
+		font-size: 13px;
+		font-weight: 600;
+		text-align: left;
+		padding-left: 10px !important;
+		color: red; 
+	}
+
+	custLabel{
+		display: inline-block;
+		margin-bottom: .5rem;
+		margin-left: -4vw !important;
+		font-size: 15px;
+	}
+
+	custLabel2{
+		display: inline-block;
+		margin-bottom: .2rem;
+		margin-left: -2vw !important;
+		font-size: 15px;
+	}
+
+	.cardPadding{
+		padding-bottom: 28px;
+	}
+
+	.bookbtn-custom {
+	    width: 95px;
+	   	height: 38px;
+		background-color: #fff;
+		border-color: #f77736;
+		border-radius: 0;
+		color: #f77736;
+		font-size: 15px;
+		font-weight: 550;
+		padding: 4px 25px;
+		font-family: 'Nunito Sans';
+	}
+
+	.img-custom {
+	    //padding: 4px 25px 4px 25px;
+	    width: 95px;
+	   	height: 38px;
+	}
+
+	.bookbtn-custom:hover {
+	    background-color: #f77736;
+    	color: #fff;
+	}
+
+	.explore_custom_button {
+	    background: #00000036;
+	    color: #ffffff;
+	    border: 2px #ffffff solid;
+	    padding: 10px 20px;
+	    font-weight: 400;
+	    height: 50px;
+	    width: 250px;
+	    font-size: 18px;
+	    border-radius: 0px;
+	    margin-top: 3.2vh;
+		font-family: 'Nunito Sans';
+	}
+
+	.explore_custom_button:hover {
+		color: #292548eb;
+		border: 2px #292548eb solid;
+		background: white;
+		font-weight: 500;
+	}
+
+	 @media (min-width: 768px) {
+	 	custLabel{
+			margin-left: -1vw !important;
+		}
+		.explore_custom_button{
+			margin-top: 2vh;
+		}
+	}
+
+	@media (min-width: 1024px) {
+		.explore_custom_button{
+			margin-top: 3.5vh;
+		}
+		.cardPadding{
+			padding-bottom: 28px;
+		}
+		/*.container-custom{
+		    width: 70%;
+		    margin-top: -6vh;
+
+		}*/
+		.addCity{
+			font-size: 15px;
+		}
+		.removeCity{
+			font-size: 15px;
+		}
+		custLabel{
+			margin-left: -1vw !important;
+		}
+		custLabel2{
+			margin-left: -0.8vw !important;
+		}
+
+	}
+
+	@media screen and (min-width: 975px) and (max-width: 1182px) {
+		
+
+	}
+
+	@media (max-width: 1280px) {
+		custLabel{
+			margin-left: -1vw !important;
+		}
+
+	}
+	@media (min-width: 1280px){
+		.container-custom {
+			margin-top: -8vh;
+			width: 95%;
+		}
+	}
+	@media (min-width: 1300px){
+		.container-custom {
+			margin-top: -8vh;
+			width: 90%;
+		}
+	}
+	@media (min-width: 1400px){
+		.container-custom {
+			margin-top: -8vh;
+			width: 85%;
+		}
+	}
+	@media (min-width: 1500px){
+		.container-custom {
+			margin-top: -8vh;
+			width: 82%;
+		}
+	}
+	@media (min-width: 1600px) {
+		.container-custom {
+			margin-top: -8vh;
+			width: 75%;
+		}
+	}
+
+	@media (min-width: 1700px){
+		.container-custom {
+			margin-top: -8vh;
+			width: 70%;
+		}
+	}
+		
 
 
 
@@ -209,15 +366,15 @@
 	.active
 	{
 		color: #ffffff !important;
-		background-color: rgba(43, 188, 255, 0.8) !important;
-		border-color: rgba(43, 188, 255, 0.8) !important;
+		background-color: #001041c7 !important;
+		border-color: #001041c7 !important;
 		border-radius: 0px 0px 0 0 !important;
 	}
 	a:hover
 	{
-		background-color: #00aeefa8 !important;
+		background-color: #001041c7 !important;
 		color: #ffffff !important;
-		border-color: #00aeefa8 !important;
+		border-color: #001041c7 !important;
 		border-radius: 0px !important;
 	}
 }
@@ -303,7 +460,7 @@
 .explor-content
 {
 	// padding: 0px 10px 10px;
-	background-color: rgba(43, 188, 255, 0.8);
+	background-color: #001041c7;
 	border-radius: 0px 0px 5px 5px;
 }
 .button-explo
@@ -473,6 +630,10 @@ select {
 	box-shadow: 0 0 0px rgba(0, 0, 0, 0.125), 0 0px 0px rgba(0, 0, 0, 0.2) !important;
 }
 
+.form-control:disabled, .form-control[readonly] {
+    background-color: #ffffff !important;
+    opacity: 100 !important;
+}
 
 .card-horizontal {
     display: flex;
@@ -836,8 +997,7 @@ color: #000;
 }
 
 .nopadding {
-   padding-left: 5 !important;
-   padding-right: 5 !important;
+	padding: 0 5px 10px;
 }
 .card-image-col {
 

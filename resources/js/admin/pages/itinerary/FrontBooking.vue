@@ -100,11 +100,12 @@ export default {
         name: 'flip-list'
       },
       fields: [
-        {key:'created_at',label:'BOOKING DATE',sortable:true,thClass: 'table-head'},
-        {key:'start_date',label:'START DATE',sortable:true,thClass: 'table-head'},
-        {key:'end_date',label:'END DATE',sortable:true,thClass: 'table-head'},
-        {key:'status',label:'STATUS',sortable:true,thClass: 'table-head'},
-        {key:'action',label:'ACTION',thClass: 'table-head'}
+        {key:'created_at',label:'booking date',sortable:true,thClass: 'table-head'},
+        {key:'start_date',label:'start date',sortable:true,thClass: 'table-head'},
+        {key:'end_date',label:'end date',sortable:true,thClass: 'table-head'},
+        {key:'status',label:'status',sortable:true,thClass: 'table-head'},
+        {key:'type',label:'type',sortable:true,thClass: 'table-head'},
+        {key:'action',label:'action',thClass: 'table-head'}
       ],
       filter:'',
       limit:2,

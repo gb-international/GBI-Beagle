@@ -52,6 +52,7 @@
 </template>
 <script>
 export default {
+  name:"ItineraryListIcon",
   props: ["list"],
   data() {
     return {};

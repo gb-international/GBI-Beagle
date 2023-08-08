@@ -29,20 +29,8 @@ to submit the data we are using a function.
           <div class="col-sm-4">
             <div class="form-group">
               <label for="bank_name">Bank Name</label>
-              <select
-                class="form-control select-field"
-                v-model="form.bank_name"
-                :class="{ 'is-invalid': form.errors.has('bank_name') }"
-              >
-              <option value="" disabled hidden>Select Bank</option>
-                <option
-                  v-for="bank in banknames"
-                  :value="bank.name"
-                  :key="bank.id"
-                >
-                  {{ bank.name }}
-                </option>
-              </select>
+              <dropdown-filter class="mb-2" :itemList="banknames" @update:option="UpdateBank" />
+
               <has-error :form="form" field="bank_name"></has-error>
             </div>
           </div>
@@ -65,16 +53,8 @@ to submit the data we are using a function.
           <div class="col-sm-4">
             <div class="form-group">
               <label for="account_type">Account Type</label>
-              <select
-                class="form-control select-field"
-                v-model="form.account_type"
-                :class="{ 'is-invalid': form.errors.has('account_type') }"
-              >
-              <option value="" disabled hidden>Select Account Type</option>
-                <option v-for="type in account_type" :value="type" :key="type">
-                  {{ type }}
-                </option>
-              </select>
+              <dropdown-filter class="mb-2" :itemList="account_type" @update:option="updateAccountType" />
+
               <has-error :form="form" field="account_type"></has-error>
             </div>
           </div>
@@ -117,25 +97,28 @@ import { Form, HasError } from "vform";
 import BackButton from "@/admin/components/buttons/BackButton.vue";
 import SubmitButton from "@/admin/components/buttons/SubmitButton.vue";
 import FormLayout from "@/admin/components/layout/FormLayout.vue";
+import DropdownFilter from "@/admin/components/form/DropdownFilter.vue";
 export default {
-  name: "New",
+  name: "NewBankDetail",
   components: {
     Form,
     "has-error": HasError,
     "back-button": BackButton,
     "submit-button": SubmitButton,
     "form-layout": FormLayout,
+    "dropdown-filter": DropdownFilter,
   },
   data() {
     return {
       // Create a new form instance
       banknames: [],
-      account_type: [
-        "Current Account",
-        "Saving Account",
-        "Recurring Deposit Account",
-        "Fixed Deposit Account",
+      account_type : [
+        {name:'Current Account',id:'Current Account'},
+        {name:'Saving Account',id:'Saving Account'},
+        {name:'Recurring Deposit Account',id:'Recurring Deposit Account'},
+        {name:'Fixed Deposit Account',id:'Fixed Deposit Account'},
       ],
+
       form: new Form({
         name: "",
         bank_name: "",
@@ -153,19 +136,28 @@ export default {
       this.form
         .post("/api/schoolbankdetails")
         .then((response) => {
-          this.$router.push(`/bankdetail`);
+          this.$router.push(`/schoolbankdetails`);
           this.$toast.fire({
             icon: "success",
-            title: "Escort Added successfully",
+            title: "Bank Details Added successfully",
           });
         })
         .catch(() => {});
     },
     bankNameList() {
-      axios.get("/api/banknames").then((response) => {
-        this.banknames = response.data;
+      axios.get("/api/banknames").then((res) => {
+        if (res.data) {
+          for (let i = 0; i < res.data.length; i++) {
+            this.banknames.push({
+              name: res.data[i].name,
+              id: res.data[i].id,
+            });
+          }
+        }
       });
     },
+    UpdateBank(v){ this.form.bank_name = v.name },    
+    updateAccountType(v){ this.form.account_type = v.name },
   },
 };
 </script>

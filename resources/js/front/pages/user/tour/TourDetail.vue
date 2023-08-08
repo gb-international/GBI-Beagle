@@ -24,7 +24,7 @@
               class="col-md-4 col-sm-6 col-6 bottom-border border-right mb-bottom"
             >
               <div class="item">
-                <img src="/images/tour/bottel.png" class="bottel" />
+                <img :src="$gbiAssets+'/images/tour/bottel.png'" class="bottel" />
                 <p>Water Bottel</p>
               </div>
             </div>
@@ -32,7 +32,7 @@
               class="col-md-4 col-sm-6 col-6 bottom-border border-right mb-bottom"
             >
               <div class="item text-center">
-                <img src="/images/tour/shoes.png" class="common shoes" />
+                <img :src="$gbiAssets+'/images/tour/shoes.png'" class="common shoes" />
                 <p>Light Shoes</p>
               </div>
             </div>
@@ -41,26 +41,26 @@
               class="col-md-4 col-sm-6 col-6 bottom-border mb-bottom mb-right"
             >
               <div class="item">
-                <img src="/images/tour/tourch.png" class="common" />
+                <img :src="$gbiAssets+'/images/tour/tourch.png'" class="common" />
                 <p>Tourch</p>
               </div>
             </div>
 
             <div class="col-md-4 col-sm-6 col-6 border-right mb-bottom">
               <div class="item text-center">
-                <img src="/images/tour/towel.png" class="common" />
+                <img :src="$gbiAssets+'/images/tour/towel.png'" class="common" />
                 <p>Towel</p>
               </div>
             </div>
             <div class="col-md-4 col-sm-6 col-6 border-right">
               <div class="item">
-                <img src="/images/tour/umbrelaa.png" class="common" />
+                <img :src="$gbiAssets+'/images/tour/umbrelaa.png'" class="common" />
                 <p>Umbrelaa</p>
               </div>
             </div>
             <div class="col-md-4 col-sm-6 col-6">
               <div class="item">
-                <img src="/images/tour/jacket.png" class="common" />
+                <img :src="$gbiAssets+'/images/tour/jacket.png'" class="common" />
                 <p>Jacket</p>
               </div>
             </div>
@@ -80,30 +80,22 @@
           <h3 class="text-center mb-35">AIRLINES DETAILS</h3>
           <hr />
           <div v-for="air in flightData" :key="air.id">
+            
             <flight-app
               :list="air.flight_number"
               :flightDate="simpleDate(air.departure)"
             ></flight-app>
+
           </div>
         </div>
 
         <div class="map-section mb-35">
-          <h3 class="text-center mb-35">LIVE LOCATION</h3>
-          <div class="row">
-            <div class="col-sm-3 card"></div>
-            <div class="col-sm-9">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d448183.73907005717!2d76.81307299667618!3d28.646677259922765!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cfd5b347eb62d%3A0x37205b715389640!2sDelhi!5e0!3m2!1sen!2sin!4v1590745497079!5m2!1sen!2sin"
-                frameborder="0"
-                style="border: 0"
-                allowfullscreen
-                aria-hidden="false"
-                tabindex="0"
-              ></iframe>
-            </div>
-          </div>
+          <live-map 
+            :start="{ latLng: alldata.startLoc }" 
+            :end="{ latLng: alldata.endLoc }" 
+            :aSights ="alldata.sights"
+          />
         </div>
-
         <div class="weather-section mb-35">
           <weather-app :cityList="cityList"></weather-app>
         </div>
@@ -116,6 +108,7 @@
 import ItineraryDay from "@/front/components/tour/ItineraryDay";
 import WeatherApp from "@/front/components/tour/WeatherApp";
 import FlightApp from "@/front/components/tour/FlightApp";
+import Maps from "@/front/pages/user/tour/maps";
 import HotelCard from "@/front/components/tour/HotelCard";
 import { Form, HasError, AlertError } from "vform";
 export default {
@@ -126,6 +119,7 @@ export default {
     "flight-app": FlightApp,
     "hotel-card": HotelCard,
     "itinerary-day": ItineraryDay,
+    "live-map": Maps
   },
   data() {
     return {
@@ -172,6 +166,7 @@ export default {
         .POST("/api/tour-detail", data)
         .then((response) => {
           this.alldata = response;
+          //console.log(response);
           this.itineraryData = response.itinerary;
           this.flightData = response.bookedflights;
           this.hotelData = response.bookedhotels;

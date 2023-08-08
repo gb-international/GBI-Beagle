@@ -30,7 +30,7 @@ It takes id from the url and get the data from the api .
         </div>
         <div class="col-sm-3">
           <h5>Pincode</h5>
-          <p>{{ client_view.pincode }}/-</p>
+          <p>{{ client_view.pincode }}</p>
         </div>
         <div class="col-sm-3">
           <h5>Finance Email</h5>
@@ -80,7 +80,7 @@ It takes id from the url and get the data from the api .
 <script>
 import ViewLayout from "@/admin/components/layout/ViewLayout.vue";
 export default {
-  name: "View",
+  name: "ViewRestaurant",
   components: {
     "view-layout": ViewLayout,
   },

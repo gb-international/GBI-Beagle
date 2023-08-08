@@ -8,9 +8,12 @@ import ExploreDestination from '@/components/front/Explore/ExploreDestination.vu
 import SafetySecurity from '@/components/front/Resources/SafetySecurity.vue'
 import TravelEducation from '@/components/front/Resources/TravelEducation.vue'
 import States from '@/components/front/Encyclopedia/States.vue'
+import InternationalStates from '@/components/front/Encyclopedia/InternationalStates.vue'
 import StateView from '@/components/front/Encyclopedia/State-view.vue'
 import ContactUs from '@/components/front/ContactUs/ContactUs.vue'
 import OurStory from '@/components/front/AboutUs/OurStory.vue'
+import FeedbackForm from '@/front/pages/Feedback/feedbackform.vue'
+import FeedbackForm2 from '@/front/pages/Feedback/feedbackform.vue'
 import HowWework from '@/components/front/AboutUs/HowWework.vue'
 import JoinOurTeam from '@/components/front/AboutUs/JoinOurTeam.vue'
 import ImageGallery from '@/components/front/AboutUs/ImageGallery.vue'
@@ -40,9 +43,12 @@ export default [
     { path: '/resources/safety-security', component: SafetySecurity },
     { path: '/resources/travel-education', component: TravelEducation },
     { path: '/resources/travel-encyclopedia', component: States },
+    { path: '/resources/travel-encyclopedia-international', component: InternationalStates },
     { path: '/encyclopedia/:id', component: StateView },
     { path: '/contact-us', component: ContactUs },
     { path: '/about-us/our-story', component: OurStory },
+    { path: '/feedback-link/:tourID', component: FeedbackForm },
+    { path: '/feedback-form/:tourID', component: FeedbackForm2 },
     { path: '/about-us/how-we-work', component: HowWework },
     { path: '/about-us/join-our-team', component: JoinOurTeam },
     { path: '/about-us/image-gallery', component: ImageGallery },

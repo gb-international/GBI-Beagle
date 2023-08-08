@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-8">Basic Package Cost</div>
       <div class="col-4 text-right">
-        <img src="/images/icons/rupee.png" />{{ amount| numberWithCommas }}
+        <img :src="$gbiAssets+'/images/icons/rupee.png'" />{{ amount| numberWithCommas }}
       </div>
     </div>
     <hr />
@@ -15,16 +15,22 @@
     <hr />
 
     <div class="row">
+      <div class="col-8">Complimentary</div>
+      <div class="col-4 text-right">{{ cPax }}</div>
+    </div>
+    <hr />
+
+    <div class="row">
       <div class="col-6">Total package cost</div>
       <div class="col-6 text-right">
-        {{ pax }} * <img src="/images/icons/rupee.png" />{{ amount|numberWithCommas }}
+        <img :src="$gbiAssets+'/images/icons/rupee.png'" />{{ total|numberWithCommas }}
       </div>
     </div>
     <hr />
 
     <div class="row">
       <div class="col-8">GBI COUPON CODE</div>
-      <div class="col-4 text-right"><img src="/images/icons/rupee.png" />0</div>
+      <div class="col-4 text-right"><img :src="$gbiAssets+'/images/icons/rupee.png'" />0</div>
     </div>
     <div class="input-group mt-3 mb-3">
       <input type="text" class="form-control" placeholder="GBI Coupon Code" />
@@ -48,7 +54,7 @@
         <small>(inclusive of all taxes)</small>
       </div>
       <div class="col-4 text-right">
-        <img src="/images/icons/rupee.png" />{{ grand_total|numberWithCommas }}
+        <img :src="$gbiAssets+'/images/icons/rupee.png'" />{{ grand_total|numberWithCommas }}
       </div>
     </div>
   </div>
@@ -64,18 +70,23 @@ export default {
       type: Number,
       required: true,
     },
+    cPax: {
+      type: Number,
+      required: true,
+    }
   },
   data() {
     return {
       internet_charge: false,
       internet_fee: 0,
       grand_total: 0,
+      total: 0,
     };
   },
   created() {
-    this.grand_total = this.amount * this.pax;
-    this.internet_fee = Math.ceil(((this.grand_total / 0.9646) * 3.54) / 100);
-    this.grand_total = this.grand_total + this.internet_fee;
+    this.total = this.amount * this.pax;
+    this.internet_fee = Math.ceil(((this.total / 0.9646) * 3.54) / 100);
+    this.grand_total = this.total + this.internet_fee;
   },
 };
 </script>

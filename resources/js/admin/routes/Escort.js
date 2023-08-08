@@ -7,8 +7,8 @@ const EscortView = () => import(/* webpackChunkName: "js/admin/escortview" */ '@
 
 export default[
     //Escort
-    { path: '/escort-list', component: EscortList },
-    { path: '/add-escort', component: AddEscort },
-    { path: '/edit-escort/:id', component: EditEscort },
-    { path: '/escort-view/:id', component: EscortView },
+    { meta: {permId: 66}, path: '/escort-list', component: EscortList },
+    { meta: {permId: 66}, path: '/add-escort', component: AddEscort },
+    { meta: {permId: 66}, path: '/edit-escort/:id', component: EditEscort },
+    { meta: {permId: 66}, path: '/escort-view/:id', component: EscortView },
 ]

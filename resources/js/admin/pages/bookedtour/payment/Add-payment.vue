@@ -1,190 +1,208 @@
 <template>
-  <div id="tour_payment" class="pb-4">
-    <div v-if="chequePage == false">
-      <div class="container p-t-15 mb-20">
-        <form>
-          <div class="row" v-if="touruser">
+  <div>
+    <div v-if="teacherform.user_id != null">
+      <div id="tour_payment" class="pb-4">
+        <div v-if="chequePage == false">
+          <div class="container p-t-15 mb-20">
+            <form>
+              <div class="row" v-if="touruser">
 
-            <div class="col-sm-3">
-              <label>No Of Pax</label>
-              <p>{{ touruser[0].total + touruser[1].total  }}</p>
-            </div>
-            <div class="col-sm-3">
-              <label>Not Paid Members</label>
-              <p>{{ touruser[0].total }}</p>
-            </div>
-
-            <div class="col-sm-3">
-              <label>Amount</label>
-              <p>{{ perhead }} /per head</p>
-            </div>
-            
-            <div class="col-sm-3">
-              <label>Total Amount</label>
-              <p>{{ teacherform.amount }} /-</p>
-            </div>
-
-          </div>
-          <hr />
-          <div class="row">
-            <div class="col-sm-4">
-              <label for="payment_mode mt-20">Payment By</label>
-              <div class="teacher-section">
-                <div class="form-check-inline">
-                  <label class="form-check-label">
-                    <input
-                      type="radio"
-                      class="form-check-input"
-                      value="student"
-                      name="payment_mode"
-                      v-model="teacherform.payment_mode"
-                    />By Student
-                  </label>
+                <div class="col-sm-2">
+                  <label>Total Pax</label>
+                  <p>{{ touruser[0].total + touruser[1].total  }}</p>
                 </div>
-                <div class="form-check-inline">
-                  <label class="form-check-label">
-                    <input
-                      type="radio"
-                      class="form-check-input"
-                      value="self"
-                      name="payment_mode"
-                      v-model="teacherform.payment_mode"
-                    />By Self (School Incharge)
-                  </label>
+
+                <div class="col-sm-3">
+                  <label>Complimentary Pax</label>
+                  <p>{{ touruser[1].total }}</p>
+                </div>
+
+                <div class="col-sm-2">
+                  <label>Students</label>
+                  <p>{{ totalStudents }}</p>
+                </div>
+
+                <div class="col-sm-2">
+                  <label>Teachers</label>
+                  <p>{{ totalTeachers }}</p>
+                </div>
+
+                <div class="col-sm-2">
+                  <label>Amount</label>
+                  <p>{{ perhead }} /per head</p>
+                </div>
+                
+                <div class="col-sm-3">
+                  <label>Total Amount</label>
+                  <p>{{ teacherform.amount }} /-</p>
+                </div>
+
+              </div>
+              <hr />
+              <div class="row">
+                <div class="col-sm-4">
+                  <label for="payment_mode mt-20">Payment By</label>
+                  <div class="teacher-section">
+                    <div class="form-check-inline">
+                      <label class="form-check-label">
+                        <input
+                          type="radio"
+                          class="form-check-input"
+                          value="student"
+                          name="payment_mode"
+                          v-model="teacherform.payment_mode"
+                        />By Student / Teacher
+                      </label>
+                    </div>
+                    <div class="form-check-inline">
+                      <label class="form-check-label">
+                        <input
+                          type="radio"
+                          class="form-check-input"
+                          value="self"
+                          name="payment_mode"
+                          v-model="teacherform.payment_mode"
+                        />By Self (School Incharge)
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mt-20" v-if="teacherform.payment_mode == 'self'">
+                <div class="col-sm-4">
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <input
+                        type="radio"
+                        class="form-check-input"
+                        name="option"
+                        v-model="teacherform.payment_type"
+                        value="cheque"
+                      />
+                      Cheque/DD
+                    </label>
+                  </div>
+                </div>
+
+                <div class="col-sm-4">
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <input
+                        type="radio"
+                        class="form-check-input"
+                        name="option"
+                        v-model="teacherform.payment_type"
+                        value="cash"
+                      />
+                      Cash
+                    </label>
+                  </div>
+                </div>
+
+                <div class="col-sm-4">
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <input
+                        type="radio"
+                        class="form-check-input"
+                        name="option"
+                        v-model="teacherform.payment_type"
+                        value="net"
+                      />
+                      Net Banking
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div
+          v-if="
+            teacherform.payment_mode == 'self' &&
+            teacherform.payment_type == 'cheque'
+          "
+        >
+          <div class="container pt-20">
+            <p>Please Fill Cheque/DD Details..</p>
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="father_name">Bank Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    v-model="teacherform.cheque_bank_name"
+                  />
+                </div>
+              </div>
+
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="father_name">Date of Issue</label>
+                  <input
+                    type="date"
+                    class="form-control"
+                    v-model="teacherform.date_of_issue"
+                  />
+                </div>
+              </div>
+
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="father_name">IFSC Code</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    v-model="teacherform.ifsc_code"
+                  />
+                </div>
+              </div>
+
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="father_name">Cheque Number</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    v-model="teacherform.cheque_number"
+                  />
                 </div>
               </div>
             </div>
-          </div>
+            <div class="text-center">
+              <button
+                type="button"
+                class="btn btn-outline-primary btn-square itrn_add_btn"
+                @click="backReset()"
+              >
+                BACK
+              </button>
 
-          <div class="row mt-20" v-if="teacherform.payment_mode == 'self'">
-            <div class="col-sm-4">
-              <div class="form-check">
-                <label class="form-check-label">
-                  <input
-                    type="radio"
-                    class="form-check-input"
-                    name="option"
-                    v-model="teacherform.payment_type"
-                    value="cheque"
-                  />
-                  Cheque/DD
-                </label>
-              </div>
-            </div>
-
-            <div class="col-sm-4">
-              <div class="form-check">
-                <label class="form-check-label">
-                  <input
-                    type="radio"
-                    class="form-check-input"
-                    name="option"
-                    v-model="teacherform.payment_type"
-                    value="cash"
-                  />
-                  Cash
-                </label>
-              </div>
-            </div>
-
-            <div class="col-sm-4">
-              <div class="form-check">
-                <label class="form-check-label">
-                  <input
-                    type="radio"
-                    class="form-check-input"
-                    name="option"
-                    v-model="teacherform.payment_type"
-                    value="net"
-                  />
-                  Net Banking
-                </label>
-              </div>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-    <div
-      v-if="
-        teacherform.payment_mode == 'self' &&
-        teacherform.payment_type == 'cheque'
-      "
-    >
-      <div class="container pt-20">
-        <p>Please Fill Cheque/DD Details..</p>
-        <div class="row">
-          <div class="col-sm-4">
-            <div class="form-group">
-              <label for="father_name">Bank Name</label>
-              <input
-                type="text"
-                class="form-control"
-                v-model="teacherform.cheque_bank_name"
-              />
-            </div>
-          </div>
-
-          <div class="col-sm-4">
-            <div class="form-group">
-              <label for="father_name">Date of Issue</label>
-              <input
-                type="date"
-                class="form-control"
-                v-model="teacherform.date_of_issue"
-              />
-            </div>
-          </div>
-
-          <div class="col-sm-4">
-            <div class="form-group">
-              <label for="father_name">IFSC Code</label>
-              <input
-                type="text"
-                class="form-control"
-                v-model="teacherform.ifsc_code"
-              />
-            </div>
-          </div>
-
-          <div class="col-sm-4">
-            <div class="form-group">
-              <label for="father_name">Cheque Number</label>
-              <input
-                type="number"
-                class="form-control"
-                v-model="teacherform.cheque_number"
-              />
+              <button
+                type="button"
+                class="btn btn-outline-primary btn-square itrn_add_btn"
+                @click="validateCheque()"
+              >
+                SUBMIT
+              </button>
             </div>
           </div>
         </div>
-        <div class="text-center">
+        <div class="row justify-content-center mt-5" v-else>
           <button
             type="button"
             class="btn btn-outline-primary btn-square itrn_add_btn"
-            @click="backReset()"
-          >
-            BACK
-          </button>
-
-          <button
-            type="button"
-            class="btn btn-outline-primary btn-square itrn_add_btn"
-            @click="validateCheque()"
+            @click="submitPayment()"
           >
             SUBMIT
           </button>
         </div>
       </div>
     </div>
-    <div class="row justify-content-center mt-5" v-else>
-      <button
-        type="button"
-        class="btn btn-outline-primary btn-square itrn_add_btn"
-        @click="submitPayment()"
-      >
-        SUBMIT
-      </button>
+    <div v-else>
+        <p class="text-center pt-5 text-muted">No Data Available</p>
     </div>
   </div>
 </template>
@@ -192,7 +210,7 @@
 <script>
 import { Form, HasError, AlertError } from "vform";
 export default {
-  name: "Tour-list",
+  name: "Tour-listPaymentAdd",
   components: {
     "has-error": HasError,
   },
@@ -210,6 +228,8 @@ export default {
       banknames: [],
       userinfo: "",
       robot: false,
+      totalTeachers: "",
+      totalStudents: "",
       teacherform: new Form({
         payment_mode: "self",
         payment_type: "",
@@ -222,7 +242,7 @@ export default {
         date_of_issue: "",
         ifsc_code: "",
         cheque_number: "",
-        added_by: "gbi",
+        added_by: "GBI",
       }),
       form: new Form({
         name: "",
@@ -261,13 +281,17 @@ export default {
       };
       axios.post("/api/gettourusers", data)
         .then((response) => {
+          
           this.teacherform.user_id = response.data.user_id;
           this.perhead = response.data.amount;
           this.touruser = response.data.tour;
-          this.teacherform.amount = this.touruser[1].total * this.perhead; 
+          this.teacherform.amount = this.touruser[0].total * this.perhead;
+          this.totalTeachers = response.data.teachers;
+          this.totalStudents = response.data.students;
+
+          console.log(response)
         })
         .catch((error) => {
-          this.handleError(error);
         });
     },
     submitPayment() {

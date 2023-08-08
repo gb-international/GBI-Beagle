@@ -3,14 +3,14 @@
     <div class="row">
       <div class="col-8">Basic Package Cost</div>
       <div class="col-4 text-right">
-        <img src="/images/icons/rupee.png" />{{ amount }}
+        <img :src="$gbiAssets+'/images/icons/rupee.png'" />{{ amount }}
       </div>
     </div>
     <hr />
 
     <div class="row">
       <div class="col-8">GBI COUPON CODE</div>
-      <div class="col-4 text-right"><img src="/images/icons/rupee.png" />0</div>
+      <div class="col-4 text-right"><img :src="$gbiAssets+'/images/icons/rupee.png'" />0</div>
     </div>
     <div class="input-group mt-3 mb-3">
       <input type="text" class="form-control" placeholder="GBI Coupon Code" />
@@ -34,7 +34,7 @@
         <small>(inclusive of all taxes)</small>
       </div>
       <div class="col-4 text-right">
-        <img src="/images/icons/rupee.png" />{{ grand_total }}
+        <img :src="$gbiAssets+'/images/icons/rupee.png'" />{{ grand_total }}
       </div>
     </div>
   </div>

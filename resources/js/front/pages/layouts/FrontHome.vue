@@ -13,20 +13,20 @@
               alt="GBI slide"
             ></div>
           </div>
-          <div class="carousel-item">
+          <!-- <div class="carousel-item">
             <div
               class="img-fluid banner_img image-slide-2 banner_bg"
               id="bannerimg2"
               alt="GBI slide"
             ></div>
           </div>
-          <div class="carousel-item">
+           <div class="carousel-item">
             <div
               class="img-fluid banner_img image-slide-3 banner_bg"
               id="bannerimg3"
               alt="GBI slide"
             ></div>
-          </div>
+          </div> -->
         </div>
         <a
           class="carousel-control-prev"
@@ -50,19 +50,19 @@
     </div>
 
     <div class="container">
-      <div class="card-titles">
-        <h1>Our Travel Programs</h1>
-        <h4>Immerge in a Riveting Journey</h4>
-      </div>
-      <div class="row" v-if="travel_programs">
+      <heading class="text-start mt-4" text="Our Travel Programs" />
+      <sub-heading class="text-start mb-4" text="Immerge in a Riveting Journey" />
+      
+      <!-- If Loaded -->
+      <div class="row card-titles" v-if="travel_Loaded">
         <div class="col-sm-4" v-for="program in travel_programs" :key="program.id">
           <div class="card card-1 mb-15">
             <router-link :to="`/explore-destination`">
               <figure v-lazyload class="image__wrapper">
                 <ImageSpinner class="image__spinner" />
                 <img
-                  class="image__item"
-                  :data-url="`/images/tourprogram/`+program.image"
+                  class="image__item border-radius-travel"
+                  :data-url="program.image"
                   :alt="program.title"
                 />
               </figure>
@@ -75,39 +75,169 @@
           </div>
         </div>
       </div>
+      <!-- If Loading -->
+      <div class="row card-titles" my-2 mb-4 v-else>
+        <div class="col-sm-4"  v-for="(index) in 6" :key="index">
+         <cardLoader />
+        </div>
+      </div>
 
+      <!-- <sub-heading class="text-center pb-2" text="Join our adventures at GB International" />
       <section class="content-video">
-        <article class="card-titles">
-          <h1>Join our adventures at GB International</h1>
-        </article>
-        <div class="content mt-35" v-if="video_data.length > 0">
+        <div class="content" v-if="video_data.length > 0">
           <div class="rwd-media">
-            <video width="400" controls controlslist="nodownload">
+           <video width="400" controls controlslist="nodownload">
               <source :src="video_path" type="video/mp4" />Your browser does not support HTML5 video.
-            </video>
+            </video> 
           </div>
         </div>
-      </section>
+      </section> -->
     </div>
     
+    <!-- VTour Section 
+    <div class="container">
+      <heading class="text-start mt-4" text="Virtual Tourism" />
+      <sub-heading class="text-start mb-4" text="Lorem ipsum dolor sit amet" />  -->
+      
+      <!-- If Loaded 
+      <div class="row card-titles" v-if="travel_Loaded">
+        <div class="col-sm-4">
+          <div class="card">
+              <div class="card-horizontal">
+                  <div class="mt-3" style="width: 50% !important; height: 100% !important">
+                      <img class="" style="width: 100% !important; height: 100% !important" src="https://cdn.pixabay.com/photo/2015/03/09/18/34/beach-666122_960_720.jpg" alt="Card image cap">
+                  </div>
+                   <div class="card-body" style="width: 50% !important">
+                    <h5 class="card-title">Lorem ipsum</h5>
+                    <p class="card-text" v-html="'Lorem ipsum dolor sit amet, consectetur..'"></p>
+                  </div>
+              </div>
+          </div>
+        </div> 
+
+        <div class="col-sm-4">
+          <div class="card">
+              <div class="card-horizontal">
+                  <div class="mt-3" style="width: 50% !important; height: 100% !important">
+                      <img class="" style="width: 100% !important; height: 100% !important" src="https://cdn.pixabay.com/photo/2015/03/09/18/34/beach-666122_960_720.jpg" alt="Card image cap">
+                  </div>
+                   <div class="card-body" style="width: 50% !important">
+                    <h5 class="card-title">Lorem ipsum</h5>
+                    <p class="card-text" v-html="'Lorem ipsum dolor sit amet, consectetur..'"></p>
+                  </div>
+              </div>
+          </div>
+        </div> 
+
+        <div class="col-sm-4">
+          <div class="card">
+              <div class="card-horizontal">
+                  <div class="mt-3" style="width: 50% !important; height: 100% !important">
+                      <img class="" style="width: 100% !important; height: 100% !important" src="https://cdn.pixabay.com/photo/2015/03/09/18/34/beach-666122_960_720.jpg" alt="Card image cap">
+                  </div>
+                   <div class="card-body" style="width: 50% !important">
+                    <h5 class="card-title">Lorem ipsum</h5>
+                    <p class="card-text" v-html="'Lorem ipsum dolor sit amet, consectetur..'"></p>
+                  </div>
+              </div>
+          </div>
+        </div> 
+      </div> -->
+      <!-- If Loading 
+      <div class="row card-titles" my-2 mb-4 v-else>
+        <div class="col-sm-4"  v-for="(index) in 3" :key="index">
+         <cardLoader />
+        </div>
+      </div>     
+    </div> -->
+
+    <!-- Offers Section 
+    <div class="container">
+      <heading class="text-start mt-4" text="Offers And Coupons" />
+      <sub-heading class="text-start mb-4" text="Lorem ipsum dolor sit amet" /> -->
+      
+      <!-- If Loaded 
+      <div class="row card-titles" v-if="travel_Loaded">
+        <div class="col-sm-4">
+          <div class="card">
+            <figure v-lazyload class="image__wrapper">
+              <ImageSpinner class="image__spinner" />
+              <img
+                class="image__item card-img-top"
+                data-url="https://cdn.pixabay.com/photo/2015/08/11/08/21/coupon-883641_960_720.jpg"
+                alt="image"
+              />
+            </figure>
+          </div>
+        </div> 
+
+        <div class="col-sm-4">
+          <div class="card">
+            <figure v-lazyload class="image__wrapper">
+              <ImageSpinner class="image__spinner" />
+              <img
+                class="image__item card-img-top"
+                data-url="https://cdn.pixabay.com/photo/2015/08/11/08/21/coupon-883641_960_720.jpg"
+                alt="image"
+              />
+            </figure>
+          </div>
+        </div> 
+
+        <div class="col-sm-4">
+          <div class="card">
+            <figure v-lazyload class="image__wrapper">
+              <ImageSpinner class="image__spinner" />
+              <img
+                class="image__item card-img-top"
+                data-url="https://cdn.pixabay.com/photo/2015/08/11/08/21/coupon-883641_960_720.jpg"
+                alt="image"
+              />
+            </figure>
+          </div>
+        </div> 
+
+      </div> -->
+      <!-- If Loading 
+      <div class="row card-titles" my-2 mb-4 v-else>
+        <div class="col-sm-4"  v-for="(index) in 6" :key="index">
+         <cardLoader />
+        </div>
+      </div>     
+    </div> -->
+
+    <!-- <Review /> -->
   </div>
 </template>
 
 <script>
+import Heading from '@/front/components/layout/Heading.vue';
+import SubHeading from '@/front/components/layout/SubHeading.vue';
+import cardLoader from '@/front/components/loaders/cardHome.vue';
+import Review from "@/front/components/Reviews.vue"
+import { sitemap } from "@/admin/helpers/sitemap.js";
+
 export default {
   name: "FrontHome",
+  components:{
+    Heading,
+    SubHeading,
+    cardLoader,
+    Review
+  },
   data() {
     return {
       travel_programs: [],
       video_data: "",
-      video_path: "video/video.mp4"
+      video_path: "video/video.mp4",
+      travel_Loaded: false
     };
   },
   metaInfo: {
-    title: 'GB-International',
+    title: 'Homepage | GB International - Your Travel Partner ',
     meta:[
-      { property: 'og:description', content: 'GBI is a travel educationist rooted in experiential learning. It has tailored made itineraries reflect the classroom curricula and support academic objective.' },
-      { property: 'og:title', content: 'G.B International is a travel educational specialist for young minds.' },
+      { property: 'og:description', content: 'GB International provides the best practical learning experience to not only students but to the travellers as well.' },
+      { property: 'og:title', content: 'GB International - Your Travel Partner' },
       { property: 'og:image', content: 'https://www.gowithgbi.com/assets/front/images/banner2.jpg' },
       { property: 'og:type', content: 'website' },
       { property: 'og:site_name', content: 'gowithgbi.com' },
@@ -117,11 +247,13 @@ export default {
   
   created() {
     this.TravelPorgrams();
+    //sitemap();
   },
   methods: {
     TravelPorgrams() {
       this.$axios.get("/api/travel-programs").then(response => {
         this.travel_programs = response.data;
+        this.travel_Loaded = true;
       });
 
       this.$axios.get("/api/website").then(response => {

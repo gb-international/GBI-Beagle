@@ -16,137 +16,119 @@
 
     <div class="banner_ourstory text_on_image banner_bg">
       <div class="content">
-        <p class="heading">OUR STORY</p>
+        <p class="heading">Our Story</p>
       </div>
     </div>
 
     <div class="container">
-      <div class="col-lg-12">
-        <article class="how-we-work">
-          <h1 class="font-weight-bold">Our Story</h1>
-          <h2>One’s action can inspire others to dream bigger</h2>
-          <p>The journey of GB International dates back to 1983 when Mr. Jasbir Singh Rikhi founded the company single-handedly with the desire of guiding students for a better future. He seeks to use travel as a tool to guide young minds learn from experiences outside their comfort zone. GBI has been working hard to transform this very idea into reality through finely curated travel tours.</p>
-          <br />
-          <h2>Success does not lie in results but in efforts</h2>
-          <p>At GBI, we believe that to travel is to learn. It’s a belief that has shaped our path for the last 35 years and something that drive us to keep “moving ahead with time”. We foster a worldwide perspective and are attuned socially and culturally to the ever changing landscape of the classroom and the competitive global market. Keeping this in mind, we offer a number of tour programs covering a wide array of topics. Since its inception, GBI has sent more than one lakh students to different destinations across the globe.</p>
-        </article>
-      </div>
-      <!-- End how we work -->
-      <!-- Start Mission-->
+      <h1 class="gbi_main-heading pt-3 text-capitalize" style="margin-bottom: 10px !important;">
+          About Us
+      </h1>
+      <h4 class="gbi_sub-heading text-capitalize m-0 p-0">
+          Welcome to GB International, ”Your Educational Travel Planner”&nbsp; . A one-stop-shop for all your travel needs
+      </h4>
+      <p class="gbi_paragraph pt-2">
+          One’s Action Can Inspire Others To Dream Bigger
+      </p>
+      <p class="gbi_paragraph pt-2">
+          In ancient times, the offset of travel was only on the sole purpose of spiritual fulfillment and medicinal offerings. During the course of time, people began to explore different destinations for knowledge, cultural exploration, scenic beauty and other special interests. But much of our great historical monuments and culture are still unseen and unheard to many people.
+      </p>
+      <p class="gbi_paragraph pt-2">
+          And so the journey of GBI was set forth in 1983 by our CEO Mr. Jasbir Singh Rikhi single-handedly with the motive to release the pressure of classroom learning and allow young minds to learn from new and engaging environments outside their comfort zone through experiential journeys.Serving for around 40 yrs in the industry, we provide a platform for young minds and passionate travelers to explore and discover different cultural aspects and scientific explorations across the globe with journeys booked through our web platforms.
+      </p>
       <section class="bgcolor-section">
-        <div class="col-lg-12">
-          <article class="about-story">
-            <div class="row">
-              <div class="col-md-6 col-lg-7">
-                <div class="ourstory-content">
-                  <h1 class="font-weight-bold">Mission</h1>
-                  <h2>Learn from the diversity</h2>
-                  <p>Our mission is to facilitate a true connection between the students and the educational tour by trying to compliment classroom learning with a touch of the real. At GBI, we strive to combine reliable travel support with practical knowledge of textbooks to create an enriching travel experience that last a lifetime.</p>
+          <div class="col-lg-12">
+            <article class="about-story">
+                <div class="d-flex flex-lg-row flex-column justify-content-between align-items-center">
+                  <div class="ourstory-content">
+                      <p class="gbi_paragraph pt-2">
+                        Mr. Jasbir Singh Rikhi, a&nbsp; passionate traveler himself from the hospitality sector, whenever used to hit the road on his Royal Enfield to explore new places, he realized that people who came to pay a visit to that particular destination would click a photo and move on without showing any interest in its rich history, culture and not even admiring the architectural and technological advancements. This made a huge impact on him and made him realize that there is a greater need to educate people(young minds and passionate travelers about our rich cultural heritage through fun and innovative methods.
+                      </p>
+                      <p class="gbi_paragraph pt-2">
+                        He has been leading a team of passionate travelers. A mission and vision aimed at helping travelers of any age to learn, explore and discover the world, not just by traveling, but by blending in and enjoying the cultural and historical experiences the destination has to offer.
+                      </p>
+                  </div>
+                  <div class="ourstory-content widthControl">
+                      <figure class="image__wrapper loaded">
+                        <div class="loader-overlay image__spinner"></div>
+                        <img id="ourstoryimg1" data-url="/assets/front/images/user-profile.png" alt="our story" class="image__item ic-cal-re widthControl" src="/assets/front/images/user-profile.png">
+                      </figure>
+                  </div>
                 </div>
-              </div>
-              <div class="col-md-6 col-lg-5">
-                <div class="ourstory-content">
-                  <figure v-lazyload class="image__wrapper">
-                    <ImageSpinner class="image__spinner" />
-                    <img
-                      id="ourstoryimg1"
-                      class="image__item ic-cal-re"
-                      :data-url="`/assets/front/images/mission.png`"
-                      alt="our story"
-                    />
-                  </figure>
-                </div>
-              </div>
-            </div>
-          </article>
-        </div>
+            </article>
+          </div>
       </section>
-      <section class="whitebg-section">
-        <div class="col-lg-12">
-          <article class="about-vision pa-t-15">
-            <div class="row">
-              <div class="col-md-6 col-lg-5">
-                <div class="ourstory-content">
-                  <figure v-lazyload class="image__wrapper">
-                    <ImageSpinner class="image__spinner" />
-                    <img
-                      id="ourstoryimg2"
-                      class="image__item"
-                      :data-url="`/assets/front/images/vision.png`"
-                      alt="our story"
-                    />
-                  </figure>
+      <section>
+          <div class="col-lg-12">
+            <article>
+                <div class="d-flex flex-lg-row flex-column justify-content-between align-items-center">
+                  <div class="ourstory-content">
+                      <h1 class="gbi_main-heading pt-3 text-capitalize">
+                        Our Achievement
+                      </h1>
+                      <h4 class="gbi_sub-heading text-capitalize m-0 p-0">
+                        The choice of journey shapes mundane reality
+                      </h4>
+                      <p class="gbi_paragraph pt-2">
+                        Our company’s success is not just by the world class service we provide. But&nbsp; how&nbsp; we as a team have brought a great impact in the life of a traveler. Our main aim has always been to educate young travelers and help them learn, explore and discover ; through real-world exposure. As we believe that children understand the best when they are left to discover, explore and learn on their own in physical learning environments. Not just young students but also catering services to travel enthusiasts of all age groups is our aim.&nbsp;
+                      </p>
+                      <p class="gbi_paragraph pt-2">
+                        Working with different sectors of society like youngsters who attend school and college, corporates with a busy life, families to bond with, couples, and people from all age groups and backgrounds. It is a challenge but we promise to deliver the best of services and cater to all your needs at all times no matter which group you belong to.
+                      </p>
+                  </div>
                 </div>
-              </div>
-              <div class="col-md-6 col-lg-7">
-                <div class="ourstory-content">
-                  <h1 class="font-weight-bold">Vision</h1>
-                  <h2>The choice of journey shapes mundane reality</h2>
-                  <p>GBI’s philosophy behind all its program is to reach out to young minds to bring in them confidence and expand their horizons to prepare them face the challenges of mundane reality. We aim to enhance their skills through excursion to understand how various culture and different countries work.</p>
-                </div>
-              </div>
-            </div>
-          </article>
-        </div>
+                <p class="gbi_paragraph pt-2 mt-1">
+                  Our Milestone :GBI has sent more than two&nbsp; lakh students to different destinations across the globe.
+                </p>
+                <p class="gbi_paragraph pt-2 mt-1">
+                  So, whether you're a student, a corporate team or a family, a first-time traveler or a seasoned jet-setter, we invite you to join us on your next adventure and discover the world with us.
+                </p>
+            </article>
+          </div>
       </section>
-      <!-- End Mission -->
-
-      <!-- Start Behind Face GBI-->
-      <section class="bgcolor-section mt-3">
-        <div class="col-lg-12">
-          <article class="about-story-face">
-            <h1>FACES BEHIND GBI</h1>
-
-            <div class="our-experience">
-              <figure v-lazyload class="image__wrapper">
-                <ImageSpinner class="image__spinner" />
-                <img class="image__item" :data-url="`/assets/front/images/user.jpg`" alt="ceo" />
-              </figure>
-              <h2>Mr. Jasbir Singh Rikhi</h2>
-              <p>CEO</p>
-            </div>
-            <div class="our-experience">
-              <figure v-lazyload class="image__wrapper">
-                <ImageSpinner class="image__spinner" />
-                <img
-                  class="image__item"
-                  :data-url="`/assets/front/images/user.jpg`"
-                  alt="Director Operations"
-                />
-              </figure>
-              <h2>Mr. Chanpreet Rikhi</h2>
-              <p>Director Operations</p>
-            </div>
-            <div class="our-experience">
-              <figure v-lazyload class="image__wrapper">
-                <ImageSpinner class="image__spinner" />
-                <img
-                  class="image__item"
-                  :data-url="`/assets/front/images/user.jpg`"
-                  alt="Assistant Director"
-                />
-              </figure>
-              <h2>Mrs. Gurpreet Kaur Rikhi</h2>
-              <p>Assistant Director</p>
-            </div>
-          </article>
-        </div>
-      </section>
-      <!-- End Behind Face GBI -->
       <div class="clear"></div>
     </div>
   </div>
 </template>
 <script>
+import Heading from '@/front/components/layout/Heading.vue';
+import SubHeading from '@/front/components/layout/SubHeading.vue';
+import Paragraph from '@/front/components/layout/Paragraph.vue';
 export default {
   name: "OurStory",
+  components:{
+    "heading":Heading,
+    "sub-heading":SubHeading,
+    "paragraph" : Paragraph
+  },
   metaInfo: {
-    title: 'About Us',
+    title: 'About Us | Get To Know About Us',
     meta:[
-      { name: 'description', content: '@GoWithGBI Story On How GBI believes in its core values and implement the same  to make your educational travel program a successful one' },
+      { name: 'description', content: 'We, GB International deal in providing customized itineraries to educational institutions, corporates, and to family travellers.' },
       { name: 'keywords', content: '@GoWithGBI,Our Story,about us,GBI Process,Program Engineering Process ,GBI How we work,learn,explore,discover,dream travel journeys,behind the scenes,dream,educational programs,corporate events,team building programs,international programs,domestic programs' },
       { name: 'url', content: 'https://www.gowithgbi.com/about-us/our-story' },
     ]
   },
+  beforeCreate(){
+    let metaInfo = {
+      title: 'About Us | Get To Know About Us',
+      description: 'We, GB International deal in providing customized itineraries to educational institutions, corporates, and to family travellers.',
+      keywords: '@GoWithGBI,Our Story,about us,GBI Process,Program Engineering Process ,GBI How we work,learn,explore,discover,dream travel journeys,behind the scenes,dream,educational programs,corporate events,team building programs,international programs,domestic programs',
+      url: 'https://www.gowithgbi.com/about-us/our-story',
+      type: 'website'
+    }
+    document.cookie = "GBIMeta =" + JSON.stringify(metaInfo) +"; path=/";
+  },
 };
 </script>
+
+<style scoped>
+.widthControl{
+  width: 70% !important
+}
+@media only screen and (max-width: 824px) {
+.widthControl{
+  width: 90% !important
+}
+}
+</style>

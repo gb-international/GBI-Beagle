@@ -1,7 +1,7 @@
 <template>
     <layout>
         <template #back>
-            <img class="back-icon cursor-pointer" @click="$router.go(-1)" src="/assets/front/icons/back.png">
+            <img class="back-icon cursor-pointer" @click="$router.go(-1)" :src="$gbiAssets+'/assets/front/icons/back.png'">
         </template>
         <template #title_heading>
             Restaurant

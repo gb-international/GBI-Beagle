@@ -1,198 +1,150 @@
   <template>
   <!--************************************************
-      Author:@Ajay
+      Author:@Manas
       ****************************************************-->
-
-  <div id="joinOurteam">
-    <div class="career_banner text_on_image banner_bg">
-      <div class="content">
-        <p class="heading">JOIN OUR TEAM</p>
+  <errorState :imgName="'career_1_500x500.png'" v-if="apiFailed"/>
+  <div id="joinOurteam" v-else>
+     <div class="advertismentpart">
+        <img
+          :src="$gbiAssets+'/assets/front/images/job-banner.png'"
+          style="height: 100%; width: 100%"
+          loading="lazy"
+        />
       </div>
-    </div>
 
     <main>
-      <!-- End banner area -->
-      <section>
-        <article class="join-team">
-          <div class="container">
-            <h1 class="text-center">JOIN OUR BRILLIANT MINDS</h1>
-            <form
-              role="form"
-              method="POST"
-              @submit.prevent="sendmailResume()"
-              enctype="multipart/form-data"
-            >
-              <div class="row">
-                <div class="col-sm-6">
-                  <div class="form-group">
-                    <input
-                      type="text"
-                      class="form-control"
-                      v-model="form.firstname"
-                      :class="{ 'is-invalid': form.errors.has('firstname') }"
-                      placeholder="Enter first name"
-                    />
-                    <has-error :form="form" field="firstname"></has-error>
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <div class="form-group">
-                    <input
-                      type="text"
-                      class="form-control"
-                      v-model="form.lastname"
-                      :class="{ 'is-invalid': form.errors.has('lastname') }"
-                      placeholder="Enter last name"
-                    />
-                    <has-error :form="form" field="lastname"></has-error>
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <div class="form-group">
-                    <input
-                      type="email"
-                      class="form-control"
-                      v-model="form.email"
-                      :class="{ 'is-invalid': form.errors.has('email') }"
-                      placeholder="Enter Email"
-                    />
-                    <has-error :form="form" field="email"></has-error>
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <div class="form-group">
-                    <input
-                      type="text"
-                      class="form-control"
-                      v-model="form.contactno"
-                      :class="{ 'is-invalid': form.errors.has('contactno') }"
-                      placeholder="Enter contactno"
-                    />
-                    <has-error :form="form" field="contactno"></has-error>
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <div class="form-group">
-                    <input
-                      type="text"
-                      class="form-control"
-                      v-model="form.address"
-                      :class="{ 'is-invalid': form.errors.has('address') }"
-                      placeholder="Enter address"
-                    />
-                    <has-error :form="form" field="address"></has-error>
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <div class="form-group">
-                    <input
-                      type="text"
-                      class="form-control"
-                      v-model="form.state"
-                      :class="{ 'is-invalid': form.errors.has('state') }"
-                      placeholder="Enter state"
-                    />
-                    <has-error :form="form" field="state"></has-error>
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <div class="form-group">
-                    <input
-                      type="text"
-                      class="form-control"
-                      v-model="form.city"
-                      :class="{ 'is-invalid': form.errors.has('city') }"
-                      placeholder="Enter city"
-                    />
-                    <has-error :form="form" field="city"></has-error>
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <div class="form-group">
-                    <input
-                      type="text"
-                      class="form-control"
-                      v-model="form.zipcode"
-                      :class="{ 'is-invalid': form.errors.has('zipcode') }"
-                      placeholder="Enter zipcode"
-                    />
-                    <has-error :form="form" field="zipcode"></has-error>
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <div class="form-group">
-                    <select
-                      class="form-control"
-                      v-model="form.postvancy"
-                      :class="{ 'is-invalid': form.errors.has('postvancy') }"
-                    >
-                      <option value default="default">Select Post</option>
-
-                      <option 
-                        v-for="position in positions" 
-                        :key="position" 
-                        :value="position">{{ position}}</option>
-                    </select>
-                    <has-error :form="form" field="postvancy"></has-error>
-                  </div>
-                </div>
-                <div class="col-sm-12">
-                  <div class="form-fullwidth">
-                    <div class="upload-btn-wrapper">
-                      <button class="btn button3">Select File</button>
-                      <input
-                        name="resume"
-                        type="file"
-                        @change="onFileChange"
-                        :class="{ 'is-invalid': form.errors.has('resume') }"
-                        accept=".pdf, .doc, .docx"
-                      />
-                      <has-error :form="form" field="resume"></has-error>
-                      <span v-if="filename">{{ filename }}</span>
-                    </div>
-                    <p>
-                      <small>Please uplod PDF file only</small>
-                    </p>
-                  </div>
-                </div>
-
-                <div class="col-sm-12">
-                  <div class="form-group">
-                    <textarea
-                      class="form-control"
-                      v-model="form.messagescon"
-                      :class="{ 'is-invalid': form.errors.has('messagescon') }"
-                      rows="4"
-                      placeholder="Write something.."
-                    ></textarea>
-                    <has-error :form="form" field="messagescon"></has-error>
-                  </div>
-                </div>
-              </div>
-              <div class="text-center">
-                <button type="submit" class="btn profile_button mb-5" value="Submit">
-                  Submit
-                </button>
-              </div>
-            </form>
+      <div class="row customdiv">
+          <div class=" col-md-10 col-12">
+           <input class="form-control customSearch shadow" type="text" placeholder="Job Title" aria-label="Search" v-model="sField">
           </div>
-        </article>
+          <div class="col-md-2 col-12">
+           <button type="submit" class="btn btnCustom" @click.prevent="SearchJobs">SEARCH</button>
+          </div>
+         </div>
+      <!-- End banner area -->
+      <div v-if="dataLoading" class="row card-titles py-2 customdiv">
+        <div class="col-sm-4"  v-for="(index) in 6" :key="index">
+          <cardLoader />
+        </div>
+      </div>
+      <section v-else-if="!search && !dataLoading">
+
+         <div class="row py-2 customdiv">
+            <div class="col-md-4 col-6">
+              <div @click="redirJob('technology')" class="card shadow py-5 mb-3 customCard">
+                <div class="card-body d-flex justify-content-center align-items-center flex-column">
+                  <img
+                    class="customImgJ"
+                    :src="$gbiAssets+'/assets/front/images/Technology-&-Design.png'"
+                    loading="lazy"
+                  />
+                  <p class="cardCText text-center">Technology & Design</p>    
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4 col-6">
+              <div @click="redirJob('operation')" class="card shadow py-5 mb-3 customCard">
+                <div class="card-body d-flex justify-content-center align-items-center flex-column">
+                  <img
+                    class="customImgJ"
+                    :src="$gbiAssets+'/assets/front/images/Operation.png'"
+                    loading="lazy"
+                  />
+                  <p class="cardCText text-center">Operation</p>    
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4 col-6">
+              <div @click="redirJob('reservations')" class="card shadow py-5 mb-3 customCard">
+                <div class="card-body d-flex justify-content-center align-items-center flex-column">
+                  <img
+                    class="customImgJ"
+                    :src="$gbiAssets+'/assets/front/images/Reservations.png'"
+                    loading="lazy"
+                  />
+                  <p class="cardCText text-center">Reservations</p>    
+                </div>
+              </div>
+            </div>
+
+           <div class="col-md-4 col-6">
+              <div @click="redirJob('sales-marketing')" class="card shadow py-5 mb-3 customCard">
+                <div class="card-body d-flex justify-content-center align-items-center flex-column">
+                  <img
+                    class="customImgJ"
+                    :src="$gbiAssets+'/assets/front/images/Sales-&-Marketing.png'"
+                    loading="lazy"
+                  />
+                  <p class="cardCText text-center">Sales & Marketing</p>    
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4 col-6">
+              <div @click="redirJob('finance')" class="card shadow py-5 mb-3 customCard">
+                <div class="card-body d-flex justify-content-center align-items-center flex-column">
+                  <img
+                    class="customImgJ"
+                    :src="$gbiAssets+'/assets/front/images/Finance.png'"
+                    loading="lazy"
+                  />
+                  <p class="cardCText text-center">Finance</p>    
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4 col-6">
+              <div @click="redirJob('product-project-management')" class="card shadow py-5 mb-3 customCard">
+                <div class="card-body d-flex justify-content-center align-items-center flex-column">
+                  <img
+                    class="customImgJ"
+                    :src="$gbiAssets+'/assets/front/images/Product-&-Project-Management.png'"
+                    loading="lazy"
+                  />
+                  <p class="cardCText text-center">Product & Project Management</p>    
+                </div>
+              </div>
+            </div>
+
+          </div>
       </section>
+      <div v-else-if="search_list.length" class="container">
+        <heading text="Jobs" style="margin-bottom: 35px !important; font-size: 26px !important"/>
+        <div class="lDiv shadow row mx-2" v-for="sjob in search_list" v-bind:key="sjob.id">
+          <div class="col-md-10 col-12">
+            <sub-heading :text="sjob.title" style="margin-bottom: 10px !important; font-weight: 600 !important"/>
+            <paragraph :text="sjob.description.slice(0, 100)"/>
+          </div>
+           <button class="col-md-2 col-8 btn profile_button" @click.prevent="$router.push('/about-us/join-our-team/job/'+sjob.id)">
+            View
+          </button>
+        </div>
+      </div>
+      <div v-else class="container">
+        <heading text="No Jobs found." style="margin-left: 12px; margin-bottom: 35px !important; font-size: 20px !important"/>
+      </div>
     </main>
   </div>
 </template>
 
 <script>
 import { Form, HasError } from "vform";
+import Heading from '@/front/components/layout/Heading.vue';
+import SubHeading from '@/front/components/layout/SubHeading.vue';
+import Paragraph from '@/front/components/layout/Paragraph.vue';
+import cardLoader from '@/front/components/loaders/cardLoaderJobs.vue';
+
 export default {
   name: "JoinOurTeam",
   metaInfo: {
-    title: "Join Our Team",
+    title: "Careers | Join Our Team",
     meta: [
       {
         name: "description",
         content:
-          "@GoWithGBI Lets travel together and make the world a better place .Join our brilliant minds",
+          "Explore the world with us. Be a part of our team.",
       },
       {
         name: "keywords",
@@ -207,10 +159,13 @@ export default {
   },
   components: {
     HasError,
+    Heading,
+    "sub-heading":SubHeading,
+    "paragraph" : Paragraph,
+    cardLoader
   },
   data() {
     return {
-      filename: "",
       form: new Form({
         firstname: "",
         lastname: "",
@@ -222,12 +177,49 @@ export default {
         zipcode: "",
         postvancy: "",
         resume: "",
+        filename: "",
         messagescon: "",
       }),
       positions:["Business Development Executive (Delhi)","Business Development Executive (Punjab)", "Business Development Executive (Hyderabad)", "Software Developer", "Business Lead Generation Executive"],
+      search_list: [],
+      search: false,
+      sField: '',
+      dataLoading: true,
+      apiFailed: false,
     };
   },
+  beforeCreate(){
+    let metaInfo = {
+      title: 'Careers | Join Our Team',
+      description: 'Explore the world with us. Be a part of our team.',
+      keywords: '@GoWithGBI,join our team,explore Your career with GBI,exciting journey,research oriented process,challenges,explore your travel instinct,discover ,travel passion,learn,explore,discover',
+      url: 'https://www.gowithgbi.com/about-us/join-our-team',
+      type: 'website'
+    }
+    document.cookie = "GBIMeta =" + JSON.stringify(metaInfo) +"; path=/";
+  },
+  mounted(){
+    setTimeout(() =>
+        this.dataLoading = false, 
+    2000);
+  },
   methods: {
+    SearchJobs(){
+      if(this.sField == ''){
+        return this.$swal.fire("Empty Search!", "No search value, please input your search.", "warning"); 
+      }
+      this.$axios.get("/api/join-our-team/search/"+this.sField).then(response => {
+        this.search_list = response.data;
+        if(this.search_list.length <=0 ){
+          return this.$swal.fire("No Jobs found!", "There are no jobs matching your search.", "info"); 
+        }
+        //console.log(response);
+        this.search = true;
+      });
+    },
+    redirJob(page){
+      this.$router.push('/about-us/join-our-team/'+page)
+    },
     onFileChange(e) {
       var files = e.target.files || e.dataTransfer.files;
       if (files[0].size > 2097152) {
@@ -242,8 +234,8 @@ export default {
       if (!files.length) return;
 
       this.createImage(files[0]);
-      var fileData = event.target.files[0];
-      this.filename = fileData.name;
+      var fileData = e.target.files[0];
+      this.form.filename = fileData.name;
     },
     createImage(file) {
       var image = new Image();
@@ -260,7 +252,7 @@ export default {
         .post("/api/join-our-team/send")
         .then((response) => {
           this.form.reset();
-          this.filename = "";
+          this.form.filename = "";
           this.$swal.fire(
             "Successfully Submited!",
             "Your resume has been sent to HR Deparment..",
@@ -273,3 +265,117 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.customdiv{
+  margin: 15px;
+}
+.customCard{
+  height: 75px;
+  width: 100%;
+  border-radius: 0px;
+}
+.customSearch{
+   margin-bottom: 15px;
+   height: 46px;
+   border-radius: 5px;
+   font-size: 12px;
+   font-weight: 400;
+   color: gray;
+}
+.btnCustom{
+  height: 42px;
+  width: 95px;
+  padding: 0px 15px 0px 15px;
+  border: 1px solid #f77736;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  color: #f77736;
+  display: block;
+  margin: 0 auto;
+}
+.customImgJ{
+  margin-top: -25px;
+  height: 50px;
+  width: auto;
+}
+.cardCText{
+  margin-top: 2px;
+  font-size: 10px;
+  font-weight: 500;
+}
+.lDiv{
+  border: 1px solid grey;
+  padding: 15px;
+  margin-bottom: 2vh;
+}
+@media only screen and (min-width: 768px) {
+  .customCard{
+    height: 150px;
+  }
+  .customdiv{
+    margin: 50px;
+  }
+  .btnCustom{
+    width: 120px;
+    margin-top: 1px;
+  }
+  .customSearch{
+   margin-bottom: 0px;
+  }
+  .cardCText{
+    font-size: 12px;
+    font-weight: 500;
+    margin-top: 8px;
+  }
+  .customImgJ{
+    margin-top: 5px;
+    height: 500%;
+    width: auto;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .customCard{
+    height: 200px;
+  }
+  .btnCustom{
+    width: 120px;
+    margin-top: 1px;
+  }
+  .cardCText{
+    font-size: 18px;
+    font-weight: 500;
+    margin-top: 10px;
+  }
+  .customImgJ{
+    margin-top: 25px;
+    height: 120%;
+    width: auto;
+  }
+  
+}
+
+@media only screen and (min-width: 1200px) {
+  .customCard{
+    height: 300px;
+  }
+  .btnCustom{
+    height: 45px;
+    width: 200px;
+    font-size: 17px !important;
+    font-weight: 400 !important;
+    margin-top: 0px;
+  }
+  .cardCText{
+    font-size: 20px;
+    font-weight: 500;
+    margin-top: 25px;
+  }
+  .customImgJ{
+    margin-top: 0px;
+    height: 400%;
+    width: auto;
+  }
+}
+</style>

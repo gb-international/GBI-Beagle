@@ -85,8 +85,9 @@ class BusController extends Controller
      * @param  \App\bus  $bus
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Bus $bus)
+    public function update(Request $request,$bus)
     {
+        $bus = Bus::where('id',$bus)->first();
         $bus->update($this->validateBus($request));
         return response()->json(['message'=>'Successfully Updated']);
     }
@@ -97,10 +98,9 @@ class BusController extends Controller
      * @param  \App\bus  $bus
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Bus $bus)
+    public function destroy($bus)
     {
-        $bus->delete();
-
+        Bus::where('id',$bus)->first()->delete();
         return response()->json('successfully deleted');
     }
 

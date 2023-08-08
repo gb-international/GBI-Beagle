@@ -12,11 +12,18 @@ use App\Model\Tour\TourUser;
 use App\Model\Reservation\Bookeduser;
 use App\User;
 use App\Helpers\SendSms;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\AccountRegistered;
+use Illuminate\Support\Facades\Hash;
 
 class GroupmemberController extends Controller
 {
     public function getMember($tour_code,$type){
         $where = ['tour_id'=>$tour_code,'user_type'=>$type];
+        return Groupmember::where($where)->get();
+    }
+    public function getMemberPending($tour_code,$type){
+        $where = ['tour_id'=>$tour_code,'user_type'=>$type,'payment_status'=>'pending'];
         return Groupmember::where($where)->get();
     }
     public function updateMember(Request $request){
@@ -111,6 +118,45 @@ class GroupmemberController extends Controller
     }
 
 
+    public function sendMemberLogin(Request $request){
 
+         $user = User::where('email',$request->email)->first();
+         $groupmember = Groupmember::where('email',$request->email)->first();
+        
+        if($user === null){
+
+            $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyz@#%^&*()-';
+            $pass = substr(str_shuffle($permitted_chars), 0, 15);
+
+            $user = new User;
+            $user->name = $request->first_name.' '.$request->last_name;
+            $user->email = $request->email;
+            $user->password = Hash::make($pass);
+            $user->user_role = '2';
+            $user->save();
+
+            $user_info = new Information;
+            $user_info->user_id = $user->id;
+            $user_info->phone_no = $request->mobile;
+            $user_info->client_type = $request->user_type;
+            $user_info->gender = $request->gender;
+            $user_info->school_id = $request->school_id;
+            $user_info->save();
+           
+            if( !$subscriber = Subscriber::where('email',$user->email)->first()){
+                $data['email'] = $user->email;
+                $data['user_id'] = $user->id;
+                $data['name'] = $user->name;
+                $data['client_type'] = 'eduInstitute';
+                Subscriber::create($data);
+            }
+            $user->password = $pass;
+            Mail::send(new AccountRegistered($user));
+            
+        }
+
+        return response()->json('Credentials Sent');
+
+    }
 
 }

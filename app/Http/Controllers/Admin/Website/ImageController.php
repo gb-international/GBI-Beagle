@@ -14,20 +14,14 @@ class ImageController extends Controller
             'image' => 'required|image|mimes:jpeg,png,jpg,bmp,gif,svg|max:2048',
         ]);
         if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $name = time().'.'.$image->getClientOriginalExtension();
-            $destinationPath = public_path('/images/post/');
-            $image->move($destinationPath, $name);
-            return response()->json(['url'=>'/images/post/'.$name]);
+            $path = $request->file('image')->store('images/img', 's3');
+            $path = \Storage::disk('s3')->url($path);
+            return response()->json(['url'=>$path]);
         }
     }
 
     public function delete(Request $request)
     {
-        $image = explode('/',$request->image);
-        $path = '/images/post/'.end($image);
-        $this->deleteImg($path);
-    }
-
-    
+        $this->AwsDeleteImage($request->image);
+    }    
 }

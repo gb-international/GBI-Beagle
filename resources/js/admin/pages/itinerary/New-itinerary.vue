@@ -6,22 +6,92 @@ to submit the data we are using a function.
 <template>
   <form-layout>
     <template #formdata>
+    <section class="formSection">
+      <div class="LoaderDiv" v-show="loading">
+        <img class="loaderLogo" src="/loader/logo_gif.gif">
+        <p class="loadText">Loading..</p>
+      </div>
       <form
         role="form"
         enctype="multipart/form-data"
         @submit.prevent="addItinerary()"
+        :style="!loading ? '' : 'opacity: 0.5' "
       >
         <div class="row">
+
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="meta_title">Meta Title</label>
+              <input
+                type="text"
+                class="form-control"
+                v-model="form.meta_title"
+                :class="{ 'is-invalid': form.errors.has('meta_title') }"
+                placeholder="Enter meta title"
+              />
+              <has-error :form="form" field="meta_title"></has-error>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="meta_keyword">Meta Keywords</label>
+              <!-- <input
+                type="text"
+                class="form-control"
+                v-model="form.meta_keyword"
+                :class="{ 'is-invalid': form.errors.has('meta_keyword') }"
+                placeholder="Enter meta title"
+              />
+              <has-error :form="form" field="meta_keyword"></has-error> 
+               <multiselect
+                v-model="form.meta_keyword"
+                :options="tags"
+                :multiple="true"
+                :close-on-select="true"
+                placeholder="Choose keywords"
+                @input="checkKeyword(data)"
+                label="title"
+                track-by="title"
+              ></multiselect> -->
+
+                <tags-input element-id="tags"
+                  v-model="meta_key"
+                  :existing-tags="tags"
+                  :typeahead="true"
+                  @tags-updated="updateTags"
+                  >
+                </tags-input>
+
+              <has-error :form="form" field="tags"></has-error>
+              <p v-if="tagsWarn && meta_key.length < 1 " class="warn-error">Please choose keywords.</p>
+            </div>
+          </div>
+
+          <div class="col-sm-12">
+            <div class="form-group">
+              <label for="description">Meta Description</label>
+              <textarea
+                row="3"
+                type="text"
+                class="form-control"
+                v-model="form.meta_description"
+                :class="{ 'is-invalid': form.errors.has('meta_description') }"
+                placeholder="Enter Meta Description"
+              ></textarea>
+              <has-error :form="form" field="meta_description"></has-error>
+            </div>
+          </div>
+
           <div class="col-sm-4">
             <!-- Source for the ititnerary  -->
             <div class="form-group">
               <label for="sourceId">Source</label>
-              <!-- <select class="form-control select-field" v-model="form.source">
-                <option value="" disabled hidden>Select Source</option>
-                <option v-for="data in cities" :value="data.name" :key="data.id">{{data.name }}</option>
-              </select> -->
 
-              <dropdown-filter class="mb-2" :itemList="options" @update:option="SourceUpdate"/>
+              <dropdown-list class="mb-2" 
+                :itemList="options" 
+                :select="`name`"
+                v-model="form.source"
+              />
 
               <has-error :form="form" field="source"></has-error>
             </div>
@@ -30,11 +100,12 @@ to submit the data we are using a function.
             <!-- Desctiantion for the itinerary -->
             <div class="form-group">
               <label for="destinationId">Destination</label>
-              <!-- <select class="form-control select-field" v-model="form.destination">
-                <option value="" disabled hidden>Select Source</option>
-                <option v-for="data in cities" :value="data.name" :key="data.id">{{data.name }}</option>
-              </select> -->
-              <dropdown-filter class="mb-2" :itemList="options" @update:option="DestinationUpdate"/>
+
+              <dropdown-list class="mb-2" 
+                :itemList="options" 
+                :select="`name`"
+                v-model="form.destination"
+              />
 
               <has-error :form="form" field="destination"></has-error>
             </div>
@@ -42,7 +113,7 @@ to submit the data we are using a function.
           <div class="col-sm-4">
             <div class="row">
 
-              <div class="col-sm-3">
+              <div class="col-sm-2">
                 <label></label>
                 <button
                   type="button"
@@ -53,7 +124,7 @@ to submit the data we are using a function.
                 </button>
               </div>
               
-              <div class="col-sm-6">
+              <div class="col-sm-5 pl-2">
                 <div class="form-group">
                   <label for="noofdaysId">Number Of Days</label>
                   <input
@@ -70,7 +141,7 @@ to submit the data we are using a function.
                 </div>
               </div>
 
-              <div class="col-sm-3">
+              <div class="col-sm-2">
                 <label></label>
                 <button
                   type="button"
@@ -85,7 +156,7 @@ to submit the data we are using a function.
             </div>
           </div>
         </div>
-        <!-- Adding toure type and transport, hotel type to the itinerary -->
+        <!-- Adding tour type and transport, hotel type to the itinerary -->
         <div class="row">
           <div class="col-sm-4">
             <div class="form-group">
@@ -249,11 +320,10 @@ to submit the data we are using a function.
         </div>
 
         <div class="row">
-          <div class="col-sm-6">
+          <div class="col-sm-4">
             <div class="form-group">
-              <label for="mode_of_transport">Tour category</label>
+              <label for="category">Category</label>
               <br />
-
               <multiselect
                 v-model="form.tourtypes"
                 :options="tour_type_list"
@@ -265,21 +335,65 @@ to submit the data we are using a function.
               ></multiselect>
             </div>
           </div>
+           <div class="col-sm-4">
+              <div class="form-group">
+                <label for="client_type">Client Type</label>
+                <select class="form-control customSelect" v-model="form.client_type">
+                  <option value="eduInstitute">Educational Institute</option>
+                  <option value="corporate">Corporate</option>
+                  <option value="general">General</option>
+                </select>
+                <has-error :form="form" field="client_type"></has-error>
+              </div>
+            </div>
+
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label for="season">Season</label>
+                <br />
+
+                <multiselect
+                  v-model="form.seasons"
+                  :options="season_list"
+                  :multiple="true"
+                  :close-on-select="true"
+                  :show-labels="false"
+                  placeholder="Pick seasons"
+                  label="name"
+                  track-by="name"
+                ></multiselect>
+              </div>
+            </div>
         </div>
         <!-- Title and description for the itinerary -->
         <div class="row">
-          <div class="col-sm-8">
+          <div class="col-sm-4">
             <div class="form-group">
-              <label for="titleId">Title</label>
+              <label for="titleId">Itinerary Name</label>
               <input
                 type="text"
                 class="form-control"
-                placeholder="Enter Title"
+                placeholder="Enter Itinerary Name"
                 name="title"
                 v-model="form.title"
                 :class="{ 'is-invalid': form.errors.has('title') }"
               />
               <has-error :form="form" field="title"></has-error>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label for="priceId">Package Price/Person</label>
+              <input
+                type="number"
+                min="0"
+                class="form-control"
+                placeholder="Enter Price"
+                name="price"
+                v-model="form.price"
+                :class="{ 'is-invalid': form.errors.has('price') }"
+              />
+              <has-error :form="form" field="price"></has-error>
             </div>
           </div>
           <div class="col-sm-4">
@@ -326,6 +440,12 @@ to submit the data we are using a function.
               <label for="descriptionId">Description</label>
 
               <vue-editor
+                :customModules="customModulesForEditor"
+                :editorOptions="editorSettings"
+                id="editor"
+                useCustomImageHandler
+                @image-added="handleImageAdded"
+                @image-removed="handleImageRemoved"
                 v-model="form.description"
                 :class="{ 'is-invalid': form.errors.has('description') }"
               ></vue-editor>
@@ -363,17 +483,16 @@ to submit the data we are using a function.
                 >Please upload a Banner image !</label
               >
               <br />
-              <input
-                @change="changeDetailPhoto($event)"
-                name="detail_photo"
-                class="overflow-hiden"
-                type="file"
-                :class="{ 'is-invalid': form.errors.has('detail_photo') }"
-                required
-              />
-
-              <img v-if="form.detail_photo != ''" :src="form.detail_photo" alt class="detail_photo" />
-              <has-error :form="form" field="detail_photo"></has-error>
+              <div class="row">
+                <div v-for="(img, index) in img_images" :key="index" class="mr-2 mb-2 shadow smallImages">
+                  <img :src="img" alt class="smallImages"/>
+                  <i class="fas fa-trash-alt delImgBtn" @click="delImg(index)"></i>
+                </div>
+                <div class="custom-card shadow ml-2 mb-2" @click="fileInput">
+                  <i class="fas fa-plus-circle" style="font-size: 35px;"></i>
+                </div>
+                <input type="file" ref="fileInput" style="display: none" @change="onFileInput" multiple accept=".png, .jpg, .jpeg, .pdf">
+              </div>
             </div>
           </div>
         </div>
@@ -385,27 +504,21 @@ to submit the data we are using a function.
           <div class="row">
             <div class="col-sm-6">
               <label>Source</label>
-              <select class="form-control select-field" v-model="data.day_source">
-                <option value="" disabled hidden>Select Source</option>
-                <option v-for="data in cities" :value="data.name" :key="data.id">{{data.name }}</option>
-              </select>
-              <!-- <model-select
-                :options="options"
+
+              <dropdown-list class="mb-2" 
+                :itemList="options" 
+                :select="`name`"
                 v-model="data.day_source"
-                placeholder="From"
-              ></model-select> -->
+              />
+
             </div>
             <div class="col-sm-6">
               <label>Destination</label>
-              <select class="form-control select-field" v-model="data.day_destination">
-                <option value="" disabled hidden>Select Source</option>
-                <option v-for="data in cities" :value="data.name" :key="data.id">{{data.name }}</option>
-              </select>
-              <!-- <model-select
-                :options="options"
+              <dropdown-list class="mb-2" 
+                :itemList="options" 
+                :select="`name`"
                 v-model="data.day_destination"
-                placeholder="To"
-              ></model-select> -->
+              />
             </div>
 
             <div class="col-sm-12">
@@ -413,6 +526,12 @@ to submit the data we are using a function.
               <vue-editor
                 v-model="data.day_description"
                 :class="{ 'is-invalid': form.errors.has('description') }"
+                :customModules="customModulesForEditor"
+                :editorOptions="editorSettings"
+                id="editor"
+                useCustomImageHandler
+                @image-added="handleImageAdded"
+                @image-removed="handleImageRemoved"
               ></vue-editor>
             </div>
           </div>
@@ -420,55 +539,71 @@ to submit the data we are using a function.
 
         <form-buttons />
       </form>
+    </section>
     </template>
   </form-layout>
 </template>
 
 <script>
-
+import TagsInput from '@voerro/vue-tagsinput';
 import { ModelSelect } from "vue-search-select";
 import Multiselect from "vue-multiselect";
 import { Form, HasError, AlertError } from "vform";
-import { VueEditor, Quill } from "vue2-editor";
-
+import Vue2EditorMixin from '@/admin/mixins/Vue2EditorMixin';
 import FormButtons from "@/admin/components/buttons/FormButtons.vue";
 import FormLayout from "@/admin/components/layout/FormLayout.vue";
-import DropdownFilter from "@/admin/components/form/DropdownFilter.vue";
+import DropdownList from "@/admin/components/form/DropdownList.vue";
+
 export default {
   name: "NewItinerary",
   components: {
     ModelSelect,
     Multiselect,
-    VueEditor,
     Form,
     "has-error": HasError,
     "form-buttons": FormButtons,
     "form-layout": FormLayout,
-    "dropdown-filter":DropdownFilter
+    "dropdown-list":DropdownList,
+    "tags-input": TagsInput,
   },
+  mixins:[Vue2EditorMixin],
   data() {
     return {
+      img_images: [],
       options: [],
       cities:[],
       tour_type_list: [],
+      season_list: [],
       selected: null,
+      tags:[],
+      meta_key: [],
+      tagsWarn: false,
 
       form: new Form({
         source: '',
         destination:'',
         noofdays: 1,
         title: "",
+        price: "",
         description: "",
         tourtype: "",
         hoteltype: "0",
         photo: "",
-        detail_photo: "",
+        detail_photo: [],
+        photo_alt:'',
+        detail_photo_alt:[],
         food: "",
         flight: "",
         bus: "",
         train: "",
         transport: "",
+        client_type:"general",
         tourtypes: [],
+        meta_description:"",
+        meta_title: "",
+        meta_keyword: [],
+        tags:[],
+        seasons: [],
         itinerarydays: [
           {
             day: 1,
@@ -478,22 +613,45 @@ export default {
           },
         ],
       }),
+      loading: false
     };
   },
   created() {
     this.cityList();
     this.tourTypeData();
+    this.getTags();
+    this.seasonsData();
   },
 
   methods: {
+    fileInput(){
+      this.$refs.fileInput.click()
+    },
+    onFileInput(event){
+        for(let i=0; i<event.target.files.length; i++){
+          let file = event.target.files[i];
+          this.form.detail_photo_alt[i] = file.name;
+          let reader = new FileReader();
+          reader.onload = (event) => {
+            this.form.detail_photo.push(event.target.result);
+            this.img_images.push(event.target.result);
+          };
+          reader.readAsDataURL(file);
+        }
+        //console.log(this.form.images[1])
+    },
+    delImg(index){
+       this.img_images = this.img_images.slice(0, index).concat(this.img_images.slice(index + 1));
+       this.form.detail_photo = this.form.detail_photo.slice(0, index).concat(this.form.detail_photo.slice(index + 1));
+       this.form.detail_photo_alt = this.form.detail_photo_alt.slice(0, index).concat(this.form.detail_photo_alt.slice(index + 1));
+    },
     cityList() {
       axios.get("/api/city").then((res) => {
-        this.cities = res.data.data;
         if (res.data) {
           for(let i = 0;i<res.data.data.length;i++){
             this.options.push({
               name:res.data.data[i].name,
-              id:res.data.data[i].id
+              id:res.data.data[i].name
             });
           }
         }
@@ -502,6 +660,11 @@ export default {
     tourTypeData() {
       axios.get("/api/tourtype").then((response) => {
         this.tour_type_list = response.data;
+      });
+    },
+    seasonsData() {
+      axios.get("/api/season").then((response) => {
+        this.season_list = response.data;
       });
     },
     changePhoto(event) {
@@ -516,8 +679,32 @@ export default {
         let reader = new FileReader();
         reader.onload = (event) => {
           this.form.photo = event.target.result;
+          this.form.photo_alt = file.name;
         };
         reader.readAsDataURL(file);
+      }
+    },
+    getTags() {
+      axios.get("/api/tags").then((res) => {
+        //this.tags = response.data;
+        if (res) {
+          for(let i = 0;i<res.data.length;i++){
+            this.tags.push({
+              value:res.data[i].title,
+              key:res.data[i].id
+            });
+          }
+          //console.log(this.form.tags)
+        }
+      });
+    },
+    updateTags(){
+      this.form.meta_keyword = []
+      for(let i = 0;i<this.meta_key.length;i++){
+          this.form.meta_keyword.push({
+            title:this.meta_key[i].value,
+            id:this.meta_key[i].key
+          });
       }
     },
     changeDetailPhoto(event) {
@@ -532,11 +719,48 @@ export default {
         let reader = new FileReader();
         reader.onload = (event) => {
           this.form.detail_photo = event.target.result;
+          this.form.detail_photo_alt = file.name;
         };
         reader.readAsDataURL(file);
       }
     },
     addItinerary() {
+      /*if (this.img_images.length < 7) {
+        this.$toast.fire({
+            icon: "error",
+            title: "7 Banner Images Required!",
+        });
+        return false;
+      }*/
+      if (this.form.meta_keyword.length < 1 ) {
+        this.tagsWarn = true
+        this.$toast.fire({
+            icon: "error",
+            title: "Meta Keywords Required",
+          });
+          return false;
+      }
+      else if(this.form.meta_description == ''){
+          this.$toast.fire({
+            icon: "error",
+            title: "Meta Description Required",
+          });
+          return false;
+      }
+      else if(this.form.meta_title == ''){
+          this.$toast.fire({
+            icon: "error",
+            title: "Meta Title Required",
+          });
+          return false;
+      }
+      else if (!this.form.seasons || this.form.seasons<=0) {
+        this.$toast.fire({
+            icon: "error",
+            title: "Season field is required",
+        });
+        return false;
+      }
       localStorage.setItem("noofdays", this.form.noofdays);
       if (this.form.bus || this.form.train || this.form.flight) {
         this.form.transport = "1";
@@ -555,18 +779,9 @@ export default {
           });
           return false;
         }
-        // this.form.itinerarydays[i]["day_source"] = this.form.itinerarydays[i][
-        //   "day_source"
-        // ].value;
-        // this.form.itinerarydays[i]["day_destination"] = this.form.itinerarydays[
-        //   i
-        // ]["day_destination"].value;
-        //
       }
-      // this.form.source = this.form["source"].value;
-      // this.form.destination = this.form["destination"].value;
-      // add noofdays fields data to form data
-      // Submit form
+      this.loading = true
+      this.form.tags = this.form.meta_keyword
       this.form
         .post("/api/itinerary")
         .then((response) => {
@@ -575,6 +790,7 @@ export default {
             icon: "success",
             title: "Itinerary Added successfully",
           });
+          this.loading = false
         })
         .catch(() => {});
     },
@@ -597,16 +813,53 @@ export default {
       var index = this.form.itinerarydays.length - 1;
       this.form.itinerarydays.splice(index, 1);
     },
+    SourceUpdateDay(value){
+      console.log(value);
+    }
 
-    SourceUpdate(value){
-      this.form.source = value.name;
-    },
-    
-    DestinationUpdate(value){
-      this.form.destination = value.name;
-    },
+
   },
 };
 </script>
+
+<style scoped>
+.customSelect{
+    min-height: 53px !important;
+    font-size: 17px !important;
+    padding: 0px 40px 0 8px !important;
+    color: #737879 !important;
+    background: #fff !important;
+    font-weight: 600;
+}
+.warn-error {
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 80%;
+    color: #dc3545;
+  }
+.smallImages{
+  width: 140px; 
+  height: 93px;
+  position: relative;
+}
+.delImgBtn{
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  margin: 4px;
+  font-size: 16px;
+  color: #d12121;
+}
+.custom-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 93px;
+  width: 143px;
+  background: #e5e5e5;
+  border: solid 2px #e5e5e5;
+  border-radius: 5px;
+}
+</style>
 
 

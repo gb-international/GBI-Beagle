@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers\Front;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Model\Tour\Frontbooking;
@@ -11,7 +9,6 @@ use Auth;
 use App\Jobs\FrontBookingAdminJob;
 use App\Jobs\FrontBookingUserJob;
 use App\Helpers\SendSms;
-
 class FrontbookingController extends Controller
 {
     public function booking(Request $request){
@@ -67,12 +64,15 @@ class FrontbookingController extends Controller
                 'start_date'=>$booking->start_date,
                 'end_date'=>$booking->end_date,
                 'person'=>$booking->person,
+                'adults'=>$booking->adults,
+                'children'=>$booking->children,
+                'infants'=>$booking->infants,
                 'room'=>$booking->room,
                 'itinerary'=>$booking->itinerary->title,
                 'city'=>$booking->city,
                 'transport'=>$booking->transport,
                 'sightseen'=>$booking->sightseen,
-                'emailto'=>'ajay_yadav@gbinternational.in'
+                'emailto'=>'manas_bhowmick@gbinternational.in'
             );
         FrontBookingAdminJob::dispatch($data);
     }
@@ -85,6 +85,9 @@ class FrontbookingController extends Controller
                 'start_date'=>$booking->start_date,
                 'end_date'=>$booking->end_date,
                 'person'=>$booking->person,
+                'adults'=>$booking->adults,
+                'children'=>$booking->children,
+                'infants'=>$booking->infants,
                 'room'=>$booking->room,
                 'itinerary'=>$booking->itinerary->title,
                 'city'=>$booking->city,
@@ -103,6 +106,9 @@ class FrontbookingController extends Controller
             'start_date' => 'required|date',
             'end_date' => 'required|date|after_or_equal:start_date',
             'person' => 'required',
+            'adults'=>'required',
+            'children'=>'required',
+            'infants'=>'required',
             'room' => 'required',
             'occupancy_type' => 'required'
       ]);

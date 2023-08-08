@@ -9,12 +9,12 @@ data from the api to display the data about the Category from the backend .
     Author:@Ajay
     ****************************************************-->
     <div class="row justify-content-around">
-      <div class="col-md-12">
-        <div class="container container_admin_body list-section">
+      <div class="col-md-12 pb-5">
+        <div class="container container_admin_body list-section pb-5">
 
           <b-row class="mb-1 mt-1" align-h="between">
               <b-col md="3" cols="4"  class="top_btn p-0">
-                <div v-if="addurl">
+                <div v-if="addurl && hasPerms">
                   <add-button :url="addurl">{{ buttontext }}</add-button>
                 </div>
               </b-col>
@@ -28,7 +28,7 @@ data from the api to display the data about the Category from the backend .
                 <slot name="searchbar"></slot>
               </b-col>
           </b-row>
-          <b-row>
+          <b-row class="text-capitalize h-100">
               <!-- Table data -->
             <slot name="table"></slot>
 
@@ -45,9 +45,20 @@ data from the api to display the data about the Category from the backend .
 <script>
 import AddButton from '@/admin/components/buttons/AddButton.vue';
 export default {
+  name:"ListLayoutGBI",
   components:{
     'add-button':AddButton
   },
   props:['addurl','buttontext'],
+  computed: {
+    hasPerms(){
+        if(window.userRole == 1){
+            return true;
+        }
+        const perms = window.createPerms;
+        const hasPerm = (perm) => perm.permission_id === this.$route.meta.permId;
+        return perms.some(hasPerm);
+    }
+  },
 }
 </script>

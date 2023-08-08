@@ -7,12 +7,16 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', 'Laravel') }}</title>
     <!-- Scripts -->
-    <script src="{{ secure_asset('js/admin/app.js') }}" defer></script>
+    {{-- <script src="{{ secure_asset('js/admin/app.js') }}" defer></script> --}}
+    <script src="{{ asset('js/admin/app.js') }}" defer></script>
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
+    <script src="https://cdn.socket.io/4.0.1/socket.io.min.js" integrity="sha384-LzhRnpGmQP+lOvWruF/lgkcqD+WDVt9fU3H4BWmwP5u5LTmkUGafMcpZKNObVMLU" crossorigin="anonymous"></script>
+
     <!-- Styles -->
-    <link href="{{ secure_asset('css/admin/app.css') }}" rel="stylesheet">
+    {{-- <link href="{{ secure_asset('css/admin/app.css') }}" rel="stylesheet"> --}}
+    <link href="{{ asset('css/admin/app.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -23,4 +27,5 @@
     </div>
 </div>
 </body>
+@yield('style')
 </html>

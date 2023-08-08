@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Escort;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -11,12 +10,12 @@ use App\Model\Reservation\Bookedflight;
 use App\Model\Reservation\Bookedbus;
 use App\Model\Reservation\Bookedtrain;
 use App\Model\Reservation\Bookedrestaurant;
+use App\Http\Resources\SightsResource;
 use App\Model\Reservation\PnrUser;
 use App\Model\Restaurant\Restaurant;
 use App\Model\Tour\Tour;
 use App\Model\Tour\TourUser;
 use App\Model\Tour\Food;
-
 class TourController extends Controller 
 {
     public function tourList($id){
@@ -30,12 +29,25 @@ class TourController extends Controller
     }
 
     public function sightseeingList($tour_code){
-        $data = Bookedsightseeing::select('sightseeing_id','id','itineraryday_id','mark_arrive')
+        $data = [];
+        $data['sightseeings'] = Bookedsightseeing::select('sightseeing_id','id','itineraryday_id','mark_arrive')
             ->where('tour_code',$tour_code)
-            ->with('sightseeing:id,name')
+            ->with(
+                'sightseeing:id,name,latlng',
+            )
             ->get()
             ->groupBy('itineraryday_id');
+            
+        $tour = Tour::where('tour_id', $tour_code)->first();
+        $data['locs']['startLoc'] = json_decode($tour->itinerary->startLoc);
+        $data['locs']['endLoc'] = json_decode($tour->itinerary->endLoc);
         return response()->json($data);
+    }
+
+    public function sights($tour_code){
+        return SightsResource::collection(
+            Bookedsightseeing::where('tour_code',$tour_code)->get()
+        );
     }
     
     public function sightseeingStore(Request $request ,$tour_code){

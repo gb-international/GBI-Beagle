@@ -6,7 +6,7 @@
       @submit.prevent="sendmail()"
     >
       <div class="form-fullwidth">
-        <label class="lable-title">Name</label>
+        <label class="contact-title">Name</label>
         <input
           type="text"
           class="form-control"
@@ -19,7 +19,7 @@
         <has-error :form="form" field="name"></has-error>
       </div>
       <div class="form-fullwidth">
-        <label class="lable-title">E-Mail</label>
+        <label class="contact-title">E-Mail</label>
         <input
           type="text"
           class="form-control"
@@ -32,7 +32,7 @@
         <has-error :form="form" field="email"></has-error>
       </div>
       <div class="form-fullwidth">
-        <label class="lable-title">Mobile</label>
+        <label class="contact-title">Mobile</label>
         <input
           type="text"
           class="form-control"
@@ -45,7 +45,7 @@
         <has-error :form="form" field="mobile"></has-error>
       </div>
       <div class="form-fullwidth">
-        <label class="lable-title">Message</label>
+        <label class="contact-title">Message</label>
         <textarea
           class="form-control"
           v-model="form.messagecon"
@@ -56,7 +56,7 @@
         <has-error :form="form" field="messagecon"></has-error>
       </div>
       <div class="form-fullwidth alignbtn">
-        <input type="submit" value="Submit" name="submit" />
+        <button class="contact-btn">Submit</button>
       </div>
     </form>
   </div>
@@ -82,6 +82,13 @@ export default {
   },
   methods: {
     sendmail() {
+      if(this.form.name == '' || this.form.email == '' || this.form.mobile == '' || this.form.messagecon == ''){
+        /*this.$swal.fire({
+            text: "Please fillup all the fields!",
+            icon: "info",
+            animation: true,
+          });*/
+      }
       this.form
         .post("/api/contact-us/send")
         .then((response) => {
@@ -97,3 +104,23 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.contact-btn {
+    padding: 12px 35px;
+    border: none;
+    border-radius: 4px;
+    background: #f77736;
+    color: white;
+}
+.contact-btn:hover{
+  background: white;
+  border: 1px solid #f77736;
+  color: #f77736;
+}
+.contact-title{
+    color: black;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+</style>

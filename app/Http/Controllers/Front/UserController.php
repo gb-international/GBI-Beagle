@@ -12,6 +12,7 @@ use App\Model\User\Information;
 use App\Model\User\Subscriber;
 use App\Model\Tour\TourUser;
 use App\Model\Tour\Tour;
+use App\Model\User\UserSocial;
 use App\Model\School\School;
 use Illuminate\Support\Facades\Auth;
 use Validator;
@@ -23,13 +24,14 @@ use Illuminate\Support\Facades\Hash;
 use App\Helpers\SendSms;
 use App\Jobs\ChangePasswordJob;
 use App\Rules\EmailValidate;
-
-
-
+use App\Traits\ImageTrait;
+use App\Http\Resources\SocialResource;
 class UserController extends Controller{
     public $successStatus = 200;
     private $id = 'csrikhi@gbinternational.in';
     private $pwd = 'Roger224225g32@';
+    use ImageTrait;
+
     /** 
      * login api 
      * 
@@ -139,28 +141,59 @@ class UserController extends Controller{
                 Subscriber::create($data);
             }
         }
-
+        
         return response()->json('Successuflly updated');
-
     }
 
     public function UserImage(Request $request){
         $user = Auth::user();
-       
 
-        $strpos = strpos($request->input('photo'),';');
-        $sub = substr($request->input('photo'),0,$strpos);
-        $ex = explode('/',$sub)[1];
-        $name = time().".".$ex;
-        $img = Image::make($request->input('photo'))->resize(138, 138);
-        $upload_path = public_path()."/uploadimage/";
-        $img->save($upload_path.$name);
-
+        if ($request->hasFile('photo')) {
+           $file = $request->file('photo');
+           $name = time().'-'.$file->getClientOriginalName();
+           $filePath = config('gbi.user_image') . $name;
+           \Storage::disk('s3')->put($filePath, file_get_contents($file));
+       }
         $information = Information::where('user_id', $user->id)->first();
-
         $information->photo = $name;
         $information->save();
-        return response()->json(['photo'=>$name]);
+        return response()->json(['photo'=>$information->photo]);
+    }
+
+    public function UserDocs(Request $request){
+        $user = Auth::user();
+
+        $validator = Validator::make($request->all(), [ 
+            'docFront' => 'required|file|max:5000',
+            'docBottom' => 'required|file|max:5000',
+            'docType' => 'required',
+        ]);
+
+        if ($validator->fails()) { 
+            return response()->json(['error'=>$validator->errors()], 401);            
+        }
+
+        $information = Information::where('user_id', $user->id)->first();
+        $information->docType = $request->docType;
+
+        if ($request->hasFile('docFront')) {
+           $file1 = $request->docFront;
+           $name1 = time().'-'.$file1->getClientOriginalName();
+           $filePath1 = config('gbi.user_docs') . $name1;
+           \Storage::disk('s3')->put($filePath1, file_get_contents($file1));
+           $information->docFront = $name1;
+       }
+
+       if ($request->hasFile('docBottom')) {
+           $file2 = $request->file('docBottom');
+           $name2 = time().'-'.$file2->getClientOriginalName();
+           $filePath2 = config('gbi.user_docs') . $name2;
+           \Storage::disk('s3')->put($filePath2, file_get_contents($file2));
+           $information->docBack = $name2;
+       }
+       $information->save();
+        
+        return response()->json(['docType'=>$information->docType, 'docFront'=>$information->docFront, 'docBack'=>$information->docBack]);
     }
     // User Edit 
 /** 
@@ -222,6 +255,30 @@ class UserController extends Controller{
         $info->save(); 
         ChangePasswordJob::dispatch($user);
         return response()->json('Password change successfully.');
+    }
+
+    public function socialIndex($userId){
+         $user = User::find($userId);
+         return new SocialResource($user);
+    }
+
+    public function socialAuth(Request $request){
+         $user = User::where('id', $request->userId)->first();
+         $social = UserSocial::where('user_id', $user->id)->where('provider', $request->provider)->first();
+         if($social){
+            $social->code = $request->code;
+            $social->save();
+         } else {
+            $social = new UserSocial;
+            $social->code = $request->code;
+            $social->provider = $request->provider;
+            $social->user_id = $user->id;
+            $social->save();
+         }
+
+         return new SocialResource($user);
+
+         //return response()->json($social);
     }
 
     public function logout(Request $request){

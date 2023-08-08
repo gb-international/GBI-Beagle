@@ -16,6 +16,7 @@ class CreateTourprogramItineraryTable extends Migration
         Schema::create('tourprogram_itinerary', function (Blueprint $table) {
             $table->Integer('itinerary_id')->unsigned();
             $table->bigInteger('tourprogram_id')->unsigned();
+            
             $table->foreign('itinerary_id')->references('id')->on('itineraries')->onDelete('cascade');
             $table->foreign('tourprogram_id')->references('id')->on('tourprograms')->onDelete('cascade');
         });

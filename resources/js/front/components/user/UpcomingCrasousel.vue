@@ -1,5 +1,5 @@
 <template>
-  <div class="dashboard-body-part-two-2" v-if="upcoming_list.length > 0">
+  <div class="dashboard-body-part-two-2" v-if="upcoming_list.length >= 0">
     <VueSlickCarousel :dots="true" v-bind="settings">
       <div
         class="states_card card_scroll"
@@ -11,7 +11,7 @@
             <ImageSpinner class="image__spinner" />
             <img
               class="image__item card-img-top"
-              :data-url="`/uploadimage/${state.photo}`"
+              :data-url="state.photo"
               alt="image"
             />
           </figure>
@@ -80,3 +80,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.text-white{
+  color: black !important;
+}
+</style>

@@ -12,5 +12,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Transport extends Model
 {
-    protected $fillable = ['transType','transName','transLocation','transPrice','transContact','transEmail'];
+    protected $fillable = [
+        'transType',
+        'transName',
+        'transLocation',
+        'transPrice',
+        'transContact',
+        'transEmail'
+    ];
+
+    
 }

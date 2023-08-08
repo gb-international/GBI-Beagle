@@ -157,21 +157,52 @@ It takes id from the url and get the data from the api .-->
             <!-- Modal body -->
             <div class="modal-body">
               <div class="row">
-                <div class="col-sm-6">
-                  <label> Collect Amount </label>
+                <div class="col-sm-3">
+                  <label>Per Head</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    v-model="perHead"
+                  />
+                </div>
+
+                <div class="col-sm-3">
+                  <label>Total Pax</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    v-model="totalPax"
+                    readonly
+                  />
+                </div>
+                <div class="col-sm-3">
+                  <label>Complimentary</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    v-model="totalCompl"
+                    readonly
+                  />
+                </div>
+                <div class="col-sm-3">
+                  <label>Full Amount</label>
                   <input
                     type="number"
                     class="form-control"
                     v-model="form.amount"
+                    readonly
                   />
-                </div>
-
-                <div class="col-sm-6">
+                </div> 
+                </div>               
+                <div class="row">
+                <div class="col-sm-12">
                   <label> Payment Status </label>
-                  <select class="form-control" v-model="form.status">
-                    <option value="pending">Pending</option>
-                    <option value="success">Success</option>
-                  </select>
+
+                  <dropdown-filter class="mb-2" 
+                    :itemList="status_list" 
+                    :selectedId="form.status"
+                    @update:option="updateStatus"
+                  />
                 </div>
               </div>
             </div>
@@ -193,20 +224,29 @@ It takes id from the url and get the data from the api .-->
 <script>
 import ViewLayout from "@/admin/components/layout/ViewLayout.vue";
 import AddButton from "@/admin/components/buttons/AddButton.vue";
-
+import DropdownFilter from "@/admin/components/form/DropdownFilter.vue";
 export default {
+  name:"ListUserPyamentTour",
   components: {
     "view-layout": ViewLayout,
     "add-button": AddButton,
+    "dropdown-filter": DropdownFilter,
   },
   data() {
     return {
       show_json: false,
       tour_view: [],
+      status_list:[
+        {id:'success',name:"Success"},
+        {id:'pending',name:"Pending"}
+      ],
+      totalPax: "",
+      totalCompl: "",
+      perHead: "",
       form: {
         id: 0,
         amount: "",
-        status: "pending",
+        status: "",
       },
       student_list: false,
       edit_id: 0,
@@ -222,13 +262,28 @@ export default {
       this.form.status = tour.status;
     },
 
+    updateStatus (v) { this.form.status = v.id;},
+
     tourPayment() {
       var data = {
         school_id: this.$route.params.school_id,
         tour_code: this.$route.params.tour_code
       };
       axios.post("/api/payments/list", data).then((res) => {
+        this.form.id = res.data.id;
+        //this.form.amount = res.data.amount;
+        this.form.status = res.data.status;
         this.tour_view = res.data;
+      });
+      axios.post("/api/gettourusers", data)
+        .then((response) => {
+         this.tour_view.amount = response.data.tour[0].total * response.data.amount;
+         this.form.amount = response.data.tour[0].total * response.data.amount;
+         this.totalPax = response.data.tour[0].total;
+         this.totalCompl = response.data.tour[1].total;
+         this.perHead = response.data.amount;
+        })
+        .catch((error) => {
       });
     },
 

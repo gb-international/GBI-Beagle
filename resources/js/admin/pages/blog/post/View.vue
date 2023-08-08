@@ -13,7 +13,7 @@ to submit the data we are using a function.
 
       <div class="col-sm-4">
         <h5>Banner image</h5>
-        <img :src="imagePath(posts.image)" class="w-100" />
+        <img :src="posts.image" class="w-100" />
       </div>
 
       <div class="col-sm-12">
@@ -33,24 +33,17 @@ to submit the data we are using a function.
 
       <div class="col-sm-4">
         <h5>Meta Keyword</h5>
-        <p>{{ posts.meta_keyword }}</p>
+        <span v-for="cat in posts.tags" :key="cat.id">{{ cat.title }}, </span>
       </div>
 
-      <div class="col-sm-4">
+      <div class="col-sm-4 mt-2">
         <h5>Created At</h5>
         <p>{{ posts.created_at }}</p>
       </div>
 
       <div class="col-sm-4">
         <h5>Category</h5>
-        <span v-for="cat in posts.categories" :key="cat.id"
-          >{{ cat.title }},</span
-        >
-      </div>
-
-      <div class="col-sm-4">
-        <h5>Tags</h5>
-        <span v-for="cat in posts.tags" :key="cat.id">{{ cat.title }},</span>
+        <p>{{ posts.category }}</p>
       </div>
     </template>
   </view-layout>
@@ -59,7 +52,7 @@ to submit the data we are using a function.
 <script>
 import ViewLayout from "@/admin/components/layout/ViewLayout.vue";
 export default {
-  name: "ViewCategories",
+  name: "ViewPost",
   components: {
     "view-layout": ViewLayout,
   },
@@ -75,15 +68,7 @@ export default {
     categoryView() {
       axios.get(`/api/posts/${this.$route.params.id}`).then((response) => {
         this.posts = response.data;
-        console.log(this.posts);
       });
-    },
-
-    imagePath(img) {
-      return "/images/post/" + img;
-    },
-    goBack() {
-      this.$router.push("/posts");
     },
   },
 };

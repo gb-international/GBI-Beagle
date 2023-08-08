@@ -95,11 +95,11 @@ export default {
   data() {
     return {
       fields: [
-        {key:'title',label:'TITLE',sortable:true,thClass: 'table-head'},
-        {key:'source',label:'SOURCE',sortable:true,thClass: 'table-head'},
-        {key:'destination',label:'DESTINATION',sortable:true,thClass: 'table-head'},
-        {key:'noofdays',label:'DAYS',sortable:true,thClass: 'table-head'},
-        {key:'action',label:'ACTION',thClass: 'table-head'}
+        {key:'title',label:'title',sortable:true,thClass: 'table-head'},
+        {key:'source',label:'source',sortable:true,thClass: 'table-head'},
+        {key:'destination',label:'destination',sortable:true,thClass: 'table-head'},
+        {key:'noofdays',label:'days',sortable:true,thClass: 'table-head'},
+        {key:'action',label:'action',thClass: 'table-head'}
       ],
       limit:2,
       filter:'',

@@ -10,33 +10,62 @@ const BookedTrain = () => import(/* webpackChunkName: "js/admin/bookedtrain" */ 
 const BookedBus = () => import(/* webpackChunkName: "js/admin/bookedbus" */ '@/admin/pages/bookedtour/New-bus.vue');
 const BookedFood = () => import(/* webpackChunkName: "js/admin/bookedfood" */ '@/admin/pages/bookedtour/Food.vue');
 const BookedPnr = () => import(/* webpackChunkName: "js/admin/bookpnr" */ '@/admin/pages/bookedtour/Pnr-List.vue');
-const BookedStudent = () => import(/* webpackChunkName: "js/admin/BookedStudent" */ '@/admin/pages/bookedtour/Groupmember-list.vue');
 const PnrUser = () => import(/* webpackChunkName: "js/admin/PnrUser" */ '@/admin/pages/bookedtour/PnrUser.vue');
 const EscortUpdate = () => import(/* webpackChunkName: "js/admin/EscortList" */ '@/admin/pages/bookedtour/New-EscortUpdate.vue');
-const PaymentList = () => import(/* webpackChunkName: "js/admin/paymentlist" */ '@/admin/pages/bookedtour/payment/List.vue');
 
-const addPaymentMethod = () => import(/* webpackChunkName: "js/admin/AddPaymethod" */ '@/admin/pages/bookedtour/payment/Add-payment.vue');
-const UpdatePaymentMethod = () => import(/* webpackChunkName: "js/admin/UpdatePaymethod" */ '@/admin/pages/bookedtour/payment/Update-payment.vue');
+// Corporate Group
+const BookedCorp = () => import(/* webpackChunkName: "js/admin/BookedCorpGroup" */ '@/admin/pages/bookedtour/corporate/Groupmember-list.vue');
 
+//School Group
+const BookedStudent = () => import(/* webpackChunkName: "js/admin/BookedStudent" */ '@/admin/pages/bookedtour/Groupmember-list.vue');
+
+//School Payment
+const SchoolPaymentList = () => import(/* webpackChunkName: "js/admin/schoolpaymentlist" */ '@/admin/pages/bookedtour/school/payment/List.vue');
+const addPaymentMethodSchool = () => import(/* webpackChunkName: "js/admin/AddPaymethodSchool" */ '@/admin/pages/bookedtour/school/payment/Add-payment.vue');
+const UpdatePaymentMethodSchool = () => import(/* webpackChunkName: "js/admin/UpdatePaymethodSchool" */ '@/admin/pages/bookedtour/school/payment/Update-payment.vue');
+
+// Corporate Payment
+const CorpPaymentList = () => import(/* webpackChunkName: "js/admin/corppaymentlist" */ '@/admin/pages/bookedtour/corporate/payment/List.vue');
+const addPaymentMethodCorp = () => import(/* webpackChunkName: "js/admin/AddPaymethodCorp" */ '@/admin/pages/bookedtour/corporate/payment/Add-payment.vue');
+const UpdatePaymentMethodCorp = () => import(/* webpackChunkName: "js/admin/UpdatePaymethodCorp" */ '@/admin/pages/bookedtour/corporate/payment/Update-payment.vue');
+
+
+const PaymentPage = () => import(/* webpackChunkName: "js/admin/AdminPaymentPage" */ '@/admin/pages/bookedtour/school/payment/PaymentPage.vue');
 
 export default[
-    { path: '/booked-tour/:id', component: BookedTours },
-    { path: '/booked-tour-manager/:id', component: BookedEscort },
-    { path: '/booked-tour-hotel/:id', component: BookedHotel },
-    { path: '/booked-tour-restaurant/:id/:tour_code', component: BookedRestaurant },
-    { path: '/booked-sightseen/:id/:tour_code/:itinerary_id', component: BookedSightseen },
-    { path: '/booked-tour-flight/:id', component: BookedFlight },
-    { path: '/booked-tour-train/:id', component: BookedTrain },
-    { path: '/booked-tour-bus/:id', component: BookedBus },
-    { path: '/booked-tour-pnr/:transport/:id/:tour_id', component: BookedPnr },
-    { path: '/booked-tour-student/:school_id/:id', component: BookedStudent },
-    { path: '/pnr-users/:transport/:id/:tour_id', component: PnrUser },
-    { path: '/payments/:school_id/:tour_code', component: PaymentList },
-    { path: '/add-paymentmethod/:school_id/:tour_code', component: addPaymentMethod },
-    { path: '/update-paymentmethod/:id', component: UpdatePaymentMethod },
-    { path: '/escort-update/:id/:tour_code', component: EscortUpdate },
+    { meta: {permId: 93}, path: '/booked-tour/:id', component: BookedTours },
+    { meta: {permId: 93}, path: '/booked-tour-manager/:id', component: BookedEscort },
+    { meta: {permId: 93}, path: '/booked-tour-hotel/:id', component: BookedHotel },
+    { meta: {permId: 93}, path: '/booked-tour-restaurant/:id/:tour_code', component: BookedRestaurant },
+    { meta: {permId: 93}, path: '/booked-sightseen/:id/:tour_code/:itinerary_id', component: BookedSightseen },
+    { meta: {permId: 93}, path: '/booked-tour-flight/:id', component: BookedFlight },
+    { meta: {permId: 93}, path: '/booked-tour-train/:id', component: BookedTrain },
+    { meta: {permId: 93}, path: '/booked-tour-bus/:id', component: BookedBus },
+    { meta: {permId: 93}, path: '/booked-tour-pnr/:transport/:id/:tour_id', component: BookedPnr },
 
-    { path: '/foods/:tour_id/:tour_code', component: BookedFood },
+    { meta: {permId: 93}, path: '/pnr-users/:transport/:id/:tour_id', component: PnrUser },
+
+    // Corporate Group
+    { meta: {permId: 93}, path: '/booked-corp-group/:entity_id/:id', component: BookedCorp },
+
+    //School Group
+    { meta: {permId: 93}, path: '/booked-tour-group/:school_id/:id', component: BookedStudent },
+
+    //school payment
+    { meta: {permId: 56}, path: '/payments-school/:school_id/:tour_code', component: SchoolPaymentList },
+    { meta: {permId: 56}, path: '/add-paymentmethod-school/:school_id/:tour_code', component: addPaymentMethodSchool },
+    { meta: {permId: 56}, path: '/update-paymentmethod-school/:id', component: UpdatePaymentMethodSchool },
+
+    //corporate payment
+    { meta: {permId: 92}, path: '/payments-corporate/:company_id/:tour_code', component: CorpPaymentList },
+    { meta: {permId: 92}, path: '/add-paymentmethod-coporate/:company_id/:tour_code', component: addPaymentMethodCorp },
+    { meta: {permId: 92}, path: '/update-paymentmethod-coporate/:id', component: UpdatePaymentMethodCorp },
+
+    { meta: {permId: 93}, path: '/escort-update/:id/:tour_code', component: EscortUpdate },
+
+    { meta: {permId: 93}, path: '/foods/:tour_id/:tour_code', component: BookedFood },
+
+    { meta: {permId: 93}, path: '/payment-page', component: PaymentPage },
    
 ]
 

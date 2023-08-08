@@ -1,8 +1,8 @@
 <template>
     <div>
         <button type="button" class="btn btn-outline-blue font-weight-bold" @click="sendDetail">
-            <span v-if="text"><img src="/images/icons/send_icon.png"> {{text}}</span>
-            <span v-else><img src="/images/icons/send_icon.png"> Send Login Details</span>
+            <span v-if="text"><img :src="$gbiAssets+'/images/icons/send_icon.png'"> {{text}}</span>
+            <span v-else><img :src="$gbiAssets+'/images/icons/send_icon.png'"> Send Login Details</span>
         </button><br />
         <small class="text-success" v-if="success">{{ success }}</small>
         <small class="text-danger" v-if="error">{{ error }}</small>

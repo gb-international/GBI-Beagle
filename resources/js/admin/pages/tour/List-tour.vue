@@ -1,125 +1,53 @@
-<!--
-This Template is for listing for the Hotel profile using function to get the 
-data from the api to display the data about the Hotel from the backend .
--->
 <template>
-  <list-layout addurl="/tour-add" buttontext="add tour">
-    <template #perpage>
-      <b-form-group
-        label="Per page"
-        label-for="per-page-select"
-        label-cols-sm="6"
-        label-cols-md="4"
-        label-cols-lg="3"
-        label-align-sm="right"
-        label-size="sm"
-        class="mb-0"
-      >
-        <b-form-select
-          id="per-page-select"
-          class="radius-0"
-          v-model="perPage"
-          :options="options"
-        ></b-form-select>
-      </b-form-group>
-    </template>
-    <template #searchbar>
-      <b-form-input v-model="filter" type="search" placeholder="Type to Search" class="radius-0"></b-form-input>
-    </template>
-    <template #table>
-      <b-table
-        id="table-transition"
-        striped
-        hover
-        outlined
-        sticky-header="460px"
-        class="w-100 table-layout"
-        :fields="fields"
-        :items="items.data"
-        :busy="$store.getters.isBusy"
-        :filter="filter"
-        primary-key="updated_at"
-      >
-        <template #table-busy>
-          <table-loader />
-        </template>
-        <template #cell(action)="data">
-          <edit-icon :url="`/tours/${data.item.id}`"></edit-icon>
-          <delete-icon 
-            @click.native="deleteItem(data.item.id,data.index)"
-            >
-          </delete-icon>
-          <view-icon :url="`/view-tour/${data.item.id}`"></view-icon>
-          <add-client-icon :url="`/booked-tour/${data.item.id}`"></add-client-icon>
-        </template>
-      </b-table> 
-    </template>
-    <template #pagination  v-if="items.data">
-      <pagination :data="items" @pagination-change-page="getitems" :align="`right`">
-        <span slot="prev-nav">Previous</span>
-        <span slot="next-nav">Next</span>
-      </pagination>
-    </template>
-  </list-layout>
+  <!--************************************************
+      Author:@Manas
+  ****************************************************-->
+  <div class="container bg-white">
+    <div class="AddGroup p-t-15 pb-5">
+      <div class="row text-center text-muted pt-2">
+        <div class="col p-0 m-0">
+          <span class="mb-0 pointer" @click="navigateTab(0)">School</span>
+          <hr :class="active ? 'active_tab' : ''" />
+        </div>
+        <div class="col p-0 m-0">
+          <span class="mb-0 pointer" @click="navigateTab(1)">Corporate</span>
+          <hr :class="active ? '' : 'active_tab'" />
+        </div>
+      </div>
+      <div v-if="navigate == 0">
+        <school-layout />
+      </div>
+      <div v-if="navigate == 1">
+        <corporate-layout />
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-import listLayout from '@/admin/components/layout/ListLayout.vue';
-import pagination  from 'laravel-vue-pagination';
-import EditIcon from '@/admin/components/icons/EditIcon.vue';
-import DeleteIcon from '@/admin/components/icons/DeleteIcon.vue';
-import ViewIcon from '@/admin/components/icons/ViewIcon.vue';
-import AddClientIcon from '@/admin/components/icons/AddClientIcon.vue';
-import TableLoader from '@/admin/components/TableLoader.vue';
-import { mapState } from 'vuex';
-
+import School from '@/admin/components/tour/schoolTours';
+import Corporate from '@/admin/components/tour/corporateTours';
 export default {
-  name: "List",
+  name: "ListTour",
   components:{
-    'list-layout':listLayout,
-    'table-loader':TableLoader,
-    'pagination':pagination,
-    'edit-icon':EditIcon,
-    'delete-icon':DeleteIcon,
-    'view-icon':ViewIcon,
-    'add-client-icon':AddClientIcon,
+    'school-layout':School,
+    'corporate-layout':Corporate,
   },
   data() {
-    return {
-      fields: [
-        {key:'tour_id',label:'CODE',sortable:true,thClass: 'table-head'},
-        {key:'school.school_name',label:'SCHOOL NAME',sortable:true,thClass: 'table-head'},
-        {key:'tour_start_date',label:'START DATE',sortable:true,thClass: 'table-head'},
-        {key:'tour_end_date',label:'END DATE',sortable:true,thClass: 'table-head'},
-        {key:'updated_at',label:'LAST UPDATE',sortable:true,thClass: 'table-head'},
-        {key:'action',label:'ACTION',thClass: 'table-head'}
-      ],
-      filter:'',
-      perPage:7,
-      options:[7,25,50,100],
-    };
+    return{
+      navigate:0,
+      active:true,
+    }
   },
-  mounted() {
-    this.getitems();
-  },
-  computed:{
-    ...mapState(['items']),
-  },
-  watch:{
-    perPage:function(){
-      this.getitems(1,this.perPage);
-    },
-    
-  },
-
-  methods: {
-    getitems(page=1,size= this.perPage) {
-      this.$store.dispatch('getItems','/tour/all/'+size+'?page='+page);
-    },
-    deleteItem(id,index=-1) {
-      let payload = {'api':"/tour/"+id,index,'index':index};
-      this.$store.dispatch('deleteItem',payload);
-    },
-  },
+  methods:{
+    navigateTab(no){
+      this.navigate = no;
+      if(this.navigate == 0){
+        this.active = true;
+      }else{
+        this.active = false;
+      }
+    }
+  }
 };
 </script>

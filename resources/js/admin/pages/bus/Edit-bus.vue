@@ -12,7 +12,7 @@ to submit the data we are using a function.
         enctype="multipart/form-data"
         @submit.prevent="UpdateBus()"
       >
-        <div class="row">
+        <div class="row" v-if="form.company_name">
           <div class="col-sm-4">
             <div class="form-group">
               <label for="company_name">Bus Company name</label>
@@ -30,12 +30,11 @@ to submit the data we are using a function.
           <div class="col-sm-4">
             <div class="form-group">
               <label for="seater">Seater</label>
-              <select class="from-control select-field" v-model="form.seater">
-                <option value="" disabled hidden>Select Seater Type</option>
-                <option v-for="seat in seater" :value="seat" :key="seat.id">
-                  {{ seat }}
-                </option>
-              </select>
+              <dropdown-filter 
+                class="mb-2" 
+                :itemList="seater_list"
+                v-model.trim="form.seater"
+              />
               <has-error :form="form" field="seater"></has-error>
             </div>
           </div>
@@ -43,15 +42,13 @@ to submit the data we are using a function.
           <div class="col-sm-4">
             <div class="form-group">
               <label for="seat_type">Seat type</label>
-              <select
-                class="from-control select-field"
+              
+              <dropdown-filter 
+                class="mb-2" 
+                :itemList="seat_type" 
                 v-model="form.seat_type"
-              >
-              <option value="" disabled hidden>Select Seat Type</option>
-                <option v-for="seat in seat_type" :value="seat" :key="seat.id">
-                  {{ seat }}
-                </option>
-              </select>
+              />
+
               <has-error :form="form" field="seat_type"></has-error>
             </div>
           </div>
@@ -60,7 +57,7 @@ to submit the data we are using a function.
             <div class="form-group">
               <label for="price">Price</label>
               <input
-                type="text"
+                type="number"
                 class="form-control"
                 placeholder="Enter price"
                 rows="5"
@@ -82,19 +79,35 @@ to submit the data we are using a function.
 import { Form, HasError } from "vform";
 import FormButtons from "@/admin/components/buttons/FormButtons.vue";
 import FormLayout from "@/admin/components/layout/FormLayout.vue";
+import DropdownFilter from "@/admin/components/form/DropdownList.vue";
 export default {
-  name: "New",
+  name: "NewBus",
   components: {
     Form,
     "has-error": HasError,
     "form-buttons": FormButtons,
     "form-layout": FormLayout,
+    "dropdown-filter": DropdownFilter,
   },
   data() {
     return {
       // Create a new form instance
-      seater: [10, 20, 30, 35, 40, 45, 50],
-      seat_type: ["2*2", "3*2", "Sigle seater", "Multi seater"],
+      seater_list: [
+        {name:'10',id:'10'},
+        {name:'20',id:'20'},
+        {name:'30',id:'30'},
+        {name:'35',id:'35'},
+        {name:'40',id:'40'},
+        {name:'45',id:'45'},
+        {name:'50',id:'50'}
+      ],
+      
+      seat_type: [
+        {name:'2*2',id:'2*2'},
+        {name:'3*2',id:'3*2'},
+        {name:'Sigle seater',id:'Sigle seater'},
+        {name:'Multi seater',id:'Multi seater'},
+      ],
       form: new Form({
         company_name: "",
         seater: "",
@@ -109,7 +122,6 @@ export default {
   methods: {
     editBus() {
       axios.get(`/api/bus/${this.$route.params.id}/edit`).then((response) => {
-        setTimeout(() => $("#example").DataTable(), 1000);
         this.form.fill(response.data);
       });
     },
@@ -117,7 +129,7 @@ export default {
       this.form
         .put(`/api/bus/${this.$route.params.id}`)
         .then((response) => {
-          console.log(response);
+
           this.$toast.fire({
             icon: "success",
             title: "Successfully Updated",

@@ -19,7 +19,7 @@
           >ADD Number of person</button>
 
           <a class="text-gray ml-2" :href="`/assets/sample-group-list.xlsx`" download>
-            <img src="/images/icons/download.png" class="icon-width"> Name list formate
+            <img :src="$gbiAssets+'/images/icons/download.png'" class="icon-width"> Name list formate
           </a>
         </div>
 
@@ -136,18 +136,18 @@
                       <img
                         v-if="index != edit_index"
                         class="edit"
-                        :src="`/assets/front/icons/edit.png`"
+                        :src="$gbiAssets+'/assets/front/icons/edit.png'"
                         @click="edit_row(index)"
                       />
                       <img
                         v-else
                         class="edit"
-                        :src="`/assets/front/icons/update.png`"
+                        :src="$gbiAssets+'/assets/front/icons/update.png'"
                         @click="update_row(index)"
                       />
                       <img
                         class="delete"
-                        :src="`/assets/front/icons/delete.png`"
+                        :src="$gbiAssets+'/assets/front/icons/delete.png'"
                         @click="delete_row(index,data.id)"
                       />
                     </div>
@@ -215,11 +215,11 @@
 
               <div class="row align-content-center">
                 <div class="col">
-                  <img src="/images/icons/minus.png" @click="down" class="w-40 link">
+                  <img :src="$gbiAssets+'/images/icons/minus.png'" @click="down" class="w-40 link">
                 </div>                
                 <div class="col">{{ row_input }}</div>                
                 <div class="col">
-                  <img src="/images/icons/add.png" @click="up" class="w-40 link">
+                  <img :src="$gbiAssets+'/images/icons/add.png'" @click="up" class="w-40 link">
                 </div>
               </div>
             </div>

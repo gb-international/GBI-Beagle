@@ -5,7 +5,7 @@
         <div class="card">
           <img
           class="card-img card-image"
-          :src="`/images/gallery/${data.images[0].path}`"
+          :src="data.images[0].path"
           :alt="data.images[0].alt"
           />
           <div

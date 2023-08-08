@@ -1,6 +1,7 @@
 // Desktop version images
 .banner_img{ 
-	background-size: 100% 100%;
+	background-size: cover;
+	background-position: 50%;
 	display: inline-block;
 		
 	.content{
@@ -10,13 +11,19 @@
 .banner_bg{
 	background-size: cover;
 	background-repeat: no-repeat;
-	height: 507px;
+	height: 600px;
+	padding:0px;
+}
+.banner_bg2{
+	background-size: cover !important;
+	background-repeat: no-repeat;
+	height: 807px;
 	padding:0px;
 }
 @media only screen and (min-width: 766px) {
-	.image-slide-1{ background-image:url('/assets/front/banner/banner.webp'); display: block; }
-	.image-slide-2{background-image:url('/assets/front/banner/banner1.webp'); display: block; }
-	.image-slide-3{background-image:url('/assets/front/banner/banner2.webp'); display: block; }
+	.image-slide-1{ background-image:url('https://gbi-assets.s3.ap-south-1.amazonaws.com/Banners/Student.jpg'); display: block; }
+	.image-slide-2{background-image:url('https://gbi-assets.s3.ap-south-1.amazonaws.com/Banners/Family_banner_7.jpg'); display: block; }
+	.image-slide-3{background-image:url('https://gbi-assets.s3.ap-south-1.amazonaws.com/Banners/Corporate_banner.jpg'); display: block; }
 
 	.contact_us_banner{background-image:url('https://gbi-assets.s3.ap-south-1.amazonaws.com/Contactus_Banner.jpg'); }
 
@@ -38,8 +45,10 @@
 	.contact_us_banner{background-image:url('https://gbi-assets.s3.ap-south-1.amazonaws.com/contact_us_mb.jpg'); }
 	.encyclopedia_banner{background-image:url('https://gbi-assets.s3.ap-south-1.amazonaws.com/encyclopedia_mb.jpg'); }
 	.explore_banner{
+		background-size: cover !important;
+		background-repeat: no-repeat !important;
 		background-image:url('https://gbi-assets.s3.ap-south-1.amazonaws.com/explore-dest_mb.gif');
-		background-size: 720px !important;
+		background-size: 820px !important;
 	}
 	.faq_banner{background-image:url('https://gbi-assets.s3.ap-south-1.amazonaws.com/faq_mb.jpg'); }
 	.howwework_banner{background-image:url('https://gbi-assets.s3.ap-south-1.amazonaws.com/how_we_work_mb.jpg'); }
@@ -58,7 +67,6 @@
 		left: 8%;
 	}
 }
-
 @media (max-width: 680px) {
 	.top-img{
 	    height: 145px;
@@ -68,7 +76,7 @@
 			top: 18%;
 			left: 5%;
 			.heading{
-				font-size: 25px;
+				font-size: 22px !important;
 			}
 			.sub{
 				font-size: 12px;

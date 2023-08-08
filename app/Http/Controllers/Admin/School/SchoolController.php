@@ -61,7 +61,7 @@ class SchoolController extends Controller
 
     public function index()
     {
-        return response()->json(School::all());
+        return response()->json(School::get(['id','school_name']));
     }
 
     /**

@@ -1,13 +1,16 @@
 @extends('admin.app')
 
 @section('content')
+{{-- <form method="POST" action="{{ secure_asset(env('APP_URL').'/login') }}"> --}}
+<form method="POST" action="{{ route('login') }}">
+    @csrf
 <div>
     <div class="row justify-content-center" style="margin:auto;">
         <div class="col-md-4" id="admin_login_form">
-        
-            <p class="text-center"><img src="{{asset('assets/admin/default/icon/logo.png')}}"></p>
-            <form method="POST" action="{{ route('login') }}">
-                @csrf
+            
+            <p class="text-center"><img class="admin_logo" src="{{asset('assets/admin/default/icon/admin_logo.png')}}"></p>
+            {{-- <p class="text-center"><img class="admin_logo" src="{{secure_asset('assets/admin/default/icon/admin_logo.png')}}"></p> --}}
+            
 
                 <div class="form-group">
                     <input id="email" type="email" placeholder="Enter Email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
@@ -40,7 +43,7 @@
                 </div>
 
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-block">
+                    <button type="submit" class="btn btn-primary btn-block btn-extra">
                         {{ __('Login') }}
                     </button>
 
@@ -51,8 +54,24 @@
                     @endif
                    
                 </div>
-            </form>
+            
         </div>
     </div>
 </div>
+</form>
+@endsection
+@section('style')
+<style>
+.btn-extra{
+    color: #333059 !important; 
+    font-weight: 600;
+}
+.btn-extra:hover{
+    color: white !important; 
+}
+.admin_logo{
+    width: 150px;
+    height:auto;
+}
+</style>
 @endsection

@@ -1,11 +1,9 @@
 <?php
-
 namespace App\Http\Controllers\Escort;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Tour\Tour;
 use App\Model\Tour\Pax;
-
 class PaxController extends Controller 
 {
     public function index($tour_code){

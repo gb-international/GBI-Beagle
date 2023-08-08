@@ -1,14 +1,10 @@
 <?php
-
 namespace App\Http\Controllers\Front;
-
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Gallery\Gallery;
-
 use App\Model\Encyclopedia\Encyclopedia;
 use App\Model\Encyclopedia\EncyclopediaImage;
-
 class GalleryController extends Controller
 {
 
@@ -27,6 +23,13 @@ class GalleryController extends Controller
         $data = Gallery::where('id',$id)
             ->with(['images','school:id,school_name'])
             ->first();
+        return response()->json($data);
+    }
+
+    public function search($qry, $type){
+        $data = Gallery::where('title','like',"%$qry%")
+            ->where('category', $type)
+            ->get();
         return response()->json($data);
     }
 }

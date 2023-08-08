@@ -1,87 +1,105 @@
+<!--************************************************
+      Author:@Manas
+  ****************************************************-->
+
 <template>
-  <div class="container">
-    <div class="row text-right">
-      <button
-        class="btn btn-info float-right mt-2"
-        data-toggle="modal"
-        data-target="#codeModal"
-      >
-        Add Tour Code
-      </button>
-      <!-- The Modal -->
-      <div class="modal fade" id="codeModal">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <div class="modal-body">
-              <button type="button" class="close" data-dismiss="modal">
-                &times;
-              </button>
-              <form class="form" method="post" @submit.prevent="UserTourSave()">
-                <div class="form-group">
-                  <label for="tour_code">Travel Code</label>
-                  <input
-                    type="text"
-                    class="form-control input-border"
-                    placeholder="Enter travel code"
-                    v-model="travel_code"
-                    required
-                  />
-                </div>
-                <div class="text-center">
-                  <button type="submit" class="btn profile_button">Save</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
+  <section class="container">
+    <h1 class="trip-heading">TRIPS</h1>
+    <div class="custom-flex">
+      <div class="mr-5 icons" :style="iconSelected == 'all' ? 'border-bottom: 2px solid #00c4c4' : ''" @click="changeIcon('all')">
+        <img :src="$gbiAssets+'/TripIcons/all_trip_mobile.png'" class="trip-icon">
+        All Trips
+      </div>
+      <div class="mr-5 icons" :style="iconSelected == 'upcoming' ? 'border-bottom: 2px solid #00c4c4' : ''" @click="changeIcon('upcoming')">
+        <img :src="$gbiAssets+'/TripIcons/upcoming_trip_mobile.png'" class="trip-icon">
+        Upcoming Trips
+      </div>
+      <div class="mr-5 icons" :style="iconSelected == 'pending' ? 'border-bottom: 2px solid #00c4c4' : ''" @click="changeIcon('pending')">
+        <img :src="$gbiAssets+'/TripIcons/pending_trip_mobile.png'" class="trip-icon">
+        Pending Trips
+      </div>
+      <div class="mr-5 icons" :style="iconSelected == 'completed' ? 'border-bottom: 2px solid #00c4c4' : ''" @click="changeIcon('completed')">
+        <img :src="$gbiAssets+'/TripIcons/completed_trip_mobile.png'" class="trip-icon">
+        Completed Trips
+      </div>
+      <div class="mr-5 icons" :style="iconSelected == 'cancelled' ? 'border-bottom: 2px solid #00c4c4;' : ''" @click="changeIcon('cancelled')">
+        <img :src="$gbiAssets+'/TripIcons/canceld_trip_mobile.png'" class="trip-icon">
+        Cancelled Trips
+      </div>  
+    </div>
+    <div class="custom-flex mt-3">
+      <button class="cusButton" :class="sltBtn == 'All' ? 'btnSelect' : '' " @click="btnChange('All')">All</button>
+      <button class="cusButton" :class="sltBtn == 'Paid' ? 'btnSelect' : '' " @click="btnChange('Paid')">Paid</button>
+      <button class="cusButton" :class="sltBtn == 'Unpaid' ? 'btnSelect' : '' " @click="btnChange('Unpaid')">Unpaid</button>
+      <button class="cusButton" :class="sltBtn == 'Partial' ? 'btnSelect' : '' " @click="btnChange('Partial')">Partial</button>
+    </div>
+    <tourList v-if="tours" :list="tours" />
+    <div v-else class="row card-titles">
+      <div class="col-sm-4"  v-for="(index) in 6" :key="index">
+        <cardLoader />
       </div>
     </div>
-
-    <div v-if="tours">
-      <div class="row" v-for="tour in tours" :key="tour.id">
-        
-        <InchargeTourCard v-if="userinfo.is_incharge==1" :tour="tour" :userinfo="userinfo" />
-
-        <tourcard v-else :tour="tour" :userinfo="userinfo" />
-        
-      </div>
-    </div>
-  </div>
+  </section>
 </template>
-
+ 
 <script>
 import TourCard from "@/front/components/tour/TourCard";
 import InchargeTourCard from '@/front/components/tour/InchargeTourCard';
+import tourList from "@/front/components/userTourList";
+import cardLoader from '@/front/components/loaders/cardLoaderExplore.vue';
+
 export default {
   name: "Tour-list",
-  components: { tourcard: TourCard,InchargeTourCard },
+  components: { tourcard: TourCard,InchargeTourCard,tourList,cardLoader },
   data() {
     return {
-      tours: [],
+      tours: null,
       formShow: false,
       userinfo: "",
       travel_code: "",
+      iconSelected: 'all',
+      sltBtn: 'All',
     };
   },
   mounted() {
     this.userData();
     this.tourListData();
   },
-
   methods: {
+    btnChange(val){
+      this.sltBtn = val;
+    },
+    changeIcon(val){
+      this.iconSelected = val;
+    },
     tourListData() {
-      var data = {'school_id':this.userinfo.school_id};
-      this.$api.POST("/api/tour-list", data).then((res) => {
-        console.log(res);
-        if (res.length == 0) {
-          this.formShow = true;
-        } else {
+
+      console.log(this.userinfo)
+
+      if(this.userinfo.client_type == 'teacher' || this.userinfo.client_type == 'student'){
+        var data = {'school_id':this.userinfo.school_id, 'travel_code': this.travel_code};
+        this.$api.POST("/api/tour-list", data).then((res) => {
+          console.log(res); 
           this.tours = res;
-        }
-      });
-      if (this.tours.length == 0) {
-        this.formShow = false;
+          console.log(this.tours.itinerary)
+        });
       }
+      else if(this.userinfo.client_type == 'corporate'){
+        var data = {'company_id':this.userinfo.company_id, 'travel_code': this.travel_code};
+        this.$api.POST("/api/corp-tour-list", data).then((res) => {
+          console.log(res);
+          this.tours = res;
+          console.log(this.tours.itinerary)
+          /*if (res.length == 0) {
+            this.formShow = true;
+          } else {
+            this.tours = res;
+          }*/
+        });
+        /*if (this.tours.length == 0) {
+          this.formShow = false;
+        }*/
+      }      
     },
 
     UserTourSave() {
@@ -115,14 +133,53 @@ export default {
         this.$router.push("/user-information");
         return false;
       }
-      if (this.userinfo.change_password == 0) {
+      /*if (this.userinfo.change_password == 0) {
         this.$swal.fire(
           "warning",
           "Please change your password for security purpose !!! <br>",
           "warning"
         );
-      }
+      }*/
     },
   },
 };
 </script>
+
+<style scoped>
+.custom-flex {
+  display: flex;
+  align-content: center;
+  flex-direction: row;
+  font-size: 18px;
+  font-weight: 400;
+  padding-top: 1.5vh !important;
+}
+.trip-heading{
+  font-size: 25px;
+  font-weight: 500;
+  padding-top: 4vh;
+}
+.icons{
+  cursor: pointer;
+  padding: 5px 10px;
+}
+.cusButton {
+  height: 42px;
+  width: 120px;
+  padding: 0px 30px 0px 30px;
+  border: 1px solid #464444;
+  font-size: 17px !important;
+  font-weight: 400 !important;
+  color: #464444;
+  display: block;
+  margin-right: 15px;
+  border-radius: 20px;
+  background: white;
+  outline: none;
+}
+.btnSelect{
+  background: #00c4c4 !important;
+  color: white !important;
+  border: none !important;
+}
+</style>

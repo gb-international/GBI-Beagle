@@ -3,7 +3,7 @@
         .outer{
             padding:5px;
             padding: 9px;
-            background: rgba(43, 188, 255, 0.8);
+            background: #f77736bf;
             .search-field{
                 height: 50px;
                 outline: none;
@@ -79,7 +79,7 @@
         position: relative;
         overflow: hidden;
         min-height: 370px;
-        img{
+        .main-img{
             -webkit-transition: 1 linear;
             transition: 1 linear;
             min-height: 370px;

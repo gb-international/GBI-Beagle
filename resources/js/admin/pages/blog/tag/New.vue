@@ -3,6 +3,7 @@ This template helps us to create a new Category it takes the data from the form 
 to submit the data we are using a function.
  -->
 <template>
+<section>
   <form-layout>
     <template #formdata>
       <form
@@ -29,6 +30,7 @@ to submit the data we are using a function.
       </form>
     </template>
   </form-layout>
+</section>
 </template>
 
 <script>
@@ -36,7 +38,7 @@ import { Form, HasError } from "vform";
 import FormButtons from "@/admin/components/buttons/FormButtons.vue";
 import FormLayout from "@/admin/components/layout/FormLayout.vue";
 export default {
-  name: "New",
+  name: "NewTag",
   components: {
     Form,
     "has-error": HasError,
@@ -48,18 +50,28 @@ export default {
       form: new Form({
         title: "",
       }),
+      loading: false
     };
   },
   methods: {
     AddCategory() {
+      if(this.form.title == ''){
+          this.$toast.fire({
+            icon: "warning",
+            title: "Please enter the title.",
+          });
+        return false
+      }
+      this.loading = true
       this.form
         .post("/api/tags")
         .then((response) => {
           this.form.reset();
           this.$toast.fire({
             icon: "success",
-            title: "Category Added successfully",
+            title: "Tag Added successfully",
           });
+          this.loading = false
         })
         .catch(() => {});
     },

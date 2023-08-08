@@ -21,6 +21,8 @@ class VerifyCsrfToken extends Middleware
     protected $except = [
         '/payment',
         '/cancel',
-        '/response'
+        '/response',
+        '/test-data',
+        '/tour-payment'
     ];
 }

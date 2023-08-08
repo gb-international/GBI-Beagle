@@ -12,4 +12,12 @@ class Tag extends Model
     {
         return $this->belongsToMany('App\Model\Post\Post');
     }
+    public function encyclopedias()
+    {
+        return $this->belongsToMany('App\Model\Encyclopedia\Encyclopedia');
+    }
+    public function itineraries()
+    {
+        return $this->belongsToMany('App\Model\Itinerary\Itinerary');
+    }
 }

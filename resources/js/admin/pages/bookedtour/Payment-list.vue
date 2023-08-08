@@ -201,7 +201,7 @@ import jsPDF from "jspdf";
 import XLSX from "xlsx";
 import { Form, HasError } from "vform";
 export default {
-  name: "List",
+  name: "ListPaymentListbyuser",
   components: { Form, "has-error": HasError },
   data() {
     return {

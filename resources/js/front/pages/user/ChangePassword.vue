@@ -1,5 +1,5 @@
 <template>
-      <!--************************************************
+  <!--************************************************
       Author:@Ajay
       ****************************************************-->
   <form role="form" id="password_form" @submit.prevent="UserPassword()">
@@ -25,29 +25,29 @@ export default {
   name: "ChangePassword",
   components: {
     Form,
-    HasError
+    HasError,
   },
   data() {
     return {
       emailForm: new Form({
-        email_link: ""
-      })
+        email_link: "",
+      }),
     };
   },
   methods: {
     UserPassword() {
       this.emailForm
         .post("/api/sendlink")
-        .then(response => {
-          this.emailForm.email_link = '';
+        .then((response) => {
+          this.emailForm.email_link = "";
           // this.emailForm.email_link = '';
           this.$swal.fire({
             title: "Please Check your Email Account",
             icon: "success",
-            animation: true
+            animation: true,
           });
         })
-        .catch(err => {
+        .catch((err) => {
           //swal("Alert", "Email or Password is incorrect!", "error","customClass");
           this.$swal.fire({
             text: "Email is not valid",
@@ -55,10 +55,10 @@ export default {
             imageWidth: 100,
             type: "",
             imageAlt: "Custom image",
-            animation: true
+            animation: true,
           });
         });
-    }
-  }
+    },
+  },
 };
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div class="container" id="payment_information">
-    <form class="form" method="POST" action="/payment">
+    <form class="form" method="POST" action="/test-data">
       <div class="desktop">
         <!-- desktop view -->
         <div class="row pt-4 pb-4">
@@ -142,7 +142,7 @@
                   />
                   <input
                     type="text"
-                    v-model="form.no_of_person"
+                    v-model="form.paid_person"
                     name="no_of_person"
                   />
                 </div>
@@ -267,8 +267,9 @@
           <div class="col-sm-4 pl-4 pr-4">
             <div class="payment-card">
               <payment-card
-                :amount="amount"
+                :amount="form.amount"
                 :pax="form.no_of_person"
+                :cPax="form.unpaid_person"
               ></payment-card>
             </div>
             <button
@@ -318,7 +319,7 @@
         <div class="p-1 pt-3">
           <payment-card
             v-if="mobile.active_el == 0"
-            :amount="amount"
+            :amount="form.amount"
             :pax="form.no_of_person"
           ></payment-card>
 
@@ -651,8 +652,8 @@ export default {
         school_id: "",
         tour_price: "",
         no_of_person: "",
+        amount: 0,
       },
-      amount: 0,
     };
   },
   watch: {
@@ -688,14 +689,21 @@ export default {
       this.$router.push("/");
     }
     var data = this.$cookies.get("payment-data");
-    this.amount = parseInt(data.base_price);
+    this.form.amount = parseInt(data.base_price);
     this.form.user_id = data.user_id;
     this.form.travel_code = data.travel_code;
     this.form.tour_id = data.tour_id;
     this.form.school_id = data.school_id;
     this.form.tour_price = parseInt(data.price);
     this.form.no_of_person = parseInt(data.paid_person);
+    this.form.unpaid_person = parseInt(data.unpaid_person);
+
+    //console.log(this.amount)
   },
+
+  /*updated() {
+    console.log(this.form)
+  },*/
 
   methods: {
     activate(nav_number) {
@@ -793,3 +801,18 @@ export default {
   },
 };
 </script>
+
+
+<style scoped>
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+</style>

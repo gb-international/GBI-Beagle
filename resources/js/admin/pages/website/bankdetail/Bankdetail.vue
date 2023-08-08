@@ -38,7 +38,7 @@ data from the api to display the data about the Category from the backend .
         :items="items.data"
         :busy="$store.getters.isBusy"
         :filter="filter"
-        primary-key="updated_at"
+        primary-key="id"
         :tbody-transition-props="transProps"
       >
         <template #table-busy>
@@ -81,7 +81,7 @@ import TableLoader from '@/admin/components/TableLoader.vue';
 import { mapState } from 'vuex';
 
 export default {
-  name: "List",
+  name: "ListBankDetail",
   components:{
     'list-layout':listLayout,
     'table-loader':TableLoader,
@@ -97,12 +97,12 @@ export default {
         name: 'flip-list'
       },
       fields: [
-        {key:'name',label:'NAME',sortable:true,thClass: 'table-head'},
-        {key:'bank_name',label:'BANK NAME',sortable:true,thClass: 'table-head'},
-        {key:'account_number',label:'ACCOUNT NUMBER',sortable:true,thClass: 'table-head'},
-        {key:'ifsc_code',label:'IFSC',sortable:true,thClass: 'table-head'},
-        {key:'updated_at',label:'LAST UPDATE',sortable:true,thClass: 'table-head'},
-        {key:'action',label:'ACTION',thClass: 'table-head'}
+        {key:'name',label:'name',sortable:true,thClass: 'table-head'},
+        {key:'bank_name',label:'bank name',sortable:true,thClass: 'table-head'},
+        {key:'account_number',label:'account number',sortable:true,thClass: 'table-head'},
+        {key:'ifsc_code',label:'ifsc',sortable:true,thClass: 'table-head'},
+        {key:'updated_at',label:'last update',sortable:true,thClass: 'table-head'},
+        {key:'action',label:'action',thClass: 'table-head'}
       ],
       filter:'',
       perPage:7,

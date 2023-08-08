@@ -49,6 +49,7 @@
 </template>
 <script>
 export default {
+    name:"PNRListSHOw",
   props: ["transport_type","transport_id","tour_code"],
   data() {
     return {

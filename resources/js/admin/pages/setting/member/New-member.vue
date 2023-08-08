@@ -13,7 +13,7 @@ to submit the data we are using a function.
         @submit.prevent="addMember()"
       >
         <div class="row">
-          <div class="col-sm-4">
+          <div class="col-sm-6">
             <div class="form-group">
               <label for="name">Name</label>
               <input
@@ -27,7 +27,25 @@ to submit the data we are using a function.
               <has-error :form="form" field="name"></has-error>
             </div>
           </div>
-          <div class="col-sm-4">
+
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="gender">Gender</label>
+              <select 
+                class="form-control"
+                name="gender"
+                v-model="form.gender"
+                :class="{ 'is-invalid': form.errors.has('gender') }"
+                placeholder="Select Gender"
+              >
+                <option value="M">Male</option>
+                <option value="F">Female</option>
+              </select>
+              <has-error :form="form" field="gender"></has-error>
+            </div>
+          </div>
+          
+          <div class="col-sm-6">
             <div class="form-group">
               <label for="email">Email</label>
               <input
@@ -41,18 +59,18 @@ to submit the data we are using a function.
               <has-error :form="form" field="email"></has-error>
             </div>
           </div>
-          <div class="col-sm-4">
+          <div class="col-sm-6">
             <div class="form-group">
-              <label for="phoneno">Phone Number</label>
+              <label for="phone_no">Phone Number</label>
               <input
-                type="text"
+                type="number"
                 class="form-control"
-                v-model="form.phoneno"
-                :class="{ 'is-invalid': form.errors.has('phoneno') }"
+                v-model="form.phone_no"
+                :class="{ 'is-invalid': form.errors.has('phone_no') }"
                 placeholder="Enter Phone No"
-                name="phoneno"
+                name="phone_no"
               />
-              <has-error :form="form" field="phoneno"></has-error>
+              <has-error :form="form" field="phone_no"></has-error>
             </div>
           </div>
         </div>
@@ -61,7 +79,7 @@ to submit the data we are using a function.
             <div class="form-group">
               <label for="password">Password</label>
               <input
-                type="text"
+                type="password"
                 class="form-control"
                 placeholder="Enter Password"
                 name="password"
@@ -75,7 +93,7 @@ to submit the data we are using a function.
             <div class="form-group">
               <label for="c_password">Confirm Password</label>
               <input
-                type="text"
+                type="password"
                 class="form-control"
                 placeholder="Enter Confirm Password"
                 name="c_password"
@@ -118,24 +136,28 @@ to submit the data we are using a function.
 
           <div class="col-sm-4">
             <div class="form-group">
-              <label for="RoleName">Role Assign</label>
-              <select
-                class="form-control select-field"
-                v-model="form.RoleName"
-                :class="{ 'is-invalid': form.errors.has('RoleName') }"
-              >
-                <option value="" disabled hidden>Select Role</option>
-                <option
-                  v-for="role in role_list"
-                  :value="role.name"
-                  :key="role.id"
-                >
-                  {{ role.name }}
-                </option>
-              </select>
-              <has-error :form="form" field="RoleName"></has-error>
+              <label for="role_id">Department</label>
+              <dropdown-filter class="mb-2" 
+                :itemList="departments" 
+                @update:option="updateDepartment" 
+                :class="{ 'is-invalid': form.errors.has('department_id') }"
+              />
+              <has-error :form="form" field="department_id"></has-error>
             </div>
           </div>
+
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label for="role_id">Role Assign</label>
+              <dropdown-filter class="mb-2" 
+                :itemList="role_list" 
+                @update:option="updateRole" 
+                :class="{ 'is-invalid': form.errors.has('role_id') }"
+              />
+              <has-error :form="form" field="role_id"></has-error>
+            </div>
+          </div>
+            
         </div>
         <form-buttons />
       </form>
@@ -147,48 +169,95 @@ to submit the data we are using a function.
 import { Form, HasError } from "vform";
 import FormButtons from "@/admin/components/buttons/FormButtons.vue";
 import FormLayout from "@/admin/components/layout/FormLayout.vue";
+import DropdownFilter from "@/admin/components/form/DropdownFilter.vue";
+import { checkBday } from "@/admin/helpers/checkBday.js";
+
 export default {
-  name: "NewRole",
+  name: "NewMember",
   components: {
     Form,
     "has-error": HasError,
     "form-buttons": FormButtons,
     "form-layout": FormLayout,
+     "dropdown-filter": DropdownFilter,
   },
   data() {
     return {
       role_list: [],
+      departments: [],
       // Create a new form instance
       form: new Form({
         name: "",
+        gender: "",
         email: "",
         password: "",
         c_password: "",
-        phoneno: "",
+        phone_no: "",
         address: "",
         dob: "",
-        RoleName: "",
+        role_id: "",
+        department_id:'',
       }),
     };
   },
 
   created() {
-    axios.get("/api/role").then((response) => {
-      setTimeout(() => $("#example").DataTable(), 1000);
-      this.role_list = response.data;
-    });
+    this.getRoles();
+    this.getDepartment();
   },
 
   methods: {
+    getRoles(){
+      axios.get("/api/role").then((res) => {
+        if (res) {
+          for(let i = 0;i<res.data.length;i++){
+            this.role_list.push({
+              name:res.data[i].name,
+              id:res.data[i].id
+            });
+          }
+        }
+      });
+    },
+    
+    getDepartment(){
+      axios.get("/api/departments").then((res) => {
+        if (res) {
+          for(let i = 0;i<res.data.length;i++){
+            this.departments.push({
+              name:res.data[i].name,
+              id:res.data[i].id
+            });
+          }
+        }
+      });
+    },
+
+    updateRole(v){ this.form.role_id = v.id },
+    updateDepartment(v){ this.form.department_id = v.id },
+
     addMember() {
-      this.form
+      if(checkBday(this.form.dob) == false){
+        this.$toast.fire({
+            icon: "warning",
+            title: "A GBI Member must be of age 20 or above.",
+          });
+        return false
+      }
+      if(this.form.phone_no.length !== 10){
+        this.$toast.fire({
+            icon: "warning",
+            title: "Please enter a valid phone number.",
+          });
+        return false
+      }
+        this.form
         .post("/api/members/create")
-        .then((response) => {
+        .then((res) => {
           this.$router.push(`/list-member`);
-          console.log(response);
           this.$toast.fire({
             icon: "success",
-            title: "Client Added successfully",
+            title: "GBI Member Added Successfully",
           });
         })
         .catch(() => {});
@@ -196,3 +265,28 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+input[type='password'] {
+    border: 0px;
+    font-size: 15px;
+    background-color: #fff;
+    color: #737879;
+    display: block;
+    width: 100%;
+    height: 53px;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+select {
+    border: 0px;
+    font-size: 15px;
+    background-color: #fff;
+    color: #737879;
+    display: block;
+    width: 100%;
+    height: 52px;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+</style>

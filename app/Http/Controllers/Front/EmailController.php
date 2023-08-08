@@ -1,9 +1,4 @@
 <?php
-/* 
-Created by : Ajay yadav 
-Purpose : Manage Email 
-
-*/
 namespace App\Http\Controllers\Front;
 use App\Http\Controllers\Controller; 
 use Illuminate\Http\Request;
@@ -11,7 +6,6 @@ use App\User;
 use Carbon\Carbon;
 use App\Jobs\SendEmailJob;
 use Mail;
-
 class EmailController extends Controller
 {
     // Send Link to users email account and create a session for that link

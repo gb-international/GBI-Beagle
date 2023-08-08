@@ -12,4 +12,8 @@ class Escort extends Model
     {
     	return $this->hasMany('App\Model\Reservation\Bookedescort');
     }
+
+    public function setEmailAttribute($value){
+        return $this->attributes['email'] = strtolower($value);
+    }
 }

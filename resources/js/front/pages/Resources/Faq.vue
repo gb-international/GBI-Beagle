@@ -9,7 +9,7 @@
         <div class="row">
           <div class="col-sm-8 mb-3">
             <h1 class="heading mb-3">Frequently Asked Questions (FAQ)</h1>
-            <div class="input-group p-2 bg-skyblue">
+            <div class="input-group p-2 bg-light-card">
               <input
                 type="text"
                 class="form-control"
@@ -29,7 +29,7 @@
     </div>
     <!-- Start how we work -->
     <section class="faq-question">
-      <h3 class="text-center p-3 font-weight-normal">Confused? Need not worry, we have answers to your queries.</h3>
+      <heading class="text-center mb-3" text="Confused? Need not worry, we have answers to your queries." />
       <div class="container">
         <div class="mb-2" v-for="(data,i) in resultQuery" :key="i">
           <div class="row mt-1">
@@ -56,15 +56,29 @@
 </template>
 
 <script>
+import Heading from '@/front/components/layout/Heading.vue';
 export default {
   name: "Faq",
+  components:{
+    Heading
+  },
    metaInfo: {
-    title: 'GBI Frequently Asked Question',
+    title: 'FAQs | Clear Your Doubts Here',
     meta:[
-      { name: 'description', content: '@GoWithGBI helps you answer all your queries  regarding your travel program by just one click of a button' },
+      { name: 'description', content: 'All the queries you have, all the answers you want regarding the tour, packages, guides, flights, accommodations, food, and whatnot? You’ll find it on this page.' },
       { name: 'keywords', content: '@GoWithGBI,have a question,search for your answer,FAQ,Travel bookings queries,customer service,support helpdesk' },
       { name: 'url', content: 'https://www.gowithgbi.com/resources/faq' },
     ]
+  },
+  beforeCreate(){
+    let metaInfo = {
+        title: 'FAQs | Clear Your Doubts Here',
+        description: 'All the queries you have, all the answers you want regarding the tour, packages, guides, flights, accommodations, food, and whatnot? You’ll find it on this page.',
+        keywords: '@GoWithGBI,have a question,search for your answer,FAQ,Travel bookings queries,customer service,support helpdesk',
+        url: 'https://www.gowithgbi.com/resources/faq',
+        type: 'website'
+      }
+     document.cookie = "GBIMeta =" + JSON.stringify(metaInfo) +"; path=/";
   },
   data(){
     return{

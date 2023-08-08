@@ -14,11 +14,9 @@ data from the api to display the data about the Hotel from the backend .
           <div class="col-sm-4">
             <div class="form-group">
               <label for="name">Restaurant Name</label>
-              <model-select
-                :options="options"
-                v-model="form.restaurant_id"
-                placeholder="From"
-              ></model-select>
+              <dropdown-filter class="mb-2" 
+                :itemList="options" 
+                @update:option="UpdatedItem" />
               <has-error :form="form" field="name"></has-error>
             </div>
           </div>
@@ -45,18 +43,18 @@ data from the api to display the data about the Hotel from the backend .
 </template>
 <script>
 import { Form, HasError } from "vform";
-import { ModelSelect } from "vue-search-select";
 import FormButtons from "@/admin/components/buttons/FormButtons.vue";
 import FormLayout from "@/admin/components/layout/FormLayout.vue";
+import DropdownFilter from "@/admin/components/form/DropdownFilter.vue";
 export default {
-  name: "List",
+  name: "ListREstaurants",
   components: { Form, "has-error": HasError },
   components: {
     Form,
     "has-error": HasError,
-    ModelSelect,
     "form-buttons": FormButtons,
     "form-layout": FormLayout,
+    "dropdown-filter": DropdownFilter,
   },
   data() {
     return {
@@ -73,19 +71,27 @@ export default {
     };
   },
   created() {
-    this.hotelData();
+    this.GetData();
   },
   methods: {
-    hotelData() {
-      axios.get(`/api/restaurants`).then((response) => {
-        for (var i = 0; i < response.data.length; i++) {
-          this.options.push({
-            value: response.data[i].id,
-            text: response.data[i].name,
-          });
+    GetData() {
+      axios.get(`/api/restaurants`).then((res) => {
+        if (res) {
+          for(let i = 0;i<res.data.length;i++){
+            this.options.push({
+              name:res.data[i].name,
+              id:res.data[i].id
+            });
+          }
         }
       });
     },
+
+    UpdatedItem(value){
+      this.form.restaurant_id = value.id;
+    },
+
+
     addHotel() {
       var path = `/api/bookedrestaurants`;
       this.form.tour_id = this.$route.params.id;

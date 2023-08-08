@@ -6,10 +6,38 @@ use Illuminate\Database\Eloquent\Model;
 
 class Hotel extends Model
 {
-    protected $fillable = ['type','name','state','city','address','phoneno','email','room','apai_single','apai_double','apai_triple','apai_squad','mapai_single','mapai_double','mapai_triple','mapai_squad','cpai_single','cpai_double','cpai_triple','cpai_squad','status','image','alt'];
+    protected $guarded = [];
+    public function getImageAttribute($image)
+    {
+        /*if($image){
+            return \Storage::disk('s3')->url(config('gbi.hotel_image').$image);
+        }else{
+            return '';
+        }*/
+    }
+
+    public function setEmailAttribute($value){
+        return $this->attributes['email'] = strtolower($value);
+    }
 
     public function bookedhotels()
     {
     	return $this->hasMany('App\Model\Reservation\Bookedhotel');
+    }
+
+    public function rooms(){
+        return $this->hasMany('App\Model\Hotel\HotelRooms');
+    }
+
+    public function roomCategory(){
+        return $this->hasMany('App\Model\Hotel\RoomCategory');
+    }
+
+    public function banquetCategory(){
+        return $this->hasMany('App\Model\Hotel\BanquetCategory');
+    }
+
+    public function amenities(){
+        return $this->hasMany('App\Model\Hotel\Amenities');
     }
 }

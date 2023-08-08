@@ -2,11 +2,11 @@
 // Escort Routes
 
 Route::namespace('Escort')->group(function(){
-
     Route::post('/login','LoginController@login');
     Route::post('/login-verify','LoginController@otp_verify');
     Route::get('/tour-list/{id}','TourController@tourList');
     Route::get('/sightseeing/{id}','TourController@sightseeingList');
+    Route::get('/sights/{id}','TourController@sights');
     Route::post('/sightseeing/{id}','TourController@sightseeingStore');
     Route::get('/itinerary-title/{id}','TourController@itineraryTitle');
     Route::get('/packs/{id}','TourController@packs');
@@ -19,6 +19,4 @@ Route::namespace('Escort')->group(function(){
     Route::get('/pax/{id}','TourController@pax');
     Route::get('/pax/get/{id}','PaxController@index');
     Route::post('/pax/store','PaxController@store');
-
-
 });

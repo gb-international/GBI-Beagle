@@ -18,6 +18,7 @@ to submit the data we are using a function.
 <script>
 import BackButton from '@/admin/components/buttons/BackButton.vue';
 export default {
+    name:"ViewLayoutGBI",
     components:{
         'back-button':BackButton
     },

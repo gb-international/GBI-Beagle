@@ -77,7 +77,7 @@ import TableLoader from '@/admin/components/TableLoader.vue';
 import { mapState } from 'vuex';
 
 export default {
-  name: "List",
+  name: "ListFlight",
   components:{
     'list-layout':listLayout,
     'table-loader':TableLoader,
@@ -89,9 +89,9 @@ export default {
   data() {
     return {
       fields: [
-        {key:'code',label:'AIR NUMBER',sortable:true,thClass: 'table-head'},
-        {key:'name',label:'NAME',sortable:true,thClass: 'table-head'},
-        {key:'action',label:'ACTION',thClass: 'table-head'}
+        {key:'code',label:'air number',sortable:true,thClass: 'table-head'},
+        {key:'name',label:'name',sortable:true,thClass: 'table-head'},
+        {key:'action',label:'action',thClass: 'table-head'}
       ],
       filter:'',
       perPage:7,

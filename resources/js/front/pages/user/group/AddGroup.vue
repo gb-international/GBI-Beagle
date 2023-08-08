@@ -10,7 +10,7 @@
           data-target="#AddRowModal">ADD Number of person</button>
         </div>
         <div class="col">
-          <a class="text-dark" :href="`/assets/sample-group-list.xlsx`" download><img src="/images/icons/download.png" class="icon-width"> GBI name list formate</a>
+          <a class="text-dark" :href="`/assets/sample-group-list.xlsx`" download><img :src="$gbiAssets+'/images/icons/download.png'" class="icon-width"> GBI name list formate</a>
         </div>
 
         <div class="col">

@@ -1,6 +1,6 @@
 <template>
   <div class="hotel-card">
-    <img src="/images/hotel/1590495923.png" />
+    <img :src="hotel.hotel.image" />
     <div class="row">
       <div class="col hotel_info">
         <div class="rating-hotel">

@@ -5,7 +5,7 @@ const EditSightseeing = () => import(/* webpackChunkName: "js/admin/sightEdit" *
 
 export default[
     // Sightseeing
-    { path: '/sightseeing', component: ListSightseeing },
-    { path: '/sightseeing/:id', component: EditSightseeing },
-    { path: '/sightseeing-add', component: AddSightseeing },
+    { meta: {permId: 70}, path: '/sightseeing', component: ListSightseeing },
+    { meta: {permId: 70}, path: '/sightseeing/:id', component: EditSightseeing },
+    { meta: {permId: 70}, path: '/sightseeing-add', component: AddSightseeing },
 ]

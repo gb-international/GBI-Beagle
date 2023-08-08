@@ -38,7 +38,7 @@ data from the api to display the data about the Category from the backend .
         :items="items.data"
         :busy="$store.getters.isBusy"
         :filter="filter"
-        primary-key="updated_at"
+        primary-key="id"
       >
         <template #table-busy>
           <table-loader />
@@ -71,7 +71,7 @@ import TableLoader from '@/admin/components/TableLoader.vue';
 import { mapState } from 'vuex';
 
 export default {
-  name: "List",
+  name: "ListGallery",
   components:{
     'list-layout':listLayout,
     'table-loader':TableLoader,
@@ -83,11 +83,11 @@ export default {
   data() {
     return {
       fields: [
-        {key:'title',label:'TITLE',sortable:true,thClass: 'table-head'},
-        {key:'category',label:'CATEGORY NAME',sortable:true,thClass: 'table-head'},
-        {key:'school.school_name',label:'SCHOOL NAME',sortable:true,thClass: 'table-head'},
-        {key:'updated_at',label:'LAST UPDATE',sortable:true,thClass: 'table-head'},
-        {key:'action',label:'ACTION',thClass: 'table-head'}
+        {key:'title',label:'title',sortable:true,thClass: 'table-head'},
+        {key:'category',label:'category name',sortable:true,thClass: 'table-head'},
+        {key:'school.school_name',label:'school name',sortable:true,thClass: 'table-head'},
+        {key:'updated_at',label:'last update',sortable:true,thClass: 'table-head'},
+        {key:'action',label:'action',thClass: 'table-head'}
       ],
       filter:'',
       perPage:7,

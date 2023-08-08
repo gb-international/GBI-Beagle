@@ -38,30 +38,8 @@
         </div>
 
 		  <div class="row">
-		  	<div class="col-sm-4">
-		  		<!-- <div class="col-sm-3">
-                  <router-link :to="`/booked-tour-manager`">
-                    <img :src="`assets/admin/default/icon/tour-manager.png`">
-                  </router-link>
-                </div>
-                <div class="col-sm-3">
-                  <router-link :to="`/booked-tour-hotel`">
-                    <img :src="`assets/admin/default/icon/hotel.png`">
-                  </router-link>
-                </div> 
-
-                <div class="col-sm-3 m-30">
-                  <router-link :to="`/booked-tour-flight`">
-                    <img :src="`assets/admin/default/icon/transport-icon.png`">
-                  </router-link>
-                </div>
-
-                <div class="col-sm-3 m-30">
-                  <router-link :to="`/booked-tour-train`">
-                    <img :src="`assets/admin/default/icon/transport-icon.png`">
-                  </router-link>
-                </div> -->
-
+		  	<div class="col-sm-12 mx-10">
+          <org-chart />
 		  	</div>
 		  </div>
         </section>
@@ -69,8 +47,13 @@
 </template>
 
 <script>
+import OrgChart from '@/admin/components/OrgChart.vue';
+
 export default {
-  name: "List",
+  name: "DashboardGBI",
+  components: {
+    'org-chart' : OrgChart
+  },
   data(){
     return{
       oddclass:false,

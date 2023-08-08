@@ -2,7 +2,6 @@
 
 export default [
     {
-         path:'/dashboard',
-        component: () => import(/* webpackChunkName: "js/admin/AdminDashboard" */ '@/admin/pages/Dashboard.vue')
+       name: 'Dashboard', path:'/dashboard',name:"Dashboard",component: () => import(/* webpackChunkName: "js/admin/AdminDashboard" */ '@/admin/pages/Dashboard.vue')
     }
 ]

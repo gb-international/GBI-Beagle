@@ -13,7 +13,7 @@ to submit the data we are using a function.
 
         <div class="col-sm-4">
           <h5>Banner image </h5>
-          <img :src="imagePath(categories.image)" class="w-100" />
+          <img :src="categories.image" class="w-100" />
         </div>
 
         <div class="col-sm-12">

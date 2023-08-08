@@ -1,7 +1,7 @@
 <template>
   <div class>
     <div class="errorpage">
-      <img src="/assets/front/images/404error.png" />
+      <img :src="$gbiAssets+'/assets/front/images/404error.png'" />
     </div>
   </div>
 </template>

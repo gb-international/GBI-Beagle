@@ -3,7 +3,7 @@
     <div class="row justify-content-center mt-5 pt-5">
       <div class="col-sm-4">
         <p class="text-center">
-          <img src="/assets/admin/default/icon/logo.png" />
+          <img :src="$gbiAssets+'/assets/admin/default/icon/logo.png'" />
         </p>
         <form class="mt-5">
           <div class="form-group relative">
@@ -55,7 +55,8 @@ export default {
             number: "",
             otp: "",
             otp_id: "",
-            escort_id: "",
+            escort_id: "2",
+            escort_name: "Rahul Singh"
         },
     };
   },
@@ -90,6 +91,13 @@ export default {
 
     validateOTP() {
       if (this.form.otp != "" && this.form.otp_id != "") {
+        this.$toast.fire({
+            icon: "success",
+            title: "Welcome to dashbaord",
+        });
+        this.$cookies.set("escort_id", this.form.escort_id);
+        this.$cookies.set("escort_name", this.form.escort_name);
+        this.$router.go('/escort/tour-list');
         axios.post("/escort/login-verify", this.form).then((response) => {
             if (response.data.type == "success") {
                 this.$toast.fire({

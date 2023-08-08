@@ -311,10 +311,7 @@ var render = function() {
                         _vm._v(" "),
                         _c("img", {
                           staticClass: "image__item card-img-top",
-                          attrs: {
-                            "data-url": "/uploadimage/" + state.photo,
-                            alt: "image"
-                          }
+                          attrs: { "data-url": state.photo, alt: "image" }
                         })
                       ],
                       1
@@ -385,7 +382,7 @@ var render = function() {
             [
               _c("img", {
                 staticClass: "icon-width",
-                attrs: { src: "/images/icons/user.png" }
+                attrs: { src: "/images/icons/white-user.png" }
               })
             ]
           ),
@@ -423,7 +420,7 @@ var render = function() {
                   _c("img", {
                     staticClass: "image__item img img-circle profile-img",
                     attrs: {
-                      "data-url": "/uploadimage/" + _vm.userinfo.photo,
+                      "data-url": _vm.userinfo.photo,
                       alt: "user profile"
                     }
                   })

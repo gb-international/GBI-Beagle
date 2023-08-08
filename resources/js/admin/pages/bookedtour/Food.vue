@@ -123,7 +123,7 @@ import { Form, HasError } from "vform";
 import { mapState } from "vuex";
 
 export default {
-  name: "List",
+  name: "ListFood",
   components: {
     "list-layout": listLayout,
     "table-loader": TableLoader,

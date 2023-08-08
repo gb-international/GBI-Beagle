@@ -5,11 +5,17 @@ use App\Http\Controllers\Controller;
 use App\Model\Post\Post;
 use App\Model\Post\Comment;
 use App\Model\Post\Category;
+use App\Model\Post\Tag;
 class BlogController extends Controller
 {
     public function list($count=3)
     {
         return response()->json(Post::with('category','tags')->paginate($count));
+    }
+
+    public function recents()
+    {
+        return response()->json(Post::with('category','tags')->paginate(3));
     }
 
     public function category($slug)
@@ -22,6 +28,12 @@ class BlogController extends Controller
     {
         $category = Category::get();
         return response()->json($category);
+    }
+
+    public function keywordList()
+    {
+        $keyword = Tag::get();
+        return response()->json($keyword);
     }
     
     public function view($slug)
@@ -39,6 +51,7 @@ class BlogController extends Controller
         if($request->title != ''){
             $data = Post::with('category','tags')
             ->where('title','like',"%$request->title%")
+            ->orWhere('category_id',$request->category_id)
             ->get();
         }else{
             $data = Post::with('category','tags')

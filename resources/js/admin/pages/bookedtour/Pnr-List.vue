@@ -10,6 +10,7 @@
       </div>
       <div class="col-sm-3 pt-3">
         <router-link
+          v-if="list.length > 0"
           :to="`/pnr-users/${$route.params.transport}/${$route.params.id}/${$route.params.tour_id}`"
           class="btn btn-info"
         >Assign PNR to Students</router-link>
@@ -33,18 +34,18 @@
               <img
                 v-if="index != edit_index"
                 class="edit"
-                :src="`/assets/front/icons/edit.png`"
+                :src="$gbiAssets+'/assets/front/icons/edit.png'"
                 @click="edit_row(index)"
               />
               <img
                 v-else
                 class="edit"
-                :src="`/assets/front/icons/update.png`"
+                :src="$gbiAssets+'/assets/front/icons/update.png'"
                 @click="update_row('flight',index)"
               />
               <img
                 class="delete"
-                :src="`/assets/front/icons/delete.png`"
+                :src="$gbiAssets+'/assets/front/icons/delete.png'"
                 @click="delete_row('flight',index,flight.id)"
               />
             </div>
@@ -59,7 +60,7 @@
 </template>
 <script>
 export default {
-  name: "PnrList",
+  name: "PnrListUser",
   data() {
     return {
       list: {},

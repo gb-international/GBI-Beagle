@@ -50,6 +50,16 @@ data from the api to display the data about the Category from the backend .
           <span class="badge badge-default" v-else>Draft</span>
         </template>
         <template #cell(action)="data">
+          <publish-icon 
+            v-if="data.item.status == 0" 
+            @click.native="publishItem(data.item.id,user_id)"
+            >
+          </publish-icon>
+          <draft-icon
+            v-else
+            @click.native="draftItem(data.item.id,user_id)"
+            >
+          </draft-icon>
           <edit-icon :url="`/posts/${data.item.id}`"></edit-icon>
           <delete-icon 
             @click.native="deleteItem(data.item.id,data.index)"
@@ -74,13 +84,17 @@ data from the api to display the data about the Category from the backend .
 import listLayout from '@/admin/components/layout/ListLayout.vue';
 import pagination  from 'laravel-vue-pagination';
 import EditIcon from '@/admin/components/icons/EditIcon.vue';
+import PublishIcon from '@/admin/components/icons/PublishIcon.vue';
 import DeleteIcon from '@/admin/components/icons/DeleteIcon.vue';
 import ViewIcon from '@/admin/components/icons/ViewIcon.vue';
+import DraftIcon from '@/admin/components/icons/DraftIcon.vue';
 import TableLoader from '@/admin/components/TableLoader.vue';
 import { mapState } from 'vuex';
+import io from 'socket.io-client';
+import { notifsCollection } from '@/firebase';
 
 export default {
-  name: "List",
+  name: "ListPost",
   components:{
     'list-layout':listLayout,
     'table-loader':TableLoader,
@@ -88,19 +102,23 @@ export default {
     'edit-icon':EditIcon,
     'delete-icon':DeleteIcon,
     'view-icon':ViewIcon,
+    'publish-icon':PublishIcon,
+    'draft-icon':DraftIcon
   },
   data() {
     return {
       fields: [
-        {key:'title',label:'TITLE',sortable:true,thClass: 'table-head'},
-        {key:'status',label:'STATUS',sortable:true,thClass: 'table-head'},
-        {key:'updated_at',label:'LAST UPDATE',sortable:true,thClass: 'table-head'},
-        {key:'action',label:'ACTION',thClass: 'table-head'}
+        {key:'title',label:'title',sortable:true,thClass: 'table-head'},
+        {key:'status',label:'status',sortable:true,thClass: 'table-head'},
+        {key:'updated_at',label:'last update',sortable:true,thClass: 'table-head'},
+        {key:'action',label:'action',thClass: 'table-head'}
       ],
       limit:2,
       filter:'',
       perPage:7,
       options:[7,25,50,100],
+      user_id: window.userId,
+      socket : io(this.$hostName)
     };
   },
   mounted() {
@@ -123,6 +141,22 @@ export default {
       let payload = {'api':"/posts/"+id,index,'index':index};
       this.$store.dispatch('deleteItem',payload);
     },
+    publishItem(id, user_id) {
+      axios.post("/api/posts/"+id+"/publish/"+user_id).then((res) => {});
+      setTimeout(() =>
+        this.socket.emit('sendToServer', 'NA'), 
+      3000);
+
+      notifsCollection.doc('New_Notif').set({
+          type: "SiteNotif",
+      })
+
+      this.getitems();
+    },
+    draftItem(id, user_id){
+      axios.post("/api/posts/"+id+"/draft/"+user_id).then((res) => {});
+      this.getitems();
+    }
   },
 };
 </script>

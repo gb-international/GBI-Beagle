@@ -23,7 +23,7 @@
 
             <div class="col-sm-2 text-center">
               <label class="text-muted" for="price">Tour Price</label>
-              <p> {{ tour_info.base_price }} * {{ tour_info.paid_person }} = {{ tour_info.price  }} /-</p>
+              <p> {{ tour_info.base_price }} * {{ tour_info.total_members }} = {{ tour_info.price  }} /-</p>
             </div>
           </div>
           <div class="row">

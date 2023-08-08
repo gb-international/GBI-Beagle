@@ -51,6 +51,12 @@ to submit the data we are using a function.
               <vue-editor
                 v-model="form.description"
                 :class="{ 'is-invalid': form.errors.has('description') }"
+                :customModules="customModulesForEditor"
+                :editorOptions="editorSettings"
+                id="editor"
+                useCustomImageHandler
+                @image-added="handleImageAdded"
+                @image-removed="handleImageRemoved"
               ></vue-editor>
               <has-error :form="form" field="description"></has-error>
 
@@ -63,7 +69,7 @@ to submit the data we are using a function.
         <div class="row">
           <div class="col-sm-12">
             <div class="form-group">
-              <label for="mode_of_transport">Tour category</label><br />
+              <label for="mode_of_transport">Tour itinerary</label><br />
 
               <multiselect
                 v-model="form.itinerary"
@@ -97,26 +103,26 @@ to submit the data we are using a function.
 </template>
 
 <script>
-import { VueEditor, Quill } from "vue2-editor";
+
 import { ModelSelect } from "vue-search-select";
 import Multiselect from "vue-multiselect";
 import { Form, HasError } from "vform";
-
+import Vue2EditorMixin from '@/admin/mixins/Vue2EditorMixin';
 import BackButton from "@/admin/components/buttons/BackButton.vue";
 import SubmitButton from "@/admin/components/buttons/SubmitButton.vue";
 import FormLayout from "@/admin/components/layout/FormLayout.vue";
 export default {
-  name: "New",
+  name: "NewTourProgram",
   components: {
     ModelSelect,
     Multiselect,
-    VueEditor,
     Form,
     "has-error": HasError,
     "back-button": BackButton,
     "submit-button": SubmitButton,
     "form-layout": FormLayout,
   },
+  mixins:[Vue2EditorMixin],
   data() {
     return {
       img_image: "",
@@ -151,7 +157,7 @@ export default {
       var api = `/api/tourprogram/${this.$route.params.id}/edit`;
       axios.get(api).then((response) => {
         this.form.fill(response.data);
-        this.img_image = "images/tourprogram/" + this.form.image;
+        this.img_image = this.form.image;
         var data = this.form.itinerary;
         this.form.itinerary = [];
         for (var i = 0; i < this.data.length; i++) {
@@ -160,11 +166,7 @@ export default {
             name: data[i]["title"],
           });
         }
-        console.log(this.form);
       });
-    },
-    getImgUrl(img) {
-      return "/images/tourprogram/" + img;
     },
     changeImage(event) {
       let file = event.target.files[0];

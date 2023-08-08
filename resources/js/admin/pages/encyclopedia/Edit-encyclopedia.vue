@@ -1,3 +1,9 @@
+<!--************************************************
+      Author:@Ajay 
+      Edited by: @Manas
+      ****************************************************-->
+<!-- Edits: Added Region field (static), Country Field (dynamic). Created the functions- UpdateRegion(), UpdateCountry(), countryList(), countryCheck(). Made edits to stateList(), EncyclopediaList() for segregation based on selected country. -->
+
 <!-- 
 
 This template helps us to create a new encyclopedia it takes the data from the form and sumbit with the help of the api
@@ -7,29 +13,102 @@ to submit the data we are using a function.
 <template>
   <form-layout>
     <template #formdata>
+      <section class="formSection">
+      <div class="LoaderDiv" v-show="loading">
+        <img class="loaderLogo" src="/loader/logo_gif.gif">
+        <p class="loadText">Loading..</p>
+      </div>
       <form
+        v-if="allCreated"
         role="form"
         enctype="multipart/form-data"
         @submit.prevent="addItem()"
+        :style="!loading ? '' : 'opacity: 0.5' "
       >
-        <div class="row">
+        <div class="row" v-if="form.state_name">
+
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="meta_title">Meta Title</label>
+              <input
+                type="text"
+                class="form-control"
+                v-model="form.meta_title"
+                @change="changeField('meta_title', $event.target.value)"
+                :class="{ 'is-invalid': form.errors.has('meta_title') }"
+                placeholder="Enter meta title"
+              />
+              <has-error :form="form" field="meta_title"></has-error>
+              <p v-if="meta_titleWarn" class="warn-error"> Please input Meta Title.</p>
+            </div>
+          </div>
+
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="meta_keyword">Meta Keywords</label>
+              <tags-input element-id="tags"
+                  v-model="meta_key"
+                  :existing-tags="tags"
+                  :typeahead="true"
+                  @tags-updated="updateTags"
+                  >
+                </tags-input>
+              <has-error :form="form" field="tags"></has-error>
+              <p v-if="tagsWarn && meta_key.length < 1 " class="warn-error">Please choose keywords.</p>
+            </div>
+          </div>
+
+          <div class="col-sm-12">
+            <div class="form-group">
+              <label for="description">Meta Description</label>
+              <textarea
+                row="3"
+                type="text"
+                class="form-control"
+                v-model="form.meta_description"
+                @change="changeField('meta_description', $event.target.value)"
+                :class="{ 'is-invalid': form.errors.has('meta_description') }"
+                placeholder="Enter Meta Description"
+              ></textarea>
+              <has-error :form="form" field="meta_description"></has-error>
+              <p v-if="summeryWarn" class="warn-error"> Please input meta description.</p>
+            </div>
+          </div>
+
+          <div class="col-sm-3">
+             <div class="form-group">
+              <label for="state_name">Region Type</label>
+
+              <status-dd class="mb-2"
+                v-model="form.region_type"
+                :itemList="region_type_list" 
+                @input="UpdateRegion" 
+              />
+              <has-error :form="form" field="region_type"></has-error>
+            </div>
+
+            <div class="form-group">
+              <label for="state_name">Country</label>
+
+              <dropdown-list class="mb-2"
+                :itemList="country_list"
+                v-model="form.country" 
+                @input="UpdateCountry" 
+              />
+              <has-error :form="form" field="country"></has-error>
+            </div>
+
+          </div>
           <div class="col-sm-3">
             <div class="form-group">
               <label for="state_name">State</label>
-              <select
-                class="form-control select-field"
+
+              <dropdown-list class="mb-2" 
+                :itemList="state_list"
                 v-model="form.state_name"
-                @change="slugCreate($event)"
-              >
-              <option value="" disabled hidden>Select State</option>
-                <option
-                  v-for="state in state_list"
-                  :value="state.name"
-                  :key="state.id"
-                >
-                  {{ state.name }}
-                </option>
-              </select>
+                @input="UpdateState" 
+              />
+
               <has-error :form="form" field="state_name"></has-error>
             </div>
 
@@ -42,12 +121,12 @@ to submit the data we are using a function.
                 :class="{ 'is-invalid': form.errors.has('slug') }"
                 placeholder="Enter Map Link"
                 rows="6"
-                readonly
+                readonly=""
               />
               <has-error :form="form" field="slug"></has-error>
             </div>
           </div>
-          <div class="col-sm-9">
+          <div class="col-sm-6">
             <div class="form-group">
               <label for="map_link">Map Link</label>
               <textarea
@@ -110,7 +189,7 @@ to submit the data we are using a function.
                 :class="{ 'is-invalid': form.errors.has('banner_image') }"
               />
 
-              <img :src="images.banner_image" alt class="banner_image" />
+              <img :src="images.banner_image" alt class="banner_image width-140" />
               <has-error :form="form" field="banner_image"></has-error>
             </div>
           </div>
@@ -126,7 +205,7 @@ to submit the data we are using a function.
           >
             <div class="card">
               <div class="card-body">
-                <img :src="`/encyclopedia/${img.image}`" class="w-100" />
+                <img :src="img.image" class="w-100" />
               </div>
             </div>
             <span
@@ -173,7 +252,15 @@ to submit the data we are using a function.
                     <i class="fas fa-file-pdf"></i>
                   </div>
                   <div class="col-sm-10">
-                    <p>{{ pdf.name }}</p>
+                    <p>
+                      {{ pdf.name }}
+                      <span
+                        class="badge badge-danger position-absolute cursor-pointer ml-3"
+                        title="Delete Item"
+                        @click="deletePdf(pdf.id)"
+                        ><i class="far fa-trash-alt" aria-hidden="true"></i
+                      ></span>
+                    </p>
                   </div>
                 </div>
               </div>
@@ -183,6 +270,7 @@ to submit the data we are using a function.
 
         <form-buttons />
       </form>
+    </section>
     </template>
   </form-layout>
 </template>
@@ -195,8 +283,12 @@ import { VueEditor, Quill } from "vue2-editor";
 import FormButtons from "@/admin/components/buttons/FormButtons.vue";
 import SubmitButton from "@/admin/components/buttons/SubmitButton.vue";
 import FormLayout from "@/admin/components/layout/FormLayout.vue";
+import DropdownList from "@/admin/components/form/DropdownList.vue";
+import StatusDropdown from "@/admin/components/form/StatusDropdown2.vue";
+import TagsInput from '@voerro/vue-tagsinput';
+
 export default {
-  name: "New",
+  name: "EditEncyclopedia",
   components: {
     ModelSelect,
     Form,
@@ -205,16 +297,36 @@ export default {
     "form-buttons": FormButtons,
     "submit-button": SubmitButton,
     "form-layout": FormLayout,
+    "dropdown-list": DropdownList,
+    "status-dd": StatusDropdown,
+    "tags-input": TagsInput,
   },
   data() {
     return {
+      region_type_list: [
+        {name:"National",id:"National"},
+        {name:"International",id:"International"}
+      ],
+      allCreated: false,
       state_list: [],
+      country_list: [],
       list_data: [],
       pdf_list: [],
       images: [],
       list_images: [],
+      tags:[],
+      meta_key: [],
+      titleWarn: false,
+      descriptionWarn: false,
+      summeryWarn: false,
+      meta_titleWarn: false,
+      meta_keywordWarn: false,
+      tagsWarn: false,
+      clientTypeWarn: false,
       form: new Form({
         state_name: "",
+        region_type: "",
+        country: "",
         map_link: "",
         slug: "",
         description: "",
@@ -222,28 +334,104 @@ export default {
         banner_image: [],
         images: [],
         files: [],
+        meta_description: "",
+        meta_title: "",
+        meta_keyword: "",
+        tags: [],
       }),
+      loading: false
     };
   },
   created() {
-    this.cityList();
     this.EncyclopediaList();
+    this.getTags();
+    this.meta_key = this.form.tags;
   },
 
   methods: {
-    cityList() {
-      axios.get("/api/state").then((response) => {
-        this.state_list = response.data;
+    changeField (field, input) {
+
+      if(field === 'meta_description'){
+          if(input === ''){
+            this.summeryWarn = true;
+          } else {
+            this.summeryWarn = false;
+          }
+          
+      }
+      if(field === 'meta_title'){
+          if(input === ''){
+            this.meta_titleWarn = true;
+          } else {
+            this.meta_titleWarn = false;
+          }
+      }
+      if(field === 'meta_keyword'){
+          if(input === ''){
+            this.meta_keywordWarn = true;
+          } else {
+            this.meta_keywordWarn = false;
+          }
+          
+      }
+    },
+    countryList(val) {
+      axios.get("/api/country").then((res) => {
+        this.country_list = []
+        if (res.data) {
+          //this.options = [];
+          for (let i = 0; i < res.data.length; i++) {
+            if(res.data[i].id === 2 && val === 'National' ){
+                this.country_list.push({
+                name: res.data[i].name,
+                id: res.data[i].name,
+              });
+            }
+            else if(res.data[i].id !== 2 && val === 'International' ) {
+              this.country_list.push({
+                name: res.data[i].name,
+                id: res.data[i].name,
+              });
+            }
+          }
+        }
       });
     },
+    stateList(val) {
+      axios.get("/api/state").then((res) => {
+        this.state_list = []
+        if (res.data) {
+          this.options = [];
+          for (let i = 0; i < res.data.length; i++) {
+            if(res.data[i].country_id == val ){
+                this.state_list.push({
+                name: res.data[i].name,
+                id: res.data[i].name,
+              });
+            }
+          }
+        }
+      });
+    },
+    UpdateState(v){this.slugCreate(v);},
+    UpdateRegion(v){ this.countryList(v) },
+    UpdateCountry(v){ this.countryCheck(v) },
+
     EncyclopediaList() {
       var api = `/api/encyclopedias/${this.$route.params.id}/edit`;
       axios.get(api).then((response) => {
         this.form.fill(response.data);
+        if(response.data.country === 'India'){
+          this.form.region_type = 'National'
+        } else {
+          this.form.region_type = 'International'
+        }
+        //console.log(this.form);
+        this.countryCheck(this.form.country);
+        this.countryList(this.form.region_type);
         this.pdf_list = response.data.itinerarypdfs;
-        this.images["thumbnail"] = "/encyclopedia/" + response.data.thumbnail;
-        this.images["banner_image"] =
-          "/encyclopedia/" + response.data.banner_image;
+        this.images["thumbnail"] = response.data.thumbnail;
+        this.images["banner_image"] = response.data.banner_image;
 
         this.list_images = response.data.images;
 
@@ -251,6 +439,54 @@ export default {
         this.form.banner_image = [];
         this.form.images = [];
         this.form.files = [];
+        this.form.region_type = this.form.region_type.trim();
+        this.form.state_name = this.form.state_name.trim();
+        this.form.country = this.form.country.trim();
+
+        for(let i = 0;i< response.data.tags.length;i++){
+          this.meta_key.push({
+            value: response.data.tags[i].title,
+            key: response.data.tags[i].id
+          });
+        }
+      });
+    },
+
+    updateTags(){
+      this.form.meta_keyword = []
+      for(let i = 0;i<this.meta_key.length;i++){
+          this.form.meta_keyword.push({
+            title:this.meta_key[i].value,
+            id:this.meta_key[i].key
+          });
+      }
+    },
+
+    countryCheck(val) {
+      axios.get("/api/country").then((res) => {
+        if (res.data) {
+          for (let i = 0; i < res.data.length; i++) {
+            if(res.data[i].name == val){
+              this.stateList(res.data[i].id)
+            }
+          }
+        }
+      });
+      this.allCreated = true;
+    },
+
+    getTags() {
+      axios.get("/api/tags").then((res) => {
+        //this.tags = response.data;
+        if (res) {
+          for(let i = 0;i<res.data.length;i++){
+            this.tags.push({
+              value:res.data[i].title,
+              key:res.data[i].id
+            });
+          }
+          //console.log(this.form.tags)
+        }
       });
     },
 
@@ -259,7 +495,7 @@ export default {
       var files = e.target.files || e.dataTransfer.files;
       if (!files.length) return;
       for (var i = files.length - 1; i >= 0; i--) {
-        this.createImage(event.target.files[i].name, files[i]);
+        this.createImage(e.target.files[i].name, files[i]);
       }
     },
     createImage(name, file) {
@@ -312,17 +548,15 @@ export default {
       }
     },
 
-    slugCreate(event) {
+    slugCreate(value) {
       var slug = "";
-      var value = event.target.value.toLowerCase();
-      // Trim the last whitespace
-      slug = value.replace(/\s*$/g, "");
-      // Change whitespace to "-"
-      this.form.slug = slug.replace(/\s+/g, "-");
-    },
-
-    getImgUrl(img) {
-      return "/encyclopedia/" + img;
+      if(value){
+        value = value.toLowerCase();
+        // Trim the last whitespace
+        slug = value.replace(/\s*$/g, "");
+        // Change whitespace to "-"
+        this.form.slug = slug.replace(/\s+/g, "-");
+      }
     },
 
     deleteImage(id) {
@@ -331,20 +565,45 @@ export default {
         this.EncyclopediaList();
       });
     },
+    
+    deletePdf(id) {
+      var data = { id: id };
+      axios.post("/api/encyclopedia-pdf", data).then((response) => {
+        this.EncyclopediaList();
+      });
+    },
+
 
     addItem() {
+      if (this.form.meta_keyword.length < 1 ) {
+        this.meta_keywordWarn = true
+        return false;
+      }
       // Submit form
+      this.loading = true
+      this.form.tags = this.form.meta_keyword
       var api = `/api/encyclopedias/${this.$route.params.id}`;
       this.form
         .put(api)
         .then((response) => {
+          this.EncyclopediaList();
           this.$toast.fire({
             icon: "success",
             title: "Encyclopedia Updated successfully",
           });
+        this.loading = false
         })
         .catch(() => {});
     },
   },
 };
 </script>
+
+<style scoped>
+  .warn-error {
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 80%;
+    color: #dc3545;
+  }
+</style>

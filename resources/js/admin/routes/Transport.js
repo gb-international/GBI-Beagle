@@ -1,5 +1,5 @@
-
 // // Transport 
+
 // // 
 // //________ Bus 
 
@@ -26,21 +26,21 @@ export default [
 
     // Bus
 
-    { path: '/bus-list', component: BusList },
-    { path: '/bus/:id', component: BusEdit },
-    { path: '/view-bus/:id', component: BusView },
-    { path: '/add-bus', component: BusAdd },
+    { meta: {permId: 62}, path: '/bus-list', component: BusList },
+    { meta: {permId: 62}, path: '/bus/:id', component: BusEdit },
+    { meta: {permId: 62}, path: '/view-bus/:id', component: BusView },
+    { meta: {permId: 62}, path: '/add-bus', component: BusAdd },
     // Train
 
-    { path: '/train-list', component: TrainList },
-    { path: '/train/:id', component: TrainEdit },
-    { path: '/train-view/:id', component: TrainView },
-    { path: '/train-add', component: TrainAdd },
+    { meta: {permId: 63}, path: '/train-list', component: TrainList },
+    { meta: {permId: 63}, path: '/train/:id', component: TrainEdit },
+    { meta: {permId: 63}, path: '/train-view/:id', component: TrainView },
+    { meta: {permId: 63}, path: '/train-add', component: TrainAdd },
     // Flight
 
-    { path: '/flight-list', component: FlightList },
-    { path: '/flight/:id', component: FlightEdit },
-    { path: '/flight-view/:id', component: FlightView },
-    { path: '/flight-add', component: FlightAdd },
+    { meta: {permId: 64}, path: '/flight-list', component: FlightList },
+    { meta: {permId: 64}, path: '/flight/:id', component: FlightEdit },
+    { meta: {permId: 64}, path: '/flight-view/:id', component: FlightView },
+    { meta: {permId: 64}, path: '/flight-add', component: FlightAdd },
 
 ]

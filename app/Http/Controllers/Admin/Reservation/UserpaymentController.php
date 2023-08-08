@@ -9,6 +9,8 @@ use App\Model\Tour\TourUser;
 use App\Model\Tour\Tour;
 use App\Model\School\School;
 use App\Model\User\Information;
+use App\Model\School\Groupmember;
+
 class UserpaymentController extends Controller
 {
     public function paymentList(Request $request){
@@ -41,6 +43,7 @@ class UserpaymentController extends Controller
     public function createpayment(Request $request){
 
         $payment = Userpayment::where('id',$request->id)->first();
+        Groupmember::where('tour_id', $payment->tour_code)->update(['payment_status' => $request->status]);
         $payment->update($request->all());
         return $payment->adminFormat();
     }
@@ -101,12 +104,51 @@ class UserpaymentController extends Controller
     public function getTourUser(Request $request){
         $school=School::select('user_id')->where('id',$request->school_id)->first();
         $touramount = Tour::where('tour_id',$request->tour_code)->select('tour_price')->first();
-        $tour = TourUser::where('tour_code',$request->tour_code)
+        $tour = Groupmember::where('tour_id',$request->tour_code)
             ->select('is_paid')
             ->groupBy('is_paid')
             ->selectRaw('count(*) as total, is_paid')
             ->get();
-        return response()->json(['tour'=>$tour,'user_id'=>$school->user_id,'amount'=>$touramount->tour_price]);
+
+        $students = Groupmember::where('tour_id', $request->tour_code)->where('user_type', 'student')->count();
+        $teachers = Groupmember::where('tour_id', $request->tour_code)->where('user_type', 'teacher')->count();
+
+        if(count($tour) == 1 && $tour[0]->is_paid == true){
+            $arr = [
+                "is_paid" => false,
+                 "total"=> 0
+             ];
+
+             $tour->push($arr);
+        } 
+        else if(count($tour) == 1 && $tour[0]->is_paid == false){
+
+            $arr = [
+                "is_paid" => true,
+                 "total"=> 0
+             ];
+
+            $tour->prepend($arr);
+        }
+        else if(count($tour) < 1){
+
+            $arr1 = [
+                "is_paid" => true,
+                 "total"=> 0
+             ];
+
+            $tour->push($arr1);
+
+             $arr2 = [
+                "is_paid" => false,
+                 "total"=> 0
+             ];
+
+             $tour->push($arr2);
+
+        }
+
+        return response()->json(['tour'=>$tour,'user_id'=>$school->user_id,'amount'=>$touramount->tour_price,'students'=>$students, 'teachers'=>$teachers]);
     }
 
 }

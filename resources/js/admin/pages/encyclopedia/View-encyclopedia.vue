@@ -23,7 +23,7 @@ It takes id from the url and get the data from the api .
             <div class="col-sm-12">
               <h5>Banner Image</h5>
               <img
-                :src="getImgUrl(list_data.banner_image)"
+                :src="list_data.banner_image"
                 class="img-thumbnail"
               />
             </div>
@@ -40,7 +40,7 @@ It takes id from the url and get the data from the api .
 
           <div class="col-sm-5">
             <h5>Thumbnail</h5>
-            <img :src="getImgUrl(list_data.thumbnail)" class="img-thumbnail" />
+            <img :src="list_data.thumbnail" class="img-thumbnail" />
           </div>
         </div>
       </div>
@@ -50,7 +50,7 @@ It takes id from the url and get the data from the api .
         <br />
         <br />
         <div class="col-sm-3" v-for="image in list_data.images" :key="image.image">
-          <img :src="getImgUrl(image.image)" class="img-thumbnail" />
+          <img :src="image.image" class="img-thumbnail" />
         </div>
       </div>
 
@@ -72,7 +72,7 @@ It takes id from the url and get the data from the api .
 <script>
 import ViewLayout from "@/admin/components/layout/ViewLayout.vue";
 export default {
-  name: "View",
+  name: "ViewEncyclopedia",
   components: {
     "view-layout": ViewLayout,
   },

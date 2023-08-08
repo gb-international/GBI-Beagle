@@ -31,7 +31,7 @@
       <div class="input-group mb-1">
         <div class="input-group-prepend">
           <span class="input-group-text">
-            <img src="/images/icons/email.png" class="icon-width" />
+            <img :src="$gbiAssets+'/images/icons/email.png'" class="icon-width" />
           </span>
         </div>
         <input
@@ -49,7 +49,7 @@
         <div class="input-group mb-1">
           <div class="input-group-prepend">
             <span class="input-group-text">
-              <img src="/images/icons/mobile.png" class="icon-width" />
+              <img :src="$gbiAssets+'/images/icons/mobile.png'" class="icon-width" />
             </span>
           </div>
           <input
@@ -117,7 +117,7 @@
       <div class="input-group mb-1">
         <div class="input-group-prepend">
           <span class="input-group-text">
-            <img src="/images/icons/key.png" class="icon-width" />
+            <img :src="$gbiAssets+'/images/icons/key.png'" class="icon-width" />
           </span>
         </div>
         <input
@@ -134,7 +134,7 @@
       <div class="input-group mb-1">
         <div class="input-group-prepend">
           <span class="input-group-text">
-            <img src="/images/icons/key.png" class="icon-width" />
+            <img :src="$gbiAssets+'/images/icons/key.png'" class="icon-width" />
           </span>
         </div>
         <input
@@ -146,8 +146,12 @@
           placeholder="Re-Type Password"
         />
         <div class="w-100">
-          <small class="text-danger text-left" v-if="password_error">{{ password_error }}</small>
-          <small class="text-danger text-left" v-if="password_error_mismatch">{{ password_error_mismatch }}</small>
+          <small class="text-danger text-left" v-if="password_error">{{
+            password_error
+          }}</small>
+          <small class="text-danger text-left" v-if="password_error_mismatch">{{
+            password_error_mismatch
+          }}</small>
         </div>
         <has-error :form="registerForm" field="c_password"></has-error>
       </div>
@@ -172,8 +176,8 @@ export default {
   data() {
     return {
       register_sms: "",
-      password_error:'',
-      password_error_mismatch:'',
+      password_error: "",
+      password_error_mismatch: "",
       registerForm: new Form({
         name: "",
         email: "",
@@ -193,15 +197,14 @@ export default {
       time: 90,
     };
   },
-  watch:{
-    'registerForm.password':function(){
+  watch: {
+    "registerForm.password": function () {
       this.checkPassword(this.registerForm.password);
     },
-    
-    'registerForm.c_password':function(){
+
+    "registerForm.c_password": function () {
       this.checkPasswordMatch();
     },
-
   },
   methods: {
     // Login for the user
@@ -317,10 +320,10 @@ export default {
         this.register_sms = "Please Fill all the filelds";
         return false;
       }
-      if(!this.checkPassword(this.registerForm.password)){
+      if (!this.checkPassword(this.registerForm.password)) {
         return false;
-      }else{
-        this.password_error = '';
+      } else {
+        this.password_error = "";
       }
       if (this.registerForm.password == this.registerForm.c_password) {
         this.registerForm
@@ -334,15 +337,11 @@ export default {
               this.verify_button = 0;
               this.otp_verify = 0;
               this.register_sms = "";
-              this.password_error = '';
-              this.password_error_mismatch = '';
+              this.password_error = "";
+              this.password_error_mismatch = "";
               window.$(".login_close").click();
             }
-            this.$swal.fire(
-              "Successfull!",
-              " Please Login now !!!",
-              "success"
-            );
+            this.$swal.fire("Successfull!", " Please Login now !!!", "success");
           })
           .catch((err) => {
             this.register_sms = "please provide valide credentials";
@@ -350,26 +349,27 @@ export default {
       } else {
         this.register_sms = "Password is not equal";
       }
-      
     },
-    checkPassword(str){
+    checkPassword(str) {
       var re = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
       let result = re.test(str);
-      if(result == false){
-        this.password_error = 'Password should contain 8 letters, with at least a symbol, upper and lower case letters and a number ';
-      }else{
-        this.password_error = '';
+      if (result == false) {
+        this.password_error =
+          "Password should contain 8 letters, with at least a symbol, upper and lower case letters and a number ";
+      } else {
+        this.password_error = "";
       }
       return result;
     },
-    checkPasswordMatch(){
-      if(this.registerForm.password != this.registerForm.c_password){
+    checkPasswordMatch() {
+      if (this.registerForm.c_password.length == 0) {
+        this.password_error_mismatch = "";
+      } else if (this.registerForm.password != this.registerForm.c_password) {
         this.password_error_mismatch = "Password Mismatch";
-      }else{
-        this.password_error_mismatch = '';
+      } else {
+        this.password_error_mismatch = "";
       }
-    }
-
+    },
   },
 };
 </script>

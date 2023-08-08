@@ -1,8 +1,12 @@
 import Vue from 'vue';
 import axios from 'axios';
 import Vuex from 'vuex';
-
 Vue.use(Vuex)
+
+let userSch = JSON.parse(localStorage.getItem("itSearches"));
+if(!userSch){
+    localStorage.setItem("itSearches", JSON.stringify([]));
+}
 
 export function createStore() {
     return new Vuex.Store({
@@ -15,6 +19,7 @@ export function createStore() {
             token : '',
             user: {},
             paymentData:'',
+            notifCount: 0,
         },
         // Getters help to fetch the data from the templates 
         getters: {
@@ -28,8 +33,12 @@ export function createStore() {
             getEditData(state) {
                 return state.editdata
             },
+            notifCount(state) {
+                return state.notifCount
+            },
             isLoggedIn: state => !!state.token,
             authStatus: state => state.status,
+            user: state=> Vue.$cookies.get('user'),
         },
         //getAllTableData();
         actions: {
@@ -38,6 +47,12 @@ export function createStore() {
                 axios.get(api)
                     .then((response) => {
                         context.commit('alldata', response.data.data)
+                    })
+            },
+            getNotifCount(context, sub_id) {
+                axios.get("/api/notif-count/"+sub_id)
+                    .then((response) => {
+                        context.commit('notifCount', response.data)
                     })
             },
             login({ commit }, user) {
@@ -50,6 +65,7 @@ export function createStore() {
                             Vue.$cookies.set('access_token',token);
                             Vue.$cookies.set('refresh_token',resp.data.refresh_token);
                             Vue.$cookies.set('user',user);
+                            //commit('notifCount' ,user.notifCount);
                             Vue.$cookies.set('login',2);
                             localStorage.setItem('token', token)
                             axios.defaults.headers.common['Authorization'] = token
@@ -71,10 +87,12 @@ export function createStore() {
                         .then(resp => {
                             const token = resp.data.success.token
                             const user = resp.data.success.user
+                            Vue.$cookies.set('user',user)
                             localStorage.setItem('token', token)
                             axios.defaults.headers.common['Authorization'] = token
                             commit('auth_success', token, user)
                             resolve(resp)
+                            window.location.replace("/")
                         })
                         .catch(err => {
                             commit('auth_error', err)
@@ -92,6 +110,7 @@ export function createStore() {
                     Vue.$cookies.set('login',1);
                     delete axios.defaults.headers.common['Authorization']
                     resolve()
+                    window.location.replace("/")
                 })
             },
             getEditData(context, api) {
@@ -158,6 +177,9 @@ export function createStore() {
             },
             PAYMENT_TOUR_DATA(state,payload){
                 state.paymentData = payload
+            },
+            notifCount(state, val){
+                state.notifCount = val
             }
         }
     })

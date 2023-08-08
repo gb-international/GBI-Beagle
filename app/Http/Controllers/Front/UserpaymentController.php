@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Front;
 use App\Http\Controllers\Controller; 
 use Illuminate\Http\Request;
@@ -16,22 +15,19 @@ class UserpaymentController extends Controller
             'payment_mode' => 'required',
             'user_id' => 'required',
         ]);
-        if($user->is_incharge == "1"){
+        /*if($user->is_incharge == "1"){*/
             $checkDuplicate = Userpayment::where(['user_id'=>$request->user_id,'tour_code'=>$request->tour_code])->get();
             if($checkDuplicate->count()){
                 return response()->json(['error'=>'You have already made payment']);
             }
             Userpayment::create($request->all());
-        }else{
+       /* }else{
             $tour = TourUser::where([
                 'user_id'=>$user->id,
                 'tour_id'=>$request->tour_code
             ])->first();
             $tour->update($request->all());
-        }
-
-    
-
+        }*/
         return response()->json('successfully paid');
         
     }

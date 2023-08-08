@@ -26,9 +26,10 @@ It takes id from the url and get the data from the api .
                 <h5>Email</h5>
                 <p>{{ user.email }}</p>
               </div>
+              
               <div class="col-sm-6 text-center" v-if="user.information">
                 <img
-                  :src="`/uploadimage/${user.information.photo}`"
+                  :src="user.information.photo"
                   class="img-circle w-80"
                 />
               </div>
@@ -116,7 +117,7 @@ It takes id from the url and get the data from the api .
 
 <script>
 export default {
-  name: "View",
+  name: "ViewUsers",
   data() {
     return {
       user: [],
@@ -129,7 +130,6 @@ export default {
     busView() {
       axios.get(`/api/user/${this.$route.params.id}`).then((response) => {
         this.user = response.data;
-        console.log(this.user);
       });
     },
     goBack() {

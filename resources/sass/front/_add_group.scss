@@ -1,54 +1,61 @@
 //  Add Group member page 
 .AddGroup{
     input{
-        border: 2px solid #d7dcdc;
-        border-radius: 4px;
+        box-shadow: none!important;
+        border: none;
+        
     }
+    .active_tab{ color: #7d7d7d; border: 1px solid; }
+
     .add_group_table{
         thead{
             background-color: #e7e7e7;
             color: grey;
-        }   
+        } 
+        font-size: 14px !important;  
     }
-    .search-box{
-        float: right;
-        .has-search .form-control {
-            padding-left: 2.375rem;
+    .filter-search{
+        input{
+            border-radius: 20px 0px 0px 20px;
         }
-    
-        .has-search .form-control-feedback {
-            position: absolute;
-            z-index: 2;
-            display: block;
-            width: 2.375rem;
-            height: 2.375rem;
-            line-height: 2.375rem;
-            text-align: center;
-            pointer-events: none;
-            color: #aaa;
+        .form-control{
+            background-color: $input-box-grey !important;
+            &:focus{
+                border-color: none;
+                box-shadow: none;
+            }
         }
-    }
-    .custom-file-uploader {
-        position: relative;
-        padding: 7px;
-        color: white;
-        border-radius: 0px 34px 34px 0px;
-        background:grey;
-        input[type='file'] {
-            display: block;
-            position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            z-index: 5;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            cursor: default;
+        button{ 
+            border-radius: 0px 20px 20px 0px;
+            background-color: $input-box-grey !important;
         }
     }
-
+   
+    .file-upload{
+        .file-input-group {
+            input[type="text"]{
+                background: #e5e5e5 !important;
+                height: 38px;
+                border-color: none;
+                box-shadow: none;
+                border-radius: 20px 0px 0px 20px;
+            }
+            input[type="file"] {
+                width: 0.1px;
+                height: 0.1px;
+                opacity: 0;
+                overflow: hidden;
+                position: absolute;
+                z-index: -1;
+            }
+            .input-group-append{
+                label{
+                    border-radius: 20px;
+                    margin-left: -14px;
+                }
+            }
+        }
+    }
     // group member list
     .group_list{
         margin: 0 auto;
@@ -56,13 +63,13 @@
             input{
                 border: 0px !important;
                 background: transparent !important;
-                width: 168px;
+                box-shadow: none!important;
             }
         }
         tr{ border-bottom: 1px solid #e7e7e7;}
         .action_item{
             .edit,.delete{
-                width: 19px;
+                width: 16px;
                 cursor: pointer;
             }
         }

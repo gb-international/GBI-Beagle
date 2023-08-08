@@ -5,7 +5,8 @@ to submit the data we are using a function.
 
  -->
 <template>
-  <form-layout>
+<section>
+  <form-layout v-if="!loading">
     <template #formdata>
       <form
         role="form"
@@ -185,6 +186,11 @@ to submit the data we are using a function.
       </form>
     </template>
   </form-layout>
+  <div class="LoaderDiv" v-show="loading">
+    <img class="loaderLogo" src="/loader/logo_gif.gif">
+    <p style="padding-left: 33px; margin-top: 12px; font-weight: 500;">Loading..</p>
+  </div>
+</section>
 </template>
 
 <script>
@@ -214,6 +220,7 @@ export default {
         mobile: "",
         address: "",
       }),
+      loading: false
     };
   },
   methods: {
@@ -221,11 +228,13 @@ export default {
       this.form
         .post("/api/school")
         .then((res) => {
+          this.loading = true
           this.$router.push(`/schools/${res.data.id}`);
           this.$toast.fire({
             icon: "success",
             title: "School Added successfully",
           });
+          this.loading = false
         })
         .catch(() => {});
     },

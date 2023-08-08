@@ -11,10 +11,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
-    
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 {{-- Dropdown fail if u remove one cdn among of them --}}
 
@@ -22,6 +21,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     {{-- <script src='https://kit.fontawesome.com/a076d05399.js'></script> --}}
 
     <meta property="og:title" content="G.B International is a travel educational specialist for young minds.">
@@ -31,9 +31,10 @@
     <meta property="og:type" content="website">
     <meta property="og:image" content="https://www.gowithgbi.com/assets/front/images/banner2.jpg">
 
-    
     <!-- Styles -->
-    <link href="{{ asset('css/escort/app.css') }}" rel="stylesheet">
+    <link href="{{ secure_asset('css/escort/app.css') }}" rel="stylesheet">
+    {{-- <link href="{{ asset('css/escort/app.css') }}" rel="stylesheet"> --}}
+    
 </head>
 <body>
 <body>
@@ -42,7 +43,8 @@
     <escort></escort>
    </div>
   
-  <script src="{{ asset('js/escort/app.js') }}" type="text/javascript"></script>
+  <script src="{{ secure_asset('js/escort/app.js') }}" type="text/javascript"></script>
+  {{-- <script src="{{ asset('js/escort/app.js') }}" type="text/javascript"></script>  --}}
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 </body>

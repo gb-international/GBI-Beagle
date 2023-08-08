@@ -48,15 +48,10 @@ to submit the data we are using a function.
           <div class="col-sm-6">
             <div class="form-group">
               <label for="Location">Sales Dep</label>
-              <select class="form-control select-field" v-model="form.salesdp_id">
-                <option value="" disabled hidden>Select Sales Man</option>
-                <option v-for="data in users" :value="data.id" :key="data.id">{{data.name }}</option>
-              </select>
-              <!-- <model-select
-                :options="options"
-                v-model="form.salesdp_id"
-                placeholder="Sales department"
-              ></model-select> -->
+              <dropdown-filter class="mb-2" 
+                :itemList="users"  
+                @update:option="UserUpdate"
+              />
               <has-error :form="form" field="salesdp_id"></has-error>
             </div>
           </div>
@@ -85,6 +80,7 @@ import { ModelSelect } from "vue-search-select";
 import BackButton from "@/admin/components/buttons/BackButton.vue";
 import SubmitButton from "@/admin/components/buttons/SubmitButton.vue";
 import FormLayout from "@/admin/components/layout/FormLayout.vue";
+import DropdownFilter from "@/admin/components/form/DropdownFilter.vue";
 export default {
   name: "NewItinerary",
   components: {
@@ -94,6 +90,7 @@ export default {
     "back-button": BackButton,
     "submit-button": SubmitButton,
     "form-layout": FormLayout,
+    "dropdown-filter": DropdownFilter,
   },
   data() {
     return {
@@ -109,17 +106,26 @@ export default {
   },
   created() {
     this.form.itinerary_id = this.$route.params.id;
-    axios.get(`api/members/salesman`).then((response) => {
-      this.users = response.data;
-    });
+    this.getData();
   },
-
   methods: {
+    getData(){
+      axios.get(`/api/members/salesman`).then((response) => {
+        if (response.data) {
+          for(let i = 0;i<response.data.length;i++){
+            this.users.push({
+              name:response.data[i].name,
+              id:response.data[i].id
+            });
+          }
+        }
+      });
+    },
+    UserUpdate(value){ this.form.salesdp_id = value.id; },
     addAccount() {
       this.form
         .post("/account/store")
         .then((response) => {
-          console.log(response);
           if (response.data == "error") {
             this.$swal.fire({
               title: "opps",
@@ -127,7 +133,7 @@ export default {
               type: "error",
             });
           } else {
-            // this.$router.push('/itinerary-list')
+            this.$router.push('/itinerary-list')
             this.$toast.fire({
               icon: "success",
               title: "Successfully Sent",

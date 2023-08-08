@@ -14,15 +14,8 @@ to submit the data we are using a function.
           <div class="col-sm-4">
             <div class="form-group">
               <label for="category">Gallery Category</label>
-              <select
-                class="form-control select-field"
-                :class="{ 'is-invalid': form.errors.has('category') }"
-                v-model="form.category"
-              >
-                <option default="default" value="">Select Category</option>
-                <option value="domestic">Domestic</option>
-                <option value="international">International</option>
-              </select>
+              <dropdown-filter class="mb-2" :itemList="categories" @update:option="UpdateCategory" />
+
               <has-error :form="form" field="category"></has-error>
             </div>
           </div>
@@ -43,11 +36,9 @@ to submit the data we are using a function.
           <div class="col-sm-8">
             <div class="form-group">
               <label for="category">School</label>
-              <model-select
-                :options="schools"
-                v-model="form.school_id"
-                placeholder="Select School"
-              ></model-select>
+
+              <dropdown-filter class="mb-2" :itemList="schools" @update:option="updateSchool" />
+
               <has-error :form="form" field="school_id"></has-error>
             </div>
           </div>
@@ -76,23 +67,26 @@ to submit the data we are using a function.
 
 <script>
 import { Form, HasError } from "vform";
-import { ModelSelect } from "vue-search-select";
-
 import FormButtons from "@/admin/components/buttons/FormButtons.vue";
 import FormLayout from "@/admin/components/layout/FormLayout.vue";
+import DropdownFilter from "@/admin/components/form/DropdownFilter.vue";
 export default {
-  name: "New",
+  name: "NewGallery",
   components: {
     Form,
     "has-error": HasError,
-    ModelSelect,
     "form-buttons": FormButtons,
     "form-layout": FormLayout,
     FormButtons,
+    "dropdown-filter": DropdownFilter,
   },
   data() {
     return {
       options: [],
+      categories:[
+        {name:"Domestic",id:"domestic"},
+        {name:"International",id:"international"}
+      ],
       schools: [],
       form: new Form({
         category: "",
@@ -110,12 +104,14 @@ export default {
       axios.get("/api/school").then((response) => {
         for (var i = 0; i < response.data.length; i++) {
           this.schools.push({
-            value: response.data[i].id,
-            text: response.data[i].school_name
+            name: response.data[i].school_name,
+            id: response.data[i].id
           });
         }
       });
     },
+    UpdateCategory(v){ this.form.category = v.id },    
+    updateSchool(v){ this.form.school_id = v.id },
 
     changePhoto(event) {
       for (var i = 0; i < event.target.files.length; i++) {
@@ -136,9 +132,10 @@ export default {
         .post("/api/gallery")
         .then((response) => {
           this.form.reset();
+          this.$router.push('/gallery');
           this.$toast.fire({
             icon: "success",
-            title: "Category Added successfully",
+            title: "Gallery Added successfully",
           });
         })
         .catch(() => {});

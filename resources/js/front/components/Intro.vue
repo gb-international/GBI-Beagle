@@ -24,10 +24,18 @@
                 <transition name="fade" mode="out-in">
                   <img :src="data.path" class="intro-page-image" />
                 </transition>
-                <div class="text-center">
+                <div class="text-center mt-2">
                   {{ data.text }}
                 </div>
-                <div class="intro-footer">
+
+                <div class="text-center mt-2">
+                  <span v-for="(dot,i) in images" :key="i" @click="showImage(i)">
+                    <span v-if="preview_img_index == i" class="dot-active"/>
+                    <span v-else class="dot"/>
+                  </span>
+                </div>
+
+                <div class="intro-footer mt-4">
                   <div class="row">
                     <div class="col-4">
                       <button
@@ -79,30 +87,36 @@ export default {
     return {
       images: [
         {
+          id:1,
           path: "/assets/front/intro/home.png",
-          text: "Home page",
+          text: "Welcome to Go With GBI web platform .Learn ,explore ,discover and enjoy your journey with best in class quality and service.",
         },
 
         {
+          id:2,
           path: "/assets/front/intro/explore.gif",
-          text: "Explore page",
+          text: "Now search your itineraries from the source/destinationof your choices and filter your itineraries search based on the travel category and number of days",
         },
         {
+          id:3,
           path: "/assets/front/intro/resource.gif",
-          text: "resource page",
+          text: "Get all your answers to your questions related to the journeys you plan with GBI. Learn about the cities and countries you want to explore.",
         },
         {
+          id:4,
           path: "/assets/front/intro/blogs.gif",
-          text: "blogs page",
+          text: "Learn ,explore ,discover about the new places, new approach to educational travel, experiences you get to read ,review and share",
         },
 
         {
+          id:5,
           path: "/assets/front/intro/gallery.gif",
           text: "gallery page",
         },
         {
+          id:6,
           path: "/assets/front/intro/login.gif",
-          text: "login page",
+          text: "Enjoy all the benefits GBI has to offer to its clients on their dash board panel. Now you can book, search your history and get latest updates on sign up with GBI",
         },
       ],
       data: {
@@ -138,7 +152,7 @@ export default {
   },
   methods: {
     showIntro() {
-      window.$("#introButton").click();
+      $("#introButton").click();
     },
     setImage(index = 0) {
       this.data.path = this.images[index].path;
@@ -156,6 +170,13 @@ export default {
     RightImage() {
       if (this.preview_img_index < this.img_length) {
         this.preview_img_index++;
+        this.setImage(this.preview_img_index);
+      }
+    },
+    showImage(index){
+      this.preview_img_index
+      if(index>=0){
+        this.preview_img_index = index;
         this.setImage(this.preview_img_index);
       }
     },

@@ -82,7 +82,7 @@ import TableLoader from '@/admin/components/TableLoader.vue';
 import { mapState } from 'vuex';
 
 export default {
-  name: "List",
+  name: "ListRestaurant",
   components:{
     'list-layout':listLayout,
     'table-loader':TableLoader,
@@ -94,10 +94,10 @@ export default {
   data() {
     return {
       fields: [
-        {key:'school_name',label:'NAME',sortable:true,thClass: 'table-head'},
-        {key:'principal_email_id',label:'PRINCIPal EMAIL',sortable:true,thClass: 'table-head'},
-        {key:'principal_name',label:'INCHARGE NAME',sortable:true,thClass: 'table-head'},
-        {key:'action',label:'ACTION',thClass: 'table-head'}
+        {key:'school_name',label:'name',sortable:true,thClass: 'table-head'},
+        {key:'principal_email_id',label:'principle name',sortable:true,thClass: 'table-head'},
+        {key:'principal_name',label:'incharge name',sortable:true,thClass: 'table-head'},
+        {key:'action',label:'action',thClass: 'table-head'}
       ],
       limit:2,
       filter:'',

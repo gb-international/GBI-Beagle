@@ -2,10 +2,10 @@
 .text_on_image{
     .content-blog-banner{
         position: absolute;
-        top: 25%;
-        left: 6%;
+        top: 25% !important;
+        left: 25%;
         color: white;
-        width: 88%;
+        width: 50%;
         background: transparent;
         padding: 0px 25px;
     }
@@ -32,7 +32,7 @@
 }
 .search-blog-form{
     padding: 15px 13px 9px;
-    background: rgba(43, 188, 255, 0.8);
+    background: #292548a6;
     select,input{
         height: 47px;
     }

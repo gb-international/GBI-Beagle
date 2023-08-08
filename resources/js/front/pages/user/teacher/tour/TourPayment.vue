@@ -4,32 +4,63 @@
       <div class="container p-t-15 mb-20" v-if="tour_info">
         <form>
           <div class="row">
-            <div class="col-sm-2">
-              <label class="text-muted" for="tour_code">Itinerary Code</label>
-              <p>{{ tour_id }}</p>
+            <div class="col-sm-3">
+              <label class="text-muted" for="tour_code">Travel Code</label>
+              <p>{{ tour_info.travel_code }}</p>
             </div>
-            <div class="col-sm-3 text-center">
+
+             <div class="col-sm-3 text-center">
               <label class="text-muted" for="person"
                 >Total Number of people</label
               >
               <p>{{ tour_info.total_members }}</p>
             </div>
-            <div class="col-sm-2 text-center">
-              <label class="text-muted" for="person">Unpaid Members</label>
-              <p>{{ tour_info.unpaid_person }}</p>
-            </div>
-            <div class="col-sm-2 text-center">
-              <label class="text-muted" for="person">Paid Members</label>
-              <p>{{ tour_info.paid_person }}</p>
+
+            <div class="col-sm-3 text-center" v-if="tour_info.already_paid <= 0">
+              <label class="text-muted" for="price">Base Price</label>
+              <p>
+                {{ tour_info.base_price }} /-
+              </p>
             </div>
 
-            <div class="col-sm-2 text-center">
-              <label class="text-muted" for="price">Tour Price</label>
+            <div class="col-sm-3 text-center">
+              <label class="text-muted" for="price">{{ tour_info.already_paid > 0 ? 'Balance Amount' : 'Total Price' }}</label>
               <p>
-                {{ tour_info.base_price }} * {{ tour_info.paid_person }} =
                 {{ tour_info.price }} /-
               </p>
             </div>
+
+            <div class="col-sm-3 text-center" v-if="tour_info.already_paid > 0">
+              <label class="text-muted" for="price">Paid Amount</label>
+              <p>
+                {{ tour_info.base_price * tour_info.already_paid }} /-
+              </p>
+            </div>
+
+
+          </div>
+          <div class="row">
+
+            <div class="col-sm-3">
+              <label class="text-muted" for="person">Paid Members</label>
+              <p>{{ tour_info.paid_person }}</p>
+            </div>
+            <div class="col-sm-3 text-center">
+              <label class="text-muted" for="person">Complimentary</label>
+              <p>{{ tour_info.unpaid_person }}</p>
+            </div>
+
+            <div class="col-sm-3 text-center">
+              <label class="text-muted" for="person">Teachers</label>
+              <p>{{ tour_info.teachers }}</p>
+            </div>
+
+            <div class="col-sm-3 text-center">
+              <label class="text-muted" for="person">Students</label>
+              <p>{{ tour_info.students }}</p>
+            </div>
+
+            
           </div>
           <div class="row">
             <div class="col-sm-4">
@@ -392,6 +423,50 @@
         </div>
       </div>
     </div>
+    <!--- Net Payment Form -->
+    <form class="form" method="POST" action="/test-data"  style="display: none">
+      <input
+         type="text"
+         v-model="teacherform.user_id"
+         name="user_id"
+       />
+       <input
+         type="text"
+         v-model="teacherform.travel_code"
+         name="travel_code"
+       />
+       <input
+         type="text"
+         v-model="teacherform.tour_id"
+         name="tour_id"
+       />
+       <input
+         type="text"
+         v-model="teacherform.school_id"
+         name="entity_id"
+       />
+       <input
+         type="text"
+         v-model="tour_info.price"
+         name="amount"
+       />
+       <input
+         type="text"
+         v-model="teacherform.customer_type"
+         name="customer_type"
+       />
+       <input
+         type="text"
+         v-model="teacherform.payment_mode"
+         name="payment_mode"
+       />
+      <button
+        type="submit"
+        ref="submitNetPayForm"
+      >
+      </button>
+    </form>
+    <!-- End Net Payment Form -->
   </div>
 </template>
 
@@ -427,6 +502,7 @@ export default {
         payment_mode: "self",
         payment_type: "",
         tour_code: "",
+        travel_code:"",
         schoolbankdetail_id: "",
         amount: "",
         user_id: "",
@@ -435,6 +511,7 @@ export default {
         date_of_issue: "",
         ifsc_code: "",
         cheque_number: "",
+        customer_type: "school"
       },
       form: new Form({
         name: "",
@@ -459,7 +536,7 @@ export default {
       this.tour_id = this.$store.state.paymentData.tour_id;
       this.userinfo = this.$cookies.get("user");
       this.teacherform.school_id = this.userinfo.school_id;
-      console.log(this.userinfo);
+      //console.log(this.userinfo);
       this.tourBank();
       this.userData();
     } else {
@@ -617,7 +694,16 @@ export default {
         });
         return false;
       }
-      var data = {
+    this.teacherform.tour_code = this.tour_id;
+      if (this.tour_info.profession == "teacher") {
+        this.teacherform.amount =
+          this.tour_info.price * this.tour_info.no_of_person;
+      } else {
+        this.teacherform.amount = this.tour_info.price;
+      }
+      this.teacherform.user_id = this.tour_info.user_id;
+      this.teacherform.travel_code = this.tour_info.travel_code;
+     var data = {
         user_id: "",
         travel_code: "",
         tour_id: "",
@@ -628,19 +714,25 @@ export default {
         paid_person: 0,
         unpaid_person: 0,
         total_members: 0,
+        customer_type: 'school',
         price: 0,
       };
       data.user_id = this.tour_info.user_id;
       data.paid_person = this.tour_info.paid_person;
       data.unpaid_person = this.tour_info.unpaid_person;
       data.total_members = this.tour_info.total_members;
+      data.no_of_person = this.tour_info.paid_person;
       data.base_price = this.tour_info.base_price;
-      data.price = this.tour_info.price;
+      data.price = this.teacherform.amount;
       data.travel_code = this.tour_info.travel_code;
       data.tour_id = this.tour_id;
       data.school_id = this.userinfo.school_id;
-      this.$cookies.set("payment-data", data, 60 * 60 * 1); // expire in 1 hour
-      this.$router.push("/payment-billing");
+      data.customer_type = this.teacherform.customer_type
+     
+    //console.log(data)
+    this.$cookies.set("payment-data", data, 60 * 60 * 1); // expire in 1 hour
+    this.$router.push("/payment-billing");
+    //this.$refs.submitNetPayForm.click()
     },
 
     backReset() {

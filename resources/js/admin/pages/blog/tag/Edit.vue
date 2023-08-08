@@ -5,6 +5,7 @@ to submit the data we are using a function.
 
  -->
 <template>
+<section>
   <form-layout>
     <template #formdata>
       <form
@@ -31,6 +32,7 @@ to submit the data we are using a function.
       </form>
     </template>
   </form-layout>
+</section>
 </template>
 <script>
 import { Form, HasError } from "vform";
@@ -40,7 +42,7 @@ import SubmitButton from "@/admin/components/buttons/SubmitButton.vue";
 import FormLayout from "@/admin/components/layout/FormLayout.vue";
 
 export default {
-  name: "New",
+  name: "NewTag",
   components: {
     Form,
     "has-error": HasError,
@@ -53,6 +55,7 @@ export default {
       form: new Form({
         title: "",
       }),
+      loading: false
     };
   },
   created() {
@@ -66,6 +69,7 @@ export default {
       });
     },
     UpdateBus() {
+      this.loading = true
       this.form
         .put(`/api/tags/${this.$route.params.id}`)
         .then((response) => {
@@ -75,6 +79,7 @@ export default {
             icon: "success",
             title: "Successfully Updated",
           });
+        this.loading = false
         })
         .catch(() => {});
     },
@@ -83,4 +88,4 @@ export default {
     },
   },
 };
-</script> 
+</script>

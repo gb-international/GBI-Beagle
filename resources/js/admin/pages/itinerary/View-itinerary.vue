@@ -31,7 +31,9 @@ It takes id from the url and get the data from the api .
         </div>
         <div class="col-sm-12">
           <h5>Description</h5>
-          <p v-html="itineraryData.description"></p>
+          <div>
+            <p class="li-padding-18" v-html="itineraryData.description"></p>
+          </div>
         </div>
         <!-- This div will show the itinerary days and its description -->
         <div
@@ -52,7 +54,7 @@ It takes id from the url and get the data from the api .
           <div class="row">
             <div class="col-sm-12">
               <h5>Description</h5>
-              <p v-html="data.day_description"></p>
+              <p class="li-padding-18" v-html="data.day_description"></p>
             </div>
           </div>
         </div>
@@ -65,7 +67,7 @@ It takes id from the url and get the data from the api .
 import ViewLayout from "@/admin/components/layout/ViewLayout.vue";
 
 export default {
-  name: "View",
+  name: "ViewItinerary",
   components: {
     "view-layout": ViewLayout,
   },
@@ -77,26 +79,14 @@ export default {
   },
 
   created() {
-    var api = `/api/itinerary/${this.$route.params.id}`;
-
-    axios.get(api).then((response) => {
-      this.itineraryData = response.data; // add data to the itineraryData
-    });
+    this.getData();
   },
-  computed: {},
-
   methods: {
-    deleteItinerary(id) {
-      axios
-        .get("/delete/" + id)
-        .then(() => {
-          this.$store.dispatch("getAllitinerary");
-          this.$toast.fire({
-            icon: "success",
-            title: "Itinerary Deleted successfully",
-          });
-        })
-        .catch(() => {});
+    getData(){
+      var api = `/api/itinerary/${this.$route.params.id}`;
+      axios.get(api).then((response) => {
+        this.itineraryData = response.data; // add data to the itineraryData
+      });
     }
   },
 };
