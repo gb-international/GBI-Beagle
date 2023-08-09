@@ -4,20 +4,61 @@ namespace App\Http\Controllers\Admin\TourPayment;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Admin\BaseController;
-
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Requests\Api\Payment\SchoolTripPaymentRequest;
 use App\Model\Payment\SchoolStudentPayment;
 
 class SchoolTripPaymentController extends BaseController
 {
+    public function uniqueSlug(String $school_name){
+        $slug_name = Str::slug($school_name, '-'); //Convert Input to Str Slug
+        $school_student_payment = new SchoolStudentPayment;
+
+        //Check if this Slug already exists 
+        $checkSlug = $school_student_payment->whereSlug($slug_name)->exists();
+        $slug = '';
+        if($checkSlug){
+            //Slug already exists.
+    
+            //Add numerical prefix at the end. Starting with 1
+            $numericalPrefix = 1;
+    
+            while(1){
+                //Check if Slug with final prefix exists.
+                $newSlug = $slug_name."_".$numericalPrefix++; //new Slug with incremented Slug Numerical Prefix
+                $newSlug = Str::slug($newSlug); //String Slug
+    
+    
+                $checkSlug = $school_student_payment->whereSlug($newSlug)->exists(); //Check if already exists in DB
+                //This returns true if exists.
+    
+                if(!$checkSlug){
+    
+                    //There is not more coincidence. Finally found unique slug.
+                    $slug = $newSlug; //New Slug 
+    
+                    break; //Break Loop
+                
+                }
+    
+    
+            }
+    
+        }else{
+            //Slug do not exists. Just use the selected Slug.
+            $slug = $slug_name;
+        }
+        return $slug;
+    }
     public function store(SchoolTripPaymentRequest $request){
+        $slug = $this->uniqueSlug(trim($request->school_name));
         try {
             $school_trip_payment = SchoolStudentPayment::create([
                 'school_name' => $request->school_name,
                 'no_of_student' => $request->no_of_student,
                 'banner_link' => $request->banner_link,
-                'slug' => $request->slug,
+                'slug' => $slug,
                 'ph_number' => $request->ph_number,
                 'source' => $request->source,
                 'destination' => $request->destination,
@@ -60,6 +101,9 @@ class SchoolTripPaymentController extends BaseController
             if (is_null($school_trip_payment)) {
                 return $this->sendError('School student payment data not found');
             }
+            $slug = isset($request->school_name)&&!empty($request->school_name)?($this->uniqueSlug(trim($request->school_name))):$school_trip_payment->slug;
+            $school_trip_payment->school_name;
+            $slug = $slug;
             $school_trip_payment->school_name = $request->school_name ?? $school_trip_payment->school_name;
             $school_trip_payment->ph_number = $request->ph_number ?? $school_trip_payment->ph_number;
             $school_trip_payment->no_of_student = $request->no_of_student ?? $school_trip_payment->no_of_student;
