@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Api\Payment;
+namespace App\Http\Controllers\Admin\TourPayment;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\API\BaseController;
+use App\Http\Controllers\Admin\BaseController;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\Api\Payment\SchoolTripPaymentRequest;
