@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Admin\GbiMember;
 
-use App\Http\Controllers\Controller;
+use Validator;
+use App\Http\Controllers\Admin\BaseController;
 use Illuminate\Http\Request;
 use App\Model\RoleAndPermission\Department;
 
-class DepartmentController extends Controller
+class DepartmentController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -44,15 +45,25 @@ class DepartmentController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $this->validate($request,[
+        $validator = Validator::make($request->all(), [
             'name'=>'required',
-            //'description'=>'required',
         ]);
-
-        Department::create($data);
-
-        return response()->json('succesfull created');
-        
+        // return $this->sendError("dd", 500);
+        if ($validator->fails()) {
+            // return response()->json(["status"=>422, $validator->errors()], 422);
+            // $e->getMessage(), 500
+            return $this->errorValidate($validator->errors());
+        }
+        try{
+            $data = array(); 
+            $data['name'] = $request->name??''; 
+            Department::create($data);
+            return response()->json('succesfull created');
+        }
+        catch(Exception $e){
+            $this->sendError($e->getMessage(), 500);
+            // return response()->json(['status' => 500, 'message' => $e->getMessage()], 500, [], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
+        }
     }
 
     /**
@@ -86,14 +97,28 @@ class DepartmentController extends Controller
      */
     public function update(Request $request,Department $Department)
     {
-        $data = $this->validate($request,[
+        // $data = $this->validate($request,[
+        //     'name'=>'required',
+        //     //'description'=>'required',
+        // ]);
+        $validator = Validator::make($request->all(), [
             'name'=>'required',
-            //'description'=>'required',
         ]);
 
-        $Department->update($data);
-
-        return response()->json('succesfull updated');
+        if ($validator->fails()) {
+            return $this->errorValidate($validator->errors());    
+        }
+        try{
+            $data = array(); 
+            $data['name'] = $request->name??''; 
+            // Department::create($data);
+            // return response()->json('succesfull created');
+            $Department->update($data);
+            return response()->json('succesfull updated');
+        }
+        catch(Exception $e){
+            $this->sendError($e->getMessage(), 500);
+        }
     }
 
     /**
@@ -104,7 +129,11 @@ class DepartmentController extends Controller
      */
     public function destroy(Department $Department)
     {
-        $Department->delete();
-        return response()->json('Successfully Deleted');
+        try{
+            $Department->delete();
+            return response()->json('Successfully Deleted');
+        }catch(Exception $e){
+            $this->sendError($e->getMessage(), 500);
+        }
     }
 }

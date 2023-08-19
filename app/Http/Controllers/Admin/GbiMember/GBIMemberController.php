@@ -26,9 +26,9 @@ use App\Http\Resources\MemberResource;
 use App\Model\RoleAndPermission\UserRole;
 use App\Model\RoleAndPermission\Permission;
 use App\Model\RoleAndPermission\UserRolePermission;
+use App\Http\Controllers\Admin\BaseController;
 
-
-class GBIMemberController extends Controller
+class GBIMemberController extends BaseController
 {
 
     public function all($size)
@@ -50,8 +50,7 @@ class GBIMemberController extends Controller
 
 
     public function register(Request $request){ 
-
-        $this->validate($request, [ 
+        $validator = Validator::make($request->all(), [ 
             'name' => ['required',new AlphaSpace],
             'gender' => 'required',
             'address' => 'required|min:3',
@@ -62,112 +61,111 @@ class GBIMemberController extends Controller
             'role_id' => 'required',
             'department_id' => 'required',
         ]);
+        if ($validator->fails()) {
+            return $this->errorValidate($validator->errors());
+        }
+        try{
+            $input = $request->all(); 
+            $input['password'] = bcrypt($input['password']); 
+            $user = User::create($input);
 
-        // if ($validator->fails()) { 
-        //     return response()->json(['error'=>$validator->errors()], 401);            
-        // }
+            $userRole = new UserRole;
+            $userRole->user_id = $user->id;
+            $userRole->department_id = $request->department_id;
+            $userRole->role_id = $request->role_id;
+            $userRole->save();
 
-        $input = $request->all(); 
-        $input['password'] = bcrypt($input['password']); 
-        $user = User::create($input);
+            $user->user_role = $request->role_id; //not required
+            $user->user_role_id = $userRole->id;
+            $user->department_id = $request->department_id; //not required
+            $user->user_type = 'GBI Member';
+            $user->save();
 
-        //$user->assignRole($request->role_name);
-        $userRole = new UserRole;
-        $userRole->user_id = $user->id;
-        $userRole->department_id = $request->department_id;
-        $userRole->role_id = $request->role_id;
-        $userRole->save();
-
-        $user->user_role = $request->role_id; //not required
-        $user->user_role_id = $userRole->id;
-        $user->department_id = $request->department_id; //not required
-        $user->user_type = 'GBI Member';
-        $user->save();
-
-        if($user->user_role == 1){
-            //$permissions = Permission::all();
-            //$user->syncPermissions($permissions);
-            $user->assignRole('Admin');
-
-            if($userRole->department_id == 1){
-                $assignPerm = new AssignPerms;
-                $assignPerm->management($user->user_role_id);
+            if($user->user_role == 1){
+                $user->assignRole('Admin');
+                if($userRole->department_id == 1){
+                    $assignPerm = new AssignPerms;
+                    $assignPerm->management($user->user_role_id);
+                }
             }
-        }
 
-        if($user->user_role == 2){
+            if($user->user_role == 2){
 
-        }
+            }
 
-        if($user->user_role == 3){
-            $userRolePermission = new UserRolePermission;
-            $userRolePermission->permission_id = 81;
-            $userRolePermission->user_roles_id = $user->user_role_id;
-            $userRolePermission->create = 'true';
-            $userRolePermission->delete = 'false';
-            $userRolePermission->edit = 'true';
-            $userRolePermission->view = 'true';
-            $userRolePermission->publish = 'true';
-            $userRolePermission->save();
+            if($user->user_role == 3){
+                $userRolePermission = new UserRolePermission;
+                $userRolePermission->permission_id = 81;
+                $userRolePermission->user_roles_id = $user->user_role_id;
+                $userRolePermission->create = 'true';
+                $userRolePermission->delete = 'false';
+                $userRolePermission->edit = 'true';
+                $userRolePermission->view = 'true';
+                $userRolePermission->publish = 'true';
+                $userRolePermission->save();
 
-            $userRolePermission = new UserRolePermission;
-            $userRolePermission->permission_id = 94;
-            $userRolePermission->user_roles_id = $user->user_role_id;
-            $userRolePermission->create = 'true';
-            $userRolePermission->delete = 'false';
-            $userRolePermission->edit = 'true';
-            $userRolePermission->view = 'true';
-            $userRolePermission->publish = 'true';
-            $userRolePermission->save();
-        }
+                $userRolePermission = new UserRolePermission;
+                $userRolePermission->permission_id = 94;
+                $userRolePermission->user_roles_id = $user->user_role_id;
+                $userRolePermission->create = 'true';
+                $userRolePermission->delete = 'false';
+                $userRolePermission->edit = 'true';
+                $userRolePermission->view = 'true';
+                $userRolePermission->publish = 'true';
+                $userRolePermission->save();
+            }
 
-        if($userRole->department_id == 2){
-            $assignPerm = new AssignPerms;
-            $assignPerm->finance($user->user_role_id);
-        }
+            if($userRole->department_id == 2){
+                $assignPerm = new AssignPerms;
+                $assignPerm->finance($user->user_role_id);
+            }
 
-        if($userRole->department_id == 3){
-            $assignPerm = new AssignPerms;
-            $assignPerm->reservations($user->user_role_id);
-        }
+            if($userRole->department_id == 3){
+                $assignPerm = new AssignPerms;
+                $assignPerm->reservations($user->user_role_id);
+            }
 
-        if($userRole->department_id == 4){
-            $assignPerm = new AssignPerms;
-            $assignPerm->operations($user->user_role_id);
-        }
+            if($userRole->department_id == 4){
+                $assignPerm = new AssignPerms;
+                $assignPerm->operations($user->user_role_id);
+            }
 
-        if($userRole->department_id == 5){
-            $assignPerm = new AssignPerms;
-            $assignPerm->sales($user->user_role_id);
-        }
+            if($userRole->department_id == 5){
+                $assignPerm = new AssignPerms;
+                $assignPerm->sales($user->user_role_id);
+            }
 
-        if($userRole->department_id == 6){
-            $assignPerm = new AssignPerms;
-            $assignPerm->multimedia($user->user_role_id);
-        }
+            if($userRole->department_id == 6){
+                $assignPerm = new AssignPerms;
+                $assignPerm->multimedia($user->user_role_id);
+            }
 
-        if($userRole->department_id == 8){
-            $assignPerm = new AssignPerms;
-            $assignPerm->softdept($user->user_role_id);
-        }
-        
-        // Add more information to the informations table
-        
-        $more  = new Information();
-        $more->user_id = $user->id;
-        $more->phone_no = $request->phone_no;
-        $more->dob = $request->dob;
-        $more->address = $request->address;
-        $more->varified = '1';
-        $more->photo = 'user.png';
-        $more->gender = $request->gender;
-        $more->save();
-        // send mail 
-        $data = ['name'=>$user->name,'email'=>$user->email ];
+            if($userRole->department_id == 8){
+                $assignPerm = new AssignPerms;
+                $assignPerm->softdept($user->user_role_id);
+            }
             
-        GbiNewMemberWelcomeMailJob::dispatch($data);
-        // End more information 
-        return response()->json('Successfully Registered !!!');
+            // Add more information to the informations table
+            
+            $more  = new Information();
+            $more->user_id = $user->id;
+            $more->phone_no = $request->phone_no;
+            $more->dob = $request->dob;
+            $more->address = $request->address;
+            $more->varified = '1';
+            $more->photo = 'user.png';
+            $more->gender = $request->gender;
+            $more->save();
+            // send mail 
+            $data = ['name'=>$user->name,'email'=>$user->email ];
+                
+            GbiNewMemberWelcomeMailJob::dispatch($data);
+            // End more information 
+            return response()->json('Successfully Registered !!!');
+        }
+        catch(Exception $e){
+            $this->sendError($e->getMessage(), 500);
+        }
     }
 
     public function edit($id){
@@ -178,114 +176,109 @@ class GBIMemberController extends Controller
     }
 
    public function update(Request $request,$id){
-       $user = User::where('id',$id)->first();
-       $this->validate($request, [ 
-            'name' => ['required',new AlphaSpace],
-            'gender' => 'required',
-            'address' => 'required|min:3',
-            'email' => [
-                'required','email',new EmailValidate,
-                Rule::unique('users')->ignore($user->id)
-            ],
-            'phone_no' => ['required','numeric',new PhoneNubmerValidate],
-            'role_id' => 'required',
-            'department_id' => 'required',
-            'dob'=> 'required'
-            ]);
-
-        if($request->department_id !== $user->department_id){
-            
-            $assignPerm = new AssignPerms;
-            $assignPerm->delPerms($user->user_role_id);
-
-            if($request->department_id == 1){
-                $assignPerm = new AssignPerms;
-                $assignPerm->management($user->user_role_id);
-            }
-
-            if($request->department_id == 2){
-                $assignPerm = new AssignPerms;
-                $assignPerm->finance($user->user_role_id);
-            }
-
-            if($request->department_id == 3){
-                $assignPerm = new AssignPerms;
-                $assignPerm->reservations($user->user_role_id);
-            }
-
-            if($request->department_id == 4){
-                $assignPerm = new AssignPerms;
-                $assignPerm->operations($user->user_role_id);
-            }
-
-            if($request->department_id == 5){
-                $assignPerm = new AssignPerms;
-                $assignPerm->sales($user->user_role_id);
-            }
-
-            if($request->department_id == 6){
-                $assignPerm = new AssignPerms;
-                $assignPerm->multimedia($user->user_role_id);
-            }
-
-            if($request->department_id == 8){
-                $assignPerm = new AssignPerms;
-                $assignPerm->softdept($user->user_role_id);
-            }
+        $user = User::where('id',$id)->first();
+        $validator = Validator::make($request->all(), ['name' => ['required',new AlphaSpace], 'gender' => 'required','address' => 'required|min:3', 'email' => ['required','email',new EmailValidate, Rule::unique('users')->ignore($user->id)],'phone_no' => ['required','numeric',new PhoneNubmerValidate], 'role_id' => 'required','department_id' => 'required', 'dob'=> 'required']);
+        if ($validator->fails()) {
+            return $this->errorValidate($validator->errors());
         }
+        try{
+            if($request->department_id !== $user->department_id){
+                
+                $assignPerm = new AssignPerms;
+                $assignPerm->delPerms($user->user_role_id);
+
+                if($request->department_id == 1){
+                    $assignPerm = new AssignPerms;
+                    $assignPerm->management($user->user_role_id);
+                }
+
+                if($request->department_id == 2){
+                    $assignPerm = new AssignPerms;
+                    $assignPerm->finance($user->user_role_id);
+                }
+
+                if($request->department_id == 3){
+                    $assignPerm = new AssignPerms;
+                    $assignPerm->reservations($user->user_role_id);
+                }
+
+                if($request->department_id == 4){
+                    $assignPerm = new AssignPerms;
+                    $assignPerm->operations($user->user_role_id);
+                }
+
+                if($request->department_id == 5){
+                    $assignPerm = new AssignPerms;
+                    $assignPerm->sales($user->user_role_id);
+                }
+
+                if($request->department_id == 6){
+                    $assignPerm = new AssignPerms;
+                    $assignPerm->multimedia($user->user_role_id);
+                }
+
+                if($request->department_id == 8){
+                    $assignPerm = new AssignPerms;
+                    $assignPerm->softdept($user->user_role_id);
+                }
+            }
         
-        $user->update([
-            'name' => $request->name,
-            //'gender' => $request->gender,
-            'email' => $request->email,
-            'department_id' => $request->department_id,
-            'user_role' => $request->role_id
-        ]);
-
-        if($user->user_role == 1){
-            //$permissions = Permission::all();
-            //$user->syncPermissions($permissions);
-            $user->assignRole('Admin');
-        } else {
-            $user->removeRole('Admin');
-        }
-
-        $info = [
-            'user_id' => $user->id,
-            'phone_no' => $request->phone_no,
-            'address' => $request->address,
-            'dob' => $request->dob,
-            'gender' => $request->gender
-        ];
-        $userRole = [
-            'user_id' => $user->id,
-            'department_id' => $request->department_id,
-            'role_id' => $request->role_id,
-        ];
-
-        if($user->userRole){
-            $user->userRole->update($userRole);
-        }else{
-            $uRole = UserRole::create($userRole);
             $user->update([
-                'user_role_id' => $uRole->id
+                'name' => $request->name,
+                //'gender' => $request->gender,
+                'email' => $request->email,
+                'department_id' => $request->department_id,
+                'user_role' => $request->role_id
             ]);
-        }
 
-        if($user->information){
-            $user->information->update($info);
-        }else{
-            Information::create($info);
-        }
-
-        /*if($request->old_role != $request->role_name){
-            if($request->old_role != ''){
-                $user->removeRole($request->old_role);
+            if($user->user_role == 1){
+                //$permissions = Permission::all();
+                //$user->syncPermissions($permissions);
+                $user->assignRole('Admin');
+            } else {
+                $user->removeRole('Admin');
             }
-            $user->assignRole($request->role_name);
-        }*/
 
-        return $user;
+            $info = [
+                'user_id' => $user->id,
+                'phone_no' => $request->phone_no,
+                'address' => $request->address,
+                'dob' => $request->dob,
+                'gender' => $request->gender
+            ];
+            $userRole = [
+                'user_id' => $user->id,
+                'department_id' => $request->department_id,
+                'role_id' => $request->role_id,
+            ];
+
+            if($user->userRole){
+                $user->userRole->update($userRole);
+            }else{
+                $uRole = UserRole::create($userRole);
+                $user->update([
+                    'user_role_id' => $uRole->id
+                ]);
+            }
+
+            if($user->information){
+                $user->information->update($info);
+            }else{
+                Information::create($info);
+            }
+
+            /*if($request->old_role != $request->role_name){
+                if($request->old_role != ''){
+                    $user->removeRole($request->old_role);
+                }
+                $user->assignRole($request->role_name);
+            }*/
+
+            return $user;
+        }
+        catch(Exception $e){
+            $this->sendError($e->getMessage(), 500);
+        }
    }
 
     public function destroy($id){
