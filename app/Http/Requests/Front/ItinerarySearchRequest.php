@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Admin;
+namespace App\Http\Requests\Front;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Contracts\Validation\Rule;
-class ItineraryrequestRequest extends FormRequest
+class ItinerarySearchRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,12 +26,11 @@ class ItineraryrequestRequest extends FormRequest
     public function rules()
     {
         return [
-            'tourtype' => 'required',
+            'tourtype' => 'required|exists:tourtypes,id',
             'noofday' => 'required',
-            'source' => 'required',
-            'destination' => 'required',
-            'phoneno' => 'required',
-            'email' => ['required',new EmailValidate],
+           'source' => 'required|array',
+            'destination' => 'required|array',
+            'clientType' => ''
         ];
     }
     protected function failedValidation(Validator $validator) : void

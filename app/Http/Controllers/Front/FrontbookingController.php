@@ -9,11 +9,14 @@ use Auth;
 use App\Jobs\FrontBookingAdminJob;
 use App\Jobs\FrontBookingUserJob;
 use App\Helpers\SendSms;
-class FrontbookingController extends Controller
+use App\Http\Requests\Front\FrontbookingRequest;
+use App\Http\Controllers\Admin\BaseController;
+
+class FrontbookingController extends BaseController
 {
-    public function booking(Request $request){
+    public function booking(FrontbookingRequest $request){
         $user = Auth::user();
-        $validate = $this->validateBooking($request);
+        // $validate = $this->validateBooking($request);
         $citylist = '';
         $transport = '';
         $sightseen = '';

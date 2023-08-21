@@ -73,5 +73,6 @@ class Itinerary extends Model
     {
         return $this->belongsToMany('App\Model\Post\Tag');
     }
+
     
 }
