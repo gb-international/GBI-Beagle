@@ -23,7 +23,7 @@ class ItineraryRequest extends FormRequest
     {
         return [
             'source' => 'required|min:2|max:100',
-            'destination' => 'required|min:3|max:100',
+            'destination' => 'required|different:source|min:3|max:100',
             'noofdays' => 'required|numeric|min:1|max:15',
             'title' => 'required|min:3|max:50',
             'description' => 'required|min:3',

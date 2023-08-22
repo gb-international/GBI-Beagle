@@ -28,7 +28,7 @@ class ItinerarySearchRequest extends FormRequest
         return [
             'tourtype' => 'required|exists:tourtypes,id',
             'noofday' => 'required',
-           'source' => 'required|array',
+            'source' => 'required|array',
             'destination' => 'required|array',
             'clientType' => ''
         ];

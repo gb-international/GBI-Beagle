@@ -73,7 +73,7 @@ Route::namespace('Front')->group(function(){
 	Route::post('/user/save-social','UserController@socialAuth');
 	Route::post('/user/social/{userId}','UserController@socialIndex');
 
-	Route::group(['middleware' => 'auth:api'], function(){
+	// Route::group(['middleware' => 'auth:api'], function(){
 		Route::post('details', 'UserController@details');
 		Route::post('/user-show', 'UserController@show');
 		Route::post('/logout-user','AuthController@logout');
@@ -108,7 +108,7 @@ Route::namespace('Front')->group(function(){
 		Route::post('/group-add','GroupmemberController@studentStore');
 		Route::post('/group-member-update','GroupmemberController@update');
 		Route::post('/destroy-member','GroupmemberController@destroy');
-	});
+	// });
 	Route::get('/flight-detail/{flightNumber}','WebsiteController@getFlightDetails');
 	Route::get('/current-weather/{city}','WebsiteController@getCurrentWeather');
 	Route::get('/forcast-weather/{city}','WebsiteController@getForcastWeather');

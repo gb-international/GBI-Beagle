@@ -32,7 +32,7 @@ class ItineraryrequestRequest extends FormRequest
             'tourtype' => 'required|exists:tourtypes,id',
             'noofday' => 'required',
             'source' => 'required',
-            'destination' => 'required',
+            'destination' => 'required|different:source',
             'phoneno' => ['required',new PhoneNubmerValidate],
             'email' => ['required',new EmailValidate],
         ];
