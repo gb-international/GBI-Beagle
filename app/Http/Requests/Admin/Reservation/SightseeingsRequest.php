@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Requests\Admin;
+namespace App\Http\Requests\Admin\Reservation;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Contracts\Validation\Rule;
-class TourRequest extends FormRequest
+
+class SightseeingsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,16 +27,7 @@ class TourRequest extends FormRequest
     public function rules()
     {
         return [
-            'customer_type' => 'required',
-            'school_id' => 'required_if:customer_type,school|numeric',
-            'company_id' => 'required_if:customer_type,corporate|numeric',
-            'family_id' => 'required_if:customer_type,family|numeric',
-            'itinerary_id' => 'required|exists:itineraries,id',
-            'tour_id' => 'required|unique:tours',
-            'travel_code' => 'required',
-            'tour_start_date' => 'required|date',
-            'tour_end_date' => 'required|date|after_or_equal:tour_start_date',
-            'tour_price' => 'required|numeric',          
+            //
         ];
     }
     protected function failedValidation(Validator $validator) : void

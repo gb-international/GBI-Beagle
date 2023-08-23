@@ -16,8 +16,10 @@ use App\Helpers\SendSms;
 use App\Rules\EmailValidate;
 use App\Rules\PhoneNubmerValidate;
 use App\Rules\AlphaSpace;
+use App\Http\Controllers\Admin\BaseController;
+use App\Http\Requests\Admin\EscortRequest;
 
-class EscortController extends Controller
+class EscortController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -53,10 +55,21 @@ class EscortController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(EscortRequest $request)
     {
-        Escort::create($this->validateEscort($request));
-        return response()->json(['Message'=> $request]);
+        try{
+            $data = array();
+            $data['name'] = $request->name??'';
+            $data['email'] = $request->email??'';
+            $data['phoneno'] = $request->phoneno??'';
+            $data['address'] = $request->address??'';
+            $data['salaryPerday'] = $request->salaryPerday??'';
+            $result = Escort::create($data);
+            return $this->sendResponse($result, "Successfully Inserted");
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage());
+        }
     }
 
     /**

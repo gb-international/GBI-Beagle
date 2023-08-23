@@ -170,7 +170,7 @@ Route::namespace('Admin')->group(function (){
 		Route::post('permission/assign','UserRolePermissionController@store');//Assign user permissions
 		Route::get('permission/remove/{permission}','UserRolePermissionController@destroy');//Remove user permissions
 		Route::get('permissions/{userRoleId}/{size}','UserRolePermissionController@showUserPermissions'); //Check user permissions
-		Route::get('user-permissions/{userId}','UserRolePermissionController@showPermission');
+		Route::get('user-perm issions/{userId}','UserRolePermissionController@showPermission');
 		Route::get('check/permission/{permId}/{userRoleId}','UserRolePermissionController@UserPerm');
 
 	});

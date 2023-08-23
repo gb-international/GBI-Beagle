@@ -10,8 +10,10 @@ namespace App\Http\Controllers\Admin\Reservation;
 use App\Model\Reservation\Bookedhotel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Admin\BaseController;
+use App\Http\Requests\Admin\Reservation\HotelRequest;
 
-class BookedhotelController extends Controller
+class BookedhotelController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -39,21 +41,28 @@ class BookedhotelController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(HotelRequest $request)
     {
-        $this->validate($request,[
-            'price'=>'required',
-            'check_in'=>'required',
-            'check_out'=>'required',
-            'hotel_id' => 'required' 
-        ]);
-        $check = Bookedhotel::where(['tour_code' => $request->tour_code, 'hotel_id' => $request->hotel_id])->get();
-        if(count($check->all()) > 0){
-            return '1';
-        }else{
-            Bookedhotel::create($request->all());
-            return response()->json('Successfully Created');            
+        try{
+            $tour_id = $request->tour_id??0;
+            $tour_code = $request->tour_code??'';
+            $hotel_id = $request->hotel_id??0;
+            $price = $request->price??0;
+            $check_in = $request->check_in??'';
+            $check_out = $request->check_out??'';
+            $result = Bookedhotel::updateOrCreate(['tour_id'=>$tour_id, 'tour_code'=>$tour_code, 'escort_id'=>$escort_id, 'hotel_id'=>$hotel_id, 'check_in'=>$check_in, 'check_out'=>$check_out,'price'=>$price],['tour_id'=>$tour_id, 'tour_code'=>$tour_code]);
+            return $this->sendResponse($result,'Successfully deleted');
         }
+        catch(Exception $e){
+            $this->sendError($e->getMessage(), 500);
+        }
+        // $check = Bookedhotel::where(['tour_code' => $request->tour_code, 'hotel_id' => $request->hotel_id])->get();
+        // if(count($check->all()) > 0){
+        //     return '1';
+        // }else{
+        //     Bookedhotel::create($request->all());
+        //     return response()->json('Successfully Created');            
+        // }
     }
 
     /**
@@ -98,7 +107,12 @@ class BookedhotelController extends Controller
      */
     public function destroy(Bookedhotel $bookedhotel)
     {
-        $bookedhotel->delete();
-        return response()->json('Deleted');
+        try{
+            $bookedhotel->delete();
+            return $this->sendResponse('','Successfully deleted');
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }        
     }
 }

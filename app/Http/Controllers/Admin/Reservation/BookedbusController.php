@@ -9,8 +9,9 @@ namespace App\Http\Controllers\Admin\Reservation;
 use App\Model\Reservation\Bookedbus;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Admin\BaseController;
 
-class BookedbusController extends Controller
+class BookedbusController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -101,7 +102,12 @@ class BookedbusController extends Controller
      */
     public function destroy(Bookedbus $bookedbus)
     {
-        $bookedbus->delete();
-        return response()->json('Deleted');
+        try{
+            $bookedbus->delete();
+            return $this->sendResponse('','Successfully deleted');
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }
     }
 }

@@ -10,8 +10,9 @@ namespace App\Http\Controllers\Admin\Reservation;
 use App\Model\Reservation\Bookedsightseeing;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Admin\BaseController;
 
-class BookedsightseeingController extends Controller
+class BookedsightseeingController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -106,10 +107,19 @@ class BookedsightseeingController extends Controller
      * @param  \App\Bookedsightseeing  $Bookedsightseeing
      * @return \Illuminate\Http\Response
      */
-    public function destroy($tour_code)
+    public function destroy($tour_id)
     {
-        
-        Bookedsightseeing::where('tour_code',$tour_code)->delete();
-        return response()->json('Deleted');
+        try{
+            if(Bookedsightseeing::where('tour_id',$tour_id)->count() > 0){
+                Bookedsightseeing::where('tour_id',$tour_id)->delete();
+                return $this->sendResponse('','Successfully deleted');
+            }
+            else{
+                return $this->sendError("Data not found", 404);
+            }
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }
     }
 }

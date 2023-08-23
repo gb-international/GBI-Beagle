@@ -10,8 +10,9 @@ namespace App\Http\Controllers\Admin\Reservation;
 use App\Model\Reservation\Bookedrestaurant;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Admin\BaseController;
 
-class BookedrestaurantController extends Controller
+class BookedrestaurantController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -97,9 +98,14 @@ class BookedrestaurantController extends Controller
      * @param  \App\Bookedrestaurant  $Bookedrestaurant
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Bookedrestaurant $Bookedrestaurant)
+    public function destroy(Bookedrestaurant $bookedrestaurant)
     {
-        $Bookedrestaurant->delete();
-        return response()->json('Deleted');
+        try{
+            $bookedrestaurant->delete();
+            return $this->sendResponse('','Successfully deleted');
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }
     }
 }
