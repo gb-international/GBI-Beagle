@@ -26,11 +26,15 @@ class ItinerarySearchRequest extends FormRequest
     public function rules()
     {
         return [
-            'tourtype' => 'required|exists:tourtypes,id',
-            'noofday' => 'required',
+            'transport_type' => 'required|in:flight,car,train,bus',
+            'flight' => 'required_if:transport_type,flight|in:1|numeric',
+            'bus' => 'required_if:transport_type,bus|in:1|numeric',
+            'train' => 'required_if:transport_type,train|in:1|numeric',
             'source' => 'required|array',
             'destination' => 'required|array',
-            'clientType' => ''
+            'source.*' => 'required',
+            'destination.*' => 'required|different:source.*',
+            'client_type' => 'required|in:eduInstitute,corporate,general',
         ];
     }
     protected function failedValidation(Validator $validator) : void

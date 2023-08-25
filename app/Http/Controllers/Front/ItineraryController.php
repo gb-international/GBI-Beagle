@@ -55,64 +55,47 @@ class ItineraryController extends BaseController
             // exit;
         try{
             $data = [];
-            $source = $request->source;
-            $destination = $request->destination;
-            $tourtype = $request->tourtype;
-            $noofday = $request->noofday;
-            $clientType = $request->clientType??'';
+            $source = $request->source??'';
+            $transport_type = $request->transport_type??'';
+            $destination = $request->destination??'';
+            $tourtype = $request->tourtype??'';
+            $noofday = $request->noofday??0;
+            $client_type = $request->client_type??'';
             $bus = $request->bus??0;
             $train = $request->train??0;
             $flight = $request->flight??0;
-            
-            if(count($source) > 1){ // Search on the basis of source of the itinerary
-                $data = Itinerary::where('noofdays',$noofday)
-                    ->orWhere('bus',$bus)
-                    ->orWhere('train',$train)
-                    ->orWhere('flight',$flight)
-                    ->WhereIn('source',$source)
-                    ->orWhereIn('destination',$destination)->orWhere('client_type', 'like', '%' . $clientType . '%')->whereHas('tourtypes',  function ($q) use ($tourtype) {
+            // $transport_type = $request->transport_type??'';
+            if(count($source) > 1){
+            // Search on the basis of source of the itinerary
+                $data = Itinerary::where($transport_type,1)->whereIn('source',$source)->whereIn('destination',$destination)->where('client_type', $client_type)->orWhereHas('tourtypes',  function ($q) use ($tourtype) {
                         $q->where('id',$tourtype);
-                    })
-                    ->get();
-                // return response()->json([
-                //     'data'=>$data
-                // ],200);
+                    })->with('tourtypes')->get();
             }
             else{
-        // // return  $request->all();
-        //     if($source !=null ){
+                // echo $transport_type;
+                // exit;
                 $source = implode(",",array_filter($request->source??''));
                 $destination = implode(",",array_filter($request->destination??''));
-                
+
                 $data = Itinerary::where([
                     'source'=>$source,
                     'destination'=>$destination,
-                    'noofdays' => $noofday,
-                ])->orWhere('bus',$bus)->orWhere('train',$train)->orWhere('flight',$flight)->whereHas('tourtypes',  function ($q) use ($tourtype) {
+                    $transport_type=>1,
+                    'client_type'=> $client_type
+                ])->orWhereHas('tourtypes',  function ($q) use ($tourtype) {
                     $q->where('id' ,$tourtype);
                 })->with('tourtypes')->get();
             }
-            // return $request->all();
-            // if($data){
-            //     foreach($data as $d){
-            //         $tourtypes = DB::table('itinerary_tourtype')
-            //             ->where([
-            //                 'itinerary_id' => $d->id,
-            //                 'tourtype_id' => $request->tourtype
-            //             ])->first();
-            //         if($tourtypes){
-            //             array_push($newdata,$d);
-            //         }
-            //     }
-            // }
-            // return response()->json([
-            //     'data'=>$data
-            // ],200);
         }
         catch(Exception $e){
             return $this->sendError($e->getMessage(), 500);
         }
-        return $this->sendResponse($data,'success');
+        if($data->count() > 0){
+            return $this->sendResponse($data,'success');
+        }
+        else{
+            return $this->sendError("Oops! We couldn’t find results for your search", 404);
+        }
     }
 
 
