@@ -27,7 +27,10 @@ class SightseeingsRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            "data.*.*.tour_id" => 'required|exists:tours,id',
+            "data.*.*.tour_code" => 'required|exists:tours,tour_id',
+            "data.*.*.itineraryday_id" => 'required|exists:itinerarydays,id',
+            "data.*.*.sightseeing_id" => 'required|exists:sightseeings,id',
         ];
     }
     protected function failedValidation(Validator $validator) : void

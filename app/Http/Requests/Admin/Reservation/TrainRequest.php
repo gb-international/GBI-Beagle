@@ -27,9 +27,18 @@ class TrainRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'tour_code'=> 'required|exists:tours,tour_id',
+            'tour_id'=> 'required|exists:tours,id',
+            'train_id'=>'required|exists:trains,id',
+            'source' => 'required|min:3|max:100',
+            'destination' => 'required|different:source|min:3|max:100',
+            'departure'=>'required|date',
+            'arrival'=>'required|date|after_or_equal:departure',
+            'price'=>'required|numeric',
         ];
     }
+    
+
     protected function failedValidation(Validator $validator) : void
     {
         throw new HttpResponseException(response()->json(['status' => 422, 'error' =>$validator->errors()]));

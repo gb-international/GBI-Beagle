@@ -26,14 +26,13 @@ class HotelRequest extends FormRequest
      */
     public function rules()
     {
-        
         return [
             'tour_code'=> 'required|exists:tours,tour_id',
             'tour_id'=> 'required|exists:tours,id',
             'hotel_id' => 'required|exists:hotels,id',
             'price'=>'required|numeric',
-            'check_in'=>'required|date_format:Y-m-d',
-            'check_out'=>'required|date_format:Y-m-d',
+            'check_in'=>'required|date',
+            'check_out'=>'required|date|after_or_equal:check_in',
         ];
     }
     

@@ -1,12 +1,14 @@
 <?php
-namespace App\Http\Requests\Front;
+
+namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Contracts\Validation\Rule;
+use App\Rules\AlphaSpace;
 
-class ItinerarySearchRequest extends FormRequest
+class FoodRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,15 +28,10 @@ class ItinerarySearchRequest extends FormRequest
     public function rules()
     {
         return [
-            'transport_type' => 'required|in:flight,car,train,bus',
-            'flight' => 'required_if:transport_type,flight|in:1|numeric',
-            'bus' => 'required_if:transport_type,bus|in:1|numeric',
-            'train' => 'required_if:transport_type,train|in:1|numeric',
-            'source' => 'required|array',
-            'destination' => 'required|array',
-            'source.*' => 'required',
-            'destination.*' => 'required|different:source.*',
-            'client_type' => 'required|in:eduInstitute,corporate,general',
+            'tour_code'=> 'required|exists:tours,tour_id',
+            'tour_id'=> 'required|exists:tours,id',
+            'name' => ['required',new AlphaSpace],
+            'quantity' => 'required|numeric',
         ];
     }
     protected function failedValidation(Validator $validator) : void

@@ -50,11 +50,11 @@ class BookedhotelController extends BaseController
             $price = $request->price??0;
             $check_in = $request->check_in??'';
             $check_out = $request->check_out??'';
-            $result = Bookedhotel::updateOrCreate(['tour_id'=>$tour_id, 'tour_code'=>$tour_code, 'escort_id'=>$escort_id, 'hotel_id'=>$hotel_id, 'check_in'=>$check_in, 'check_out'=>$check_out,'price'=>$price],['tour_id'=>$tour_id, 'tour_code'=>$tour_code]);
-            return $this->sendResponse($result,'Successfully deleted');
+            $result = Bookedhotel::updateOrCreate(['tour_id'=>$tour_id, 'tour_code'=>$tour_code, 'hotel_id'=>$hotel_id, 'check_in'=>$check_in, 'check_out'=>$check_out,'price'=>$price],['tour_id'=>$tour_id, 'tour_code'=>$tour_code]);
+            return $this->sendResponse($result,'Successfully Created');
         }
         catch(Exception $e){
-            $this->sendError($e->getMessage(), 500);
+            return $this->sendError($e->getMessage(), 500);
         }
         // $check = Bookedhotel::where(['tour_code' => $request->tour_code, 'hotel_id' => $request->hotel_id])->get();
         // if(count($check->all()) > 0){

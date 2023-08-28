@@ -5,7 +5,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Model\Reservation\Pnr;
 
-class PnrController extends Controller
+use App\Http\Requests\Admin\Reservation\PnrRequest;
+use App\Http\Controllers\Admin\BaseController;
+class PnrController extends BaseController
 {
      /**
      * Display a listing of the resource.
@@ -33,10 +35,40 @@ class PnrController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PnrRequest $request)
     {
-        Pnr::insert($request->all());
-        return response()->json('success');
+        try{
+            $transport_type = $request->transport_type??'';
+            $tour_code = $request->tour_code??''; 
+            $data = $request->data??''; 
+            foreach ($data as $val ) {
+                if(!empty($val)){
+                    $transport_id = '';
+                    $pnr_number = '';
+                    if($transport_type == "bus"){
+                        $transport_id = $val['transport_bus_id']??'';
+                        $pnr_number = $val['pnr_bus_number']??'';
+                    }
+                    else if($transport_type == "flight"){
+                        $transport_id = $val['transport_flight_id']??'';
+                        $pnr_number = $val['pnr_flight_number']??'';
+                    }
+                    else{
+                        $transport_id = $val['transport_train_id']??'';
+                        $pnr_number = $val['pnr_train_number']??'';
+                    }
+                    
+                    // [{transport_id: 8, pnr_number: "123456"},…]
+                    $result = Pnr::updateOrCreate(['transport_type'=>$transport_type, 'tour_code'=>$tour_code, 'transport_id'=>$transport_id, 'pnr_number'=>$pnr_number],['transport_type'=>$transport_type, 'tour_code'=>$tour_code, 'transport_id'=>$transport_id, 'pnr_number'=>$pnr_number]);
+                }
+            }
+            return $this->sendResponse('','Successfully Created');
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }
+        // Pnr::insert($request->all());
+        // return response()->json('success');
     }
 
     /**

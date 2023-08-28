@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Contracts\Validation\Rule;
-class FlightsRequest extends FormRequest
+class PnrRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,18 +25,17 @@ class FlightsRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'tour_id'=> 'required|exists:tours,id',
+        return [ 
+            'transport_type'=> 'required|in:bus,flight,train',
             'tour_code'=> 'required|exists:tours,tour_id',
-            'flight_id'=>'required|exists:flights,id',
-            'source' => 'required|min:3|max:100',
-            'destination' => 'required|different:source|min:3|max:100',
-            'flight_number'=>'required',
-            'departure'=>'required|date',
-            'arrival'=>'required|date|after_or_equal:departure',
-            'price'=>'required|numeric',
+            'data' => 'required|array',
+            'data.*.transport_bus_id' => 'required_if:transport_type,bus|exists:bookedbuses,id',
+            'data.*.transport_flight_id' => 'required_if:transport_type,flight|exists:bookedflights,id',
+            'data.*.transport_train_id' => 'required_if:transport_type,train|exists:bookedtrains,id',
+            'data.*.pnr_bus_number' => 'required_if:transport_type,bus',
+            'data.*.pnr_flight_number' => 'required_if:transport_type,flight|size:6',
+            'data.*.pnr_train_number' => 'required_if:transport_type,train|size:10',
         ];
-        
     }
     protected function failedValidation(Validator $validator) : void
     {

@@ -27,7 +27,10 @@ class RestaurantsRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'tour_code'=> 'required|exists:tours,tour_id',
+            'tour_id'=> 'required|exists:tours,id',
+            'restaurant_id' => 'required|exists:restaurants,id',
+            'date_of_arrival'=>'required|date',
         ];
     }
     protected function failedValidation(Validator $validator) : void

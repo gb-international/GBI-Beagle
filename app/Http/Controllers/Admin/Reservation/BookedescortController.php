@@ -47,11 +47,11 @@ class BookedescortController extends BaseController
             $tour_id = $request->tour_id??0;
             $tour_code = $request->tour_code??'';
             $result = Bookedescort::updateOrCreate(['tour_id'=>$tour_id, 'tour_code'=>$tour_code, 'escort_id'=>$escort_id],['tour_id'=>$tour_id, 'tour_code'=>$tour_code]);
-            return $this->sendResponse($result,'Successfully deleted');
+            return $this->sendResponse($result,'Successfully Created');
 
         }
         catch(Exception $e){
-            $this->sendError($e->getMessage(), 500);
+            return $this->sendError($e->getMessage(), 500);
         }
         // $check = Bookedescort::where(['tour_code'=>$tour_code,'escort_id'=>$escort_id])->get();
         // if(count($check->all()) > 0){

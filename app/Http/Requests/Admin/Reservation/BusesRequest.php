@@ -27,7 +27,14 @@ class BusesRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'tour_id' => 'required|exists:tours,id',
+            'tour_code' => 'required|exists:tours,tour_id',
+            'bus_id' => 'required|exists:buses,id',
+            'source' => 'required|min:3|max:100',
+            'destination' => 'required|different:source|min:3|max:100',
+            'departure' =>'required|date',
+            'arrival' => 'required|date|after_or_equal:departure',
+            'price' => 'required|numeric',
         ];
     }
     protected function failedValidation(Validator $validator) : void
