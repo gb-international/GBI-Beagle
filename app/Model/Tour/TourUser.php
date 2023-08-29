@@ -8,7 +8,7 @@ class TourUser extends Model
 {
     protected $table = 'tour_user';
     protected $fillable = [
-        'user_id',
+        'user_id', 
         'travel_code',
         'tour_code',
         'user_type',

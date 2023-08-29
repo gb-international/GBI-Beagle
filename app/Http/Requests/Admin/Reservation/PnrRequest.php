@@ -35,6 +35,7 @@ class PnrRequest extends FormRequest
             'data.*.pnr_bus_number' => 'required_if:transport_type,bus',
             'data.*.pnr_flight_number' => 'required_if:transport_type,flight|size:6',
             'data.*.pnr_train_number' => 'required_if:transport_type,train|size:10',
+            'data.*.seat_available' => 'required|numeric',
         ];
     }
     protected function failedValidation(Validator $validator) : void

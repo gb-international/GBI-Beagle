@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Reservation;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Model\Reservation\Pnr;
+use App\Model\Tour\TourUser;
 
 use App\Http\Requests\Admin\Reservation\PnrRequest;
 use App\Http\Controllers\Admin\BaseController;
@@ -41,10 +42,22 @@ class PnrController extends BaseController
             $transport_type = $request->transport_type??'';
             $tour_code = $request->tour_code??''; 
             $data = $request->data??''; 
+            $total_seat_available = 0;
+            foreach ($data as $val ) {
+                if(!empty($val)){
+                    $total_seat_available += $val['seat_available']??0;
+                }
+            }
+            $total_tour_user = TourUser::where('tour_code', $tour_code)->count();
+            // echo $total_tour_user;
+            if($total_tour_user < $total_seat_available){
+                return $this->sendError("Adjust the seat according to tour user", 422);
+            }
             foreach ($data as $val ) {
                 if(!empty($val)){
                     $transport_id = '';
                     $pnr_number = '';
+                    $seat_available = $val['seat_available']??0;
                     if($transport_type == "bus"){
                         $transport_id = $val['transport_bus_id']??'';
                         $pnr_number = $val['pnr_bus_number']??'';
@@ -59,7 +72,11 @@ class PnrController extends BaseController
                     }
                     
                     // [{transport_id: 8, pnr_number: "123456"},…]
-                    $result = Pnr::updateOrCreate(['transport_type'=>$transport_type, 'tour_code'=>$tour_code, 'transport_id'=>$transport_id, 'pnr_number'=>$pnr_number],['transport_type'=>$transport_type, 'tour_code'=>$tour_code, 'transport_id'=>$transport_id, 'pnr_number'=>$pnr_number]);
+                    $result = Pnr::updateOrCreate(['transport_type'=>$transport_type, 'tour_code'=>$tour_code,
+                    'seat_available'=>$seat_available, 
+                    'transport_id'=>$transport_id, 'pnr_number'=>$pnr_number],['transport_type'=>$transport_type, 'tour_code'=>$tour_code, 'transport_id'=>$transport_id, 'pnr_number'=>$pnr_number,
+                    'seat_available'=>$seat_available, 
+                    ]);
                 }
             }
             return $this->sendResponse('','Successfully Created');
