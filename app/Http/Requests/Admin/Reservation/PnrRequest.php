@@ -32,7 +32,7 @@ class PnrRequest extends FormRequest
             'data.*.transport_bus_id' => 'required_if:transport_type,bus|exists:bookedbuses,id',
             'data.*.transport_flight_id' => 'required_if:transport_type,flight|exists:bookedflights,id',
             'data.*.transport_train_id' => 'required_if:transport_type,train|exists:bookedtrains,id',
-            'data.*.pnr_bus_number' => 'required_if:transport_type,bus',
+            'data.*.bus_number' => 'required_if:transport_type,bus',
             'data.*.pnr_flight_number' => 'required_if:transport_type,flight|size:6',
             'data.*.pnr_train_number' => 'required_if:transport_type,train|size:10',
             'data.*.seat_available' => 'required|numeric',

@@ -49,7 +49,7 @@ class PnrController extends BaseController
                 }
             }
             $total_tour_user = TourUser::where('tour_code', $tour_code)->count();
-            // echo $total_tour_user;
+            
             if($total_tour_user < $total_seat_available){
                 return $this->sendError("Adjust the seat according to tour user", 422);
             }
@@ -60,7 +60,7 @@ class PnrController extends BaseController
                     $seat_available = $val['seat_available']??0;
                     if($transport_type == "bus"){
                         $transport_id = $val['transport_bus_id']??'';
-                        $pnr_number = $val['pnr_bus_number']??'';
+                        $pnr_number = $val['bus_number']??'';
                     }
                     else if($transport_type == "flight"){
                         $transport_id = $val['transport_flight_id']??'';
