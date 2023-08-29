@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColumnsPnrsTable extends Migration
+class AddColumnsPopularItinerariesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class AddColumnsPnrsTable extends Migration
      */
     public function up()
     {
-        Schema::table('pnrs', function (Blueprint $table) {
-            $table->bigInteger('seat_available')->default(0);
-        });
+        Schema::table('popular_itineraries', function (Blueprint $table) {
+            $table->dateTime('start_date')->nullable();
+            $table->dateTime('end_date')->nullable();
+        }); 
     }
 
     /**
@@ -25,6 +26,7 @@ class AddColumnsPnrsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('seat_available');
+        Schema::dropIfExists('start_date');
+        Schema::dropIfExists('end_date');
     }
 }

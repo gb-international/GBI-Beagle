@@ -200,7 +200,7 @@ class ItineraryController extends BaseController
             return response()->json(['success'=>'Successfully added']);
         }
         catch(Exception $e){
-            $this->sendError($e->getMessage(), 500);
+            return $this->sendError($e->getMessage(), 500);
         }
     }
 

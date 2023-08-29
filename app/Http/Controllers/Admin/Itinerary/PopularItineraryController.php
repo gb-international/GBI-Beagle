@@ -9,8 +9,10 @@ use App\Model\Itinerary\Popular;
 //use App\Traits\ImageTrait;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Itineraries\PopularItinerariesRequest;
+use App\Http\Controllers\Admin\BaseController;
 
-class PopularItineraryController extends Controller
+class PopularItineraryController extends BaseController
 {
     public function all($size)
     {
@@ -35,12 +37,24 @@ class PopularItineraryController extends Controller
     {
         //
     }
-
-    public function store(Request $request)
+    
+    public function store(PopularItinerariesRequest $request)
     {
-        $data = Popular::create($this->validatePopular($request));
-        $data->save();
-        return response()->json(['Message'=> 'successfull']);
+        try{
+            $popular = new Popular();
+            // $popular = new Popular();
+        // $data = array();
+        $popular->itinerary_id = $request->itinerary_id??0;
+        $popular->season_id = $request->season_id??0;
+        $popular->start_date = $request->start_date??0;
+        $popular->end_date = $request->end_date??0;
+        $popular->save();
+        return $this->sendResponse($popular,'Successfully Created');
+        // return response()->json(['success'=>'Successfully added']);
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }
     }
 
     public function show(Popular $popular)

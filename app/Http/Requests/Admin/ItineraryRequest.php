@@ -34,7 +34,7 @@ class ItineraryRequest extends FormRequest
             // 'detail_photo.*' => 'image|file',
             'hotel_type'=>'required',
             'bus'=>'required|numeric|between:0,1',
-            'train'=>'required|numeric|between:0,1',
+             'train'=>'required|numeric|between:0,1',
             'flight'=>'required|numeric|between:0,1',
             'price'=>'required|numeric|min:0',
             'client_type'=>'required',
