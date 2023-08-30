@@ -17,8 +17,8 @@ class AddColumnsUpcomingToursTable extends Migration
             $table->id();
             $table->foreignId('itineraries_id')->default(0);
             $table->foreignId('season_id')->default(0);
-            $table->dateTime('start_date')->nullable();
-            $table->dateTime('end_date')->nullable();
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
             $table->double('ranking')->default(0);
             $table->dateTime('created_at')->useCurrent();
             $table->dateTime('updated_at')->nullable();

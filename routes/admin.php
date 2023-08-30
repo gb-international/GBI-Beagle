@@ -58,6 +58,8 @@ Route::namespace('Admin')->group(function (){
 
 		Route::get('popular-itineraries/all/{size}','PopularItineraryController@all');
 		Route::resource('popular-itineraries','PopularItineraryController');
+		Route::get('upcoming-tour/all/{size}','UpcomingToursController@all');
+		Route::resource('upcoming-tour','UpcomingToursController');
 	});
 
 	Route::namespace('Tour')->group(function(){

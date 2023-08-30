@@ -30,11 +30,7 @@ class AmenitiesController extends Controller
 
     public function index()
     {
-        return response()->json(Amenities::select([
-            'id','description','title','updated_at'
-            ])
-            ->latest('updated_at')
-            ->get());
+        return response()->json(Amenities::select(['id','description','title','updated_at'])->latest('updated_at')->get());
     }
 
     /**

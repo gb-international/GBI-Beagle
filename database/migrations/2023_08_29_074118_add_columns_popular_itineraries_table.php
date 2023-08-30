@@ -14,8 +14,8 @@ class AddColumnsPopularItinerariesTable extends Migration
     public function up()
     {
         Schema::table('popular_itineraries', function (Blueprint $table) {
-            $table->dateTime('start_date')->nullable();
-            $table->dateTime('end_date')->nullable();
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
         }); 
     }
 
