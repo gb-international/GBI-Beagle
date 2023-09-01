@@ -54,7 +54,7 @@ class CompanyController extends Controller
             'email'=>$user->email,
             'password'=>$user->email
         ];
-        SendLoginDetialJob::dispatch($emaildata);
+        SendLoginDetialJob::dispatchNow($emaildata);
 
         return response()->json('Successfully created');
     }
@@ -119,7 +119,7 @@ class CompanyController extends Controller
     public function update(Request $request, Company $company)
     {
         $company->update($this->validateCompany($request));
-        return response()->json(['message'=>'Successfully Updated']);
+        return response()->json(['message'=>'Successfully updated']);
     }
 
     /**
@@ -142,7 +142,6 @@ class CompanyController extends Controller
             'company_email_id' => ['required','email',new EmailValidate],
             'incharge_email_id' => ['required','email',new EmailValidate],
     		'mobile' => 'required|numeric|regex:/^[0-9\-\+]{9,11}$/ix',
-
             'street' => 'required',
             'incharge_name'=>['required',new AlphaSpace],
             'incharge_mobile_number'=>'',

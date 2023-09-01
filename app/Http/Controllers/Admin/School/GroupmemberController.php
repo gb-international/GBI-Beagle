@@ -45,7 +45,6 @@ class GroupmemberController extends BaseController
             $data['gender'] = $request->gender??$groupmember->gender;
             $data['age'] = $request->age??$groupmember->age;
             $data['mobile'] = $request->mobile??$groupmember->mobile;
-            $data['srNo'] = $request->srNo??$groupmember->srNo;
             $data['tour_id'] = $request->tour_id??$groupmember->tour_id;
             $data['school_id'] = $request->school_id??$groupmember->school_id;
             $data['user_type'] = $request->user_type??$groupmember->user_type;
@@ -67,7 +66,33 @@ class GroupmemberController extends BaseController
 
         try{
             foreach ($request->all() as $row) {
-                Groupmember::create($row);
+                // return $row;
+                // print_r($row);
+                // Groupmember::create($row);
+                if(!empty($row)){
+                    foreach ($row as $val){
+                        $first_name = $val['first_name']??'';
+                        $last_name = $val['last_name']??'';
+                        $email = $val['email']??'';
+                        $gender = $val['gender']??'';
+                        $age = $val['age']??0;
+                        $mobile = $val['mobile']??'';
+                        $sr_no = $val['sr_no']??0;
+                        $tour_id = $val['tour_id']??0;
+                        $school_id = $val['school_id']??0;
+                        $user_type = $val['user_type']??'';
+                        $is_paid = $val['is_paid']??0;
+                        Groupmember::updateOrCreate(['tour_id'=>$tour_id, 'email'=>$email, 'school_id'=>$school_id],['tour_id' => $tour_id, 'school_id' => $school_id,'first_name' => $first_name,
+                        'last_name' => $last_name,
+                        'email' => $email,
+                        'gender' => $gender,
+                        'age' => $age,
+                        'mobile' => $mobile,
+                        'user_type' => $user_type,
+                        'is_paid' => $is_paid,
+                    ]);
+                    }
+                }
             }
             return $this->sendResponse('', 'Successfully Created', 201);
         }

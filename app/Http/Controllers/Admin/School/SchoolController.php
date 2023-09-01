@@ -26,12 +26,7 @@ class SchoolController extends Controller
      */
     public function all($size)
     {
-        return response()->json(School::select([
-            'id','school_name','principal_email_id','principal_name','user_id','updated_at'
-            ])
-            ->with('incharge:id,name')
-            ->latest('updated_at')
-            ->paginate($size));
+        return response()->json(School::select(['id','school_name','principal_email_id','principal_name','user_id','updated_at'])->with('incharge:id,name')->latest('updated_at')->paginate($size));
     }
 
     public function login($id){
@@ -54,7 +49,7 @@ class SchoolController extends Controller
             'email'=>$user->email,
             'password'=>$user->email
         ];
-        SendLoginDetialJob::dispatch($emaildata);
+        SendLoginDetialJob::dispatchNow($emaildata);
 
         return response()->json('Successfully created');
     }

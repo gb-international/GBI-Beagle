@@ -35,7 +35,7 @@ class UpdateMemberRequest extends FormRequest
             "gender" => "required|in:M,F",
             "age" => "required|numeric",
             "mobile" => ['required','numeric',new PhoneNubmerValidate],
-            "srNo" => "required|numeric",
+            // "srNo" => "required|numeric",
             "tour_id"=> "required|exists:tours,tour_id",
             "school_id"=> "required|exists:schools,id",
             "user_type"=> "required|in:student,teacher",
