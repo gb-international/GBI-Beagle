@@ -16,8 +16,11 @@ use App\User;
 use App\Model\User\Information;
 use App\Helpers\SendSms;
 use App\Jobs\SendLoginDetialJob;
+use App\Http\Controllers\Admin\BaseController;
+use App\Http\Requests\Admin\Corporate\CorporateRequest;
 
-class CompanyController extends Controller
+
+class CompanyController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -26,9 +29,7 @@ class CompanyController extends Controller
      */
     public function all($size)
     {
-        return response()->json(Company::select([
-            'id','company_name','incharge_email_id','incharge_name','user_id','updated_at'
-            ])
+        return response()->json(Company::select(['id','company_name','incharge_email_id','incharge_name','user_id','updated_at'])
             ->with('incharge:id,name')
             ->latest('updated_at')
             ->paginate($size));
@@ -80,10 +81,28 @@ class CompanyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CorporateRequest $request)
     {
-        $company = Company::create($this->validateCompany($request));
-        return response()->json($company);
+        try {
+            $data = array();
+            $data['company_name'] = $request->company_name??'';
+            $data['company_email_id'] = $request->company_email_id??'';
+            $data['incharge_email_id'] = $request->incharge_email_id??'';
+            $data['mobile'] = $request->mobile??'';
+            $data['street'] = $request->street??'';
+            $data['incharge_name'] = $request->incharge_name??'';
+            $data['incharge_mobile_number'] = $request->incharge_mobile_number??'';
+            $data['city_name'] = $request->city_name??'';
+            $data['state_name'] = $request->state_name??'';
+            $data['country_name'] = $request->country_name??'';
+            $data['pincode'] = $request->pincode??'';
+            $data['address'] = $request->address??'';
+            $result = Company::create($data);
+            return $this->sendResponse($result,'Successfully Created', 201);
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }
     }
 
     /**
@@ -118,8 +137,26 @@ class CompanyController extends Controller
      */
     public function update(Request $request, Company $company)
     {
-        $company->update($this->validateCompany($request));
-        return response()->json(['message'=>'Successfully updated']);
+        try {
+            $data = array();
+            $data['company_name'] = $request->company_name??$company->company_name;
+            $data['company_email_id'] = $request->company_email_id??$company->company_email_id;
+            $data['incharge_email_id'] = $request->incharge_email_id??$company->incharge_email_id;
+            $data['mobile'] = $request->mobile??$company->mobile;
+            $data['street'] = $request->street??$company->street;
+            $data['incharge_name'] = $request->incharge_name??$company->incharge_name;
+            $data['incharge_mobile_number'] = $request->incharge_mobile_number??$company->incharge_mobile_number;
+            $data['city_name'] = $request->city_name??$company->city_name;
+            $data['state_name'] = $request->state_name??$company->state_name;
+            $data['country_name'] = $request->country_name??$company->country_name;
+            $data['pincode'] = $request->pincode??$company->pincode;
+            $data['address'] = $request->address??$company->address;
+            $result = $company->update($data);
+            return $this->sendResponse($data,'Successfully updated', 200);
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }
     }
 
     /**

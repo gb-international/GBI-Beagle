@@ -9,7 +9,7 @@ class Company extends Model
     protected $table = "companies";
     
     protected $fillable = [
-        'company_name', 'street', 'city_name','state_name','country_name','pincode','finance_email_id','director_email_id','mobile','address','director_name','director_mobile_number','user_id'
+        'company_name', 'street', 'city_name','state_name','country_name','pincode','company_email_id','incharge_email_id','mobile','address','incharge_name','incharge_mobile_number','user_id'
     ];
 
     public function setFinanceEmailIdEmailAttribute($value){

@@ -61,7 +61,7 @@ class DepartmentController extends BaseController
             return response()->json('succesfull created');
         }
         catch(Exception $e){
-            $this->sendError($e->getMessage(), 500);
+            return $this->sendError($e->getMessage(), 500);
             // return response()->json(['status' => 500, 'message' => $e->getMessage()], 500, [], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
         }
     }

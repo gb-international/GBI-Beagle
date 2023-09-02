@@ -31,6 +31,9 @@ class TourController extends Controller{
 
      public function tourList(Request $request){
         $user = Auth::user();
+        
+        // return (auth('api')->user());
+        // exit;
         $total_pax = Groupmember::where('tour_id', $request->travel_code)->count();
         $already_paid = Groupmember::where('tour_id', $request->travel_code)->where('payment_status', 'success')->count();
          // if user is student or teacher
@@ -247,13 +250,16 @@ class TourController extends Controller{
 
         $data = [];
         if($user->is_incharge == '1'){
+
         //---
             $tour_user = Groupmember::where('tour_id',$request->travel_code)
             ->select('is_paid')
             ->groupBy('is_paid')
             ->selectRaw('count(*) as total, is_paid')
             ->get();
+
         //---
+
             $data['paid_person'] = Groupmember::where('tour_id', $request->travel_code)->where('is_paid', '1')->count();
             $data['already_paid'] = Groupmember::where('tour_id', $request->travel_code)->where('is_paid', '1')->where('payment_status', 'success')->count();
             $data['unpaid_person'] = Groupmember::where('tour_id', $request->travel_code)->where('is_paid', '0')->count();

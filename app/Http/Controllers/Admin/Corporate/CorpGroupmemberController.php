@@ -15,24 +15,37 @@ use App\Helpers\SendSms;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\AccountRegistered;
 use Illuminate\Support\Facades\Hash;
-
-class CorpGroupmemberController extends Controller
+use App\Http\Controllers\Admin\BaseController;
+use App\Http\Requests\Admin\Corporate\CorpGroupmemberRequest;
+use App\Http\Requests\Admin\Corporate\UpdateCorpGroupmemberRequest;
+class CorpGroupmemberController extends BaseController
 {
     public function getMember($tour_code,$type){
         $where = ['tour_id'=>$tour_code,'user_type'=>$type];
         return CorpGroupmember::where($where)->get();
     }
-    public function updateMember(Request $request){
-        $groupmember = CorpGroupmember::where('id',$request->id)->firstOrFail();
-        $this->validate($request,[
-            'first_name'=>'required',
-            'last_name'=>'required',
-            'email'=>'required',
-            'gender'=>'required'
-        ]);
-        $groupmember->update($request->all());
+    public function updateMember(UpdateCorpGroupmemberRequest $request){
+        try{
+            $groupmember = CorpGroupmember::where('id',$request->id)->firstOrFail();
 
-        return response()->json('successfull updated');
+            $first_name = $request->first_name??$groupmember->first_name;
+            $last_name = $request->last_name??$groupmember->first_name;
+            $email = $request->email??$groupmember->first_name;
+            $gender = $request->gender??$groupmember->first_name;
+            $age = $request->age??$groupmember->first_name;
+            $mobile = $request->mobile??$groupmember->first_name;
+            $sr_no = $request->sr_no??$groupmember->first_name;
+            $tour_id = $request->tour_id??$groupmember->first_name;
+            $company_id = $request->company_id??$groupmember->company_id;
+            $user_type = $request->user_type??$groupmember->user_type;
+            $is_paid = $$request->is_paid??$groupmember->is_paid;
+
+            $groupmember->update(['tour_id' => $tour_id, 'company_id' =>$company_id,'first_name' => $first_name, 'last_name' => $last_name, 'email' => $email, 'gender' => $gender, 'age' => $age, 'mobile' => $mobile, 'user_type' => $user_type, 'is_paid' => $is_paid]);
+            return $this->sendResponse($groupmember, 'Successfully updated', 200);
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }
     }
     public function destroyMember(Request $request){
         $groupmember = CorpGroupmember::where('id',$request->id)->firstOrFail();
@@ -40,11 +53,39 @@ class CorpGroupmemberController extends Controller
         return response()->json('successfully delete');
     }
 
-    public function addMember(Request $request){
-        foreach ($request->all() as $row) {
-            CorpGroupmember::create($row);
+    public function addMember(CorpGroupmemberRequest $request){
+        try{
+            foreach ($request->all() as $row) {
+                if(!empty($row)){
+                    foreach ($row as $val){
+                        $first_name = $val['first_name']??'';
+                        $last_name = $val['last_name']??'';
+                        $email = $val['email']??'';
+                        $gender = $val['gender']??'';
+                        $age = $val['age']??0;
+                        $mobile = $val['mobile']??'';
+                        $sr_no = $val['sr_no']??0;
+                        $tour_id = $val['tour_id']??0;
+                        $company_id = $val['company_id']??0;
+                        $user_type = $val['user_type']??'';
+                        $is_paid = $val['is_paid']??0;
+                        CorpGroupmember::updateOrCreate(['tour_id'=>$tour_id, 'email'=>$email, 'company_id'=>$company_id],['tour_id' => $tour_id, 'company_id' => $company_id,'first_name' => $first_name,
+                        'last_name' => $last_name,
+                        'email' => $email,
+                        'gender' => $gender,
+                        'age' => $age,
+                        'mobile' => $mobile,
+                        'user_type' => $user_type,
+                        'is_paid' => $is_paid,
+                    ]);
+                    }
+                }
+            }
+            return $this->sendResponse('', 'Successfully Created', 201);
         }
-        return response()->json('succesfully added');
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }
     }
 
     public function addlogindetail(Request $request){
@@ -54,6 +95,7 @@ class CorpGroupmemberController extends Controller
         foreach ($request->all() as $groupmember) {
             // validate if user email is already registered
             $user = User::where('email',$groupmember['email'])->first();
+            
             if(!$user){
                 $user = $this->createUser($groupmember);
                 $message = 'Welcome in GBI-International Please login to GBI panel with credentials Email Id : '. $groupmember['email']. ' And password : '. $groupmember['email'].' Thank you.';

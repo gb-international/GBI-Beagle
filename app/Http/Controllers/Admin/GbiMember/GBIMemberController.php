@@ -164,7 +164,7 @@ class GBIMemberController extends BaseController
             return response()->json('Successfully Registered !!!');
         }
         catch(Exception $e){
-            $this->sendError($e->getMessage(), 500);
+            return $this->sendError($e->getMessage(), 500);
         }
     }
 

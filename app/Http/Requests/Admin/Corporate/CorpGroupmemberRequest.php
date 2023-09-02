@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Admin;
+namespace App\Http\Requests\Admin\Corporate;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
@@ -10,7 +10,7 @@ use App\Rules\EmailValidate;
 use App\Rules\PhoneNubmerValidate;
 use App\Rules\AlphaSpace;
 
-class GroupMemberRequest extends FormRequest
+class CorpGroupmemberRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,7 +28,7 @@ class GroupMemberRequest extends FormRequest
      * @return array
      */
     public function rules()
-    {  
+    {
         return [
             'data' => 'required|array',
             "data.*.first_name" => ['required',new AlphaSpace],
@@ -38,8 +38,8 @@ class GroupMemberRequest extends FormRequest
             "data.*.age" => "required|numeric",
             "data.*.mobile" => ['required','numeric',new PhoneNubmerValidate],
             "data.*.tour_id"=> "required|exists:tours,tour_id",
-            "data.*.school_id"=> "required|exists:schools,id",
-            "data.*.user_type"=> "required|in:student,teacher",
+            "data.*.company_id"=> "required|exists:companies,id",
+            "data.*.user_type"=> "required|in:corporate",
             "data.*.is_paid"=> "required|numeric",
         ];
     }
