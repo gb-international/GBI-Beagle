@@ -16,8 +16,9 @@ use App\User;
 use App\Model\User\Information;
 use App\Helpers\SendSms;
 use App\Jobs\SendLoginDetialJob;
+use App\Http\Controllers\Admin\BaseController;
 
-class SchoolController extends Controller
+class SchoolController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -30,28 +31,34 @@ class SchoolController extends Controller
     }
 
     public function login($id){
-        $school = School::where('id',$id)->first();
-        $user = User::where('email',$school->principal_email_id)->first();
-        if(!$user){
-            $user = $this->createUser($school);
-        }else{
-            $user = $this->updateUser($user,$school);
-        }
-        if($school->user_id != $user->id){
-            $school->user_id = $user->id;
-            $school->save();
-        }
+        try{
+            $school = School::where('id',$id)->first();
+            $user = User::where('email',$school->principal_email_id)->first();
+            if(!$user){
+                $user = $this->createUser($school);
+            }else{
+                $user = $this->updateUser($user,$school);
+            }
+            if($school->user_id != $user->id){
+                $school->user_id = $user->id;
+                $school->save();
+            }
 
-        $sendsms = new SendSms;
-        $message = 'Please check your email to get the GBI Login Credentials';
-        $sendsms->sendLoginDetails($school->principal_mobile_number,$message);
-        $emaildata = [
-            'email'=>$user->email,
-            'password'=>$user->email
-        ];
-        SendLoginDetialJob::dispatchNow($emaildata);
+            $sendsms = new SendSms;
+            $message = 'Please check your email to get the GBI Login Credentials';
+            $sendsms->sendLoginDetails($school->principal_mobile_number,$message);
+            $emaildata = [
+                'email'=>$user->email,
+                'password'=>$user->email
+            ];
+            
+            SendLoginDetialJob::dispatchNow($emaildata);
 
-        return response()->json('Successfully created');
+            return response()->json('Successfully created');
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }
     }
 
     public function index()

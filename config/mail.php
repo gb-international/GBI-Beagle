@@ -87,6 +87,7 @@ return [
     'username' => env('MAIL_USERNAME'),
 
     'password' => env('MAIL_PASSWORD'),
+    'pretend' => false,
 
     /*
     |--------------------------------------------------------------------------
