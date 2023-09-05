@@ -3,7 +3,12 @@
 namespace App\Http\Requests\Admin\School;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Contracts\Validation\Rule;
+use App\Rules\EmailValidate;
+use App\Rules\PhoneNubmerValidate;
+use App\Rules\AlphaSpace;
 class SchoolRequest extends FormRequest
 {
     /**
@@ -13,7 +18,7 @@ class SchoolRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +29,22 @@ class SchoolRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            // 'school_name' => ['required',new AlphaSpace],
+            // 'finance_email_id' => ['required','email',new EmailValidate],
+            // 'principal_email_id' => ['required','email', 'unique:users,email',new EmailValidate],
+            // 'mobile' => ['required','numeric',new PhoneNubmerValidate],
+            // 'street' => 'required',
+            // 'principal_name'=>['required',new AlphaSpace],
+            // 'principal_mobile_number'=>['required','numeric', 'unique:informations,phone_no',new PhoneNubmerValidate],
+            // 'city_name' => 'required',
+            // 'state_name' => 'required',
+            // 'country_name' => 'required',
+            // 'pincode' => 'required|numeric|min:1',
+            // 'address' => 'required',
         ];
+    }
+    protected function failedValidation(Validator $validator) : void
+    {
+        throw new HttpResponseException(response()->json(['status' => 422, 'error' =>$validator->errors()]));
     }
 }

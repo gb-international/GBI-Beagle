@@ -4,21 +4,21 @@
 User Details 
 
 
-Name : {{ ucfirst($data['firstname']) }} {{ $data['lastname']}}
+Name : {{ ucfirst($data['firstname']??'') }} {{ $data['lastname']??''}}
 
-Email : {{ $data['email']}}
+Email : {{ $data['email']??''}}
 
-Contact Number : {{ $data['contactno']}}
+Contact Number : {{ $data['contactno']??''}}
 
-Address : {{ $data['address']}} ( {{ $data['city']}}, {{ $data['state']}} - {{ $data['zipcode']}})
+Address : {{ $data['address']??''}} ( {{ $data['city']??''}}, {{ $data['state']??''}} - {{ $data['zipcode']}})
 
-Position : {{ $data['postvancy'] }}
+Position : {{ $data['applyingfor']??'' }}
 
-@component('mail::button', ['url' => $data['link']])
+@component('mail::button', ['url' => $data['link']??''])
 Click to see Resume
 @endcomponent
 
-User Message : {{ $data['messagescon']}}
+User Message : {{ $data['messagescon']??''}}
 
 
 

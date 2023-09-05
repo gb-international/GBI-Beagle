@@ -144,7 +144,6 @@ class SchoolController extends BaseController
             'finance_email_id' => ['required','email',new EmailValidate],
             'principal_email_id' => ['required','email',new EmailValidate],
     		'mobile' => 'required|numeric|regex:/^[0-9\-\+]{9,11}$/ix',
-
             'street' => 'required',
             'principal_name'=>['required',new AlphaSpace],
             'principal_mobile_number'=>'',

@@ -6,8 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Model\Tour\Frontbooking;
 use Auth;
+use App\Http\Controllers\Admin\BaseController;
 
-class FrontbookingController extends Controller
+class FrontbookingController extends BaseController
 {
 
     public function all($size)
@@ -27,15 +28,27 @@ class FrontbookingController extends Controller
     }
 
     public function status(Request $request){
-        $booking = Frontbooking::where('id',$request->id)->first();
-        $booking->status = ($request->status == true) ? 1:0;
-        $booking->save();
-        return response()->json('successfully udpate');
+        try{
+            $booking = Frontbooking::where('id',$request->id)->first();
+            $booking->status = ($request->status == true) ? 1:0;
+            $booking->save();
+            // return response()->json('successfully udpate');
+            return $this->sendResponse($booking,'successfully udpate');
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }
+        
     }
 
     public function destroy(Request $request){
-        $booking = Frontbooking::where('id',$request->id)->first();
-        $booking->delete();
-        return response()->json('successfully deleted');
+        try{
+            $booking = Frontbooking::where('id',$request->id)->first();
+            $booking->delete();
+            return $this->sendResponse('','successfully deleted');
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }
     }
 }

@@ -17,8 +17,9 @@ class FrontbookingController extends BaseController
 {
     public function booking(FrontbookingRequest $request){
         try{
-            $user = Auth::user();
-            $user = User::where('id',233)->first();
+         $user = auth('api')->user();
+            // $user = Auth::user();
+            // $user = User::where('id',233)->first();
             // $validate = $this->validateBooking($request);
             $citylist = '';
             $transport = '';
@@ -68,7 +69,6 @@ class FrontbookingController extends BaseController
             $sendsms->frontBookingUserSms($user,$booking->itinerary->title);
             // return response()->json('Booking query has sent Successfully');        
             return $this->sendResponse($data,'Booking query has sent Successfully');
-
         }
         catch(Exception $e){
             return $this->sendError($e->getMessage(), 500);
@@ -126,14 +126,14 @@ class FrontbookingController extends BaseController
     public function validateBooking($request)
     {
       return $this->validate($request, [
-            'start_date' => 'required|date',
-            'end_date' => 'required|date|after_or_equal:start_date',
-            'person' => 'required',
-            'adults'=>'required',
-            'children'=>'required',
-            'infants'=>'required',
-            'room' => 'required',
-            'occupancy_type' => 'required'
+        'start_date' => 'required|date',
+        'end_date' => 'required|date|after_or_equal:start_date',
+        'person' => 'required',
+        'adults'=>'required',
+        'children'=>'required',
+        'infants'=>'required',
+        'room' => 'required',
+        'occupancy_type' => 'required'
       ]);
     }
 }

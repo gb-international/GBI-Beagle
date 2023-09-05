@@ -1,12 +1,16 @@
 <?php
 
-namespace App\Http\Requests\Front;
+namespace App\Http\Requests\Front\Joinourteam;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Contracts\Validation\Rule;
-class FrontbookingRequest extends FormRequest
+use App\Rules\EmailValidate;
+use App\Rules\PhoneNubmerValidate;
+use App\Rules\AlphaSpace;
+
+class ContactUsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,19 +30,10 @@ class FrontbookingRequest extends FormRequest
     public function rules()
     {
         return [
-            'start_date' => 'required|date|after:yesterday',
-            'end_date' => 'required|date|after_or_equal:start_date',
-            'person' => 'required',
-            'adults'=>'required|numeric',
-            'children'=>'required|numeric',
-            'infants'=>'required|numeric',
-            'room' => 'required|numeric',
-            'occupancy_type' => 'required|in:Single,Double,Triple, Quad',
-            'sightseen'=> 'array',
-            'city_id' => 'array',
-            'transport' => 'array',
-            'noofday' => 'numeric',
-            'itinerary_id' => 'required|exists:itineraries,id',
+            'name' => ['required',new AlphaSpace],
+            'email' => ['required','email',new EmailValidate],
+            'mobile' => ['required','numeric',new PhoneNubmerValidate],
+            'messagecon' => 'required|min:3',
         ];
     }
     protected function failedValidation(Validator $validator) : void

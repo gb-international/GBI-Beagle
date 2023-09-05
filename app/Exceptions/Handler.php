@@ -57,9 +57,9 @@ class Handler extends ExceptionHandler
     {
         if ($request->is('api/*')) {
             return response()->json([
-                'status' => 401,
+                'status' => 500,
                 'message' => $exception->getMessage()
-            ], 401);
+            ], 500);
         }
         return parent::render($request, $exception);
     }

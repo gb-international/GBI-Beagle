@@ -152,7 +152,7 @@ class AuthController extends Controller{
      * Register api 
      * 
      * @return \Illuminate\Http\Response 
-     */ 
+     */  
     public function register(Request $request) 
     { 
         if($request->email != 'csrikhi@gbinternational.in'){
