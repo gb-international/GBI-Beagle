@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
-
+use App\Http\Controllers\Admin\Customer\CustomerController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -319,16 +319,18 @@ Route::namespace('Admin')->group(function (){
 		Route::resource('season','SeasonController');
 		Route::put('current-season/set', 'SeasonController@setSeason');
 		Route::get('current-season', 'SeasonController@currentSeason');
-	});
+ 	});
 
 	//Final Program
 	Route::namespace('FinalProgram')->group(function(){
 		Route::post('finalprogram/send-sms','SmsController@sendSms');
 	});
-
 });
 
-
+Route::resource('customer', Admin\Customer\CustomerController::class);
+Route::group(['prefix' => '/customer', 'as' => 'customer.'], function () {
+	Route::post('status', [CustomerController::class, 'status']);
+});
 
 
 

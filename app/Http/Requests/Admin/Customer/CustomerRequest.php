@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Http\Requests\Admin\School;
+namespace App\Http\Requests\Admin\Customer;
+
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
@@ -8,7 +9,8 @@ use Illuminate\Contracts\Validation\Rule;
 use App\Rules\EmailValidate;
 use App\Rules\PhoneNubmerValidate;
 use App\Rules\AlphaSpace;
-class SchoolRequest extends FormRequest
+
+class CustomerRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,13 +30,14 @@ class SchoolRequest extends FormRequest
     public function rules()
     {
         return [
-            'school_name' => ['required',new AlphaSpace],
-            'finance_email_id' => ['required','email',new EmailValidate],
-            'principal_email_id' => ['required','email', 'unique:users,email', 'unique:schools,principal_email_id',new EmailValidate],
-            'mobile' => ['required','numeric',new PhoneNubmerValidate],
-            'street' => 'required',
-            'principal_name'=>['required',new AlphaSpace],
-            'principal_mobile_number'=>['required','numeric', 'unique:informations,phone_no','unique:schools,principal_mobile_number',new PhoneNubmerValidate],
+            'name'=>['required',new AlphaSpace],
+            'email_id' => ['required','email', 'unique:users,email', new EmailValidate],
+            'phone_number'=>['required','numeric', 'unique:informations,phone_no',new PhoneNubmerValidate],
+            'father_name'=>['required',new AlphaSpace],
+            'mother_name'=>['required',new AlphaSpace],
+            'dob' => 'required|date|date_format:Y-m-d',
+            'gender' => 'required|in:male,female',
+            'user_profession' => 'required|in:corporate,student, general',
             'city_name' => 'required',
             'state_name' => 'required',
             'country_name' => 'required',
@@ -47,3 +50,5 @@ class SchoolRequest extends FormRequest
         throw new HttpResponseException(response()->json(['status' => 422, 'error' =>$validator->errors()]));
     }
 }
+
+

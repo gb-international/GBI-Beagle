@@ -12,7 +12,8 @@ return [
     'escort_login_link' => env('ESCORT_LOGIN_LINK'),
     //'feedback_link' => env('FEEDBACK_LINK'),
     'bank_id' => env('GBI_BANK_DETAIL_ID'),
-    'gbi_email' => env('CONTACT_US_MAIL'),
+    'gbi_contact_us_email' => env('CONTACT_US_MAIL'),
+    'gbi_careers_email' => env('CAREERS_MAIL'),
     //  aws images path (folder)
     'category_image' => 'images/category/',
     'post_image' => 'images/post/',

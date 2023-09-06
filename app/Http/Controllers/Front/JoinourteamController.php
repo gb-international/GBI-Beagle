@@ -65,7 +65,7 @@ class JoinourteamController extends BaseController
                 );
 
             JobApplications::create($data);
-            $data['emailto'] = config('gbi.gbi_email')??'';
+            $data['emailto'] = config('gbi.gbi_contact_us_email')??'';
             JoinOurTeamJob::dispatchNow($data);
             $data['emailto'] = $request->email??'';
             JoinOurTeamUserJob::dispatchNow($data);
