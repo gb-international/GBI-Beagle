@@ -330,6 +330,7 @@ Route::namespace('Admin')->group(function (){
 Route::resource('customer', Admin\Customer\CustomerController::class);
 Route::group(['prefix' => '/customer', 'as' => 'customer.'], function () {
 	Route::post('status', [CustomerController::class, 'status']);
+	Route::get('all/{user_profession_type}/{size?}', [CustomerController::class, 'all']);
 });
 
 

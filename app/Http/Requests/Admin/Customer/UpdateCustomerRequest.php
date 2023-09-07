@@ -9,9 +9,11 @@ use Illuminate\Contracts\Validation\Rule;
 use App\Rules\EmailValidate;
 use App\Rules\PhoneNubmerValidate;
 use App\Rules\AlphaSpace;
+use Illuminate\Http\Request;
 
-class CustomerRequest extends FormRequest
+class UpdateCustomerRequest extends FormRequest
 {
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -27,19 +29,18 @@ class CustomerRequest extends FormRequest
      *
      * @return array
      */
+    
     public function rules()
     {
+        // $product_id = ;
+
+    return ["scv"=>      $id = $this->route('id')];
+        // return [$r];
         return [
+            'user_id'=>'required|exists:users,id',
             'name'=>['required',new AlphaSpace],
             'email_id' => ['required','email', 'unique:users,email', new EmailValidate],
-            'password' => ['required','string',
-                'min:10',             // must be at least 10 characters in length
-                'regex:/[a-z]/',      // must contain at least one lowercase letter
-                'regex:/[A-Z]/',      // must contain at least one uppercase letter
-                'regex:/[0-9]/',      // must contain at least one digit
-                'regex:/[@$!%*#?&]/', // must contain a special character
-            ],
-            'phone_number'=>['required','numeric', 'unique:informations,phone_no',new PhoneNubmerValidate],
+            'phone_number'=>['required','numeric', 'unique:informations,phone_no', new PhoneNubmerValidate],
             'father_name'=>['required',new AlphaSpace],
             'mother_name'=>['required',new AlphaSpace],
             'dob' => 'required|date|date_format:Y-m-d',
@@ -57,5 +58,3 @@ class CustomerRequest extends FormRequest
         throw new HttpResponseException(response()->json(['status' => 422, 'error' =>$validator->errors()]));
     }
 }
-
-

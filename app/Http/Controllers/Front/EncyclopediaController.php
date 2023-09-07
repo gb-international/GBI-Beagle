@@ -46,4 +46,7 @@ class EncyclopediaController extends Controller
             ->first();
         return response()->json($data);
     }
+    public function search(Request $req){
+        return response()->json($data);
+    }
 }

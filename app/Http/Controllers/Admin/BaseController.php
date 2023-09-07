@@ -45,7 +45,8 @@ class BaseController extends Controller
         return response()->json($response, $status_code);
     }
     public function errorValidate($error, int $status_code = 422){
-        return response()->json(["data"=>$error, 'status'=>$status_code], $status_code);
+        return response()->json(['status' => $status_code, 'message' => $error], $status_code, [], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
+
     }
 
 }

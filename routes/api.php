@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
-
+use App\Http\Controllers\Front\EncyclopediaController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -108,6 +108,10 @@ Route::namespace('Front')->group(function(){
 		Route::post('/group-add','GroupmemberController@studentStore');
 		Route::post('/group-member-update','GroupmemberController@update');
 		Route::post('/destroy-member','GroupmemberController@destroy');
+
+		Route::group(['prefix' => '/encyclopedia', 'as' => 'encyclopedia.'], function () {
+			Route::post('search', [EncyclopediaController::class, 'search']);
+		});
 	});
 	Route::get('/flight-detail/{flightNumber}','WebsiteController@getFlightDetails');
 	Route::get('/current-weather/{city}','WebsiteController@getCurrentWeather');

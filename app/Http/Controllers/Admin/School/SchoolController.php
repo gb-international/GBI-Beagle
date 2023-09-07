@@ -54,8 +54,8 @@ class SchoolController extends BaseController
             ];
             
             SendLoginDetialJob::dispatchNow($emaildata);
-
-            return response()->json('Successfully created');
+            return $this->sendResponse('', 'Successfully Created', 201);
+            // return response()->json('Successfully created');
         }
         catch(Exception $e){
             return $this->sendError($e->getMessage(), 500);
