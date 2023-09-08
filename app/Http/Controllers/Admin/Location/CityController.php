@@ -12,6 +12,10 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CityCollection;
 use App\Rules\AlphaSpace;
+use App\Http\Controllers\Admin\BaseController;
+use App\Http\Requests\Admin\City\UpdateCityRequest;
+use App\Http\Requests\Admin\Customer\CustomerStatusRequest;
+
 
 class CityController extends Controller
 {
@@ -84,6 +88,7 @@ class CityController extends Controller
      */
     public function update(Request $request, City $city)
     {   
+
         $validated =  $this->validate($request, [
             'name' => ['required',new AlphaSpace],
             'country_id' => 'required',
