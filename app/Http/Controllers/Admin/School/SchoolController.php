@@ -18,6 +18,7 @@ use App\Helpers\SendSms;
 use App\Jobs\SendLoginDetialJob;
 use App\Http\Controllers\Admin\BaseController;
 use App\Http\Requests\Admin\School\SchoolRequest;
+use App\Http\Requests\Admin\School\UpdateSchoolRequest;
 
 class SchoolController extends BaseController
 {
@@ -137,7 +138,7 @@ class SchoolController extends BaseController
      * @param  \App\School  $school
      * @return \Illuminate\Http\Response
      */
-    public function update(SchoolRequest $request, School $school)
+    public function update(UpdateSchoolRequest $request, School $school)
     {
         try{
             $data = array();
