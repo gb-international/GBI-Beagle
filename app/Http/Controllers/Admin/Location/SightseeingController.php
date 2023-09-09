@@ -72,9 +72,7 @@ class SightseeingController extends BaseController
             }
             $sightseeing = Sightseeing::create($data);
 
-            $mapData = \GoogleMaps::load('geocoding')
-            ->setParam (['address' => $sightseeing->address])
-            ->get('results.geometry.location')??0;
+            $mapData = \GoogleMaps::load('geocoding')->setParam (['address' => $sightseeing->address])->get('results.geometry.location')??0;
 
             $sightseeing->latlng = $mapData['results'][0]['geometry']['location']??0;
 

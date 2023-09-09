@@ -10,8 +10,9 @@ use App\Model\Location\State;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Rules\AlphaSpace;
-
-class StateController extends Controller
+use App\Http\Controllers\Admin\BaseController;
+use App\Http\Requests\Admin\state\StateRequest;
+class StateController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -45,14 +46,18 @@ class StateController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StateRequest $request)
     {
-        $this->validateState($request);
-        $state = new State();
-        $state->country_id = $request->country_id;
-        $state->name = $request->name;
-        $state->save();
-       return response()->json(['Message'=> 'Successfully Added...']);
+        try{
+            $state = new State();
+            $state->country_id = $request->country_id??'';
+            $state->name = $request->name??'';
+            $state->save();
+            return $this->sendResponse($state,'Successfully Added...');
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }
     }
 
     /**
@@ -84,10 +89,18 @@ class StateController extends Controller
      * @param  \App\State  $state
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, State $state)
+    public function update(StateRequest $request, State $state)
     {
-        $state->update($this->validateState($request));
-        return response()->json(['message'=>'Successfully Updated']);
+        try{
+            $data = array();
+            $data['country_id'] = $request->country_id??'';
+            $data['name'] = $request->name??'';
+            $state->update($data);
+            return $this->sendResponse($state,'Successfully Updated');
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }
     }
 
     /**

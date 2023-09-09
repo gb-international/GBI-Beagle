@@ -13,11 +13,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\CityCollection;
 use App\Rules\AlphaSpace;
 use App\Http\Controllers\Admin\BaseController;
+use App\Http\Requests\Admin\City\CityRequest;
 use App\Http\Requests\Admin\City\UpdateCityRequest;
-use App\Http\Requests\Admin\Customer\CustomerStatusRequest;
 
 
-class CityController extends Controller
+class CityController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -51,10 +51,19 @@ class CityController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CityRequest $request)
     {
-        City::create($this->validateCity($request));
-       return response()->json(['Message'=> 'Successfully Added...']);
+        try{
+            $data = array();
+            $data['name'] = $request->name??'';
+            $data['state_id'] = $request->state_id??0;
+            $data['country_id'] = $request->country_id??0;
+            $city = City::create($data);
+            return $this->sendResponse($city,'Successfully Added...');
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }
     }
 
     /**
@@ -86,16 +95,20 @@ class CityController extends Controller
      * @param  \App\City  $city
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, City $city)
+    public function update(UpdateCityRequest $request, City $city)
     {   
-
-        $validated =  $this->validate($request, [
-            'name' => ['required',new AlphaSpace],
-            'country_id' => 'required',
-            'state_id' => 'required',
-        ]);
-        $city->update($validated);
-        return response()->json(['message'=>'Successfully Updated']);
+        try{
+            $data = array();
+            $data['name'] = $request->name??$city->name;
+            $data['state_id'] = $request->state_id??$city->state_id;
+            $data['country_id'] = $request->country_id??$city->country_id;
+            $city->update($data);
+            return $this->sendResponse($city,'Successfully Updated');
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }
+        // return response()->json(['message'=>'Successfully Updated']);
     }
 
     /**

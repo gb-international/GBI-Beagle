@@ -9,8 +9,10 @@ namespace App\Http\Controllers\Admin\Location;
 use App\Model\Location\Country;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Admin\BaseController;
+use App\Http\Requests\Admin\country\CountryRequest;
 
-class CountryController extends Controller
+class CountryController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -19,9 +21,7 @@ class CountryController extends Controller
      */
     public function all($size)
     {
-        return response()->json(Country::select('id','name','updated_at')
-            ->latest('updated_at')
-            ->paginate($size));
+        return response()->json(Country::select('id','name','updated_at')->latest('updated_at')->paginate($size));
     }
     public function index()
     {
@@ -44,10 +44,17 @@ class CountryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CountryRequest $request)
     {
-        Country::create($this->validateCountry($request));
-        return response()->json(['Message'=> 'successfull']);
+        try{
+            $data = array();
+            $data['name'] = $request->name??'';
+            $country = Country::create($data);
+            return $this->sendResponse($country,'successfull');
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }
     }
 
     /**

@@ -44,7 +44,7 @@ Route::namespace('Admin')->group(function (){
 		Route::post('maps/get-map','MapsController@getMap');
 		Route::post('maps/get-direction','MapsController@getDirection');
 		Route::post('maps/get-matrix','MapsController@getDistMatrix');
-		Route::post('maps/get-places','MapsController@getPlaces');
+		Route::post('maps/ get-places','MapsController@getPlaces');
 	});
 
 	Route::namespace('Itinerary')->group(function(){
