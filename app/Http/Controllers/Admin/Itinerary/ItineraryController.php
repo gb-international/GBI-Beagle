@@ -308,7 +308,6 @@ class ItineraryController extends BaseController
                     $ItImages->itinerary_id = $itinerary->id;
                     $ItImages->image = $newImages[$count];
                     $ItImages->save();
-
                 //$newAlts[$count] = 'itinerary_image'.uniqid();
                 $count++;
                 }
