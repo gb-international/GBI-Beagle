@@ -131,6 +131,7 @@ class PostController extends Controller
     */
     public function store(PostRequest $request)
     {
+
         $data = $request->except('meta_keyword');
         $tag_id= array();
         $meta_keyword="";   

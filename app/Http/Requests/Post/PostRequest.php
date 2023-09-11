@@ -31,8 +31,10 @@ class PostRequest extends FormRequest
             'description'=>'required',
             'summery'=>'required',
             'meta_title'=>'required',
-            'meta_keyword'=>'required',
-            'status'=>'required',
+            'meta_keyword'=>'required|array',
+            'status'=>'required|',
+            'category_id'=>'required|exists:schools,id',
+            'client_type'=>'required|in:eduInstitute,corporate,general'
         ];
     }
     protected function failedValidation(Validator $validator) : void
