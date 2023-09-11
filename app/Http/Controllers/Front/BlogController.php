@@ -6,7 +6,10 @@ use App\Model\Post\Post;
 use App\Model\Post\Comment;
 use App\Model\Post\Category;
 use App\Model\Post\Tag;
-class BlogController extends Controller
+use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\Admin\BaseController;
+
+class BlogController extends BaseController
 {
     public function list($count=3)
     {
@@ -48,18 +51,30 @@ class BlogController extends Controller
 
     public function searchPost(Request $request)
     {
-        if($request->title != ''){
-            $data = Post::with('category','tags')
-            ->where('title','like',"%$request->title%")
-            ->orWhere('category_id',$request->category_id)
-            ->get();
-        }else{
-            $data = Post::with('category','tags')
-            ->where('category_id',$request->category_id)
-            ->where('title','like',"%$request->title%")
-            ->get();
+        try{
+            $validator = Validator::make($request->all(), [
+                'title'=>['required'],
+                'category_id'=>'exists:categories,id',
+            ]);
+            if ($validator->fails()) {
+                return $this->errorValidate($validator->errors(), 422);
+            }
+            $category_id = $request->category_id??0;
+            if(empty($category_id)){
+                $data = Post::with('category','tags')
+                ->where('title','like',"%$request->title%")->get();
+            }
+            else{
+                $data = Post::with('category','tags')->where('title','like',"%$request->title%")->where('category_id',$request->category_id)->get();
+                if($data->count() < 1){
+                    $data = Post::with('category','tags')->where('title','like',"%$request->title%")->get();
+                }
+            }
+            return $this->sendResponse($data,'Successful', 200);
         }
-        return response()->json($data);
+        catch(Exception $e){
+           return $this->sendError($e->getMessage(), 500);
+        }
     }
 
     public function addComment(Request $request)

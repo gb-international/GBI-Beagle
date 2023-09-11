@@ -5,12 +5,14 @@ Purpose : Manage Seasons
 */
 namespace App\Http\Controllers\Admin\Season;
 
+use Validator;
 use App\Model\Season\Season;
 use App\Model\DefaultSet\DefaultSet;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Admin\BaseController;
 
-class SeasonController extends Controller
+class SeasonController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -45,9 +47,26 @@ class SeasonController extends Controller
      */
     public function store(Request $request)
     {
-        $data = Season::create($this->validateSeason($request));
-        $data->save();
-        return response()->json(['Message'=> 'successfull']);
+        $validator = Validator::make($request->all(), [
+            'name'=>'required',
+            'description'=>'required'
+        ]);
+
+        if ($validator->fails()) {
+            return $this->errorValidate($validator->errors());
+        }
+
+        try{
+            $data_store = array();
+            $data_store['name'] = $request->name??''; 
+            $data_store['description'] = $request->description??''; 
+            $data = Season::create($data_store);
+            $data->save();
+            return response()->json(['Message'=> 'successfull']);
+        }
+        catch(Exception $e){
+            $this->sendError($e->getMessage(), 500);
+        }
     }
 
     public function currentSeason(){
@@ -95,9 +114,25 @@ class SeasonController extends Controller
     public function update(Request $request, Season $season)
     {
         //$season->update($this->validateSeason($request));
-        $data = $this->validateSeason($request);
-        $season->update($data);
-        return response()->json(['Message'=> 'successfull']);
+        $validator = Validator::make($request->all(), [
+            'name'=>'required',
+            'description'=>'required'
+        ]);
+
+        if ($validator->fails()) {
+            return $this->errorValidate($validator->errors());
+        }
+        
+        try{
+            $data_store = array();
+            $data_store['name'] = $request->name??''; 
+            $data_store['description'] = $request->description??''; 
+            $season->update($data_store);
+            return response()->json(['Message'=> 'successfull']);
+        }
+        catch(Exception $e){
+            $this->sendError($e->getMessage(), 500);
+        }
     }
 
     /**
@@ -112,11 +147,11 @@ class SeasonController extends Controller
         return response()->json('successfully deleted');
     }
 
-    public function validateSeason($request)
-    {
-        return $this->validate($request,[
-            'name'=>'required',
-            'description'=>'required'
-        ]);
-    }
+    // public function validateSeason($request)
+    // {
+    //     return $this->validate($request,[
+    //         'name'=>'required',
+    //         'description'=>'required'
+    //     ]);
+    // }
 }

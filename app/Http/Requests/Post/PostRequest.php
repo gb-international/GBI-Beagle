@@ -3,6 +3,9 @@
 namespace App\Http\Requests\Post;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Contracts\Validation\Rule;
 
 class PostRequest extends FormRequest
 {
@@ -28,8 +31,14 @@ class PostRequest extends FormRequest
             'description'=>'required',
             'summery'=>'required',
             'meta_title'=>'required',
-            'meta_keyword'=>'required',
-            'status'=>'required',
+            'meta_keyword'=>'required|array',
+            'status'=>'required|',
+            'category_id'=>'required|exists:schools,id',
+            'client_type'=>'required|in:eduInstitute,corporate,general'
         ];
+    }
+    protected function failedValidation(Validator $validator) : void
+    {
+        throw new HttpResponseException(response()->json(['status' => 422, 'error' =>$validator->errors()]));
     }
 }

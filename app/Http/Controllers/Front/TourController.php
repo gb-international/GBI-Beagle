@@ -31,6 +31,9 @@ class TourController extends Controller{
 
      public function tourList(Request $request){
         $user = Auth::user();
+        
+        // return (auth('api')->user());
+        // exit;
         $total_pax = Groupmember::where('tour_id', $request->travel_code)->count();
         $already_paid = Groupmember::where('tour_id', $request->travel_code)->where('payment_status', 'success')->count();
          // if user is student or teacher

@@ -4,7 +4,6 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Itinerary\Itinerary;
 use App\Model\Encyclopedia\Encyclopedia;
-use App\Model\Itinerary\Itineraryrequest;
 use App\Model\Tour\Tourprogram;
 use App\Rules\EmailValidate;
 use App\Model\Tour\Tour;
@@ -12,11 +11,16 @@ use App\Model\Event\Event;
 use App\Model\Itinerary\Popular;
 use App\Model\Season\Season;
 use App\Model\DefaultSet\DefaultSet;
+use App\Http\Controllers\Admin\BaseController;
+use App\Http\Requests\Front\ItineraryrequestRequest;
+use App\Http\Requests\Front\ItinerarySearchRequest;
+use App\Model\Itinerary\Itineraryrequest;
+
 use DB;
 use Carbon\Carbon;
 use GoogleMaps as Map;
 use App\Jobs\SendItineraryRequestToGbiMailJob;
-class ItineraryController extends Controller
+class ItineraryController extends BaseController
 {
     public function search_post(){
 
@@ -37,58 +41,61 @@ class ItineraryController extends Controller
 
     // explore destination searchbar get data 
 
-    public function searchItinerary(Request $request)
+    public function searchItinerary(ItinerarySearchRequest $request)
     {
-        $this->validate($request, [
-            'tourtype' => 'required',
-            'noofday' => 'required',
-            'source' => 'required',
-            'destination' => 'required',
-            'clientType' => ''
-        ]);
+            // $this->validate($request, [
+            //     'tourtype' => 'required',
+            //     'noofday' => 'required',
+            //     'source' => 'required',
+            //     'destination' => 'required',
+            //     'clientType' => ''
+            // ]);
+            // $tourtype = $request->tourtype??0; 
+            // print_r(Itinerary::->get());
+            // exit;
+        try{
+            $data = [];
+            $source = $request->source??'';
+            $transport_type = $request->transport_type??'';
+            $destination = $request->destination??'';
+            $tourtype = $request->tourtype??'';
+            $noofday = $request->noofday??0;
+            $client_type = $request->client_type??'';
+            $bus = $request->bus??0;
+            $train = $request->train??0;
+            $flight = $request->flight??0;
+            // $transport_type = $request->transport_type??'';
+            if(count($source) > 1){
+            // Search on the basis of source of the itinerary
+                $data = Itinerary::where($transport_type,1)->whereIn('source',$source)->whereIn('destination',$destination)->where('client_type', $client_type)->orWhereHas('tourtypes',  function ($q) use ($tourtype) {
+                        $q->where('id',$tourtype);
+                    })->with('tourtypes')->get();
+            }
+            else{
+                // echo $transport_type;
+                // exit;
+                $source = implode(",",array_filter($request->source??''));
+                $destination = implode(",",array_filter($request->destination??''));
 
-        $data = [];
-        $source = $request->source;
-        $destination = $request->destination;
-        $tourtype = $request->tourtype;
-        $noofday = $request->noofday;
-        if(count($source) > 1){ // Search on the basis of source of the itinerary
-            $data = DB::table('itineraries')
-                ->where('noofdays',$noofday)
-                ->whereIn('source',$source)
-                ->get();
-            return response()->json([
-                'data'=>$data
-            ],200);
+                $data = Itinerary::where([
+                    'source'=>$source,
+                    'destination'=>$destination,
+                    $transport_type=>1,
+                    'client_type'=> $client_type
+                ])->orWhereHas('tourtypes',  function ($q) use ($tourtype) {
+                    $q->where('id' ,$tourtype);
+                })->with('tourtypes')->get();
+            }
         }
-       // return  $request->all();
-        if($source !=null ){
-            $source = explode(",",$request->source[0])[0];
-            $destination = explode(",",$request->destination[0])[0];
-            $data = Itinerary::where([
-                'source'=>$source,
-                'destination'=>$destination,
-                // 'noofdays' => $noofday,
-            ])
-            ->with('tourtypes')
-            ->get();
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
         }
-        // return $request->all();
-        // if($data){
-        //     foreach($data as $d){
-        //         $tourtypes = DB::table('itinerary_tourtype')
-        //             ->where([
-        //                 'itinerary_id' => $d->id,
-        //                 'tourtype_id' => $request->tourtype
-        //             ])->first();
-        //         if($tourtypes){
-        //             array_push($newdata,$d);
-        //         }
-        //     }
-        // }
-        return response()->json([
-            'data'=>$data
-        ],200);
+        if($data->count() > 0){
+            return $this->sendResponse($data,'success');
+        }
+        else{
+            return $this->sendError("Oops! We couldn’t find results for your search", 404);
+        }
     }
 
 
@@ -200,20 +207,30 @@ class ItineraryController extends Controller
         return response()->json(Itinerary::simplePaginate($count));
     }
 
-    public function requestItinerary(Request $request){
-        $validated = $this->validate($request, [
-            'tourtype' => 'required',
-            'noofday' => 'required',
-            'source' => 'required',
-            'destination' => 'required',
-            'phoneno' => 'required',
-            'email' => ['required',new EmailValidate],
-        ]);
-        
-        Itineraryrequest::create($validated);
-
-        SendItineraryRequestToGbiMailJob::dispatch($validated);
-
+    public function requestItinerary(ItineraryrequestRequest $request){
+        // $validated = $this->validate($request, [
+        //     'tourtype' => 'required',
+        //     'noofday' => 'required',
+        //     'source' => 'required',
+        //     'destination' => 'required',
+        //     'phoneno' => 'required',
+        //     'email' => ['required',new EmailValidate],
+        // ]);
+        try{
+            $data = array();
+            $data['source'] = $request->source??'';
+            $data['destination'] = $request->source??'';
+            $data['tourtype'] = $request->tourtype??'';
+            $data['noofday'] = $request->noofday??'';
+            $data['phoneno'] = $request->phoneno??'';
+            $data['email'] = $request->email??'';
+            $result = Itineraryrequest::create($data);
+            SendItineraryRequestToGbiMailJob::dispatch($data);
+            return $this->sendResponse($result,'success');
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }
     }
 
     public function view($id){

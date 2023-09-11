@@ -2,7 +2,6 @@
 /*
 Created by : Ajay yadav 
 Purpose : GBI Post Category (Blog ) manage here
-
 */
 namespace App\Http\Controllers\Admin\Post;
 use App\Http\Controllers\Controller;
@@ -24,9 +23,7 @@ class CategoryController extends Controller
     {
         return response()->json(Category::select([
             'id','description','title','updated_at'
-            ])
-            ->latest('updated_at')
-            ->paginate($size));
+            ])->latest('updated_at')->paginate($size));
     }
 
     public function index()

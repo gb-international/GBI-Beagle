@@ -23,6 +23,10 @@ class SendLoginDetialJob implements ShouldQueue
 
     public function handle()
     {
-        Mail::to($this->details['email'])->send( new SendLoginDetailMail($this->details));
+        try {
+            $message = Mail::to([$this->details['email'], 'info@gbinternational.in'])->send(new SendLoginDetailMail($this->details));
+        } 
+        catch (Exception $ex) {
+        }
     }
 }

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Sightseeing extends Model
 {
-    protected $fillable = ['name','state_id','city_id','address','image','alt','description','adult_price','child_price'];
+    protected $fillable = ['id', 'name','state_id','city_id','address','image','alt', 'latlng','description','adult_price','child_price'];
 
     public function getImageAttribute($image)
     {

@@ -7,8 +7,10 @@ use Illuminate\Http\Request;
 use App\Model\Tour\Food;
 
 use App\Rules\AlphaSpace;
+use App\Http\Requests\Admin\FoodRequest;
+use App\Http\Controllers\Admin\BaseController;
 
-class FoodController extends Controller
+class FoodController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -27,10 +29,20 @@ class FoodController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(FoodRequest $request)
     {
-        $food = Food::create($this->validateFood($request));
-        return response()->json($food);
+        try{
+            $data = array();
+            $data['tour_id'] = $request->tour_id??0;
+            $data['tour_code'] = $request->tour_code??'';
+            $data['name'] = $request->name??'';
+            $data['quantity'] = $request->quantity??'';
+            $result = Food::create($data);
+            return $this->sendResponse($result,'Successfully Created', 201);
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }
     }
 
     /**
@@ -51,12 +63,21 @@ class FoodController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(FoodRequest $request, $id)
     {
-
-        $food = Food::find($id);
-        $food = $food->update($this->validateFood($request));        
-        return response()->json($food);
+        try{
+            $data = array();
+            $data['tour_id'] = $request->tour_id??0;
+            $data['tour_code'] = $request->tour_code??'';
+            $data['name'] = $request->name??'';
+            $data['quantity'] = $request->quantity??'';
+            $food = Food::find($id);
+            $food = $food->update($data); 
+            return $this->sendResponse($food,'Successfully Created');       
+        }        
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }
     }
 
     /**

@@ -7,8 +7,10 @@ use App\Model\Itinerary\Itinerarypdf;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use App\User;
-class EncyclopediaController extends Controller
+use App\Http\Controllers\Admin\BaseController;
+class EncyclopediaController extends BaseController
 {
     public function index()
     {
@@ -45,5 +47,30 @@ class EncyclopediaController extends Controller
             ->select(['name','slug','id'])
             ->first();
         return response()->json($data);
+    }
+    public function search(Request $request){
+
+        try{
+            $validator = Validator::make($request->all(), [
+                'state_name' => 'required|exists:encyclopedias,state_name',
+                'city_name' => 'exists:encyclopedias,city_name',
+            ]);
+
+            if ($validator->fails()) {
+                return $this->errorValidate($validator->errors(), 422);
+            }
+
+            if(!empty($request->city_name??'')){
+                $data = Encyclopedia::with('comments','images','itinerarypdfs','comments.user','comments.user.information')->where('state_name',$request->state_name??'')->where('city_name',$request->city_name??'')->get();
+            }
+            else{
+                $data = Encyclopedia::with('comments','images','itinerarypdfs','comments.user','comments.user.information')->where('state_name',$request->state_name??'')->get();
+            }
+            
+            return $this->sendResponse($data,'Successful', 200);
+        }
+        catch(Exception $e){
+           return $this->sendError($e->getMessage(), 500);
+        }
     }
 }

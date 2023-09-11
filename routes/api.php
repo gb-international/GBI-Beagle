@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
-
+use App\Http\Controllers\Front\EncyclopediaController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -108,6 +108,10 @@ Route::namespace('Front')->group(function(){
 		Route::post('/group-add','GroupmemberController@studentStore');
 		Route::post('/group-member-update','GroupmemberController@update');
 		Route::post('/destroy-member','GroupmemberController@destroy');
+
+		Route::group(['prefix' => '/encyclopedia', 'as' => 'encyclopedia.'], function () {
+			Route::post('search', [EncyclopediaController::class, 'search']);
+		});
 	});
 	Route::get('/flight-detail/{flightNumber}','WebsiteController@getFlightDetails');
 	Route::get('/current-weather/{city}','WebsiteController@getCurrentWeather');
@@ -170,6 +174,16 @@ Route::get('/state-city/{id}','AjaxController@StateCity');
 Route::post('/city-sightseeing','AjaxController@CitySightseeing');
 Route::get('/banknames','Front\SchoolbankdetailController@index');
 
+// School Trip Payment
+Route::group(['prefix' => '/school_trip_payment', 'as' => 'school_trip_payment.'], function () {
+	Route::controller(\Admin\TourPayment\SchoolTripPaymentController::class)->group(function () {
+		Route::post('school_trip_payment', 'store');
+		Route::get('/all/{page?}', 'all');
+		Route::put('school_trip_payment/{id}', 'update');
+		Route::get('school_trip_payment/{id}', 'show');
+		Route::delete('school_trip_payment/{id}', 'delete');
+	});
+});
 
 // School Trip
 Route::group(['prefix' => '/school_trip_payment', 'as' => 'school_trip_payment.'], function () {

@@ -8,8 +8,10 @@ namespace App\Http\Controllers\Admin\Post;
 use App\Http\Controllers\Controller;
 use App\Model\Post\Tag;
 use Illuminate\Http\Request;
-
-class TagController extends Controller
+use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\Admin\BaseController;
+use App\Rules\AlphaSpace;
+class TagController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -52,8 +54,21 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
-        Tag::create($request->all());
-        return response()->json('succesfull created');
+        $validator = Validator::make($request->all(), [
+            'title'=>['required',new AlphaSpace],
+        ]);
+        if ($validator->fails()) {
+            return $this->errorValidate($validator->errors(), 422);
+        }
+
+        try{
+            $tag = Tag::create($request->all());
+            return $this->sendResponse($tag,'Successfully Created');
+        }
+
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }  
     }
 
     /**
@@ -87,8 +102,22 @@ class TagController extends Controller
      */
     public function update(Request $request, Tag $tag)
     {
-        $tag->update($request->all());
-        return response()->json('succesfull created');
+        $validator = Validator::make($request->all(), [
+            'title'=>['required',new AlphaSpace],
+        ]);
+        if ($validator->fails()) {
+            return $this->errorValidate($validator->errors(), 422);
+        }
+
+        try{
+            $tag->update($request->all());
+            return $this->sendResponse($tag,'Successfully Created');
+        }
+
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }
+        
     }
 
     /**

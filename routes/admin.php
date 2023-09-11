@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
-
+use App\Http\Controllers\Admin\Customer\CustomerController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -44,7 +44,7 @@ Route::namespace('Admin')->group(function (){
 		Route::post('maps/get-map','MapsController@getMap');
 		Route::post('maps/get-direction','MapsController@getDirection');
 		Route::post('maps/get-matrix','MapsController@getDistMatrix');
-		Route::post('maps/get-places','MapsController@getPlaces');
+		Route::post('maps/ get-places','MapsController@getPlaces');
 	});
 
 	Route::namespace('Itinerary')->group(function(){
@@ -58,6 +58,8 @@ Route::namespace('Admin')->group(function (){
 
 		Route::get('popular-itineraries/all/{size}','PopularItineraryController@all');
 		Route::resource('popular-itineraries','PopularItineraryController');
+		Route::get('upcoming-tour/all/{size}','UpcomingToursController@all');
+		Route::resource('upcoming-tour','UpcomingToursController');
 	});
 
 	Route::namespace('Tour')->group(function(){
@@ -130,8 +132,7 @@ Route::namespace('Admin')->group(function (){
 		Route::post('groupmember/destroy','GroupmemberController@destroyMember');
 		Route::post('groupmember/add','GroupmemberController@addMember');
 		Route::post('groupmembers/addlogindetail','GroupmemberController@addlogindetail');
-		Route::post('groupmembers/send-member-login','GroupmemberController@sendMemberLogin');
-		
+		Route::post('groupmembers/send-member-login','GroupmemberController@sendMemberLogin');		
 	});
 
 	Route::namespace('Corporate')->group(function(){
@@ -170,7 +171,7 @@ Route::namespace('Admin')->group(function (){
 		Route::post('permission/assign','UserRolePermissionController@store');//Assign user permissions
 		Route::get('permission/remove/{permission}','UserRolePermissionController@destroy');//Remove user permissions
 		Route::get('permissions/{userRoleId}/{size}','UserRolePermissionController@showUserPermissions'); //Check user permissions
-		Route::get('user-permissions/{userId}','UserRolePermissionController@showPermission');
+		Route::get('user-perm issions/{userId}','UserRolePermissionController@showPermission');
 		Route::get('check/permission/{permId}/{userRoleId}','UserRolePermissionController@UserPerm');
 
 	});
@@ -318,12 +319,13 @@ Route::namespace('Admin')->group(function (){
 		Route::resource('season','SeasonController');
 		Route::put('current-season/set', 'SeasonController@setSeason');
 		Route::get('current-season', 'SeasonController@currentSeason');
-	});
+ 	});
 
 	//Final Program
 	Route::namespace('FinalProgram')->group(function(){
 		Route::post('finalprogram/send-sms','SmsController@sendSms');
 	});
+});
 
 	//School Trip
 	Route::namespace('SchoolTrip')->group(function(){
@@ -331,9 +333,11 @@ Route::namespace('Admin')->group(function (){
 		Route::resource('schooltrip','SchoolTripController');
 	});
 
+Route::resource('customer', Admin\Customer\CustomerController::class);
+Route::group(['prefix' => '/customer', 'as' => 'customer.'], function () {
+	Route::post('status', [CustomerController::class, 'status']);
+	Route::get('all/{user_profession_type}/{size?}', [CustomerController::class, 'all']);
 });
-
-
 
 
 

@@ -27,13 +27,12 @@ class SchoolTripPaymentRequest extends FormRequest
     {
         return [
             'school_name' => 'required',
-            'trip_name' => 'required',
             'no_of_student'=> 'required|numeric',
-            'ph_no' => 'required',
             'banner_link'=> 'required',
-            //'slug'=> '',
-            //'source'=> '',
-            //'destination'=> '',
+            'slug'=> 'required',
+            'source'=> 'required',
+            'ph_number'=> 'required',
+            'destination'=> 'required',
             'amount_paid'=> 'required|numeric',
             'start_date'=> 'required|date_format:Y-m-d',
             'end_date'=> 'required|date_format:Y-m-d',
@@ -41,7 +40,6 @@ class SchoolTripPaymentRequest extends FormRequest
             'payment_status'=> 'required',
             'booking_status'=> 'required',
         ];
-
     }
     protected function failedValidation(Validator $validator) : void
     {

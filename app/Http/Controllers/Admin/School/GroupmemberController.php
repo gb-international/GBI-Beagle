@@ -15,8 +15,11 @@ use App\Helpers\SendSms;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\AccountRegistered;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\Admin\GroupMemberRequest;
+use App\Http\Requests\Admin\UpdateMemberRequest;
+use App\Http\Controllers\Admin\BaseController;
 
-class GroupmemberController extends Controller
+class GroupmemberController extends BaseController
 {
     public function getMember($tour_code,$type){
         $where = ['tour_id'=>$tour_code,'user_type'=>$type];
@@ -26,17 +29,32 @@ class GroupmemberController extends Controller
         $where = ['tour_id'=>$tour_code,'user_type'=>$type,'payment_status'=>'pending'];
         return Groupmember::where($where)->get();
     }
-    public function updateMember(Request $request){
-        $groupmember = Groupmember::where('id',$request->id)->firstOrFail();
-        $this->validate($request,[
-            'first_name'=>'required',
-            'last_name'=>'required',
-            'email'=>'required',
-            'gender'=>'required'
-        ]);
-        $groupmember->update($request->all());
-
-        return response()->json('successfull updated');
+    public function updateMember(UpdateMemberRequest $request){
+        // $this->validate($request,[
+        //     'first_name'=>'required',
+        //     'last_name'=>'required',
+        //     'email'=>'required',
+        //     'gender'=>'required'
+        // ]);
+        try{
+            $groupmember = Groupmember::where('id',$request->id)->firstOrFail();
+            $data = array();
+            $data['first_name'] = $request->first_name??$groupmember->first_name;
+            $data['last_name'] = $request->last_name??$groupmember->last_name;
+            $data['email'] = $request->email??$groupmember->email;
+            $data['gender'] = $request->gender??$groupmember->gender;
+            $data['age'] = $request->age??$groupmember->age;
+            $data['mobile'] = $request->mobile??$groupmember->mobile;
+            $data['tour_id'] = $request->tour_id??$groupmember->tour_id;
+            $data['school_id'] = $request->school_id??$groupmember->school_id;
+            $data['user_type'] = $request->user_type??$groupmember->user_type;
+            $data['is_paid'] = $request->is_paid??$groupmember->is_paid;
+            $groupmember->update($data);
+            return $this->sendResponse($groupmember,'Successfully Updated');
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }
     }
     public function destroyMember(Request $request){
         $groupmember = Groupmember::where('id',$request->id)->firstOrFail();
@@ -44,11 +62,44 @@ class GroupmemberController extends Controller
         return response()->json('successfully delete');
     }
 
-    public function addMember(Request $request){
-        foreach ($request->all() as $row) {
-            Groupmember::create($row);
+    public function addMember(GroupMemberRequest $request){
+
+        try{
+            foreach ($request->all() as $row) {
+                // return $row;
+                // print_r($row);
+                // Groupmember::create($row);
+                if(!empty($row)){
+                    foreach ($row as $val){
+                        $first_name = $val['first_name']??'';
+                        $last_name = $val['last_name']??'';
+                        $email = $val['email']??'';
+                        $gender = $val['gender']??'';
+                        $age = $val['age']??0;
+                        $mobile = $val['mobile']??'';
+                        $sr_no = $val['sr_no']??0;
+                        $tour_id = $val['tour_id']??0;
+                        $school_id = $val['school_id']??0;
+                        $user_type = $val['user_type']??'';
+                        $is_paid = $val['is_paid']??0;
+                        Groupmember::updateOrCreate(['tour_id'=>$tour_id, 'email'=>$email, 'school_id'=>$school_id],['tour_id' => $tour_id, 'school_id' => $school_id,'first_name' => $first_name,
+                        'last_name' => $last_name,
+                        'email' => $email,
+                        'gender' => $gender,
+                        'age' => $age,
+                        'mobile' => $mobile,
+                        'user_type' => $user_type,
+                        'is_paid' => $is_paid,
+                    ]);
+                    }
+                }
+            }
+            return $this->sendResponse('', 'Successfully Created', 201);
         }
-        return response()->json('succesfully added');
+
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }
     }
 
     public function addlogindetail(Request $request){
