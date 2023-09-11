@@ -12,13 +12,14 @@
         >
           <li class="nav-item">
             <a
-              class="nav-link active login_tab"
+              class="nav-link TourLogin"
               id="pills-login-tab"
               data-toggle="pill"
               href="#pills-login"
               role="tab"
               aria-controls="pills-login"
               aria-selected="true"
+              
               >Tour Login</a
             >
           </li>
@@ -37,24 +38,7 @@
               role="form"
               id="login-form"
               enctype="multipart/form-data"
-              @submit.prevent="loginUser()"
             >
-            <!-- <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <img :src="$gbiAssets+'/images/icons/email.png'" class="icon-width" />
-                  </span>
-                </div>
-
-                <input
-                  type="email"
-                  class="form-control"
-                  v-model="loginform.email"
-                  :class="{ 'is-invalid': loginform.errors.has('email') }"
-                  placeholder="Enter Email"
-                />
-                <has-error :form="loginform" field="email"></has-error>
-              </div> -->
 
               <div class="input_with_button" v-if="otp_button">
                 <div class="input-group mb-2">
@@ -124,37 +108,9 @@
                   </p>
                 </div>
               </div>
-
-             <!-- <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <img :src="$gbiAssets+'/images/icons/key.png'" class="icon-width" />
-                  </span>
-                </div>
-                <input
-                  type="password"
-                  class="form-control"
-                  v-model="loginform.password"
-                  :class="{ 'is-invalid': loginform.errors.has('password') }"
-                  placeholder="Enter Password"
-                />
-                <has-error :form="loginform" field="password"></has-error>
-              </div>
-
-              <p v-if="login_message" class="text-danger">
-                {{ login_message }}
-              </p>
-
-              <button class="btn btn-default btn-block loginbutton">
-                Login
-              </button>  -->
+             
               <loader v-if="isLoading == true"></loader>
 
-             <!-- <p class="text-center message">
-                <a href="#" class="forget_link" v-on:click="changeform"
-                  >Forget Password?</a
-                >
-              </p> -->
             </form>
           </div>
 
@@ -177,7 +133,6 @@ export default {
     HasError,
     loader,
   },
-  props: ["login_link"],
   data() {
     return {
       formno: "1",
@@ -203,7 +158,7 @@ export default {
   methods: {
 
     test_otp(){
-      this.loginUser();
+      this.$root.$emit('login-tour');
     },
 
     send_otp: function (e) {
@@ -216,7 +171,7 @@ export default {
         data.append("_method", "post"); // add this
         // data.append('_token',this.csrf);
 
-        var api = "/api/sendotp2";
+        var api = "/api/sendotp3";
         this.$axios
           .post(api, data) // change this to post )
           .then((res) => {
@@ -273,12 +228,16 @@ export default {
     otp_verify_user: function (e) {
       //this.loginUser();
       var otp = this.loginform.otp;
+      var otp_id = this.otp_id;
       if (otp.length == 4) {
         let data = new FormData();
         data.append("otp", otp);
-        data.append("id", this.otp_id);
+        data.append("id", otp_id);
+        data.append("slug1", this.$route.params.name);
+        data.append("slug2", this.$route.params.id);
+        data.append("phone_no", this.loginform.phone_no);
         data.append("_method", "post"); // add this
-        var api = "/api/otpverify";
+        var api = "/api/otpverify-tour";
         this.$axios
           .post(api, data) //   this to post )
           .then((res) => {
@@ -291,8 +250,10 @@ export default {
               this.otp_verify = 1;
               this.verify_button = 0;
               this.toggleTimer();
-              this.$swal.fire("Valid", "Otp is valid", "success");
-              this.loginUser();
+              localStorage.setItem("tour_otp", otp);
+              localStorage.setItem("tour_otp_id", otp_id);
+              //localStorage.setItem("tourLog", 'logged');
+              this.$root.$emit('login-tour');
             } else {
               this.$swal.fire({
                 icon: "error",
@@ -301,40 +262,20 @@ export default {
               });
             }
           })
-          .catch((error) => this.$swal.fire('Error, try again')); //
+          .catch((error) => this.$swal.fire(error)); //
       } else {
         this.$swal.fire("Please Enter Valid Otp");
       }
-    },
-
-        loginUser(event) {
-      //let email = this.loginform.email;
-      let otp = this.loginform.otp;
-      let phone_no = this.loginform.phone_no;
-
-      //let password = this.loginform.password;
-      this.isLoading = true;
-      this.$store
-        .dispatch("login", { otp, phone_no })
-        .then((response) => {
-          this.loginform.reset();
-          window.$(".login_close").click();
-          this.login_message = "";
-          this.$bus.$emit("logged", "User logged");
-          if (response.data.user.status == 0) {
-            this.$router.push("/user-information");
-          }
-          this.isLoading = false;
-        })
-        .catch((err) => {
-          this.login_message = err.response.data.message;
-          this.$swal.fire('Login Error, try again');
-          //this.$swal.fire("Error", this.login_message, "warning");
-          this.isLoading = false;
-        });
     },
 
   },
    
 };
 </script>
+
+<style scoped>
+.TourLogin{
+  color: #f77736 !important;
+  font-size: 18px !important;
+}
+</style>

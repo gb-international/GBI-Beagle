@@ -10,6 +10,15 @@
             </router-link>
         </li>
 
+        @if(auth()->user()->hasPermissionTo(104) || auth()->user()->hasRole(1))
+         <li class="nav-item">
+            <router-link to="/school-trip" class="nav-link nav-cols" title="School Trip Progress">
+                <i class="nav-icon fas fa-shuttle-van"></i>
+                <p>School Trip Progress</p>
+            </router-link>
+        </li>
+        @endif
+
         @if(auth()->user()->hasPermissionTo(103) || auth()->user()->hasRole(1))
          <li class="nav-item">
             <router-link to="/final-program-link" class="nav-link nav-cols" title="Send Itinerary">

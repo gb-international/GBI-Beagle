@@ -20,10 +20,10 @@ export default[
     { meta: {permId: 76}, path: '/gallery-add', component: GalleryAdd },
     { meta: {permId: 76}, path: '/gallery/:id', component: GalleryEdit },
 
-    //{ meta: {permId: 72}, path: '/encyclopedias', component: EncyclopediaList },
-    //{ meta: {permId: 72}, path: '/encyclopedias-view/:id', component: EncyclopediaView },
-    //{ meta: {permId: 72}, path: '/encyclopedias/:id', component: EncyclopediaEdit },
-    //{ meta: {permId: 72}, path: '/encyclopedias-add', component: EncyclopediaAdd },
+    { meta: {permId: 72}, path: '/encyclopedias', component: EncyclopediaList },
+    { meta: {permId: 72}, path: '/encyclopedias-view/:id', component: EncyclopediaView },
+    { meta: {permId: 72}, path: '/encyclopedias/:id', component: EncyclopediaEdit },
+    { meta: {permId: 72}, path: '/encyclopedias-add', component: EncyclopediaAdd },
 
     { meta: {permId: 72}, path: '/encyclopediacomment-list', component: EncyclopediacommentList },
     { meta: {permId: 72}, path:'/encyclopediacomment-view/:id', component: EncyclopediacommentView},

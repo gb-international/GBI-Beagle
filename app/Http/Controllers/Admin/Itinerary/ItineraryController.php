@@ -166,8 +166,12 @@ class ItineraryController extends Controller
         ->setParam (['address' => $itinerary->destination])
         ->get('results.geometry.location');
 
-        $itinerary->startLoc = $locSource['results'][0]['geometry']['location'];
-        $itinerary->endLoc = $locDestination['results'][0]['geometry']['location'];
+        if($locSource['results']){
+            $itinerary->startLoc = $locSource['results'][0]['geometry']['location'];
+        }
+        if($locDestination['results']){
+            $itinerary->endLoc = $locDestination['results'][0]['geometry']['location'];
+        }
 
         $itinerary->save();
         //event(new \App\Events\SendNotification($notifData));
@@ -320,10 +324,12 @@ class ItineraryController extends Controller
         $locDestination = \GoogleMaps::load('geocoding')
         ->setParam (['address' => $itinerary->destination])
         ->get('results.geometry.location');
-
-        $itinerary->startLoc = $locSource['results'][0]['geometry']['location'];
-        $itinerary->endLoc = $locDestination['results'][0]['geometry']['location'];
-
+        if($locSource['results']){
+            $itinerary->startLoc = $locSource['results'][0]['geometry']['location'];
+        }
+        if($locDestination['results']){
+            $itinerary->endLoc = $locDestination['results'][0]['geometry']['location'];
+        }
         $itinerary->save();
 
         return response()->json(['message'=>'Successfully Updated']);

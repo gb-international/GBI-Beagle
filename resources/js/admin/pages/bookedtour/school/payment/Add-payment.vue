@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="teacherform.user_id != null">
+    <div>
       <div id="tour_payment" class="pb-4">
         <div v-if="chequePage == false">
           <div class="container p-t-15 mb-20">
@@ -201,9 +201,9 @@
         </div>
       </div>
     </div>
-    <div v-else>
+    <!-- <div v-else>
         <p class="text-center pt-5 text-muted">No Data Available</p>
-    </div>
+    </div> -->
   </div>
 </template>
 

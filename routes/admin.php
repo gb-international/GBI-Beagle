@@ -325,6 +325,12 @@ Route::namespace('Admin')->group(function (){
 		Route::post('finalprogram/send-sms','SmsController@sendSms');
 	});
 
+	//School Trip
+	Route::namespace('SchoolTrip')->group(function(){
+		Route::get('schooltrip/all/{size}','SchoolTripController@all');
+		Route::resource('schooltrip','SchoolTripController');
+	});
+
 });
 
 

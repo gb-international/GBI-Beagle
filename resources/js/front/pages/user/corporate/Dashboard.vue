@@ -14,29 +14,41 @@
         />
       </div>
       
-      <h5 class="title_section pt-4">Special Offers</h5>
-      <!-- <offers-crasousel  :upcoming_list="upcoming_list"/> -->
-      <p class="pl-2" style="font-size: 16px; font-family: Raleway">No Offers Available.</p>
-      <h5 class="title_section pt-4">
-        Upcoming Events
-      </h5>
-      <div class="popular_destination">
-         <popular-tour v-if="events_list.length>=1" :upcoming_list="events_list"/>
-         <p v-else style="font-size: 16px; font-family: Raleway">No Events Available.</p>
+      <!-- <h5 class="title_section pt-4">Special Offers</h5>
+      <offers-crasousel  :upcoming_list="upcoming_list"/>
+      <p class="pl-2" style="font-size: 16px; font-family: Raleway">No Offers Available.</p>  -->
+
+      <div class="pb-4 pt-4">
+        <h5 class="title_section">
+          Upcoming Events </h5>        
+        <div class="resent_search" v-if="events_list.length>=1">
+          <it-list  :list="events_list"/>
+        </div>
+        <p v-else style="font-size: 16px; font-family: Raleway">No Events Available.</p>
       </div>
 
-      <div class="pb-5">
+      <div class="pb-4">
         <h5 class="title_section">
           Recent Searches </h5>        
         <div class="resent_search" v-if="rSearches.length>=1">
-          <popular-tour  :upcoming_list="rSearches"/>
+          <it-list  :list="rSearches.slice(-6)"/>
         </div>
         <p v-else style="font-size: 16px; font-family: Raleway">You have no recent searches.</p>
       </div>
-      <h5 class="title_section">
-        Popular Tours
-      <!-- <router-link class="view_link" :to="`/explore-list`">View more</router-link> -->
-      </h5>
+
+      <div class="pb-4">
+        <h5 class="title_section">
+          Popular Tours </h5>        
+        <div class="resent_search" v-if="popular_list.length>=1">
+          <it-list  v-if="popular_list.length<=6" :list="popular_list"/>
+          <it-list  v-else :list="popular_list.slice(6)"/>
+        </div>
+        <p v-else style="font-size: 16px; font-family: Raleway">No Popular searches.</p>
+      </div>
+      
+       <h5 class="title_section pb-5">
+        Travel Blogs
+        </h5>
        <div class="row">
           <div class="col-12 col-sm-8 col-md-6 col-lg-4 mb-4 border-radius-0 blog-list" v-for="(post,index) in posts_list" :key="index">
             <blog-card :post="post" />
@@ -81,7 +93,8 @@ import BookedTourButton from '@/front/components/user/BookedTourButton';
 import UpcomingCrasousel from '@/front/components/user/UpcomingCrasousel.vue';
 import OffersCrasousel from '@/front/components/user/OffersCrasousel.vue';
 import BlogCard from '@/front/components/blog//BlogCard';
-import PopularDestination from '@/front/components/user/PopularDestination.vue'
+import PopularDestination from '@/front/components/user/PopularDestination.vue';
+import ItineraryList from "@/front/components/ItineraryList";
 
 export default {
   name: "DashboardTeacher",
@@ -92,6 +105,7 @@ export default {
     'offers-crasousel':OffersCrasousel,
     'blog-card':BlogCard,
     'popular-tour': PopularDestination,
+    'it-list': ItineraryList,
   },
   data() {
     return {

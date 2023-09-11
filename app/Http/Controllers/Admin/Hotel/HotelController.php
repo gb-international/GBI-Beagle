@@ -197,13 +197,16 @@ class HotelController extends Controller
             'phoneno' => ['required','numeric',new PhoneNubmerValidate],
             'email' => ['required','email',new EmailValidate],
             'rooms'=>'required|numeric|min:1',
-            'room_category' => 'required',
+            'room_categories' => '',
             'star_category' => 'required',
             'banquets' => 'required',
-            'banquet_category' => 'required',
-            'amenities' => 'required',
-            'images' => 'required',
-            'description' => 'required'
+            'banquet_categories' => '',
+            'amenities' => '',
+            'images' => '',
+            'description' => '',
+            'meta_title' => '',
+            'meta_keywords' => '',
+            'meta_description' => ''
           
       ]);
     }

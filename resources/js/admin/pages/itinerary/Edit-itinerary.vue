@@ -837,6 +837,7 @@ export default {
       this.form
         .put(`/api/itinerary/${this.$route.params.itineraryid}`)
         .then((response) => {
+          //this.$router.push(`/itinerary-list`);
           this.$toast.fire({
             icon: "success",
             title: "Itinerary Updated successfully",

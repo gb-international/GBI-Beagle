@@ -502,7 +502,7 @@ export default {
       this.form
         .post("/api/hotel")
         .then((response) => {
-          this.$router.push(`/hotel-list`);
+          this.$router.push(`/hotel-list/`+this.form.state);
           this.$toast.fire({
             icon: "success",
             title: "Hotel Added successfully",

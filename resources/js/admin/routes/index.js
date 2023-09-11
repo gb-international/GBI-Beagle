@@ -18,6 +18,7 @@ import PaymentLink from '@/admin/routes/PaymentLink.js';
 import Popular from '@/admin/routes/PopularItinerary.js';
 import Role from '@/admin/routes/Role.js';
 import School from '@/admin/routes/School.js';
+import SchoolTrip from '@/admin/routes/schoolTrip.js';
 import Seasons from '@/admin/routes/Seasons.js';
 import Setting from '@/admin/routes/Setting.js';
 import Sightseeing from '@/admin/routes/Sightseeing.js';
@@ -47,6 +48,7 @@ export const routes = [
     ...Popular,
     ...Role,
     ...School,
+    ...SchoolTrip,
     ...Seasons,
     ...Setting,
     ...Sightseeing,

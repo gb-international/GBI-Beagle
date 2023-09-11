@@ -18,7 +18,6 @@
     <url><loc>https://gowithgbi.com/explore-list</loc></url>
     <url><loc>https://gowithgbi.com/hotel-search</loc></url>
     <url><loc>https://gowithgbi.com/hotel-detail</loc></url>
-    <url><loc>https://gowithgbi.com/notifications</loc></url>
     <url><loc>https://gowithgbi.com/media</loc></url>
     <url><loc>https://gowithgbi.com/news-letter</loc></url>
     <url><loc>https://gowithgbi.com/travel-guidelines</loc></url>
@@ -26,4 +25,5 @@
     <url><loc>https://gowithgbi.com/whats-new</loc></url>
     <url><loc>https://gowithgbi.com/share-feedback</loc></url>
     <url><loc>https://gowithgbi.com/404</loc></url>
+    <url><loc>https://www.gowithgbi.com:443/</loc></url>
 </urlset>

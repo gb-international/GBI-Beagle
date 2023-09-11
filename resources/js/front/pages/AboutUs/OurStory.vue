@@ -51,7 +51,7 @@
                   <div class="ourstory-content widthControl">
                       <figure class="image__wrapper loaded">
                         <div class="loader-overlay image__spinner"></div>
-                        <img id="ourstoryimg1" data-url="/assets/front/images/user-profile.png" alt="our story" class="image__item ic-cal-re widthControl" src="/assets/front/images/user-profile.png">
+                        <img id="ourstoryimg1" :data-url="$gbiAssets+'/assets/front/images/CEO.png'" alt="our story" class="image__item ic-cal-re widthControl" :src="$gbiAssets+'/assets/front/images/CEO.png'">
                       </figure>
                   </div>
                 </div>

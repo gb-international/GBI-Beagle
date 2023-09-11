@@ -274,7 +274,7 @@ export default {
       occupancy_list: ["Single", "Double", "Triple", "Quad"],
 
       form: new Form({
-        state_date: "",
+        start_date: "",
         end_date: "",
         person: 2,
         adults: 2,

@@ -46,13 +46,13 @@
               >
             </li>
 
-            <li class="nav-item mr-10">
+            <li class="nav-item mr-10 l-view">
               <router-link class="nav-link" :to="`/resources/travel-encyclopedia`"
                 >Encyclopedia</router-link
               >
             </li>
 
-            <!-- <li class="nav-item dropdown mr-10">
+            <li class="nav-item dropdown mr-10 m-view">
               <a
                 class="nav-link dropdown-toggle"
                 href="#"
@@ -110,7 +110,7 @@
                 </div>
               </div>
             </li>
-            <li class="nav-item mr-10 dropdown dropdown-submenu">
+            <li class="nav-item mr-10 dropdown dropdown-submenu m-view">
               <a
                 class="nav-link dropdown-toggle"
                 href="#"
@@ -161,11 +161,11 @@
                 </div>
               </div>
             </li> 
-            <li class="nav-item mr-10" v-if="login !== '1'">
+            <li class="nav-item mr-10 m-view" v-if="login !== '1'">
               <router-link class="nav-link" :to="`/contact-us`"
                 >Contact Us</router-link
               >
-            </li> -->
+            </li>
             <li class="nav-item mr-10" v-if="login != '1'">
               <router-link class="nav-link" :to="`/notifications`"
                 >
@@ -174,7 +174,17 @@
                 </router-link
               >
             </li>
-            <li class="nav-item mr-10" v-if="login == '1'">
+            <li class="nav-item mr-10" v-if="$route.name == 'tour-page'">
+              <a
+                href="#"
+                class="nav-link loginLink"
+                id="loginButton"
+              >
+                <span v-if="tourLog == 'logged'" @click="tourLogout"><i class="fas fa-sign-out-alt mr-1"></i>Logout</span>
+                 <span v-else><i class="fas fa-user mr-1"></i>Login</span>
+              </a>
+            </li>
+            <li class="nav-item mr-10" v-else-if="login == '1'">
               <a
                 href="#"
                 class="nav-link loginLink"
@@ -354,11 +364,13 @@ export default {
       isnav_active: false,
       user: { name: "", photo: "" },
       cookies_alert: false,
+      tourLog: false,
       //socket : io(this.$hostName)
     };
   },
-
   created: function () {
+    this.loginCheck();
+    this.tourLog = localStorage.getItem("tourLog");
     this.$axios.interceptors.response.use(undefined, function (err) {
       return new Promise(function (resolve, reject) {
         if (err.status === 401 && err.config && !err.config.__isRetryRequest) {
@@ -367,12 +379,16 @@ export default {
         throw err;
       });
     });
-
     this.$bus.$on("logged", () => {
       this.isLogged = this.loginCheck();
     });
   },
   mounted() {
+
+    this.$root.$on('tour-log', () => {
+      this.tourLog = localStorage.getItem("tourLog");
+    })
+    
     // this.$cookies.remove('access_token');
     // this.$cookies.remove('refresh_token');
     // this.$cookies.remove('user');
@@ -451,6 +467,13 @@ export default {
           this.login = 1;
         }
       }
+    },
+
+    tourLogout(){
+      localStorage.setItem("tour_otp", null);
+      localStorage.setItem("tour_otp_id", null);
+      localStorage.setItem("tourLog", '');
+      this.$router.go()
     },
 
     toggleClass() {

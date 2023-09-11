@@ -159,12 +159,13 @@ to submit the data we are using a function.
               <has-error :form="form" field="banquets"></has-error>
             </div>
           </div>
-
+                  
           <div class="col-sm-4">
             <div class="form-group">
               <label for="star">Star Category</label>
               <status-dd class="mb-2" 
                 :itemList="star_list"
+                v-model="form.star_category"
                 @update:option="updateStatus" 
               />
               <has-error :form="form" field="star"></has-error>
@@ -362,7 +363,7 @@ to submit the data we are using a function.
 <script>
 import { Form, HasError, AlertError } from "vform";
 import Vue2EditorMixin from '@/admin/mixins/Vue2EditorMixin';
-import StatusDropdown from "@/admin/components/form/StatusDropdown.vue";
+import StatusDropdown from "@/admin/components/form/StatusDropdown2.vue";
 import FormButtons from "@/admin/components/buttons/formButtons2.vue";
 import FormLayout from "@/admin/components/layout/FormLayout.vue";
 import TagsInput from '@voerro/vue-tagsinput'
@@ -383,11 +384,11 @@ export default {
       currStep: 'step1',
       img_images: [],
       star_list: [
-        {name:"5",id:0},
-        {name:"4",id:1},
-        {name:"3",id:2},
-        {name:"2",id:3},
-        {name:"1",id:4},
+        {name:"5",id:5},
+        {name:"4",id:4},
+        {name:"3",id:3},
+        {name:"2",id:2},
+        {name:"1",id:1},
       ],
       form: new Form({
         name: "",
@@ -435,6 +436,7 @@ export default {
       this.form
         .put(`/api/hotel/${this.$route.params.id}`)
         .then((response) => {
+          this.$router.push(`/hotel-list/`+this.form.state);
           console.log(response);
           this.$toast.fire({
             icon: "success",
@@ -512,7 +514,7 @@ export default {
     },
     back(){
       if(this.currStep == 'step1'){
-        this.$router.push('/hotel-list');
+        this.$router.push('/hotel-list/'+this.form.state);
       }else if(this.currStep == 'step2'){
         this.currStep = 'step1'
         //this.scrollTop()

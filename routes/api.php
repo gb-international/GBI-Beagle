@@ -118,6 +118,10 @@ Route::namespace('Front')->group(function(){
 	Route::post('/otpverify','OtpController@otp_verify');
 	Route::post('/sendlink','EmailController@send_link_email');
 
+	// Tour Page Otp
+	Route::post('/sendotp3','OtpController@send_otp3');
+	Route::post('/otpverify-tour','OtpController@otpTour');
+
 	// Encyclopedia
 	Route::get('/encyclopedia-list','EncyclopediaController@index');
 	Route::get('/encyclopedia/{slug}','EncyclopediaController@view');
@@ -133,7 +137,7 @@ Route::namespace('Front')->group(function(){
 	// Subscriber
 	Route::post('subscribe','SubscriberController@store');
 
-	// requrest itinerary
+	// request itinerary
 	Route::post('/request-itinerary','ItineraryController@requestItinerary');
 
 	// Feedback Submit
@@ -142,6 +146,9 @@ Route::namespace('Front')->group(function(){
 
 	//Tour Itinerary Detail
 	Route::get('/get-tour/{id}','TourController@tourItinerary');
+
+	//Tour Page
+	Route::get('/tour-data/{slug1}/{slug2}/{otp}/{oid}','TourPageController@getData');
 
 	//Notifications
 	Route::get('/user-notifs/{userId}/{sort}/all','NotifsController@index');
@@ -163,6 +170,19 @@ Route::get('/state-city/{id}','AjaxController@StateCity');
 Route::post('/city-sightseeing','AjaxController@CitySightseeing');
 Route::get('/banknames','Front\SchoolbankdetailController@index');
 
+
+// School Trip
+Route::group(['prefix' => '/school_trip_payment', 'as' => 'school_trip_payment.'], function () {
+	Route::controller(\Api\SchoolTrip\SchoolTripPaymentController::class)->group(function () {
+		Route::post('school_trip_payment', 'store');
+		Route::get('/all/{page?}', 'all');
+		Route::put('school_trip_payment/{id}', 'update');
+		Route::get('school_trip_payment/{id}', 'show');
+		Route::delete('school_trip_payment/{id}', 'delete');
+	});
+	
+	
+});
 
 
 
