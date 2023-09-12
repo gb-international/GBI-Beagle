@@ -14,7 +14,7 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
--- Dumping structure for table gbi_2.accounts
+-- Dumping structure for table gbi.accounts
 CREATE TABLE IF NOT EXISTS `accounts` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `itinerary_id` int unsigned NOT NULL,
@@ -38,12 +38,12 @@ CREATE TABLE IF NOT EXISTS `accounts` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.accounts: ~2 rows (approximately)
+-- Dumping data for table gbi.accounts: ~2 rows (approximately)
 INSERT INTO `accounts` (`id`, `itinerary_id`, `price`, `salesdp_id`, `client_id`, `selling_price`, `no_of_client`, `start_date`, `end_date`, `booking_id`, `status`, `added_by`, `created_at`, `updated_at`, `payment_by`, `payment_mode`, `payment_amount`, `cheque_no`, `payment_status`) VALUES
 	(5, 98, '100', '28', NULL, NULL, NULL, NULL, NULL, NULL, 'pending', '26', '2021-03-15 17:37:50', '2021-03-15 17:37:50', NULL, NULL, NULL, NULL, NULL),
 	(6, 98, '100', '25', NULL, NULL, NULL, NULL, NULL, NULL, 'pending', '26', '2021-03-19 12:09:54', '2021-03-19 12:09:54', NULL, NULL, NULL, NULL, NULL);
 
--- Dumping structure for table gbi_2.banknames
+-- Dumping structure for table gbi.banknames
 CREATE TABLE IF NOT EXISTS `banknames` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `banknames` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.banknames: ~6 rows (approximately)
+-- Dumping data for table gbi.banknames: ~6 rows (approximately)
 INSERT INTO `banknames` (`id`, `name`, `created_at`, `updated_at`) VALUES
 	(1, 'State Bank of India', NULL, NULL),
 	(2, 'Union Bank of India', NULL, NULL),
@@ -61,7 +61,7 @@ INSERT INTO `banknames` (`id`, `name`, `created_at`, `updated_at`) VALUES
 	(5, 'Punjab National Bank', NULL, NULL),
 	(6, 'Canara Bank', NULL, NULL);
 
--- Dumping structure for table gbi_2.banquets
+-- Dumping structure for table gbi.banquets
 CREATE TABLE IF NOT EXISTS `banquets` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -87,7 +87,7 @@ CREATE TABLE IF NOT EXISTS `banquets` (
   KEY `FK1_hotel_rooms` (`hotel_id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table gbi_2.banquets: ~13 rows (approximately)
+-- Dumping data for table gbi.banquets: ~13 rows (approximately)
 INSERT INTO `banquets` (`id`, `name`, `hotel_id`, `star_category`, `description`, `address`, `country`, `state`, `city`, `pincode`, `phoneno`, `email`, `banquets`, `price`, `images`, `alt`, `check_in`, `check_out`, `created_at`, `updated_at`) VALUES
 	(1, 'Banquet Test', 1, 5, 'Test', 'Test', 'India', 'West Bengal', 'Kolkata', '700047', '9874561230', 'Test@test.com', 2, 1780.00, NULL, NULL, NULL, NULL, NULL, NULL),
 	(2, 'Test', NULL, 5, '<p>Test</p>', 'Test Address', 'India', 'West Bengal', 'Kolkata', '700046', '1234567890', 'test@test.test', 2, 25000.00, 'a:3:{i:0;s:42:"man-g18de1541c-640jpg-164588056650141.jpeg";i:1;s:46:"to-buy-g06b3d5b8d-640jpg-1645880567386581.jpeg";i:2;s:47:"palace-g744738522-1920jpg-1645880567581762.jpeg";}', 'a:3:{i:0;s:22:"man-g18de1541c_640.jpg";i:1;s:25:"to-buy-g06b3d5b8d_640.jpg";i:2;s:26:"palace-g744738522_1920.jpg";}', NULL, NULL, '2022-02-26 13:02:47', '2022-02-26 13:02:47'),
@@ -103,7 +103,7 @@ INSERT INTO `banquets` (`id`, `name`, `hotel_id`, `star_category`, `description`
 	(12, 'Test', NULL, 5, '<p>Test</p>', 'Test address', 'India', 'Delhi', 'Delhi', '110001', '1234567890', 'test@test.test', 2, 120000.00, 'a:3:{i:0;s:47:"stairs-gbf59976e9-1280jpg-1645909509849461.jpeg";i:1;s:45:"travel-gecb01cd97-640jpg-164590951055393.jpeg";i:2;s:47:"airport-g74faba3da-640jpg-1645909510983758.jpeg";}', 'a:3:{i:0;s:26:"stairs-gbf59976e9_1280.jpg";i:1;s:25:"travel-gecb01cd97_640.jpg";i:2;s:26:"airport-g74faba3da_640.jpg";}', NULL, NULL, '2022-02-26 21:05:10', '2022-02-26 21:05:10'),
 	(13, 'Test', NULL, 5, '<p>Test</p>', 'Test address', 'India', 'Delhi', 'Delhi', '110001', '1234567890', 'test@test.test', 2, 120000.00, 'a:3:{i:0;s:47:"stairs-gbf59976e9-1280jpg-1645909531756201.jpeg";i:1;s:46:"travel-gecb01cd97-640jpg-1645909531673780.jpeg";i:2;s:47:"airport-g74faba3da-640jpg-1645909531208756.jpeg";}', 'a:3:{i:0;s:26:"stairs-gbf59976e9_1280.jpg";i:1;s:25:"travel-gecb01cd97_640.jpg";i:2;s:26:"airport-g74faba3da_640.jpg";}', NULL, NULL, '2022-02-26 21:05:32', '2022-02-26 21:05:32');
 
--- Dumping structure for table gbi_2.banquet_categories
+-- Dumping structure for table gbi.banquet_categories
 CREATE TABLE IF NOT EXISTS `banquet_categories` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -113,11 +113,11 @@ CREATE TABLE IF NOT EXISTS `banquet_categories` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table gbi_2.banquet_categories: ~0 rows (approximately)
+-- Dumping data for table gbi.banquet_categories: ~0 rows (approximately)
 INSERT INTO `banquet_categories` (`id`, `title`, `description`, `created_at`, `updated_at`) VALUES
 	(1, 'Test Banquet', NULL, '2022-01-03 14:17:53', '2022-01-03 14:17:53');
 
--- Dumping structure for table gbi_2.banquet_category
+-- Dumping structure for table gbi.banquet_category
 CREATE TABLE IF NOT EXISTS `banquet_category` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `banquet_id` bigint unsigned DEFAULT NULL,
@@ -135,11 +135,11 @@ CREATE TABLE IF NOT EXISTS `banquet_category` (
   KEY `FK_banquet_id_banquet_category` (`banquet_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table gbi_2.banquet_category: ~0 rows (approximately)
+-- Dumping data for table gbi.banquet_category: ~0 rows (approximately)
 INSERT INTO `banquet_category` (`id`, `banquet_id`, `amenities`, `dimension_type`, `length`, `width`, `height`, `area`, `seating_type`, `people`, `created_at`, `updated_at`) VALUES
 	(1, 13, 'a:0:{}', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-02-26 21:05:32', '2022-02-26 21:05:32');
 
--- Dumping structure for table gbi_2.bookedbuses
+-- Dumping structure for table gbi.bookedbuses
 CREATE TABLE IF NOT EXISTS `bookedbuses` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `tour_id` bigint unsigned NOT NULL,
@@ -156,11 +156,11 @@ CREATE TABLE IF NOT EXISTS `bookedbuses` (
   KEY `bookedbuses_tour_code_foreign` (`tour_code`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.bookedbuses: ~0 rows (approximately)
+-- Dumping data for table gbi.bookedbuses: ~0 rows (approximately)
 INSERT INTO `bookedbuses` (`id`, `tour_id`, `tour_code`, `bus_id`, `source`, `destination`, `departure`, `arrival`, `price`, `created_at`, `updated_at`) VALUES
 	(1, 25, 'TOURCODE00024', 7, 'Almora', 'AlappuzhaBeach', '2019-10-26T22:57', '2020-11-30T22:58', '7', '2021-02-09 15:11:54', '2021-02-09 15:11:54');
 
--- Dumping structure for table gbi_2.bookedescorts
+-- Dumping structure for table gbi.bookedescorts
 CREATE TABLE IF NOT EXISTS `bookedescorts` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `tour_id` bigint unsigned NOT NULL,
@@ -172,14 +172,14 @@ CREATE TABLE IF NOT EXISTS `bookedescorts` (
   KEY `bookedescorts_tour_code_foreign` (`tour_code`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.bookedescorts: ~4 rows (approximately)
+-- Dumping data for table gbi.bookedescorts: ~4 rows (approximately)
 INSERT INTO `bookedescorts` (`id`, `tour_id`, `tour_code`, `escort_id`, `created_at`, `updated_at`) VALUES
 	(1, 25, 'TOURCODE00024', 2, '2021-02-09 14:59:34', '2021-02-09 14:59:34'),
 	(5, 26, 'TOURCODE00026', 2, '2021-03-16 15:59:32', '2021-03-16 15:59:32'),
 	(6, 49, 'TOURCODE00049', 2, '2021-11-18 21:23:13', '2021-11-18 21:23:13'),
 	(7, 50, 'TOURCODE00050', 4, '2023-06-08 10:51:16', '2023-06-08 10:51:16');
 
--- Dumping structure for table gbi_2.bookedflights
+-- Dumping structure for table gbi.bookedflights
 CREATE TABLE IF NOT EXISTS `bookedflights` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `tour_id` bigint unsigned NOT NULL,
@@ -197,14 +197,14 @@ CREATE TABLE IF NOT EXISTS `bookedflights` (
   KEY `bookedflights_tour_code_foreign` (`tour_code`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.bookedflights: ~4 rows (approximately)
+-- Dumping data for table gbi.bookedflights: ~4 rows (approximately)
 INSERT INTO `bookedflights` (`id`, `tour_id`, `tour_code`, `flight_id`, `source`, `destination`, `flight_number`, `departure`, `arrival`, `price`, `created_at`, `updated_at`) VALUES
 	(1, 25, 'TOURCODE00024', 3, 'Aizawl', 'Almora', '1235', '2020-10-28T22:58', '2019-12-30T22:57', '7', '2021-02-09 15:11:11', '2021-02-09 15:11:11'),
 	(4, 26, 'TOURCODE00026', 1, 'Agartala', 'Bangalore', '6E386', '2021-03-06T14:36', '2021-03-06T17:24', '4', '2021-03-06 15:25:50', '2021-03-06 15:25:50'),
 	(5, 26, 'TOURCODE00026', 1, 'Bangalore', 'Ahmedabad', '6E992', '2021-03-06T19:50', '2021-03-06T22:00', '4', '2021-03-06 15:31:07', '2021-03-06 15:31:07'),
 	(7, 50, 'TOURCODE00050', 1, 'Visakhapatnam', 'Guntur', '444575', '33333-03-31T03:33', '0002-03-02T03:33', '33333', '2023-06-08 10:54:45', '2023-06-08 10:54:45');
 
--- Dumping structure for table gbi_2.bookedhotels
+-- Dumping structure for table gbi.bookedhotels
 CREATE TABLE IF NOT EXISTS `bookedhotels` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `tour_id` bigint unsigned NOT NULL,
@@ -219,14 +219,14 @@ CREATE TABLE IF NOT EXISTS `bookedhotels` (
   KEY `bookedhotels_tour_code_foreign` (`tour_code`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.bookedhotels: ~4 rows (approximately)
+-- Dumping data for table gbi.bookedhotels: ~4 rows (approximately)
 INSERT INTO `bookedhotels` (`id`, `tour_id`, `tour_code`, `hotel_id`, `check_in`, `check_out`, `price`, `created_at`, `updated_at`) VALUES
 	(1, 25, 'TOURCODE00024', 6, '2019-09-27T20:57', '2018-09-27T20:57', '11', '2021-02-09 15:09:07', '2021-02-09 15:09:07'),
 	(2, 26, 'TOURCODE00026', 35, '2019-03-05T01:01', '2021-02-04T01:01', '4', '2021-03-05 13:58:35', '2021-03-05 13:58:35'),
 	(3, 26, 'TOURCODE00026', 31, '2021-05-04T03:02', '2021-02-03T03:03', '6', '2021-03-05 13:58:57', '2021-03-05 13:58:57'),
 	(5, 50, 'TOURCODE00050', 3, '2023-06-15T05:56', '2023-06-17T17:16', '5482', '2023-06-08 10:52:45', '2023-06-08 10:52:45');
 
--- Dumping structure for table gbi_2.bookedrestaurants
+-- Dumping structure for table gbi.bookedrestaurants
 CREATE TABLE IF NOT EXISTS `bookedrestaurants` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `tour_id` bigint unsigned NOT NULL,
@@ -239,13 +239,13 @@ CREATE TABLE IF NOT EXISTS `bookedrestaurants` (
   KEY `bookedrestaurants_tour_code_foreign` (`tour_code`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.bookedrestaurants: ~3 rows (approximately)
+-- Dumping data for table gbi.bookedrestaurants: ~3 rows (approximately)
 INSERT INTO `bookedrestaurants` (`id`, `tour_id`, `tour_code`, `restaurant_id`, `date_of_arrival`, `created_at`, `updated_at`) VALUES
 	(1, 25, 'TOURCODE00024', 3, '2019-09-28T21:57', '2021-02-09 15:10:39', '2021-02-09 15:10:39'),
 	(2, 26, 'TOURCODE00026', 5, '2021-03-24T16:10', '2021-03-16 16:10:28', '2021-03-16 16:10:28'),
 	(3, 50, 'TOURCODE00050', 3, '2023-06-14T22:22', '2023-06-08 10:53:30', '2023-06-08 10:53:30');
 
--- Dumping structure for table gbi_2.bookedsightseeings
+-- Dumping structure for table gbi.bookedsightseeings
 CREATE TABLE IF NOT EXISTS `bookedsightseeings` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `tour_id` bigint unsigned NOT NULL,
@@ -259,7 +259,7 @@ CREATE TABLE IF NOT EXISTS `bookedsightseeings` (
   KEY `bookedsightseeings_tour_code_foreign` (`tour_code`)
 ) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.bookedsightseeings: ~30 rows (approximately)
+-- Dumping data for table gbi.bookedsightseeings: ~30 rows (approximately)
 INSERT INTO `bookedsightseeings` (`id`, `tour_id`, `tour_code`, `itineraryday_id`, `sightseeing_id`, `mark_arrive`, `created_at`, `updated_at`) VALUES
 	(1, 25, 'TOURCODE00024', 725, 17, 0, '2021-02-09 17:57:12', '2021-02-09 17:57:12'),
 	(2, 25, 'TOURCODE00024', 725, 19, 0, '2021-02-09 17:57:12', '2021-02-09 17:57:12'),
@@ -292,7 +292,7 @@ INSERT INTO `bookedsightseeings` (`id`, `tour_id`, `tour_code`, `itineraryday_id
 	(29, 50, 'TOURCODE00050', 207, 35, 0, '2023-06-08 11:15:35', '2023-06-08 11:15:35'),
 	(30, 50, 'TOURCODE00050', 208, 33, 0, '2023-06-08 11:15:35', '2023-06-08 11:15:35');
 
--- Dumping structure for table gbi_2.bookedstudents
+-- Dumping structure for table gbi.bookedstudents
 CREATE TABLE IF NOT EXISTS `bookedstudents` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `tour_id` bigint unsigned NOT NULL,
@@ -304,9 +304,9 @@ CREATE TABLE IF NOT EXISTS `bookedstudents` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.bookedstudents: ~0 rows (approximately)
+-- Dumping data for table gbi.bookedstudents: ~0 rows (approximately)
 
--- Dumping structure for table gbi_2.bookedtrains
+-- Dumping structure for table gbi.bookedtrains
 CREATE TABLE IF NOT EXISTS `bookedtrains` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `tour_id` bigint unsigned NOT NULL,
@@ -323,13 +323,13 @@ CREATE TABLE IF NOT EXISTS `bookedtrains` (
   KEY `bookedtrains_tour_code_foreign` (`tour_code`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.bookedtrains: ~3 rows (approximately)
+-- Dumping data for table gbi.bookedtrains: ~3 rows (approximately)
 INSERT INTO `bookedtrains` (`id`, `tour_id`, `tour_code`, `train_id`, `source`, `destination`, `departure`, `arrival`, `price`, `created_at`, `updated_at`) VALUES
 	(1, 25, 'TOURCODE00024', 2, 'Alleppey', 'AndamanandNicobarIslands', '2019-09-25T21:57', '2019-10-29T21:57', '7', '2021-02-09 15:11:34', '2021-02-09 15:11:34'),
 	(2, 26, 'TOURCODE00026', 1, 'Aizawl', 'Alleppey', '2021-03-17T09:54', '2021-03-19T09:54', '1000', '2021-03-16 09:54:49', '2021-03-16 09:54:49'),
 	(4, 50, 'TOURCODE00050', 2, 'Visakhapatnam', 'Guntur', '11255-11-14T11:01', '0033-05-22T22:22', '25323', '2023-06-08 10:56:13', '2023-06-08 10:56:13');
 
--- Dumping structure for table gbi_2.buses
+-- Dumping structure for table gbi.buses
 CREATE TABLE IF NOT EXISTS `buses` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `company_name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -341,7 +341,7 @@ CREATE TABLE IF NOT EXISTS `buses` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.buses: ~6 rows (approximately)
+-- Dumping data for table gbi.buses: ~6 rows (approximately)
 INSERT INTO `buses` (`id`, `company_name`, `seater`, `seat_type`, `price`, `created_at`, `updated_at`) VALUES
 	(1, 'Sharma bus services', '35', '2*2', '4444', '2020-08-13 16:32:26', '2020-08-13 16:32:26'),
 	(2, 'Modi Bus services', '45', 'Sigle seater', '44444', '2020-08-13 16:33:46', '2020-08-13 16:33:46'),
@@ -350,7 +350,7 @@ INSERT INTO `buses` (`id`, `company_name`, `seater`, `seat_type`, `price`, `crea
 	(9, 'DGGG', '45', 'Multi seater', '20', '2021-01-01 13:00:01', '2021-03-16 18:23:07'),
 	(11, 'sadf44444', '40', 'Sigle seater', '4', '2021-03-17 16:01:04', '2021-03-17 16:07:07');
 
--- Dumping structure for table gbi_2.cashes
+-- Dumping structure for table gbi.cashes
 CREATE TABLE IF NOT EXISTS `cashes` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `student_id` bigint unsigned NOT NULL,
@@ -361,9 +361,9 @@ CREATE TABLE IF NOT EXISTS `cashes` (
   KEY `cashes_student_id_foreign` (`student_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.cashes: ~0 rows (approximately)
+-- Dumping data for table gbi.cashes: ~0 rows (approximately)
 
--- Dumping structure for table gbi_2.categories
+-- Dumping structure for table gbi.categories
 CREATE TABLE IF NOT EXISTS `categories` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -378,7 +378,7 @@ CREATE TABLE IF NOT EXISTS `categories` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.categories: ~10 rows (approximately)
+-- Dumping data for table gbi.categories: ~10 rows (approximately)
 INSERT INTO `categories` (`id`, `title`, `image`, `alt`, `slug`, `description`, `meta_title`, `meta_keyword`, `created_at`, `updated_at`) VALUES
 	(29, 'Beach Vacations', 'lotus-temple-16771585311462.jpeg', 'lotus temple', 'beach-vacations', '<p>test data</p>', 'test data', 'test data', '2023-02-23 13:22:13', '2023-02-23 13:22:13'),
 	(30, 'Beach holidays:', 'beach-1677176503774012.webp', 'beach', 'beach-holidays', '<p>India has a <strong>vast coastline</strong>, with some of the world\'s most beautiful beaches. The coastal states of Goa, Kerala, Andaman, and Lakshadweep are known for their white sandy beaches, crystal-clear waters, and stunning sunsets. The beaches of Goa are known for their vibrant nightlife, while the beaches of Kerala are known for their calm and serene atmosphere. Andaman and Lakshadweep offer a unique experience of beaches with pristine coral reefs and marine life. These destinations are perfect for those looking for a relaxing beach holiday, with options for water sports, beach parties, and seafood delicacies.</p>', '"Discover India\'s Best Beaches for Your Next Vacation", "Unwind in Paradise: Beach Holidays in India", "From Serenity to Adventure: Beach Holidays for All in India", "Escape to the Sun and Sand: Beach Holidays Across India", "Beach Bumming in India: Top D', 'beach holidays, India beach vacations, beach destinations in India, coastal holidays, beach getaways, Indian beaches, beach resorts in India, beach vacation packages, beach travel in India, best beaches in India', '2023-02-23 18:21:44', '2023-02-24 09:23:44'),
@@ -391,7 +391,7 @@ INSERT INTO `categories` (`id`, `title`, `image`, `alt`, `slug`, `description`, 
 	(37, 'Spiritual holidays', 'spiritual-tour-of-india-this-holiday-season-1-1677344667536666.jpeg', 'spiritual-tour-of-india-this-holiday-season-1', 'spiritual-holidays', '<p>Discover the spiritual side of India with our spiritual holidays. India is home to some of the world\'s most sacred and holy sites, from the Ganges River to the temples of South India. Immerse yourself in the ancient wisdom of yoga and meditation, explore the vibrant local culture, and connect with your inner self. Whether you want to embark on a pilgrimage to the holy cities of Varanasi and Rishikesh or experience the rich spiritual heritage of South India, our spiritual holidays have something for everyone. Get ready to awaken your senses and discover a deeper connection with the world around you.</p>', 'Spiritual Holidays in India, Embark on a Journey of Inner Awakening', 'spiritual holidays, yoga, meditation, holy sites, pilgrimage, Varanasi, Rishikesh, South India', '2023-02-25 17:04:28', '2023-02-25 17:04:28'),
 	(38, 'Luxury and Wellness holidays', 'luxury-wellness-1677344781103436.jpeg', 'luxury wellness', 'luxury-and-wellness-holidays', '<p>Indulge in the ultimate luxury and wellness experience with our luxury and wellness holidays. Whether you want to relax in a luxurious spa, rejuvenate with Ayurvedic treatments, or stay in a five-star resort, we have the perfect package for you. Explore the rich cultural heritage of India, savor the flavors of local cuisine, and pamper yourself with luxurious amenities. Whether you want to visit the majestic Taj Mahal, explore the vibrant cities of Delhi and Mumbai or relax on a pristine beach in Goa, our luxury and wellness holidays have something for everyone. Get ready to indulge in a world of luxury and rejuvenation.</p>', 'Luxury and Wellness Holidays in India, Indulge in Ultimate Pampering', 'luxury and wellness holidays, Ayurvedic treatments, five-star resorts, cultural heritage, local cuisine, Taj Mahal, Delhi, Mumbai, Goa.', '2023-02-25 17:06:22', '2023-02-25 17:06:22');
 
--- Dumping structure for table gbi_2.category_post
+-- Dumping structure for table gbi.category_post
 CREATE TABLE IF NOT EXISTS `category_post` (
   `category_id` bigint unsigned NOT NULL,
   `post_id` bigint unsigned NOT NULL,
@@ -399,9 +399,9 @@ CREATE TABLE IF NOT EXISTS `category_post` (
   KEY `category_post_post_id_foreign` (`post_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.category_post: ~0 rows (approximately)
+-- Dumping data for table gbi.category_post: ~0 rows (approximately)
 
--- Dumping structure for table gbi_2.cheques
+-- Dumping structure for table gbi.cheques
 CREATE TABLE IF NOT EXISTS `cheques` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `student_id` bigint unsigned NOT NULL,
@@ -416,9 +416,9 @@ CREATE TABLE IF NOT EXISTS `cheques` (
   KEY `cheques_student_id_foreign` (`student_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.cheques: ~0 rows (approximately)
+-- Dumping data for table gbi.cheques: ~0 rows (approximately)
 
--- Dumping structure for table gbi_2.cities
+-- Dumping structure for table gbi.cities
 CREATE TABLE IF NOT EXISTS `cities` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `country_id` bigint unsigned NOT NULL,
@@ -431,7 +431,7 @@ CREATE TABLE IF NOT EXISTS `cities` (
   KEY `cities_state_id_foreign` (`state_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=411 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.cities: ~408 rows (approximately)
+-- Dumping data for table gbi.cities: ~408 rows (approximately)
 INSERT INTO `cities` (`id`, `country_id`, `state_id`, `name`, `created_at`, `updated_at`) VALUES
 	(1, 2, 1, 'New Delhi', '2023-02-18 11:51:39', '2023-02-18 11:51:39'),
 	(4, 2, 3, 'Visakhapatnam', '2023-02-19 16:37:07', '2023-02-19 16:37:07'),
@@ -842,7 +842,7 @@ INSERT INTO `cities` (`id`, `country_id`, `state_id`, `name`, `created_at`, `upd
 	(409, 2, 17, 'Wayanad', '2023-05-12 12:44:37', '2023-05-12 12:44:37'),
 	(410, 2, 28, 'Thanjavur', '2023-05-12 12:44:59', '2023-05-12 12:45:07');
 
--- Dumping structure for table gbi_2.comments
+-- Dumping structure for table gbi.comments
 CREATE TABLE IF NOT EXISTS `comments` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `post_id` bigint unsigned NOT NULL,
@@ -853,9 +853,9 @@ CREATE TABLE IF NOT EXISTS `comments` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.comments: ~0 rows (approximately)
+-- Dumping data for table gbi.comments: ~0 rows (approximately)
 
--- Dumping structure for table gbi_2.companies
+-- Dumping structure for table gbi.companies
 CREATE TABLE IF NOT EXISTS `companies` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `company_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -876,9 +876,9 @@ CREATE TABLE IF NOT EXISTS `companies` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table gbi_2.companies: ~0 rows (approximately)
+-- Dumping data for table gbi.companies: ~0 rows (approximately)
 
--- Dumping structure for table gbi_2.corp_bankdetails
+-- Dumping structure for table gbi.corp_bankdetails
 CREATE TABLE IF NOT EXISTS `corp_bankdetails` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `user_id` bigint unsigned NOT NULL,
@@ -894,9 +894,9 @@ CREATE TABLE IF NOT EXISTS `corp_bankdetails` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table gbi_2.corp_bankdetails: ~0 rows (approximately)
+-- Dumping data for table gbi.corp_bankdetails: ~0 rows (approximately)
 
--- Dumping structure for table gbi_2.corp_groupmembers
+-- Dumping structure for table gbi.corp_groupmembers
 CREATE TABLE IF NOT EXISTS `corp_groupmembers` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `user_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -917,13 +917,13 @@ CREATE TABLE IF NOT EXISTS `corp_groupmembers` (
   KEY `groupmembers_tour_id_foreign` (`tour_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table gbi_2.corp_groupmembers: ~3 rows (approximately)
+-- Dumping data for table gbi.corp_groupmembers: ~3 rows (approximately)
 INSERT INTO `corp_groupmembers` (`id`, `user_id`, `tour_id`, `company_id`, `first_name`, `last_name`, `email`, `gender`, `mobile`, `age`, `is_paid`, `payment_status`, `user_type`, `created_at`, `updated_at`) VALUES
 	(52, NULL, 'TOURCODE00039', '1', 'scscac', 'sacsacsac', 'sacsacsac@dacas.com', 'M', '2111111111', '28', '1', 'pending', 'corporate', '2021-05-19 17:28:47', '2021-05-19 17:50:10'),
 	(53, NULL, 'TOURCODE00039', '1', 'scsac', 'sacsacsa', 'csacsac@ww.com', 'M', '2222222222', '29', '1', 'pending', 'corporate', '2021-05-19 17:31:31', '2021-05-19 17:31:31'),
 	(54, NULL, 'TOURCODE00039', '1', 'scsacsa', 'csacsacsc', 'sacsac@acasc.com', 'F', '7777777777', '35', '1', 'pending', 'corporate', '2021-05-19 17:33:01', '2021-05-19 17:33:01');
 
--- Dumping structure for table gbi_2.corp_payments
+-- Dumping structure for table gbi.corp_payments
 CREATE TABLE IF NOT EXISTS `corp_payments` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `user_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -948,9 +948,9 @@ CREATE TABLE IF NOT EXISTS `corp_payments` (
   KEY `corp_payments_tour_code_foreign` (`tour_code`)
 ) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table gbi_2.corp_payments: ~0 rows (approximately)
+-- Dumping data for table gbi.corp_payments: ~0 rows (approximately)
 
--- Dumping structure for table gbi_2.countries
+-- Dumping structure for table gbi.countries
 CREATE TABLE IF NOT EXISTS `countries` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -959,14 +959,14 @@ CREATE TABLE IF NOT EXISTS `countries` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.countries: ~4 rows (approximately)
+-- Dumping data for table gbi.countries: ~4 rows (approximately)
 INSERT INTO `countries` (`id`, `name`, `created_at`, `updated_at`) VALUES
 	(2, 'India', '2020-04-01 15:49:39', '2020-04-01 15:49:39'),
 	(4, 'Canada', '2020-04-01 16:10:52', '2020-04-01 16:10:52'),
 	(5, 'Singapore', '2020-04-01 16:11:33', '2020-04-01 16:11:33'),
 	(6, 'United Arab Emirates', '2020-04-06 03:52:50', '2020-04-06 03:52:50');
 
--- Dumping structure for table gbi_2.default_sets
+-- Dumping structure for table gbi.default_sets
 CREATE TABLE IF NOT EXISTS `default_sets` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -976,11 +976,11 @@ CREATE TABLE IF NOT EXISTS `default_sets` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table gbi_2.default_sets: ~0 rows (approximately)
+-- Dumping data for table gbi.default_sets: ~0 rows (approximately)
 INSERT INTO `default_sets` (`id`, `name`, `current`, `created_at`, `updated_at`) VALUES
 	(1, 'Season', 'Autumn', '2021-11-29 16:04:08', '2021-11-29 17:27:38');
 
--- Dumping structure for table gbi_2.department
+-- Dumping structure for table gbi.department
 CREATE TABLE IF NOT EXISTS `department` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -989,7 +989,7 @@ CREATE TABLE IF NOT EXISTS `department` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table gbi_2.department: ~9 rows (approximately)
+-- Dumping data for table gbi.department: ~9 rows (approximately)
 INSERT INTO `department` (`id`, `name`, `created_at`, `updated_at`) VALUES
 	(1, 'Management', '2021-07-09 18:23:52', '2021-07-09 18:25:53'),
 	(2, 'Account/Finance', '2021-07-09 18:23:54', '2021-07-09 18:23:54'),
@@ -1001,7 +1001,7 @@ INSERT INTO `department` (`id`, `name`, `created_at`, `updated_at`) VALUES
 	(8, 'Software Dept.', '2021-07-09 18:24:01', '2021-07-09 18:24:00'),
 	(9, 'Test', '2021-07-09 13:07:50', '2021-07-09 13:07:50');
 
--- Dumping structure for table gbi_2.departments
+-- Dumping structure for table gbi.departments
 CREATE TABLE IF NOT EXISTS `departments` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -1011,14 +1011,14 @@ CREATE TABLE IF NOT EXISTS `departments` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.departments: ~4 rows (approximately)
+-- Dumping data for table gbi.departments: ~4 rows (approximately)
 INSERT INTO `departments` (`id`, `name`, `description`, `created_at`, `updated_at`) VALUES
 	(1, 'IT Department', 'GBI IT Department', '2021-03-20 15:05:31', '2021-03-20 15:15:16'),
 	(3, 'Sales Department', 'GBI Sales Department', '2021-03-20 15:16:27', '2021-03-20 15:16:27'),
 	(4, 'Account Department', 'GBI Account Departments', '2021-03-22 17:10:53', '2021-03-22 17:10:53'),
 	(5, 'Reservation Department', 'GBI Reservation department', '2021-03-22 17:34:27', '2021-03-22 17:34:27');
 
--- Dumping structure for table gbi_2.encyclopediacomments
+-- Dumping structure for table gbi.encyclopediacomments
 CREATE TABLE IF NOT EXISTS `encyclopediacomments` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `encyclopedia_id` bigint unsigned NOT NULL,
@@ -1032,7 +1032,7 @@ CREATE TABLE IF NOT EXISTS `encyclopediacomments` (
   KEY `encyclopediacomment_encyclopedia_id_foreign` (`encyclopedia_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=122 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.encyclopediacomments: ~24 rows (approximately)
+-- Dumping data for table gbi.encyclopediacomments: ~24 rows (approximately)
 INSERT INTO `encyclopediacomments` (`id`, `encyclopedia_id`, `user_id`, `body`, `parent_id`, `status`, `created_at`, `updated_at`) VALUES
 	(98, 4, '35', 'This is the first comment from my side to the uttar pradesh', NULL, '1', '2020-04-17 23:38:01', '2020-04-17 23:38:01'),
 	(99, 4, '35', 'this is reply on my own comment', '98', '1', '2020-04-17 23:38:19', '2020-04-17 23:38:19'),
@@ -1059,7 +1059,7 @@ INSERT INTO `encyclopediacomments` (`id`, `encyclopedia_id`, `user_id`, `body`, 
 	(120, 16, '44', 'Best Written on kerala', NULL, '1', '2020-07-01 13:59:01', '2020-07-01 13:59:01'),
 	(121, 3, '44', 'asdfasdf', NULL, '1', '2021-03-30 13:59:32', '2021-03-30 13:59:32');
 
--- Dumping structure for table gbi_2.encyclopedias
+-- Dumping structure for table gbi.encyclopedias
 CREATE TABLE IF NOT EXISTS `encyclopedias` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `country` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -1080,7 +1080,7 @@ CREATE TABLE IF NOT EXISTS `encyclopedias` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=128 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.encyclopedias: ~70 rows (approximately)
+-- Dumping data for table gbi.encyclopedias: ~70 rows (approximately)
 INSERT INTO `encyclopedias` (`id`, `country`, `state_name`, `city_name`, `slug`, `meta_title`, `meta_keyword`, `meta_description`, `thumbnail`, `thumbnail_alt`, `banner_image`, `banner_image_alt`, `description`, `map_link`, `created_at`, `updated_at`) VALUES
 	(3, 'India', 'Delhi', NULL, 'delhi', '', '', NULL, NULL, NULL, NULL, NULL, '<p><strong>About</strong></p><p>&nbsp;The national capital of the country, Delhi has its roots buried deep in Mughal history and has emerged with dynamic infrastructure. This metro city has got the best of both worlds with historic architectural wonders as well as quirky modern day hangout spots. With the mind-blowing places to visit and the overall homely vibe of the city, Delhi truly justifies itself as â€œDildaar Dilliâ€.&nbsp;</p><p><strong>Food&nbsp;</strong></p><p>Delhiâ€™s heart is on the streets of Delhi. Filled with heavy aroma of spices and stacked with varieties of yummy delicacies. Delhiâ€™s cuisine has got a bit of everything- Mughlai, Punjabi, Gujarati, Bengali, all international cuisines and the street food â€œchaatâ€. When in Delhi, hop around the famous foodie palaces. Go from the â€œparathasâ€ of Chandni Chowk to the momos of Amar colony and explore the wide range of international cuisines available at various cafes and have a party of your own.</p><p><strong>Culture</strong></p><p>Delhiâ€™s culture is a hotpot of many different boiling cultures. People from all over the country has contributed to the richness of Delhiâ€™s traditions in terms of festivals, dress codes, languages and art forms. Itâ€™ll be appropriate to say that Culture in Delhi&nbsp;is still holding its traditional values while getting flourished with modernization.&nbsp;&nbsp;</p><p><strong>Sightseeing</strong>&nbsp;</p><p>Delhi is the home of enchanted tombs and forts along with the national symbols and the modern hubs and museums.&nbsp;</p><p>Forts and tombs</p><ul><li>Safdarjung tomb</li><li>Red fort</li><li>Purana quila</li><li>Humayunâ€™s Tomb</li><li>Tughlakabad Fort</li></ul><p>Museums</p><ul><li>National Museum</li><li>National Rail Museum</li><li>Shankar\'s International Dolls Museum</li><li>National Gallery of Modern Art</li><li>Gandhi Smriti</li></ul><p>National spots</p><ul><li>India Gate</li><li>Rashtrapati Bhawan</li><li>Supreme Court of India</li><li>Jantar Mantar</li></ul><p>&nbsp;</p>', '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d448183.73907005717!2d76.81307299667618!3d28.646677259922765!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cfd5b347eb62d%3A0x37205b715389640!2sDelhi!5e0!3m2!1sen!2sin!4v1586256932544!5m2!1sen!2sin"  frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>', '2020-04-07 19:20:22', '2020-04-22 16:41:05'),
 	(4, 'India', 'Mahrastra', NULL, 'mahrastra', '', '', NULL, '1587534904_5e9fdc38021aa.jpeg', NULL, '1587534904_5e9fdc3804fab.jpeg', NULL, '<h4>About</h4><p>The dynamic state&nbsp;in the western peninsular region of India is the home of the Bollywood. From metropolitan wonders to historic world heritage sites, when in Maharashtra the possibilities are indeed, unlimited! Mumbai being the dazzling capital of the state, itâ€™s also known as the â€œcity of dreamsâ€. With shining presence of Bollywood on one side and heart-warming sceneries of the sea Mumbai is a wholesome experience. Marathis are known for their friendliest nature and being super helpful to everyone. They are proud of the lingo, the rap culture of the city and pretty much everything about the state.</p><p>&nbsp;</p><h4>Food</h4><p>From the world-famous&nbsp;pav bhaji&nbsp;to the delicious&nbsp;poha, Maharashtra has a lot to offer to foodies. Maharashtrian cuisine is broadly classified into two styles- Konkan and Varadi. Konkan being from the coastal region has influences from Goan, Saraswat, Gaud and Malvani regions. Varadi cuisine, on the other hand, belongs to the Vidarbha region. Maharashtrian food is tangy, spicy and definitely a treat for the taste buds. Some of the Maharashtrian soul foods are pav bhaji, vada pav, missal pav and bhel puri. Sweets play an important function in the Marathi plate. Modak, sreekhand and puran poli are some of them.&nbsp;</p><p>&nbsp;</p><h4>Culture</h4><p>Maharashtra as the name translates to â€œGreat Stateâ€ is extremely rich in culture and traditions. Be it the official language â€œMarathiâ€ spoken by the majority of locals or the folk music and dances like the Koli, Powada, Banjara Holi dance and Lavani dance all are very lively and colourful. The joyous and cheerful side of Maharashra can be seen in their vibrant festivals. Ganesh Chathurthi is an eleven-day long festival of Lord Ganesh celebrated throughout the state. The film industry contributes heavily to the culture of the state. Many famous actors and actresses like Amitabh Bachchan, Shah Rukh Khan, Salman Khan, Priyanka Chopra, Kareena Kapoor and Deepika Padukone, reside in this state.</p><p>&nbsp;</p><h4>Sightseeing</h4><ul><li>Ajanta caves</li><li>Ellora caves</li><li>Gateway of India</li><li>Elephanta caves</li><li>Lonavla</li></ul>', '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7736499.148433491!2d72.27657125898781!3d18.771954772859896!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcfc41e9c9cd6f9%3A0x1b2f22924be04fb6!2sMaharashtra!5e0!3m2!1sen!2sin!4v1587535883229!5m2!1sen!2sin" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>', '2020-04-07 22:43:08', '2020-05-01 22:16:38'),
@@ -1178,7 +1178,7 @@ INSERT INTO `encyclopedias` (`id`, `country`, `state_name`, `city_name`, `slug`,
 	(126, 'India', 'Karnataka', 'Coorg', 'coorg', 'Coorg Tourist Places', 'Coorg tourism, Coorg sightseeing, Places to visit in Coorg, Karnataka tourism, Coorg coffee, Coorg trekking, Coorg waterfalls, Adventure tourism in Coorg, Coorg homestays, Coorg wildlife.', 'Coorg, also known as Kodagu, is a picturesque hill station in Karnataka, India, known for its scenic beauty, coffee plantations, and wildlife sanctuaries. Coorg has a rich cultural heritage and is home to several temples, waterfalls, and historic sites.', NULL, NULL, NULL, NULL, '<p><br></p><p><span style="background-color: transparent; color: rgb(0, 0, 0);">Coorg, also known as Kodagu, is a picturesque hill station in Karnataka, India, known for its scenic beauty, coffee plantations, and wildlife sanctuaries. Coorg has a rich cultural heritage and is home to several temples, waterfalls, and historic sites.</span></p><p><br></p><p><span style="background-color: transparent; color: rgb(0, 0, 0);">One of the most popular tourist attractions in Coorg is the Madikeri Fort, which was built by Mudduraja in the 17th century. The fort houses a museum that showcases the history of Coorg, including artifacts from the British Raj and the Kodava dynasty.</span></p><p><br></p><p><span style="background-color: transparent; color: rgb(0, 0, 0);">Another must-visit destination in Coorg is the Abbey Falls, which is surrounded by lush greenery and coffee plantations. The falls cascade down a rocky outcrop, creating a mesmerizing view. The waterfall is named after the British officer who discovered it, Mr. Abbey.</span></p><p><br></p><p><span style="background-color: transparent; color: rgb(0, 0, 0);">The Namdroling Monastery, also known as the Golden Temple, is a significant Buddhist site in Coorg. It was founded in 1963 and is home to over 5,000 monks and nuns. The monastery features traditional Tibetan architecture and intricate murals.</span></p><p><br></p><p><span style="background-color: transparent; color: rgb(0, 0, 0);">Visitors to Coorg can also explore the Dubare Elephant Camp, a wildlife reserve where visitors can get up close and personal with elephants. Visitors can participate in various activities like elephant bathing, feeding, and riding.</span></p><p><br></p><p><span style="background-color: transparent; color: rgb(0, 0, 0);">Coorg\'s natural beauty and rich cultural heritage make it a popular destination for tourists seeking a peaceful getaway. Whether it\'s the history of Madikeri Fort, the serenity of Abbey Falls, the spirituality of Namdroling Monastery, or the wildlife experience at Dubare Elephant Camp, Coorg has something for everyone.</span></p><p><br></p><p><span style="background-color: transparent; color: rgb(0, 0, 0);">In conclusion, Coorg is a beautiful destination with a unique blend of history, culture, and nature. A visit to Coorg is a must for anyone looking for a serene and peaceful escape from the hustle and bustle of city life.</span></p><p><br></p><p><br></p>', 'https://www.google.com/maps/d/u/0/viewer?mid=1khK4ija128YXXPhH-rm6y3e9m8M&hl=en&ll=12.383204693807894%2C75.77744605&z=9', '2023-05-12 13:21:55', '2023-05-12 13:21:55'),
 	(127, 'India', 'Kerala', 'Kollam', 'kollam', 'Kovalam Touristy Places', 'Kovalam, beaches, Lighthouse Beach, Hawa Beach, Samudra Beach, Kerala, tourist destination, coastal town, Ayurvedic treatments, beach resorts, water sports', 'Welcome to the picturesque town of Kovalam, a coastal gem nestled in the southern state of Kerala, India. With its pristine beaches, stunning landscapes, and soothing ambiance, Kovalam is a haven for travelers seeking tranquility and natural beauty. Let\'s embark on a journey to explore the mesmerizing tourist attractions of Kovalam and uncover the stories behind their creation.', NULL, NULL, NULL, NULL, '<p><br></p><p>Welcome to the picturesque town of Kovalam, a coastal gem nestled in the southern state of Kerala, India. With its pristine beaches, stunning landscapes, and soothing ambiance, Kovalam is a haven for travelers seeking tranquility and natural beauty. Let\'s embark on a journey to explore the mesmerizing tourist attractions of Kovalam and uncover the stories behind their creation.</p><p>Lighthouse Beach is the epitome of Kovalam\'s charm and allure. As the name suggests, it is home to a towering lighthouse that stands tall on the rocky promontory overlooking the Arabian Sea. Built in the 1970s, this lighthouse not only offers panoramic views of the coastline but also serves as a navigational aid for ships. It is a symbol of safety and guidance, standing as a beacon of light for seafarers.</p><p>Adjacent to Lighthouse Beach is the Hawa Beach, also known as Eve\'s Beach. This serene stretch of golden sands is perfect for leisurely strolls and sunbathing. The gentle breeze and soothing waves create an atmosphere of tranquility, making it a popular spot for relaxation. Hawa Beach also offers breathtaking views of the sunset, painting the sky with vibrant hues, leaving visitors in awe of nature\'s beauty.</p><p>Samudra Beach, located to the north of Kovalam, is a lesser-known gem waiting to be discovered. It is a quieter and more secluded beach, ideal for those seeking solitude. The beach gets its name from the vast expanse of the Arabian Sea that stretches out in front of it. Surrounded by lush greenery, Samudra Beach provides a serene escape from the bustling city life.</p><p>Besides the captivating beaches, Kovalam is also renowned for its Ayurvedic treatments and wellness centers. The ancient practice of Ayurveda, which originated in India thousands of years ago, focuses on achieving physical and mental well-being through natural remedies. Many Ayurvedic resorts and spas in Kovalam offer rejuvenating therapies, herbal massages, and yoga sessions, providing visitors with an opportunity to relax, detoxify, and restore their inner balance.</p><p>Kovalam\'s cultural heritage is showcased at the Halcyon Castle, a beautiful mansion built by the Maharani of Travancore in the 1930s. This stunning palace reflects a fusion of colonial and traditional architectural styles. Today, it serves as a luxury hotel, allowing guests to experience a regal ambiance while immersing themselves in Kovalam\'s history.</p><p>In conclusion, Kovalam is a coastal paradise that captivates visitors with its pristine beaches, serene atmosphere, and cultural treasures. The lighthouse, beaches, Ayurvedic centers, and Halcyon Castle all contribute to the rich tapestry of Kovalam\'s attractions. Whether you seek relaxation, adventure, or cultural exploration, Kovalam offers a delightful experience that will leave you with cherished memories of your visit. Immerse yourself in the beauty of Kovalam and let its tranquil charm wash over you.</p><p><br></p>', 'https://www.google.com/maps/d/u/0/viewer?mid=1khK4ija128YXXPhH-rm6y3e9m8M&hl=en&ll=8.40052621155455%2C76.97982345000001&z=14', '2023-05-27 17:12:33', '2023-05-27 17:12:33');
 
--- Dumping structure for table gbi_2.encyclopedia_images
+-- Dumping structure for table gbi.encyclopedia_images
 CREATE TABLE IF NOT EXISTS `encyclopedia_images` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `encyclopedia_id` bigint unsigned NOT NULL,
@@ -1190,7 +1190,7 @@ CREATE TABLE IF NOT EXISTS `encyclopedia_images` (
   KEY `encyclopedia_images_encyclopedia_id_foreign` (`encyclopedia_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=261 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.encyclopedia_images: ~233 rows (approximately)
+-- Dumping data for table gbi.encyclopedia_images: ~233 rows (approximately)
 INSERT INTO `encyclopedia_images` (`id`, `encyclopedia_id`, `image`, `alt`, `created_at`, `updated_at`) VALUES
 	(1, 3, '1587534065_5e9fd8f1ab653.jpeg', NULL, '2020-11-24 17:24:58', '2020-11-24 17:24:58'),
 	(2, 3, '1587534065_5e9fd8f1ad2aa.jpeg', NULL, '2020-11-24 17:24:58', '2020-11-24 17:24:58'),
@@ -1426,7 +1426,7 @@ INSERT INTO `encyclopedia_images` (`id`, `encyclopedia_id`, `image`, `alt`, `cre
 	(253, 55, 'skyline-1983321-1920-1618919142699084.jpeg', 'skyline-1983321_1920', '2021-04-20 17:15:43', '2021-04-20 17:15:43'),
 	(260, 113, 'mumbai-banner-1683892392471894.jpeg', 'Mumbai_banner', '2023-05-12 11:53:13', '2023-05-12 11:53:13');
 
--- Dumping structure for table gbi_2.encyclopedia_tag
+-- Dumping structure for table gbi.encyclopedia_tag
 CREATE TABLE IF NOT EXISTS `encyclopedia_tag` (
   `encyclopedia_id` bigint unsigned NOT NULL,
   `tag_id` bigint unsigned NOT NULL,
@@ -1434,7 +1434,7 @@ CREATE TABLE IF NOT EXISTS `encyclopedia_tag` (
   KEY `encyclopedia_tag_tag_id_foreign` (`tag_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table gbi_2.encyclopedia_tag: ~68 rows (approximately)
+-- Dumping data for table gbi.encyclopedia_tag: ~68 rows (approximately)
 INSERT INTO `encyclopedia_tag` (`encyclopedia_id`, `tag_id`) VALUES
 	(62, 353),
 	(62, 354),
@@ -1505,7 +1505,7 @@ INSERT INTO `encyclopedia_tag` (`encyclopedia_id`, `tag_id`) VALUES
 	(126, 420),
 	(127, 421);
 
--- Dumping structure for table gbi_2.escorts
+-- Dumping structure for table gbi.escorts
 CREATE TABLE IF NOT EXISTS `escorts` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -1521,11 +1521,11 @@ CREATE TABLE IF NOT EXISTS `escorts` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.escorts: ~0 rows (approximately)
+-- Dumping data for table gbi.escorts: ~0 rows (approximately)
 INSERT INTO `escorts` (`id`, `name`, `salaryPerday`, `phoneno`, `email`, `address`, `id_card_number`, `id_photo`, `status`, `created_at`, `updated_at`) VALUES
 	(4, 'bharti', '100000', '9876543210', 'xyz@gmail.com', 'bdjfjsks', NULL, NULL, '1', '2023-06-08 10:50:51', '2023-06-08 10:50:51');
 
--- Dumping structure for table gbi_2.events
+-- Dumping structure for table gbi.events
 CREATE TABLE IF NOT EXISTS `events` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `itinerary_id` int unsigned NOT NULL,
@@ -1542,14 +1542,14 @@ CREATE TABLE IF NOT EXISTS `events` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table gbi_2.events: ~4 rows (approximately)
+-- Dumping data for table gbi.events: ~4 rows (approximately)
 INSERT INTO `events` (`id`, `itinerary_id`, `name`, `description`, `date`, `time`, `photo`, `photo_alt`, `detail_photo`, `detail_photo_alt`, `created_at`, `updated_at`) VALUES
 	(1, 35, 'Test Event', '<p>Test Updated</p>', '2021-10-23', '20:38:00', NULL, NULL, NULL, NULL, '2021-10-22 17:08:53', '2021-10-22 17:09:56'),
 	(2, 35, 'Test Event 2', '<p>Test</p>', '2021-10-24', '20:42:00', '-1635076174100895.jpeg', NULL, 'castle-g443962faa-1920jpg-1635076175889817.jpeg', NULL, '2021-10-22 17:10:37', '2021-10-24 11:49:35'),
 	(3, 35, 'Test Event 3', '<p>acsc</p>', '2021-12-23', '17:11:00', '-1635075649366279.jpeg', NULL, 'castle-g443962faa-1920jpg-1635075650301077.jpeg', NULL, '2021-10-24 11:40:31', '2021-10-24 11:40:50'),
 	(6, 34, 'Test', '<p>Test</p>', '2023-01-03', '21:59:00', '-1672673522422314.jpeg', NULL, 'mehrangarh-fort-1-copy-2jpg-1672673523413438.jpeg', NULL, '2023-01-02 15:32:02', '2023-01-02 15:32:03');
 
--- Dumping structure for table gbi_2.failed_jobs
+-- Dumping structure for table gbi.failed_jobs
 CREATE TABLE IF NOT EXISTS `failed_jobs` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `uuid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -1562,7 +1562,7 @@ CREATE TABLE IF NOT EXISTS `failed_jobs` (
   UNIQUE KEY `uuid` (`uuid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=120 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.failed_jobs: ~56 rows (approximately)
+-- Dumping data for table gbi.failed_jobs: ~56 rows (approximately)
 INSERT INTO `failed_jobs` (`id`, `uuid`, `connection`, `queue`, `payload`, `exception`, `failed_at`) VALUES
 	(55, NULL, 'database', 'default', '{"displayName":"App\\\\Jobs\\\\SendItineraryRequestToGbiMailJob","job":"Illuminate\\\\Queue\\\\CallQueuedHandler@call","maxTries":null,"delay":null,"timeout":null,"timeoutAt":null,"data":{"commandName":"App\\\\Jobs\\\\SendItineraryRequestToGbiMailJob","command":"O:41:\\"App\\\\Jobs\\\\SendItineraryRequestToGbiMailJob\\":9:{s:10:\\"\\u0000*\\u0000details\\";a:6:{s:8:\\"tourtype\\";s:13:\\"Virtual Tours\\";s:7:\\"noofday\\";s:1:\\"6\\";s:6:\\"source\\";s:10:\\"Agra,India\\";s:11:\\"destination\\";s:10:\\"Agra,India\\";s:7:\\"phoneno\\";s:10:\\"8952365856\\";s:5:\\"email\\";s:19:\\"ajayyadav@gmail.com\\";}s:6:\\"\\u0000*\\u0000job\\";N;s:10:\\"connection\\";N;s:5:\\"queue\\";N;s:15:\\"chainConnection\\";N;s:10:\\"chainQueue\\";N;s:5:\\"delay\\";N;s:10:\\"middleware\\";a:0:{}s:7:\\"chained\\";a:0:{}}"}}', 'ErrorException: Undefined index: tour_type in C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\storage\\framework\\views\\759f220345698e375e4845e29546cd4367963175.php:7\nStack trace:\n#0 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\storage\\framework\\views\\759f220345698e375e4845e29546cd4367963175.php(7): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(8, \'Undefined index...\', \'C:\\\\xampp\\\\htdocs...\', 7, Array)\n#1 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(43): include(\'C:\\\\xampp\\\\htdocs...\')\n#2 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\CompilerEngine.php(59): Illuminate\\View\\Engines\\PhpEngine->evaluatePath(\'C:\\\\xampp\\\\htdocs...\', Array)\n#3 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\facade\\ignition\\src\\Views\\Engines\\CompilerEngine.php(36): Illuminate\\View\\Engines\\CompilerEngine->get(\'C:\\\\xampp\\\\htdocs...\', Array)\n#4 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(143): Facade\\Ignition\\Views\\Engines\\CompilerEngine->get(\'C:\\\\xampp\\\\htdocs...\', Array)\n#5 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(126): Illuminate\\View\\View->getContents()\n#6 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(91): Illuminate\\View\\View->renderContents()\n#7 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Mail\\Mailer.php(355): Illuminate\\View\\View->render()\n#8 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Mail\\Mailer.php(328): Illuminate\\Mail\\Mailer->renderView(\'emails.gbi-itin...\', Array)\n#9 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Mail\\Mailer.php(246): Illuminate\\Mail\\Mailer->addContent(Object(Illuminate\\Mail\\Message), \'emails.gbi-itin...\', NULL, NULL, Array)\n#10 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Mail\\Mailable.php(159): Illuminate\\Mail\\Mailer->send(\'emails.gbi-itin...\', Array, Object(Closure))\n#11 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Traits\\Localizable.php(19): Illuminate\\Mail\\Mailable->Illuminate\\Mail\\{closure}()\n#12 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Mail\\Mailable.php(160): Illuminate\\Mail\\Mailable->withLocale(NULL, Object(Closure))\n#13 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Mail\\Mailer.php(277): Illuminate\\Mail\\Mailable->send(Object(Illuminate\\Mail\\Mailer))\n#14 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Mail\\Mailer.php(231): Illuminate\\Mail\\Mailer->sendMailable(Object(App\\Mail\\SendItineraryRequestToGbiMail))\n#15 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Mail\\PendingMail.php(122): Illuminate\\Mail\\Mailer->send(Object(App\\Mail\\SendItineraryRequestToGbiMail))\n#16 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\app\\Jobs\\SendItineraryRequestToGbiMailJob.php(27): Illuminate\\Mail\\PendingMail->send(Object(App\\Mail\\SendItineraryRequestToGbiMail))\n#17 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(36): App\\Jobs\\SendItineraryRequestToGbiMailJob->handle()\n#18 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Util.php(37): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()\n#19 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(93): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))\n#20 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(37): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))\n#21 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(590): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)\n#22 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Bus\\Dispatcher.php(94): Illuminate\\Container\\Container->call(Array)\n#23 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(130): Illuminate\\Bus\\Dispatcher->Illuminate\\Bus\\{closure}(Object(App\\Jobs\\SendItineraryRequestToGbiMailJob))\n#24 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(105): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(App\\Jobs\\SendItineraryRequestToGbiMailJob))\n#25 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Bus\\Dispatcher.php(98): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))\n#26 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\CallQueuedHandler.php(83): Illuminate\\Bus\\Dispatcher->dispatchNow(Object(App\\Jobs\\SendItineraryRequestToGbiMailJob), false)\n#27 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(130): Illuminate\\Queue\\CallQueuedHandler->Illuminate\\Queue\\{closure}(Object(App\\Jobs\\SendItineraryRequestToGbiMailJob))\n#28 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(105): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(App\\Jobs\\SendItineraryRequestToGbiMailJob))\n#29 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\CallQueuedHandler.php(85): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))\n#30 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\CallQueuedHandler.php(59): Illuminate\\Queue\\CallQueuedHandler->dispatchThroughMiddleware(Object(Illuminate\\Queue\\Jobs\\DatabaseJob), Object(App\\Jobs\\SendItineraryRequestToGbiMailJob))\n#31 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\Jobs\\Job.php(88): Illuminate\\Queue\\CallQueuedHandler->call(Object(Illuminate\\Queue\\Jobs\\DatabaseJob), Array)\n#32 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\Worker.php(368): Illuminate\\Queue\\Jobs\\Job->fire()\n#33 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\Worker.php(314): Illuminate\\Queue\\Worker->process(\'database\', Object(Illuminate\\Queue\\Jobs\\DatabaseJob), Object(Illuminate\\Queue\\WorkerOptions))\n#34 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\Worker.php(267): Illuminate\\Queue\\Worker->runJob(Object(Illuminate\\Queue\\Jobs\\DatabaseJob), \'database\', Object(Illuminate\\Queue\\WorkerOptions))\n#35 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\Console\\WorkCommand.php(112): Illuminate\\Queue\\Worker->runNextJob(\'database\', \'default\', Object(Illuminate\\Queue\\WorkerOptions))\n#36 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\Console\\WorkCommand.php(96): Illuminate\\Queue\\Console\\WorkCommand->runWorker(\'database\', \'default\')\n#37 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(36): Illuminate\\Queue\\Console\\WorkCommand->handle()\n#38 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Util.php(37): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()\n#39 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(93): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))\n#40 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(37): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))\n#41 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(590): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)\n#42 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(134): Illuminate\\Container\\Container->call(Array)\n#43 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\symfony\\console\\Command\\Command.php(255): Illuminate\\Console\\Command->execute(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))\n#44 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(121): Symfony\\Component\\Console\\Command\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))\n#45 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\symfony\\console\\Application.php(1009): Illuminate\\Console\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))\n#46 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\symfony\\console\\Application.php(273): Symfony\\Component\\Console\\Application->doRunCommand(Object(Illuminate\\Queue\\Console\\WorkCommand), Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))\n#47 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\symfony\\console\\Application.php(149): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))\n#48 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Application.php(93): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))\n#49 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(131): Illuminate\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))\n#50 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))\n#51 {main}\n\nNext Facade\\Ignition\\Exceptions\\ViewException: Undefined index: tour_type (View: C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\resources\\views\\emails\\gbi-itinerary-request.blade.php) in C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\resources\\views/emails/gbi-itinerary-request.blade.php:7\nStack trace:\n#0 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\resources\\views/emails/gbi-itinerary-request.blade.php(7): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(8, \'Undefined index...\', \'C:\\\\xampp\\\\htdocs...\', 7, Array)\n#1 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\PhpEngine.php(43): include(\'C:\\\\xampp\\\\htdocs...\')\n#2 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\View\\Engines\\CompilerEngine.php(59): Illuminate\\View\\Engines\\PhpEngine->evaluatePath(\'C:\\\\xampp\\\\htdocs...\', Array)\n#3 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\facade\\ignition\\src\\Views\\Engines\\CompilerEngine.php(36): Illuminate\\View\\Engines\\CompilerEngine->get(\'C:\\\\xampp\\\\htdocs...\', Array)\n#4 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(143): Facade\\Ignition\\Views\\Engines\\CompilerEngine->get(\'C:\\\\xampp\\\\htdocs...\', Array)\n#5 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(126): Illuminate\\View\\View->getContents()\n#6 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\View\\View.php(91): Illuminate\\View\\View->renderContents()\n#7 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Mail\\Mailer.php(355): Illuminate\\View\\View->render()\n#8 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Mail\\Mailer.php(328): Illuminate\\Mail\\Mailer->renderView(\'emails.gbi-itin...\', Array)\n#9 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Mail\\Mailer.php(246): Illuminate\\Mail\\Mailer->addContent(Object(Illuminate\\Mail\\Message), \'emails.gbi-itin...\', NULL, NULL, Array)\n#10 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Mail\\Mailable.php(159): Illuminate\\Mail\\Mailer->send(\'emails.gbi-itin...\', Array, Object(Closure))\n#11 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Traits\\Localizable.php(19): Illuminate\\Mail\\Mailable->Illuminate\\Mail\\{closure}()\n#12 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Mail\\Mailable.php(160): Illuminate\\Mail\\Mailable->withLocale(NULL, Object(Closure))\n#13 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Mail\\Mailer.php(277): Illuminate\\Mail\\Mailable->send(Object(Illuminate\\Mail\\Mailer))\n#14 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Mail\\Mailer.php(231): Illuminate\\Mail\\Mailer->sendMailable(Object(App\\Mail\\SendItineraryRequestToGbiMail))\n#15 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Mail\\PendingMail.php(122): Illuminate\\Mail\\Mailer->send(Object(App\\Mail\\SendItineraryRequestToGbiMail))\n#16 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\app\\Jobs\\SendItineraryRequestToGbiMailJob.php(27): Illuminate\\Mail\\PendingMail->send(Object(App\\Mail\\SendItineraryRequestToGbiMail))\n#17 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(36): App\\Jobs\\SendItineraryRequestToGbiMailJob->handle()\n#18 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Util.php(37): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()\n#19 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(93): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))\n#20 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(37): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))\n#21 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(590): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)\n#22 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Bus\\Dispatcher.php(94): Illuminate\\Container\\Container->call(Array)\n#23 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(130): Illuminate\\Bus\\Dispatcher->Illuminate\\Bus\\{closure}(Object(App\\Jobs\\SendItineraryRequestToGbiMailJob))\n#24 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(105): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(App\\Jobs\\SendItineraryRequestToGbiMailJob))\n#25 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Bus\\Dispatcher.php(98): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))\n#26 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\CallQueuedHandler.php(83): Illuminate\\Bus\\Dispatcher->dispatchNow(Object(App\\Jobs\\SendItineraryRequestToGbiMailJob), false)\n#27 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(130): Illuminate\\Queue\\CallQueuedHandler->Illuminate\\Queue\\{closure}(Object(App\\Jobs\\SendItineraryRequestToGbiMailJob))\n#28 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(105): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(App\\Jobs\\SendItineraryRequestToGbiMailJob))\n#29 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\CallQueuedHandler.php(85): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))\n#30 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\CallQueuedHandler.php(59): Illuminate\\Queue\\CallQueuedHandler->dispatchThroughMiddleware(Object(Illuminate\\Queue\\Jobs\\DatabaseJob), Object(App\\Jobs\\SendItineraryRequestToGbiMailJob))\n#31 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\Jobs\\Job.php(88): Illuminate\\Queue\\CallQueuedHandler->call(Object(Illuminate\\Queue\\Jobs\\DatabaseJob), Array)\n#32 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\Worker.php(368): Illuminate\\Queue\\Jobs\\Job->fire()\n#33 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\Worker.php(314): Illuminate\\Queue\\Worker->process(\'database\', Object(Illuminate\\Queue\\Jobs\\DatabaseJob), Object(Illuminate\\Queue\\WorkerOptions))\n#34 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\Worker.php(267): Illuminate\\Queue\\Worker->runJob(Object(Illuminate\\Queue\\Jobs\\DatabaseJob), \'database\', Object(Illuminate\\Queue\\WorkerOptions))\n#35 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\Console\\WorkCommand.php(112): Illuminate\\Queue\\Worker->runNextJob(\'database\', \'default\', Object(Illuminate\\Queue\\WorkerOptions))\n#36 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\Console\\WorkCommand.php(96): Illuminate\\Queue\\Console\\WorkCommand->runWorker(\'database\', \'default\')\n#37 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(36): Illuminate\\Queue\\Console\\WorkCommand->handle()\n#38 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Util.php(37): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()\n#39 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(93): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))\n#40 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(37): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))\n#41 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(590): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)\n#42 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(134): Illuminate\\Container\\Container->call(Array)\n#43 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\symfony\\console\\Command\\Command.php(255): Illuminate\\Console\\Command->execute(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))\n#44 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(121): Symfony\\Component\\Console\\Command\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))\n#45 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\symfony\\console\\Application.php(1009): Illuminate\\Console\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))\n#46 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\symfony\\console\\Application.php(273): Symfony\\Component\\Console\\Application->doRunCommand(Object(Illuminate\\Queue\\Console\\WorkCommand), Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))\n#47 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\symfony\\console\\Application.php(149): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))\n#48 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Application.php(93): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))\n#49 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(131): Illuminate\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))\n#50 C:\\xampp\\htdocs\\web\\gbi\\GBI-GermanShepard\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))\n#51 {main}', '2021-03-26 14:33:15'),
 	(56, NULL, 'database', 'default', '{"displayName":"App\\\\Jobs\\\\SendItineraryRequestToGbiMailJob","job":"Illuminate\\\\Queue\\\\CallQueuedHandler@call","maxTries":null,"delay":null,"timeout":null,"timeoutAt":null,"data":{"commandName":"App\\\\Jobs\\\\SendItineraryRequestToGbiMailJob","command":"O:41:\\"App\\\\Jobs\\\\SendItineraryRequestToGbiMailJob\\":9:{s:10:\\"\\u0000*\\u0000details\\";a:6:{s:8:\\"tourtype\\";s:13:\\"Weekend Tours\\";s:7:\\"noofday\\";s:1:\\"8\\";s:6:\\"source\\";s:15:\\"Ahmedabad,India\\";s:11:\\"destination\\";s:12:\\"Aizawl,India\\";s:7:\\"phoneno\\";i:8952038545;s:5:\\"email\\";s:23:\\"ajayyadav49dk@gmail.com\\";}s:6:\\"\\u0000*\\u0000job\\";N;s:10:\\"connection\\";N;s:5:\\"queue\\";N;s:15:\\"chainConnection\\";N;s:10:\\"chainQueue\\";N;s:5:\\"delay\\";N;s:10:\\"middleware\\";a:0:{}s:7:\\"chained\\";a:0:{}}"}}', 'ErrorException: Trying to get property \'email\' of non-object in I:\\GBI Files\\Project\\GBI-Local\\vendor\\laravel\\framework\\src\\Illuminate\\Mail\\Mailable.php:594\nStack trace:\n#0 I:\\GBI Files\\Project\\GBI-Local\\vendor\\laravel\\framework\\src\\Illuminate\\Mail\\Mailable.php(594): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(8, \'Trying to get p...\', \'I:\\\\GBI Files\\\\Pr...\', 594, Array)\n#1 I:\\GBI Files\\Project\\GBI-Local\\vendor\\laravel\\framework\\src\\Illuminate\\Mail\\Mailable.php(490): Illuminate\\Mail\\Mailable->setAddress(NULL, NULL, \'to\')\n#2 I:\\GBI Files\\Project\\GBI-Local\\vendor\\laravel\\framework\\src\\Illuminate\\Mail\\PendingMail.php(168): Illuminate\\Mail\\Mailable->to(NULL)\n#3 I:\\GBI Files\\Project\\GBI-Local\\vendor\\laravel\\framework\\src\\Illuminate\\Mail\\PendingMail.php(122): Illuminate\\Mail\\PendingMail->fill(Object(App\\Mail\\SendItineraryRequestToGbiMail))\n#4 I:\\GBI Files\\Project\\GBI-Local\\app\\Jobs\\SendItineraryRequestToGbiMailJob.php(27): Illuminate\\Mail\\PendingMail->send(Object(App\\Mail\\SendItineraryRequestToGbiMail))\n#5 I:\\GBI Files\\Project\\GBI-Local\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(36): App\\Jobs\\SendItineraryRequestToGbiMailJob->handle()\n#6 I:\\GBI Files\\Project\\GBI-Local\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Util.php(37): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()\n#7 I:\\GBI Files\\Project\\GBI-Local\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(93): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))\n#8 I:\\GBI Files\\Project\\GBI-Local\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(37): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))\n#9 I:\\GBI Files\\Project\\GBI-Local\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(590): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)\n#10 I:\\GBI Files\\Project\\GBI-Local\\vendor\\laravel\\framework\\src\\Illuminate\\Bus\\Dispatcher.php(94): Illuminate\\Container\\Container->call(Array)\n#11 I:\\GBI Files\\Project\\GBI-Local\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(130): Illuminate\\Bus\\Dispatcher->Illuminate\\Bus\\{closure}(Object(App\\Jobs\\SendItineraryRequestToGbiMailJob))\n#12 I:\\GBI Files\\Project\\GBI-Local\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(105): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(App\\Jobs\\SendItineraryRequestToGbiMailJob))\n#13 I:\\GBI Files\\Project\\GBI-Local\\vendor\\laravel\\framework\\src\\Illuminate\\Bus\\Dispatcher.php(98): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))\n#14 I:\\GBI Files\\Project\\GBI-Local\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\CallQueuedHandler.php(83): Illuminate\\Bus\\Dispatcher->dispatchNow(Object(App\\Jobs\\SendItineraryRequestToGbiMailJob), false)\n#15 I:\\GBI Files\\Project\\GBI-Local\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(130): Illuminate\\Queue\\CallQueuedHandler->Illuminate\\Queue\\{closure}(Object(App\\Jobs\\SendItineraryRequestToGbiMailJob))\n#16 I:\\GBI Files\\Project\\GBI-Local\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(105): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(App\\Jobs\\SendItineraryRequestToGbiMailJob))\n#17 I:\\GBI Files\\Project\\GBI-Local\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\CallQueuedHandler.php(85): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))\n#18 I:\\GBI Files\\Project\\GBI-Local\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\CallQueuedHandler.php(59): Illuminate\\Queue\\CallQueuedHandler->dispatchThroughMiddleware(Object(Illuminate\\Queue\\Jobs\\DatabaseJob), Object(App\\Jobs\\SendItineraryRequestToGbiMailJob))\n#19 I:\\GBI Files\\Project\\GBI-Local\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\Jobs\\Job.php(88): Illuminate\\Queue\\CallQueuedHandler->call(Object(Illuminate\\Queue\\Jobs\\DatabaseJob), Array)\n#20 I:\\GBI Files\\Project\\GBI-Local\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\Worker.php(368): Illuminate\\Queue\\Jobs\\Job->fire()\n#21 I:\\GBI Files\\Project\\GBI-Local\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\Worker.php(314): Illuminate\\Queue\\Worker->process(\'database\', Object(Illuminate\\Queue\\Jobs\\DatabaseJob), Object(Illuminate\\Queue\\WorkerOptions))\n#22 I:\\GBI Files\\Project\\GBI-Local\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\Worker.php(134): Illuminate\\Queue\\Worker->runJob(Object(Illuminate\\Queue\\Jobs\\DatabaseJob), \'database\', Object(Illuminate\\Queue\\WorkerOptions))\n#23 I:\\GBI Files\\Project\\GBI-Local\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\Console\\WorkCommand.php(112): Illuminate\\Queue\\Worker->daemon(\'database\', \'default\', Object(Illuminate\\Queue\\WorkerOptions))\n#24 I:\\GBI Files\\Project\\GBI-Local\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\Console\\WorkCommand.php(96): Illuminate\\Queue\\Console\\WorkCommand->runWorker(\'database\', \'default\')\n#25 I:\\GBI Files\\Project\\GBI-Local\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(36): Illuminate\\Queue\\Console\\WorkCommand->handle()\n#26 I:\\GBI Files\\Project\\GBI-Local\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Util.php(37): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()\n#27 I:\\GBI Files\\Project\\GBI-Local\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(93): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))\n#28 I:\\GBI Files\\Project\\GBI-Local\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(37): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))\n#29 I:\\GBI Files\\Project\\GBI-Local\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(590): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)\n#30 I:\\GBI Files\\Project\\GBI-Local\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(134): Illuminate\\Container\\Container->call(Array)\n#31 I:\\GBI Files\\Project\\GBI-Local\\vendor\\symfony\\console\\Command\\Command.php(255): Illuminate\\Console\\Command->execute(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))\n#32 I:\\GBI Files\\Project\\GBI-Local\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(121): Symfony\\Component\\Console\\Command\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))\n#33 I:\\GBI Files\\Project\\GBI-Local\\vendor\\symfony\\console\\Application.php(1009): Illuminate\\Console\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))\n#34 I:\\GBI Files\\Project\\GBI-Local\\vendor\\symfony\\console\\Application.php(273): Symfony\\Component\\Console\\Application->doRunCommand(Object(Illuminate\\Queue\\Console\\WorkCommand), Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))\n#35 I:\\GBI Files\\Project\\GBI-Local\\vendor\\symfony\\console\\Application.php(149): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))\n#36 I:\\GBI Files\\Project\\GBI-Local\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Application.php(93): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))\n#37 I:\\GBI Files\\Project\\GBI-Local\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(131): Illuminate\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))\n#38 I:\\GBI Files\\Project\\GBI-Local\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))\n#39 {main}', '2021-04-30 19:27:09'),
@@ -1630,7 +1630,7 @@ INSERT INTO `failed_jobs` (`id`, `uuid`, `connection`, `queue`, `payload`, `exce
 	(118, '08f8c53e-79b5-4b53-98e7-2660dab0e65b', 'database', 'default', '{"uuid":"08f8c53e-79b5-4b53-98e7-2660dab0e65b","displayName":"App\\\\Jobs\\\\Notifications","job":"Illuminate\\\\Queue\\\\CallQueuedHandler@call","maxTries":null,"maxExceptions":null,"failOnTimeout":false,"backoff":null,"timeout":null,"retryUntil":null,"data":{"commandName":"App\\\\Jobs\\\\Notifications","command":"O:22:\\"App\\\\Jobs\\\\Notifications\\":11:{s:4:\\"data\\";a:6:{s:17:\\"notification_type\\";s:5:\\"posts\\";s:11:\\"client_type\\";s:7:\\"general\\";s:8:\\"category\\";s:4:\\"blog\\";s:11:\\"category_id\\";i:117;s:5:\\"title\\";s:5:\\"scsac\\";s:4:\\"body\\";s:6:\\"sacsac\\";}s:3:\\"job\\";N;s:10:\\"connection\\";N;s:5:\\"queue\\";N;s:15:\\"chainConnection\\";N;s:10:\\"chainQueue\\";N;s:19:\\"chainCatchCallbacks\\";N;s:5:\\"delay\\";N;s:11:\\"afterCommit\\";N;s:10:\\"middleware\\";a:0:{}s:7:\\"chained\\";a:0:{}}"}}', 'Illuminate\\Broadcasting\\BroadcastException: Failed to connect to Pusher. in D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Broadcasting\\Broadcasters\\PusherBroadcaster.php:142\nStack trace:\n#0 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Broadcasting\\BroadcastEvent.php(77): Illuminate\\Broadcasting\\Broadcasters\\PusherBroadcaster->broadcast(Array, \'App\\\\Events\\\\Send...\', Array)\n#1 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(36): Illuminate\\Broadcasting\\BroadcastEvent->handle(Object(Illuminate\\Broadcasting\\BroadcastManager))\n#2 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Util.php(40): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()\n#3 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(93): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))\n#4 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(37): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))\n#5 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(651): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)\n#6 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Bus\\Dispatcher.php(128): Illuminate\\Container\\Container->call(Array)\n#7 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(128): Illuminate\\Bus\\Dispatcher->Illuminate\\Bus\\{closure}(Object(Illuminate\\Broadcasting\\BroadcastEvent))\n#8 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(103): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Broadcasting\\BroadcastEvent))\n#9 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Bus\\Dispatcher.php(132): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))\n#10 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Broadcasting\\BroadcastManager.php(116): Illuminate\\Bus\\Dispatcher->dispatchNow(Object(Illuminate\\Broadcasting\\BroadcastEvent))\n#11 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Events\\Dispatcher.php(308): Illuminate\\Broadcasting\\BroadcastManager->queue(Object(App\\Events\\SendNotification))\n#12 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Events\\Dispatcher.php(231): Illuminate\\Events\\Dispatcher->broadcastEvent(Object(App\\Events\\SendNotification))\n#13 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\helpers.php(450): Illuminate\\Events\\Dispatcher->dispatch(\'App\\\\Events\\\\Send...\')\n#14 D:\\laragon\\www\\GBI-GermanShepard\\app\\Jobs\\Notifications.php(66): event(Object(App\\Events\\SendNotification))\n#15 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(36): App\\Jobs\\Notifications->handle()\n#16 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Util.php(40): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()\n#17 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(93): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))\n#18 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(37): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))\n#19 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(651): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)\n#20 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Bus\\Dispatcher.php(128): Illuminate\\Container\\Container->call(Array)\n#21 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(128): Illuminate\\Bus\\Dispatcher->Illuminate\\Bus\\{closure}(Object(App\\Jobs\\Notifications))\n#22 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(103): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(App\\Jobs\\Notifications))\n#23 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Bus\\Dispatcher.php(132): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))\n#24 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\CallQueuedHandler.php(120): Illuminate\\Bus\\Dispatcher->dispatchNow(Object(App\\Jobs\\Notifications), false)\n#25 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(128): Illuminate\\Queue\\CallQueuedHandler->Illuminate\\Queue\\{closure}(Object(App\\Jobs\\Notifications))\n#26 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(103): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(App\\Jobs\\Notifications))\n#27 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\CallQueuedHandler.php(122): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))\n#28 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\CallQueuedHandler.php(70): Illuminate\\Queue\\CallQueuedHandler->dispatchThroughMiddleware(Object(Illuminate\\Queue\\Jobs\\DatabaseJob), Object(App\\Jobs\\Notifications))\n#29 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\Jobs\\Job.php(98): Illuminate\\Queue\\CallQueuedHandler->call(Object(Illuminate\\Queue\\Jobs\\DatabaseJob), Array)\n#30 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\Worker.php(428): Illuminate\\Queue\\Jobs\\Job->fire()\n#31 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\Worker.php(378): Illuminate\\Queue\\Worker->process(\'database\', Object(Illuminate\\Queue\\Jobs\\DatabaseJob), Object(Illuminate\\Queue\\WorkerOptions))\n#32 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\Worker.php(172): Illuminate\\Queue\\Worker->runJob(Object(Illuminate\\Queue\\Jobs\\DatabaseJob), \'database\', Object(Illuminate\\Queue\\WorkerOptions))\n#33 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\Console\\WorkCommand.php(117): Illuminate\\Queue\\Worker->daemon(\'database\', \'default\', Object(Illuminate\\Queue\\WorkerOptions))\n#34 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\Console\\WorkCommand.php(101): Illuminate\\Queue\\Console\\WorkCommand->runWorker(\'database\', \'default\')\n#35 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(36): Illuminate\\Queue\\Console\\WorkCommand->handle()\n#36 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Util.php(40): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()\n#37 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(93): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))\n#38 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(37): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))\n#39 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(651): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)\n#40 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(136): Illuminate\\Container\\Container->call(Array)\n#41 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\symfony\\console\\Command\\Command.php(299): Illuminate\\Console\\Command->execute(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))\n#42 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(121): Symfony\\Component\\Console\\Command\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))\n#43 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\symfony\\console\\Application.php(978): Illuminate\\Console\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))\n#44 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\symfony\\console\\Application.php(295): Symfony\\Component\\Console\\Application->doRunCommand(Object(Illuminate\\Queue\\Console\\WorkCommand), Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))\n#45 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\symfony\\console\\Application.php(167): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))\n#46 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Application.php(92): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))\n#47 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(129): Illuminate\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))\n#48 D:\\laragon\\www\\GBI-GermanShepard\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))\n#49 {main}', '2021-12-07 15:09:04'),
 	(119, '45749376-b91c-4e8a-955d-f2456ea299b4', 'database', 'default', '{"uuid":"45749376-b91c-4e8a-955d-f2456ea299b4","displayName":"App\\\\Jobs\\\\Notifications","job":"Illuminate\\\\Queue\\\\CallQueuedHandler@call","maxTries":null,"maxExceptions":null,"failOnTimeout":false,"backoff":null,"timeout":null,"retryUntil":null,"data":{"commandName":"App\\\\Jobs\\\\Notifications","command":"O:22:\\"App\\\\Jobs\\\\Notifications\\":11:{s:4:\\"data\\";a:6:{s:17:\\"notification_type\\";s:5:\\"posts\\";s:11:\\"client_type\\";s:7:\\"general\\";s:8:\\"category\\";s:4:\\"blog\\";s:11:\\"category_id\\";i:117;s:5:\\"title\\";s:5:\\"scsac\\";s:4:\\"body\\";s:6:\\"sacsac\\";}s:3:\\"job\\";N;s:10:\\"connection\\";N;s:5:\\"queue\\";N;s:15:\\"chainConnection\\";N;s:10:\\"chainQueue\\";N;s:19:\\"chainCatchCallbacks\\";N;s:5:\\"delay\\";N;s:11:\\"afterCommit\\";N;s:10:\\"middleware\\";a:0:{}s:7:\\"chained\\";a:0:{}}"}}', 'Illuminate\\Broadcasting\\BroadcastException: Failed to connect to Pusher. in D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Broadcasting\\Broadcasters\\PusherBroadcaster.php:142\nStack trace:\n#0 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Broadcasting\\BroadcastEvent.php(77): Illuminate\\Broadcasting\\Broadcasters\\PusherBroadcaster->broadcast(Array, \'App\\\\Events\\\\Send...\', Array)\n#1 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(36): Illuminate\\Broadcasting\\BroadcastEvent->handle(Object(Illuminate\\Broadcasting\\BroadcastManager))\n#2 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Util.php(40): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()\n#3 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(93): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))\n#4 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(37): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))\n#5 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(651): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)\n#6 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Bus\\Dispatcher.php(128): Illuminate\\Container\\Container->call(Array)\n#7 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(128): Illuminate\\Bus\\Dispatcher->Illuminate\\Bus\\{closure}(Object(Illuminate\\Broadcasting\\BroadcastEvent))\n#8 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(103): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Broadcasting\\BroadcastEvent))\n#9 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Bus\\Dispatcher.php(132): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))\n#10 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Broadcasting\\BroadcastManager.php(116): Illuminate\\Bus\\Dispatcher->dispatchNow(Object(Illuminate\\Broadcasting\\BroadcastEvent))\n#11 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Events\\Dispatcher.php(308): Illuminate\\Broadcasting\\BroadcastManager->queue(Object(App\\Events\\SendNotification))\n#12 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Events\\Dispatcher.php(231): Illuminate\\Events\\Dispatcher->broadcastEvent(Object(App\\Events\\SendNotification))\n#13 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\helpers.php(450): Illuminate\\Events\\Dispatcher->dispatch(\'App\\\\Events\\\\Send...\')\n#14 D:\\laragon\\www\\GBI-GermanShepard\\app\\Jobs\\Notifications.php(66): event(Object(App\\Events\\SendNotification))\n#15 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(36): App\\Jobs\\Notifications->handle()\n#16 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Util.php(40): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()\n#17 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(93): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))\n#18 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(37): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))\n#19 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(651): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)\n#20 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Bus\\Dispatcher.php(128): Illuminate\\Container\\Container->call(Array)\n#21 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(128): Illuminate\\Bus\\Dispatcher->Illuminate\\Bus\\{closure}(Object(App\\Jobs\\Notifications))\n#22 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(103): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(App\\Jobs\\Notifications))\n#23 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Bus\\Dispatcher.php(132): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))\n#24 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\CallQueuedHandler.php(120): Illuminate\\Bus\\Dispatcher->dispatchNow(Object(App\\Jobs\\Notifications), false)\n#25 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(128): Illuminate\\Queue\\CallQueuedHandler->Illuminate\\Queue\\{closure}(Object(App\\Jobs\\Notifications))\n#26 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php(103): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(App\\Jobs\\Notifications))\n#27 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\CallQueuedHandler.php(122): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))\n#28 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\CallQueuedHandler.php(70): Illuminate\\Queue\\CallQueuedHandler->dispatchThroughMiddleware(Object(Illuminate\\Queue\\Jobs\\DatabaseJob), Object(App\\Jobs\\Notifications))\n#29 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\Jobs\\Job.php(98): Illuminate\\Queue\\CallQueuedHandler->call(Object(Illuminate\\Queue\\Jobs\\DatabaseJob), Array)\n#30 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\Worker.php(428): Illuminate\\Queue\\Jobs\\Job->fire()\n#31 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\Worker.php(378): Illuminate\\Queue\\Worker->process(\'database\', Object(Illuminate\\Queue\\Jobs\\DatabaseJob), Object(Illuminate\\Queue\\WorkerOptions))\n#32 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\Worker.php(172): Illuminate\\Queue\\Worker->runJob(Object(Illuminate\\Queue\\Jobs\\DatabaseJob), \'database\', Object(Illuminate\\Queue\\WorkerOptions))\n#33 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\Console\\WorkCommand.php(117): Illuminate\\Queue\\Worker->daemon(\'database\', \'default\', Object(Illuminate\\Queue\\WorkerOptions))\n#34 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Queue\\Console\\WorkCommand.php(101): Illuminate\\Queue\\Console\\WorkCommand->runWorker(\'database\', \'default\')\n#35 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(36): Illuminate\\Queue\\Console\\WorkCommand->handle()\n#36 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Util.php(40): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()\n#37 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(93): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))\n#38 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(37): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))\n#39 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(651): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)\n#40 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(136): Illuminate\\Container\\Container->call(Array)\n#41 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\symfony\\console\\Command\\Command.php(299): Illuminate\\Console\\Command->execute(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))\n#42 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(121): Symfony\\Component\\Console\\Command\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))\n#43 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\symfony\\console\\Application.php(978): Illuminate\\Console\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))\n#44 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\symfony\\console\\Application.php(295): Symfony\\Component\\Console\\Application->doRunCommand(Object(Illuminate\\Queue\\Console\\WorkCommand), Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))\n#45 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\symfony\\console\\Application.php(167): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))\n#46 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Application.php(92): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))\n#47 D:\\laragon\\www\\GBI-GermanShepard\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(129): Illuminate\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))\n#48 D:\\laragon\\www\\GBI-GermanShepard\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))\n#49 {main}', '2021-12-07 17:40:02');
 
--- Dumping structure for table gbi_2.feedbacks
+-- Dumping structure for table gbi.feedbacks
 CREATE TABLE IF NOT EXISTS `feedbacks` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int unsigned NOT NULL,
@@ -1651,7 +1651,7 @@ CREATE TABLE IF NOT EXISTS `feedbacks` (
   KEY `feedbacks_tour_id_foreign` (`tour_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.feedbacks: ~30 rows (approximately)
+-- Dumping data for table gbi.feedbacks: ~30 rows (approximately)
 INSERT INTO `feedbacks` (`id`, `user_id`, `tour_id`, `trip_itenerary`, `place_of_stay`, `food_quality`, `transport_arrangements`, `recommend_to_others`, `travel_again`, `escort_hospitality`, `comments`, `public`, `created_at`, `updated_at`) VALUES
 	(1, 69, 10, 5, 5, 8, 7, 7, 8, 6, 'Good experience.', 0, '2021-04-29 01:04:32', '2021-04-29 01:04:32'),
 	(2, 42, 11, 10, 8, 7, 8, 6, 7, 9, 'It was nice.', 0, '2021-04-29 05:23:01', '2021-04-27 05:23:02'),
@@ -1684,7 +1684,7 @@ INSERT INTO `feedbacks` (`id`, `user_id`, `tour_id`, `trip_itenerary`, `place_of
 	(33, 178, 25, 10, 9, 9, 8, 10, 7, 8, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s.', 1, '2021-05-04 20:13:54', '2021-06-24 19:09:52'),
 	(34, 180, 25, 7, 9, 10, 10, 9, 8, 10, 'Good Experience', 0, '2021-05-04 20:38:13', '2021-05-04 20:38:13');
 
--- Dumping structure for table gbi_2.flights
+-- Dumping structure for table gbi.flights
 CREATE TABLE IF NOT EXISTS `flights` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `code` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -1694,14 +1694,14 @@ CREATE TABLE IF NOT EXISTS `flights` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.flights: ~4 rows (approximately)
+-- Dumping data for table gbi.flights: ~4 rows (approximately)
 INSERT INTO `flights` (`id`, `code`, `name`, `created_at`, `updated_at`) VALUES
 	(1, '6E', 'India go', '2020-05-07 15:34:28', '2020-05-07 15:34:28'),
 	(2, '8M', 'Kingfisher', '2020-05-30 21:20:40', '2020-05-30 21:20:40'),
 	(3, '49494', 'Second flight', '2020-12-23 15:10:31', '2021-03-16 18:27:27'),
 	(4, '4747447', 'Test Flight', '2020-12-23 15:21:07', '2021-03-16 18:27:15');
 
--- Dumping structure for table gbi_2.foods
+-- Dumping structure for table gbi.foods
 CREATE TABLE IF NOT EXISTS `foods` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `tour_id` bigint unsigned NOT NULL,
@@ -1714,7 +1714,7 @@ CREATE TABLE IF NOT EXISTS `foods` (
   KEY `foods_tour_code_foreign` (`tour_code`)
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.foods: ~5 rows (approximately)
+-- Dumping data for table gbi.foods: ~5 rows (approximately)
 INSERT INTO `foods` (`id`, `tour_id`, `tour_code`, `name`, `quantity`, `created_at`, `updated_at`) VALUES
 	(8, 25, 'TOURCODE00024', 'Snacks', '3', '2021-02-09 15:39:11', '2021-02-09 17:52:06'),
 	(9, 25, 'TOURCODE00024', 'Nkil', '49', '2021-02-09 15:39:12', '2021-02-09 17:52:20'),
@@ -1722,7 +1722,7 @@ INSERT INTO `foods` (`id`, `tour_id`, `tour_code`, `name`, `quantity`, `created_
 	(17, 25, 'TOURCODE00024', 'New another food', '9494', '2021-02-09 17:53:14', '2021-02-09 17:53:14'),
 	(18, 26, 'TOURCODE00026', 'test', '9', '2021-03-15 13:47:35', '2021-03-15 13:47:35');
 
--- Dumping structure for table gbi_2.frontbookings
+-- Dumping structure for table gbi.frontbookings
 CREATE TABLE IF NOT EXISTS `frontbookings` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `user_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -1747,7 +1747,7 @@ CREATE TABLE IF NOT EXISTS `frontbookings` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.frontbookings: ~57 rows (approximately)
+-- Dumping data for table gbi.frontbookings: ~57 rows (approximately)
 INSERT INTO `frontbookings` (`id`, `user_id`, `client_type`, `itinerary_id`, `start_date`, `end_date`, `person`, `adults`, `children`, `infants`, `room`, `occupancy_type`, `noofday`, `accomodation`, `city`, `transport`, `sightseen`, `status`, `created_at`, `updated_at`) VALUES
 	(1, '44', NULL, '40', '2020-07-16', '2020-07-30', '2', NULL, NULL, NULL, '1', 'Triple', '4', '4', 'Agra, Goa', 'Bus, Air', 'Goa city, Taj Mahal', '1', '2020-07-16 11:32:14', '2020-07-16 17:29:15'),
 	(2, '44', NULL, '40', '2020-07-24', '2020-07-21', '2', NULL, NULL, NULL, '1', 'Triple', '2', '5', 'Agra, Goa', 'Air, Train', 'Goa city, Taj Mahal', '1', '2020-07-16 11:34:15', '2020-10-10 11:15:52'),
@@ -1807,7 +1807,7 @@ INSERT INTO `frontbookings` (`id`, `user_id`, `client_type`, `itinerary_id`, `st
 	(57, '203', NULL, '118', '2022-06-03', '2022-06-08', '4', '4', '0', '0', '2', 'Double', '1', '3', '0', '0', '0', '0', '2022-05-20 09:16:40', '2022-05-20 09:16:40'),
 	(58, '208', NULL, '48', '2022-12-23', '2022-12-26', '4', '3', '1', '0', '1', 'Quad', '1', '3', 'Coorg, Hyderabad, Mysore', '0', '0', '0', '2022-12-13 15:40:47', '2022-12-13 15:40:47');
 
--- Dumping structure for table gbi_2.galleries
+-- Dumping structure for table gbi.galleries
 CREATE TABLE IF NOT EXISTS `galleries` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `category` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -1819,13 +1819,13 @@ CREATE TABLE IF NOT EXISTS `galleries` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.galleries: ~3 rows (approximately)
+-- Dumping data for table gbi.galleries: ~3 rows (approximately)
 INSERT INTO `galleries` (`id`, `category`, `title`, `slug`, `school_id`, `created_at`, `updated_at`) VALUES
 	(9, 'domestic', 'test', 'test-9', '5', '2020-12-22 11:37:05', '2021-03-03 15:46:53'),
 	(10, 'domestic', 'Test Gallery Data', 'test-gallery-data-10', '36', '2021-03-03 15:55:38', '2021-03-15 18:23:21'),
 	(13, 'domestic', 'new test', 'new-test-13', '854', '2021-03-20 13:29:36', '2021-03-20 13:29:38');
 
--- Dumping structure for table gbi_2.galleryimages
+-- Dumping structure for table gbi.galleryimages
 CREATE TABLE IF NOT EXISTS `galleryimages` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `gallery_id` bigint unsigned NOT NULL,
@@ -1837,7 +1837,7 @@ CREATE TABLE IF NOT EXISTS `galleryimages` (
   KEY `galleryimages_gallery_id_foreign` (`gallery_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.galleryimages: ~10 rows (approximately)
+-- Dumping data for table gbi.galleryimages: ~10 rows (approximately)
 INSERT INTO `galleryimages` (`id`, `gallery_id`, `path`, `alt`, `created_at`, `updated_at`) VALUES
 	(46, 9, 'hero-1-1031614766608705076.jpeg', 'hero-1_103', '2021-03-03 15:46:53', '2021-03-03 15:46:53'),
 	(47, 9, 'fotis-fotopoulos-6sal6aq4owi-unsplash16147666135228.jpeg', 'fotis-fotopoulos-6sAl6aQ4OWI-unsplash', '2021-03-03 15:46:53', '2021-03-03 15:46:53'),
@@ -1850,7 +1850,7 @@ INSERT INTO `galleryimages` (`id`, `gallery_id`, `path`, `alt`, `created_at`, `u
 	(54, 13, 'hotel-1616227176488661.jpeg', 'hotel', '2021-03-20 13:29:38', '2021-03-20 13:29:38'),
 	(55, 13, 'koti-resort-1616227178218625.jpeg', 'KOTI RESORT', '2021-03-20 13:29:38', '2021-03-20 13:29:38');
 
--- Dumping structure for table gbi_2.groupmembers
+-- Dumping structure for table gbi.groupmembers
 CREATE TABLE IF NOT EXISTS `groupmembers` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `user_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -1871,7 +1871,7 @@ CREATE TABLE IF NOT EXISTS `groupmembers` (
   KEY `groupmembers_tour_id_foreign` (`tour_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.groupmembers: ~50 rows (approximately)
+-- Dumping data for table gbi.groupmembers: ~50 rows (approximately)
 INSERT INTO `groupmembers` (`id`, `user_id`, `tour_id`, `school_id`, `first_name`, `last_name`, `email`, `gender`, `mobile`, `age`, `is_paid`, `payment_status`, `user_type`, `created_at`, `updated_at`) VALUES
 	(13, NULL, 'TOURCODE00026', '952', 'ajay', 'yadav', 'ajayyadavexpo@gmail.com', 'M', '8920397458', '25', '1', 'pending', 'student', '2021-02-18 11:44:43', '2021-02-18 11:44:43'),
 	(15, NULL, 'TOURCODE00026', '952', 'Teacher', 'yadav', 'teacheryadav@gmail.com', 'M', '8920397458', '45', '0', 'pending', 'teacher', '2021-02-18 11:45:00', '2021-02-18 11:45:00'),
@@ -1924,7 +1924,7 @@ INSERT INTO `groupmembers` (`id`, `user_id`, `tour_id`, `school_id`, `first_name
 	(71, NULL, 'TOURCODE00050', '3', 'jdjsj', 'jkdsahf', 'xyz@gmail.com', 'M', '9876543210', '12', '1', 'pending', 'student', '2023-06-08 11:09:21', '2023-06-08 11:09:21'),
 	(72, NULL, 'TOURCODE00050', '3', 'sdflk', 'kjdkkj`', 'xy1@gmail.com', 'F', '9876543210', '25', '1', 'pending', 'student', '2023-06-08 11:09:21', '2023-06-08 11:09:21');
 
--- Dumping structure for table gbi_2.hotels
+-- Dumping structure for table gbi.hotels
 CREATE TABLE IF NOT EXISTS `hotels` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `type` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -1969,7 +1969,7 @@ CREATE TABLE IF NOT EXISTS `hotels` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.hotels: ~33 rows (approximately)
+-- Dumping data for table gbi.hotels: ~33 rows (approximately)
 INSERT INTO `hotels` (`id`, `type`, `name`, `meta_title`, `meta_keywords`, `meta_description`, `price`, `state`, `country`, `city`, `pincode`, `address`, `phoneno`, `email`, `rooms`, `banquets`, `category`, `star_category`, `room_categories`, `banquet_categories`, `amenities`, `description`, `image`, `images`, `alt`, `apai_single`, `apai_double`, `apai_triple`, `apai_quad`, `mapai_single`, `mapai_double`, `mapai_triple`, `mapai_quad`, `cpai_single`, `cpai_double`, `cpai_triple`, `cpai_quad`, `status`, `created_at`, `updated_at`) VALUES
 	(1, '3', 'HOTEL GRAND AGRA', '', NULL, NULL, 2500, 'Utter Pradesh', '', 'Agra', '', '137, Mall Rd, Agra Cantt, Idgah Colony, Agra, Uttar Pradesh 282001', '0562-2227511', 'reservations@grandhotelagra.com', '10', 0, 'Double', 2, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1', '2020-05-06 19:19:57', '2020-05-07 22:18:46'),
 	(2, '3', 'Hotel Sawera Grand', '', NULL, NULL, 2500, 'Punjab', '', 'Amritsar', '', '1724/1,Sawera Tower, Katra Baghian, Opp Sawera Travels Pvt. Ltd, Hall Bazaar, Amritsar, Punjab 143001', '08558833449', 'info@hotelsaweragrand.com', '21', 0, 'Double', 2, '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1', '2020-05-06 20:29:15', '2020-05-07 22:21:30'),
@@ -2005,7 +2005,7 @@ INSERT INTO `hotels` (`id`, `type`, `name`, `meta_title`, `meta_keywords`, `meta
 	(35, '3', 'Test Hotel with price', '', NULL, NULL, 2500, 'Delhi', '', 'New Delhi', '', 'Test Hotel Address', '8952365236', 'sdfasdfsadflk@gmail.com', '4', 0, 'Double', 2, '', '', '', '', 'hoteljpg1614942628900739.jpeg', NULL, NULL, '11', '11', '2', NULL, '4', '7', '5', NULL, '8', '9', '0', NULL, '1', '2021-03-03 12:52:30', '2021-03-19 15:29:07'),
 	(37, '', 'Test', 'Test', 'a:0:{}', 'Test', 2500, 'Delhi', 'India', 'Delhi', '10001', 'Test', '1111111111', 'admin@gbinternational.in', '11', 11, 'Double', 5, 'a:1:{i:0;s:4:"Test";}', 'a:1:{i:0;s:4:"Test";}', 'a:0:{}', '<p>Test</p>', NULL, 'a:1:{i:0;s:109:"wonderla-amusement-park-kochi-tourism-entry-fee-timings-holidays-reviews-header-copyjpg-1694200339903599.jpeg";}', 'a:1:{i:0;s:90:"wonderla-amusement-park-kochi-tourism-entry-fee-timings-holidays-reviews-header - Copy.jpg";}', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1', '2023-09-08 13:42:19', '2023-09-08 13:42:19');
 
--- Dumping structure for table gbi_2.informations
+-- Dumping structure for table gbi.informations
 CREATE TABLE IF NOT EXISTS `informations` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int unsigned NOT NULL,
@@ -2045,7 +2045,7 @@ CREATE TABLE IF NOT EXISTS `informations` (
   KEY `informations_user_id_foreign` (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=126 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.informations: ~98 rows (approximately)
+-- Dumping data for table gbi.informations: ~98 rows (approximately)
 INSERT INTO `informations` (`id`, `user_id`, `change_password`, `gbi_link`, `client_type`, `client_input`, `phone_no`, `otp`, `father_name`, `mother_name`, `dob`, `address`, `city`, `state`, `country`, `zip_code`, `user_class`, `admission_year`, `varified`, `photo`, `docFront`, `docBack`, `docType`, `gender`, `user_profession`, `profession_name`, `profession_address`, `school_id`, `company_id`, `institution_code`, `reset_link`, `link_time`, `created_at`, `updated_at`) VALUES
 	(3, 42, 1, 'https://www.gowithgbi.com/', 'student', 'Mark Gold Man', '8920397450', '7519', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', 'user.png', NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-05-14 19:34:08', '2020-05-14 19:34:08'),
 	(4, 43, 1, 'https://www.gowithgbi.com/', 'student', 'Mark Gold Man', '8802890519', '2179', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', 'user.png', NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-05-30 15:59:06', '2020-05-30 15:59:06'),
@@ -2146,7 +2146,7 @@ INSERT INTO `informations` (`id`, `user_id`, `change_password`, `gbi_link`, `cli
 	(122, 208, 1, 'https://www.gowithgbi.com/', NULL, NULL, '8143637469', '9361', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1', 'user.png', NULL, NULL, NULL, '', 'student', 'KESHAV MEMORIAL INSTITUTE OF TECHNOLOGY', 'Keshav memorial institute of technology,3-5-1026,Hari Vihar colony, Bhagat annav at, Narayanaguda, Hyderabad', '959', NULL, 'Na', NULL, NULL, '2022-12-13 15:34:23', '2022-12-13 15:39:30'),
 	(123, 209, 1, 'https://www.gowithgbi.com/', NULL, NULL, '8143637469', '9361', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1', 'user.png', NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-12-13 15:34:24', '2022-12-13 15:34:24');
 
--- Dumping structure for table gbi_2.itineraries
+-- Dumping structure for table gbi.itineraries
 CREATE TABLE IF NOT EXISTS `itineraries` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `count` bigint unsigned NOT NULL DEFAULT '0',
@@ -2178,7 +2178,7 @@ CREATE TABLE IF NOT EXISTS `itineraries` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.itineraries: ~12 rows (approximately)
+-- Dumping data for table gbi.itineraries: ~12 rows (approximately)
 INSERT INTO `itineraries` (`id`, `count`, `source`, `client_type`, `destination`, `startLoc`, `endLoc`, `title`, `meta_title`, `meta_keyword`, `meta_description`, `photo`, `photo_alt`, `detail_photo`, `detail_photo_alt`, `noofdays`, `description`, `tourtype`, `hotel_type`, `bus`, `train`, `flight`, `food`, `status`, `price`, `created_at`, `updated_at`) VALUES
 	(1, 116, 'Jaipur', 'eduInstitute', 'Kochi', NULL, NULL, 'KOCHI WONDERLA TRIVANDRUM KANYAKUMARI', 'KOCHI KOVALAM WONDERLA TRIVANDRUM KANYAKUMARI', 'KOCHI WONDERLA TRIVANDRUM KANYAKUMARI KOVALAM BEACH JAIPUR DELHI VIVEKANANDA ROCK KANYAKUMARI TEMPLE GANDHI MANDAP SUNSET POINT TRIVANDRUM ZOO NAPIER MUSEUM PADMANABHASWAMY TEMPLE JEWISH SYNAGOGUE MATTANCHERRY PALACE CHINESE FISHING NETS KOCHI HARBOR', 'KOCHI: Popularly known as the \'Queen of the Arabian Sea\', it is a flourishing port city showcasing a rich blend of mesmerizing natural beauty and vibrant culture.\nTRIVANDRUM:A gracious and evergreen city spread over seven hills, Thiruvananthapuram, capital of Kerala, is steeped in history and culture. Located in the extreme south of the state, its shores are washed by the warm waters of the Arabian Sea\nKANYAKUMARI:Kanyakumari is popular because it is the only places on earth, where you can see the Sun Rise and Sun Set from the ocean. It is the only place in India where one can enjoy the unique spectacle of Sunset and Moonrise simultaneously on full moon days.', 'vivekananda-rock-6jpg-1677479078798081.jpeg', 'vivekananda-rock_6.jpg', 'itinerary_image_63f86c03e6ea1', 'itinerary_image_63f86c03e6e8b', 7, '<p><strong>DID YOU KNOW:</strong></p><p><strong>KOCHI:</strong> Popularly known as the \'Queen of the Arabian Sea\', it is a flourishing port city showcasing a rich blend of mesmerizing natural beauty and vibrant culture.</p><p><strong>TRIVANDRUM:</strong> A gracious and evergreen city spread over seven hills, Thiruvananthapuram, capital of Kerala, is steeped in history and culture. Located in the extreme south of the state, its shores are washed by the warm waters of the Arabian Sea</p><p class="ql-align-justify"><strong>KANYAKUMARI:</strong> Kanyakumari is popular because it is the only places on earth, where you can see the Sun Rise and Sun Set from the ocean. It is the only place in India where one can enjoy the unique spectacle of Sunset and Moonrise simultaneously on full moon days.</p>', 'National', '3', '1', NULL, '1', '1', '1', 36500, NULL, '2023-09-08 02:48:54'),
 	(2, 46, 'Vijayawada', 'eduInstitute', 'Shimla', NULL, NULL, 'DELHI SHIMLA MANALI CHAIL CHANDIGARH', 'DELHI SHIMLA MANALI CHANDIGARH', 'SHIMLA MANALI CHANDIGARH DELHI QUTUB MINAR INDIA GATE KARTAVYA PATH PARLIAMENT HOUSE RASHTRAPATI BHAWAN AKSHARDHAM TEMPLE PRADARSHINI EXHIBITION LASER SHOW MUSEUM OF ILLUSION PRIME MINISTER MUSEUM CHAIL PINE TREE FOREST KUFRI SANKAT HANUMAN TEMPLE INSTITU', 'SHIMLA: The town is famous for pleasant walking experiences on hillsides surrounded by pine and oak forests. This capital city of Himachal Pradesh is famous for The Mall, ridge, and toy train. With colonial style buildings, the town has relics of ancient past that lend it a distinct look.\nMANALI: Besides natural charm and unparalleled beauty, Manali is known for its unlimited adventure opportunities, the famous Hadimba Temple, the scenic Rohtang Pass, the snow-laden Solang Valley and its delightful culinary scene.\nCHANDIGARH: Chandigarh, was planned by the famous French architect Le Corbusier. Picturesquely located at the foothills of Shivalikâ€™s, it is known as one of the best experiments in urban planning and modern architecture in the twentieth century in India.', 'shimlajpg-167723526522923.jpeg', 'SHIMLA.jpg', 'itinerary_image_63f89441767f9', 'itinerary_image_63f89441767f5', 10, '<p><strong>DID YOU KNOW:</strong></p><p class="ql-align-justify"><strong>SHIMLA: </strong>The town is famous for pleasant walking experiences on hillsides surrounded by pine and oak forests. This capital city of Himachal Pradesh is famous for The Mall, ridge, and toy train. With colonial style buildings, the town has relics of ancient past that lend it a distinct look.</p><p class="ql-align-justify"><strong>MANALI: </strong>Besides natural charm and unparalleled beauty, Manali is known for its unlimited adventure opportunities, the famous Hadimba Temple, the scenic Rohtang Pass, the snow-laden Solang Valley and its delightful culinary scene.</p><p class="ql-align-justify"><strong>CHANDIGARH: </strong>Chandigarh, was planned by the famous French architect Le Corbusier. Picturesquely located at the foothills of Shivalikâ€™s, it is known as one of the best experiments in urban planning and modern architecture in the twentieth century in India.</p>', 'National', '3', '1', NULL, '1', '1', '1', 32000, NULL, '2023-09-08 06:49:29'),
@@ -2194,7 +2194,7 @@ INSERT INTO `itineraries` (`id`, `count`, `source`, `client_type`, `destination`
 	(12, 6, 'Hyderabad', 'eduInstitute', 'Shimla', NULL, NULL, 'DELHI SHIMLA KULLU MANALI', 'DELHI SHIMLA KULLU MANALI', 'DELHI SHIMLA KULLU MANALI LOTUS TEMPLE AKSHARDHAM TEMPLE INDIA GATE\' PARLIAMENT HOUSE RASHTRAPATI BHAWAN KARTAVYA PATH KUFRI LAKKAR BAZAR THE MALL SOLANG PASS SOLANG VALLEY VASHIST SULPHUR SPRING HIDIMBA DEVI TEMPLE TIBETAN\'S MONASTERY QUTUB MINAR AIRFORC', 'SHIMLA: The town is famous for pleasant walking experiences on hillsides surrounded by pine and oak forests. This capital city of Himachal Pradesh is famous for The Mall, ridge, and toy train. With colonial-style buildings, the town has relics of the ancient past that lend it a distinct look.', 'shimla-featuredwebp-1677330290837114.webp', 'shimla-featured.webp', 'itinerary_image_63fa077221bd9', 'itinerary_image_63fa077221bd6', 8, '<p class="ql-align-justify"><strong><u>DID YOU KNOW:</u></strong></p><p class="ql-align-justify"><strong>SHIMLA: </strong>The town is famous for pleasant walking experiences on hillsides surrounded by pine and oak forests. This capital city of Himachal Pradesh is famous for The Mall, ridge, and toy train. With colonial-style buildings, the town has relics of the ancient past that lend it a distinct look.</p>', 'National', '3', '1', '1', NULL, '1', '1', 29500, NULL, '2023-07-12 12:46:24'),
 	(13, 0, 'testing', 'general', 'testing', NULL, NULL, 'testing', 'testing', NULL, 'testing', '', NULL, 'itinerary_image_64d4c7a457c77', 'itinerary_image_64d4c7a457c75', 5, 'testing', 'testing', NULL, NULL, NULL, NULL, 'testing', '1', 0, NULL, NULL);
 
--- Dumping structure for table gbi_2.itinerarydays
+-- Dumping structure for table gbi.itinerarydays
 CREATE TABLE IF NOT EXISTS `itinerarydays` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `itinerary_id` int unsigned DEFAULT NULL,
@@ -2209,7 +2209,7 @@ CREATE TABLE IF NOT EXISTS `itinerarydays` (
   KEY `itinerarydays_itinerary_id_foreign` (`itinerary_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=351 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.itinerarydays: ~86 rows (approximately)
+-- Dumping data for table gbi.itinerarydays: ~86 rows (approximately)
 INSERT INTO `itinerarydays` (`id`, `itinerary_id`, `day`, `day_source`, `day_destination`, `day_description`, `status`, `created_at`, `updated_at`) VALUES
 	(210, 5, '1', 'Hyderabad', 'New Delhi', '<p class="ql-align-justify">Leave <strong>Hyderabad</strong> by <strong>Indigo flight</strong> at <strong>06:45(AM) Hrs.</strong> for <strong>Delhi. </strong>Arrive <strong>Delhi </strong>at <strong>09:05(AM) Hrs.</strong> Visit <strong>Akshardham Temple</strong>. Lunch at Akshardham Temple. Post lunch, transfer to <strong>New Delhi Railway Station</strong> to board <strong>Amritsar Shatabdi (12013) </strong>at <strong>16:30 Hrs. (04:30 PM)</strong>. Arrive <strong>Amritsar</strong> at <strong>22:30 Hrs.</strong> Dinner and overnight stay in the hotel at <strong>Amritsar</strong>.</p>', '1', '2023-02-27 07:38:23', '2023-02-27 07:38:23'),
 	(211, 5, '2', 'Amritsar', 'Amritsar', '<p>After breakfast, visit <strong>Golden Temple</strong>, Historical <strong>Jalianwala Bagh</strong>. Post lunch, leave for <strong>Wagah Border</strong> (the last Indian Check Post on the Indo-Pakistan border) to see change of guards and the flag hoisting and lowering activities done skillfully and with precision by the border security forces of both the countries. In the evening visit <strong>Durgiana Mandir</strong>. Return to the hotel. Dinner and overnight stay in the hotel at <strong>Amritsar</strong>.</p>', '1', '2023-02-27 07:38:23', '2023-02-27 07:38:23'),
@@ -2298,7 +2298,7 @@ INSERT INTO `itinerarydays` (`id`, `itinerary_id`, `day`, `day_source`, `day_des
 	(349, 1, '6', 'Thiruvananthapuram', 'Kochi', '<p class="ql-align-justify">After breakfast, leave <strong>Trivandrum</strong> for <strong>Kochi</strong>. Arrive <strong>Kochi</strong> by lunchtime. Post lunch, visit <strong>Jewish Synagogue</strong>, <strong>Mattancherry Palace</strong>, <strong>Chinese Fishing Nets</strong>. In the evening cruise at <strong>Kochi Harbor</strong>. Dinner and overnight stay in the hotel at <strong>Kochi</strong>.</p>', '1', '2023-09-05 17:10:55', '2023-09-05 17:10:55'),
 	(350, 1, '7', 'Kochi', 'Jaipur', '<p class="ql-align-justify">After breakfast, leave <strong>Kochi</strong> and transfer to the <strong>Kochi International Airport</strong> to board the flight for <strong>Delhi</strong>. Arrive <strong>Delhi</strong>. Post lunch, transfer to the A/c coach and leave for <strong>Jaipur</strong>. Arrive <strong>Jaipur</strong>.</p>', '1', '2023-09-05 17:10:55', '2023-09-05 17:10:55');
 
--- Dumping structure for table gbi_2.itinerarypdfs
+-- Dumping structure for table gbi.itinerarypdfs
 CREATE TABLE IF NOT EXISTS `itinerarypdfs` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `encyclopedia_id` bigint unsigned DEFAULT NULL,
@@ -2313,7 +2313,7 @@ CREATE TABLE IF NOT EXISTS `itinerarypdfs` (
   KEY `itinerarypdfs_encyclopedia_id_foreign` (`encyclopedia_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.itinerarypdfs: ~37 rows (approximately)
+-- Dumping data for table gbi.itinerarypdfs: ~37 rows (approximately)
 INSERT INTO `itinerarypdfs` (`id`, `encyclopedia_id`, `name`, `slug`, `meta_title`, `meta_keywords`, `meta_description`, `created_at`, `updated_at`) VALUES
 	(32, 20, '05 DAY TOUR TO KOCHI TRIVANDRUM.pdf', '05-day-tour-to-kochi-trivandrumpdf', NULL, NULL, NULL, '2020-04-24 18:35:34', '2021-03-10 14:14:48'),
 	(33, 20, 'CVT_06 DAYS TOUR TO AHMEDABAD VADODARA STATUE OF UNITY.pdf', 'cvt-06-days-tour-to-ahmedabad-vadodara-statue-of-unitypdf', NULL, NULL, NULL, '2020-04-24 18:35:34', '2021-03-10 14:14:48'),
@@ -2353,7 +2353,7 @@ INSERT INTO `itinerarypdfs` (`id`, `encyclopedia_id`, `name`, `slug`, `meta_titl
 	(74, 29, 'ARUNACHAL PRADESH TRIP.pdf', 'arunachal-pradesh-trippdf', NULL, NULL, NULL, '2020-05-01 21:45:02', '2021-03-10 14:14:48'),
 	(75, 4, 'MUMBAI-MAHABALESHWAR-LONAVALA-Pune From Nagpur.pdf', 'mumbai-mahabaleshwar-lonavala-pune-from-nagpurpdf', NULL, NULL, NULL, '2020-05-01 22:16:38', '2021-03-10 14:14:48');
 
--- Dumping structure for table gbi_2.itineraryrequests
+-- Dumping structure for table gbi.itineraryrequests
 CREATE TABLE IF NOT EXISTS `itineraryrequests` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `source` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -2367,9 +2367,9 @@ CREATE TABLE IF NOT EXISTS `itineraryrequests` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.itineraryrequests: ~0 rows (approximately)
+-- Dumping data for table gbi.itineraryrequests: ~0 rows (approximately)
 
--- Dumping structure for table gbi_2.itinerarysights
+-- Dumping structure for table gbi.itinerarysights
 CREATE TABLE IF NOT EXISTS `itinerarysights` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `itinerary_id` int unsigned DEFAULT NULL,
@@ -2380,9 +2380,9 @@ CREATE TABLE IF NOT EXISTS `itinerarysights` (
   KEY `itinerarydays_itinerary_id_foreign` (`itinerary_id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=1133 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table gbi_2.itinerarysights: ~0 rows (approximately)
+-- Dumping data for table gbi.itinerarysights: ~0 rows (approximately)
 
--- Dumping structure for table gbi_2.itinerary_images
+-- Dumping structure for table gbi.itinerary_images
 CREATE TABLE IF NOT EXISTS `itinerary_images` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `itinerary_id` int unsigned NOT NULL,
@@ -2392,7 +2392,7 @@ CREATE TABLE IF NOT EXISTS `itinerary_images` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=89 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table gbi_2.itinerary_images: ~65 rows (approximately)
+-- Dumping data for table gbi.itinerary_images: ~65 rows (approximately)
 INSERT INTO `itinerary_images` (`id`, `itinerary_id`, `image`, `created_at`, `updated_at`) VALUES
 	(7, 2, 'itinerary-image-63f8944325c1e-1677235267272016.jpeg', '2023-02-24 10:41:07', '2023-02-24 10:41:07'),
 	(8, 2, 'itinerary-image-63f89443c8b2b-1677235267271300.jpeg', '2023-02-24 10:41:08', '2023-02-24 10:41:08'),
@@ -2460,7 +2460,7 @@ INSERT INTO `itinerary_images` (`id`, `itinerary_id`, `image`, `created_at`, `up
 	(84, 9, 'itinerary-image-63fc7d91c99d2-1677491601484421.jpeg', '2023-02-27 09:53:22', '2023-02-27 09:53:22'),
 	(85, 9, 'itinerary-image-63fc7d928f92d-1677491602490726.jpeg', '2023-02-27 09:53:22', '2023-02-27 09:53:22');
 
--- Dumping structure for table gbi_2.itinerary_season
+-- Dumping structure for table gbi.itinerary_season
 CREATE TABLE IF NOT EXISTS `itinerary_season` (
   `itinerary_id` int unsigned NOT NULL,
   `season_id` int unsigned NOT NULL,
@@ -2468,7 +2468,7 @@ CREATE TABLE IF NOT EXISTS `itinerary_season` (
   KEY `itinerary_tourtype_tourtype_id_foreign` (`season_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table gbi_2.itinerary_season: ~46 rows (approximately)
+-- Dumping data for table gbi.itinerary_season: ~46 rows (approximately)
 INSERT INTO `itinerary_season` (`itinerary_id`, `season_id`) VALUES
 	(37, 4),
 	(37, 3),
@@ -2517,7 +2517,7 @@ INSERT INTO `itinerary_season` (`itinerary_id`, `season_id`) VALUES
 	(12, 4),
 	(12, 5);
 
--- Dumping structure for table gbi_2.itinerary_tag
+-- Dumping structure for table gbi.itinerary_tag
 CREATE TABLE IF NOT EXISTS `itinerary_tag` (
   `itinerary_id` int unsigned NOT NULL DEFAULT '0',
   `tag_id` bigint unsigned NOT NULL,
@@ -2525,7 +2525,7 @@ CREATE TABLE IF NOT EXISTS `itinerary_tag` (
   KEY `itinerary_tag_itinerary_id_foreign` (`itinerary_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table gbi_2.itinerary_tag: ~219 rows (approximately)
+-- Dumping data for table gbi.itinerary_tag: ~219 rows (approximately)
 INSERT INTO `itinerary_tag` (`itinerary_id`, `tag_id`) VALUES
 	(1, 64),
 	(1, 65),
@@ -2747,7 +2747,7 @@ INSERT INTO `itinerary_tag` (`itinerary_id`, `tag_id`) VALUES
 	(12, 103),
 	(12, 154);
 
--- Dumping structure for table gbi_2.itinerary_tourprogram
+-- Dumping structure for table gbi.itinerary_tourprogram
 CREATE TABLE IF NOT EXISTS `itinerary_tourprogram` (
   `itinerary_id` int unsigned NOT NULL,
   `tourprogram_id` bigint unsigned NOT NULL,
@@ -2755,7 +2755,7 @@ CREATE TABLE IF NOT EXISTS `itinerary_tourprogram` (
   KEY `tourprogram_itinerary_tourprogram_id_foreign` (`tourprogram_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.itinerary_tourprogram: ~17 rows (approximately)
+-- Dumping data for table gbi.itinerary_tourprogram: ~17 rows (approximately)
 INSERT INTO `itinerary_tourprogram` (`itinerary_id`, `tourprogram_id`) VALUES
 	(40, 13),
 	(49, 13),
@@ -2775,7 +2775,7 @@ INSERT INTO `itinerary_tourprogram` (`itinerary_id`, `tourprogram_id`) VALUES
 	(117, 17),
 	(118, 17);
 
--- Dumping structure for table gbi_2.itinerary_tourtype
+-- Dumping structure for table gbi.itinerary_tourtype
 CREATE TABLE IF NOT EXISTS `itinerary_tourtype` (
   `itinerary_id` int unsigned NOT NULL,
   `tourtype_id` bigint unsigned NOT NULL,
@@ -2783,7 +2783,7 @@ CREATE TABLE IF NOT EXISTS `itinerary_tourtype` (
   KEY `itinerary_tourtype_tourtype_id_foreign` (`tourtype_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.itinerary_tourtype: ~125 rows (approximately)
+-- Dumping data for table gbi.itinerary_tourtype: ~125 rows (approximately)
 INSERT INTO `itinerary_tourtype` (`itinerary_id`, `tourtype_id`) VALUES
 	(106, 27),
 	(106, 28),
@@ -2911,7 +2911,7 @@ INSERT INTO `itinerary_tourtype` (`itinerary_id`, `tourtype_id`) VALUES
 	(12, 43),
 	(12, 46);
 
--- Dumping structure for table gbi_2.jobs
+-- Dumping structure for table gbi.jobs
 CREATE TABLE IF NOT EXISTS `jobs` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `queue` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -2924,7 +2924,7 @@ CREATE TABLE IF NOT EXISTS `jobs` (
   KEY `jobs_queue_index` (`queue`)
 ) ENGINE=InnoDB AUTO_INCREMENT=609 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.jobs: ~68 rows (approximately)
+-- Dumping data for table gbi.jobs: ~68 rows (approximately)
 INSERT INTO `jobs` (`id`, `queue`, `payload`, `attempts`, `reserved_at`, `available_at`, `created_at`) VALUES
 	(541, 'default', '{"uuid":"0bfa9e14-a441-4307-a2d4-0a6d48b121c5","displayName":"App\\\\Jobs\\\\FrontBookingAdminJob","job":"Illuminate\\\\Queue\\\\CallQueuedHandler@call","maxTries":null,"maxExceptions":null,"failOnTimeout":false,"backoff":null,"timeout":null,"retryUntil":null,"data":{"commandName":"App\\\\Jobs\\\\FrontBookingAdminJob","command":"O:29:\\"App\\\\Jobs\\\\FrontBookingAdminJob\\":11:{s:10:\\"\\u0000*\\u0000details\\";a:17:{s:5:\\"email\\";s:34:\\"manas_bhowmick1@gbinternational.in\\";s:4:\\"name\\";s:14:\\"Test Principle\\";s:6:\\"mobile\\";s:10:\\"8920397458\\";s:7:\\"noofday\\";i:1;s:12:\\"accomodation\\";i:3;s:10:\\"start_date\\";s:10:\\"2021-12-19\\";s:8:\\"end_date\\";s:10:\\"2021-12-24\\";s:6:\\"person\\";i:2;s:6:\\"adults\\";i:2;s:8:\\"children\\";i:0;s:7:\\"infants\\";i:0;s:4:\\"room\\";i:1;s:9:\\"itinerary\\";s:33:\\"MADURAI-KODAIKANAL- MUNNAR- KOCHI\\";s:4:\\"city\\";s:45:\\"Hyderabad, Kochi, Kodaikanal, Madurai, Munnar\\";s:9:\\"transport\\";b:0;s:9:\\"sightseen\\";b:0;s:7:\\"emailto\\";s:29:\\"ajay_yadav@gbinternational.in\\";}s:3:\\"job\\";N;s:10:\\"connection\\";N;s:5:\\"queue\\";N;s:15:\\"chainConnection\\";N;s:10:\\"chainQueue\\";N;s:19:\\"chainCatchCallbacks\\";N;s:5:\\"delay\\";N;s:11:\\"afterCommit\\";N;s:10:\\"middleware\\";a:0:{}s:7:\\"chained\\";a:0:{}}"}}', 0, NULL, 1639809600, 1639809600),
 	(542, 'default', '{"uuid":"8da2f9d0-a099-45be-8a87-a2a280d33be3","displayName":"App\\\\Jobs\\\\FrontBookingUserJob","job":"Illuminate\\\\Queue\\\\CallQueuedHandler@call","maxTries":null,"maxExceptions":null,"failOnTimeout":false,"backoff":null,"timeout":null,"retryUntil":null,"data":{"commandName":"App\\\\Jobs\\\\FrontBookingUserJob","command":"O:28:\\"App\\\\Jobs\\\\FrontBookingUserJob\\":11:{s:10:\\"\\u0000*\\u0000details\\";a:14:{s:7:\\"noofday\\";i:1;s:12:\\"accomodation\\";i:3;s:10:\\"start_date\\";s:10:\\"2021-12-19\\";s:8:\\"end_date\\";s:10:\\"2021-12-24\\";s:6:\\"person\\";i:2;s:6:\\"adults\\";i:2;s:8:\\"children\\";i:0;s:7:\\"infants\\";i:0;s:4:\\"room\\";i:1;s:9:\\"itinerary\\";s:33:\\"MADURAI-KODAIKANAL- MUNNAR- KOCHI\\";s:4:\\"city\\";s:45:\\"Hyderabad, Kochi, Kodaikanal, Madurai, Munnar\\";s:9:\\"transport\\";b:0;s:9:\\"sightseen\\";b:0;s:7:\\"emailto\\";s:34:\\"manas_bhowmick1@gbinternational.in\\";}s:3:\\"job\\";N;s:10:\\"connection\\";N;s:5:\\"queue\\";N;s:15:\\"chainConnection\\";N;s:10:\\"chainQueue\\";N;s:19:\\"chainCatchCallbacks\\";N;s:5:\\"delay\\";N;s:11:\\"afterCommit\\";N;s:10:\\"middleware\\";a:0:{}s:7:\\"chained\\";a:0:{}}"}}', 0, NULL, 1639809600, 1639809600),
@@ -2995,7 +2995,7 @@ INSERT INTO `jobs` (`id`, `queue`, `payload`, `attempts`, `reserved_at`, `availa
 	(607, 'default', '{"uuid":"2b9b86c7-7d28-409b-8d54-1a3d74a3049e","displayName":"App\\\\Jobs\\\\SubscribeJob","job":"Illuminate\\\\Queue\\\\CallQueuedHandler@call","maxTries":null,"maxExceptions":null,"failOnTimeout":false,"backoff":null,"timeout":null,"retryUntil":null,"data":{"commandName":"App\\\\Jobs\\\\SubscribeJob","command":"O:21:\\"App\\\\Jobs\\\\SubscribeJob\\":11:{s:10:\\"\\u0000*\\u0000details\\";a:2:{s:5:\\"email\\";s:29:\\"ranasunikshasingh24@gmail.com\\";s:4:\\"name\\";s:13:\\"Rana suniksha\\";}s:3:\\"job\\";N;s:10:\\"connection\\";N;s:5:\\"queue\\";N;s:15:\\"chainConnection\\";N;s:10:\\"chainQueue\\";N;s:19:\\"chainCatchCallbacks\\";N;s:5:\\"delay\\";N;s:11:\\"afterCommit\\";N;s:10:\\"middleware\\";a:0:{}s:7:\\"chained\\";a:0:{}}"}}', 0, NULL, 1681534636, 1681534636),
 	(608, 'default', '{"uuid":"c0ffe3a5-593e-4dfd-a532-d27830e15237","displayName":"App\\\\Jobs\\\\Notifications","job":"Illuminate\\\\Queue\\\\CallQueuedHandler@call","maxTries":null,"maxExceptions":null,"failOnTimeout":false,"backoff":null,"timeout":null,"retryUntil":null,"data":{"commandName":"App\\\\Jobs\\\\Notifications","command":"O:22:\\"App\\\\Jobs\\\\Notifications\\":11:{s:4:\\"data\\";a:6:{s:17:\\"notification_type\\";s:5:\\"posts\\";s:11:\\"client_type\\";s:7:\\"general\\";s:8:\\"category\\";s:4:\\"blog\\";s:11:\\"category_id\\";i:122;s:5:\\"title\\";s:48:\\"Goa, Off the Beaten Path: Hidden Gems to Explore\\";s:4:\\"body\\";s:373:\\"Goa offers a wide range of activities, from exploring the spice plantations and wildlife sanctuaries to attending traditional festivals and vibrant parties. Its rich history and culture can be seen in its colonial architecture, museums, and art galleries. Visitors can relax on sandy shores, enjoy water sports, explore historic landmarks, and indulge in delicious cuisine.\\";}s:3:\\"job\\";N;s:10:\\"connection\\";N;s:5:\\"queue\\";N;s:15:\\"chainConnection\\";N;s:10:\\"chainQueue\\";N;s:19:\\"chainCatchCallbacks\\";N;s:5:\\"delay\\";N;s:11:\\"afterCommit\\";N;s:10:\\"middleware\\";a:0:{}s:7:\\"chained\\";a:0:{}}"}}', 0, NULL, 1687854318, 1687854318);
 
--- Dumping structure for table gbi_2.job_applications
+-- Dumping structure for table gbi.job_applications
 CREATE TABLE IF NOT EXISTS `job_applications` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `firstname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT '',
@@ -3018,7 +3018,7 @@ CREATE TABLE IF NOT EXISTS `job_applications` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table gbi_2.job_applications: ~10 rows (approximately)
+-- Dumping data for table gbi.job_applications: ~10 rows (approximately)
 INSERT INTO `job_applications` (`id`, `firstname`, `lastname`, `email`, `contactno`, `address`, `state`, `city`, `zipcode`, `applyingfor`, `status`, `resume`, `link`, `current_company`, `job_exp`, `messagescon`, `created_at`, `updated_at`) VALUES
 	(1, 'User', 'Name', 'test@test.com', '7005007890', 'Test Address', 'WB', 'Kolkata', '700040', 'Web Developer', 'Pending', '', NULL, 'Test', '3 Years', '', '2021-08-14 21:05:29', '2021-08-14 21:05:30'),
 	(2, 'Manas', 'Bhowmick', 'manas.bhowmick26@gmail.com', '7278425808', 'Test Address', 'WB', 'Kolkata', '700048', 'Developer', 'Pending', '', NULL, 'GBI', '2 Years', '', '2021-08-16 13:36:19', '2021-08-16 13:36:20'),
@@ -3031,7 +3031,7 @@ INSERT INTO `job_applications` (`id`, `firstname`, `lastname`, `email`, `contact
 	(9, 'dv', 'dfd', 'xyz@gmail.com', '9876543210', 'dfbfd', 'delhi', 'new delhi', '110078', 'Jr. Developer', 'Pending', 'sales-team-designpdf-1633329420274046.pdf', 'https://gbi-assets.s3.ap-south-1.amazonaws.com/images/resume/sales-team-designpdf-1633329420274046.pdf', 'df', '1 Years', 'dfsd', '2021-10-04 12:07:02', '2021-10-04 12:07:02'),
 	(10, 'dv', 'dfd', 'xyz@gmail.com', '9876543210', 'dfbfd', 'delhi', 'new delhi', '110078', 'Jr. Developer', 'Pending', 'sales-team-designpdf-1633329421813250.pdf', 'https://gbi-assets.s3.ap-south-1.amazonaws.com/images/resume/sales-team-designpdf-1633329421813250.pdf', 'df', '1 Years Years', 'dfsd', '2021-10-04 12:07:03', '2021-10-04 12:07:03');
 
--- Dumping structure for table gbi_2.job_positions
+-- Dumping structure for table gbi.job_positions
 CREATE TABLE IF NOT EXISTS `job_positions` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `title` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
@@ -3044,12 +3044,12 @@ CREATE TABLE IF NOT EXISTS `job_positions` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table gbi_2.job_positions: ~2 rows (approximately)
+-- Dumping data for table gbi.job_positions: ~2 rows (approximately)
 INSERT INTO `job_positions` (`id`, `title`, `description`, `job_type`, `slug`, `meta_keywords`, `created_at`, `updated_at`) VALUES
 	(1, 'Jr. Developer', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam.', 'Technology & Design', 'jr-developer', 'Technology Jobs', '2021-08-13 22:53:06', '2021-08-13 22:53:07'),
 	(3, 'Designer', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat.', 'Technology & Design', 'design', 'Design jobs', '2021-08-14 17:29:02', '2021-08-14 17:29:03');
 
--- Dumping structure for table gbi_2.migrations
+-- Dumping structure for table gbi.migrations
 CREATE TABLE IF NOT EXISTS `migrations` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `migration` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -3057,7 +3057,7 @@ CREATE TABLE IF NOT EXISTS `migrations` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=166 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.migrations: ~88 rows (approximately)
+-- Dumping data for table gbi.migrations: ~88 rows (approximately)
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 	(2, '2014_10_12_100000_create_password_resets_table', 1),
 	(3, '2016_06_01_000001_create_oauth_auth_codes_table', 1),
@@ -3148,7 +3148,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 	(164, '2021_08_31_082633_charify_airports_table', 57),
 	(165, '0000_00_00_000000_create_websockets_statistics_entries_table', 58);
 
--- Dumping structure for table gbi_2.model_has_permissions
+-- Dumping structure for table gbi.model_has_permissions
 CREATE TABLE IF NOT EXISTS `model_has_permissions` (
   `permission_id` bigint unsigned NOT NULL,
   `model_type` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -3157,7 +3157,7 @@ CREATE TABLE IF NOT EXISTS `model_has_permissions` (
   KEY `model_has_permissions_model_id_model_type_index` (`model_id`,`model_type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.model_has_permissions: ~10 rows (approximately)
+-- Dumping data for table gbi.model_has_permissions: ~10 rows (approximately)
 INSERT INTO `model_has_permissions` (`permission_id`, `model_type`, `model_id`) VALUES
 	(96, 'App\\User', 26),
 	(55, 'App\\User', 201),
@@ -3170,7 +3170,7 @@ INSERT INTO `model_has_permissions` (`permission_id`, `model_type`, `model_id`) 
 	(69, 'App\\User', 222),
 	(71, 'App\\User', 222);
 
--- Dumping structure for table gbi_2.model_has_roles
+-- Dumping structure for table gbi.model_has_roles
 CREATE TABLE IF NOT EXISTS `model_has_roles` (
   `role_id` bigint unsigned NOT NULL,
   `model_type` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -3179,7 +3179,7 @@ CREATE TABLE IF NOT EXISTS `model_has_roles` (
   KEY `model_has_roles_model_id_model_type_index` (`model_id`,`model_type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.model_has_roles: ~8 rows (approximately)
+-- Dumping data for table gbi.model_has_roles: ~8 rows (approximately)
 INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 	(2, 'App\\User', 25),
 	(1, 'App\\User', 26),
@@ -3190,7 +3190,7 @@ INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 	(1, 'App\\User', 207),
 	(1, 'App\\User', 219);
 
--- Dumping structure for table gbi_2.notification
+-- Dumping structure for table gbi.notification
 CREATE TABLE IF NOT EXISTS `notification` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `category` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -3201,7 +3201,7 @@ CREATE TABLE IF NOT EXISTS `notification` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=205 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table gbi_2.notification: ~183 rows (approximately)
+-- Dumping data for table gbi.notification: ~183 rows (approximately)
 INSERT INTO `notification` (`id`, `category`, `category_id`, `data`, `created_at`, `updated_at`) VALUES
 	(17, 'blog', 86, '{"title":"test","body":"test"}', '2021-06-10 16:07:53', '2021-06-10 16:07:53'),
 	(18, 'blog', 86, '{"title":"acsac","body":"scsacs"}', '2021-06-10 16:11:02', '2021-06-10 16:11:02'),
@@ -3387,7 +3387,7 @@ INSERT INTO `notification` (`id`, `category`, `category_id`, `data`, `created_at
 	(203, 'blog', 117, '{"title":"scsac","body":"sacsac"}', '2021-12-08 03:45:28', '2021-12-08 03:45:28'),
 	(204, 'blog', 120, '{"title":"sdsda","body":"sdsadsa"}', '2021-12-08 03:45:37', '2021-12-08 03:45:37');
 
--- Dumping structure for table gbi_2.notifications
+-- Dumping structure for table gbi.notifications
 CREATE TABLE IF NOT EXISTS `notifications` (
   `id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `type` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -3401,7 +3401,7 @@ CREATE TABLE IF NOT EXISTS `notifications` (
   KEY `notifications_notifiable_type_notifiable_id_index` (`notifiable_type`,`notifiable_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.notifications: ~6 rows (approximately)
+-- Dumping data for table gbi.notifications: ~6 rows (approximately)
 INSERT INTO `notifications` (`id`, `type`, `notifiable_type`, `notifiable_id`, `data`, `read_at`, `created_at`, `updated_at`) VALUES
 	('32cb6fff-4f67-4ffd-a45e-748aec0d8b6e', 'App\\Notifications\\NewSalesAlertNotification', 'App\\User', 25, NULL, NULL, '2021-03-19 12:10:03', '2021-03-19 12:10:03'),
 	('3cb3bf00-cbba-4ae8-b2d8-925c18ef0ae8', 'App\\Notifications\\NewSalesAlertNotification', 'App\\User', 25, NULL, NULL, '2021-01-18 20:53:20', '2021-01-18 20:53:20'),
@@ -3410,7 +3410,7 @@ INSERT INTO `notifications` (`id`, `type`, `notifiable_type`, `notifiable_id`, `
 	('cd1bb4f8-8ca9-4ce5-a057-93395131b793', 'App\\Notifications\\NewSalesAlertNotification', 'App\\User', 28, NULL, NULL, '2021-03-15 17:37:54', '2021-03-15 17:37:54'),
 	('dbd57599-1faf-4fe0-b3fd-85c0b8a9c008', 'App\\Notifications\\NewSalesAlertNotification', 'App\\User', 25, NULL, NULL, '2020-10-10 11:28:59', '2020-10-10 11:28:59');
 
--- Dumping structure for table gbi_2.notifier
+-- Dumping structure for table gbi.notifier
 CREATE TABLE IF NOT EXISTS `notifier` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `notification_id` bigint unsigned DEFAULT NULL,
@@ -3426,7 +3426,7 @@ CREATE TABLE IF NOT EXISTS `notifier` (
   KEY `notifier_subscription_fKey` (`subscription_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2370 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table gbi_2.notifier: ~2,339 rows (approximately)
+-- Dumping data for table gbi.notifier: ~2,339 rows (approximately)
 INSERT INTO `notifier` (`id`, `notification_id`, `subscription_id`, `category`, `status`, `service`, `read`, `created_at`, `updated_at`) VALUES
 	(31, 17, 1, 'itinerary', 1, 'email', 0, '2020-05-10 16:07:53', '2021-06-17 21:22:52'),
 	(32, 17, 3, 'itinerary', 1, 'email', 0, '2021-04-10 16:07:54', '2021-06-17 21:22:53'),
@@ -5768,7 +5768,7 @@ INSERT INTO `notifier` (`id`, `notification_id`, `subscription_id`, `category`, 
 	(2368, 204, 18, 'blog', 1, 'email', 0, '2021-12-08 03:45:38', '2021-12-08 03:45:38'),
 	(2369, 204, 19, 'blog', 1, 'email', 0, '2021-12-08 03:45:38', '2021-12-08 03:45:39');
 
--- Dumping structure for table gbi_2.oauth_access_tokens
+-- Dumping structure for table gbi.oauth_access_tokens
 CREATE TABLE IF NOT EXISTS `oauth_access_tokens` (
   `id` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `user_id` bigint DEFAULT NULL,
@@ -5783,7 +5783,7 @@ CREATE TABLE IF NOT EXISTS `oauth_access_tokens` (
   KEY `oauth_access_tokens_user_id_index` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.oauth_access_tokens: ~23 rows (approximately)
+-- Dumping data for table gbi.oauth_access_tokens: ~23 rows (approximately)
 INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes`, `revoked`, `created_at`, `updated_at`, `expires_at`) VALUES
 	('05f35bacc08e3d6a1145ada51c21a07d94d3c514228c11a82ec3e8ba4759def1030091a5283ca125', 133, 2, NULL, '[]', 0, '2021-12-17 03:09:46', '2021-12-17 03:09:46', '2021-12-22 03:09:45'),
 	('1c60b488d1c9ed6b14146935dd5daa216c13bfe288764b90237ca35cfc21576294b7143c417162eb', 46, 2, NULL, '[]', 0, '2021-02-04 15:18:10', '2021-02-04 15:18:10', '2021-02-09 09:48:10'),
@@ -5809,7 +5809,7 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 	('fc4d690973dd3a792894dae3a0343231320647312d1ecf5852aa7a93703c30c567e3314fa16097bc', 158, 2, NULL, '[]', 0, '2023-07-28 17:14:34', '2023-07-28 17:14:34', '2023-08-02 22:44:34'),
 	('fd80b327d88e859c648761b0b3d68fadfa8edb46775eb0eeffe692a5df151f8473598eb5361133f5', 101, 2, NULL, '[]', 0, '2021-02-04 15:50:14', '2021-02-04 15:50:14', '2021-02-09 10:20:14');
 
--- Dumping structure for table gbi_2.oauth_auth_codes
+-- Dumping structure for table gbi.oauth_auth_codes
 CREATE TABLE IF NOT EXISTS `oauth_auth_codes` (
   `id` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `user_id` bigint NOT NULL,
@@ -5820,9 +5820,9 @@ CREATE TABLE IF NOT EXISTS `oauth_auth_codes` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.oauth_auth_codes: ~0 rows (approximately)
+-- Dumping data for table gbi.oauth_auth_codes: ~0 rows (approximately)
 
--- Dumping structure for table gbi_2.oauth_clients
+-- Dumping structure for table gbi.oauth_clients
 CREATE TABLE IF NOT EXISTS `oauth_clients` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `user_id` bigint DEFAULT NULL,
@@ -5839,7 +5839,7 @@ CREATE TABLE IF NOT EXISTS `oauth_clients` (
   KEY `oauth_clients_user_id_index` (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.oauth_clients: ~18 rows (approximately)
+-- Dumping data for table gbi.oauth_clients: ~18 rows (approximately)
 INSERT INTO `oauth_clients` (`id`, `user_id`, `name`, `secret`, `provider`, `redirect`, `personal_access_client`, `password_client`, `revoked`, `created_at`, `updated_at`) VALUES
 	(1, NULL, 'GBInternational Personal Access Client', 'ViliHurIqNhUP6E8imeDfbzCzXeyvoGQhEHaV4ZN', NULL, 'http://localhost', 1, 0, 0, '2020-04-16 21:01:03', '2020-04-16 21:01:03'),
 	(2, NULL, 'GBInternational Password Grant Client', 'C0gOEVupmffaf2gxmdlhtnp80HgMQ8vWkZeQ0m16', NULL, 'http://localhost', 0, 1, 0, '2020-04-16 21:01:03', '2020-04-16 21:01:03'),
@@ -5864,7 +5864,7 @@ INSERT INTO `oauth_clients` (`id`, `user_id`, `name`, `secret`, `provider`, `red
 	(22, NULL, 'GBI Personal Access Client', 'tUffkLURqHoP3gnRrQxnVbj0w3vg3RXVCWAekFte', NULL, 'http://localhost', 1, 0, 0, '2023-07-28 16:31:00', '2023-07-28 16:31:00'),
 	(23, NULL, 'GBI Password Grant Client', '1Q31O3ud60TTVZ9dSqbuROzoToZNpPyeSNa5DPq0', 'users', 'http://localhost', 0, 1, 0, '2023-07-28 16:31:00', '2023-07-28 16:31:00');
 
--- Dumping structure for table gbi_2.oauth_personal_access_clients
+-- Dumping structure for table gbi.oauth_personal_access_clients
 CREATE TABLE IF NOT EXISTS `oauth_personal_access_clients` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `client_id` int unsigned NOT NULL,
@@ -5874,7 +5874,7 @@ CREATE TABLE IF NOT EXISTS `oauth_personal_access_clients` (
   KEY `oauth_personal_access_clients_client_id_index` (`client_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.oauth_personal_access_clients: ~9 rows (approximately)
+-- Dumping data for table gbi.oauth_personal_access_clients: ~9 rows (approximately)
 INSERT INTO `oauth_personal_access_clients` (`id`, `client_id`, `created_at`, `updated_at`) VALUES
 	(1, 1, '2020-04-16 21:01:03', '2020-04-16 21:01:03'),
 	(2, 3, '2020-04-16 21:11:19', '2020-04-16 21:11:19'),
@@ -5888,7 +5888,7 @@ INSERT INTO `oauth_personal_access_clients` (`id`, `client_id`, `created_at`, `u
 	(10, 20, '2023-07-25 16:29:12', '2023-07-25 16:29:12'),
 	(11, 22, '2023-07-28 16:31:00', '2023-07-28 16:31:00');
 
--- Dumping structure for table gbi_2.oauth_refresh_tokens
+-- Dumping structure for table gbi.oauth_refresh_tokens
 CREATE TABLE IF NOT EXISTS `oauth_refresh_tokens` (
   `id` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `access_token_id` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -5898,7 +5898,7 @@ CREATE TABLE IF NOT EXISTS `oauth_refresh_tokens` (
   KEY `oauth_refresh_tokens_access_token_id_index` (`access_token_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.oauth_refresh_tokens: ~483 rows (approximately)
+-- Dumping data for table gbi.oauth_refresh_tokens: ~483 rows (approximately)
 INSERT INTO `oauth_refresh_tokens` (`id`, `access_token_id`, `revoked`, `expires_at`) VALUES
 	('0074a0a4efe918e4561b7d55554b08dec1e7e6b03a2644981af3ecaa059dc00054c7d81d3850431a', '469e0461d9f9c297137ff5cd9183e34ea3561b16ad69d97fdbad7610e023fb7de253b35ff4ec38fd', 0, '2021-08-11 10:15:42'),
 	('01811b093345cee9985da29263660813b031c4765228c95756f169c8846358a465568e7a53d4bbf7', '657fb7e260232bd3e18e50ae280a4d282cc76edaa0f25358042f4de95a7ba9cefbec631f37835d14', 1, '2021-09-28 06:24:24'),
@@ -6418,7 +6418,7 @@ INSERT INTO `oauth_refresh_tokens` (`id`, `access_token_id`, `revoked`, `expires
 	('febc84e9d34bd1c1ec5a452e79e6281dc34eadd2ea3221760c4d1939fb92eccae651a8c0534ea8c1', '9ee6f6234c1a45da5cabf473f5adba25dfbfbfc16040f337cf5d1bf431114c7a3f32a8c73272e292', 1, '2021-02-28 12:46:40'),
 	('ffcfbdde5e69d18da4c4b54e5c5a1b68c58e6d468a83f58e6f4360fe52594aa4f8330a8d5cc8ef38', '3b0f966a773763117ac1eec1764cea731ecce8ec5adee98e537a0e27fd2f2b801e29283c75d65835', 0, '2021-03-10 04:17:14');
 
--- Dumping structure for table gbi_2.onlines
+-- Dumping structure for table gbi.onlines
 CREATE TABLE IF NOT EXISTS `onlines` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `student_id` bigint unsigned NOT NULL,
@@ -6434,9 +6434,9 @@ CREATE TABLE IF NOT EXISTS `onlines` (
   KEY `onlines_student_id_foreign` (`student_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.onlines: ~0 rows (approximately)
+-- Dumping data for table gbi.onlines: ~0 rows (approximately)
 
--- Dumping structure for table gbi_2.otps
+-- Dumping structure for table gbi.otps
 CREATE TABLE IF NOT EXISTS `otps` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `phone_no` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -6447,7 +6447,7 @@ CREATE TABLE IF NOT EXISTS `otps` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=268 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.otps: ~167 rows (approximately)
+-- Dumping data for table gbi.otps: ~167 rows (approximately)
 INSERT INTO `otps` (`id`, `phone_no`, `otp_send`, `otp_date`, `created_at`, `updated_at`) VALUES
 	(62, '8920397458', '4601', '2020-10-28', '2020-10-28 11:59:28', '2020-10-28 11:59:28'),
 	(63, '8920397458', '3675', '2020-10-28', '2020-10-28 12:00:29', '2020-10-28 12:00:29'),
@@ -6656,7 +6656,7 @@ INSERT INTO `otps` (`id`, `phone_no`, `otp_send`, `otp_date`, `created_at`, `upd
 	(266, '7278425808', '8797', '2023-09-08', '2023-09-08 03:36:31', '2023-09-08 03:36:31'),
 	(267, '7278425808', '6161', '2023-09-08', '2023-09-08 03:45:16', '2023-09-08 03:45:16');
 
--- Dumping structure for table gbi_2.password_resets
+-- Dumping structure for table gbi.password_resets
 CREATE TABLE IF NOT EXISTS `password_resets` (
   `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `token` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -6664,9 +6664,9 @@ CREATE TABLE IF NOT EXISTS `password_resets` (
   KEY `password_resets_email_index` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.password_resets: ~0 rows (approximately)
+-- Dumping data for table gbi.password_resets: ~0 rows (approximately)
 
--- Dumping structure for table gbi_2.paxes
+-- Dumping structure for table gbi.paxes
 CREATE TABLE IF NOT EXISTS `paxes` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `tour_code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -6682,9 +6682,9 @@ CREATE TABLE IF NOT EXISTS `paxes` (
   KEY `paxes_tour_code_foreign` (`tour_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.paxes: ~0 rows (approximately)
+-- Dumping data for table gbi.paxes: ~0 rows (approximately)
 
--- Dumping structure for table gbi_2.permissions
+-- Dumping structure for table gbi.permissions
 CREATE TABLE IF NOT EXISTS `permissions` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -6694,7 +6694,7 @@ CREATE TABLE IF NOT EXISTS `permissions` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=106 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.permissions: ~49 rows (approximately)
+-- Dumping data for table gbi.permissions: ~49 rows (approximately)
 INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
 	(54, 'schooltours', 'web', '2021-03-17 13:09:13', '2021-03-17 13:09:13'),
 	(55, 'tourtypes', 'web', '2021-03-17 13:09:52', '2021-03-17 13:09:52'),
@@ -6747,7 +6747,7 @@ INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at
 	(103, 'send-itinerary', 'web', '2022-03-21 16:30:06', '2022-03-21 16:30:07'),
 	(104, 'school-trip', 'web', '2023-08-09 09:56:58', '2023-08-09 09:56:59');
 
--- Dumping structure for table gbi_2.pnrs
+-- Dumping structure for table gbi.pnrs
 CREATE TABLE IF NOT EXISTS `pnrs` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `transport_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -6758,7 +6758,7 @@ CREATE TABLE IF NOT EXISTS `pnrs` (
   KEY `pnrs_tour_code_foreign` (`tour_code`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.pnrs: ~10 rows (approximately)
+-- Dumping data for table gbi.pnrs: ~10 rows (approximately)
 INSERT INTO `pnrs` (`id`, `transport_id`, `transport_type`, `tour_code`, `pnr_number`) VALUES
 	(1, '1', 'train', 'TOURCODE00024', '1234567890'),
 	(2, '1', 'train', 'TOURCODE00024', '1234567896'),
@@ -6771,7 +6771,7 @@ INSERT INTO `pnrs` (`id`, `transport_id`, `transport_type`, `tour_code`, `pnr_nu
 	(9, '5', 'flight', 'TOURCODE00026', '655545'),
 	(10, '5', 'flight', 'TOURCODE00026', '235245');
 
--- Dumping structure for table gbi_2.pnr_user
+-- Dumping structure for table gbi.pnr_user
 CREATE TABLE IF NOT EXISTS `pnr_user` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int unsigned NOT NULL,
@@ -6784,9 +6784,9 @@ CREATE TABLE IF NOT EXISTS `pnr_user` (
   KEY `pnr_user_pnr_id_foreign` (`pnr_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.pnr_user: ~0 rows (approximately)
+-- Dumping data for table gbi.pnr_user: ~0 rows (approximately)
 
--- Dumping structure for table gbi_2.popular_itineraries
+-- Dumping structure for table gbi.popular_itineraries
 CREATE TABLE IF NOT EXISTS `popular_itineraries` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `itinerary_id` int unsigned NOT NULL,
@@ -6798,13 +6798,13 @@ CREATE TABLE IF NOT EXISTS `popular_itineraries` (
   KEY `season_popular_itineraries` (`season_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table gbi_2.popular_itineraries: ~3 rows (approximately)
+-- Dumping data for table gbi.popular_itineraries: ~3 rows (approximately)
 INSERT INTO `popular_itineraries` (`id`, `itinerary_id`, `season_id`, `created_at`, `updated_at`) VALUES
 	(1, 1, 3, '2021-11-30 08:58:13', '2021-11-30 08:58:16'),
 	(2, 2, 3, '2021-11-30 08:58:17', '2021-11-30 08:58:18'),
 	(3, 5, 3, '2021-11-26 18:14:05', '2021-11-26 18:14:05');
 
--- Dumping structure for table gbi_2.posts
+-- Dumping structure for table gbi.posts
 CREATE TABLE IF NOT EXISTS `posts` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `category_id` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -6826,7 +6826,7 @@ CREATE TABLE IF NOT EXISTS `posts` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=159 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.posts: ~30 rows (approximately)
+-- Dumping data for table gbi.posts: ~30 rows (approximately)
 INSERT INTO `posts` (`id`, `category_id`, `title`, `client_type`, `slug`, `image`, `alt`, `summery`, `description`, `meta_title`, `meta_keyword`, `status`, `created_by`, `last_editor`, `published_by`, `created_at`, `updated_at`) VALUES
 	(121, '29', 'Andaman and Nicobar Islands: The tour to the Great Islands', 'general', 'andaman-and-nicobar-islands-the-tour-to-the-great-islands', 'beach-1677229721511165.webp', 'beach', 'Visitors to the islands can enjoy a variety of activities, including snorkeling, scuba diving, and exploring the lush rainforests and mangrove forests that cover much of the islands. Overall, the Andaman and Nicobar Islands offer a unique and unforgettable travel experience for anyone looking to escape the hustle and bustle of everyday life and immerse themselves in nature.', '<p><strong>&nbsp;&nbsp;&nbsp;&nbsp;</strong></p><p><strong>Introduction to the history and Culture</strong></p><p>The Andaman and Nicobar Islands are a<strong> tourist\'s paradise</strong> with beautiful scenery, unspoiled beaches, delectable seafood, risk-taking water sports, challenging hiking trails, historical buildings, a wealth of biodiversity, and a fusion of cultures that contributes to its richness. The capital of the islands, Port Blair, serves as a hub for travel to all of the other stunningly beautiful and filled with entertainment islands.</p><p>About history, hardly much is known. By tying together historical traditions and hypotheses, it is known that indigenous tribes such as the <strong>Andamanese, Onges, Sentinelese, Shompens, and Jharwas</strong> have lived on the islands their entire lives and are still very much a part of them now. Many people throughout the world are fans of these islands\' superbly produced and inventive objects. As souvenirs, tourists frequently bring home objects made of shells, bamboo crafts, cane, wooden home decor, palm mats, and a variety of other items. The islands\' beaches contain shops and stalls where local craftspeople can sell their handmade wares at reasonable costs.</p><p>The aboriginal communities of Andaman and Nicobar, as well as those who came to the island in the middle Ages, all have unique cultural traditions. Negrito in the Andaman, Shompen, and Mongoloid Nicobarese are a few examples of native communities. In addition to these native communities, Bengalis, Tamils, and Christians also live here and contribute their traditions to the Islands\' culture. Numerous holidays, including Durga Pooja, Diwali, Shivratri, Ganesha Chaturthi, Guru Nanak Jayanti, Holi, Christmas, and Ramzan, are also recognized here. Many annual fairs, such as the Island Tourism Festival, the Beach Festival at Corbyn\'s Cove Beach, the Monsoon Music Festival in Port Blair, and a 3-day Andaman Film Festival, are also arranged for the enjoyment of tourists in addition to these more well-known events.</p><p>Bengalis have a significant cultural effect in Andaman and Nicobar, where they make up the bulk of the population. As a result, <strong>fish curry and Macher Jhol </strong>are the two main dishes that travelers will find in all the eateries. You can enjoy seafood dishes like <strong>Grilled Lobsters, Coconut Prawn Curry, Tandoori Fish, Chilli Curry, Amritsari Kulcha, and Barbecue Food </strong>in addition to Bengali food. Along with meals, the cafÃ©s and restaurants provide a selection of refreshing mocktails and drinks that are difficult to pass up. You can enjoy some exciting parties at the eating establishments, which include seaside shacks and restaurants while grooving to the music.</p><p>The islands, which number over 300 and are noted for their <strong>palm-lined white sand beaches, mangrove swamps, and tropical rainforests,</strong> offer a gorgeous coastline that is home to marine life like sharks and rays as well as vivid coral reefs. Winter is the ideal season to visit these islands, so let\'s have a look at what there is to do in the Andaman in December.</p><p>The local culture and fascinating history of these islands are additional things to take in, making them a must-visit location. The amazing historic architecture, gorgeous shoreline, and enchanting underwater world that may be best explored in December, which is also the busiest period to visit the Andaman islands, all add to the charm of the islands. The majority of people in Andaman celebrate Christmas and New Year\'s to have fun while on holiday. Here are some things you can do in December in the Andaman Islands to experience the enchantment of Christmas Eve.</p><p>The Andaman Islands are best visited during the winter months. The main travel period to Andaman is from early November to mid-May when temperatures regularly exceed 22 degrees Celsius. The water is ideal for diving and snorkeling. Less rain falls from the sky. Because of all these factors, December is the best month to travel to Andaman.</p><p>Here is a <strong>list of the top tourist destinations</strong> in Andaman that you should consider visiting on your next enjoyable getaway. They are not only breathtakingly beautiful but also reasonably easy to get there.</p><p><strong>1.&nbsp;&nbsp;&nbsp;&nbsp;Island of Baratang</strong></p><p>One of the Andaman Islands\' hidden beauties, Baratang Island, has so far escaped the massive tourist hordes. Despite being breathtakingly gorgeous, mangrove forests are not particularly well-liked by tourists. It\'s a location like that where you can embrace your sense of adventure. The Jarawa people of the Andaman Islands live on the island of Baratang, which is also surrounded by mangrove forests. The island is home to a large number of limestone caverns that let you experience the true spirit of the enigmatic place. Most people enjoy hiking or taking canoe trips to explore the island. Since the temperature drops and you can easily wander, the island becomes even more magnificent. 100 kilometers separate from Port Blair and the island.</p><p><strong>2.&nbsp;&nbsp;&nbsp;&nbsp;Island of Ross</strong></p><p>Because it served as the union territory\'s administrative center before Port Blair, Ross Island is one of the most well-known islands in the Andaman Sea. The island is noteworthy historically in addition to being visually lovely. You can get a taste of life before India\'s freedom and the time when Andaman was primarily used for punishment and incarceration by taking a stroll around the island. However, the museum and cemetery still house historical artifacts that you may see today. You should check out the nearby lighthouse if you visit. From the top of the tower in the rain, you will enjoy an amazing view of the Bay of Bengal.</p><p><strong>3.&nbsp;&nbsp;&nbsp;&nbsp;Beach at Wandoor</strong></p><p>Due to its proximity to the union territory\'s capital and its fame for its vibrant reefs, Wandoor Beach is one of the most popular beaches in the Andaman. The place has an exotic appearance because of the azure blue lake and the surrounding mountains and trees\' rich beauty. Although this beach is great for swimming, you should be cautious if it rains heavily. The majority of individuals like to relax and enjoy time with their loved ones on the beach. The beach is in the village of Wandoor, which may be reached by ferry from Port Blair. 25 kilometers separate Wandoor from Port Blair.</p><p><strong>4.&nbsp;&nbsp;&nbsp;&nbsp;Volcanoes of Mud</strong></p><p>Mud volcanoes are another factor that makes Andaman so incredibly popular with tourists from all over the world, in addition to the historical significance and breathtaking natural beauty. In the Andaman Islands, there are more than 25 mud volcanoes, but most of them are on the islands of Diglipur and Baratang. Methane and hydrocarbons are examples of natural gases that cause this phenomenon. In addition to the island being open at that time, the volcanoes are also active. To truly experience the islands, most people prefer to travel or hike to the volcanoes. Diglipur Island and Port Blair are separated by around 350 kilometers in the north. You\'ll need to take a cruise ship or a seaplane to get there.</p><p><strong>5.&nbsp;&nbsp;&nbsp;&nbsp;Beach in Bharatpur</strong></p><p>One of the most well-known beaches in Andaman is Bharatpur beach, which is on Neil Island. The breathtaking beauty and immaculate cleanliness of Bharatpur beach draw numerous visitors from all over the world. The length of the entire beach is around 500 kilometers. Children enjoy roaming the island to discover it, thus it is ideal for a family with young children. The Bay of Bengal is even more stunning because of the white sands amid the mountains\' luxuriant vegetation. Although the location is ideal for snorkeling and scuba. 40 kilometers separate Port Blair from the seashore.</p><p><strong>6.&nbsp;&nbsp;&nbsp;&nbsp;Island of Radhanagar</strong></p><p>Since it has been regarded as the 8th most beautiful beach in the world, Radhanagar Island is truly the pride of India. The justification for this honor is clear. Compared to other beaches in India, Radhanagar Beach is particularly unique. The exquisite view of the Bay of Bengal\'s crystal-clear ocean and the surrounding area\'s tropical forest cover adds to the beach\'s allure. One of the most popular tourist destinations in Andaman is the beach on Havelock Island. Since the beach is heavily patrolled by coast guards, you will feel quite secure there.</p><p><strong>7.&nbsp;&nbsp;&nbsp;&nbsp;Cellular Prison</strong></p><p>In addition to being a well-liked tourist destination in Andaman, the cellular jail was crucial to India\'s war for freedom. If you are interested in history, you will discover several crucial details concerning the period of British control in India. Before India gained its independence, many well-known freedom fighters were detained here, including Veer Savarkar and Batukeshwar Dutt. If you do, you won\'t have any trouble taking in the nightly light and sound show that takes place outside the prison. You can recall the atrocities committed by the British before 1947 by visiting more exhibition galleries and picture galleries. The jail is 15 miles from Port Blair and requires a payment of INR 30 to enter. It is called the Kala Pani and the offenders were sent there under the name â€œkale pani ki sazaâ€.</p><p><br></p><p><strong>(Page Change)</strong></p><p>The Andaman Islands are known for their stunning islands and immaculate beaches, but they are also known for some of the best marketplaces in the world. The Andaman and Nicobar islands, well-known for some genuinely thrilling water sports and for providing the best kind of refreshing experience, also conceal some of the prettiest and most exciting markets that you simply can\'t miss. The shopaholic in you will be overjoyed because you will want to buy everything you see in these adorable little boutiques. You won\'t be able to resist shopping in the Andaman markets because they are a shopaholic\'s heaven. </p><p>Just letting you know that as you splurge on some truly lovely and interesting products here, you might notice that your wallet is growing lighter. The marketplaces on the islands provide a wide range of goods that you may take back home as adorable mementos or something that you can gift to your loved ones, from the wildly popular Aberdeen Bazaar to the distinctive Andaman Handicraft Emporium. These marketplaces in Andaman are an incredible treat and something you shouldn\'t miss out on. They sell anything from wooden items to pearl jewelry, some pretty exquisite headgear, and much more.</p><p><strong>8.&nbsp;&nbsp;&nbsp;&nbsp;Andaman Handicraft Shop</strong></p><p>The Andaman Handcraft Emporium is what you\'ve been looking out for if you\'ve been hunting for some lovely handicraft things for a while. This emporium is located in one of Andaman\'s most well-known markets, so if you\'re planning a trip there, you should put a visit here on your itinerary. For those seeking lovely seashell crafts and handicrafts, this location is heaven.</p><p><strong>9.&nbsp;&nbsp;&nbsp;&nbsp;Bazaar of Aberdeen</strong></p><p>It\'s not imagined that you haven\'t heard of Aberdeen Bazaar, one of the best markets in the Andaman Islands. You may find everything at this market, from the most basic and basic household items to some extremely fancy and unique household items. If you consider yourself an expert at haggling, Aberdeen Bazaar is the place to test your abilities. If you don\'t go to this well-known market while you\'re on vacation in Andaman, your trip won\'t be complete.</p><p><strong>10. Government Emporium Sagarika</strong></p><p>Sagarika Government Emporium is the place to visit if you want to see some of the best works produced locally. Locals can display their talent and sell their works on this emporium\'s platform. The main resources used by these folks to create the handcrafted items they sell here include wood, seashells, and jute. You may find everything here, from handicrafts to wooden objects, mirrors, and even clothing, and everything is real and so attractive that you won\'t be able to resist buying it.</p><p><strong>11. MG Road</strong></p><p>The MG Road, which bears Mahatma Gandhi\'s name, presents Indian culture in the most astounding light. One of the most well-known markets in the Andaman and Nicobar Islands is located on MG Road, and here you can get everything from basic household goods too expensive products. You can find something here even if you are visiting the Andaman Islands on a tight budget. It is that big and has a huge selection of stores. Not only that, but you may sample numerous well-known restaurants and cafÃ©s nearby MG Road.</p><p><strong>12. Sea Covering Queen\'s Craft</strong></p><p>You may get a wide variety of seashell products in one of the most distinctive marketplaces in the Andaman and Nicobar Islands, from memories like bamboo cane crafts to extremely beautiful coconut shell lamps and many other well-known items. You will be pleased to hear that you can find the largest selection of seashell lockets, bracelets, and earrings here. Just letting you know that these are popular purchases among tourists.</p><p><strong>13. Coastal Markets</strong></p><p>Shopping in the Andaman Beach markets is among the nicest things to do there. One of the best beach marketplaces in the Andaman Islands, Market No. 3 on Havelock Island has a wide selection of both affordable and upscale goods. The shops here sell wooden jewelry, and these markets are only open until the afternoon. Yes! You read correctly. Here, you may find wooden jewelry. In addition, you can get any necessary swimming or diving equipment in case you forget it.</p><p><strong>14. Electrical Plaza</strong></p><p>We understand that purchasing electricals is not exactly what you would want to do while on your adventure in Andaman, but if you do so for some reason, you can find everything you need there at Electric Plaza, one of the most well-known shopping areas in the island nation. This includes chargers and wires for your laptops, cameras, and even television screens. If you fail to pack your chargers, this market will save the day.</p><p>Apart from beaches and markets and exotic picturesque landscapes, the islands also have marvelous trails that are known for hiking and will excite you from top to bottom. The island has wonderful hiking routes where you can discover the inner calm you\'ve been seeking!</p><p><br></p><p><strong>Trekking in Andaman</strong></p><p>You can easily locate trails in Andaman, whether you\'re looking for short or lengthy ones. Its topography ensures that it will meet your expectations. Planning your trip correctly is important because November to April is the optimum period to go hiking in Andaman &amp; Nicobar. Here is a selection of the Andaman hiking locations that provide you the chance to tone your legs. Check them out and include them in your schedule.</p><p><strong>1.&nbsp;&nbsp;&nbsp;&nbsp;Mount Harriet-Madhuban</strong></p><p>Mount Harriet is one of the most well-known trekking destinations in the Andaman. The trail starts at Mount Harriet and goes all the way to Madhuban. You will pass fascinating and magnificent scenery, wild animals, and uncommon plant species on the journey to Madhuban. The track is rather challenging, so it not only pampers nature lovers but also tests your ability of hiking. Therefore, remember to include this hiking option on your list!</p><p><strong>2.&nbsp;&nbsp;&nbsp;&nbsp;Caves of Limestone in Baratan</strong></p><p>Famous limestone caverns in Baratang are a rarity to witness these days as they are melting away. So, get moving and learn about the local specialties if you don\'t want to miss out on a fantastic Andaman trekking trip. After passing through a mangrove forest and a rice area, you will eventually arrive at the location of the caverns. The limestone caves will enchant you forever!</p><p><strong>3.</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Black Mountain i.e. Chidiya Tapu</strong></p><p>The trek to Chidiya Tapu is most popular from the black mountain. The route is even more fascinating than the island\'s famous sunsets and bird watching, though! Views of the ocean and lush woodland are available from the walk. The peak is referenced in the name of the trip, Munda Pahad. You can enjoy a hassle-free experience here because not many people are aware of the trek. What are you contemplating then?</p><p><strong>4.&nbsp;&nbsp;&nbsp;&nbsp;The Elephant Beach in Havelock</strong></p><p>One of the most stunning locations in the Andaman Sea is Havelock Island. It provides spectacular vistas that must be seen. And it is no less true when it comes to island hiking. The island is famous for its lovely Elephant Beach, and if you\'re up for it, walking there is one of the most exhilarating things you can do. The walk will take you through a lush forest, and the greatest part is that a nice breeze will accompany it. This is just as calming as the strenuous hike itself!</p><p><strong>5.&nbsp;&nbsp;&nbsp;&nbsp;Island of Diglipur - Alfred Caves</strong></p><p>With so many distinctive possibilities to partake in this heart-pounding activity, trekking in the Andaman Islands will take you to the next level of excitement. On the island of Diglipur, you may experience nature at its finest. The island\'s immaculate beaches are well-known. In addition, it has 22 unknown caves that are available. You will realize that your efforts paid off while exploring the Diglipur caverns because they are a true visual delight. They are gorgeous and less crowded, allowing you to have a unique experience.</p><p><strong>Conclusion</strong></p><p>You can never have enough exotic vacation beaches in one trip to the Andaman &amp; Nicobar Islands! If you ever visit the Andaman and Nicobar Islands, you\'ll be returning. to take in the peace by the shore, to escape to the past with its crumbling buildings, and to take part in its colorful culture and celebrations.</p>', 'Explore the Pristine Beaches of Andaman and Nicobar Islands, Andaman and Nicobar Islands Travel Tips: Best Time to Visit, Getting Around, and More From, History to Adventure: Reasons to Visit Andaman and Nicobar Islands on Your Next Trip to India, The And', 'Andaman and Nicobar Islands beaches seafood Andamanese Pristine beaches Snorkeling Scuba diving Rainforest trekking Andaman and Nicobar Islands travel packages Andaman and Nicobar Islands holiday packages Affordable Andaman and Nicobar Islands packages Best time to visit Andaman and Nicobar Islands Adventure activities in Andaman and Nicobar Islands Port Blair tour packages Havelock Island tour package Family-friendly Andaman and Nicobar Islands packages Beach resorts in Andaman and Nicobar Islands Andaman and Nicobar Islands travel guide Andaman and Nicobar Islands vacation packages Andaman and Nicobar Islands sightseeing tours.', '1', '219', 'N/A', '207', '2023-02-24 09:08:42', '2023-02-25 05:41:36'),
 	(122, '29', 'Goa, Off the Beaten Path: Hidden Gems to Explore', 'general', 'goa-off-the-beaten-path-hidden-gems-to-explore', 'beach-1677230502169734.webp', 'beach', 'Goa offers a wide range of activities, from exploring the spice plantations and wildlife sanctuaries to attending traditional festivals and vibrant parties. Its rich history and culture can be seen in its colonial architecture, museums, and art galleries. Visitors can relax on sandy shores, enjoy water sports, explore historic landmarks, and indulge in delicious cuisine.', '<p>The smallest state in India, Goa, is situated on its western coast and has a significant historical background. As one of the main commerce hubs in India, Goa\'s history is intertwined with the strong dealers, vendors, customs, priests, and missionaries. The Brahmins are regarded as Goa\'s original settlers. Due to their original occupation on the banks of the River Saraswati in North India, they were also known as the Saraswats. In the third century, Goa gradually joined the Mauryan Empire. Later, it was taken over by the Satavahans of Kolhapur and given to the Chalukyas of Badami.</p><p>Goa\'s culture is a perfect fusion of its people, festivals, music, and dance, and it dates back to the dawn of civilization.</p><p>The "Rome of the East" is a former Portuguese state. Given that the locals embraced the western culture, it is regarded as the most Occidentalized province in Indian Territory. With a rich cultural legacy that includes folk songs, dances, music, visual arts, and folk tales, tourism is an advanced religion. Get a taste of these <strong>Goan</strong> arts as part of any Goa vacation package. The term "Goan" is frequently used to refer to the locals of Goa.</p><p>The primary Indo-Aryan language spoken by the Goans is <strong>Konkani</strong>, which is based on Prakrit and is a member of the Southern group of Indo-Aryan languages.</p><p>Goa is renowned for its <strong>vivacious carnivals and Indo-Latin celebrations</strong>. The festivals that are held here have a European aesthetic. In addition to the annual carnivals, one should go here when they are having their festivals. However, traditional Hindu holidays are commonly observed all over the world. Easter, Diwali, Christmas, Ganesh Chaturthi, Goa Carnival, St. Francis Xavier Feast, and many more are among the prominent holidays celebrated here.</p><p><br></p><p><strong>The best festivals in Goa </strong>are:</p><p><strong>Shigmo</strong>, one of the most attractive and fortunate Hindi festivals, is celebrated in the Konkani diaspora of Goa throughout the spring. Five days are dedicated to the celebration of the festival. Holi, which is also a component of it, is known to be celebrated by Hindus in different regions of the nation.</p><p><br></p><p><strong>Shantadurga</strong> - The Goddess Shantadurga is honored during the January Shantadurga festival, which is held in her honor. The festival is well-known throughout the state for its parade, five-day fair, and several jovial cultural events.</p><p>Goa celebrates the patron saint of the state with a major festival called the Feast of St. Francis Xavier. People from all over the world come together to celebrate the death anniversary, which falls on the 3rd of December, from the 21st of November to the 2nd of January. The saint\'s mortal bones are also kept in the Basilica of Bom Jesus.</p><p><br></p><p><strong>Wine Festival</strong> - The annual wine festival, also known as a wine-growing festival, takes place after the grapes have been harvested. It takes place in the northern hemisphere and begins at the end of September and lasts through the end of October.</p><p>One of the most eagerly anticipated events in the entire state of Goa is the Goa carnival. The festivities for this carnival, which features fantastic music, dance, and entertainment, begin in December. People also put up plays and parades that elegantly depict Goan customs.</p><p><br></p><p>Anyone who has ever heard of Goa or visited Goa is well aware of how amazing the <strong>indigenous cuisine</strong> is there. The many seafood dishes served with rice are a mainstay of the area. If you are a vegetarian who is visiting this area, you should definitely give it a try. The<strong> Portuguese, Konkani, and Brazilian cuisines </strong>are the main influences on Goan food. You may find a variety of top fish species here, such as <strong>ladyfish, lobster, tiger prawns, squid</strong>, and many others. Here, spices are regularly and easily accessible. You will also be able to find a lot of things that use coconut because it grows well here.&nbsp;As spices grow in abundance in this region, they play a key role in the recipes and production of many meals, therefore spicy food aficionados will like the local cuisine. However, the presence of vinegar, which gives the food a distinctive taste, adds to the cuisine\'s distinctiveness rather than being the source of it. Additionally, Goan food has a lot of garlic. The signature drink of Goa is <strong>cashew wine</strong>, which is made by fermenting cashew fruit. Try some<strong> lime soda, Kokum juice, coconut water, or sugar cane juice </strong>if you\'re seeking a non-alcoholic drink while on vacation in Goa. When perusing a Goan restaurant menu, some fantastic vegetarian options include the <strong>Feijoada, Fish or Vegetable Caldine, Chicken Cafreal, Chicken or Vegetable Xacuti, </strong>and <strong>Goa sausages. Doce, Dodol, or a Bebinca </strong>would all make excellent <strong>dessert</strong> choices.</p><p><br></p><p><strong>Dulpod and Mando</strong> are two examples of Goan <strong>traditional music</strong>. The <strong>Kirtan, Natak, and Bhajan</strong> musical genres are favorites among Goa\'s majority Hindu population. Goa is renowned for its numerous dance styles, which are frequently seen illuminating religious festivals and festivities. The country\'s traditional dances include the Portuguese-era dances <strong>Fugdi, Deknni, Dashavtara, and Corridinho,</strong> among others. Goa\'s dancing and musical aspects are fantastic.</p><p><br></p><p>Goa has a wide variety of tourist attractions, from popular beaches like <strong>Baga</strong> to the exquisitely<strong> constructed churches and cathedrals of Old Goa.</strong> <strong>Sun-kissed beaches, palm trees, cashew plantations, centuries-old monuments, the legendary Goan fish curry rice, cashew fenny, festivals, flea markets, the Santa Monica Cruise Ride, spice farms, </strong>and more can be found in India\'s fun capital. Goa is known for its bustling nightlife, so dance the night away to Trance music and wake up to the quietest sunrises on the tranquil beaches. Additionally, the location is a foodie\'s heaven. Thanks to the appealing shacks and a few distinctive restaurants with great locations, you may spend your time to the fullest.</p><p>Are you tired of living a routine life? Want to witness some stunning sunsets and have some wild nights on some of the most beautiful beaches? Goa is a place that can fulfill all of your hopes and fantasies if this is what you are fantasizing about. The smallest state in India, Goa, provides a rich experience with delectable seafood, white sand, glamorous nightlife, and world-renowned architecture. A trip to Goa gives you a first-hand look at the lovely beaches, breathtaking scenery, and historical landmarks. Here is a list of some of Goa\'s most stunning tourist attractions that will keep you coming back for more.</p><p><strong>POPULAR PLACES TO VISIT IN GOA</strong></p><p><strong>1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PANAJI</strong></p><p>A laid-back state capital is Panaji and should be on your list of places to visit in Goa, not just because it\'s the state capital but also because there are so many locations that would be perfect for an amazing sightseeing tour. This city guarantees you a good time, whether you choose to spend the day at Miramar Beach or take a heritage tour through Fontainhas, the Latin Quarters. The Dr. Salim Ali Bird Sanctuary, which is nearby by only 7 kilometres and is home to migrating birds as well as common and unique kinds of marsh dwelling birds, is another destination for ornithologists and bird enthusiasts.</p><p><strong>Top Attractions in Panaji </strong></p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fontainhas</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fort Resig Magos</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Our Lady of the Immaculate Conception Church</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Palace of Adil Shah</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Beach in Miramar</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kala College</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Salim Ali Wildlife Refuge</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Island of Divar</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Temple of Shanta Durga</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dr. Salim Ali Bird Sanctuary</p><p><br></p><p><strong>2.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Agonda</strong></p><p>Time and tide are waiting for Agonda! In South Goa, Agonda is a popular tourist attraction, both for its "quiet beach" and for the Olive Ridley Sea Turtles who use it as a nesting site in September. In the village by the ocean, which is surrounded by lush flora, you almost completely forget about concepts like time and rush. Observe the Arabian Sea\'s waves crashing against the shore, cows strolling peacefully, and dogs having the pleasure of their lives! It\'s hard to comprehend why Goa is regarded as one of the best beach destinations by travellers who have been there!</p><p><strong>Attractions </strong></p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Agonda Beach</p><p><strong>&nbsp;</strong></p><p><strong>3.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Offbeat Nature Getaway in Bicholim</strong></p><p><br></p><p>Bicholim is a lovely countryside to visit in Goa for a quiet vacation. It is home to the most picturesque waterfalls at Aravalem, the oldest mosques, ancient Hindu temples, and Mayem Lake. The main tourist attraction in this area is the well-known Saptakoteshwar temple. Despite lacking beaches, it is a sanctuary for those who love the outdoors. If you enjoy visiting historical sites, the picture-postcard scenery and old rock caverns will make your mind happy. Even if there aren\'t many tourist attractions here, it\'s nevertheless worthwhile to visit for a tranquil escape into nature.</p><p><strong>Common Attractions in Bicholim</strong></p><p>Mayem Lake, the Aravalem Waterfalls, the Pandava Caves, and the Saptakoteshwar Temple</p><p><strong>4.&nbsp;&nbsp;&nbsp;&nbsp;Calangute</strong></p><p>The Queen of Beaches is in the town of Calangute. Calangute Beach is one of Goa\'s most picturesque beaches, which is why any travel book to Goa lists this town in the Bardez district. Your eyes will come into contact with dozens of travellers and tourists enjoying themselves on the beach on any given day. Shacks, several clubs, live performances, outdoor dances, and adventure sports like parasailing and water skiing are all present.</p><p><strong>Popular Calangute Attractions</strong></p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Californian Beach</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tibetan MarketSt. Alex Church</p><p><strong>5.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Candolim </strong></p><p>Candolim: The ultimate in calm! Like Calangute, Candolim draws visitors to Goa for its main draw, Candolim Beach. However, there isn\'t much to do here if you prefer your beaches to be busy, boisterous, and party-like. But if all you want to do is have a sunbath, watch the sunset, maybe take a dip, and enjoy parasailing, then it\'s for you. You should also go to the beach because of the "River Princess," a bulk carrier that ran aground 100 metres from the shore. Choose a sunbed, and between sunrise and sunset, watch the waves kiss the shore as they turn red and yellow.</p><p><br></p><p><strong>Best Attractions in Candolim</strong></p><p>Caribbean Beach</p><p>Church of Our Lady of Hope</p><p><strong>6.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Margao</strong></p><p>Goa\'s cultural center is Margao. not the sort of location you would want to skip. After seeing the town, you discover it is deserving of its claim to be Goa\'s cultural center. The Municipal Garden, The Holy Spirit Church, the House of Seven Gables, and the Damodar Temple are the town\'s most notable features and are all well-known tourist attractions. To learn more about the many species and dried fish, you could also visit the specialty market. Apart from the Margao curry, almost all of Goa\'s famed delicacies may be found there. It\'s intriguing to learn that Portugal and other countries import Margao Curry.</p><p><strong>Popular Attractions in Margao</strong></p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Municipal Garden</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The Holy Spirit Church</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;House of Seven Gables</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Damodar Temple</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pandava Caves</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Margao Market</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Zalor Beach</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sri Chandranath</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Monte Hill</p><p><br></p><p><strong>7.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Morjim</strong></p><p>Olive-Ridley sea turtle nesting grounds at Morjim will make you go aww. If seclusion, alone, and tranquilly are not your thing, don\'t bother going to the town of Morjim, which is sprawled out along the banks of the River Chapora. Visit it if you want a peaceful day on the beach to take in the sunset, some local treats, and a stroll through the hamlet. Families and groups of friends looking for a premier beach location away from the regular hubbub should go here. The critically endangered Olive Ridley Sea Turtle nests at Morjim. On the beach, a pillar and a board mark the location of the turtles\' egg-hatching process. Finding this website was fantastic!</p><p><strong>What to Do Here</strong></p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Morjim Beach</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Olive Ridley Sea Turtles </p><p><strong>8.&nbsp;&nbsp;&nbsp;&nbsp;Bambolim</strong></p><p>Bambolim: So serene, yet so animated! Because of its beach, Bambolim is consistently listed as one of the top ten locations to visit in Goa. It is a lengthy white sandy strip with boulders, swaying coconut trees, and sand that serves both aesthetic and practical reasons (such as, offering shade from the midday sun). Young guys and girls may be hanging out in groups on some days, but most of the time you will find fisherman getting ready to go fishing. As it is somewhat remote and free of merchants and shacks, it is also a fantastic picnic location in Goa for a family. However, there is a Bambolim Beach Resort where you may sample a range of foods, from Goan delicacies to Continental delights.</p><p><strong>Popular Things to See in Bambolim</strong></p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bambolim Beach</p><p><strong>9.&nbsp;&nbsp;&nbsp;&nbsp;Vasco da Gama</strong></p><p>Visit especially for the shorelines! Named after the adventurer from Portugal. spend some time on its beaches, this is the place you should be. Many beaches exist, including Cansaulim, which is excellent for watching the sun set, and Hollant, which is wonderful for having a crazy time with your friends. There are further attractions as well, such as the 400-year-old St. Andrews Church. Another one of India\'s three such museums is the Naval Aviation Museum. But if you go there in March, you may take part in the Shigmo festival, which is distinguished by lively parades and street dancing.</p><p>Frequently Visited Attractions in Vasco da Gama</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fort Mormugao</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Coral Beach</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Beach of Bogmalo</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Beach Cansualim</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Beach in Velsao</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Beach Hollant</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Church of St. Andrew</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Waterfalls in Kesarval</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Spice Farm Sahakari</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Museum of Naval Aviation</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ramnath Temple, Shri</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Trinity Episcopal Church</p><p><br></p><p><strong>10.&nbsp;Old Goa</strong></p><p>Old Goa: Magnificent splendor and beauty! In the past, Velha Goa, now more commonly referred to as Old Goa, rather than Panaji, served as the capital of Goa. It was a period of extraordinary grandeur and splendor, much of which could be seen in the city\'s soaring churches, cathedrals, and regal convents. Old Goa has earned a permanent spot on any sightseeing tour thanks to these magnificent works of architecture. Today\'s top tourist destinations are known to as "Churches and Convents of Goa," and include buildings like the Basilica of Bom Jesus and Se Cathedral (both UNESCO World Heritage Sites). The aspect of Goa that highlights its rich legacy and history is the one that needs to be seen by a lot more people.</p><p><br></p><p><strong>Popular Old Goa Attractions</strong></p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Basilica of Bom Jesus (UNESCO World Heritage Site)</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cathedral in Se (UNESCO World Heritage Site)</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Our Lady of the Rosary Church (UNESCO World Heritage Site)</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;St. Francis of Assisi Church (UNESCO World Heritage Site)</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Santa Catarina Chapel (UNESCO World Heritage Site)</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Church of St. Augustine ruins (UNESCO World Heritage Site)</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Divine Providence Church (UNESCO World Heritage Site)</p><p><br></p><p><strong>11.&nbsp;Mapusa</strong></p><p>There are numerous reasons to visit Mapusa when in Goa, but the Mapusa Friday Market deserves special notice. A visit will take you past kiosks selling Goan spices, homemade sausages, fish with marsala that is ready to cook, veggies, chillies, cashews, and sweets. This event is held every Friday. Located in the Bardez neighbourhood, it is convenient to a number of beaches, including Chapora and Vagator.</p><p><strong>Best Attractions in Mapusa</strong></p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Temple of Bodgeshwar</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Friday Bazaar in Mapusa</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Church of St. Jerome</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Temple Maruti</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cansaulim Temple</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Our Lady of Miracles Church</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Municipal Structure (for its architecture)</p><p><br></p><p><strong>12.&nbsp;Sanquelim: Natural Beauty &amp; History!</strong></p><p>Because of the Rudreshwar Temple, the Harvalem Waterfalls, and the Harvalem Caves, Sanquelim is one of the most well-known tourist destinations in Goa. These three tourist destinations can all be visited in a single trip. A group of caves known as the Harvalem Caves is named for the five Pandavas from the Mahabharata. The actual caves, which include two main caves and a living chamber, were dug out of the Laterite Hill. The Rudreshwar Temple, which is near the waterfall, and the Harvalem Waterfalls, which are about a kilometer away, are both at their most beautiful during the monsoon season.</p><p><strong>Popular Attractions</strong></p><p>Rudreshwar Temple, Harvalem Caves, and Harvalem Waterfalls</p><p><strong>13.&nbsp;Anjuna</strong></p><p>If you travelled to Goa in the 1960s and went to Anjuna, you would come across trance parties, hippies dressed in psychedelic colours, and free-spirited tourists. There are many different types of tourists visiting now, both local and foreign, who have vestiges of the hippie movement. Visiting the Wednesday-opening Flea Market is one way to experience that. You can get your hands on anything you want, including crystals, stones, and leather, sandalwood, and sarongs. Anjuna Beach, which is significantly less congested than the other beaches in Goa, is another top destination. Visit it in the evening and go to eateries like Curlies or Shiva Valley to experience the trance atmosphere.</p><p><strong>Frequently Visited Attractions in Anjuna </strong></p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Wednesday Anjuna Beach flea market</p><p><strong>14.&nbsp;Canacona: The beaches are everything!</strong></p><p>Terrific beaches including Patnem, Rajbaga, Colomb, and Talpona are located not far from Canacona. These beaches each have something unique to offer. You can take a boat to Monkey, Honeymoon, and Butterfly Islands from Palolem Beach, for instance. On the other hand, Talpona Beach is undeveloped, spotless, isolated, and has a very chill vibe.</p><p><br></p><p><strong>Popular Canacona Attractions</strong></p><p>Palolem BeachRajbaga BeachColomb BeachTalpona Beach</p><p><br></p><p><strong>15.&nbsp;&nbsp;Mandrem: A peaceful seaside town!</strong></p><p>What about going to a beach in Goa where you can also have an Ayurvedic massage? Due to its beach, which is arguably the quietest in all of North Goa, the tranquil coastal village of Mandrem is included in this list of the best tourist attractions in Goa. It is bordered by a few hotels and beach shacks that provide delicious food, including regional specialties. Additionally, you can rent sunbeds and spend the day relaxing and obtaining a tan. There is a little massage parlour where you can have a massage if you\'re interested!</p><p>Visit Mandrem Beach attractions.</p><p><br></p><p><strong>16.&nbsp;Ponda: The aroma of spices and history!</strong></p><p>Ponda, with its temples, an antiquated mosque, and lovely spice fields, is another tourist attraction in North Goa where you may discover the rich legacy of Goa. One of these is the Sahakari Spice Farm, which you may visit to learn more about different kinds of spices. Located in a tropical paradise lies the farm. Additionally, there are a few stalls where you may buy oils and spices. Another spice farm is Tropical Spice Plantation, where you can observe Mexican Mirchi, Pepper Tree, and Lavender Tree trees. It\'s fascinating to observe and learn about the numerous trees and plants that give our food its unique flavor and make it so delectable.</p><p><strong>Popular Things to See in Ponda</strong></p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sahakari Spice Farm</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tropical Spice Plantation</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shri Mahalasa Temple</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mahalaxmi Temple</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shri Ramnath Temple</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Laxmi Narasimha Temple</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Safa Shahouri Masjid</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vijaya Durga Temple</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shri Nagueshi Temple</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Savoi Spice Plantation</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bondla Wildlife Sanctuary</p><p><strong>Adventure Paradise: Valpoi</strong></p><p>For those who enjoy the outdoors and adventure, Valpoi in Goa is a must-visit tourist attraction. Your heart will be completely blown away by the exhilaration of water rafting, the tranquil Chorla Ghats and Vagheri Hills for trekking and hiking, the rocky hills, the dense forests, the magnificent and abandoned Nanus Fort, the serene temples and mosques, and the eternally happy Veluz Nagargaon Bridge. The way of life, traditions, and folk melodies of this community adds yet another pleasant touch to make your visit special.</p><p><strong>Popular Attractions in Valpoi</strong></p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mhadei River</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bridge in Veluz Nagargaon</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ghats of Chorla</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hills of Vagheri</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Charavane Falls</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fort Nanus</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Temple Maruti</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hindu Temple</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Diamond Sports Club Rede Ghati</p><p><br></p><p><strong>17.&nbsp;&nbsp;South Goa\'s Sanguem is a haven for loners.</strong></p><p>Sanguem is an essential stop on any trip, so don\'t skip it. It is one of Goa\'s less popular tourist attractions. This location is worth visiting even though it does not belong among Goa\'s commercial tourist spots. It is blessed with a wealth of tourist attractions that will completely amaze you. It boasts of having enigmatic caves in Rivona, also known as the Pandava Caves, that are unique to this area. According to legend, the Mahabharata\'s Pandavas spent their exile in these caves. Sanguem is picturesque and calming to the heart and eyes due to the abundance of spice crops, dams, and waterfalls. Although you can\'t enjoy beaches there, Sanguem is the spot to go if you want to experience something different from Goa\'s typical beaches.</p><p><strong>Popular Sanguem Attractions</strong></p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Caves in Rivona</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rapid Springs</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Temple of Vimleshwar</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tanshikar Farm Spice</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Temple of Tambdi Surla Mahadev</p><p>Â·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dam Salaulim</p><p><br></p><p><strong>18.&nbsp;Quepem: Holiday Getaway for Magical Days</strong></p><p>With its peace and quiet, the less well-known village of Quepem will charm you for all time. It is the ideal location in Goa to visit for a leisurely vacation. Despite being a little community, it has everything. Historical sites, beautiful dams, churches, fantastic beaches, dining options, and magnificent temples. This location mirrors the history of the Portuguese monarchs through the tales of the Bhoja Kings in the form of temples and dams. Don\'t miss Quepem\'s real seafood; it is unparalleled. To merge with the solitary tranquility of nature, you must go to this location.</p><p><strong>Top Destinations in Quepem</strong></p><p>Quepem Dam, Shri Chandranath Temple, Shri Damodar Temple, the Kurpila Sacred Grove, the Chandranath Hill, the 2000-year-old Banyan tree, and the Canaguinim and Betul beaches</p><p><br></p><p>These are the top locations to see the best of Goa, which include its beaches, churches, spice farms, waterfalls, temples, and other attractions. How many of these tourist destinations in Goa have you visited? What about Goa tourism most appeals to you? or when do you intend to take your next vacation?</p>', '"Discover the Best Beaches in Goa: A Travel Guide", "Goa: Where to Stay and What to Do", "Experience the Culture and Cuisine of Goa", "Exploring the History of Goa: Must-Visit Sites", "Goa on a Budget: Tips for Affordable Travel", "From Nightlife to Natur', 'Goa holiday packages Affordable Goa packages Goa tourism Best time to visit Goa Best Goa tour packages Luxury travel in Goa Adventure activities in Goa Beach resorts in Goa Private villa rentals in Goa Goa honeymoon packages North Goa tour packages South', '1', '219', '219', '207', '2023-02-24 09:21:43', '2023-06-27 08:25:18'),
@@ -6865,7 +6865,7 @@ INSERT INTO `posts` (`id`, `category_id`, `title`, `client_type`, `slug`, `image
 	(157, '35', 'The Land of the Tribes: Nagaland', 'general', 'the-land-of-the-tribes-nagaland', 'nagaland-1678690825393236.jpeg', 'NAGALAND', 'Nagaland, a state in northeastern India, is a land of fascinating tribal culture, natural beauty, and adventure. The state is home to diverse indigenous tribes, each with their unique customs, festivals, and handicrafts. Nagaland is known for its Hornbill Festival, a colorful celebration of the state\'s tribal culture and traditions. The state is blessed with picturesque landscapes, including lush green hills, cascading waterfalls, and beautiful lakes. Nagaland is also a hub of adventure activities, with opportunities for trekking, camping, and river rafting. Exploring Nagaland is a unique experience that will leave visitors spellbound with its cultural richness, natural beauty, and adventure.', '<p><br></p><p><br></p><p>Nagaland is a state located in the northeastern region of India, bordered by Assam to the west, Arunachal Pradesh to the north, and Myanmar to the east. The state is known for its diverse culture, rich history, and picturesque landscapes.</p><p>The history can be traced back to the Neolithic era. The state was initially inhabited by various tribes, with the Angami tribe being the most prominent. The British colonized Nagaland in the 19th century, and the state was officially recognized as a part of India in 1963.</p><p>The culture of Nagaland is a unique blend of various tribal traditions. The state is home to 16 major tribes, each with its own distinct customs and traditions. The traditional Naga dress is a shawl worn by men, called a "phanek" and a "mekhela" worn by women. The state is also known for its traditional dances, such as the Naga warrior dance and the Zeliangrong dance.</p><p>One of the most prominent cultural practices in Nagaland is the practice of headhunting, which was traditionally practiced by some of the tribes in the state. The practice was considered a rite of passage for young men and was believed to bring prosperity and good luck to the tribe. Although the practice has been banned since the 19th century, it remains an important part of Nagaland\'s cultural heritage.</p><p>The traditional Naga dress is also an important aspect of the state\'s culture. Men wear a shawl called a "phanek," while women wear a "mekhela." These traditional garments are often adorned with intricate designs and patterns, which are unique to each tribe.</p><p>Nagaland is also famous for its traditional dances, such as the Naga warrior dance and the Zeliangrong dance. These dances are performed during festivals and other special occasions and are a way for the people of Nagaland to celebrate and preserve their cultural heritage.</p><p>The rich cultural heritage is also reflected in its architecture. The state is home to several traditional houses, known as "morungs," which are unique to each tribe. These houses are often built using locally-sourced materials and are adorned with intricate carvings and designs.</p><p>The State is also known for its vibrant festivals, which are celebrated throughout the year. Some of the most popular festivals include the Hornbill Festival, which is celebrated in December and is known for its traditional dances and cultural performances, and the Moatsu Festival, which is celebrated in May and is known for its colorful markets and traditional games.</p><p>In conclusion, it is a state with a rich cultural heritage and diverse traditions. From its traditional dances and festivals to its unique architecture and traditional garments, Nagaland offers a unique blend of modern and traditional experiences, making it a perfect destination for travelers who are looking to experience something different.</p><p>Nagaland is also famous for its delicious cuisine. The state is known for its non-vegetarian dishes, particularly pork dishes, which are prepared using local herbs and spices. Some popular dishes include smoked pork with bamboo shoots, smoked fish, and bamboo shoots pickle.</p><p>One of the most popular dishes in Nagaland is smoked pork with bamboo shoots, which is prepared using locally-sourced ingredients. The dish is made by marinating the pork with a blend of spices and herbs and then smoking it over bamboo shoots. It is usually served with steamed rice and is considered a delicacy in the state.</p><p>Another popular dish is smoked fish, which is a staple food in Nagaland. The fish is first marinated with a blend of spices and herbs and then smoked over bamboo shoots. It is usually served with steamed rice and is considered a delicacy in the state.</p><p>Bamboo shoot pickle is also a popular dish in Nagaland. It is made by pickling young bamboo shoots with a blend of spices and herbs. It is usually served as a side dish and is considered a delicacy in the state.</p><p>Nagaland is also known for its non-vegetarian dishes, particularly pork dishes. Some popular pork dishes include smoked pork, pork with bamboo shoots, and pork with dry fish. The state is also known for its traditional fermented foods, such as bamboo shoots and fish, which are considered to be delicacies in the state. These fermented foods are prepared using locally-sourced ingredients and are known for their unique flavors.</p><p>In addition to traditional dishes, Nagaland\'s cuisine also includes a variety of Indian and Chinese dishes. These dishes are prepared using locally-sourced ingredients and are known for their unique flavors.</p><p>In conclusion, Nagaland\'s cuisine is a unique blend of various tribal traditions. The state is known for its delicious non-vegetarian dishes, particularly pork dishes, which are prepared using local herbs and spices. The state is also known for its traditional fermented foods and its blend of Indian and Chinese dishes. The cuisine of Nagaland is sure to leave a lasting impression on all who try it.</p><p>Travel and tourism is an important aspect of Nagaland\'s economy. The state is known for its picturesque landscapes, rich cultural heritage, and diverse flora and fauna. Some popular tourist destinations in Nagaland include Kohima, Dimapur, and Mon. Kohima is the capital of Nagaland and is known for its World War II cemetery and the Kohima War Museum. Dimapur is the largest city in Nagaland and is known for its ancient ruins and historical sites. Mon, on the other hand, is known for its traditional villages and colorful festivals.</p><p>Dimapur, the largest city in Nagaland, is another popular destination. It is known for its ancient ruins and historical sites, such as the Kachari Ruins, which date back to the 12th century. Visitors can also explore the Dimapur local market, which is known for its traditional handicrafts and textiles.</p><p>Another popular destination is Mon, which is known for its traditional villages and colorful festivals. Visitors can explore Longwa village, where they can witness the lifestyle of the Konyak tribe and the traditional houses known as \'Morungs\'.</p><p>For nature enthusiasts, Nagaland offers several national parks and wildlife sanctuaries, such as the Intangki National Park and the Fakim Wildlife Sanctuary. These protected areas are home to a wide variety of flora and fauna, including the clouded leopard, hoolock gibbon, and the Himalayan black bear. Visitors can also explore the Dzukou Valley, a beautiful valley known for its picturesque landscapes, diverse flora, and fauna.</p><p>For those looking for an adventure, Nagaland offers several options such as trekking and rock climbing. The state is home to several trekking trails, including the Dzukou Valley trek, which is known for its challenging terrain and stunning views. Visitors can also explore the Japfu Peak, the highest peak in Nagaland, for an exciting rock climbing experience.</p><p>Nagaland is also known for its vibrant festivals, which are celebrated throughout the year. Some of the most popular festivals include the Hornbill Festival, which is celebrated in December and is known for its traditional dances and cultural performances, and the Moatsu Festival, which is celebrated in May and is known for its colorful markets and traditional games.</p><p>In conclusion, Nagaland offers a diverse range of experiences for travelers. From its rich cultural heritage and scenic landscapes to its adventure activities and colorful festivals, Nagaland is a perfect destination for those looking for an offbeat experience.</p><p>In addition to these destinations, Nagaland has also known for its national parks and wildlife sanctuaries, such as the Intangki National Park and the Fakim Wildlife Sanctuary. The state is also known for its adventure tourism, including trekking and rock climbing.</p><p>Overall, Nagaland is a beautiful state with a rich cultural heritage and diverse landscapes. The state offers a unique blend of traditional and modern experiences, making it a perfect destination for travelers who are looking for an offbeat experience. With its delicious cuisine, vibrant festivals, and fascinating history and culture, Nagaland is sure to leave a lasting impression on all who visit.</p><p><br></p><p><br></p><p><br></p>', '"Nagaland: A Journey Through the Land of Festivals" "Discovering the Best of Nagaland: A Travel Guide" "Nagaland: Exploring the Hidden Treasures of Northeast India" "Nagaland\'s Best-Kept Secrets: Offbeat Places to Visit" "Nagaland: A Cultural Odyssey Thro', 'Apologies for the confusion earlier. Here are the SEO keywords for a travel blog on Nagaland in one line with commas:  "Nagaland travel guide, Best places to visit in Nagaland, Nagaland tourism, Nagaland culture, Nagaland food, Nagaland festivals, Nagaland heritage, Nagaland tribes, Nagaland offbeat places, Nagaland handicrafts, Nagaland photography spots, Nagaland rural tourism, Nagaland wildlife, Nagaland adventure tourism, Nagaland museums, Nagaland street food, Nagaland hills, Nagaland valleys, Nagaland villages, Nagaland markets".', '0', '219', 'N/A', 'N/A', '2023-03-13 07:00:27', '2023-03-13 07:00:27'),
 	(158, '34', 'The Land of Many Festivals: Tripura', 'general', 'the-land-of-many-festivals-tripura', 'tripura-1678691255209225.jpeg', 'tripura', 'Tripura is a northeastern Indian state known for its spiritual significance, natural beauty, and rich cultural heritage. The state boasts ancient temples, serene lakes, lush forests, unique handicrafts, and vibrant festivals, such as Kharchi Puja and Garia Puja. Exploring Tripura is a unique experience that offers visitors a glimpse into its cultural richness and spiritual aura.', '<p><br></p><p><strong style="background-color: transparent; color: rgb(0, 0, 0);">Tripuraâ€™s History and Culture</strong></p><p><span style="background-color: transparent; color: rgb(0, 0, 0);">Tripura is a state located in the northeastern region of India, and is known for its rich history, diverse traditions, and unique culture. The state has a long and varied history, dating back to the ancient times, when the state was ruled by the Tripuri dynasty. The Tripuris were a powerful dynasty, and the kingdom of Tripura was known for its prosperity and cultural richness.</span></p><p><span style="background-color: transparent; color: rgb(0, 0, 0);">One of the most notable aspects of Tripura\'s history is the story of the Tripuri Prince, who was a legendary figure in the history of the state. He was known for his bravery and cunning, and was said to have played a crucial role in unifying the different tribes and communities in Tripura.</span></p><p><span style="background-color: transparent; color: rgb(0, 0, 0);">In terms of traditions and culture, Tripura is home to a diverse array of communities, each with their own unique customs and beliefs. The state is known for its rich cultural heritage, with a strong influence of Hinduism and Buddhism. The people of Tripura are known for their warm hospitality, and for their love of music and dance. Tripura is also known for its traditional dances, such as the Jhum, a folk dance that is performed during the harvest season, and the Hojagiri dance, which is performed during the festival of Diwali.</span></p><p><span style="background-color: transparent; color: rgb(0, 0, 0);">The state is also known for its rich handicraft tradition, with a variety of traditional handloom products, such as handwoven textiles, bamboo products, and bell metal crafts. Tripura is famous for its bamboo crafts, and the state is known for producing some of the finest bamboo products in India.</span></p><p><span style="background-color: transparent; color: rgb(0, 0, 0);">In conclusion, Tripura is a state that is rich in history, culture, and tradition, with a unique blend of different communities, each with their own unique customs and beliefs. The state is a true celebration of India\'s diverse cultural heritage, and is a must-visit for anyone interested in learning about the rich cultural history of India.</span></p><p><strong style="background-color: transparent; color: rgb(0, 0, 0);">Cuisine of Tripura</strong></p><p><span style="background-color: transparent; color: rgb(0, 0, 0);">Tripura, a northeastern state of India, is known for its unique cuisine, which is a blend of traditional and contemporary culinary styles. The cuisine of Tripura reflects the state\'s rich cultural heritage, and is influenced by the many different communities that call the state home.</span></p><p><span style="background-color: transparent; color: rgb(0, 0, 0);">One of the most distinctive features of Tripura\'s cuisine is the use of a variety of locally grown ingredients, such as bamboo shoots, yam, banana, and pineapple. These ingredients are used to create delicious dishes, such as bamboo shoot curry, yam curry, and pineapple pickle.</span></p><p><span style="background-color: transparent; color: rgb(0, 0, 0);">Another defining feature is the use of fermented foods, such as fermented fish, soybeans, and bamboo shoots. These fermented foods add a unique flavor to the dishes, and are believed to have numerous health benefits.</span></p><p><span style="background-color: transparent; color: rgb(0, 0, 0);">Rice is a staple food in Tripura, and is often served with a variety of vegetable and fish curries. Fish is an important part of Tripura\'s cuisine, and is often used to make dishes such as fish curry and smoked fish. The state is also known for its traditional dishes, such as the Chak-hao kheer, which is a dessert made with black rice, and the Mui Borok, which is a traditional dish made with rice, meat, and vegetables.</span></p><p><br></p><p><span style="background-color: transparent; color: rgb(0, 0, 0);">Tripura is also famous for its street food, which is a reflection of the state\'s diverse culinary traditions. Street food in Tripura includes dishes such as momos, samosas, and pithas, which are traditional cakes made from rice flour and filled with sweet or savory fillings.</span></p><p><span style="background-color: transparent; color: rgb(0, 0, 0);">The cuisine is a unique and delicious blend of traditional and contemporary culinary styles, reflecting the state\'s rich cultural heritage and diverse communities. Whether you are looking for a hearty meal, a sweet treat, or a snack on-the-go, Tripura has something for everyone, and is a must-visit destination for food lovers.</span></p><p><strong style="background-color: transparent; color: rgb(0, 0, 0);">Tourism in Tripura</strong></p><p><span style="background-color: transparent; color: rgb(0, 0, 0);">Tripura, a small but beautiful state in the northeastern region of India, is a popular tourist destination, known for its rich history, diverse culture, and natural beauty. The state has a wealth of attractions, from historic temples and palaces, to scenic landscapes and wildlife reserves.</span></p><p><span style="background-color: transparent; color: rgb(0, 0, 0);">One of the most popular tourist destinations is the Ujjayanta Palace, located in the capital city of Agartala. The palace was built in 1901 by the former King of Tripura, and is now a museum, showcasing the state\'s rich cultural heritage and history. The palace is known for its beautiful architecture, with a blend of Hindu and Mughal styles, and is surrounded by beautiful gardens.</span></p><p><span style="background-color: transparent; color: rgb(0, 0, 0);">Another popular tourist destination is the Unakoti Hill, located in the Kailashahar district. The hill is famous for its ancient rock carvings and sculptures, and is considered one of the most important Hindu pilgrimage sites in the region. The hill is also known for its stunning views of the surrounding landscape, making it a popular destination for nature lovers and photographers.</span></p><p><span style="background-color: transparent; color: rgb(0, 0, 0);">For those interested in wildlife and nature, the state is home to several wildlife reserves, including the Trishna Wildlife Sanctuary, the Sipahijala Wildlife Sanctuary, and the Rowa Wildlife Sanctuary. These reserves are home to a diverse range of species, including tigers, elephants, and many other mammals and birds.</span></p><p><span style="background-color: transparent; color: rgb(0, 0, 0);">Tripura is also known for its diverse cultural heritage, and is home to several important religious sites, such as the Tripura Sundari Temple, the Jaganath Temple, and the Jagannath Bari Temple. These temples are not only religious sites, but also important cultural and historic landmarks, reflecting the state\'s rich religious heritage.</span></p><p><span style="background-color: transparent; color: rgb(0, 0, 0);">Tripura is a popular tourist destination, known for its rich history, diverse culture, and natural beauty. Whether you are looking to explore the state\'s rich cultural heritage, admire its stunning landscapes, or encounter its abundant wildlife, Tripura has something for everyone. So if you\'re looking for a unique and enriching travel experience, be sure to add Tripura to your list of must-visit destinations in India.</span></p><p><span style="background-color: transparent; color: rgb(0, 0, 0);">Tripura is a state that promises a truly authentic Indian experience, away from the hustle and bustle of the cities. From the vibrant and colorful tribal culture to the tranquil landscapes, Tripura is a place where one can find peace and rejuvenation. The state\'s rich history and diverse landscapes make it a must-visit destination for those who love to travel. Whether you\'re a first-time traveler or a seasoned traveler, Tripura has something to offer everyone. So, pack your bags and head to Tripura for an unforgettable journey.</span></p><p><br></p><p><strong style="background-color: transparent; color: rgb(0, 0, 0);">Keywords</strong></p><p><span style="background-color: transparent; color: rgb(0, 0, 0);">Northeast India, Natural beauty, Cultural heritage, Temples, Palaces, Adventure, Nature lover, History buff, Picturesque lakes, Vibrant culture, Tribal culture, Tranquil landscapes, Rich history, Diverse landscapes, Authentic Indian experience, Peace, Rejuvenation, Must-visit destination, First-time traveler, Seasoned traveler, Unforgettable journey, Stunning natural beauty, Modern amenities, Blend of tradition and modernity, Escape from the mundane, Tourist destinations, Best places to visit, Things to do, Travel guide, Itinerary, Accommodation in Tripura, Local food, Festivals and events, Wildlife, Handicrafts.</span></p><p><br></p><p><br></p>', '"Discovering the Spiritual Charm of Tripura: A Guide to the State\'s Ancient Temples", "Exploring the Natural Beauty of Tripura: A Journey Through Lush Forests and Serene Lakes", "Immerse Yourself in Tripura\'s Vibrant Culture: Festivals, Handicrafts, and L', '"Tripura travel guide, Best places to visit in Tripura, Tripura tourism, Tripura culture, Tripura food, Tripura festivals, Tripura heritage, Tripura temples, Tripura lakes, Tripura wildlife, Tripura offbeat places, Tripura handicrafts, Tripura photography spots, Tripura rural tourism, Tripura budget travel, Tripura hill stations, Tripura tribal villages, Tripura adventure tourism, Tripura history, Tripura markets".', '0', '219', 'N/A', 'N/A', '2023-03-13 07:07:36', '2023-03-13 07:07:36');
 
--- Dumping structure for table gbi_2.post_tag
+-- Dumping structure for table gbi.post_tag
 CREATE TABLE IF NOT EXISTS `post_tag` (
   `post_id` bigint unsigned NOT NULL,
   `tag_id` bigint unsigned NOT NULL,
@@ -6873,7 +6873,7 @@ CREATE TABLE IF NOT EXISTS `post_tag` (
   KEY `post_tag_tag_id_foreign` (`tag_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.post_tag: ~172 rows (approximately)
+-- Dumping data for table gbi.post_tag: ~172 rows (approximately)
 INSERT INTO `post_tag` (`post_id`, `tag_id`) VALUES
 	(121, 82),
 	(121, 83),
@@ -7048,7 +7048,7 @@ INSERT INTO `post_tag` (`post_id`, `tag_id`) VALUES
 	(157, 349),
 	(158, 350);
 
--- Dumping structure for table gbi_2.restaurants
+-- Dumping structure for table gbi.restaurants
 CREATE TABLE IF NOT EXISTS `restaurants` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `city_id` bigint DEFAULT NULL,
@@ -7061,7 +7061,7 @@ CREATE TABLE IF NOT EXISTS `restaurants` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.restaurants: ~6 rows (approximately)
+-- Dumping data for table gbi.restaurants: ~6 rows (approximately)
 INSERT INTO `restaurants` (`id`, `city_id`, `name`, `address`, `contact_name`, `contact_number`, `created_at`, `updated_at`) VALUES
 	(1, 4, 'Ashok Dhaba', 'Ashok dhaba hotel', 'Rahul Singh', '9908909890', '2020-10-21 10:48:25', '2020-10-21 11:03:10'),
 	(3, 53, 'Baba ka dhaba', 'B-566 Sangam vihar new delhi, 110080 Near CC Public School', 'Rakesh', '8890989098', '2020-10-21 15:46:29', '2020-11-07 12:50:20'),
@@ -7070,7 +7070,7 @@ INSERT INTO `restaurants` (`id`, `city_id`, `name`, `address`, `contact_name`, `
 	(6, 53, 'New Dhaba singh', 'B-566 Sangam vihar new delhi, 110080 Near CC Public School', 'Mohan singh', '5236589856', '2020-10-22 09:37:06', '2020-11-07 12:50:02'),
 	(8, 125, 'Test Restaruant', 'B-4949 New Delhi , Delhi', 'Rahul singh', '8920397458', '2021-03-16 18:39:57', '2021-03-19 15:58:03');
 
--- Dumping structure for table gbi_2.roles
+-- Dumping structure for table gbi.roles
 CREATE TABLE IF NOT EXISTS `roles` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -7080,7 +7080,7 @@ CREATE TABLE IF NOT EXISTS `roles` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table gbi_2.roles: ~5 rows (approximately)
+-- Dumping data for table gbi.roles: ~5 rows (approximately)
 INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
 	(1, 'Admin', 'web', '2021-07-09 18:25:34', '2021-07-09 18:25:36'),
 	(2, 'Dev', 'web', '2021-07-09 18:25:36', '2021-07-09 18:25:37'),
@@ -7088,7 +7088,7 @@ INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VAL
 	(4, 'Asst. Manager', 'web', '2021-07-09 18:25:39', '2021-07-09 18:25:40'),
 	(5, 'Executive', 'web', '2021-07-09 18:25:40', '2021-07-09 18:25:41');
 
--- Dumping structure for table gbi_2.role_has_permissions
+-- Dumping structure for table gbi.role_has_permissions
 CREATE TABLE IF NOT EXISTS `role_has_permissions` (
   `permission_id` bigint unsigned NOT NULL,
   `role_id` bigint unsigned NOT NULL,
@@ -7096,9 +7096,9 @@ CREATE TABLE IF NOT EXISTS `role_has_permissions` (
   KEY `role_has_permissions_role_id_foreign` (`role_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.role_has_permissions: ~0 rows (approximately)
+-- Dumping data for table gbi.role_has_permissions: ~0 rows (approximately)
 
--- Dumping structure for table gbi_2.schoolbankdetails
+-- Dumping structure for table gbi.schoolbankdetails
 CREATE TABLE IF NOT EXISTS `schoolbankdetails` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `user_id` bigint unsigned NOT NULL,
@@ -7114,14 +7114,14 @@ CREATE TABLE IF NOT EXISTS `schoolbankdetails` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.schoolbankdetails: ~4 rows (approximately)
+-- Dumping data for table gbi.schoolbankdetails: ~4 rows (approximately)
 INSERT INTO `schoolbankdetails` (`id`, `user_id`, `tour_code`, `school_id`, `name`, `bank_name`, `account_number`, `account_type`, `ifsc_code`, `created_at`, `updated_at`) VALUES
 	(1, 26, NULL, NULL, 'GB International', 'Punjab National Bank', '4586549845051589', 'Current Account', 'PNBI55423', '2020-07-31 14:38:38', '2020-07-31 14:47:36'),
 	(6, 59, 'TOURECODE0002', '296', 'Teacher Sukla', 'HDFC Bank', '565685458574589', 'Saving Account', 'PNBI5542', '2020-08-06 16:24:29', '2020-08-07 13:02:09'),
 	(10, 59, 'TOURCODE00023', '296', 'Teacher Sukla', 'HDFC Bank', '565685458574589', 'Saving Account', 'PNBI5542', '2020-08-06 16:24:29', '2020-08-07 13:02:09'),
 	(13, 26, NULL, NULL, 'asdfasdf', 'HDFC Bank', '44444', 'Saving Account', 'asdfasdf', '2021-03-17 17:47:54', '2021-03-17 17:47:54');
 
--- Dumping structure for table gbi_2.schools
+-- Dumping structure for table gbi.schools
 CREATE TABLE IF NOT EXISTS `schools` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `school_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -7142,7 +7142,7 @@ CREATE TABLE IF NOT EXISTS `schools` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=961 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.schools: ~944 rows (approximately)
+-- Dumping data for table gbi.schools: ~944 rows (approximately)
 INSERT INTO `schools` (`id`, `school_name`, `street`, `city_name`, `state_name`, `country_name`, `pincode`, `finance_email_id`, `principal_email_id`, `mobile`, `address`, `created_at`, `updated_at`, `principal_name`, `principal_mobile_number`, `user_id`) VALUES
 	(2, 'BHARATIYA VIDYA BHAVAN', 'Road No.71, Film Nagar, Jubilee Hills', 'Hyderabad', 'Telangana', 'India', '500033', 'bvbpsjh@rediffmail.com', 'bvbpsjh@rediffmail.com', '040-23544934', 'Road No.71, Film Nagar, Jubilee Hills, near Apollo Hospital, Hyderabad, Telangana 500033', '2020-05-02 17:18:59', '2020-05-04 13:42:08', NULL, NULL, NULL),
 	(3, 'CHIREC INTERNATIONAL SCHOOL', '1-55/12, Botanical Garden Rd', 'Kondapur', 'Telangana', 'India', '500084', 'office.kp@chirec.ac.in', 'office.kp@chirec.ac.in', '040-44760999', '1-55/12, Botanical Garden Rd, Sri Ram Nagar, Kondapur, Hyderabad, Telangana 500084', '2020-05-04 12:51:53', '2020-05-04 13:42:27', NULL, NULL, NULL),
@@ -8090,7 +8090,7 @@ INSERT INTO `schools` (`id`, `school_name`, `street`, `city_name`, `state_name`,
 	(959, 'KESHAV MEMORIAL INSTITUTE OF TECHNOLOGY', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Keshav memorial institute of technology,3-5-1026,Hari Vihar colony, Bhagat annav at, Narayanaguda, Hyderabad', '2022-12-13 15:39:30', '2022-12-13 15:39:30', NULL, NULL, NULL),
 	(960, 'Test School', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Test', '2023-09-08 02:04:09', '2023-09-08 02:04:09', NULL, NULL, NULL);
 
--- Dumping structure for table gbi_2.school_trips
+-- Dumping structure for table gbi.school_trips
 CREATE TABLE IF NOT EXISTS `school_trips` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `school_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -8118,13 +8118,13 @@ CREATE TABLE IF NOT EXISTS `school_trips` (
   UNIQUE KEY `slug` (`slug2`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table gbi_2.school_trips: ~3 rows (approximately)
+-- Dumping data for table gbi.school_trips: ~3 rows (approximately)
 INSERT INTO `school_trips` (`id`, `school_name`, `trip_name`, `no_of_student`, `no_of_teachers`, `ph_no`, `banner_link`, `slug1`, `slug2`, `source`, `destination`, `amount_paid`, `amount_pending`, `amount_total`, `amt_per_pax`, `payment_date`, `start_date`, `end_date`, `booking_status`, `payment_status`, `created_at`, `updated_at`) VALUES
 	(2, 'GBI School', '7 DAYS TOUR TO KOCHI-WONDERLA', '100', '5', '7278425808', '-1691829300860850.jpeg', 'gbi-school', '7-days-tour-to-kochi-wonderla', NULL, NULL, 500000, 1500000, 2000000, 20000, '2023-08-25', '2023-08-20', '2023-08-25', 2, 3, '2023-08-12 03:05:00', '2023-08-18 07:59:20'),
 	(10, 'GBI Test School', 'GBI 5 Days Tour to Delhi Agra Jaipur', '50', '5', '9717922240', 'trip-banner-smjc4plpo-1692101735219153.jpeg', 'gbi-test-school', 'gbi-5-days-tour-to-delhi-agra-jaipur', NULL, NULL, 1750000, 0, 0, 35000, '2023-08-10', '2023-10-18', '2023-10-22', 1, 1, '2023-08-15 06:45:35', '2023-08-15 06:45:36'),
 	(13, 'Test School', 'Test', '55', '5', '7278425808', 'trip-banner-6bgwbptfq-1692425510925584.jpeg', 'test-school', 'test', NULL, NULL, 80000, 2670000, 2750000, 50000, '2023-08-19', '2023-08-21', '2023-08-26', 1, 3, '2023-08-19 00:41:50', '2023-08-19 00:41:51');
 
--- Dumping structure for table gbi_2.searches
+-- Dumping structure for table gbi.searches
 CREATE TABLE IF NOT EXISTS `searches` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `user_id` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -8134,9 +8134,9 @@ CREATE TABLE IF NOT EXISTS `searches` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.searches: ~0 rows (approximately)
+-- Dumping data for table gbi.searches: ~0 rows (approximately)
 
--- Dumping structure for table gbi_2.seasons
+-- Dumping structure for table gbi.seasons
 CREATE TABLE IF NOT EXISTS `seasons` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -8146,7 +8146,7 @@ CREATE TABLE IF NOT EXISTS `seasons` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table gbi_2.seasons: ~5 rows (approximately)
+-- Dumping data for table gbi.seasons: ~5 rows (approximately)
 INSERT INTO `seasons` (`id`, `name`, `description`, `created_at`, `updated_at`) VALUES
 	(1, 'Winter', 'Test', '2021-11-27 16:50:18', '2021-11-27 16:50:18'),
 	(2, 'Monsoon', 'Test', '2021-11-27 16:50:18', '2021-11-27 16:50:18'),
@@ -8154,7 +8154,7 @@ INSERT INTO `seasons` (`id`, `name`, `description`, `created_at`, `updated_at`) 
 	(4, 'Spring', 'Test', '2021-11-27 16:50:18', '2021-11-27 16:50:18'),
 	(5, 'Summer', 'Test', '2021-11-27 16:50:18', '2021-11-27 16:50:18');
 
--- Dumping structure for table gbi_2.short_links
+-- Dumping structure for table gbi.short_links
 CREATE TABLE IF NOT EXISTS `short_links` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `shortCode` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -8164,13 +8164,13 @@ CREATE TABLE IF NOT EXISTS `short_links` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.short_links: ~3 rows (approximately)
+-- Dumping data for table gbi.short_links: ~3 rows (approximately)
 INSERT INTO `short_links` (`id`, `shortCode`, `link`, `created_at`, `updated_at`) VALUES
 	(2, 'p8ApPA', 'feedback-link/7', '2021-06-29 20:03:27', '2021-06-29 20:03:27'),
 	(3, 'Cto4lp', 'feedback-link/7', '2021-06-29 20:05:05', '2021-06-29 20:05:05'),
 	(4, 'tWGE2b', 'feedback-link/7', '2021-06-29 20:15:12', '2021-06-29 20:15:12');
 
--- Dumping structure for table gbi_2.sightseeings
+-- Dumping structure for table gbi.sightseeings
 CREATE TABLE IF NOT EXISTS `sightseeings` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `city_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -8188,7 +8188,7 @@ CREATE TABLE IF NOT EXISTS `sightseeings` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.sightseeings: ~22 rows (approximately)
+-- Dumping data for table gbi.sightseeings: ~22 rows (approximately)
 INSERT INTO `sightseeings` (`id`, `city_id`, `state_id`, `name`, `address`, `latlng`, `image`, `alt`, `description`, `adult_price`, `child_price`, `created_at`, `updated_at`) VALUES
 	(15, '65', '5', 'Goa city', 'Goa, India', '{"lat":15.2993265,"lng":74.12399599999999}', 'hoteljpg-1615794398631801.jpeg', 'hotel.jpg', 'new description goes here and making things awesome', '47', '49', '2020-07-14 13:13:41', '2021-11-17 14:21:07'),
 	(17, '4', '9', 'the statue of Unity', 'Sardar Sarovar Dam, Statue of Unity Rd, Kevadia, Gujarat 393155', '{"lat":21.8380184,"lng":73.71907279999999}', 'hero-386jpg-1615794446993337.jpeg', 'hero_386.jpg', 'The Statue of Unity is a colossal statue of Indian statesman and independence activist Vallabhbhai Patel, who was the first Deputy Prime Minister and Home minister of independent India and adherent of Mahatma Gandhi during the non-violent Indian Independence movement', '40', '44', '2020-10-22 13:06:38', '2021-11-16 21:59:17'),
@@ -8213,7 +8213,7 @@ INSERT INTO `sightseeings` (`id`, `city_id`, `state_id`, `name`, `address`, `lat
 	(59, '1', '1', 'QUtub Minar', 'Mehrauli, New Delhi', NULL, NULL, NULL, 'This victory tower is a symbol of the synthesis of traditional Islamic architecture and Southwestern Asian design.Built as a symbol of victory for Muslim invaders over the Hindu land, Qutub Minar served as a victory tower when Muhammad Ghori took over the Rajput king, Prithviraj Chauhan, in 1192', '40', '0', '2023-02-20 12:32:35', '2023-02-20 12:32:35'),
 	(60, '1', '1', 'QUtub Minar', 'Mehrauli, New Delhi', NULL, NULL, NULL, 'This victory tower is a symbol of the synthesis of traditional Islamic architecture and Southwestern Asian design.Built as a symbol of victory for Muslim invaders over the Hindu land, Qutub Minar served as a victory tower when Muhammad Ghori took over the Rajput king, Prithviraj Chauhan, in 1192', '40', '0', '2023-02-20 12:32:35', '2023-02-20 12:32:35');
 
--- Dumping structure for table gbi_2.states
+-- Dumping structure for table gbi.states
 CREATE TABLE IF NOT EXISTS `states` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `country_id` bigint unsigned NOT NULL,
@@ -8224,7 +8224,7 @@ CREATE TABLE IF NOT EXISTS `states` (
   KEY `states_country_id_foreign` (`country_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.states: ~31 rows (approximately)
+-- Dumping data for table gbi.states: ~31 rows (approximately)
 INSERT INTO `states` (`id`, `country_id`, `name`, `created_at`, `updated_at`) VALUES
 	(1, 2, 'Delhi', '2023-02-18 11:51:12', '2023-02-18 11:51:12'),
 	(3, 2, 'Andhra Pradesh', '2023-02-19 16:23:20', '2023-02-19 16:23:20'),
@@ -8258,7 +8258,7 @@ INSERT INTO `states` (`id`, `country_id`, `name`, `created_at`, `updated_at`) VA
 	(33, 2, 'Ladakh', '2023-05-06 09:02:17', '2023-05-06 09:02:17'),
 	(34, 2, 'Jammu and Kashmir', '2023-05-12 11:21:07', '2023-05-12 11:21:07');
 
--- Dumping structure for table gbi_2.students
+-- Dumping structure for table gbi.students
 CREATE TABLE IF NOT EXISTS `students` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `school_id` bigint unsigned NOT NULL,
@@ -8279,13 +8279,13 @@ CREATE TABLE IF NOT EXISTS `students` (
   KEY `students_school_id_foreign` (`school_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.students: ~3 rows (approximately)
+-- Dumping data for table gbi.students: ~3 rows (approximately)
 INSERT INTO `students` (`id`, `school_id`, `user_id`, `first_name`, `last_name`, `father_name`, `gender`, `mobile`, `alternate_mobile`, `email`, `class`, `address`, `dob`, `created_at`, `updated_at`) VALUES
 	(1, 296, NULL, 'Ajay', 'yadav', NULL, 'Male', '8890978983', NULL, NULL, NULL, NULL, NULL, '2020-07-21 18:24:09', '2020-07-21 18:24:09'),
 	(2, 296, NULL, 'Ram', 'singh', NULL, 'Male', '4949494949', NULL, NULL, NULL, NULL, NULL, '2020-07-21 18:24:10', '2020-07-21 18:24:10'),
 	(3, 296, NULL, 'Priya', 'rai', NULL, 'Female', '4949448449', NULL, NULL, NULL, NULL, NULL, '2020-07-21 18:24:10', '2020-07-21 18:24:10');
 
--- Dumping structure for table gbi_2.subscribers
+-- Dumping structure for table gbi.subscribers
 CREATE TABLE IF NOT EXISTS `subscribers` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `user_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -8302,7 +8302,7 @@ CREATE TABLE IF NOT EXISTS `subscribers` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.subscribers: ~31 rows (approximately)
+-- Dumping data for table gbi.subscribers: ~31 rows (approximately)
 INSERT INTO `subscribers` (`id`, `user_id`, `client_type`, `email`, `name`, `status`, `promotion_notification`, `posts_notification`, `travel_notification`, `website_notification`, `created_at`, `updated_at`) VALUES
 	(1, '66', 'general', 'xyz@gmail.com', NULL, 1, 1, 1, 1, 1, '2021-01-07 13:29:02', '2021-01-07 13:29:02'),
 	(3, '44', 'general', 'ajayyadavexpo@gmail.com', NULL, 1, 1, 1, 1, 1, '2021-01-08 10:51:19', '2021-03-23 17:15:01'),
@@ -8336,7 +8336,7 @@ INSERT INTO `subscribers` (`id`, `user_id`, `client_type`, `email`, `name`, `sta
 	(31, NULL, 'general', 'ramya.ramey@gmail.com', 'Ramya', 1, 1, 1, 1, 1, '2023-01-09 07:19:08', '2023-01-09 07:19:08'),
 	(32, NULL, 'general', 'ranasunikshasingh24@gmail.com', 'Rana suniksha', 1, 1, 1, 1, 1, '2023-04-15 04:57:16', '2023-04-15 04:57:16');
 
--- Dumping structure for table gbi_2.sub_permissions
+-- Dumping structure for table gbi.sub_permissions
 CREATE TABLE IF NOT EXISTS `sub_permissions` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -8346,7 +8346,7 @@ CREATE TABLE IF NOT EXISTS `sub_permissions` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table gbi_2.sub_permissions: ~5 rows (approximately)
+-- Dumping data for table gbi.sub_permissions: ~5 rows (approximately)
 INSERT INTO `sub_permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
 	(1, 'Create', 'web', NULL, NULL),
 	(2, 'Edit', 'web', NULL, NULL),
@@ -8354,7 +8354,7 @@ INSERT INTO `sub_permissions` (`id`, `name`, `guard_name`, `created_at`, `update
 	(4, 'Publish', 'web', NULL, NULL),
 	(5, 'View', 'web', NULL, NULL);
 
--- Dumping structure for table gbi_2.tags
+-- Dumping structure for table gbi.tags
 CREATE TABLE IF NOT EXISTS `tags` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -8363,7 +8363,7 @@ CREATE TABLE IF NOT EXISTS `tags` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=422 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.tags: ~384 rows (approximately)
+-- Dumping data for table gbi.tags: ~384 rows (approximately)
 INSERT INTO `tags` (`id`, `title`, `created_at`, `updated_at`) VALUES
 	(38, 'Romantic Vibes', '2023-02-21 17:34:44', '2023-02-21 17:34:44'),
 	(39, 'Culinary Tours', '2023-02-21 17:35:11', '2023-02-21 17:35:11'),
@@ -8750,7 +8750,7 @@ INSERT INTO `tags` (`id`, `title`, `created_at`, `updated_at`) VALUES
 	(420, 'Coorg tourism, Coorg sightseeing, Places to visit in Coorg, Karnataka tourism, Coorg coffee, Coorg trekking, Coorg waterfalls, Adventure tourism in Coorg, Coorg homestays, Coorg wildlife.', '2023-05-12 13:21:55', '2023-05-12 13:21:55'),
 	(421, 'Kovalam, beaches, Lighthouse Beach, Hawa Beach, Samudra Beach, Kerala, tourist destination, coastal town, Ayurvedic treatments, beach resorts, water sports', '2023-05-27 17:12:33', '2023-05-27 17:12:33');
 
--- Dumping structure for table gbi_2.tourprograms
+-- Dumping structure for table gbi.tourprograms
 CREATE TABLE IF NOT EXISTS `tourprograms` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -8766,7 +8766,7 @@ CREATE TABLE IF NOT EXISTS `tourprograms` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.tourprograms: ~6 rows (approximately)
+-- Dumping data for table gbi.tourprograms: ~6 rows (approximately)
 INSERT INTO `tourprograms` (`id`, `title`, `slug`, `meta_title`, `meta_keywords`, `meta_description`, `description`, `image`, `alt`, `created_at`, `updated_at`) VALUES
 	(12, 'Adventure Tours', NULL, NULL, NULL, NULL, '<p>Shake up your routine and challenge the adventure within. Ramp up your personal fun quotient and experience a rugged new fitness challenge.</p>', '1589519574-5ebe24d6cf3f9webp1614686854301746.webp', '1589519574_5ebe24d6cf3f9.webp', '2020-05-02 15:52:59', '2021-03-02 17:37:35'),
 	(13, 'Popular Tours', 'popular-tour', NULL, NULL, NULL, '<p>Gear up to be awe-stuck by the land of fantasy, contrast and fascinating splendor. There is no dearth of stunning beaches, deserts or mountain ranges.</p>', '1589519438-5ebe244e36692webp1614687309853964.webp', '1589519438_5ebe244e36692.webp', '2020-05-02 15:54:30', '2021-03-02 17:45:09'),
@@ -8775,7 +8775,7 @@ INSERT INTO `tourprograms` (`id`, `title`, `slug`, `meta_title`, `meta_keywords`
 	(16, 'USA', NULL, NULL, NULL, NULL, '<p>Traverse the arid deserts in the south, the beautiful pacific coastline in the west, the stunning rocky mountains in the north and spectacular cities in the east.</p>', '1589519617-5ebe2501bf5e9webp1614687213829284.webp', '1589519617_5ebe2501bf5e9.webp', '2020-05-02 15:56:52', '2021-03-02 17:43:33'),
 	(17, 'Upcoming Tours', 'upcoming-tour', NULL, NULL, NULL, '<p>Stimulate the craze within you and gear up for more excitement. Get ready to embrace fun and adventure as part of your next getaway.</p>', '1589519605-5ebe24f5299aewebp1614687248820968.webp', '1589519605_5ebe24f5299ae.webp', '2020-05-02 17:59:46', '2021-03-02 17:44:09');
 
--- Dumping structure for table gbi_2.tours
+-- Dumping structure for table gbi.tours
 CREATE TABLE IF NOT EXISTS `tours` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `tour_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -8794,7 +8794,7 @@ CREATE TABLE IF NOT EXISTS `tours` (
   UNIQUE KEY `tours_tour_id_unique` (`tour_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.tours: ~35 rows (approximately)
+-- Dumping data for table gbi.tours: ~35 rows (approximately)
 INSERT INTO `tours` (`id`, `tour_id`, `travel_code`, `itinerary_id`, `customer_type`, `school_id`, `company_id`, `tour_start_date`, `tour_end_date`, `tour_price`, `status`, `created_at`, `updated_at`) VALUES
 	(6, 'TOURCODE0006', NULL, 44, 'school', '16', '', '2019-10-08', '2019-10-14', '26500', '1', '2020-05-04 17:06:28', '2020-05-04 17:06:28'),
 	(7, 'TOURCODE0007', NULL, 47, 'school', '18', '', '2019-10-20', '2019-10-23', '8750', '1', '2020-05-04 17:10:18', '2020-05-04 17:10:18'),
@@ -8832,7 +8832,7 @@ INSERT INTO `tours` (`id`, `tour_id`, `travel_code`, `itinerary_id`, `customer_t
 	(49, 'TOURCODE00049', 'SchoolTest0049', 37, 'school', '952', 'NA', '2021-11-18', '2021-12-04', '50000', '1', '2021-11-18 11:47:45', '2021-11-18 11:47:45'),
 	(50, 'TOURCODE00050', 'dkjlikfd', 1, 'school', '3', 'NA', '2023-06-09', '2023-06-16', '54800', '1', '2023-06-08 10:47:46', '2023-06-08 10:47:46');
 
--- Dumping structure for table gbi_2.toursights
+-- Dumping structure for table gbi.toursights
 CREATE TABLE IF NOT EXISTS `toursights` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `tour_id` bigint unsigned NOT NULL,
@@ -8843,9 +8843,9 @@ CREATE TABLE IF NOT EXISTS `toursights` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table gbi_2.toursights: ~0 rows (approximately)
+-- Dumping data for table gbi.toursights: ~0 rows (approximately)
 
--- Dumping structure for table gbi_2.tourtypes
+-- Dumping structure for table gbi.tourtypes
 CREATE TABLE IF NOT EXISTS `tourtypes` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -8854,7 +8854,7 @@ CREATE TABLE IF NOT EXISTS `tourtypes` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.tourtypes: ~33 rows (approximately)
+-- Dumping data for table gbi.tourtypes: ~33 rows (approximately)
 INSERT INTO `tourtypes` (`id`, `name`, `created_at`, `updated_at`) VALUES
 	(19, 'Heritage Destinations', '2021-03-12 09:52:10', '2023-01-03 00:48:38'),
 	(20, 'Culinary Experience', '2021-03-12 09:53:40', '2021-03-12 09:53:40'),
@@ -8890,7 +8890,7 @@ INSERT INTO `tourtypes` (`id`, `name`, `created_at`, `updated_at`) VALUES
 	(52, 'Networking and Meetups', '2023-01-03 01:12:45', '2023-01-03 01:12:45'),
 	(53, 'Incentive Tours', '2023-01-03 01:13:04', '2023-01-03 01:13:04');
 
--- Dumping structure for table gbi_2.tour_user
+-- Dumping structure for table gbi.tour_user
 CREATE TABLE IF NOT EXISTS `tour_user` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `travel_code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -8915,7 +8915,7 @@ CREATE TABLE IF NOT EXISTS `tour_user` (
   KEY `tour_user_tour_code_foreign` (`tour_code`)
 ) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.tour_user: ~14 rows (approximately)
+-- Dumping data for table gbi.tour_user: ~14 rows (approximately)
 INSERT INTO `tour_user` (`id`, `travel_code`, `user_id`, `tour_code`, `user_type`, `is_paid`, `created_at`, `updated_at`, `schoolbankdetail_id`, `payment_mode`, `payment_type`, `ifsc_code`, `cheque_number`, `amount`, `cheque_bank_name`, `date_of_issue`, `payment_data`, `status`) VALUES
 	(4, '123123', 118, 'TOURCODE00026', 'student', '1', '2021-02-19 13:16:04', '2021-02-22 14:42:40', NULL, 'self', 'cash', NULL, NULL, '1000', NULL, NULL, NULL, 'success'),
 	(5, '123123', 119, 'TOURCODE00026', 'student', '1', '2021-02-19 13:16:05', '2021-02-19 13:16:05', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
@@ -8932,7 +8932,7 @@ INSERT INTO `tour_user` (`id`, `travel_code`, `user_id`, `tour_code`, `user_type
 	(22, 'GBI0040', 44, 'TOURCODE00040', 'user', NULL, '2021-05-24 17:22:56', '2021-05-24 17:22:56', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 	(23, 'Test0033', 44, 'TOURCODE00033', 'user', NULL, '2021-05-24 17:25:46', '2021-05-24 17:25:46', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
--- Dumping structure for table gbi_2.trackpayments
+-- Dumping structure for table gbi.trackpayments
 CREATE TABLE IF NOT EXISTS `trackpayments` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `user_id` bigint unsigned NOT NULL,
@@ -8963,7 +8963,7 @@ CREATE TABLE IF NOT EXISTS `trackpayments` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=138 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.trackpayments: ~25 rows (approximately)
+-- Dumping data for table gbi.trackpayments: ~25 rows (approximately)
 INSERT INTO `trackpayments` (`id`, `user_id`, `travel_code`, `amount`, `tour_id`, `school_id`, `company_id`, `payment_mode`, `billing_name`, `billing_address`, `billing_city`, `billing_state`, `billing_country`, `billing_zip`, `billing_tel`, `billing_email`, `delivery_name`, `delivery_address`, `delivery_city`, `delivery_state`, `delivery_country`, `delivery_zip`, `delivery_tel`, `delivery_email`, `created_at`, `updated_at`) VALUES
 	(67, 44, '12345', 25918, 'TOURECODE0001', '2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-02-01 17:12:14', '2021-02-01 17:12:14'),
 	(70, 44, '12345', 25918, 'TOURECODE0001', '2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-02-01 18:32:48', '2021-02-01 18:32:48'),
@@ -8991,7 +8991,7 @@ INSERT INTO `trackpayments` (`id`, `user_id`, `travel_code`, `amount`, `tour_id`
 	(136, 133, 'Test0043', 8294, 'TOURCODE00043', '952', NULL, 'self', 'Test', 'Test', 'Kolkata', 'WB', 'India', '700048', '7278425808', 'test@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-11-20 12:09:53', '2021-11-20 12:09:53'),
 	(137, 133, 'Test0043', 8294, 'TOURCODE00043', '952', NULL, 'self', 'test', 'test address', 'kolkata', 'west bengal', 'india', '700048', '7278425808', 'test@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-11-23 16:21:00', '2021-11-23 16:21:00');
 
--- Dumping structure for table gbi_2.track_corp_payments
+-- Dumping structure for table gbi.track_corp_payments
 CREATE TABLE IF NOT EXISTS `track_corp_payments` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `user_id` bigint unsigned NOT NULL,
@@ -9021,9 +9021,9 @@ CREATE TABLE IF NOT EXISTS `track_corp_payments` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=133 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table gbi_2.track_corp_payments: ~0 rows (approximately)
+-- Dumping data for table gbi.track_corp_payments: ~0 rows (approximately)
 
--- Dumping structure for table gbi_2.trains
+-- Dumping structure for table gbi.trains
 CREATE TABLE IF NOT EXISTS `trains` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `code` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -9033,12 +9033,12 @@ CREATE TABLE IF NOT EXISTS `trains` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.trains: ~2 rows (approximately)
+-- Dumping data for table gbi.trains: ~2 rows (approximately)
 INSERT INTO `trains` (`id`, `code`, `name`, `created_at`, `updated_at`) VALUES
 	(1, '1902929', 'Teja Express', '2020-08-13 16:31:33', '2020-08-13 16:31:33'),
 	(2, '4848484', 'Surya Super Express', '2020-08-13 16:31:54', '2021-03-16 18:26:01');
 
--- Dumping structure for table gbi_2.userpayments
+-- Dumping structure for table gbi.userpayments
 CREATE TABLE IF NOT EXISTS `userpayments` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `user_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -9063,7 +9063,7 @@ CREATE TABLE IF NOT EXISTS `userpayments` (
   KEY `userpayments_tour_code_foreign` (`tour_code`)
 ) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.userpayments: ~14 rows (approximately)
+-- Dumping data for table gbi.userpayments: ~14 rows (approximately)
 INSERT INTO `userpayments` (`id`, `user_id`, `school_id`, `tour_code`, `schoolbankdetail_id`, `payment_mode`, `payment_type`, `ifsc_code`, `cheque_number`, `amount`, `total_tour_price`, `collect_amount`, `cheque_bank_name`, `added_by`, `date_of_issue`, `status`, `payment_data`, `created_at`, `updated_at`) VALUES
 	(16, '133', '952', 'TOURCODE00026', '1', 'self', 'net', NULL, NULL, '4147', NULL, NULL, NULL, 'GBI', NULL, 'success', '{"order_id":"102","tracking_id":"310006936798","bank_ref_no":"1614170719043","order_status":"Success","failure_message":"","payment_mode":"Net Banking","card_name":"AvenuesTest","status_code":"null","status_message":"Y","currency":"INR","amount":"4147.00","billing_name":"Teacher","billing_address":"449 new delhi","billing_city":"New Delhi","billing_state":"Delhi","billing_zip":"494949","billing_country":"India","billing_tel":"8920397458","billing_email":"ajay_yadav@gbinternational.in","delivery_name":"Teacher","delivery_address":"449 new delhi","delivery_city":"New Delhi","delivery_state":"Delhi","delivery_zip":"494949","delivery_country":"India","delivery_tel":"8920397458","merchant_param1":"","merchant_param2":"","merchant_param3":"","merchant_param4":"","merchant_param5":"","vault":"N","offer_type":"null","offer_code":"null","discount_value":"0.0","mer_amount":"4147.00","eci_value":"null","retry":"N","response_code":"0","billing_notes":"","trans_date":"24\\/02\\/2021 18:16:03","bin_country":""}', '2021-02-24 18:15:22', '2021-03-19 10:19:24'),
 	(18, '133', '952', 'TOURCODE00035', '1', 'student', NULL, NULL, NULL, '2000', NULL, NULL, NULL, 'School', NULL, 'pending', NULL, '2021-05-05 19:17:22', '2021-05-05 19:17:22'),
@@ -9081,7 +9081,7 @@ INSERT INTO `userpayments` (`id`, `user_id`, `school_id`, `tour_code`, `schoolba
 	(41, '133', '952', 'TOURCODE00045', NULL, 'self', 'net', NULL, NULL, '103670', NULL, NULL, NULL, NULL, NULL, 'success', '{"order_id":"129","tracking_id":"310007210276","bank_ref_no":"1622262545108","order_status":"Success","failure_message":"","payment_mode":"Net Banking","card_name":"AvenuesTest","status_code":"null","status_message":"Y","currency":"INR","amount":"103670.00","billing_name":"Test","billing_address":"test Address","billing_city":"Kolkata","billing_state":"WB","billing_zip":"70001","billing_country":"India","billing_tel":"7004005001","billing_email":"testemail@gmail.com","delivery_name":"Test","delivery_address":"test Address","delivery_city":"Kolkata","delivery_state":"WB","delivery_zip":"70001","delivery_country":"India","delivery_tel":"7004005001","merchant_param1":"","merchant_param2":"","merchant_param3":"","merchant_param4":"","merchant_param5":"","vault":"N","offer_type":"null","offer_code":"null","discount_value":"0.0","mer_amount":"103670.00","eci_value":"null","retry":"N","response_code":"0","billing_notes":"","trans_date":"29\\/05\\/2021 09:59:37","bin_country":""}', '2021-05-29 09:59:08', '2021-05-29 09:59:08'),
 	(42, NULL, '3', 'TOURCODE00050', NULL, 'self', 'cash', NULL, NULL, '109600', NULL, NULL, NULL, 'GBI', NULL, 'pending', NULL, '2023-09-09 04:30:01', '2023-09-09 04:30:01');
 
--- Dumping structure for table gbi_2.users
+-- Dumping structure for table gbi.users
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `user_role` tinyint NOT NULL DEFAULT '2',
@@ -9103,7 +9103,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=223 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.users: ~118 rows (approximately)
+-- Dumping data for table gbi.users: ~118 rows (approximately)
 INSERT INTO `users` (`id`, `user_role`, `parent_user`, `user_role_id`, `name`, `user_type`, `email`, `email_verified_at`, `password`, `remember_token`, `reset_link`, `link_time`, `status`, `created_at`, `updated_at`, `is_incharge`, `department_id`) VALUES
 	(4, 2, NULL, NULL, 'Ajay', 'user', 'ajay@gmail.com', NULL, '$2y$10$qtdWHywf0XkwUY5ewXCgnOFerYQ8qghmQ5ohtsuZT7ncYtnEYGpOy', NULL, NULL, NULL, 0, '2020-01-29 16:13:52', '2020-01-29 16:13:52', '0', NULL),
 	(25, 1, NULL, NULL, 'Deepak', 'user', 'deepak@gbinterantional.in', NULL, '$2y$10$wTDiMEi/U/VSjm6x1YbrgOHlOCTvRtWqSDhcRoFPFbWCWLcM6VRHu', NULL, NULL, NULL, 0, '2020-03-14 15:39:48', '2021-03-22 17:33:29', '0', 3),
@@ -9224,7 +9224,7 @@ INSERT INTO `users` (`id`, `user_role`, `parent_user`, `user_role_id`, `name`, `
 	(219, 1, NULL, 18, 'Uzma', 'GBI Member', 'uzma_siddiqui@gbinternational.in', NULL, '$2y$10$WFKojIoYHVLmSLVihxWF9.GZmaBj3Zmsd6TvFpCHFmWOWbj5zNV6q', 'MyelomYjiSqvqOAlB2HqRkI2fQEdWEkogEEo2PUuQVPzI8b5f0RZq5o5ogd8', NULL, NULL, 0, '2023-02-23 13:09:04', '2023-02-23 13:09:04', '0', 6),
 	(222, 5, NULL, 21, 'Vikram', 'GBI Member', 'vikramk_roy@gbinternational.in', NULL, '$2y$10$GZjJGmIKQiJJ9LcSUq0TLOjB9NnphK/ALC7tpDvNYcj8aFSCA.QZy', NULL, NULL, NULL, 0, '2023-02-24 05:42:14', '2023-02-24 05:42:14', '0', 3);
 
--- Dumping structure for table gbi_2.user_roles
+-- Dumping structure for table gbi.user_roles
 CREATE TABLE IF NOT EXISTS `user_roles` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int NOT NULL,
@@ -9235,7 +9235,7 @@ CREATE TABLE IF NOT EXISTS `user_roles` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table gbi_2.user_roles: ~21 rows (approximately)
+-- Dumping data for table gbi.user_roles: ~21 rows (approximately)
 INSERT INTO `user_roles` (`id`, `user_id`, `department_id`, `role_id`, `created_at`, `updated_at`) VALUES
 	(1, 26, 1, 1, '2021-07-09 00:40:17', '2021-07-09 00:40:18'),
 	(2, 196, 1, 3, '2021-07-09 18:05:47', '2021-07-21 19:42:46'),
@@ -9259,7 +9259,7 @@ INSERT INTO `user_roles` (`id`, `user_id`, `department_id`, `role_id`, `created_
 	(20, 221, 6, 1, '2023-02-23 13:09:08', '2023-02-23 13:09:08'),
 	(21, 222, 3, 5, '2023-02-24 05:42:14', '2023-02-24 05:42:14');
 
--- Dumping structure for table gbi_2.user_role_permissions
+-- Dumping structure for table gbi.user_role_permissions
 CREATE TABLE IF NOT EXISTS `user_role_permissions` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `user_roles_id` int unsigned NOT NULL,
@@ -9274,7 +9274,7 @@ CREATE TABLE IF NOT EXISTS `user_role_permissions` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=220 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table gbi_2.user_role_permissions: ~118 rows (approximately)
+-- Dumping data for table gbi.user_role_permissions: ~118 rows (approximately)
 INSERT INTO `user_role_permissions` (`id`, `user_roles_id`, `permission_id`, `create`, `delete`, `edit`, `view`, `publish`, `created_at`, `updated_at`) VALUES
 	(1, 1, 54, 'true', 'true', 'false', 'true', 'false', '2021-07-11 02:18:11', '2021-07-11 02:18:14'),
 	(4, 4, 55, 'false', 'false', 'true', 'true', 'false', '2021-07-11 23:39:21', '2021-07-11 01:03:56'),
@@ -9395,7 +9395,7 @@ INSERT INTO `user_role_permissions` (`id`, `user_roles_id`, `permission_id`, `cr
 	(218, 21, 69, 'true', 'true', 'true', 'true', 'true', '2023-02-24 06:31:55', '2023-02-24 06:31:55'),
 	(219, 21, 71, 'true', 'true', 'true', 'true', 'true', '2023-02-24 06:32:12', '2023-02-24 06:32:12');
 
--- Dumping structure for table gbi_2.user_socials
+-- Dumping structure for table gbi.user_socials
 CREATE TABLE IF NOT EXISTS `user_socials` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int unsigned NOT NULL,
@@ -9407,11 +9407,11 @@ CREATE TABLE IF NOT EXISTS `user_socials` (
   KEY `social_user_foreign_key` (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table gbi_2.user_socials: ~0 rows (approximately)
+-- Dumping data for table gbi.user_socials: ~0 rows (approximately)
 INSERT INTO `user_socials` (`id`, `user_id`, `code`, `provider`, `created_at`, `updated_at`) VALUES
 	(1, 44, 'AQCzWbZ1qATaOZJI3lX0dhr1vm-jWvyMKpKLJz09kjRuL0bRI4aex3NDew8icbbPYBssJ-si1Y-kyeblzyWlFEGYiDGv3tXngo-_F-m-KJhHby9VoYbpWT5runfkssw7y9xFk0EGZ0EtDs0ZHWkMZvpG2Nkd10GGrxCnMcNmbYPXAn8EARKJTXPL-vsR7gLWxBf7me_ksPWEnIj0xQ7ICL-WL69VprQN-mEo4yEzCeEIFJ7dk5dNyz9ldwoSyT5Bi0G82XpBUD9T481USSSxBbftQQLFJD3mpEiSZzusAaMqa2mTIW2UO4ntsx1zXdfZbf_h4fMHVLTOuZOM8mm6-zYvixIqo7m-etpot3nf_RkNdw', 'facebook', '2021-07-06 00:24:02', '2021-07-06 13:05:58');
 
--- Dumping structure for table gbi_2.websites
+-- Dumping structure for table gbi.websites
 CREATE TABLE IF NOT EXISTS `websites` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `video` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
@@ -9420,11 +9420,11 @@ CREATE TABLE IF NOT EXISTS `websites` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.websites: ~0 rows (approximately)
+-- Dumping data for table gbi.websites: ~0 rows (approximately)
 INSERT INTO `websites` (`id`, `video`, `created_at`, `updated_at`) VALUES
 	(1, '<iframe width="560" height="315" src="https://www.youtube.com/embed/93hWwTxrPeE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>', NULL, '2020-05-07 20:11:47');
 
--- Dumping structure for table gbi_2.websockets_statistics_entries
+-- Dumping structure for table gbi.websockets_statistics_entries
 CREATE TABLE IF NOT EXISTS `websockets_statistics_entries` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `app_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -9436,7 +9436,7 @@ CREATE TABLE IF NOT EXISTS `websockets_statistics_entries` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table gbi_2.websockets_statistics_entries: ~0 rows (approximately)
+-- Dumping data for table gbi.websockets_statistics_entries: ~0 rows (approximately)
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

@@ -20,23 +20,14 @@ class TourController extends Controller
 {
     public function tourList($id){
 
-        $data = Bookedescort::select('tour_code','tour_id')->where('escort_id',$id)
-            ->with([
-                'tour:id,tour_start_date,tour_end_date,itinerary_id',
-                'tour.itinerary:id,title'
-            ])->get();
+        $data = Bookedescort::select('tour_code','tour_id')->where('escort_id',$id)->with(['tour:id,tour_start_date,tour_end_date,itinerary_id','tour.itinerary:id,title'])->get();
         return response()->json($data);
     }
 
     public function sightseeingList($tour_code){
         $data = [];
         $data['sightseeings'] = Bookedsightseeing::select('sightseeing_id','id','itineraryday_id','mark_arrive')
-            ->where('tour_code',$tour_code)
-            ->with(
-                'sightseeing:id,name,latlng',
-            )
-            ->get()
-            ->groupBy('itineraryday_id');
+            ->where('tour_code',$tour_code)->with('sightseeing:id,name,latlng',)->get()->groupBy('itineraryday_id');
             
         $tour = Tour::where('tour_id', $tour_code)->first();
         $data['locs']['startLoc'] = json_decode($tour->itinerary->startLoc);
@@ -139,10 +130,10 @@ class TourController extends Controller
         $male = 0;$female = 0;
         // count male and female from data
         foreach ($data as $d ) {
-            if($d->user->information->gender == 'male'){
+            if($d->user->information->gender == 'male' || $d->user->information->gender == 'M'){
                 $male += 1;
             }
-            if($d->user->information->gender == 'female'){
+            if($d->user->information->gender == 'female' || $d->user->information->gender == 'F'){
                 $female += 1;
             }
         };

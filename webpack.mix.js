@@ -30,8 +30,8 @@ mix.webpackConfig({
 //    });
 // }
 //front
-  mix.js('resources/js/front/app.js', 'public/js').vue()
-   .sass('resources/sass/front/app.scss', 'public/css')
+//   mix.js('resources/js/front/app.js', 'public/js').vue()
+//    .sass('resources/sass/front/app.scss', 'public/css')
 
 //Front with SSR
 // mix
@@ -59,8 +59,8 @@ mix.webpackConfig(webpack => {
 
 
 //escort
-   //mix.js('resources/js/escort/app.js', 'public/js/escort').vue()
-    //.sass('resources/sass/escort/app.scss', 'public/css/escort')
+   mix.js('resources/js/escort/app.js', 'public/js/escort').vue()
+    .sass('resources/sass/escort/app.scss', 'public/css/escort')
 
 //mix.js('resources/js/laravel-echo-setup.js', 'public/js');
 

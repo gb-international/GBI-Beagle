@@ -27,13 +27,19 @@ class SendSms{
     }
 
     public function  otpSMS($mobile,$otp){
-        $phone = '91'.$mobile;
-        $message = "Dear Customer Your One Time Password is $otp .This OTP will remain valid for 90 seconds";
-        $template_id = 1007633512302840127;
-        
-        $ApiUrl = "https://www.businesssms.co.in/smsaspx?Id=".$this->id."&Pwd=".urlencode($this->pwd)."&PhNo=".$phone."&TemplateID=".$template_id."&TEXT=".urldecode($message);
-        $client = new \GuzzleHttp\Client(['verify' => false ]);
-        $request = $client->get($ApiUrl);
+        try{
+            $phone = '+91'.$mobile;
+            $message = "Dear Customer Your One Time Password is $otp .This OTP will remain valid for 90 seconds";
+            $template_id = 1007633512302840127;
+            
+            $ApiUrl = "https://www.businesssms.co.in/smsaspx?Id=".$this->id."&Pwd=".urlencode($this->pwd)."&PhNo=".$phone."&TemplateID=".$template_id."&TEXT=".urldecode($message);
+            return $ApiUrl;
+            $client = new \GuzzleHttp\Client(['verify' => false ]);
+            $request = $client->get($ApiUrl);
+        }
+        catch(Exception $e){
+            return $e->getMessage();
+        }
     }
 
     public function sendLoginDetails($mobile,$message){

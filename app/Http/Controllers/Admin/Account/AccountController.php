@@ -88,7 +88,7 @@ class AccountController extends Controller
             $data['itinerary_id'] = $account->itinerary_id;
             $this->sendNotification($data);
             return $response['success'] = 'success';
-         }
+        }
     }
 
     /**

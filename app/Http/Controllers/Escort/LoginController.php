@@ -5,12 +5,18 @@ use App\Http\Controllers\Controller;
 use App\Model\Escort\Escort;
 use App\Helpers\SendSms;
 use App\Otp;
-class LoginController extends Controller 
+use App\Rules\PhoneNubmerValidate;
+use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\Admin\BaseController;
+class LoginController extends BaseController 
 {
     public function login(Request $request){
-        $this->validate($request,[
-            'number'=>'required'
+        $validator = Validator::make($request->all(), [
+            'number'=>['required','numeric',new PhoneNubmerValidate],
         ]);
+        if ($validator->fails()) {
+            return $this->errorValidate($validator->errors(), 422);
+        }
         $escort  = Escort::where('phoneno',$request->number)->first();
         if($escort){
             $mobile_number = $request->number;
@@ -31,20 +37,30 @@ class LoginController extends Controller
                     $response['id'] = $escort->id;
                     $response['name'] = $escort->name;
                 }
-                return $response;
+                return $this->sendResponse($response,'successfull');
             }catch(Exception $e){
-                $response['error'] = 'Try again !!!!';
+                return $this->sendError("Try again !!!!", 500);     
             }
-            return $response;
+            return $this->sendResponse($response,'successfull');
+            // return $response;
         }else{
-            return 'wrong number';
+            return $this->sendError("wrong number", 500);
+            // return 'wrong number';
         }
-
     }
 
     //Otp Verif
 
     public function otp_verify(Request $request){
+
+        $validator = Validator::make($request->all(), [
+            'otp'=>'required|numeric',
+            'otp_id'=>'required|numeric|exists:otps,id',
+        ]);
+        if ($validator->fails()) {
+            return $this->errorValidate($validator->errors(), 422);
+        }
+
     	$otp = $request->otp;
         $id = $request->otp_id;
         $where = ['id'=>$id,'otp_send'=>$otp];
