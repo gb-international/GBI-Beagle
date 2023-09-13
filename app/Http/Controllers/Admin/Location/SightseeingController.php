@@ -125,7 +125,6 @@ class SightseeingController extends BaseController
             $data['adult_price'] = $request->adult_price??$sightseeing->adult_price;
             $data['child_price'] = $request->child_price??$sightseeing->child_price;
 
-            $data = $this->validateSightseeing($request);
             if($request->image!=$sightseeing->image){
                 $data['image'] = $this->AwsFileUpload($request->image,config('gbi.sightseeing_image'),$request->alt);
                 $this->AwsDeleteImage($sightseeing->image);
@@ -156,8 +155,11 @@ class SightseeingController extends BaseController
      * @return \Illuminate\Http\Response
      */
     public function destroy(Sightseeing $sightseeing){
-        $this->AwsDeleteImage($sightseeing->image);
         $sightseeing->delete();
+        // print_r($sightseeing);
+        if($sightseeing->image??0){
+            $this->AwsDeleteImage($sightseeing->image);
+        }
         return response()->json(['success','Sightseeing deleted successfully...']);
     }
 

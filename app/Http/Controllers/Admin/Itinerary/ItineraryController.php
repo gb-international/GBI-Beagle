@@ -67,6 +67,41 @@ class ItineraryController extends BaseController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+     /**
+        * @OA\Post(
+        * path="api/itinerary",
+        * operationId="store",
+        * tags={"Store"},
+        * summary="Itinerary is create",
+        * description="Itinerary is create here",
+        *     @OA\RequestBody(
+        *         @OA\JsonContent(),
+        *         @OA\MediaType(
+        *            mediaType="multipart/form-data",
+        *            @OA\Schema(
+        *               type="object",
+        *               required={"meta_title", "meta_description", "source", "destination", "noofdays", "tourtype", "hotel_type","bus", "train", "flight","client_type", "price", "title", "food", "description", "itinerarydays"},
+        *               @OA\Property(property="meta_title", type="text"),        
+        *            ),
+        *        ),
+        *    ),
+        *      @OA\Response(
+        *          response=201,
+        *          description="Added Successfully",
+        *          @OA\JsonContent()
+        *       ),
+
+        *      @OA\Response(
+        *          response=422,
+        *          description="Unprocessable Entity",
+        *          @OA\JsonContent()
+        *       ),
+        *      @OA\Response(response=500, description="Server Error"),
+        * )
+        */
+
+
     public function store(ItineraryRequest $request)
     {
         // $data = $this->validateItinerary($request);
@@ -195,9 +230,7 @@ class ItineraryController extends BaseController
             $itinerary->endLoc = $locDestination['results'][0]['geometry']['location']??0;
 
             $itinerary->save();
-            //event(new \App\Events\SendNotification($notifData));
-
-            return response()->json(['success'=>'Successfully added']);
+            return $this->sendResponse($itinerary,'Successfully added',201);
         }
         catch(Exception $e){
             return $this->sendError($e->getMessage(), 500);
