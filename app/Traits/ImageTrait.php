@@ -94,7 +94,7 @@ trait ImageTrait {
     public function AwsDeleteImage($image){
         $path =explode("https://gbi-assets.s3.ap-south-1.amazonaws.com",$image);
         try{
-            \Storage::disk('s3')->delete($path[1]);
+            \Storage::disk('s3')->delete($path[0]??0);
         }
         catch (S3Exception $e) {
             return '0';

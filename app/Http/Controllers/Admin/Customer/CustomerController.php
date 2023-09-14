@@ -103,7 +103,7 @@ class CustomerController extends BaseController
             $user = User::where('id',$id??0)->firstOrFail();
             $more_information = Information::where('user_id',$id??0)->firstOrFail();
             $user_information = array('user'=>$user, 'information'=>$more_information);
-            return $this->sendResponse($user_information,'Successfully Created', 200);
+            return $this->sendResponse($user_information,'Successfully', 200);
          }
          catch(Exception $e){
             return $this->sendError($e->getMessage(), 500);

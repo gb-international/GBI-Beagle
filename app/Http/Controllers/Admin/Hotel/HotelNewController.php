@@ -128,28 +128,28 @@ class HotelNewController extends Controller
 
     public function validateHotel($request)
     {
-         return $this->validate($request, [
+    //      return $this->validate($request, [
 
-            'address' => 'required|min:3',
-            'type' => 'required',
-            'name' => ['required',new AlphaSpace],
-            'state'=>'required',
-            'city' =>'required',
-            'pincode' => 'required',
-            'country' => required,
-            'address' => 'required',
-            'phoneno' => ['required','numeric',new PhoneNubmerValidate],
-            'email' => ['required','email',new EmailValidate],
-            'rooms'=>'required|numeric|min:1',
-            'room_category' => 'required',
-            'star_category' => 'required',
-            'banquets' => 'required',
-            'banquet_category' => 'required',
-            'amenities' => 'required',
-            'image' => 'required'
-            'description' => 'required'
+    //         'address' => 'required|min:3',
+    //         'type' => 'required',
+    //         'name' => ['required',new AlphaSpace],
+    //         'state'=>'required',
+    //         'city' =>'required',
+    //         'pincode' => 'required',
+    //         'country' => required,
+    //         'address' => 'required',
+    //         'phoneno' => ['required','numeric',new PhoneNubmerValidate],
+    //         'email' => ['required','email',new EmailValidate],
+    //         'rooms'=>'required|numeric|min:1',
+    //         'room_category' => 'required',
+    //         'star_category' => 'required',
+    //         'banquets' => 'required',
+    //         'banquet_category' => 'required',
+    //         'amenities' => 'required',
+    //         'image' => 'required'
+    //         'description' => 'required'
           
-      ]);
+    //   ]);
     }
 
 }

@@ -2,6 +2,10 @@
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Admin\Customer\CustomerController;
+use App\Http\Controllers\Admin\Article\CategoryController;
+use App\Http\Controllers\Admin\Article\TagsController;
+use App\Http\Controllers\Admin\Article\PostsController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -331,6 +335,25 @@ Route::resource('customer', Admin\Customer\CustomerController::class);
 Route::group(['prefix' => '/customer', 'as' => 'customer.'], function () {
 	Route::post('status', [CustomerController::class, 'status']);
 	Route::get('all/{user_profession_type}/{size?}', [CustomerController::class, 'all']);
+});
+
+// Article
+Route::group(['prefix' => '/article', 'as' => 'article.'], function () {
+
+	Route::resource('categories', Admin\Article\CategoryController::class);
+	Route::group(['prefix' => '/category', 'as' => 'category.'], function () {
+		Route::get('all/{size?}', [CategoryController::class, 'all']);
+	});
+
+	Route::resource('tags', Admin\Article\TagsController::class);
+	Route::group(['prefix' => '/tag', 'as' => 'tag.'], function () {
+		Route::get('all/{size?}', [TagsController::class, 'all']);
+	});
+
+	Route::resource('posts', PostsController::class);
+	Route::group(['prefix' => '/post', 'as' => 'post.'], function () {
+		Route::get('all/{size?}', [PostsController::class, 'all']);
+	});
 });
 
 

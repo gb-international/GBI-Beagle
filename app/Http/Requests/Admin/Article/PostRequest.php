@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Requests\Post;
+namespace App\Http\Requests\Admin\Article;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Contracts\Validation\Rule;
+use App\Rules\AlphaSpace;
 
-class CategoryRequest extends FormRequest
+class PostRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -29,7 +29,12 @@ class CategoryRequest extends FormRequest
         return [
             'title'=>'required',
             'description'=>'required',
+            'summery'=>'required',
             'meta_title'=>'required',
+            'meta_keyword'=>'required|array',
+            'status'=>'required|',
+            'category_id'=>'required|exists:article_categories,id',
+            'client_type'=>'required|in:eduInstitute,corporate,general'
         ];
     }
     protected function failedValidation(Validator $validator) : void
@@ -37,4 +42,3 @@ class CategoryRequest extends FormRequest
         throw new HttpResponseException(response()->json(['status' => 422, 'error' =>$validator->errors()]));
     }
 }
-

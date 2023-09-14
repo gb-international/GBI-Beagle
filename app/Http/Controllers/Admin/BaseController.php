@@ -26,7 +26,7 @@ class BaseController extends Controller
         ];
 
 
-        return response()->json($response, 200);
+        return response()->json($response, $status_code);
     }
     /**
      * return error response.

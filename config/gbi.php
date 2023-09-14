@@ -16,6 +16,7 @@ return [
     'gbi_careers_email' => env('CAREERS_MAIL'),
     //  aws images path (folder)
     'category_image' => 'images/category/',
+    'article_category_image' => 'images/article_category/',
     'post_image' => 'images/post/',
     'tourprogram_image' => 'images/tourprogram/',
     'itinerary_image' => 'images/itinerary/',
