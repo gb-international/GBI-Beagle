@@ -350,7 +350,7 @@ Route::group(['prefix' => '/article', 'as' => 'article.'], function () {
 		Route::get('all/{size?}', [TagsController::class, 'all']);
 	});
 
-	Route::resource('posts', PostsController::class);
+	Route::resource('posts', Admin\Article\PostsController::class);
 	Route::group(['prefix' => '/post', 'as' => 'post.'], function () {
 		Route::get('all/{size?}', [PostsController::class, 'all']);
 	});

@@ -31,7 +31,7 @@ class PostRequest extends FormRequest
             'description'=>'required',
             'summery'=>'required',
             'meta_title'=>'required',
-            'meta_keyword'=>'required|array',
+            'tags'=>'required|array',
             'status'=>'required|',
             'category_id'=>'required|exists:schools,id',
             'client_type'=>'required|in:eduInstitute,corporate,general'

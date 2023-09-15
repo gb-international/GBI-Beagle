@@ -26,13 +26,16 @@ class CreatedArticlePostsTable extends Migration
             $table->string('slug');
             $table->string('image');
             $table->string('alt')->nullable();
+            $table->bigInteger('created_by')->default(0);
+            $table->bigInteger('last_editor')->default(0);
+            $table->bigInteger('published_by')->default(0);
             $table->dateTime('created_at')->useCurrent();
             $table->dateTime('updated_at')->nullable();
             $table->softDeletes();
             $table->foreign('category_id')->references('id')->on('article_categories')->onDelete('cascade');
         });
     }
-
+    
     /**
      * Reverse the migrations.
      *

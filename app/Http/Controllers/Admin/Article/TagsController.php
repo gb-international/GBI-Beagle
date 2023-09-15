@@ -105,7 +105,7 @@ class TagsController extends BaseController
     {
         try{
             Tags::where('id',$id??0)->delete();
-            return $this->sendResponse('','Successfully Created', 200);
+            return $this->sendResponse('','Successful', 200);
             }
             catch(Exception $e){
             return $this->sendError($e->getMessage(), 500);

@@ -18,6 +18,7 @@ return [
     'category_image' => 'images/category/',
     'article_category_image' => 'images/article_category/',
     'post_image' => 'images/post/',
+    'article_post_image' => 'images/article_post/',
     'tourprogram_image' => 'images/tourprogram/',
     'itinerary_image' => 'images/itinerary/',
     'event_image' => 'images/events/',

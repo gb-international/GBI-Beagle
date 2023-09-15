@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Front\EncyclopediaController;
+use App\Http\Controllers\Front\ArticleController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -178,5 +179,17 @@ Route::group(['prefix' => '/school_trip_payment', 'as' => 'school_trip_payment.'
 	});
 });
 
+Route::group(['prefix' => '/front-article', 'as' => 'front-article.'], function () {
+	Route::get('/list/{count?}', [ArticleController::class, 'list']);
+	Route::get('/recents', [ArticleController::class, 'recents']);
+	Route::get('/category-list',[ArticleController::class, 'categoryList']);
+	Route::get('/keyword-list',[ArticleController::class, 'keywordList']);
+	Route::get('/category/{slug}', [ArticleController::class, 'category']);
+	Route::get('/post/{slug}', [ArticleController::class, 'view']);
+	Route::get('/related-article/{cat_id}', [ArticleController::class, 'relatedPost']);
+	Route::get('/search-post', [ArticleController::class, 'searchPost']);
+	Route::post('/search-post', [ArticleController::class, 'searchPost']);
+	Route::post('/store', [ArticleController::class, 'store']);
+});
 
 

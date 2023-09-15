@@ -31,10 +31,11 @@ class PostRequest extends FormRequest
             'description'=>'required',
             'summery'=>'required',
             'meta_title'=>'required',
-            'meta_keyword'=>'required|array',
-            'status'=>'required|',
+            'tags'=>'required|array',
+            'status'=>'required|in:0,1',
             'category_id'=>'required|exists:article_categories,id',
-            'client_type'=>'required|in:eduInstitute,corporate,general'
+            'client_type'=>'required|in:eduInstitute,corporate,general',
+            'user_id'=>'required|exists:users,id'
         ];
     }
     protected function failedValidation(Validator $validator) : void
@@ -42,3 +43,5 @@ class PostRequest extends FormRequest
         throw new HttpResponseException(response()->json(['status' => 422, 'error' =>$validator->errors()]));
     }
 }
+
+
