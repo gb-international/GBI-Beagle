@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Traits\ImageTrait;
 use App\Model\Admin\Article\Tags;
 use App\Http\Requests\Admin\Article\PostRequest;
+use Illuminate\Support\Facades\Validator;
+
 use App\Http\Controllers\Admin\BaseController;
 
 class PostsController extends BaseController
@@ -190,6 +192,26 @@ class PostsController extends BaseController
                 $size = 10;
             }
             $post = Posts::with('category','tags')->latest()->paginate($size);
+            return $this->sendResponse($post, 'success', 200);
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }
+    }
+    public function publish(Request $req){
+        try{
+            $validator = Validator::make($req->all(), [
+                'post_id' => 'required|exists:article_posts,id',
+                'user_id'=>'required|exists:users,id',
+                "status"=> "required|in:0,1",
+            ]);
+            if ($validator->fails()) {
+                return $this->errorValidate($validator->errors(), 422);
+            }
+            $post = Posts::where('id',$req->post_id??0)->firstOrFail();
+            $post->published_by = $req->user_id??0;
+            $post->status = $req->status??0;
+            $post->save();
             return $this->sendResponse($post, 'success', 200);
         }
         catch(Exception $e){

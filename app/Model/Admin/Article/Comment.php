@@ -9,7 +9,7 @@ class Comment extends Model
 {
     use HasFactory;
     protected $table = "article_comments";
-    protected $fillable = ['id', 'post_id','name','description', 'created_at','updated_at','deleted_at'];
+    protected $fillable = ['id', 'posts_id','name','description', 'created_at','updated_at','deleted_at'];
     public function post()
     {
         return $this->belongsToMany('App\Model\Admin\Article\Posts');

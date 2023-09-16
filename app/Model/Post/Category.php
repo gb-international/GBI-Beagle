@@ -4,6 +4,7 @@ namespace App\Model\Post;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use App\Helpers\UniqueSlug;
 use App\Traits\ImageTrait;
 
 class Category extends Model
@@ -27,6 +28,9 @@ class Category extends Model
     public function setTitleAttribute($value)
     {
         $this->attributes['title'] = $value;
-        $this->attributes['slug'] = Str::slug($value,'-');
+        $category = new Category;
+        $unique_slug_helper = new UniqueSlug(); 
+        $unique_slug = $unique_slug_helper->unique_slug(Str::slug($value,'-'), $category);
+        $this->attributes['slug'] = $unique_slug;
     }
 }

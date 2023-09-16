@@ -5,7 +5,8 @@ namespace App\Model\Admin\Article;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
- 
+use App\Helpers\UniqueSlug;
+
 class Posts extends Model
 {
     use HasFactory;
@@ -32,9 +33,17 @@ class Posts extends Model
         return $this->belongsToMany('App\Model\Admin\Article\Tags');
     }
 
+    public function comments()
+    {
+        return $this->hasMany('App\Model\Admin\Article\Comment')->orderBy('id','desc');
+    }
+
     public function setTitleAttribute($value)
     {
         $this->attributes['title'] = $value;
-        $this->attributes['slug'] = Str::slug($value,'-');
+        $posts = new Posts;
+        $unique_slug_helper = new UniqueSlug(); 
+        $unique_slug = $unique_slug_helper->unique_slug(Str::slug($value,'-'), $posts);
+        $this->attributes['slug'] = $unique_slug;
     }
 }

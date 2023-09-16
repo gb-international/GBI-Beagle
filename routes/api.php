@@ -180,16 +180,15 @@ Route::group(['prefix' => '/school_trip_payment', 'as' => 'school_trip_payment.'
 });
 
 Route::group(['prefix' => '/front-article', 'as' => 'front-article.'], function () {
-	Route::get('/list/{count?}', [ArticleController::class, 'list']);
-	Route::get('/recents', [ArticleController::class, 'recents']);
+	Route::get('/post-list/{count?}', [ArticleController::class, 'postList']);
+	Route::get('/recents-post', [ArticleController::class, 'recentsPost']);
 	Route::get('/category-list',[ArticleController::class, 'categoryList']);
 	Route::get('/keyword-list',[ArticleController::class, 'keywordList']);
 	Route::get('/category/{slug}', [ArticleController::class, 'category']);
-	Route::get('/post/{slug}', [ArticleController::class, 'view']);
-	Route::get('/related-article/{cat_id}', [ArticleController::class, 'relatedPost']);
-	Route::get('/search-post', [ArticleController::class, 'searchPost']);
+	Route::get('/post/{slug}', [ArticleController::class, 'postPerSlug']);
+	Route::get('/post-per-category/{cat_id}', [ArticleController::class, 'postPerCategory']);
 	Route::post('/search-post', [ArticleController::class, 'searchPost']);
-	Route::post('/store', [ArticleController::class, 'store']);
+	Route::post('/add-comment', [ArticleController::class, 'addComment']);
 });
 
 

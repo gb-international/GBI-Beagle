@@ -43,16 +43,6 @@ class ItineraryController extends BaseController
 
     public function searchItinerary(ItinerarySearchRequest $request)
     {
-            // $this->validate($request, [
-            //     'tourtype' => 'required',
-            //     'noofday' => 'required',
-            //     'source' => 'required',
-            //     'destination' => 'required',
-            //     'clientType' => ''
-            // ]);
-            // $tourtype = $request->tourtype??0; 
-            // print_r(Itinerary::->get());
-            // exit;
         try{
             $data = [];
             $source = $request->source??'';
@@ -64,7 +54,6 @@ class ItineraryController extends BaseController
             $bus = $request->bus??0;
             $train = $request->train??0;
             $flight = $request->flight??0;
-            // $transport_type = $request->transport_type??'';
             if(count($source) > 1){
             // Search on the basis of source of the itinerary
                 $data = Itinerary::where($transport_type,1)->whereIn('source',$source)->whereIn('destination',$destination)->where('client_type', $client_type)->orWhereHas('tourtypes',  function ($q) use ($tourtype) {

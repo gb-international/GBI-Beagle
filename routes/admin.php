@@ -354,6 +354,7 @@ Route::group(['prefix' => '/article', 'as' => 'article.'], function () {
 	Route::group(['prefix' => '/post', 'as' => 'post.'], function () {
 		Route::get('all/{size?}', [PostsController::class, 'all']);
 	});
+	Route::post('post-status', [PostsController::class, 'publish']);
 });
 
 
