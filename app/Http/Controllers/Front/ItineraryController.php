@@ -63,26 +63,37 @@ class ItineraryController extends BaseController
                 $data = Itinerary::where($transport_type,1)->whereIn('source',$source)->whereIn('destination',$destination)->where('client_type', $client_type)->orWhereHas('tourtypes',  function ($q) use ($tourtype) {
                         $q->where('id',$tourtype);
                     })->with('tourtypes')->get();
-            }
-            else{
-                // echo $transport_type;
+                    //Merge suggest itineray
+                    $data = $data->merge(Itinerary::where($transport_type,1)->whereIn('source',$source)->where('client_type', $client_type)->orWhereHas('tourtypes',  function ($q) use ($tourtype) {
+                        $q->where('id',$tourtype);
+                    })->with('tourtypes')->get());
+                }
+                else{
+                    // echo $transport_type;
                 // exit;
                 $source = implode(",",array_filter($request->source??''));
                 $destination = implode(",",array_filter($request->destination??''));
-
+                
                 $data = Itinerary::where([
                     'source'=>$source,
                     'destination'=>$destination,
                     $transport_type=>1,
                     'client_type'=> $client_type
-                ])->orWhereHas('tourtypes',  function ($q) use ($tourtype) {
-                    $q->where('id' ,$tourtype);
-                })->with('tourtypes')->get();
+                    ])->orWhereHas('tourtypes',  function ($q) use ($tourtype) {
+                        $q->where('id' ,$tourtype);
+                    })->with('tourtypes')->get();
+                    $data = $data->merge(Itinerary::where([
+                        'source'=>$source,
+                        $transport_type=>1,
+                        'client_type'=> $client_type
+                        ])->orWhereHas('tourtypes',  function ($q) use ($tourtype) {
+                            $q->where('id' ,$tourtype);
+                        })->with('tourtypes')->get());
+                }
             }
-        }
-        catch(Exception $e){
-            return $this->sendError($e->getMessage(), 500);
-        }
+            catch(Exception $e){
+                return $this->sendError($e->getMessage(), 500);
+            }
         if($data->count() > 0){
             return $this->sendResponse($data,'success');
         }
