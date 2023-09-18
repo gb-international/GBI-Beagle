@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use App\Http\Controllers\Front\EncyclopediaController;
 use App\Http\Controllers\Front\ArticleController;
+use App\Http\Controllers\Front\ItineraryController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -26,6 +27,7 @@ Route::namespace('Front')->group(function(){
 	Route::get('/upcoming-events','ItineraryController@upcomingEvents');
 	Route::get('/popular-tours','ItineraryController@popularTours');
 	Route::post('/search-itinerary','ItineraryController@searchItinerary');
+	Route::post('/search_article_blog_encyclopedia_per_itinerary',[ItineraryController::class, 'search_article_blog_encyclopedia_per_itinerary']);
 	Route::get('/search','ItineraryController@search_post');
 	Route::get('/itinerary-list/{count?}','ItineraryController@list');
 	Route::get('/itinerary-view/{id}','ItineraryController@view');

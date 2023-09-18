@@ -11,10 +11,14 @@ use App\Model\Event\Event;
 use App\Model\Itinerary\Popular;
 use App\Model\Season\Season;
 use App\Model\DefaultSet\DefaultSet;
+use App\Model\Admin\Article\Posts;
+use App\Model\Post\Post;
 use App\Http\Controllers\Admin\BaseController;
 use App\Http\Requests\Front\ItineraryrequestRequest;
 use App\Http\Requests\Front\ItinerarySearchRequest;
 use App\Model\Itinerary\Itineraryrequest;
+use App\Http\Requests\Front\Itinerary\ArticleBlogEncyclopediaPerItineraryRequest;
+
 
 use DB;
 use Carbon\Carbon;
@@ -262,5 +266,43 @@ class ItineraryController extends BaseController
         //$data->iTcities = $iTcities
         $data->Ency = $iTencyclopedia;
         return response()->json($data);
+    }
+    public function search_article_blog_encyclopedia_per_itinerary(ArticleBlogEncyclopediaPerItineraryRequest $req){
+        try{
+            
+            $source = $req->source??'';
+            $destination = $req->destination??'';
+            
+            // Destination
+            //Article
+            $article_destination = Posts::where('title','LIKE',"%$destination%")->get();
+            // Blogs
+            $blog_destination = Post::where('title','LIKE',"%$destination%")->get();
+            //Encyclopedia
+            $encyclopedia_destination = Encyclopedia::where('state_name', $destination)->orWhere('city_name', $destination)->get();
+            
+            // Source
+            // article
+            $article_source = Posts::where('title','LIKE',"%$source%")->get();
+            
+            // blogs
+            $blog_source = Post::where('title','LIKE',"%$source%")->get();
+            
+            // Encyclopedia
+            $encyclopedia_source = Encyclopedia::where('state_name', $source)->orWhere('city_name', $source)->get();
+
+            //Array Merge & Collection
+            $encyclopedia_collection = $encyclopedia_source->merge($encyclopedia_destination);
+            $blog_collection = $blog_source->merge($blog_destination);
+            $article_collection = $article_source->merge($article_destination);
+
+            $result = array("blog"=>$blog_collection, "article"=>$article_collection, "encyclopedia"=>$encyclopedia_collection);
+
+            return $this->sendResponse($result,'success');
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }
+
     }
 }

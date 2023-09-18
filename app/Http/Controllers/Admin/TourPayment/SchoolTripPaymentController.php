@@ -52,13 +52,13 @@ class SchoolTripPaymentController extends BaseController
         return $slug;
     }
     public function store(SchoolTripPaymentRequest $request){
-        $slug = $this->uniqueSlug(trim($request->school_name));
+        // $slug = $this->uniqueSlug(trim($request->school_name));
         try {
             $school_trip_payment = SchoolStudentPayment::create([
                 'school_name' => $request->school_name,
                 'no_of_student' => $request->no_of_student,
                 'banner_link' => $request->banner_link,
-                'slug' => $slug,
+                // 'slug' => $slug,
                 'ph_number' => $request->ph_number,
                 'source' => $request->source,
                 'destination' => $request->destination,
@@ -101,14 +101,14 @@ class SchoolTripPaymentController extends BaseController
             if (is_null($school_trip_payment)) {
                 return $this->sendError('School student payment data not found');
             }
-            $slug = isset($request->school_name)&&!empty($request->school_name)?($this->uniqueSlug(trim($request->school_name))):$school_trip_payment->slug;
+            // $slug = isset($request->school_name)&&!empty($request->school_name)?($this->uniqueSlug(trim($request->school_name))):$school_trip_payment->slug;
             $school_trip_payment->school_name;
-            $slug = $slug;
+            // $slug = $slug;
             $school_trip_payment->school_name = $request->school_name ?? $school_trip_payment->school_name;
             $school_trip_payment->ph_number = $request->ph_number ?? $school_trip_payment->ph_number;
             $school_trip_payment->no_of_student = $request->no_of_student ?? $school_trip_payment->no_of_student;
             $school_trip_payment->banner_link = $request->banner_link ?? $school_trip_payment->banner_link;
-            $school_trip_payment->slug = $request->slug ?? $school_trip_payment->slug;
+            // $school_trip_payment->slug = $request->slug ?? $school_trip_payment->slug;
             $school_trip_payment->source = $request->source ?? $school_trip_payment->source;
             $school_trip_payment->destination = $request->destination ?? $school_trip_payment->destination;
             $school_trip_payment->amount_paid = $request->amount_paid ?? $school_trip_payment->amount_paid;
@@ -118,7 +118,7 @@ class SchoolTripPaymentController extends BaseController
             $school_trip_payment->payment_status = $request->payment_status ?? $school_trip_payment->payment_status;
             $school_trip_payment->booking_status = $request->booking_status ?? $school_trip_payment->booking_status;
             if ($school_trip_payment->save()) {
-                return $this->sendResponse($school_trip_payment, 'school trip payment updated successfully');
+                return $this->sendResponse($school_trip_payment, 'School trip payment updated successfully');
             }
         } catch (Exception $e) {
             return $this->sendError($e->getMessage(), 500);
