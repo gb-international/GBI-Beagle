@@ -6,34 +6,38 @@
   <section class="container">
     <h1 class="trip-heading">TRIPS</h1>
     <div class="custom-flex">
-      <div class="mr-5 icons" :style="iconSelected == 'all' ? 'border-bottom: 2px solid #00c4c4' : ''" @click="changeIcon('all')">
+      <div class="mr-5 icons" :style="tourType == 'all' ? 'border-bottom: 2px solid #00c4c4' : ''" @click="changeIcon('all')">
         <img :src="$gbiAssets+'/TripIcons/all_trip_mobile.png'" class="trip-icon">
         All Trips
       </div>
-      <div class="mr-5 icons" :style="iconSelected == 'upcoming' ? 'border-bottom: 2px solid #00c4c4' : ''" @click="changeIcon('upcoming')">
+      <div class="mr-5 icons" :style="tourType == 'upcoming' ? 'border-bottom: 2px solid #00c4c4' : ''" @click="changeIcon('upcoming')">
         <img :src="$gbiAssets+'/TripIcons/upcoming_trip_mobile.png'" class="trip-icon">
         Upcoming Trips
       </div>
-      <div class="mr-5 icons" :style="iconSelected == 'pending' ? 'border-bottom: 2px solid #00c4c4' : ''" @click="changeIcon('pending')">
+      <div class="mr-5 icons" :style="tourType == 'current' ? 'border-bottom: 2px solid #00c4c4' : ''" @click="changeIcon('current')">
+        <img :src="$gbiAssets+'/TripIcons/pending_trip_mobile.png'" class="trip-icon">
+        Current Trips
+      </div>
+     <!-- <div class="mr-5 icons" :style="tourType == 'pending' ? 'border-bottom: 2px solid #00c4c4' : ''" @click="changeIcon('pending')">
         <img :src="$gbiAssets+'/TripIcons/pending_trip_mobile.png'" class="trip-icon">
         Pending Trips
-      </div>
-      <div class="mr-5 icons" :style="iconSelected == 'completed' ? 'border-bottom: 2px solid #00c4c4' : ''" @click="changeIcon('completed')">
+      </div> -->
+      <div class="mr-5 icons" :style="tourType == 'completed' ? 'border-bottom: 2px solid #00c4c4' : ''" @click="changeIcon('completed')">
         <img :src="$gbiAssets+'/TripIcons/completed_trip_mobile.png'" class="trip-icon">
         Completed Trips
       </div>
-      <div class="mr-5 icons" :style="iconSelected == 'cancelled' ? 'border-bottom: 2px solid #00c4c4;' : ''" @click="changeIcon('cancelled')">
+     <!-- <div class="mr-5 icons" :style="tourType == 'cancelled' ? 'border-bottom: 2px solid #00c4c4;' : ''" @click="changeIcon('cancelled')">
         <img :src="$gbiAssets+'/TripIcons/canceld_trip_mobile.png'" class="trip-icon">
         Cancelled Trips
-      </div>  
+      </div>  -->
     </div>
     <div class="custom-flex mt-3">
-      <button class="cusButton" :class="sltBtn == 'All' ? 'btnSelect' : '' " @click="btnChange('All')">All</button>
-      <button class="cusButton" :class="sltBtn == 'Paid' ? 'btnSelect' : '' " @click="btnChange('Paid')">Paid</button>
-      <button class="cusButton" :class="sltBtn == 'Unpaid' ? 'btnSelect' : '' " @click="btnChange('Unpaid')">Unpaid</button>
-      <button class="cusButton" :class="sltBtn == 'Partial' ? 'btnSelect' : '' " @click="btnChange('Partial')">Partial</button>
+      <button class="cusButton" :class="pType == 'Any' ? 'btnSelect' : '' " @click="btnChange('Any')">All</button>
+      <button class="cusButton" :class="pType == 'success' ? 'btnSelect' : '' " @click="btnChange('success')">Paid</button>
+      <button class="cusButton" :class="pType == 'pending' ? 'btnSelect' : '' " @click="btnChange('pending')">Unpaid</button>
+     <!-- <button class="cusButton" :class="sltBtn == 'Partial' ? 'btnSelect' : '' " @click="btnChange('Partial')">Partial</button> -->
     </div>
-    <tourList v-if="tours" :list="tours" />
+    <tourList v-if="tours" :list="tours" :paymentType="pType" :tourType="tourType"/>
     <div v-else class="row card-titles">
       <div class="col-sm-4"  v-for="(index) in 6" :key="index">
         <cardLoader />
@@ -57,8 +61,8 @@ export default {
       formShow: false,
       userinfo: "",
       travel_code: "",
-      iconSelected: 'all',
-      sltBtn: 'All',
+      tourType: 'all',
+      pType: 'Any',
     };
   },
   mounted() {
@@ -67,16 +71,16 @@ export default {
   },
   methods: {
     btnChange(val){
-      this.sltBtn = val;
+      this.pType = val;
     },
     changeIcon(val){
-      this.iconSelected = val;
+      this.tourType = val;
     },
     tourListData() {
 
       console.log(this.userinfo)
 
-      if(this.userinfo.client_type == 'teacher' || this.userinfo.client_type == 'student'){
+      if(this.userinfo.school_id){
         var data = {'school_id':this.userinfo.school_id, 'travel_code': this.travel_code};
         this.$api.POST("/api/tour-list", data).then((res) => {
           console.log(res); 
@@ -84,7 +88,7 @@ export default {
           console.log(this.tours.itinerary)
         });
       }
-      else if(this.userinfo.client_type == 'corporate'){
+      else if(this.userinfo.company_id){
         var data = {'company_id':this.userinfo.company_id, 'travel_code': this.travel_code};
         this.$api.POST("/api/corp-tour-list", data).then((res) => {
           console.log(res);

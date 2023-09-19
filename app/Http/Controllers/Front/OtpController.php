@@ -18,7 +18,7 @@ use App\Model\SchoolTrip\SchoolTrip;
 class OtpController extends Controller
 {
 
-   // Send Otp to the user
+   // Send Otp to the user - Registration
     public function send_otp(Request $request){
         if($request->phone_no != '9717922240'){
             $validatedData = $request->validate([
@@ -58,7 +58,7 @@ class OtpController extends Controller
         return $response;
     }
 
-       // Send Otp to the user
+       // Send Otp to the user - Login
        public function send_otp2(Request $request){
         if($request->phone_no != '9717922240'){
             $validatedData = $request->validate([
@@ -92,7 +92,11 @@ class OtpController extends Controller
 			if($otp_add->save()){
                 $response['otp_id'] = $otp_add->id;
                 $sendsms = new SendSms;
+<<<<<<< Updated upstream
                 $sendsms->otpSMSNew($mobile_number,$otp);
+=======
+                //$sendsms->otpSMSNew($mobile_number,$otp);
+>>>>>>> Stashed changes
                 $response['success'] = 'success';
              }
              return $response;

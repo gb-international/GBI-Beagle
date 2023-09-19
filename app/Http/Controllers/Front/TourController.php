@@ -51,10 +51,21 @@ class TourController extends Controller{
                     ->select('id','user_id')
                     ->first();
                 foreach ($travels as $travel) {
+                    $date_now = date("Y-m-d"); 
+
+                    if($travel['tour_start_date'] > $date_now){
+                        $travel['tourType'] = 'upcoming';
+                    } else if ($travel['tour_start_date'] <= $date_now && $travel['tour_end_date'] > $date_now){
+                        $travel['tourType'] = 'current';
+                    } else {
+                        $travel['tourType'] = 'completed';
+                    }
+
                     $incharge_paid = Userpayment::where([
                         'tour_code'=>$travel->tour->tour_id,
                         'user_id'=> $school->user_id
                     ])->first();
+                   
                     if($incharge_paid){
                         // teacher payment mode by self
                         if($incharge_paid->payment_mode === 'self'){
@@ -93,6 +104,15 @@ class TourController extends Controller{
                 ->select('id','tour_start_date','travel_code','tour_end_date','itinerary_id','tour_id')
                 ->get();
             foreach ($travels as $travel) {
+                $date_now = date("Y-m-d"); 
+
+                if($travel['tour_start_date'] > $date_now){
+                    $travel['tourType'] = 'upcoming';
+                } else if ($travel['tour_start_date'] <= $date_now && $travel['tour_end_date'] > $date_now){
+                    $travel['tourType'] = 'current';
+                } else {
+                    $travel['tourType'] = 'completed';
+                }
                 $incharge_paid = Userpayment::where([
                     'tour_code'=>$travel->tour_id,
                     'user_id'=> $user->id
