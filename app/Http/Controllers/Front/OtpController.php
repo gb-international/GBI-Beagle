@@ -48,7 +48,7 @@ class OtpController extends Controller
 			if($otp_add->save()){
                 $response['otp_id'] = $otp_add->id;
                 $sendsms = new SendSms;
-                $sendsms->otpSMSNew($mobile_number,$otp);
+                $sendsms->otpSMS($mobile_number,$otp);
                 $response['success'] = 'success';
              }
              return $response;
@@ -92,11 +92,7 @@ class OtpController extends Controller
 			if($otp_add->save()){
                 $response['otp_id'] = $otp_add->id;
                 $sendsms = new SendSms;
-<<<<<<< Updated upstream
-                $sendsms->otpSMSNew($mobile_number,$otp);
-=======
                 //$sendsms->otpSMSNew($mobile_number,$otp);
->>>>>>> Stashed changes
                 $response['success'] = 'success';
              }
              return $response;
