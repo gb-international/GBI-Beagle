@@ -179,9 +179,7 @@ Route::group(['prefix' => '/school_trip_payment', 'as' => 'school_trip_payment.'
 		Route::put('school_trip_payment/{id}', 'update');
 		Route::get('school_trip_payment/{id}', 'show');
 		Route::delete('school_trip_payment/{id}', 'delete');
-	});
-	
-	
+	});	
 });
 
 

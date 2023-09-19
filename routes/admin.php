@@ -330,7 +330,6 @@ Route::namespace('Admin')->group(function (){
 		Route::get('schooltrip/all/{size}','SchoolTripController@all');
 		Route::resource('schooltrip','SchoolTripController');
 	});
-
 });
 
 

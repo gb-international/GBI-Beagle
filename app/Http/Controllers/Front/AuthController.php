@@ -155,33 +155,33 @@ class AuthController extends Controller{
      */ 
     public function register(Request $request) 
     { 
-        if($request->email != 'csrikhi@gbinternational.in'){
+        // if($request->email != 'csrikhi@gbinternational.in'){
             $validator = Validator::make($request->all(), [ 
                 'name' => 'required', 
-                'email' => ['required','email',new EmailValidate],
+                'email' => ['required','email',new EmailValidate, 'unique:users,email'],
                 'password' => 'required', 
                 'c_password' => 'required|same:password', 
             ]);
-        } else {
-            $validator = Validator::make($request->all(), [ 
-                'name' => 'required', 
-                'password' => 'required', 
-                'c_password' => 'required|same:password', 
-            ]);
-        }
+        // } else {
+            // $validator = Validator::make($request->all(), [ 
+            //     'name' => 'required', 
+            //     'password' => 'required', 
+            //     'c_password' => 'required|same:password', 
+            // ]);
+        // }
         if ($validator->fails()) { 
             return response()->json(['error'=>$validator->errors()], 401);            
         }
         $input = $request->all(); 
-        $input['password'] = bcrypt($input['password']); 
+        $input['password'] = bcrypt($input['password']??''); 
         $user = User::create($input);
 
         // Add more information to the informations table
         $more  = new Information();
         $more->user_id = $user->id;
-        $more->gbi_link = $request->gbi_link;
-        $more->phone_no = $request->phone_no;
-        $more->otp = $request->otp;
+        $more->gbi_link = $request->gbi_link??'';
+        $more->phone_no = $request->phone_no??'';
+        $more->otp = $request->otp??'';
         $more->varified = '1';
         $more->photo = 'user.png';
         $more->gender = '';
