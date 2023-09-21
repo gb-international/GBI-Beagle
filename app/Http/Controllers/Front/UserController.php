@@ -245,7 +245,7 @@ class UserController extends Controller{
     public function UpdatePassword(Request $request){
         $user = Auth::user();
         $request->validate([
-            'current_password' => ['required', new MatchOldPassword($user)],
+            'current_password'  => ['required', new MatchOldPassword($user)],
             'new_password' => ['required'],
             'confirm_password' => ['same:new_password'],
         ]);

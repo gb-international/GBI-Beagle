@@ -42,7 +42,7 @@ class ItineraryRequest extends FormRequest
             'meta_description' => 'required',
             'itinerarydays.*.day' => 'required',
             'itinerarydays.*.day_source' => 'required',
-            'itinerarydays.*.day_destination' => 'required',
+            'itinerarydays.*.day_destination' => 'required|different:day_source',
             'itinerarydays.*.day_description' => 'required',
             // 'tags.*.id' => 'required',
             // 'tourtypes.*.id' => 'required',

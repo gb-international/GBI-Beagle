@@ -33,7 +33,7 @@ class TourRequest extends FormRequest
             'itinerary_id' => 'required|exists:itineraries,id',
             'tour_id' => 'required|unique:tours',
             'travel_code' => 'required',
-            'tour_start_date' => 'required|date',
+            'tour_start_date' => 'required|date|after:today',
             'tour_end_date' => 'required|date|after_or_equal:tour_start_date',
             'tour_price' => 'required|numeric',          
         ];
