@@ -26,7 +26,7 @@ class FrontbookingRequest extends FormRequest
     public function rules()
     {
         return [
-            'start_date' => 'required|date|after:yesterday',
+            'start_date' => 'required|date|after:today',
             'end_date' => 'required|date|after_or_equal:start_date',
             'person' => 'required',
             'adults'=>'required|numeric',
