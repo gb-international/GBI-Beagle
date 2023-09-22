@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Requests\Post;
+namespace App\Http\Requests\Admin\City;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Contracts\Validation\Rule;
+use App\Rules\AlphaSpace;
 
-class CategoryRequest extends FormRequest
+class UpdateCityRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,10 +27,11 @@ class CategoryRequest extends FormRequest
      */
     public function rules()
     {
+        $city_id = $this->city->id??0;
         return [
-            'title'=>'required',
-            'description'=>'required',
-            'meta_title'=>'required',
+            'name' => ['required','unique:cities,name,'.$city_id.',id',new AlphaSpace],
+            'country_id' => 'required|exists:countries,id',
+            'state_id' => 'required|exists:states,id',
         ];
     }
     protected function failedValidation(Validator $validator) : void
@@ -37,4 +39,3 @@ class CategoryRequest extends FormRequest
         throw new HttpResponseException(response()->json(['status' => 422, 'error' =>$validator->errors()]));
     }
 }
-

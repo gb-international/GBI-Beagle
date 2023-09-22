@@ -14,8 +14,10 @@ use App\Model\Reservation\Bookedhotel;
 use App\Model\Reservation\Bookedrestaurant;
 use App\Model\Reservation\Bookedtrain;
 use App\Model\Reservation\Bookedsightseeing;
+use App\Http\Controllers\Admin\BaseController;
+use App\Http\Requests\Admin\TourRequest;
 
-class TourController extends Controller
+class TourController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -72,10 +74,26 @@ class TourController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TourRequest $request)
     {
-        $tour = Tour::create($this->validateTour($request));
-        return response()->json(['Message'=> 'Successfully Added...']);
+        try{
+            $data = array();
+            $data['customer_type'] = $request->customer_type??0; 
+            $data['school_id'] = $request->school_id??0; 
+            $data['company_id'] = $request->company_id??0; 
+            $data['family_id'] = $request->family_id??0; 
+            $data['itinerary_id'] = $request->itinerary_id??0; 
+            $data['tour_id'] = $request->tour_id??0; 
+            $data['travel_code'] = $request->travel_code??''; 
+            $data['tour_start_date'] = $request->tour_start_date??''; 
+            $data['tour_end_date'] = $request->tour_end_date??''; 
+            $data['tour_price'] = $request->tour_price??0; 
+            $tour = Tour::create($data);
+            return response()->json(['Message'=> 'Successfully Added...']);
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage());
+        }
     }
 
     /**
@@ -129,10 +147,27 @@ class TourController extends Controller
      * @param  \App\Tour  $tour
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Tour $tour)
+    public function update(TourRequest $request, Tour $tour)
     {
-        $tour->update($this->validateTour($request));
-        return response()->json(['message'=>'Successfully Updated']);
+        try{
+            $data = array();
+            $data['customer_type'] = $request->customer_type??$tour->customer_type; 
+            $data['school_id'] = $request->school_id??$tour->school_id; 
+            $data['company_id'] = $request->company_id??$tour->company_id; 
+            $data['family_id'] = $request->family_id??$tour->family_id; 
+            $data['itinerary_id'] = $request->itinerary_id??$tour->itinerary_id; 
+            $data['tour_id'] = $request->tour_id??$tour->tour_id; 
+            $data['travel_code'] = $request->travel_code??$tour->travel_code; 
+            $data['tour_start_date'] = $request->tour_start_date??$tour->tour_start_date; 
+            $data['tour_end_date'] = $request->tour_end_date??$tour->tour_end_date; 
+            $data['tour_price'] = $request->tour_price??$tour->tour_price; 
+            $tourUpdate = $tour->update($data);
+            return response()->json(['message'=>'Successfully Updated']);
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage());
+        }
+        // $tour->update($this->validateTour($request));
     }
 
     /**

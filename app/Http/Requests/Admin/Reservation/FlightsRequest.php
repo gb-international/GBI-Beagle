@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Post;
+namespace App\Http\Requests\Admin\Reservation;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Contracts\Validation\Rule;
-
-class CategoryRequest extends FormRequest
+class FlightsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,14 +26,20 @@ class CategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'title'=>'required',
-            'description'=>'required',
-            'meta_title'=>'required',
+            'tour_id'=> 'required|exists:tours,id',
+            'tour_code'=> 'required|exists:tours,tour_id',
+            'flight_id'=>'required|exists:flights,id',
+            'source' => 'required|min:3|max:100',
+            'destination' => 'required|different:source|min:3|max:100',
+            'flight_number'=>'required',
+            'departure'=>'required|date',
+            'arrival'=>'required|date|after_or_equal:departure',
+            'price'=>'required|numeric',
         ];
+        
     }
     protected function failedValidation(Validator $validator) : void
     {
         throw new HttpResponseException(response()->json(['status' => 422, 'error' =>$validator->errors()]));
     }
 }
-

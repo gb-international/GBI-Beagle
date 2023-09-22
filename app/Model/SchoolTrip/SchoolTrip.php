@@ -4,6 +4,8 @@ namespace App\Model\SchoolTrip;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
+use App\Helpers\UniqueSlug;
 
 class SchoolTrip extends Model
 {
@@ -33,5 +35,25 @@ class SchoolTrip extends Model
         'created_at',
         'updated_at',
     ];
+    public function setSchoolNameAttribute($value)
+    {
+        // exit;
+        $this_id = $this->id??0;
+        $this->attributes['school_name'] = $value;
+        $school_trip = new SchoolTrip;
+        $unique_slug_helper = new UniqueSlug(); 
+        $unique_slug = $unique_slug_helper->unique_slug(Str::slug($value,'-'), $school_trip, $this_id, 'slug1');
+        $this->attributes['slug1'] = $unique_slug;
+    }
+    public function setTripNameAttribute($value)
+    {
+        $this_id = $this->id??0;
+        $this->attributes['trip_name'] = $value;
+        $school_trip = new SchoolTrip;
+        $unique_slug_helper = new UniqueSlug(); 
+        $unique_slug = $unique_slug_helper->unique_slug(Str::slug($value,'-'), $school_trip, $this_id, 'slug2');
+        $this->attributes['slug2'] = $unique_slug;
+    }
+
 }
 

@@ -1,13 +1,11 @@
 <?php
-
-namespace App\Http\Requests\Post;
-
+namespace App\Http\Requests\Admin\Itineraries;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Contracts\Validation\Rule;
 
-class CategoryRequest extends FormRequest
+class UpcomingToursRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,9 +25,11 @@ class CategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'title'=>'required',
-            'description'=>'required',
-            'meta_title'=>'required',
+            'itinerary_id'=> 'required|exists:itineraries,id',        
+            'season_id'=> 'required|exists:seasons,id',
+            'start_date' => 'required|date|date_format:Y-m-d',
+            'end_date' => 'required|date|date_format:Y-m-d|after_or_equal:start_date',
+            'ranking'=> 'required|numeric',
         ];
     }
     protected function failedValidation(Validator $validator) : void
@@ -37,4 +37,4 @@ class CategoryRequest extends FormRequest
         throw new HttpResponseException(response()->json(['status' => 422, 'error' =>$validator->errors()]));
     }
 }
-
+ 

@@ -35,6 +35,7 @@ class EncyclopediaController extends Controller
     }
     public function all($type, $size)
     {
+        
         if($type == 'Cities'){
             return response()->json(Encyclopedia::whereNotNull('city_name')
             ->select([

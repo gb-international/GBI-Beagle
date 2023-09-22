@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Faker\Core\Number;
@@ -26,7 +26,7 @@ class BaseController extends Controller
         ];
 
 
-        return response()->json($response, 200);
+        return response()->json($response, $status_code);
     }
     /**
      * return error response.
@@ -35,8 +35,18 @@ class BaseController extends Controller
      */
     public function sendError(string $error, int $status_code = 404)
     {
+        $response = array();
+        $response['status'] = false;
+        $response['status_code'] = $status_code;
+        $response['message'] = $error;
+        // if (!empty($errorMessages)) {
+        //     $response['data'] = $errorMessages;
+        // }
+        return response()->json($response, $status_code);
+    }
+    public function errorValidate($error, int $status_code = 422){
+        return response()->json(['status' => $status_code, 'message' => $error], $status_code, [], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
 
-        return response()->json(["message"=>"Server error", 'errors' =>$error], $status_code);
     }
 
 }

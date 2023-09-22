@@ -185,7 +185,6 @@ class SchoolController extends Controller
         $user->is_incharge = '1';
         $more = Information::where('user_id',$user->id)->first();
         $more->school_id= $data->id;
-
         $more->save();
         $user->save();
         return $user;

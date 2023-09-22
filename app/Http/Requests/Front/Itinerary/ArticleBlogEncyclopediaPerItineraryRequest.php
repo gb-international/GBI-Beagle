@@ -1,13 +1,12 @@
 <?php
-
-namespace App\Http\Requests\Post;
+namespace App\Http\Requests\Front\Itinerary;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Contracts\Validation\Rule;
 
-class CategoryRequest extends FormRequest
+class ArticleBlogEncyclopediaPerItineraryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,17 +23,17 @@ class CategoryRequest extends FormRequest
      *
      * @return array
      */
+
     public function rules()
     {
         return [
-            'title'=>'required',
-            'description'=>'required',
-            'meta_title'=>'required',
+            'source' => 'required',
+            // 'destination' => 'required|different:source',      
         ];
     }
+
     protected function failedValidation(Validator $validator) : void
     {
         throw new HttpResponseException(response()->json(['status' => 422, 'error' =>$validator->errors()]));
     }
 }
-

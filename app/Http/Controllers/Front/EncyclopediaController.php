@@ -4,12 +4,50 @@ use App\Model\Encyclopedia\Encyclopedia;
 use App\Model\Encyclopedia\Encyclopediacomment;
 use App\Model\Itinerary\Itinerary;
 use App\Model\Itinerary\Itinerarypdf;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\User;
-class EncyclopediaController extends Controller
+use App\Http\Controllers\API\BaseController;
+
+class EncyclopediaController extends BaseController
 {
+    public function shortItineraryBasedOnEncyclopedia($state, $size = null){
+        try {
+            if (!$size) {
+                $size = 10;
+            }
+            $itinerary = Itinerary::where('destination', $state)->latest('id')->paginate($size);
+            if (!empty($itinerary)) {
+                return $this->sendResponse($itinerary, 'Success', 200);
+            } else {
+                return $this->sendError('data not found', 404);
+            }
+        }
+        catch (Exception $e) {
+            return $this->sendError($e->getMessage(), 500);
+        }
+    }
+
+    public function itineraryBasedOnEncyclopedia($state, $size = null){
+        try {
+            if (!$size) {
+                $size = 10;
+            }
+
+            $itinerary = Itinerary::where('destination', $state)->latest('id')->paginate($size);
+            if (!empty($itinerary)) {
+                return $this->sendResponse($itinerary, 'Success', 200);
+            } else {
+                return $this->sendError('data not found', 404);
+            }
+        }
+        catch (Exception $e) {
+            return $this->sendError($e->getMessage(), 500);
+        }
+    } 
+
     public function index()
     {
       return response()->json(Encyclopedia::whereNotNull('thumbnail')->select('thumbnail','state_name', 'country', 'slug')->get());
@@ -26,10 +64,14 @@ class EncyclopediaController extends Controller
 
     public function PostComment(Request $request){
         $user = Auth::user();
-        $this->validate($request,[
+        $validator = Validator::make($request->all(),[
             'body' => 'required',
-            'encyclopedia_id' => 'required'
+            'encyclopedia_id' => 'required|exists:encyclopedias,id'
         ]);
+        if ($validator->fails()) { 
+            return response()->json(['error'=>$validator->errors()], 422);            
+        }
+
         $data = [
             'encyclopedia_id' => $request->encyclopedia_id,
             'user_id' => $user->id,
