@@ -110,7 +110,7 @@ class BusController extends Controller
             'company_name' => 'required',
             'seater' => 'required',
             'seat_type' => 'required',
-            'price' => 'required' 
+            'price' => 'required|numeric' 
         ]);
     }
 }

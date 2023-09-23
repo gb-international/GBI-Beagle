@@ -3,6 +3,9 @@
 namespace App\Http\Requests\Post;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Contracts\Validation\Rule;
 
 class CategoryRequest extends FormRequest
 {
@@ -29,4 +32,9 @@ class CategoryRequest extends FormRequest
             'meta_title'=>'required',
         ];
     }
+    protected function failedValidation(Validator $validator) : void
+    {
+        throw new HttpResponseException(response()->json(['message' => "The given data was invalid.", 'errors' =>$validator->errors()]));
+    }
 }
+

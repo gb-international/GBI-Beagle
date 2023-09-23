@@ -9,8 +9,10 @@ namespace App\Http\Controllers\Admin\Reservation;
 use App\Model\Reservation\Bookedbus;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Reservation\BusesRequest;
+use App\Http\Controllers\Admin\BaseController;
 
-class BookedbusController extends Controller
+class BookedbusController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -38,23 +40,38 @@ class BookedbusController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BusesRequest $request)
     {
-         $this->validate($request,[
-            'bus_id'=>'required',
-            'price'=>'required',
-            'source'=>'required',
-            'destination' => 'required' ,
-            'departure' => 'required',
-            'arrival' => 'required' 
-        ]);
+        //  $this->validate($request,[
+        //     'bus_id'=>'required',
+        //     'price'=>'required',
+        //     'source'=>'required',
+        //     'destination' => 'required' ,
+        //     'departure' => 'required',
+        //     'arrival' => 'required' 
+        // ]);
 
-        $check = Bookedbus::where(['tour_code' => $request->tour_code, 'bus_id' => $request->bus_id])->get();
-        if(count($check->all()) > 0){
-            return '1';
-        }else{
-            Bookedbus::create($request->all());
-            return response()->json('Successfully Created');            
+        // $check = Bookedbus::where(['tour_code' => $request->tour_code, 'bus_id' => $request->bus_id])->get();
+        // if(count($check->all()) > 0){
+        //     return '1';
+        // }else{
+        //     Bookedbus::create($request->all());
+        //     return response()->json('Successfully Created');            
+        // }
+        try{
+            $tour_id = $request->tour_id??0;
+            $tour_code = $request->tour_code??'';
+            $bus_id = $request->bus_id??0;
+            $source = $request->source??'';
+            $destination = $request->destination??'';
+            $departure = $request->departure??'';
+            $arrival = $request->arrival??'';
+            $price = $request->price??0;
+            $result = Bookedbus::updateOrCreate(['tour_id'=>$tour_id, 'tour_code'=>$tour_code, 'bus_id'=>$bus_id, 'source'=>$source, 'destination'=>$destination, 'departure'=>$departure, 'arrival'=>$arrival, 'price'=>$price],['tour_id'=>$tour_id, 'tour_code'=>$tour_code]);
+            return response()->json('Successfully Created');
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
         }
     }
 

@@ -9,6 +9,7 @@ namespace App\Http\Controllers\Admin\Location;
 use App\Model\Location\Country;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\country\CountryRequest;
 
 class CountryController extends Controller
 {
@@ -44,10 +45,17 @@ class CountryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CountryRequest $request)
     {
-        Country::create($this->validateCountry($request));
-        return response()->json(['Message'=> 'successfull']);
+        try{
+            $data = array();
+            $data['name'] = $request->name??'';
+            $country = Country::create($data);
+            return response()->json(['Message'=> 'successfull']);
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }
     }
 
     /**
@@ -69,7 +77,7 @@ class CountryController extends Controller
      */
     public function edit(Country $country)
     {
-        //
+        return response()->json($country);
     }
 
     /**
@@ -79,9 +87,17 @@ class CountryController extends Controller
      * @param  \App\Country  $country
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Country $country)
+    public function update(CountryRequest $request, Country $country)
     {
-        //
+        try{
+            $data = array();
+            $data['name'] = $request->name??$country->name;
+            $country = Country::create($data);
+            return response()->json(['Message'=> 'Updated!']);
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }
     }
 
     /**

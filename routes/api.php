@@ -124,10 +124,17 @@ Route::namespace('Front')->group(function(){
 
 	// Encyclopedia
 	Route::get('/encyclopedia-list','EncyclopediaController@index');
-	Route::get('/encyclopedia/{slug}','EncyclopediaController@view');
+	Route::get('/encyclopedia/{slug} ','EncyclopediaController@view');
 	Route::get('/ency-comments/{id}','EncyclopediaController@GetComment');
 	Route::get('/pdf/{slug}','EncyclopediaController@Pdf');
 	Route::get('/city-list','LocationController@cityList');
+	Route::group(['prefix' => '/encyclopedia', 'as' => 'encyclopedia.'], function () {
+		Route::controller(EncyclopediaController::class)->group(function () {
+			Route::get('/short-itinerary-based-on-encyclopedia/{state}/{limit?}', 'shortItineraryBasedOnEncyclopedia');
+			Route::get('/itinerary-based-on-encyclopedia/{state}/{limit?}', 'itineraryBasedOnEncyclopedia');
+		});	
+	});
+	
 
 	// Gallery
 	Route::get('/galleries/{slug}','GalleryController@index');
@@ -179,9 +186,7 @@ Route::group(['prefix' => '/school_trip_payment', 'as' => 'school_trip_payment.'
 		Route::put('school_trip_payment/{id}', 'update');
 		Route::get('school_trip_payment/{id}', 'show');
 		Route::delete('school_trip_payment/{id}', 'delete');
-	});
-	
-	
+	});	
 });
 
 

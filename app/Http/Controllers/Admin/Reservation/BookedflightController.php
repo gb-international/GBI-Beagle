@@ -10,8 +10,10 @@ namespace App\Http\Controllers\Admin\Reservation;
 use App\Model\Reservation\Bookedflight;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Admin\BaseController;
+use App\Http\Requests\Admin\Reservation\FlightsRequest;
 
-class BookedflightController extends Controller
+class BookedflightController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -39,28 +41,45 @@ class BookedflightController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(FlightsRequest $request)
     {
-        $this->validate($request,[
-            'flight_id'=>'required',
-            'price'=>'required',
-            'flight_number'=>'required',
-            'source'=>'required',
-            'destination' => 'required' ,
-            'departure' => 'required',
-            'arrival' => 'required' 
-        ]);
+        // $this->validate($request,[
+        //     'flight_id'=>'required',
+        //     'price'=>'required',
+        //     'flight_number'=>'required',
+        //     'source'=>'required',
+        //     'destination' => 'required' ,
+        //     'departure' => 'required',
+        //     'arrival' => 'required' 
+        // ]);
 
-        $check = Bookedflight::where([
-            'tour_code' => $request->tour_code,
-            'flight_id' => $request->flight_id,
-            'flight_number' => $request->flight_number
-        ])->get();
-        if(count($check->all()) > 0){
-            return '1';
-        }else{
-            Bookedflight::create($request->all());
+        // $check = Bookedflight::where([
+        //     'tour_code' => $request->tour_code,
+        //     'flight_id' => $request->flight_id,
+        //     'flight_number' => $request->flight_number
+        // ])->get();
+        // if(count($check->all()) > 0){
+        //     return '1';
+        // }else{
+        //     Bookedflight::create($request->all());
+        // }
+        try{
+            $tour_id = $request->tour_id??0;
+            $tour_code = $request->tour_code??'';
+            $flight_id = $request->flight_id??'';
+            $source = $request->source??'';
+            $destination = $request->destination??'';
+            $flight_number = $request->flight_number??'';
+            $departure = $request->departure??'';
+            $arrival = $request->arrival??'';
+            $price = $request->price??0;
+            
+            $result = Bookedflight::updateOrCreate(['tour_id'=>$tour_id, 'tour_code'=>$tour_code, 'flight_id'=>$flight_id, 'source'=>$source, 'destination'=>$destination,'price'=>$price, 'flight_number'=>$flight_number, 'departure'=>$departure, 'arrival'=>$arrival],['tour_id'=>$tour_id, 'tour_code'=>$tour_code]);
             return response()->json('Successfully Created');            
+
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
         }
     }
 

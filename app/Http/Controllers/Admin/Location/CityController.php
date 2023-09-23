@@ -12,8 +12,11 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CityCollection;
 use App\Rules\AlphaSpace;
+use App\Http\Controllers\Admin\BaseController;
+use App\Http\Requests\Admin\City\CityRequest;
+use App\Http\Requests\Admin\City\UpdateCityRequest;
 
-class CityController extends Controller
+class CityController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -47,10 +50,19 @@ class CityController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CityRequest $request)
     {
-        City::create($this->validateCity($request));
-       return response()->json(['Message'=> 'Successfully Added...']);
+        try{
+            $data = array();
+            $data['name'] = $request->name??'';
+            $data['state_id'] = $request->state_id??0;
+            $data['country_id'] = $request->country_id??0;
+            $city = City::create($data);
+            return response()->json(['Message'=> 'Successfully Added...']);
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        } 
     }
 
     /**

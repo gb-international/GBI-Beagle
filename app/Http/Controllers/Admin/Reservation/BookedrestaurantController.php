@@ -10,8 +10,10 @@ namespace App\Http\Controllers\Admin\Reservation;
 use App\Model\Reservation\Bookedrestaurant;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Admin\BaseController;
+use App\Http\Requests\Admin\Reservation\RestaurantsRequest;
 
-class BookedrestaurantController extends Controller
+class BookedrestaurantController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -39,21 +41,32 @@ class BookedrestaurantController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RestaurantsRequest $request)
     {
-        $this->validate($request,[
-            'date_of_arrival'=>'required',
-            'restaurant_id' => 'required' 
-        ]);
-        $check = Bookedrestaurant::where([
-            'tour_code' => $request->tour_code, 
-            'restaurant_id' => $request->restaurant_id
-            ])->get();
-        if(count($check->all()) > 0){
-            return '1';
-        }else{
-            Bookedrestaurant::create($request->all());
+        // $this->validate($request,[
+        //     'date_of_arrival'=>'required',
+        //     'restaurant_id' => 'required' 
+        // ]);
+        // $check = Bookedrestaurant::where([
+        //     'tour_code' => $request->tour_code, 
+        //     'restaurant_id' => $request->restaurant_id
+        //     ])->get();
+        // if(count($check->all()) > 0){
+        //     return '1';
+        // }else{
+        //     Bookedrestaurant::create($request->all());
+        //     return response()->json('Successfully Created');            
+        // }
+        try{
+            $tour_id = $request->tour_id??0;
+            $tour_code = $request->tour_code??'';
+            $restaurant_id = $request->restaurant_id??0;
+            $date_of_arrival = $request->date_of_arrival??'';   
+            $result = Bookedrestaurant::updateOrCreate(['tour_id'=>$tour_id, 'tour_code'=>$tour_code, 'restaurant_id'=>$restaurant_id, 'date_of_arrival'=>$date_of_arrival],['tour_id'=>$tour_id, 'tour_code'=>$tour_code]);
             return response()->json('Successfully Created');            
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
         }
     }
 

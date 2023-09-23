@@ -4,7 +4,6 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Itinerary\Itinerary;
 use App\Model\Encyclopedia\Encyclopedia;
-use App\Model\Itinerary\Itineraryrequest;
 use App\Model\Tour\Tourprogram;
 use App\Rules\EmailValidate;
 use App\Model\Tour\Tour;
@@ -12,11 +11,19 @@ use App\Model\Event\Event;
 use App\Model\Itinerary\Popular;
 use App\Model\Season\Season;
 use App\Model\DefaultSet\DefaultSet;
+use App\Model\Admin\Article\Posts;
+use App\Model\Post\Post;
+use App\Http\Controllers\Admin\BaseController;
+use App\Http\Requests\Front\ItineraryrequestRequest;
+use App\Http\Requests\Front\ItinerarySearchRequest;
+use App\Model\Itinerary\Itineraryrequest;
+use App\Http\Requests\Front\Itinerary\ArticleBlogEncyclopediaPerItineraryRequest;
 use DB;
 use Carbon\Carbon;
 use GoogleMaps as Map;
 use App\Jobs\SendItineraryRequestToGbiMailJob;
-class ItineraryController extends Controller
+
+class ItineraryController extends BaseController
 {
     public function search_post(){
 
@@ -37,58 +44,62 @@ class ItineraryController extends Controller
 
     // explore destination searchbar get data 
 
-    public function searchItinerary(Request $request)
+    public function searchItinerary(ItinerarySearchRequest $request)
     {
-        $this->validate($request, [
-            'tourtype' => 'required',
-            'noofday' => 'required',
-            'source' => 'required',
-            'destination' => 'required',
-            'clientType' => ''
-        ]);
+        try{
+            $data = [];
+            $source = $request->source??'';
+            $transport_type = $request->transport_type??'';
+            $destination = $request->destination??'';
+            $tourtype = $request->tourtype??'';
+            $noofday = $request->noofday??0;
+            $client_type = $request->client_type??'';
+            $bus = $request->bus??0;
+            $train = $request->train??0;
+            $flight = $request->flight??0;
+            if(count($source) > 1){
+            // Search on the basis of source of the itinerary
+                $data = Itinerary::where($transport_type,1)->whereIn('source',$source)->whereIn('destination',$destination)->where('client_type', $client_type)->orWhereHas('tourtypes',  function ($q) use ($tourtype) {
+                        $q->where('id',$tourtype);
+                    })->with('tourtypes')->get();
+                    //Merge suggest itineray
+                    $data = $data->merge(Itinerary::where($transport_type,1)->whereIn('source',$source)->where('client_type', $client_type)->orWhereHas('tourtypes',  function ($q) use ($tourtype) {
+                        $q->where('id',$tourtype);
+                    })->with('tourtypes')->get());
+                }
+                else{
+                    // echo $transport_type;
+                // exit;
+                $source = implode(",",array_filter($request->source??''));
+                $destination = implode(",",array_filter($request->destination??''));
+                
+                $data = Itinerary::where([
+                    'source'=>$source,
+                    'destination'=>$destination,
+                    $transport_type=>1,
+                    'client_type'=> $client_type
+                    ])->orWhereHas('tourtypes',  function ($q) use ($tourtype) {
+                        $q->where('id' ,$tourtype);
+                    })->with('tourtypes')->get();
+                    $data = $data->merge(Itinerary::where([
+                        'source'=>$source,
+                        $transport_type=>1,
+                        'client_type'=> $client_type
+                        ])->orWhereHas('tourtypes',  function ($q) use ($tourtype) {
+                            $q->where('id' ,$tourtype);
+                        })->with('tourtypes')->get());
+                }
+            }
+            catch(Exception $e){
+                return $this->sendError($e->getMessage(), 500);
+            }
+        if($data->count() > 0){
+            return response()->json(['data'=>$data],200);
+        }
+        else{
+            return $this->sendError("Oops! We couldn’t find results for your search", 404);
+        }
 
-        $data = [];
-        $source = $request->source;
-        $destination = $request->destination;
-        $tourtype = $request->tourtype;
-        $noofday = $request->noofday;
-        if(count($source) > 1){ // Search on the basis of source of the itinerary
-            $data = DB::table('itineraries')
-                ->where('noofdays',$noofday)
-                ->whereIn('source',$source)
-                ->get();
-            return response()->json([
-                'data'=>$data
-            ],200);
-        }
-       // return  $request->all();
-        if($source !=null ){
-            $source = explode(",",$request->source[0])[0];
-            $destination = explode(",",$request->destination[0])[0];
-            $data = Itinerary::where([
-                'source'=>$source,
-                'destination'=>$destination,
-                // 'noofdays' => $noofday,
-            ])
-            ->with('tourtypes')
-            ->get();
-        }
-        // return $request->all();
-        // if($data){
-        //     foreach($data as $d){
-        //         $tourtypes = DB::table('itinerary_tourtype')
-        //             ->where([
-        //                 'itinerary_id' => $d->id,
-        //                 'tourtype_id' => $request->tourtype
-        //             ])->first();
-        //         if($tourtypes){
-        //             array_push($newdata,$d);
-        //         }
-        //     }
-        // }
-        return response()->json([
-            'data'=>$data
-        ],200);
     }
 
 

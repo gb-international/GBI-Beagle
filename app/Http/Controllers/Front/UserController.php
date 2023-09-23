@@ -16,6 +16,7 @@ use App\Model\User\UserSocial;
 use App\Model\School\School;
 use Illuminate\Support\Facades\Auth;
 use Validator;
+use App\Rules\PhoneNubmerValidate;
 use DB;
 use Image;
 use GuzzleHttp\Client;
@@ -63,7 +64,7 @@ class UserController extends Controller{
             'c_password' => 'required|same:password', 
         ]);
         if ($validator->fails()) { 
-            return response()->json(['error'=>$validator->errors()], 401);            
+            return response()->json(['error'=>$validator->errors()], 422);            
         }
         $input = $request->all(); 
         $input['password'] = bcrypt($input['password']); 
@@ -97,46 +98,50 @@ class UserController extends Controller{
 
     public function update(Request $request)
     {
-
+        $userId = Auth::user()->id??0;
         $validator = Validator::make($request->all(), [ 
             'name' => 'required', 
-            'email' => ['required','email',new EmailValidate],
+            'email' => ['required','email',new EmailValidate, 'unique:users,email,'.$userId.',id'],
+            'phone_no' => ['required','numeric',new PhoneNubmerValidate],
         ]);
 
+        if ($validator->fails()) { 
+            return response()->json(['error'=>$validator->errors()], 422);            
+        }
         $user = Auth::user();
-        $user->name = $request->name;
-        $user->email = $request->email;
+        $user->name = $request->name??$user->name;
+        $user->email = $request->email??$user->email;
         $user->save();
         $information = Information::where('user_id',$user->id)->firstOrFail();
         
-        $information->gbi_link = $request->gbi_link;
-        $information->user_profession = $request->user_profession;
-        $information->school_id = $request->school_id;
-        $information->profession_name = $request->profession_name;
-        $information->profession_address = $request->profession_address;
-        $information->institution_code = $request->institution_code;
-        $information->phone_no = $request->phone_no;
-        $information->father_name = $request->father_name;
-        $information->mother_name = $request->mother_name;
-        $information->dob = $request->dob;
-        $information->address = $request->address;
-        $information->city = $request->city;
-        $information->state = $request->state;
-        $information->country = $request->country;
-        $information->zip_code = $request->zip_code;
-        $information->user_class = $request->user_class;
-        $information->admission_year = $request->admission_year;
-        $information->gender = $request->gender;
+        $information->gbi_link = $request->gbi_link??$information->gbi_link;
+        $information->user_profession = $request->user_profession??$information->user_profession;
+        $information->school_id = $request->school_id??$information->school_id;
+        $information->profession_name = $request->profession_name??$information->profession_name;
+        $information->profession_address = $request->profession_address??$information->profession_address;
+        $information->institution_code = $request->institution_code??$information->institution_code;
+        $information->phone_no = $request->phone_no??$information->phone_no;
+        $information->father_name = $request->father_name??$information->father_name;
+        $information->mother_name = $request->mother_name??$information->mother_name;
+        $information->dob = $request->dob??$information->dob;
+        $information->address = $request->address??$information->address;
+        $information->city = $request->city??$information->city;
+        $information->state = $request->state??$information->state;
+        $information->country = $request->country??$information->country;
+        $information->zip_code = $request->zip_code??$information->zip_code;
+        $information->user_class = $request->user_class??$information->user_class;
+        $information->admission_year = $request->admission_year??$information->admission_year;
+        $information->gender = $request->gender??$information->gender;
         $information->save();
         
         // if user is already subscribed
         if($subscriber = Subscriber::where('email',$user->email)->first()){
-            $subscriber->status = $request->subscribe;
+            $subscriber->status = $request->subscribe??'';
             $subscriber->user_id = $user->id;
             $subscriber->save();           
         }else{            
             if($request->subscribe){
-                $data['email'] = $user->email;
+                $data['email'] = $user->email??'';
                 $data['user_id'] = $user->id;
                 Subscriber::create($data);
             }
@@ -170,7 +175,7 @@ class UserController extends Controller{
         ]);
 
         if ($validator->fails()) { 
-            return response()->json(['error'=>$validator->errors()], 401);            
+            return response()->json(['error'=>$validator->errors()], 422);            
         }
 
         $information = Information::where('user_id', $user->id)->first();
@@ -244,6 +249,7 @@ class UserController extends Controller{
 
     public function UpdatePassword(Request $request){
         $user = Auth::user();
+        // return Hash::make($request->new_password);
         $request->validate([
             'current_password' => ['required', new MatchOldPassword($user)],
             'new_password' => ['required'],
@@ -253,7 +259,7 @@ class UserController extends Controller{
         $info = Information::where('user_id',$user->id)->first();
         $info->change_password = 1;
         $info->save(); 
-        ChangePasswordJob::dispatch($user);
+        ChangePasswordJob::dispatchNow($user);
         return response()->json('Password change successfully.');
     }
 
@@ -282,7 +288,6 @@ class UserController extends Controller{
     }
 
     public function logout(Request $request){
-
         if(Auth::user()){
             Auth::user()->AauthAccessToken()->delete();
         }

@@ -54,8 +54,7 @@ class CompanyController extends Controller
             'email'=>$user->email,
             'password'=>$user->email
         ];
-        SendLoginDetialJob::dispatch($emaildata);
-
+        SendLoginDetialJob::dispatchNow($emaildata);
         return response()->json('Successfully created');
     }
 
@@ -138,24 +137,23 @@ class CompanyController extends Controller
     public function validateCompany($request)
     {
       return $this->validate($request, [
-            'company_name' => ['required',new AlphaSpace],
-            'company_email_id' => ['required','email',new EmailValidate],
-            'incharge_email_id' => ['required','email',new EmailValidate],
-    		'mobile' => 'required|numeric|regex:/^[0-9\-\+]{9,11}$/ix',
-
-            'street' => 'required',
-            'incharge_name'=>['required',new AlphaSpace],
-            'incharge_mobile_number'=>'',
-            'city_name' => 'required',
-            'state_name' => 'required',
-            'country_name' => 'required',
-            'pincode' => 'required|numeric|min:1',
-            'address' => 'required',
+        'company_name' => ['required',new AlphaSpace],
+        'company_email_id' => $request->company_email_id != null ?['required','email',new EmailValidate]:'',
+        'incharge_email_id' => ['required','email',new EmailValidate],
+        'mobile' => ['required',new PhoneNubmerValidate],
+        'street' => 'required',
+        'incharge_name'=>['required',new AlphaSpace],
+        'incharge_mobile_number'=>$request->incharge_mobile_number != null ?['required',new PhoneNubmerValidate,'unique:informations,phone_no']:'',
+        'city_name' => 'required',
+        'state_name' => 'required',
+        'country_name' => 'required',
+        'pincode' => 'required|numeric|min:1',
+        'address' => 'required',
       ]);
     }
 
     protected function createUser($data){
-        $user = new User();
+        $user = new User(); 
         $user->name = $data->incharge_name;
         $user->email = $data->incharge_email_id;
         $user->password = bcrypt($data->incharge_email_id);

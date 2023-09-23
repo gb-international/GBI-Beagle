@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -16,7 +15,6 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-
 
 // Route::post('/payment','Front\PaymentController@payment');
 // Route::group(['middleware' => ['auth:api'],'namespace'=>'Front'],function(){
@@ -35,7 +33,7 @@ Route::namespace('Admin')->group(function (){
 		Route::get('country/all/{size}','CountryController@all');
 		Route::resource('country','CountryController');
 		Route::get('city/all/{size}','CityController@all');
-		Route::resource('city','CityController');
+		Route::resource('city',' ');
 		Route::get('state/all/{size}','StateController@all');
 		Route::resource('state','StateController');
 		Route::get('sightseeings/all/{size}','SightseeingController@all');
@@ -330,7 +328,6 @@ Route::namespace('Admin')->group(function (){
 		Route::get('schooltrip/all/{size}','SchoolTripController@all');
 		Route::resource('schooltrip','SchoolTripController');
 	});
-
 });
 
 

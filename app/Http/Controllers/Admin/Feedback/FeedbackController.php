@@ -126,7 +126,7 @@ class FeedbackController extends Controller
             //'message'=>'required',
             'ph_no'=>'required',
             'it_name'=>'required',
-            'start_date'=>'required',
+            'start_date'=>'required|date|after:now',
             'link'=>'required',
         ]);
 

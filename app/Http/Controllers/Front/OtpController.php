@@ -92,7 +92,7 @@ class OtpController extends Controller
 			if($otp_add->save()){
                 $response['otp_id'] = $otp_add->id;
                 $sendsms = new SendSms;
-                //$sendsms->otpSMSNew($mobile_number,$otp);
+                $sendsms->otpSMSNew($mobile_number,$otp);
                 $response['success'] = 'success';
              }
              return $response;

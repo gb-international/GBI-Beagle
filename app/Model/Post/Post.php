@@ -4,6 +4,9 @@ namespace App\Model\Post;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use App\Helpers\UniqueSlug;
+
+
 class Post extends Model
 {
     protected $fillable = ['category_id','title','image','alt','slug','summery','description','meta_title','meta_keyword','status', 'client_type', 'created_by', 'last_editor', 'published_by'];
@@ -34,7 +37,11 @@ class Post extends Model
 
     public function setTitleAttribute($value)
     {
+        $this_id = $this->id??0;
         $this->attributes['title'] = $value;
-        $this->attributes['slug'] = Str::slug($value,'-');
+        $post = new Post;
+        $unique_slug_helper = new UniqueSlug(); 
+        $unique_slug = $unique_slug_helper->unique_slug(Str::slug($value,'-'), $post, $this_id, 'slug');
+        $this->attributes['slug'] = $unique_slug;
     }
 }

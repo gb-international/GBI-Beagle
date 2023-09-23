@@ -47,6 +47,6 @@ class GroupMemberRequest extends FormRequest
     }
     protected function failedValidation(Validator $validator) : void
     {
-        throw new HttpResponseException(response()->json(['status' => 422, 'error' =>$validator->errors()]));
+        throw new HttpResponseException(response()->json(['message' => "The given data was invalid.", 'errors' =>$validator->errors()]));
     }
 }

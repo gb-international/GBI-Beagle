@@ -24,18 +24,14 @@ class CategoryController extends Controller
     {
         return response()->json(Category::select([
             'id','description','title','updated_at'
-            ])
-            ->latest('updated_at')
-            ->paginate($size));
+            ])->latest('updated_at')->paginate($size));
     }
 
     public function index()
     {
         return response()->json(Category::select([
             'id','description','title','updated_at'
-            ])
-            ->latest('updated_at')
-            ->get());
+            ])->latest('updated_at')->get());
     }
 
     /**

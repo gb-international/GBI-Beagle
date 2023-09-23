@@ -7,8 +7,10 @@ use Illuminate\Http\Request;
 use App\Model\Tour\Food;
 
 use App\Rules\AlphaSpace;
+use App\Http\Requests\Admin\FoodRequest;
+use App\Http\Controllers\Admin\BaseController;
 
-class FoodController extends Controller
+class FoodController extends BaseController
 {
     /**
      * Display a listing of the resource.
