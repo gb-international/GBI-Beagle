@@ -7,6 +7,7 @@ Purpose : GBI Job/Positions management
 namespace App\Http\Controllers\Admin\Jobs;
 use App\Http\Controllers\Controller;
 use App\Model\Jobs\JobPositions;
+use App\Rules\AlphaSpace;
 use Illuminate\Http\Request;
 
 class JobsController extends Controller
@@ -52,7 +53,7 @@ class JobsController extends Controller
      */
     public function store(Request $request)
     {
-        JobPositions::create($request->all());
+        $jobPositions = JobPositions::create($this->validateJob($request));
         return response()->json('Succesfully created');
     }
 
@@ -90,8 +91,8 @@ class JobsController extends Controller
     public function update(Request $request, $id)
     {
         $JobPos = JobPositions::find($id);
-        $JobPos->update($request->all());
-        return response()->json('Succesfully created');
+        $JobPos->update($this->validateJob($request));
+        return response()->json('Succesfully updated');
     }
 
     /**
@@ -106,4 +107,13 @@ class JobsController extends Controller
         $JobPos->delete();
         return response()->json('Succesfully deleted');
     }
+        // Validate Job 
+        public function validateJob($request)
+        {
+            return $this->validate($request, [
+                'title' => ['required',new AlphaSpace],
+                'description' => 'required',
+                'job_type' => 'required|in:Reservations,Technology & Design, Operation, Finance, Product & Project Management, Sales & Marketing',
+            ]);
+        }
 }

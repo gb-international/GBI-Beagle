@@ -130,11 +130,11 @@ class EventController extends Controller
         return $this->validate($request,[
             'name'=>'required',
             'description'=>'required',
-            'date'=>'required',
+            'date'=>'required|date|after:today',
             'time'=>'required',
             'photo'=>'required',
             'detail_photo'=>'required',
-            'itinerary_id'=>'required'
+            'itinerary_id' => 'required|exists:itineraries,id',
         ]);
     }
 }

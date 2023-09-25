@@ -56,11 +56,11 @@ class GBIMemberController extends Controller
             'gender' => 'required',
             'address' => 'required|min:3',
             'email' => ['required','email',new EmailValidate],
-            'phone_no' => ['required','numeric',new PhoneNubmerValidate],
+            'phone_no' => ['required','numeric',new PhoneNubmerValidate, 'unique:informations,phone_no'],
             'password' => 'required', 
             'c_password' => 'required|same:password', 
-            'role_id' => 'required',
-            'department_id' => 'required',
+            'role_id' => 'required|exists:roles,id',
+            'department_id' => 'required|exists:department,id',
         ]);
 
         // if ($validator->fails()) { 
@@ -178,16 +178,19 @@ class GBIMemberController extends Controller
     }
 
    public function update(Request $request,$id){
+    print_r($id);
+    exit;
        $user = User::where('id',$id)->first();
+       $information_id = (Information::where('user_id',$id)->first()->id)?(Information::where('user_id',$id)->first()->id):0;
        $this->validate($request, [ 
             'name' => ['required',new AlphaSpace],
             'gender' => 'required',
             'address' => 'required|min:3',
             'email' => [
                 'required','email',new EmailValidate,
-                Rule::unique('users')->ignore($user->id)
+                'unique:users,email,'.$id.',id'
             ],
-            'phone_no' => ['required','numeric',new PhoneNubmerValidate],
+            'phone_no' => ['required','numeric',new PhoneNubmerValidate, 'unique:informations,phone_no,'.$information_id.',id'],
             'role_id' => 'required',
             'department_id' => 'required',
             'dob'=> 'required'

@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers\Admin\Tour;
-
 use App\Model\Tour\Tourprogram;
 use App\Model\Itinerary\Itinerary;
 use Illuminate\Http\Request;
@@ -29,11 +28,7 @@ class TourprogramController extends Controller
 
     public function index()
     {
-        return response()->json(Tourprogram::select([
-            'id','description','title','image','updated_at'
-            ])
-            ->latest('updated_at')
-            ->paginate(7));
+        return response()->json(Tourprogram::select(['id','description','title','image','updated_at'])->latest('updated_at')->paginate(7));
     }
 
     /**
@@ -58,6 +53,7 @@ class TourprogramController extends Controller
             'title'=>'required',
             'description'=>'required',
             'alt'=>'',
+            'itinerary'=>'required'
         ]);
         
         if($request->image){
@@ -65,7 +61,6 @@ class TourprogramController extends Controller
         }
 
         $tourprogram = Tourprogram::create($validate);
-
         $data = [];
         foreach ($request->itinerary as $itinerary) {
             $data[] = $itinerary['id'];

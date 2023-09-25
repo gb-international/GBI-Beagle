@@ -16,8 +16,10 @@ use App\User;
 use App\Model\User\Information;
 use App\Helpers\SendSms;
 use App\Jobs\SendLoginDetialJob;
+use App\Http\Controllers\Admin\BaseController;
+use App\Http\Requests\Admin\Corporate\CorporateRequest;
 
-class CompanyController extends Controller
+class CompanyController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -79,10 +81,11 @@ class CompanyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CorporateRequest $request)
     {
         $company = Company::create($this->validateCompany($request));
-        return response()->json($company);
+        // return response()->json($company);
+        return response()->json($this->validateCompany($request));
     }
 
     /**

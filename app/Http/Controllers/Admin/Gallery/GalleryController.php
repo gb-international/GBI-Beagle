@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Model\Gallery\Gallery;
 use App\Model\Gallery\Galleryimage;
 use App\Traits\ImageTrait;
+
 class GalleryController extends Controller
 {
     /**
@@ -48,11 +49,10 @@ class GalleryController extends Controller
     {
         $data = $this->validate($request,[
             'title'=>'required',
-            'school_id'=>'required',
-            'category'=>'required',
-            'slug'=>''
+            'school_id'=>'required|exists:schools,id',
+            'category'=>'required|in:domestic,international',
+            // 'slug'=>''
         ]);
-
         $gallery = Gallery::create($data);
         
         foreach ($request->images as $imagedata) {
@@ -101,9 +101,9 @@ class GalleryController extends Controller
     {
         $data = $this->validate($request,[
             'title'=>'required',
-            'school_id'=>'required',
-            'category'=>'required',
-            'slug'=>''
+            'school_id'=>'required|exists:schools,id',
+            'category'=>'required|in:domestic,international',
+            // 'slug'=>''
         ]);
 
         $gallery->update($data);
