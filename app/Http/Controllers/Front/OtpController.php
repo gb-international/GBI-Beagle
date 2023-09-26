@@ -14,6 +14,7 @@ use App\Otp;
 use Session,DB,Hash,Redirect,Mail;
 use App\Helpers\SendSms;
 use App\Model\SchoolTrip\SchoolTrip;
+use App\Model\School\EducationInstitute as EduInstitute;
 
 class OtpController extends Controller
 {
@@ -22,7 +23,7 @@ class OtpController extends Controller
     public function send_otp(Request $request){
         if($request->phone_no != '9717922240'){
             $validatedData = $request->validate([
-                'phone_no' => 'required|unique:informations,phone_no'
+                'phone_no' => 'required|unique:edu_institutes,phone_no'
             ]);
         }
     	$mobile_number = $request->phone_no;
@@ -65,8 +66,8 @@ class OtpController extends Controller
                 'phone_no' => 'required'
             ]);
         }
-        $userinfo = Information::where('phone_no', $request->phone_no)->first();
-        if(!$userinfo){
+        $edu_institute = EduInstitute::where('phone_no', $request->phone_no)->first();
+        if(!$edu_institute){
              return response()->json(["type"=>"error", "error"=>"User doesn't exist"]);
         }
     	$mobile_number = $request->phone_no;

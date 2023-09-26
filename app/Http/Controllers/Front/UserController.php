@@ -101,7 +101,7 @@ class UserController extends Controller{
         $userId = Auth::user()->id??0;
         $validator = Validator::make($request->all(), [ 
             'name' => 'required', 
-            'email' => ['required','email',new EmailValidate, 'unique:users,email,'.$userId.',id'],
+            'email' => ['required','email',new EmailValidate, 'unique:edu_institutes,email,'.$userId.',id'],
             'phone_no' => ['required','numeric',new PhoneNubmerValidate],
         ]);
 

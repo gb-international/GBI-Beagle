@@ -42,6 +42,10 @@ class AuthServiceProvider extends ServiceProvider
         Gate::before(function ($user, $ability) {
             return $user->hasRole('Admin') ? true : null;
         });
+        Passport::tokensCan([
+            'education_institute' => 'For education institute',
+        ]);
+
     }
 
     /*protected function makeOtpGrant()

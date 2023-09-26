@@ -6,6 +6,7 @@ Purpose : Manage school
 */
 namespace App\Http\Controllers\Admin\School;
 use App\Model\School\School;
+use App\Model\School\EducationInstitute as EduInstitute;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -36,23 +37,19 @@ class SchoolController extends Controller
 
     public function login($id){
         $school = School::where('id',$id)->first();
-        $user = User::where('email',$school->principal_email_id)->first();
-        if(!$user){
-            $user = $this->createUser($school);
+        $eduInstitute = EduInstitute::where('email',$school->principal_email_id)->first();
+        if(!$eduInstitude){
+            $eduInstitude = $this->createEduInstitute($school);
         }else{
-            $user = $this->updateUser($user,$school);
-        }
-        if($school->user_id != $user->id){
-            $school->user_id = $user->id;
-            $school->save();
+            $eduInstitute = $this->updateEduInstitute($eduInstitute,$school);
         }
 
         $sendsms = new SendSms;
         $message = 'Please check your email to get the GBI Login Credentials';
         $sendsms->sendLoginDetails($school->principal_mobile_number,$message);
         $emaildata = [
-            'email'=>$user->email,
-            'password'=>$user->email
+            'email'=>$eduInstitute->email,
+            'password'=>$eduInstitute->email
         ];
         SendLoginDetialJob::dispatchNow($emaildata);
 
@@ -146,11 +143,11 @@ class SchoolController extends Controller
       return $this->validate($request, [
             'school_name' => ['required',new AlphaSpace],
             'finance_email_id' => ['required','email',new EmailValidate],
-            'principal_email_id' => $request->principal_email_id != null ? ['required','email',new EmailValidate,'unique:users,email'] : '',
+            'principal_email_id' => $request->principal_email_id != null ? ['required','email',new EmailValidate,'unique:edu_institutes,email'] : '',
     		'mobile' => 'required|numeric|regex:/^[0-9\-\+]{9,11}$/ix',
             'street' => 'required',
             'principal_name'=>['required',new AlphaSpace],
-            'principal_mobile_number'=> $request->principal_mobile_number != null ? 'required|numeric|regex:/^[0-9\-\+]{9,11}$/ix|unique:informations,phone_no' : '',
+            'principal_mobile_number'=> $request->principal_mobile_number != null ? 'required|numeric|regex:/^[0-9\-\+]{9,11}$/ix|unique:edu_institutes,phone_no' : '',
             'city_name' => 'required',
             'state_name' => 'required',
             'country_name' => 'required',
@@ -159,34 +156,29 @@ class SchoolController extends Controller
       ]);
     }
 
-    protected function createUser($data){
-        $user = new User();
-        $user->name = $data->principal_name;
-        $user->email = $data->principal_email_id;
-        $user->password = bcrypt($data->principal_email_id);
-        $user->status = 1;
-        $user->is_incharge = '1';
-        $user->save();
-        $more  = new Information();
-        $more->school_id = $data->school_id;
-        $more->user_profession = 'teacher';
-        $more->user_id = $user->id;
-        $more->phone_no = $data->principal_mobile_number;
-        $more->varified = '1';
-        $more->photo = 'user.png';
-        $more->change_password = 0;
-        $more->save();
-        return $user;
+    protected function createEduInstitute($data){
+        $edu_institute = new EduInstitute();
+        $edu_institute->name = $data->principal_name??'';
+        $edu_institute->email = $data->principal_email_id??'';
+        $edu_institute->password = bcrypt($data->principal_email_id??'');
+        $edu_institute->status = 1;
+        $edu_institute->is_incharge = 1;
+        $edu_institute->role_type = 1; // teacher
+        $edu_institute->school_id = $data->school_id??0;
+        $edu_institute->phone_no = $data->principal_mobile_number??0;
+        $edu_institute->varified = 1;
+        $edu_institute->photo = 'user.png';
+        $edu_institute->change_password = 0;
+        $edu_institute->save();
+        return $edu_institute;
     }
-    protected function updateUser($user,$data){
-        $user->name = $data->principal_name;
-        $user->password = bcrypt($data->principal_email_id);
-        $user->status = 1;
-        $user->is_incharge = '1';
-        $more = Information::where('user_id',$user->id)->first();
-        $more->school_id= $data->id;
-        $more->save();
-        $user->save();
-        return $user;
+    protected function updateUser($edu_institute,$data){
+        $edu_institute->name = $data->principal_name;
+        $edu_institute->password = bcrypt($data->principal_email_id);
+        $edu_institute->status = 1;
+        $edu_institute->is_incharge = 1;
+        $edu_institute->school_id= $data->id;
+        $edu_institute->save();
+        return $edu_institute;
     }
 }

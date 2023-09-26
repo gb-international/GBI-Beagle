@@ -80,6 +80,11 @@ class RouteServiceProvider extends ServiceProvider
              ->middleware('api')
              ->namespace($this->namespace)
              ->group(base_path('routes/admin.php'));
+             
+        Route::prefix('api/education_institute')
+             ->middleware(['api', 'auth:education_institute', 'scopes:education_institute'])
+             ->namespace($this->namespace)
+             ->group(base_path('routes/api.php'));
     }
 
 

@@ -190,4 +190,9 @@ Route::group(['prefix' => '/school_trip_payment', 'as' => 'school_trip_payment.'
 });
 
 
-
+// sendotp2
+// user-update
+// update-password
+// login-user
+// sendotp
+// register-user

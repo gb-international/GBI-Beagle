@@ -20,15 +20,16 @@ use App\Jobs\ChangePasswordJob;
 use App\Rules\EmailValidate;
 use App\Model\User\Subscriber;
 use App\Model\Notification\Notifier;
+use App\Model\School\EducationInstitute as EduInstitute;
 
 class AuthController extends Controller{
 
     public function login(Request $request){ 
-
-
+        dd($request->segments(2));
+        exit;
         // Check if a user with the specified number exists
-        $userinfo = Information::where('phone_no', $request->phone_no)->first();
-        if (!$userinfo) {
+        $edu_institute = EduInstitute::where('phone_no', $request->phone_no)->first();
+        if (!$edu_institute) {
             return response()->json([
                 'message' => 'Invalid phone number',
                 'status' => 422
@@ -44,21 +45,21 @@ class AuthController extends Controller{
             ], 422);
         }
         
-        // Retrieve user data
-        $user = User::findOrFail($userinfo->user_id);
-        if (!$user) {
-            return response()->json([
-                'message' => 'Invalid user',
-                'status' => 422
-            ], 422);
-        }
+        // // Retrieve user data
+        // $user = EduInstitute::findOrFail($edu_institute->id);
+        // if (!$user) {
+        //     return response()->json([
+        //         'message' => 'Invalid user',
+        //         'status' => 422
+        //     ], 422);
+        // }
 
-        if ($user->user_type == 'GBI Member') {
-            return response()->json([
-                'message' => 'You are not allowed to login!!',
-                'status' => 422
-            ], 422);
-        }
+        // if ($user->user_type == 'GBI Member') {
+        //     return response()->json([
+        //         'message' => 'You are not allowed to login!!',
+        //         'sta tus' => 422
+        //     ], 422);
+        // }
 
         
         // If a user with the email was found - check if the specified password
@@ -97,8 +98,8 @@ class AuthController extends Controller{
             'grant_type' => 'password',
             'client_id' => $client->id,
             'client_secret' => $client->secret,
-            'username' => $user->email,
-            'password' => $user->password,
+            'username' => $edu_institute->email,
+            'password' => $edu_institute->password,
         ];
 
         $request = Request::create('/oauth/token', 'POST', $data);
@@ -113,38 +114,38 @@ class AuthController extends Controller{
             ], 422);
         }
 
-        $sub_id = null;
-        $sub = Subscriber::where('user_id', $user->id)->first();
-        if($sub){
-            $sub_id = $sub->id;
-        }
+        // $sub_id = null;
+        // $sub = Subscriber::where('user_id', $user->id)->first();
+        // if($sub){
+        //     $sub_id = $sub->id;
+        // }
 
         // Get the data from the response
         $data = json_decode($response->getContent());
-        $userData = [
-            'id' => $user->id,
-            'name'=>$user->name,
-            'email'=>$user->email,
-            'photo'=>$user->information->photo,
-            'phone_no'=>$user->information->phone_no,
-            'father_name'=>$user->information->father_name,
-            'user_profession'=>$user->information->user_profession,
-            'city'=>$user->information->city,
-            'state'=>$user->information->state,
-            'country'=>$user->information->country,
-            'status'=>$user->status,
-            'is_incharge'=>$user->is_incharge,
-            'school_id'=>$user->information->school_id,
-            'company_id'=>$user->information->company_id,
-            'client_type'=>$user->information->client_type,
-            'change_password' => $user->information->change_password,
-            'subscription_id' => $sub_id
-        ];
+        // $userData = [
+        //     'id' => $user->id,
+        //     'name'=>$user->name,
+        //     'email'=>$user->email,
+        //     'photo'=>$user->information->photo,
+        //     'phone_no'=>$user->information->phone_no,
+        //     'father_name'=>$user->information->father_name,
+        //     'user_profession'=>$user->information->user_profession,
+        //     'city'=>$user->information->city,
+        //     'state'=>$user->information->state,
+        //     'country'=>$user->information->country,
+        //     'status'=>$user->status,
+        //     'is_incharge'=>$user->is_incharge,
+        //     'school_id'=>$user->information->school_id,
+        //     'company_id'=>$user->information->company_id,
+        //     'client_type'=>$user->information->client_type,
+        //     'change_password' => $user->information->change_password,
+        //     'subscription_id' => $sub_id
+        // ];
         // Format the final response in a desirable format
         return response()->json([
             'token' => $data->access_token,
             'refresh_token' => $data->refresh_token,
-            'user' => $userData,
+            'edu_institute' => $edu_institute,
             'status' => 200
         ]);
     }
@@ -158,7 +159,7 @@ class AuthController extends Controller{
         // if($request->email != 'csrikhi@gbinternational.in'){
             $validator = Validator::make($request->all(), [ 
                 'name' => 'required', 
-                'email' => ['required','email',new EmailValidate, 'unique:users,email'],
+                'email' => ['required','email',new EmailValidate, 'unique:edu_institutes,email'],
                 'password' => 'required', 
                 'c_password' => 'required|same:password', 
             ]);
@@ -174,20 +175,13 @@ class AuthController extends Controller{
         }
         $input = $request->all(); 
         $input['password'] = bcrypt($input['password']??''); 
-        $user = User::create($input);
-
-        // Add more information to the informations table
-        $more  = new Information();
-        $more->user_id = $user->id;
-        $more->gbi_link = $request->gbi_link??'';
-        $more->phone_no = $request->phone_no??'';
-        $more->otp = $request->otp??'';
-        $more->varified = '1';
-        $more->photo = 'user.png';
-        $more->gender = '';
-        $more->save();
+        $eduInstitute = EduInstitute::create($input);
+        $eduInstitute->varified = '1';
+        $eduInstitute->photo = 'user.png';
+        $eduInstitute->gender = '';
+        $eduInstitute->save();
         $sendsms = new SendSms; // send welcome sms
-        $sendsms->signUpSMS($request->phone_no,$user);
+        $sendsms->signUpSMS($request->phone_no,$eduInstitute);
         return response()->json('Successfully Registered !!!');
     }
 
