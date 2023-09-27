@@ -8,7 +8,7 @@ class School extends Model
 {
 	// use SoftDeletes;
     protected $fillable = [
-        'school_name', 'street', 'city_name','state_name','country_name','pincode','finance_email_id','principal_email_id','mobile','address','principal_name','principal_mobile_number','user_id'
+        'surname', 'school_name', 'street', 'city_name','state_name','country_name','pincode','finance_email_id','principal_email_id','mobile','address','principal_name','principal_mobile_number','user_id'
     ];
 
     public function setFinanceEmailIdEmailAttribute($value){

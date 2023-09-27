@@ -9,6 +9,7 @@ use App\Model\Tour\TourUser;
 use App\Model\Tour\Tour;
 use App\Model\School\School;
 use Illuminate\Support\Facades\Auth;
+// use Auth;
 use Validator;
 use DB;
 use Image;
@@ -25,8 +26,8 @@ use App\Model\School\EducationInstitute as EduInstitute;
 class AuthController extends Controller{
 
     public function login(Request $request){ 
-        dd($request->segments(2));
-        exit;
+        // dd($request->segments(2));
+        // exit;
         // Check if a user with the specified number exists
         $edu_institute = EduInstitute::where('phone_no', $request->phone_no)->first();
         if (!$edu_institute) {
@@ -93,18 +94,50 @@ class AuthController extends Controller{
                 'status' => 500
             ], 500);
         }
-        
+        try {
+            $authGuard = Auth::guard('edu_institutes_api');
+            if(!$authGuard->attempt(['email' => $edu_institute->email, 'password' => $edu_institute->email])){
+                $data = 'Invalid Login Credentials';
+                $code = 401;
+            } else {
+                $user = $authGuard->user();
+                $token = $user->createToken('user')->accessToken;
+                $code = 200;
+                $data = [
+                    'user' => $user,
+                    'token' => $token,
+                ];
+            }
+        } catch (Exception $e) {
+            $data = ['error' => $e->getMessage()];
+        }
+        return response()->json($data, $code);
+        // return(Auth::guard('edu_institutes')->user());
+        // exit;
+        // return Auth::guard()->getName();
+        // $guardName =Auth::guard('edu_institutes')->getName();
+        if(Auth()->guard('edu_institutes_api')->attempt(['email' => $edu_institute->email, 'password' => $edu_institute->email])){
+        // if(Auth::guard('education')->attempt()){
+            return "Yes";
+
+        }
+        else{
+            return "No";
+        }
         $data = [
             'grant_type' => 'password',
             'client_id' => $client->id,
             'client_secret' => $client->secret,
             'username' => $edu_institute->email,
             'password' => $edu_institute->password,
+            // 'provider' => 'education_institute',
+            'scope' => 'edu_institutes',
         ];
 
         $request = Request::create('/oauth/token', 'POST', $data);
         
         $response = app()->handle($request);
+        return $response->getStatusCode();
         // Check if the request was successful
         if ($response->getStatusCode() != 200) {
             return response()->json([

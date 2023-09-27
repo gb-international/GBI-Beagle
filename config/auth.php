@@ -43,17 +43,11 @@ return [
         'api' => [
             'driver' => 'passport',
             'provider' => 'users',
-            'hash' => false,
         ],
-        'education_institute'  => [
-            'driver'  => 'session',
-            'provider' => 'education_institute',
-        ],
-        'education_institute_api' => [
+        'edu_institutes_api' => [
             'driver' => 'passport',
-            'provider' => 'education_institute',
-            'hash' => true,
-        ],
+            'provider' => 'edu_institutes',
+        ],    
     ],
 
     /*
@@ -78,11 +72,12 @@ return [
             'driver' => 'eloquent',
             'model' => App\User::class,
         ],
-        'education_institute' => [
+        'edu_institutes' => [
             'driver' => 'eloquent',
             'model' => App\Model\School\EducationInstitute::class,
         ],
     ],
+
 
     /*
     |--------------------------------------------------------------------------
@@ -102,6 +97,12 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'edu_institutes' => [
+            'provider' => 'edu_institutes',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,

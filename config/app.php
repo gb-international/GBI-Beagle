@@ -182,8 +182,8 @@ return [
         Softon\Indipay\IndipayServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
         ijeffro\Airports\AirportsServiceProvider::class,
-
-
+        SMartins\PassportMultiauth\Providers\MultiauthServiceProvider::class,
+        Laravel\Passport\PassportServiceProvider::class,
     ],
 
     /*
@@ -236,8 +236,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Image' => Intervention\Image\Facades\Image::class,
-        'Indipay' => Softon\Indipay\Facades\Indipay::class,
-
+        'Indipay' => Softon\Indipay\Facades\Indipay::class
     ],
 
 ];

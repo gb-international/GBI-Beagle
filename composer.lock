@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "42f1e88da626b0c6758b8068d2c09fe9",
+    "content-hash": "7846c807f5edd625f70ced15b50955c0",
     "packages": [
         {
             "name": "alexpechkarev/geometry-library",
@@ -5442,71 +5442,6 @@
             "time": "2021-12-09T23:20:49+00:00"
         },
         {
-            "name": "razorpay/razorpay",
-            "version": "2.8.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/razorpay/razorpay-php.git",
-                "reference": "31027cfb689b9480d67419dbec7c203097e9d9ac"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/razorpay/razorpay-php/zipball/31027cfb689b9480d67419dbec7c203097e9d9ac",
-                "reference": "31027cfb689b9480d67419dbec7c203097e9d9ac",
-                "shasum": ""
-            },
-            "require": {
-                "ext-json": "*",
-                "php": ">=7.3",
-                "rmccue/requests": "^2.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^9",
-                "raveren/kint": "1.*"
-            },
-            "type": "library",
-            "autoload": {
-                "files": [
-                    "Deprecated.php"
-                ],
-                "psr-4": {
-                    "Razorpay\\Api\\": "src/",
-                    "Razorpay\\Tests\\": "tests/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Abhay Rana",
-                    "email": "nemo@razorpay.com",
-                    "homepage": "https://captnemo.in",
-                    "role": "Developer"
-                },
-                {
-                    "name": "Shashank Kumar",
-                    "email": "shashank@razorpay.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Razorpay PHP Client Library",
-            "homepage": "https://docs.razorpay.com",
-            "keywords": [
-                "api",
-                "client",
-                "php",
-                "razorpay"
-            ],
-            "support": {
-                "email": "contact@razorpay.com",
-                "issues": "https://github.com/Razorpay/razorpay-php/issues",
-                "source": "https://github.com/Razorpay/razorpay-php"
-            },
-            "time": "2022-10-19T07:41:27+00:00"
-        },
-        {
             "name": "react/cache",
             "version": "v1.2.0",
             "source": {
@@ -6302,85 +6237,56 @@
             "time": "2018-05-29T20:21:04+00:00"
         },
         {
-            "name": "rmccue/requests",
-            "version": "v2.0.5",
+            "name": "smartins/passport-multiauth",
+            "version": "v0.1.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/WordPress/Requests.git",
-                "reference": "b717f1d2f4ef7992ec0c127747ed8b7e170c2f49"
+                "url": "https://github.com/sfelix-martins/passport-multiauth.git",
+                "reference": "65608807edd7c8041ceb22991cc1845d5811c64e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/WordPress/Requests/zipball/b717f1d2f4ef7992ec0c127747ed8b7e170c2f49",
-                "reference": "b717f1d2f4ef7992ec0c127747ed8b7e170c2f49",
+                "url": "https://api.github.com/repos/sfelix-martins/passport-multiauth/zipball/65608807edd7c8041ceb22991cc1845d5811c64e",
+                "reference": "65608807edd7c8041ceb22991cc1845d5811c64e",
                 "shasum": ""
             },
             "require": {
-                "ext-json": "*",
-                "php": ">=5.6"
-            },
-            "require-dev": {
-                "dealerdirect/phpcodesniffer-composer-installer": "^0.7",
-                "php-parallel-lint/php-console-highlighter": "^0.5.0",
-                "php-parallel-lint/php-parallel-lint": "^1.3.1",
-                "phpcompatibility/php-compatibility": "^9.0",
-                "requests/test-server": "dev-main",
-                "roave/security-advisories": "dev-latest",
-                "squizlabs/php_codesniffer": "^3.6",
-                "wp-coding-standards/wpcs": "^2.0",
-                "yoast/phpunit-polyfills": "^1.0.0"
+                "php": ">=5.6.4"
             },
             "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "SMartins\\PassportMultiauth\\Providers\\MultiauthServiceProvider"
+                    ]
+                }
+            },
             "autoload": {
-                "files": [
-                    "library/Deprecated.php"
-                ],
                 "psr-4": {
-                    "WpOrg\\Requests\\": "src/"
-                },
-                "classmap": [
-                    "library/Requests.php"
-                ]
+                    "SMartins\\PassportMultiauth\\": "src/"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "ISC"
+                "MIT"
             ],
             "authors": [
                 {
-                    "name": "Ryan McCue",
-                    "homepage": "https://rmccue.io/"
-                },
-                {
-                    "name": "Alain Schlesser",
-                    "homepage": "https://github.com/schlessera"
-                },
-                {
-                    "name": "Juliette Reinders Folmer",
-                    "homepage": "https://github.com/jrfnl"
-                },
-                {
-                    "name": "Contributors",
-                    "homepage": "https://github.com/WordPress/Requests/graphs/contributors"
+                    "name": "Samuel Martins",
+                    "email": "sfelix_martins@hotmail.com"
                 }
             ],
-            "description": "A HTTP library written in PHP, for human beings.",
-            "homepage": "https://requests.ryanmccue.info/",
+            "description": "Add support to multi-auth on Laravel Passport",
             "keywords": [
-                "curl",
-                "fsockopen",
-                "http",
-                "idna",
-                "ipv6",
-                "iri",
-                "sockets"
+                "laravel",
+                "multi-auth",
+                "passport"
             ],
             "support": {
-                "docs": "https://requests.ryanmccue.info/",
-                "issues": "https://github.com/WordPress/Requests/issues",
-                "source": "https://github.com/WordPress/Requests"
+                "issues": "https://github.com/sfelix-martins/passport-multiauth/issues",
+                "source": "https://github.com/sfelix-martins/passport-multiauth/tree/master"
             },
-            "time": "2022-10-11T08:15:28+00:00"
+            "time": "2017-11-17T00:59:24+00:00"
         },
         {
             "name": "softon/indipay",
@@ -12384,5 +12290,5 @@
         "ext-exif": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.3.0"
 }
