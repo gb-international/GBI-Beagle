@@ -29,7 +29,7 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-
+        // Passport::enableImplicitGrant();
         /*app(AuthorizationServer::class)->enableGrantType(
             $this->makeOtpGrant(), 
             Passport::tokensExpireIn()
@@ -43,7 +43,10 @@ class AuthServiceProvider extends ServiceProvider
             return $user->hasRole('Admin') ? true : null;
         });
         // Passport::tokensCan([
-        //     'edu_institutes' => 'For education institute',
+        //     'school' => 'For education institute',
+        // ]);
+        // Passport::setDefaultScope([
+        //     'school',
         // ]);
 
     }

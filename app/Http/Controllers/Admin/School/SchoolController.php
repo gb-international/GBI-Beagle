@@ -37,13 +37,12 @@ class SchoolController extends Controller
 
     public function login($id){
         $school = School::where('id',$id)->first();
-        $eduInstitute = EduInstitute::where('email',$school->principal_email_id)->first();
-        if(!$eduInstitude){
-            $eduInstitude = $this->createEduInstitute($school);
+         $eduInstitute;
+        if(EduInstitute::where('email',$school->principal_email_id)->exists()){
+            $eduInstitute = $this->updateEduInstitute(EduInstitute::where('email',$school->principal_email_id)->first(),$school);
         }else{
-            $eduInstitute = $this->updateEduInstitute($eduInstitute,$school);
+            $eduInstitute = $this->createEduInstitute($school);
         }
-
         $sendsms = new SendSms;
         $message = 'Please check your email to get the GBI Login Credentials';
         $sendsms->sendLoginDetails($school->principal_mobile_number,$message);
@@ -141,7 +140,7 @@ class SchoolController extends Controller
     public function validateSchool($request)
     {
       return $this->validate($request, [
-            'surname' => 'required|in:Mr,Mrs,Miss,Ms',
+            // 'surname' => 'required|in:Mr,Mrs,Miss,Ms',
             'school_name' => ['required',new AlphaSpace],
             'finance_email_id' => ['required','email',new EmailValidate],
             'principal_email_id' => $request->principal_email_id != null ? ['required','email',new EmailValidate,'unique:edu_institutes,email'] : '',
@@ -165,7 +164,8 @@ class SchoolController extends Controller
         $edu_institute->status = 1;
         $edu_institute->is_incharge = 1;
         $edu_institute->role_type = 1; // teacher
-        $edu_institute->school_id = $data->school_id??0;
+        // exit;
+        $edu_institute->school_id = $data->id??0;
         $edu_institute->phone_no = $data->principal_mobile_number??0;
         $edu_institute->varified = 1;
         $edu_institute->photo = 'user.png';
@@ -173,7 +173,7 @@ class SchoolController extends Controller
         $edu_institute->save();
         return $edu_institute;
     }
-    protected function updateUser($edu_institute,$data){
+    protected function updateEduInstitute($edu_institute,$data){
         $edu_institute->name = $data->principal_name;
         $edu_institute->password = bcrypt($data->principal_email_id);
         $edu_institute->status = 1;

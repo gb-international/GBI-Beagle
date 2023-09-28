@@ -40,14 +40,33 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+    
         'api' => [
-            'driver' => 'passport',
+            'driver' => 'token',
             'provider' => 'users',
         ],
-        'edu_institutes_api' => [
-            'driver' => 'passport',
-            'provider' => 'edu_institutes',
-        ],    
+    
+        'school' => [
+            'driver' => 'session',
+            'provider' => 'schools',
+        ],
+    
+        'school-api' => [
+            'driver' => 'token',
+            'provider' => 'schools',
+        ],
+        // 'web' => [
+        //     'driver' => 'session',
+        //     'provider' => 'users',
+        // ],
+        // 'api' => [
+        //     'driver' => 'passport',
+        //     'provider' => 'users',
+        // ],
+        // 'edu_institutes_api' => [
+        //     'driver' => 'passport',
+        //     'provider' => 'edu_institutes',
+        // ],    
     ],
 
     /*
@@ -72,7 +91,7 @@ return [
             'driver' => 'eloquent',
             'model' => App\User::class,
         ],
-        'edu_institutes' => [
+        'schools' => [
             'driver' => 'eloquent',
             'model' => App\Model\School\EducationInstitute::class,
         ],
