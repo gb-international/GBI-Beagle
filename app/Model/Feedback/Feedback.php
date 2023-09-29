@@ -1,4 +1,8 @@
 <?php
+/* 
+Edited by : Rahul Rawat created edu_institute function
+Purpose : Education Institute model connected with Feedback model 
+*/
 
 namespace App\Model\Feedback;
 
@@ -11,6 +15,7 @@ class Feedback extends Model
     protected $fillable = [
     	'user_id',
     	'tour_id',
+		'edu_institute_id',
 	   	'name',
 	   	'email',
 		'ph_no',
@@ -32,5 +37,8 @@ class Feedback extends Model
     public function user()
     {
     	return $this->belongsTo('App\User');
+    }
+	public function edu_institute(){
+        return $this->belongsTo('App\Model\School\EducationInstitute');
     }
 }

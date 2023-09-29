@@ -140,7 +140,7 @@ class SchoolController extends Controller
     public function validateSchool($request)
     {
       return $this->validate($request, [
-            // 'surname' => 'required|in:Mr,Mrs,Miss,Ms',
+            'surname' => 'required|in:Mr,Mrs,Miss,Ms',
             'school_name' => ['required',new AlphaSpace],
             'finance_email_id' => ['required','email',new EmailValidate],
             'principal_email_id' => $request->principal_email_id != null ? ['required','email',new EmailValidate,'unique:edu_institutes,email'] : '',

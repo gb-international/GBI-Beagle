@@ -1,4 +1,8 @@
 <?php
+ /* 
+Edited by : Rahul Rawat created edu_institute function
+Purpose :  modify incharge function
+*/
 
 namespace App\Model\School;
 
@@ -32,8 +36,12 @@ class School extends Model
         return $this->hasMany('App\Model\User\Information');
     }
 
-    public function incharge(){
-        return $this->hasOne('App\User','id','user_id');
-    }
-    
+    // public function incharge(){
+    //     return $this->hasOne('App\User','id','user_id');
+    // }
+
+    public function incharge(): BelongsTo
+    {
+        return $this->hasOne("App\Model\School\EducationInstitute", 'edu_institute_id', 'id');
+    }    
 }

@@ -1,5 +1,8 @@
 <?php
-
+/* 
+Created by : Rahul Rawat
+Purpose : Education Institute model 
+*/
 namespace App\Model\School;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -35,6 +38,38 @@ class EducationInstitute extends Authenticatable
 
     public function setEmailAttribute($value){
         return $this->attributes['email'] = strtolower($value);
+    }
+
+    public function search()
+    {
+        return $this->hasMany('App\Search');    
+    }
+
+    public function encyclopediacomments(){
+        return $this->hasMany('App\Model\Encyclopedia\Encyclopediacomment');
+    }
+    // now we can delete usertravel because 'bookedusers' is working now
+    public function UserTravel(){
+        return $this->hasMany('App\Model\Tour\TourUser','edu_institute_id')->orderBy('created_at','DESC');
+    }
+
+
+    public function frontbooking()
+	{
+		return $this->hasMany('App\Model\Tour\Frontbooking');
+    }
+    
+    public function subscribe(){
+        return $this->hasOne('App\Model\User\Subscriber');
+    }
+
+    public function social(){
+        return $this->hasMany('App\Model\User\UserSocial');
+    }
+
+    public function scopeIncharge($query)
+    {
+        return $query->where('is_incharge', 1);
     }
 }
 

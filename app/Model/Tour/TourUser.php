@@ -1,7 +1,11 @@
 <?php
 
-namespace App\Model\Tour;
+/* 
+Edited by : Rahul Rawat created edu_institute function
+Purpose : Education Institute model connected with Tour User model 
+*/
 
+namespace App\Model\Tour;
 use Illuminate\Database\Eloquent\Model;
 
 class TourUser extends Model
@@ -9,6 +13,7 @@ class TourUser extends Model
     protected $table = 'tour_user';
     protected $fillable = [
         'user_id',
+        'edu_institute_id',
         'travel_code',
         'tour_code',
         'user_type',
@@ -34,6 +39,10 @@ class TourUser extends Model
         return $this->belongsTo('App\User');
     }
 
+    public function edu_institute(){
+        return $this->belongsTo('App\Model\School\EducationInstitute');
+    }
+    
     protected $casts = [
         'payment_data' => 'array'
     ];

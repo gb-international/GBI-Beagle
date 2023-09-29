@@ -1,8 +1,8 @@
 <?php
 /* 
 Created by : Ajay yadav 
-Purpose : Manage front user login and register 
-
+Edited by : Rahul Rawat update function
+Purpose : Manage front user login and register  
 */
 namespace App\Http\Controllers\Front;
 use Illuminate\Http\Request;
@@ -27,6 +27,8 @@ use App\Jobs\ChangePasswordJob;
 use App\Rules\EmailValidate;
 use App\Traits\ImageTrait;
 use App\Http\Resources\SocialResource;
+use App\Helpers\UserCategory;
+
 class UserController extends Controller{
     public $successStatus = 200;
     private $id = 'csrikhi@gbinternational.in';
@@ -98,51 +100,51 @@ class UserController extends Controller{
 
     public function update(Request $request)
     {
-        $userId = Auth::user()->id??0;
+        $user_category = new UserCategory(); 
+        $user_type = $user_category->user_category($request->user_profession??'');
+        $edu_institutes = Auth::guard($user_type)->user();
+        
+        $userId = Auth::guard('school')->user()->id??0;
         $validator = Validator::make($request->all(), [ 
             'name' => 'required', 
             'email' => ['required','email',new EmailValidate, 'unique:edu_institutes,email,'.$userId.',id'],
-            'phone_no' => ['required','numeric',new PhoneNubmerValidate],
+            'phone_no' => ['required','numeric',new PhoneNubmerValidate, 'unique:edu_institutes,phone_no,'.$userId.',id'],
         ]);
-
+        
         if ($validator->fails()) { 
             return response()->json(['error'=>$validator->errors()], 422);            
         }
-        $user = Auth::user();
-        $user->name = $request->name??$user->name;
-        $user->email = $request->email??$user->email;
-        $user->save();
-        $information = Information::where('user_id',$user->id)->firstOrFail();
-        
-        $information->gbi_link = $request->gbi_link??$information->gbi_link;
-        $information->user_profession = $request->user_profession??$information->user_profession;
-        $information->school_id = $request->school_id??$information->school_id;
-        $information->profession_name = $request->profession_name??$information->profession_name;
-        $information->profession_address = $request->profession_address??$information->profession_address;
-        $information->institution_code = $request->institution_code??$information->institution_code;
-        $information->phone_no = $request->phone_no??$information->phone_no;
-        $information->father_name = $request->father_name??$information->father_name;
-        $information->mother_name = $request->mother_name??$information->mother_name;
-        $information->dob = $request->dob??$information->dob;
-        $information->address = $request->address??$information->address;
-        $information->city = $request->city??$information->city;
-        $information->state = $request->state??$information->state;
-        $information->country = $request->country??$information->country;
-        $information->zip_code = $request->zip_code??$information->zip_code;
-        $information->user_class = $request->user_class??$information->user_class;
-        $information->admission_year = $request->admission_year??$information->admission_year;
-        $information->gender = $request->gender??$information->gender;
-        $information->save();
-        
+        $edu_institutes = Auth::guard('school')->user();
+        $edu_institutes->name = $request->name??$edu_institutes->name;
+        $edu_institutes->email = $request->email??$edu_institutes->email;
+        $edu_institutes->gbi_link = $request->gbi_link??$edu_institutes->gbi_link;
+        $edu_institutes->school_id = $request->school_id??$edu_institutes->school_id;
+        $edu_institutes->profession_name = $request->profession_name??$edu_institutes->profession_name;
+        $edu_institutes->profession_address = $request->profession_address??$edu_institutes->profession_address;
+        $edu_institutes->institution_code = $request->institution_code??$edu_institutes->institution_code;
+        $edu_institutes->phone_no = $request->phone_no??$edu_institutes->phone_no;
+        $edu_institutes->father_name = $request->father_name??$edu_institutes->father_name;
+        $edu_institutes->mother_name = $request->mother_name??$edu_institutes->mother_name;
+        $edu_institutes->dob = $request->dob??$edu_institutes->dob;
+        $edu_institutes->address = $request->address??$edu_institutes->address;
+        $edu_institutes->city = $request->city??$edu_institutes->city;
+        $edu_institutes->state = $request->state??$edu_institutes->state;
+        $edu_institutes->country = $request->country??$edu_institutes->country;
+        $edu_institutes->zip_code = $request->zip_code??$edu_institutes->zip_code;
+        $edu_institutes->user_class = $request->user_class??$edu_institutes->user_class;
+        $edu_institutes->admission_year = $request->admission_year??$edu_institutes->admission_year;
+        $edu_institutes->gender = $request->gender??$edu_institutes->gender;
+        $edu_institutes->save();
+        $edu_institute_id = $edu_institutes->edu_institute_id??0;
         // if user is already subscribed
-        if($subscriber = Subscriber::where('email',$user->email)->first()){
+        if($subscriber = Subscriber::where('edu_institute_id',$edu_institute_id)->first()){
             $subscriber->status = $request->subscribe??'';
-            $subscriber->user_id = $user->id;
+            $subscriber->edu_institute_id = $edu_institute_id;
             $subscriber->save();           
         }else{            
             if($request->subscribe){
                 $data['email'] = $user->email??'';
-                $data['user_id'] = $user->id;
+                $data['edu_institutes'] = $edu_institute_id;
                 Subscriber::create($data);
             }
         }
@@ -152,7 +154,6 @@ class UserController extends Controller{
 
     public function UserImage(Request $request){
         $user = Auth::user();
-
         if ($request->hasFile('photo')) {
            $file = $request->file('photo');
            $name = time().'-'.$file->getClientOriginalName();
@@ -215,21 +216,22 @@ class UserController extends Controller{
     } 
 
     public function show(){
-        $user = Auth::user();
+        $user = Auth::guard('school')->user();
         $information = $user->information;
         $information = $user->subscribe;
         return response()->json(['success' => $user], $this-> successStatus); 
     }
     /// user more information on model from model
     public function infoUpdate(Request $request){
-        $user = Auth::user();
-        $user->status = 1;
-        $information = Information::where('user_id', $user->id)->first();
-        $information->user_profession = $request->user_profession;
-        $information->school_id = $request->school_id;
-        $information->profession_name = $request->profession_name;
-        $information->profession_address = $request->profession_address;
 
+        $user_category = new UserCategory(); 
+        $user_type = $user_category->user_category($request->user_profession??'');
+        $edu_institutes = Auth::guard($user_type)->user();
+        $edu_institutes->status = 1;
+        $edu_institutes->user_profession = $request->user_profession??'';
+        $edu_institutes->profession_name = $request->profession_name??'';
+        $edu_institutes->profession_address = $request->profession_address??'';
+        
         if($request->school_id == 'other'){
             $this->validate($request,[
                 'profession_name'=>'required|unique:schools,school_name',
@@ -237,13 +239,16 @@ class UserController extends Controller{
             ]);
             $data = ['school_name'=>$request->profession_name,'address'=>$request->profession_address];
             $school = School::create($data);
-            $information->school_id = $school->id;
+            $edu_institutes->school_id = $school->id;
         }
-        $information->institution_code = $request->institution_code;
+        else{
+            $edu_institutes->school_id = $request->school_id??0;
+        }
+        $edu_institutes->institution_code = $request->institution_code;
         
 
-        $information->save();
-        $user->save();
+        $edu_institutes->save();
+        // $user->save();
         return response()->json('success');
     }
 
