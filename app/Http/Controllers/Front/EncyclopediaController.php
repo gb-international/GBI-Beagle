@@ -63,7 +63,15 @@ class EncyclopediaController extends BaseController
     }
 
     public function PostComment(Request $request){
-        $user = Auth::user();
+        $user_type = $this->user_category("school");
+        // return $user_type;
+        // $user = Auth::user();
+
+        // $user_category = new UserCategory(); 
+        // $user_type = $user_category->user_category($request->user_profession??'');
+        // return $user_type;
+        $edu_institutes = Auth::guard($user_type)->user();
+        $edu_institutes_id =  12;
         $validator = Validator::make($request->all(),[
             'body' => 'required',
             'encyclopedia_id' => 'required|exists:encyclopedias,id'
@@ -74,9 +82,10 @@ class EncyclopediaController extends BaseController
 
         $data = [
             'encyclopedia_id' => $request->encyclopedia_id,
-            'user_id' => $user->id,
+            'edu_institute_id' => $edu_institutes_id,
+            // 'user_id' => $user->id,
             'body' => $request->body,
-            'parent_id' => $request->parent_id
+            'parent_id' => $request->parent_id??NULL
         ];
         $data = Encyclopediacomment::create($data);
         return response()->json($data);

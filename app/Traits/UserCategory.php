@@ -1,8 +1,13 @@
 <?php
-namespace App\Helpers;
-class UserCategory 
+namespace App\Traits;
+use App\Model\School\EducationInstitute as EduInstitute;
+
+trait UserCategory 
 {
-    public static function user_category($category=''){        
+  public function educational_institute(){        
+     return EduInstitute::where('id', 12)->first();
+  }
+    public function user_category($category=''){        
         switch ($category) {
             case "other":
                 return $category;

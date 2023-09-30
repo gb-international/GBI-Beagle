@@ -27,7 +27,6 @@ use App\Jobs\ChangePasswordJob;
 use App\Rules\EmailValidate;
 use App\Traits\ImageTrait;
 use App\Http\Resources\SocialResource;
-use App\Helpers\UserCategory;
 
 class UserController extends Controller{
     public $successStatus = 200;
@@ -209,6 +208,8 @@ class UserController extends Controller{
      */ 
     public function details() 
     { 
+        $user = auth()->user();
+        return $user;
         $user = Auth::user();
         $information = $user->information;
         $search = $user->search;
@@ -253,7 +254,7 @@ class UserController extends Controller{
     }
 
     public function UpdatePassword(Request $request){
-        $user = Auth::user();
+        $user = auth()->guard('school')->user();
         // return Hash::make($request->new_password);
         $request->validate([
             'current_password' => ['required', new MatchOldPassword($user)],

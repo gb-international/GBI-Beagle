@@ -9,47 +9,78 @@ use Auth;
 use App\Jobs\FrontBookingAdminJob;
 use App\Jobs\FrontBookingUserJob;
 use App\Helpers\SendSms;
-class FrontbookingController extends Controller
+use App\Http\Requests\Front\FrontbookingRequest;
+use App\Http\Controllers\API\BaseController;
+
+class FrontbookingController extends BaseController
 {
-    public function booking(Request $request){
-        $user = Auth::user();
-        $validate = $this->validateBooking($request);
-        $citylist = '';
-        $transport = '';
-        $sightseen = '';
+    public function booking(FrontbookingRequest $request){
+        try{
+            // $user = Auth::user();
 
-        if($request->city_id != null){
-            foreach ($request->city_id as $city) {
-                $citylist  .= $city['name'].', ';
+            $user_type = $this->user_category("school");
+            // return $user_type;
+            // $user = Auth::user();
+            
+            // $user_category = new UserCategory(); 
+            // $user_type = $user_category->user_category($request->user_profession??'');
+            // return $user_type;
+            $edu_institutes = Auth::guard($user_type)->user();
+            $edu_institutes_id = 12;
+            $edu_institutes = $this->educational_institute();
+            // $validate = $this->validateBooking($request);
+            $data = array();
+            $data['start_date'] = $request->start_date??'';
+            $data['end_date'] = $request->end_date??'';
+            $data['person'] = $request->person??'';
+            $data['adults'] = $request->adults??'';
+            $data['children'] = $request->children??'';
+            $data['infants'] = $request->infants??'';
+            $data['room'] = $request->room??'';
+            $data['occupancy_type'] = $request->occupancy_type??'';
+            $data['noofday'] = $request->noofday??'';
+            $data['itinerary_id'] = $request->itinerary_id??'';
+            $citylist = '';
+            $transport = '';
+            $sightseen = '';
+            if($request->city_id != null){
+                foreach ($request->city_id as $city) {
+                    $citylist  .= $city['name'].', ';
+                }
             }
-        }
-        if($request->transport != null){
-            foreach ($request->transport as $mode) {
-                $transport .= $mode.', ';
+            if($request->transport != null){
+                foreach ($request->transport as $mode) {
+                    $transport .= $mode.', ';
+                }
             }
-        }
 
-        if($request->sightseen != null){
-            foreach ($request->sightseen as $sight) {
-                $sightseen .= $sight['name'].', ';
+            if($request->sightseen != null){
+                foreach ($request->sightseen as $sight) {
+                    $sightseen .= $sight['name'].', ';
+                }
             }
+
+            // $validate['user_id'] = $user->id;
+            $data['edu_institute_id'] = $edu_institutes_id;
+            $data['noofday'] = $request->noofday??0;
+            $data['accomodation'] = $request->accommodation??0;
+            // $data['itinerary_id'] = $request->itinerary_id;
+            $data['city'] = substr($citylist, 0, -2);
+            $data['transport'] = substr($transport, 0, -2);
+            $data['sightseen'] = substr($sightseen, 0, -2);
+            $booking =  Frontbooking::create($data);
+
+            $this->sendAdminMail($edu_institutes, $booking);
+            $this->sendUserMail($edu_institutes, $booking);
+
+            $sendsms = new SendSms;
+            // return $edu_institutes;
+            return $sendsms->frontBookingUserSms($edu_institutes,$booking->itinerary->title);
+            return response()->json('Booking query has sent Successfully'); 
+        } 
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);      
         }
-
-        $validate['user_id'] = $user->id;
-        $validate['noofday'] = $request->noofday;
-        $validate['accomodation'] = $request->accommodation;
-        $validate['itinerary_id'] = $request->itinerary_id;
-        $validate['city'] = substr($citylist, 0, -2);
-        $validate['transport'] = substr($transport, 0, -2);
-        $validate['sightseen'] = substr($sightseen, 0, -2);
-        $booking =  Frontbooking::create($validate);
-
-        $this->sendAdminMail($user,$booking);
-        $this->sendUserMail($user,$booking);
-
-        $sendsms = new SendSms;
-        $sendsms->frontBookingUserSms($user,$booking->itinerary->title);
-        return response()->json('Booking query has sent Successfully');        
     }
 
     // sending email to admin
@@ -58,7 +89,7 @@ class FrontbookingController extends Controller
         $data = array(
                 'email'=>$user->email,
                 'name'=>$user->name,
-                'mobile'=>$user->information->phone_no,
+                'mobile'=>$user->phone_no,
                 'noofday'=>$booking->noofday,
                 'accomodation'=>$booking->accomodation,
                 'start_date'=>$booking->start_date,
@@ -74,7 +105,7 @@ class FrontbookingController extends Controller
                 'sightseen'=>$booking->sightseen,
                 'emailto'=>'manas_bhowmick@gbinternational.in'
             );
-        FrontBookingAdminJob::dispatch($data);
+        FrontBookingAdminJob::dispatchNow($data);
     }
 
     
@@ -95,7 +126,7 @@ class FrontbookingController extends Controller
                 'sightseen'=>$booking->sightseen,
                 'emailto'=>$user->email
             );
-        FrontBookingUserJob::dispatch($data);
+        FrontBookingUserJob::dispatchNow($data);
     }
 
 
@@ -103,14 +134,16 @@ class FrontbookingController extends Controller
     public function validateBooking($request)
     {
       return $this->validate($request, [
-            'start_date' => 'required|date',
-            'end_date' => 'required|date|after_or_equal:start_date',
-            'person' => 'required',
-            'adults'=>'required',
-            'children'=>'required',
-            'infants'=>'required',
-            'room' => 'required',
-            'occupancy_type' => 'required'
+        'start_date' => 'required|date|after:today',
+        'end_date' => 'required|date|after_or_equal:start_date',
+        'person' => 'required',
+        'adults'=>'required|numeric',
+        'children'=>'required|numeric',
+        'infants'=>'required|numeric',
+        'room' => 'required|numeric',
+        'occupancy_type' => 'required|in:Single,Double,Triple, Quad',
+        'noofday' => 'numeric',
+        'itinerary_id' => 'required|exists:itineraries,id',
       ]);
     }
 }
