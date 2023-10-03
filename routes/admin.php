@@ -33,7 +33,7 @@ Route::namespace('Admin')->group(function (){
 		Route::get('country/all/{size}','CountryController@all');
 		Route::resource('country','CountryController');
 		Route::get('city/all/{size}','CityController@all');
-		Route::resource('city',' ');
+		Route::resource('city','CityController');
 		Route::get('state/all/{size}','StateController@all');
 		Route::resource('state','StateController');
 		Route::get('sightseeings/all/{size}','SightseeingController@all');

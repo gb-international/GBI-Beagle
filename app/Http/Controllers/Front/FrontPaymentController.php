@@ -165,7 +165,7 @@ class FrontPaymentController extends Controller
         'name' => $response['billing_name'],
         'phone_no' => $response['billing_tel'],
         'emailto' => $response['billing_email'],
-      ];
+      ]; 
       event(new \App\Events\SendNotification(['title' => 'Your Payment was successful.']));
       PaymentSuccessJob::dispatch($notifData);
       $track->delete();

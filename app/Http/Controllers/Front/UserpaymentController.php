@@ -43,7 +43,6 @@ class UserpaymentController extends Controller
             // if teacher not paid then check if student has paid
             $data = Userpayment::select('status')->where(['tour_code'=>$request->tour_code,'user_id'=>$request->user_id])->first();
         }
-
         return response()->json($data);
     }
 }

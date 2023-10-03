@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Groupmember extends Model
 {
     protected $fillable = [
-        'tour_id','school_id','user_id','first_name', 'last_name', 'email','gender','mobile','age','user_type','is_paid', 'payment_status'
+        'tour_id','school_id','user_id','first_name', 'last_name', 'email','gender','mobile','age','user_type','is_paid', 'edu_institute_id', 'payment_status'
     ];
 
     protected $casts = [
