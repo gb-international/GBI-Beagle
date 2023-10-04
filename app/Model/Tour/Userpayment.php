@@ -1,17 +1,21 @@
 <?php
+/* 
+Edited by : Rahul Rawat created edu_institute function
+Purpose : Education Institute model connected with User payment model 
+*/
 
 namespace App\Model\Tour;
 
 use Illuminate\Database\Eloquent\Model;
-
 class Userpayment extends Model
 {
-    protected $fillable = ['user_id','school_id','tour_code','schoolbankdetail_id','payment_mode','payment_type','ifsc_code','cheque_number','amount','cheque_bank_name','date_of_issue','status','added_by','collect_amount','payment_data'];
+    protected $fillable = ['user_id','school_id', 'edu_institute_id', 'tour_code','schoolbankdetail_id','payment_mode','payment_type','ifsc_code','cheque_number','amount','cheque_bank_name','date_of_issue','status','added_by','collect_amount','payment_data'];
 
     public function adminFormat(){
         return  [
             'id' => $this->id,
             'user_id' => $this->user_id,
+            'edu_institute_id' => $this->edu_institute_id,
             'user_name' => $this->user->name,
             'school_id' => $this->school_id,
             'school_name' => $this->school->school_name,
@@ -41,6 +45,10 @@ class Userpayment extends Model
 
     public function school(){
         return $this->belongsTo('App\Model\School\School');
+    }
+
+    public function edu_institute(){
+        return $this->belongsTo('App\Model\School\EducationInstitute');
     }
 
 }

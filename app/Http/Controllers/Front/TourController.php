@@ -26,15 +26,21 @@ use App\Model\Corporate\CorpGroupmember;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Resources\SightsResource;
 use App\Model\Reservation\Bookedsightseeing;
+use App\Model\School\EducationInstitute as EduInstitute;
 
 class TourController extends Controller{
 
      public function tourList(Request $request){
-        $user = Auth::user();
+        $user_type = $this->user_category("school");
+        $edu_institutes = Auth::guard($user_type)->user();
+        $edu_institutes_id = 12;
+        $edu_institutes = $this->educational_institute();
+        // $user = Auth::user();
         $total_pax = Groupmember::where('tour_id', $request->travel_code)->count();
         $already_paid = Groupmember::where('tour_id', $request->travel_code)->where('payment_status', 'success')->count();
+        // return $edu_institutes->is_incharge;
          // if user is student or teacher
-        if($user->is_incharge == 0){
+        if($edu_institutes->is_incharge == 0){
             $travels =  TourUser::with([
                 'tour' => function($tour){
                     $tour->with(['itinerary'=>function($detail){
@@ -43,12 +49,13 @@ class TourController extends Controller{
                     $tour->select('tours.tour_start_date','tours.travel_code','tours.tour_end_date','tours.itinerary_id','tours.tour_id','tours.id');
                 }
             ])
-            ->where('user_id',$user->id)
-            ->select('id','user_id','tour_code','travel_code','status','is_paid','user_type')
+            ->where('edu_institute_id',$edu_institutes->id)
+            ->select('id','user_id', 'edu_institute_id', 'tour_code','travel_code','status','is_paid','user_type')
             ->get();
+            return $travels;
             if(count($travels) >0){
-                $school = School::where('id',$request->school_id)
-                    ->select('id','user_id')
+                $edu_institute = EduInstitute::where('school_id',$request->school_id)
+                    ->select('id')
                     ->first();
                 foreach ($travels as $travel) {
                     $date_now = date("Y-m-d"); 
@@ -63,7 +70,7 @@ class TourController extends Controller{
 
                     $incharge_paid = Userpayment::where([
                         'tour_code'=>$travel->tour->tour_id,
-                        'user_id'=> $school->user_id
+                        'edu_institute_id'=> $edu_institute->id??0
                     ])->first();
                    
                     if($incharge_paid){
@@ -98,7 +105,7 @@ class TourController extends Controller{
             }
         }
         // if user is incharge
-        if($user->is_incharge == 1){
+        if($edu_institutes->is_incharge == 1){
             $travels = Tour::where('school_id',$request->school_id)
                 ->with('itinerary')
                 ->select('id','tour_start_date','travel_code','tour_end_date','itinerary_id','tour_id')
@@ -115,7 +122,7 @@ class TourController extends Controller{
                 }
                 $incharge_paid = Userpayment::where([
                     'tour_code'=>$travel->tour_id,
-                    'user_id'=> $user->id
+                    'edu_institute_id'=> $edu_institutes->edu_institute_id
                 ])->first();
                 if($incharge_paid){
                     // teacher payment mode by self
@@ -199,7 +206,11 @@ class TourController extends Controller{
     }
 
     public function tourDetail(Request $request){
-        $user = Auth::user();
+        // $user = Auth::user();
+        $user_type = $this->user_category("school");
+        $edu_institutes = Auth::guard($user_type)->user();
+        $edu_institutes_id = 12;
+        $edu_institutes = $this->educational_institute();
         $tour = Tour::with(
             'itinerary:id,title,destination,source,startLoc,endLoc',
             'itinerary.itinerarydays',
@@ -210,7 +221,7 @@ class TourController extends Controller{
         )
         ->where("tour_id",$request->travel_id)
         ->first();
-        $tour['user_id'] = $user->id;
+        $tour['edu_institute_id'] = $edu_institutes->id??0;
         $locations = [];
 
         /*$locSource = \GoogleMaps::load('geocoding')
@@ -223,8 +234,8 @@ class TourController extends Controller{
         ->setParam (['address' => $tour['itinerary']->destination])
         ->get('results.geometry.location');*/
         
-        $tour['startLoc'] = json_decode($tour['itinerary']['startLoc']);
-        $tour['endLoc'] = json_decode($tour['itinerary']['endLoc']);
+        $tour['startLoc'] = json_decode($tour['itinerary']['startLoc']??0);
+        $tour['endLoc'] = json_decode($tour['itinerary']['endLoc']??0);
         $tour['sights'] = SightsResource::collection(
             Bookedsightseeing::where('tour_code',$request->travel_id)->get()
         );
@@ -240,34 +251,40 @@ class TourController extends Controller{
         $this->validate($request, [ 
             'travel_code' => 'required',
         ]);
-        
-        $user = Auth::user();
-        $data = ['user_id'=>$user->id,'travel_code'=>$request->travel_code];
+        $user_type = $this->user_category("school");
+        $edu_institutes = Auth::guard($user_type)->user();
+
+        // $user = Auth::user();
+        $data = ['edu_institute_id'=>$edu_institutes->id??12,'travel_code'=>$request->travel_code];
         $travel = TourUser::where($data)->get();
         if(count($travel) != 0){
             return response()->json('error');
         }
         $tour = Tour::where('travel_code',$request->travel_code)->first();
+        // return $tour->id;
         if(!$tour){
             return response()->json('error');
         }
         $data['tour_code'] = $tour->tour_id;
-        $data['user_type'] = $user->user_type;
+        $data['user_type'] = "school";
         TourUser::create($data);
         return response()->json(['success'=>"success"]);
     }
 
     public function paymentTour(Request $request){
-        $user = Auth::user();
+        // $user = Auth::user();
+        $user_type = $this->user_category("school");
+        $edu_institutes = Auth::guard($user_type)->user();
+        $edu_institutes_id = 12;
+        $edu_institutes = $this->educational_institute();
+
         $tour = Tour::select(['tour_price','travel_code'])
             ->where("tour_id", $request->travel_code)
             ->first();
-
         //----
 
         $data = [];
-        if($user->is_incharge == '1'){
-
+        if($edu_institutes->is_incharge == 1){
         //---
             $tour_user = Groupmember::where('tour_id',$request->travel_code)
             ->select('is_paid')
@@ -289,8 +306,9 @@ class TourController extends Controller{
             $data['user_id'] = $user->id;
             $data['travel_code'] = $tour->travel_code;
         }else{
-            $data['base_price'] = $tour->tour_price;
-            $data['user_id'] = $user->id;
+            $data['base_price'] = $tour->tour_price??0;
+            // $data['user_id'] = $user->id;
+            $data['edu_institute_id'] = $edu_institutes->id;
             $data['travel_code'] = $tour->travel_code;
         }
         return response()->json($data);

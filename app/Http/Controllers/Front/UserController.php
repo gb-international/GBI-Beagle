@@ -102,8 +102,10 @@ class UserController extends Controller{
         $user_category = new UserCategory(); 
         $user_type = $user_category->user_category($request->user_profession??'');
         $edu_institutes = Auth::guard($user_type)->user();
+        $edu_institutes = $this->educational_institute();
+
+        $userId = $edu_institutes->id??0;
         
-        $userId = Auth::guard('school')->user()->id??0;
         $validator = Validator::make($request->all(), [ 
             'name' => 'required', 
             'email' => ['required','email',new EmailValidate, 'unique:edu_institutes,email,'.$userId.',id'],
@@ -113,7 +115,7 @@ class UserController extends Controller{
         if ($validator->fails()) { 
             return response()->json(['error'=>$validator->errors()], 422);            
         }
-        $edu_institutes = Auth::guard('school')->user();
+        // $edu_institutes = Auth::guard('school')->user();
         $edu_institutes->name = $request->name??$edu_institutes->name;
         $edu_institutes->email = $request->email??$edu_institutes->email;
         $edu_institutes->gbi_link = $request->gbi_link??$edu_institutes->gbi_link;
@@ -152,21 +154,28 @@ class UserController extends Controller{
     }
 
     public function UserImage(Request $request){
-        $user = Auth::user();
+        // $user = Auth::user();
+        $edu_institutes = Auth::guard('school')->user();
+        $edu_institutes_id = 12;
+        $edu_institutes = $this->educational_institute();
+
         if ($request->hasFile('photo')) {
            $file = $request->file('photo');
            $name = time().'-'.$file->getClientOriginalName();
            $filePath = config('gbi.user_image') . $name;
            \Storage::disk('s3')->put($filePath, file_get_contents($file));
        }
-        $information = Information::where('user_id', $user->id)->first();
-        $information->photo = $name;
-        $information->save();
-        return response()->json(['photo'=>$information->photo]);
+        // $information = Information::where('user_id', $user->id)->first();
+        $edu_institutes->photo = $name;
+        $edu_institutes->save();
+        return response()->json(['photo'=>$edu_institutes->photo]);
     }
 
     public function UserDocs(Request $request){
-        $user = Auth::user();
+        // $user = Auth::user();
+        $edu_institutes = Auth::guard('school')->user();
+        $edu_institutes_id = 12;
+        $edu_institutes = $this->educational_institute();
 
         $validator = Validator::make($request->all(), [ 
             'docFront' => 'required|file|max:5000',
@@ -178,15 +187,15 @@ class UserController extends Controller{
             return response()->json(['error'=>$validator->errors()], 422);            
         }
 
-        $information = Information::where('user_id', $user->id)->first();
-        $information->docType = $request->docType;
+        // $information = Information::where('user_id', $user->id)->first();
+        $edu_institutes->docType = $request->docType;
 
         if ($request->hasFile('docFront')) {
            $file1 = $request->docFront;
            $name1 = time().'-'.$file1->getClientOriginalName();
            $filePath1 = config('gbi.user_docs') . $name1;
            \Storage::disk('s3')->put($filePath1, file_get_contents($file1));
-           $information->docFront = $name1;
+           $edu_institutes->docFront = $name1;
        }
 
        if ($request->hasFile('docBottom')) {
@@ -194,11 +203,11 @@ class UserController extends Controller{
            $name2 = time().'-'.$file2->getClientOriginalName();
            $filePath2 = config('gbi.user_docs') . $name2;
            \Storage::disk('s3')->put($filePath2, file_get_contents($file2));
-           $information->docBack = $name2;
+           $edu_institutes->docBack = $name2;
        }
-       $information->save();
+       $edu_institutes->save();
         
-        return response()->json(['docType'=>$information->docType, 'docFront'=>$information->docFront, 'docBack'=>$information->docBack]);
+        return response()->json(['docType'=>$edu_institutes->docType, 'docFront'=>$edu_institutes->docFront, 'docBack'=>$edu_institutes->docBack]);
     }
     // User Edit 
 /** 
@@ -208,19 +217,19 @@ class UserController extends Controller{
      */ 
     public function details() 
     { 
-        $user = auth()->user();
-        return $user;
-        $user = Auth::user();
-        $information = $user->information;
-        $search = $user->search;
-        return response()->json(['success' => $user], $this-> successStatus); 
+        $edu_institutes = Auth::guard('school')->user();
+        $edu_institutes_id = 12;
+        $edu_institutes = $this->educational_institute();
+        return response()->json(['success' => $edu_institutes], $this-> successStatus); 
     } 
-
+    
     public function show(){
-        $user = Auth::guard('school')->user();
-        $information = $user->information;
-        $information = $user->subscribe;
-        return response()->json(['success' => $user], $this-> successStatus); 
+        $edu_institutes = Auth::guard('school')->user();
+        // $edu_institutes = $user->information;
+        $edu_institutes_id = 12;
+        $edu_institutes = $this->educational_institute();
+        $information = $edu_institutes->subscribe;
+        return response()->json(['success' => $edu_institutes], $this-> successStatus); 
     }
     /// user more information on model from model
     public function infoUpdate(Request $request){
@@ -261,10 +270,10 @@ class UserController extends Controller{
             'new_password' => ['required'],
             'confirm_password' => ['same:new_password'],
         ]);
-        $user->update(['password'=> Hash::make($request->new_password)]);
-        $info = Information::where('user_id',$user->id)->first();
-        $info->change_password = 1;
-        $info->save(); 
+        $user->update(['password'=> Hash::make($request->new_password), 'change_password'=>1]);
+        // $info = Information::where('user_id',$user->id)->first();
+        // $info->change_password = 1;
+        // $info->save(); 
         ChangePasswordJob::dispatchNow($user);
         return response()->json('Password change successfully.');
     }
