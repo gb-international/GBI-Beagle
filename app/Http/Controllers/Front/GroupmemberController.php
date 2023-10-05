@@ -39,7 +39,6 @@ class GroupmemberController extends BaseController
                 $data['edu_institute_id'] = $edu_institutes_id;
                 $data['tour_id'] = $request->tour_id??'';
                 $data['school_id'] = $request->school_id??'';
-                $data['user_type'] = $request->user_type??'';
                 Groupmember::create($data);
             }
         }

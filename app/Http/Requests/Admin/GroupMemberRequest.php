@@ -30,19 +30,15 @@ class GroupMemberRequest extends FormRequest
     public function rules()
     {  
         return [
-            'data' => 'required|array',
-            "data.*.first_name" => ['required',new AlphaSpace],
-            "data.*.last_name" => ['required',new AlphaSpace],
-            "data.*.email" => ['required','email',new EmailValidate],
-            "data.*.gender" => "required|in:M,F",
-            "data.*.age" => "required|numeric",
-            "data.*.mobile" => ['required','numeric',new PhoneNubmerValidate],
-            "data.*.srNo" => "required|numeric",
-            "data.*.sr_no" => "required|numeric",
-            "data.*.tour_id"=> "required|exists:tours,tour_id",
-            "data.*.school_id"=> "required|exists:schools,id",
-            "data.*.user_type"=> "required|in:student,teacher",
-            "data.*.is_paid"=> "required|numeric",
+            'tour_id'=>'required|exists:tours,tour_id',
+            'school_id'=>'required|exists:schools,id',
+            'details' => 'required|array',
+            "details.*.first_name" => ['required',new AlphaSpace],
+            "details.*.last_name" => ['required',new AlphaSpace],
+            "details.*.email" => ['required','email',new EmailValidate],
+            "details.*.gender" => "required|in:M,F",
+            "details.*.age" => "required|numeric",
+            "details.*.mobile" => ['required','numeric',new PhoneNubmerValidate],
         ];
     }
     protected function failedValidation(Validator $validator) : void

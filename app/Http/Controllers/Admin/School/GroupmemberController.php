@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\School;
 
 use App\Http\Controllers\Controller;
+use App\Model\School\EducationInstitute as EduInstitute; 
 use Illuminate\Http\Request;
 use App\Model\School\Groupmember;
 use App\Model\User\Subscriber;
@@ -15,6 +16,7 @@ use App\Helpers\SendSms;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\AccountRegistered;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\Admin\GroupMemberRequest;
 
 class GroupmemberController extends Controller
 {
@@ -44,49 +46,50 @@ class GroupmemberController extends Controller
         return response()->json('successfully delete');
     }
 
-    public function addMember(Request $request){
-        foreach ($request->all() as $row) {
-            Groupmember::create($row);
+    public function addMember(GroupMemberRequest $request){
+        $edu_institute = EduInstitute::where('school_id', $request->school_id??0)->first();
+        $edu_institutes_id = $edu_institute->id??0;
+        if($request->details){
+            foreach ($request->details as $data) {
+                $data['edu_institute_id'] = $edu_institutes_id;
+                $data['tour_id'] = $request->tour_id??'';
+                $data['school_id'] = $request->school_id??'';
+                Groupmember::create($data);
+            }
         }
         return response()->json('succesfully added');
     }
 
-    public function addlogindetail(Request $request){
-        $tour_id = $request->all()[0]['tour_id'];
-        $travel_code = Tour::select('travel_code','id','tour_id')->where('tour_id',$tour_id)->first();
-
-        foreach ($request->all() as $groupmember) {
+    public function addlogindetail(GroupMemberRequest $request){
+        $travel_code = Tour::select('travel_code','id','tour_id')->where('tour_id',$request->tour_id)->first();
+        foreach ($request->details as $groupmember) {
             // validate if user email is already registered
-            $user = User::where('email',$groupmember['email'])->first();
-            if(!$user){
-                $user = $this->createUser($groupmember);
-                $message = 'Welcome in GBI-International Please login to GBI panel with credentials Email Id : '. $groupmember['email']. ' And password : '. $groupmember['email'].' Thank you.';
+            $edu_institute = EduInstitute::where('email',$groupmember['email'])->first();
+            if(!$edu_institute){
+                $edu_institute  = $this->createEduInstitute($groupmember, $request->school_id);
+                $message = 'Welcome in GBI-International Please login  to GBI panel with credentials Email Id : '. $groupmember['email']. ' And password : '. $groupmember['email'].' Thank you.';
                 // subscribe for newsletter
-                if( !$subscriber = Subscriber::where('email',$user->email)->first()){
-                    $data['email'] = $user->email;
-                    $data['user_id'] = $user->id;
+                if( !$subscriber = Subscriber::where('email',$edu_institute->email)->first()){
+                    $data['email'] = $edu_institute->email;
+                    $data['edu_institute_id'] = $edu_institute->id;
                     Subscriber::create($data);
                 }
             }else{
                 $message = 'Welcome in GBI-International Please login to GBI panel with your existing Account Thank you.';
             }
+            $user_type =($request->user_type == 0)?'student':'teacher';
             // validate if user id is already registered for the tour
             $tour = [
                 'travel_code'=>$travel_code->travel_code,
-                'user_id'=>$user->id,
-                'tour_code'=>$tour_id,
-                'user_type' => $groupmember['user_type'],
-                'is_paid' => $groupmember['is_paid']
+                'edu_institute_id'=>$edu_institute->id,
+                'tour_code'=>$request->tour_id,
+                'user_type' => $user_type,
+                'is_paid' => $groupmember['is_paid']??0
             ];
             $tour_user = TourUser::where($tour)->first();
             if(!$tour_user){
                 $tour_user = TourUser::create($tour);
             }
-            $tour['name'] =$groupmember['first_name'].' '.$groupmember['last_name'];
-            $tour['email'] = $groupmember['email'];
-            $tour['password'] = $groupmember['email'];
-            $tour['travel_code'] = $travel_code->travel_code;
-            $tour['phone_no'] = $groupmember['mobile'];
             
             // send notification to each user
             $sendsms = new SendSms;
@@ -95,26 +98,22 @@ class GroupmemberController extends Controller
         return 'successfully added';
     }
 
-    protected function createUser($groupmember){
-        $user = new User();
-        $user->name = $groupmember['first_name'].' '.$groupmember['last_name'];
-        $user->email = $groupmember['email'];
-        $user->password = bcrypt($groupmember['email']);
-        $user->status = 1;
-        $user->save();
-        
-        $more  = new Information();
-        $more->school_id = $groupmember['school_id'];
-        $more->user_profession = 'student';
-        $more->user_id = $user->id;
-        $more->phone_no = $groupmember['mobile'];
-        $more->varified = '1';
-        $more->photo = 'user.png';
-        $more->gender = $groupmember['gender'];
-        $more->change_password = 0;
-        $more->save();
+    protected function createEduInstitute($groupmember, $school_id){
+        $edu_institute = new EduInstitute();
+        $edu_institute->name = $groupmember['first_name'].' '.$groupmember['last_name'];
+        $edu_institute->email = $groupmember['email']??'';
+        $edu_institute->password = bcrypt($groupmember['email']);
+        $edu_institute->status = 1;
+        $edu_institute->school_id = $school_id;
+        $edu_institute->role_type = 0;
+        $edu_institute->phone_no = $groupmember['mobile']??'';
+        $edu_institute->varified = '1';
+        $edu_institute->photo = 'user.png';
+        $edu_institute->gender = $groupmember['gender']??'';
+        $edu_institute->change_password = 0;
 
-        return $user;
+        $edu_institute->save();
+        return $edu_institute;
     }
 
 

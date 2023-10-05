@@ -99,8 +99,7 @@ class UserController extends Controller{
 
     public function update(Request $request)
     {
-        $user_category = new UserCategory(); 
-        $user_type = $user_category->user_category($request->user_profession??'');
+        $user_type = $this->user_category("school");
         $edu_institutes = Auth::guard($user_type)->user();
         $edu_institutes = $this->educational_institute();
 
@@ -160,6 +159,7 @@ class UserController extends Controller{
         $edu_institutes = $this->educational_institute();
 
         if ($request->hasFile('photo')) {
+            // exit;
            $file = $request->file('photo');
            $name = time().'-'.$file->getClientOriginalName();
            $filePath = config('gbi.user_image') . $name;
@@ -188,14 +188,14 @@ class UserController extends Controller{
         }
 
         // $information = Information::where('user_id', $user->id)->first();
-        $edu_institutes->docType = $request->docType;
+        $edu_institutes->doc_type = $request->docType;
 
         if ($request->hasFile('docFront')) {
            $file1 = $request->docFront;
            $name1 = time().'-'.$file1->getClientOriginalName();
            $filePath1 = config('gbi.user_docs') . $name1;
            \Storage::disk('s3')->put($filePath1, file_get_contents($file1));
-           $edu_institutes->docFront = $name1;
+           $edu_institutes->doc_front = $name1;
        }
 
        if ($request->hasFile('docBottom')) {
@@ -203,11 +203,11 @@ class UserController extends Controller{
            $name2 = time().'-'.$file2->getClientOriginalName();
            $filePath2 = config('gbi.user_docs') . $name2;
            \Storage::disk('s3')->put($filePath2, file_get_contents($file2));
-           $edu_institutes->docBack = $name2;
+           $edu_institutes->doc_back = $name2;
        }
        $edu_institutes->save();
         
-        return response()->json(['docType'=>$edu_institutes->docType, 'docFront'=>$edu_institutes->docFront, 'docBack'=>$edu_institutes->docBack]);
+        return response()->json(['docType'=>$edu_institutes->doc_type, 'docFront'=>$edu_institutes->doc_front, 'docBack'=>$edu_institutes->doc_back]);
     }
     // User Edit 
 /** 
@@ -228,20 +228,20 @@ class UserController extends Controller{
         // $edu_institutes = $user->information;
         $edu_institutes_id = 12;
         $edu_institutes = $this->educational_institute();
-        $information = $edu_institutes->subscribe;
+        // $information = $edu_institutes->subscribe;
         return response()->json(['success' => $edu_institutes], $this-> successStatus); 
     }
     /// user more information on model from model
     public function infoUpdate(Request $request){
 
-        $user_category = new UserCategory(); 
-        $user_type = $user_category->user_category($request->user_profession??'');
-        $edu_institutes = Auth::guard($user_type)->user();
+        $edu_institutes = Auth::guard('school')->user();
+        // $edu_institutes = $user->information;
+        $edu_institutes_id = 13;
+        $edu_institutes = $this->educational_institute();
         $edu_institutes->status = 1;
-        $edu_institutes->user_profession = $request->user_profession??'';
+        $edu_institutes->role_type = $request->user_profession??0;
         $edu_institutes->profession_name = $request->profession_name??'';
         $edu_institutes->profession_address = $request->profession_address??'';
-        
         if($request->school_id == 'other'){
             $this->validate($request,[
                 'profession_name'=>'required|unique:schools,school_name',
@@ -263,18 +263,22 @@ class UserController extends Controller{
     }
 
     public function UpdatePassword(Request $request){
-        $user = auth()->guard('school')->user();
+        // return Hash::make($request->new_password);
+        $edu_institutes = Auth::guard('school')->user();
+        // $edu_institutes = $user->information;
+        $edu_institutes_id = 12;
+        $edu_institutes = $this->educational_institute();
         // return Hash::make($request->new_password);
         $request->validate([
-            'current_password' => ['required', new MatchOldPassword($user)],
+            'current_password' => ['required', new MatchOldPassword($edu_institutes)],
             'new_password' => ['required'],
             'confirm_password' => ['same:new_password'],
         ]);
-        $user->update(['password'=> Hash::make($request->new_password), 'change_password'=>1]);
+        $edu_institutes->update(['password'=> Hash::make($request->new_password), 'change_password'=>1]);
         // $info = Information::where('user_id',$user->id)->first();
         // $info->change_password = 1;
         // $info->save(); 
-        ChangePasswordJob::dispatchNow($user);
+        ChangePasswordJob::dispatchNow($edu_institutes);
         return response()->json('Password change successfully.');
     }
 
