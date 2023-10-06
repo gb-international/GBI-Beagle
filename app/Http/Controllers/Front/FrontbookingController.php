@@ -75,7 +75,7 @@ class FrontbookingController extends BaseController
 
             $sendsms = new SendSms;
             // return $edu_institutes;
-            return $sendsms->frontBookingUserSms($edu_institutes,$booking->itinerary->title);
+            $sendsms->frontBookingUserSms($edu_institutes,$booking->itinerary->title);
             return response()->json('Booking query has sent Successfully'); 
         } 
         catch(Exception $e){

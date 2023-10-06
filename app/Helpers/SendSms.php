@@ -44,7 +44,7 @@ class SendSms{
     }
 
     public function frontBookingUserSms($user,$itinerary){
-        $phone = '91'.$user->information->phone_no;
+        $phone = '91'.$user->phone_no;
         $message = "Dear ".ucfirst($user->name)." Thanks for booking Itinerary : ".$itinerary." . Our Agent will Contact you soon.";
         $ApiUrl = "https://www.businesssms.co.in/smsaspx?Id=".$this->id."&Pwd=".urlencode($this->pwd)."&PhNo=".$phone."&TEXT=".urldecode($message);
         $client = new \GuzzleHttp\Client(['verify' => false ]);

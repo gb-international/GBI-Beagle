@@ -31,52 +31,104 @@ use App\Model\School\EducationInstitute as EduInstitute;
 class AuthController extends Controller{
     
     public function login(Request $request){
-        // dd($request->segments(2));
-        // exit;
-        // Check if a user with the specified number exists
-        $edu_institute = EduInstitute::where('phone_no', $request->phone_no)->first();
-        if (!$edu_institute) {
-            return response()->json([
-                'message' => 'Invalid phone number',
-                'status' => 422
-            ], 422);
-        }
         
-        // Check if otp is valid
-        $otpVerify = Otp::where('otp_send', $request->otp)->where('phone_no', $request->phone_no)->first();
-        if (!$otpVerify) {
-            return response()->json([
-                'message' => 'Invalid OTP',
-                'status' => 422
-            ], 422);
+        $validator = Validator::make($request->all(), [ 
+            'email' => ['required','email',new EmailValidate],
+            'password' => 'required',
+        ]);
+
+        if ($validator->fails()) { 
+            return response()->json(['error'=>$validator->errors()], 401);            
         }
+        $credentials = [
+            'email' => $request->email,
+            'password' => $request->password
+        ];
+        return Auth::guard('school')->attempt($credentials);
+
+
+        // return Auth::guard('school');
+        //  config(['auth.guards.school-api.driver' => 'passport']);
+        // if(str_contains(auth()->guard('school-api')->getName(), 'school-api')){
+        //     return ('school');
+        //  }
+
+        if (Auth::guard('school-api')->attempt($credentials)) {
+            // $token = auth()->user()->createToken('TutsForWeb')->accessToken;
+            return auth()->user();
+            
+            return response()->json(['token' => $token, 'user'=>auth("school-api")->user()], 200);
+        } else {
+            return response()->json(['error' => 'UnAuthorised'], 401);
+        }
+//         $authGuard = Auth::guard('school-api');
+// return $authGuard->getName();
+//         if(!$authGuard->attempt(['email' => $request->email, 'password' => $request->email])){ 
+//             $data = 'Invalid Login Credentials';
+//             $code = 401;
+//         } else {
+//                 $user = $authGuard->user();
+//                 $token = $user->createToken('user')->accessToken;
+//                 $code = 200;
+//                 // $sub_id = null;
+//                 // $sub = Subscriber::where('user_id', $user->id)->first();
+//                 // if($sub){
+//                 //     $sub_id = $sub->id;
+//                 // }
+//                 // Get the data from the response
+//                 return response()->json([
+//                     'token' => $token,
+//                     // 'refresh_token' => $data->refresh_token,
+//                     'user' => $user,
+//                     'status' => 200
+//                 ]);
+//         }
+//         return response()->json([$data, $code]); 
+
+
+        // $edu_institute = EduInstitute::where('phone_no', $request->phone_no)->first();
+        // if (!$edu_institute) {
+        //     return response()->json([
+        //         'message' => 'Invalid phone number',
+        //         'status' => 422
+        //     ], 422);
+        // }
         
-        try {
-            $authGuard = Auth::guard('school');
-            if(!$authGuard->attempt(['email' => $edu_institute->email, 'password' => $edu_institute->email])){ 
-                $data = 'Invalid Login Credentials';
-                $code = 401;
-            } else {
-                $user = $authGuard->user();
-                $token = $user->createToken('user')->accessToken;
-                $code = 200;
-                $sub_id = null;
-                $sub = Subscriber::where('user_id', $user->id)->first();
-                if($sub){
-                    $sub_id = $sub->id;
-                }
-                // Get the data from the response
-                return response()->json([
-                    'token' => $token,
-                    // 'refresh_token' => $data->refresh_token,
-                    'user' => $user,
-                    'status' => 200
-                ]);
-            }
-        } catch (Exception $e) { 
-            $data = ['error' => $e->getMessage()];
-        }
-        return response()->json([$data, $code]); 
+        // // Check if otp is valid
+        // $otpVerify = Otp::where('otp_send', $request->otp)->where('phone_no', $request->phone_no)->first();
+        // if (!$otpVerify) {
+        //     return response()->json([
+        //         'message' => 'Invalid OTP',
+        //         'status' => 422
+        //     ], 422);
+        // }
+        
+        // try {
+        //     $authGuard = Auth::guard('school');
+        //     if(!$authGuard->attempt(['email' => $edu_institute->email, 'password' => $edu_institute->email])){ 
+        //         $data = 'Invalid Login Credentials';
+        //         $code = 401;
+        //     } else {
+        //         $user = $authGuard->user();
+        //         $token = $user->createToken('user')->accessToken;
+        //         $code = 200;
+        //         $sub_id = null;
+        //         $sub = Subscriber::where('user_id', $user->id)->first();
+        //         if($sub){
+        //             $sub_id = $sub->id;
+        //         }
+        //         // Get the data from the response
+        //         return response()->json([
+        //             'token' => $token,
+        //             // 'refresh_token' => $data->refresh_token,
+        //             'user' => $user,
+        //             'status' => 200
+        //         ]);
+        //     }
+        // } catch (Exception $e) { 
+        //     $data = ['error' => $e->getMessage()];
+        // }
+        // return response()->json([$data, $code]); 
     }
     /** 
      * Register api 

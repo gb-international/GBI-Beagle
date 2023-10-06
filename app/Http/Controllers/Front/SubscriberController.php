@@ -15,6 +15,7 @@ class SubscriberController extends Controller
             'name'=>'required',
             'client_type'=> ''
         ]);
+        
         // check if user in users table
         if($eduInstitute = EduInstitute::where('email',$data['email'])->first()){
             $data['edu_institute_id'] = $eduInstitute->id??12;

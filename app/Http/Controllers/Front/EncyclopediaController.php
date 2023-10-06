@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\Front;
 use App\Model\Encyclopedia\Encyclopedia;
 use App\Model\Encyclopedia\Encyclopediacomment;
@@ -47,6 +48,24 @@ class EncyclopediaController extends BaseController
             return $this->sendError($e->getMessage(), 500);
         }
     } 
+    public function encyclopediaBasedOnItineraryDestinatiopn($state, $size = null){
+        try {
+            if (!$size) {
+                $size = 10;
+            }
+
+            $encyclopedia = Encyclopedia::where('state_name', $state)->orWhere('city_name', $state)->latest('id')->paginate($size);
+            if (!empty($encyclopedia)) {
+                return $this->sendResponse($encyclopedia, 'Success', 200);
+            } else {
+                return $this->sendError('data not found', 404);
+            }
+        }
+        catch (Exception $e) {
+            return $this->sendError($e->getMessage(), 500);
+        }
+    }
+    
 
     public function index()
     {

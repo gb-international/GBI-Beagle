@@ -52,7 +52,7 @@ class TourController extends Controller{
             ->where('edu_institute_id',$edu_institutes->id)
             ->select('id','user_id', 'edu_institute_id', 'tour_code','travel_code','status','is_paid','user_type')
             ->get();
-            return $travels;
+            // return $travels;
             if(count($travels) >0){
                 $edu_institute = EduInstitute::where('school_id',$request->school_id)
                     ->select('id')
@@ -303,7 +303,7 @@ class TourController extends Controller{
             $data['teachers'] = Groupmember::where('tour_id', $request->travel_code)->where('user_type', 'teacher')->count();
 
             $data['base_price'] = $tour->tour_price;
-            $data['user_id'] = $user->id;
+            $data['edu_institute_id'] = $edu_institutes->id;
             $data['travel_code'] = $tour->travel_code;
         }else{
             $data['base_price'] = $tour->tour_price??0;

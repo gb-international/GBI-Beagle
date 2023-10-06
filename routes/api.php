@@ -132,6 +132,7 @@ Route::namespace('Front')->group(function(){
 		Route::controller(EncyclopediaController::class)->group(function () {
 			Route::get('/short-itinerary-based-on-encyclopedia/{state}/{limit?}', 'shortItineraryBasedOnEncyclopedia');
 			Route::get('/itinerary-based-on-encyclopedia/{state}/{limit?}', 'itineraryBasedOnEncyclopedia');
+			Route::get('/encyclopedia-based-on-itinerary-destinatiopn/{state}/{limit?}', 'encyclopediaBasedOnItineraryDestinatiopn');
 		});	
 	});
 	

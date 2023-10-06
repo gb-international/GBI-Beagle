@@ -47,14 +47,14 @@ return [
         ],
     
         'school' => [
-            'driver' => 'session',
+            'driver' => 'passport',
             'provider' => 'schools',
         ],
     
-        'school-api' => [
-            'driver' => 'token',
-            'provider' => 'schools',
-        ],
+        // 'edu_institutes' => [
+        //     'driver' => 'passport',
+        //     'provider' => 'edu_institutes',
+        // ],
         // 'web' => [
         //     'driver' => 'session',
         //     'provider' => 'users',
