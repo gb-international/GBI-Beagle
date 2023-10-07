@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Front\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,7 +52,9 @@ Route::namespace('Front')->group(function(){
 	Route::post('/search-post','BlogController@searchPost');
 	Route::post('/add-post-comment','BlogController@addComment');
 	// Front user controller 
-	Route::post('login-user', 'AuthController@login');
+	Route::post('login-user', [AuthController::class, 'login']);
+
+	// Route::post('login-user', 'AuthController@login');
 	Route::post('register-user', 'AuthController@register');
 	Route::post('refreshtoken','AuthController@refresh');
 

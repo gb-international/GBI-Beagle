@@ -45,10 +45,15 @@ return [
             'driver' => 'token',
             'provider' => 'users',
         ],
-    
+
         'school' => [
+            'driver' => 'session',
+            'provider' => 'school',
+        ],
+    
+        'school-api' => [
             'driver' => 'passport',
-            'provider' => 'schools',
+            'provider' => 'school',
         ],
     
         // 'edu_institutes' => [
@@ -91,7 +96,7 @@ return [
             'driver' => 'eloquent',
             'model' => App\User::class,
         ],
-        'schools' => [
+        'school' => [
             'driver' => 'eloquent',
             'model' => App\Model\School\EducationInstitute::class,
         ],
@@ -116,12 +121,6 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
-            'table' => 'password_resets',
-            'expire' => 60,
-            'throttle' => 60,
-        ],
-        'edu_institutes' => [
-            'provider' => 'edu_institutes',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,

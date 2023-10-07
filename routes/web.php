@@ -13,6 +13,18 @@ use App\Mail\WelcomeMail;
     dd('Event Run Successfully.');
 });*/
 
+Route::get('/clear', function() {
+
+    Artisan::call('cache:clear');
+    Artisan::call('config:clear');
+    Artisan::call('config:cache');
+    Artisan::call('view:clear');
+    Artisan::call('route:clear');
+
+    return "Cleared!";
+
+});
+
 Route::get('/event-test', function () {
     event(new App\Events\SendNotification('Guest'));
     return "Notif has been sent!";

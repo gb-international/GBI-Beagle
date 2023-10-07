@@ -80,11 +80,6 @@ class RouteServiceProvider extends ServiceProvider
              ->middleware('api')
              ->namespace($this->namespace)
              ->group(base_path('routes/admin.php'));
-             
-        // Route::prefix('api/education_institute')
-        //      ->middleware(['api', 'auth:education_institute', 'scopes:education_institute'])
-        //      ->namespace($this->namespace)
-        //      ->group(base_path('routes/api.php'));
     }
 
 
@@ -94,6 +89,16 @@ class RouteServiceProvider extends ServiceProvider
              ->middleware('api')
              ->namespace($this->namespace)
              ->group(base_path('routes/api.php'));
+
+        // Route::prefix('api/school')
+        //      ->middleware(['api', 'auth:school-api', 'scopes:school'])
+        //      ->namespace($this->namespace)
+    //      ->group(base_path('routes/api.php'));
+
+        // Route::prefix('api/unauth/{slug}')
+        //      ->middleware('api')
+        //      ->namespace($this->namespace)
+        //      ->group(base_path('routes/unauth.php'));
     }
 
     
@@ -104,5 +109,4 @@ class RouteServiceProvider extends ServiceProvider
              ->namespace($this->namespace)
              ->group(base_path('routes/escort.php'));
     }
-
 }

@@ -13,8 +13,8 @@ use App\Model\User\Information;
 use App\Model\Tour\TourUser;
 use App\Model\Tour\Tour;
 use App\Model\School\School;
-use Illuminate\Support\Facades\Auth;
-// use Auth;
+// use Illuminate\Support\Facades\Auth;
+use Auth;
 use Validator;
 use DB;
 use Image;
@@ -31,11 +31,11 @@ use App\Model\School\EducationInstitute as EduInstitute;
 class AuthController extends Controller{
     
     public function login(Request $request){
-        
         $validator = Validator::make($request->all(), [ 
             'email' => ['required','email',new EmailValidate],
             'password' => 'required',
         ]);
+        // return Auth::guard('school')->getName();
 
         if ($validator->fails()) { 
             return response()->json(['error'=>$validator->errors()], 401);            
@@ -44,25 +44,55 @@ class AuthController extends Controller{
             'email' => $request->email,
             'password' => $request->password
         ];
-        return Auth::guard('school')->attempt($credentials);
-
-
-        // return Auth::guard('school');
-        //  config(['auth.guards.school-api.driver' => 'passport']);
-        // if(str_contains(auth()->guard('school-api')->getName(), 'school-api')){
-        //     return ('school');
-        //  }
-
-        if (Auth::guard('school-api')->attempt($credentials)) {
-            // $token = auth()->user()->createToken('TutsForWeb')->accessToken;
-            return auth()->user();
-            
-            return response()->json(['token' => $token, 'user'=>auth("school-api")->user()], 200);
-        } else {
+        if (Auth::guard('school')->attempt($credentials)) {
+                $token = Auth::guard('school')->user()->createToken('MyToken',['school'])->accessToken;                
+                return response()->json(['token' => $token, 'user'=>Auth::guard('school')->user()], 200);
+        }
+        else {
             return response()->json(['error' => 'UnAuthorised'], 401);
         }
-//         $authGuard = Auth::guard('school-api');
-// return $authGuard->getName();
+        // $client = DB::table('oauth_clients')
+        // ->where('password_client', true)
+        // ->first();
+    
+        // // Make sure a Password Client exists in the DB
+        // if (!$client) {
+        //     return response()->json([
+        //         'message' => 'Laravel Passport is not setup properly.',
+        //         'status' => 500
+        //     ], 500);
+        // }
+        
+        // $data = [
+        //     'grant_type' => 'password',
+        //     'client_id' => $client->id,
+        //     'client_secret' => $client->secret,
+        //     'email' => $request->email,
+        //     'password' => $request->password,
+        //     'scope' => 'school',
+        // ];
+
+        $request = Request::create('/oauth/token', 'POST', $data);
+        
+        $response = app()->handle($request);
+        // Check if the request was successful
+        if ($response->getStatusCode() != 200) {
+            return response()->json([
+                'message' => 'Wrong details, please try again',
+                //'response' => $response,
+                'status' => 422
+            ], 422);
+        }
+
+        // if (Auth::guard('school')->attempt($credentials)) {
+        //     $token = Auth::user()->createToken('MyApp',[\Request::segment(3)])->accessToken;
+        //     // return auth()->user();
+            
+        //     return response()->json(['token' => $token, 'user'=>auth("school-api")->user()], 200);
+        // } else {
+        //     return response()->json(['error' => 'UnAuthorised'], 401);
+        // }
+        
 //         if(!$authGuard->attempt(['email' => $request->email, 'password' => $request->email])){ 
 //             $data = 'Invalid Login Credentials';
 //             $code = 401;

@@ -34,20 +34,22 @@ class AuthServiceProvider extends ServiceProvider
             $this->makeOtpGrant(), 
             Passport::tokensExpireIn()
         );*/
-
-        Passport::routes();
+        if (! $this->app->routesAreCached()) {
+            Passport::routes();
+       }
+        // Passport::routes();
         Passport::tokensExpireIn(Carbon::now()->addDays(5));
         Passport::refreshTokensExpireIn(Carbon::now()->addDays(5));
+        Passport::tokensCan([
+            'school' => 'For education institute',
+        ]);
+        Passport::setDefaultScope([
+            'school',
+        ]);
 
         Gate::before(function ($user, $ability) {
             return $user->hasRole('Admin') ? true : null;
         });
-        Passport::tokensCan([
-            'school' => 'For education institute',
-        ]);
-        // Passport::setDefaultScope([
-        //     'school',
-        // ]);
 
     }
 

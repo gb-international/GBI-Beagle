@@ -216,10 +216,8 @@ class UserController extends Controller{
      * @return \Illuminate\Http\Response 
      */ 
     public function details() 
-    { 
-        $edu_institutes = Auth::guard('school')->user();
-        $edu_institutes_id = 12;
-        $edu_institutes = $this->educational_institute();
+    {  
+        $edu_institutes = Auth::guard('school-api')->user();
         return response()->json(['success' => $edu_institutes], $this-> successStatus); 
     } 
     

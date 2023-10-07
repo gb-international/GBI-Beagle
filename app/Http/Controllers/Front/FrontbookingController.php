@@ -57,7 +57,7 @@ class FrontbookingController extends BaseController
             if($request->sightseen != null){
                 foreach ($request->sightseen as $sight) {
                     $sightseen .= $sight['name'].', ';
-                }
+                 }
             }
 
             // $validate['user_id'] = $user->id;
@@ -128,8 +128,6 @@ class FrontbookingController extends BaseController
             );
         FrontBookingUserJob::dispatchNow($data);
     }
-
-
 
     public function validateBooking($request)
     {
