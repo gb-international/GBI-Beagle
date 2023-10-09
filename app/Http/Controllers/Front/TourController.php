@@ -207,10 +207,8 @@ class TourController extends Controller{
 
     public function tourDetail(Request $request){
         // $user = Auth::user();
-        $user_type = $this->user_category("school");
+        $user_type = $this->user_category($request->user_type??'');
         $edu_institutes = Auth::guard($user_type)->user();
-        $edu_institutes_id = 12;
-        $edu_institutes = $this->educational_institute();
         $tour = Tour::with(
             'itinerary:id,title,destination,source,startLoc,endLoc',
             'itinerary.itinerarydays',
@@ -273,11 +271,8 @@ class TourController extends Controller{
 
     public function paymentTour(Request $request){
         // $user = Auth::user();
-        $user_type = $this->user_category("school");
+        $user_type = $this->user_category($request->user_type??'');
         $edu_institutes = Auth::guard($user_type)->user();
-        $edu_institutes_id = 12;
-        $edu_institutes = $this->educational_institute();
-
         $tour = Tour::select(['tour_price','travel_code'])
             ->where("tour_id", $request->travel_code)
             ->first();

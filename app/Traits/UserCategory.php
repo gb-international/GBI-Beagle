@@ -9,17 +9,17 @@ trait UserCategory
   }
     public function user_category($category=''){        
         switch ($category) {
-            case "other":
+            case "other-api":
                 return $category;
               break;
-            case "corporate":
+            case "corporate-api":
                 return $category;
               break;
-            case "student":
+            case "student-api":
                 return $category;
               break;
             default:
-            return "school";
+            return "school-api";
         }    
     }
 }

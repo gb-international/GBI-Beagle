@@ -41,8 +41,7 @@ class FeedbackController extends BaseController
         //     'escort_hospitality'=>'required',
         //     'comments'=>''
         // ]);
-        $user_type = $this->user_category("school");
-
+        $user_type = $this->user_category($request->user_type??'');
         //Checking if user exists
         $edu_institute = EduInstitute::where('email',$request->email)->first();
 

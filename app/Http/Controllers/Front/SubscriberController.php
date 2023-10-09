@@ -18,7 +18,7 @@ class SubscriberController extends Controller
         
         // check if user in users table
         if($eduInstitute = EduInstitute::where('email',$data['email'])->first()){
-            $data['edu_institute_id'] = $eduInstitute->id??12;
+            $data['edu_institute_id'] = $eduInstitute->id??0;
             Subscriber::create($data);
         }else{
             // add data to table

@@ -16,19 +16,9 @@ class FrontbookingController extends BaseController
 {
     public function booking(FrontbookingRequest $request){
         try{
-            // $user = Auth::user();
+            $user_type = $this->user_category($request->user_type??'');
+            // $edu_institutes = Auth::guard($user_type)->user();
 
-            $user_type = $this->user_category("school");
-            // return $user_type;
-            // $user = Auth::user();
-            
-            // $user_category = new UserCategory(); 
-            // $user_type = $user_category->user_category($request->user_profession??'');
-            // return $user_type;
-            $edu_institutes = Auth::guard($user_type)->user();
-            $edu_institutes_id = 12;
-            $edu_institutes = $this->educational_institute();
-            // $validate = $this->validateBooking($request);
             $data = array();
             $data['start_date'] = $request->start_date??'';
             $data['end_date'] = $request->end_date??'';
@@ -61,7 +51,7 @@ class FrontbookingController extends BaseController
             }
 
             // $validate['user_id'] = $user->id;
-            $data['edu_institute_id'] = $edu_institutes_id;
+            $data['edu_institute_id'] = $edu_institutes->id??0;
             $data['noofday'] = $request->noofday??0;
             $data['accomodation'] = $request->accommodation??0;
             // $data['itinerary_id'] = $request->itinerary_id;

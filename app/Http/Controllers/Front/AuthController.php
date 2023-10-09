@@ -35,8 +35,6 @@ class AuthController extends Controller{
             'email' => ['required','email',new EmailValidate],
             'password' => 'required',
         ]);
-        // return Auth::guard('school')->getName();
-
         if ($validator->fails()) { 
             return response()->json(['error'=>$validator->errors()], 401);            
         }
@@ -51,114 +49,6 @@ class AuthController extends Controller{
         else {
             return response()->json(['error' => 'UnAuthorised'], 401);
         }
-        // $client = DB::table('oauth_clients')
-        // ->where('password_client', true)
-        // ->first();
-    
-        // // Make sure a Password Client exists in the DB
-        // if (!$client) {
-        //     return response()->json([
-        //         'message' => 'Laravel Passport is not setup properly.',
-        //         'status' => 500
-        //     ], 500);
-        // }
-        
-        // $data = [
-        //     'grant_type' => 'password',
-        //     'client_id' => $client->id,
-        //     'client_secret' => $client->secret,
-        //     'email' => $request->email,
-        //     'password' => $request->password,
-        //     'scope' => 'school',
-        // ];
-
-        $request = Request::create('/oauth/token', 'POST', $data);
-        
-        $response = app()->handle($request);
-        // Check if the request was successful
-        if ($response->getStatusCode() != 200) {
-            return response()->json([
-                'message' => 'Wrong details, please try again',
-                //'response' => $response,
-                'status' => 422
-            ], 422);
-        }
-
-        // if (Auth::guard('school')->attempt($credentials)) {
-        //     $token = Auth::user()->createToken('MyApp',[\Request::segment(3)])->accessToken;
-        //     // return auth()->user();
-            
-        //     return response()->json(['token' => $token, 'user'=>auth("school-api")->user()], 200);
-        // } else {
-        //     return response()->json(['error' => 'UnAuthorised'], 401);
-        // }
-        
-//         if(!$authGuard->attempt(['email' => $request->email, 'password' => $request->email])){ 
-//             $data = 'Invalid Login Credentials';
-//             $code = 401;
-//         } else {
-//                 $user = $authGuard->user();
-//                 $token = $user->createToken('user')->accessToken;
-//                 $code = 200;
-//                 // $sub_id = null;
-//                 // $sub = Subscriber::where('user_id', $user->id)->first();
-//                 // if($sub){
-//                 //     $sub_id = $sub->id;
-//                 // }
-//                 // Get the data from the response
-//                 return response()->json([
-//                     'token' => $token,
-//                     // 'refresh_token' => $data->refresh_token,
-//                     'user' => $user,
-//                     'status' => 200
-//                 ]);
-//         }
-//         return response()->json([$data, $code]); 
-
-
-        // $edu_institute = EduInstitute::where('phone_no', $request->phone_no)->first();
-        // if (!$edu_institute) {
-        //     return response()->json([
-        //         'message' => 'Invalid phone number',
-        //         'status' => 422
-        //     ], 422);
-        // }
-        
-        // // Check if otp is valid
-        // $otpVerify = Otp::where('otp_send', $request->otp)->where('phone_no', $request->phone_no)->first();
-        // if (!$otpVerify) {
-        //     return response()->json([
-        //         'message' => 'Invalid OTP',
-        //         'status' => 422
-        //     ], 422);
-        // }
-        
-        // try {
-        //     $authGuard = Auth::guard('school');
-        //     if(!$authGuard->attempt(['email' => $edu_institute->email, 'password' => $edu_institute->email])){ 
-        //         $data = 'Invalid Login Credentials';
-        //         $code = 401;
-        //     } else {
-        //         $user = $authGuard->user();
-        //         $token = $user->createToken('user')->accessToken;
-        //         $code = 200;
-        //         $sub_id = null;
-        //         $sub = Subscriber::where('user_id', $user->id)->first();
-        //         if($sub){
-        //             $sub_id = $sub->id;
-        //         }
-        //         // Get the data from the response
-        //         return response()->json([
-        //             'token' => $token,
-        //             // 'refresh_token' => $data->refresh_token,
-        //             'user' => $user,
-        //             'status' => 200
-        //         ]);
-        //     }
-        // } catch (Exception $e) { 
-        //     $data = ['error' => $e->getMessage()];
-        // }
-        // return response()->json([$data, $code]); 
     }
     /** 
      * Register api 
@@ -198,19 +88,28 @@ class AuthController extends Controller{
     }
 
     public function logout(Request $request){
-
-        $accessToken = auth()->user()->token();
-        Auth::user()->tokens->each(function($token,$key){
-            $token->delete();
-        });
-
-        $refreshToken = DB::table('oauth_refresh_tokens')
+        $user_type = $this->user_category($request->user_type??'');
+        $accessToken = Auth::guard($user_type)->user()->token();
+        \DB::table('oauth_refresh_tokens')
             ->where('access_token_id', $accessToken->id)
             ->update([
                 'revoked' => true
             ]);
 
         $accessToken->revoke();
+        // return $user_type;
+        // $accessToken = auth()->user()->token();
+        // Auth::user()->tokens->each(function($token,$key){
+        //     $token->delete();
+        // });
+
+        // $refreshToken = DB::table('oauth_refresh_tokens')
+        //     ->where('access_token_id', $accessToken->id)
+        //     ->update([
+        //         'revoked' => true
+        //     ]);
+
+        // $accessToken->revoke();
 
         return response()->json('Logged out successfully');
     }
