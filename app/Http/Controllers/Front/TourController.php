@@ -31,10 +31,9 @@ use App\Model\School\EducationInstitute as EduInstitute;
 class TourController extends Controller{
 
      public function tourList(Request $request){
-        $user_type = $this->user_category("school");
+        $user_type = $this->user_category($request->user_type??'');
+        // $edu_institutes = Auth::guard($user_type)->user();
         $edu_institutes = Auth::guard($user_type)->user();
-        $edu_institutes_id = 12;
-        $edu_institutes = $this->educational_institute();
         // $user = Auth::user();
         $total_pax = Groupmember::where('tour_id', $request->travel_code)->count();
         $already_paid = Groupmember::where('tour_id', $request->travel_code)->where('payment_status', 'success')->count();
@@ -249,17 +248,18 @@ class TourController extends Controller{
         $this->validate($request, [ 
             'travel_code' => 'required',
         ]);
-        $user_type = $this->user_category("school");
+
+        $user_type = $this->user_category($request->user_type??'');
         $edu_institutes = Auth::guard($user_type)->user();
 
-        // $user = Auth::user();
         $data = ['edu_institute_id'=>$edu_institutes->id??12,'travel_code'=>$request->travel_code];
+
         $travel = TourUser::where($data)->get();
         if(count($travel) != 0){
             return response()->json('error');
         }
         $tour = Tour::where('travel_code',$request->travel_code)->first();
-        // return $tour->id;
+
         if(!$tour){
             return response()->json('error');
         }
@@ -270,13 +270,12 @@ class TourController extends Controller{
     }
 
     public function paymentTour(Request $request){
-        // $user = Auth::user();
+
         $user_type = $this->user_category($request->user_type??'');
         $edu_institutes = Auth::guard($user_type)->user();
         $tour = Tour::select(['tour_price','travel_code'])
             ->where("tour_id", $request->travel_code)
             ->first();
-        //----
 
         $data = [];
         if($edu_institutes->is_incharge == 1){

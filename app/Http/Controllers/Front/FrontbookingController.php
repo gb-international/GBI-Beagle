@@ -17,8 +17,7 @@ class FrontbookingController extends BaseController
     public function booking(FrontbookingRequest $request){
         try{
             $user_type = $this->user_category($request->user_type??'');
-            // $edu_institutes = Auth::guard($user_type)->user();
-
+            $edu_institutes = Auth::guard($user_type)->user();
             $data = array();
             $data['start_date'] = $request->start_date??'';
             $data['end_date'] = $request->end_date??'';

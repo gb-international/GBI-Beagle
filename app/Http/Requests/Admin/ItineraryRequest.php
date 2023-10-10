@@ -29,9 +29,6 @@ class ItineraryRequest extends FormRequest
             'description' => 'required|min:3',
             'tourtype' => 'required',
             'food' => 'required|numeric|between:0,1',
-            'photo' => 'required',
-            // 'photo_alt' => '',
-            // 'detail_photo.*' => 'image|file',
             'hotel_type'=>'required',
             'bus'=>'required|numeric|between:0,1',
              'train'=>'required|numeric|between:0,1',
@@ -44,9 +41,7 @@ class ItineraryRequest extends FormRequest
             'itinerarydays.*.day_source' => 'required',
             'itinerarydays.*.day_destination' => 'required|different:day_source',
             'itinerarydays.*.day_description' => 'required',
-            // 'tags.*.id' => 'required',
-            // 'tourtypes.*.id' => 'required',
-            // 'seasons.*.id' => 'required',
+            'policy' => 'required',
         ];
     }
     protected function failedValidation(Validator $validator) : void

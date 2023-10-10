@@ -87,6 +87,7 @@ class ItineraryController extends BaseController
             $data['client_type'] = $request->client_type??'';
             $data['meta_title'] = $request->meta_title??'';
             $data['meta_description'] = $request->meta_description??'';
+            $data['policy'] = $request->policy??'';
             $tag_id= array();
             $meta_keyword="";   
             foreach ($request->tags as $tag) {
@@ -260,6 +261,7 @@ class ItineraryController extends BaseController
             $data['client_type'] = $request->client_type??$itinerary->client_type;
             $data['meta_title'] = $request->meta_title??$itinerary->meta_title;
             $data['meta_description'] = $request->meta_description??$itinerary->meta_description;
+            $data['policy'] = $request->policy??$itinerary->policy;
             //$data = $request->all();
             $tag_id= [];
             $meta_keyword="";

@@ -15,38 +15,33 @@ class SchoolbankdetailController extends BaseController
     }
 
     public function bankdetails(Request $request){
-        $user_type = $this->user_category("school");
+        $user_type = $this->user_category($request->user_type??'');
         $edu_institutes = Auth::guard($user_type)->user();
-        // admin id = 26 ( default bank details )
-        // $user = Auth::user();
-        return Schoolbankdetail::where('edu_institute_id',$edu_institutes->id??12)->orWhere('user_id',26)->get();
+        return Schoolbankdetail::where('edu_institute_id',$edu_institutes->id??0)->orWhere('user_id',26)->get();
     }
 
     
     public function bankdetailsStudent(Request $request){
-        // admin id = 26 ( default bank details )
-        // $school_id = Auth::user()->information->school_id;
-        $user_type = $this->user_category("school");
+        $user_type = $this->user_category($request->user_type??'');
         $edu_institutes = Auth::guard($user_type)->user();
         $bank = Userpayment::where([
-            'school_id'=>$edu_institutes->school_id??963,
+            'school_id'=>$edu_institutes->school_id??0,
             'tour_code'=>$request->tour_code,
         ])
         ->with('schoolbankdetail')
         ->first();
+        return $bank;
         if($bank){
             return $bank->schoolbankdetail;
         }
         return $bank;
-        
     }
 
     public function store(SchoolBankDetailRequest $request){
         try{
-        // $user = Auth::user();
-            $user_type = $this->user_category("school");
+            $user_type = $this->user_category($request->user_type??'');
             $edu_institutes = Auth::guard($user_type)->user();
-            
+
             $school_bank_detail = new Schoolbankdetail();
             //On left field name in DB and on right field name in Form/view/request
             $school_bank_detail->name = $request->name??'';

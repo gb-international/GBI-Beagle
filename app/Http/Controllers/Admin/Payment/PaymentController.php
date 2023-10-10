@@ -36,7 +36,7 @@ class PaymentController extends Controller
         $user = User::where('email',$request->email)->first();
         if($user){
           $name = $user->name;
-        }
+        }///////////////
         $link = env('APP_URL').'/payment-link/'.$request->tour_id.'/'.$request->amount;
         Mail::send(new SendPaymentLink($request->email, $link, $name));
         $sendsms = new SendSms;

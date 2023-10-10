@@ -16,8 +16,12 @@ class Authenticate extends Middleware
      */
     // protected function redirectTo($request)
     // {
+    //                 if (! $request->expectsJson()) {
+    //             return route('login');
+    //         }  
+    //         return $next($request);
         
-        // }
+    //     }
         public function handle($request, Closure $next, ...$guards)
         {
             if($request->is('api/*')){
@@ -32,7 +36,7 @@ class Authenticate extends Middleware
                 }
             }
             if (! $request->expectsJson()) {
-                return route('login');
+                return redirect('login');
             }  
             return $next($request);
     }

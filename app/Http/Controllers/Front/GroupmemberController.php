@@ -30,13 +30,12 @@ class GroupmemberController extends BaseController
     }
 
     public function studentStore(StudentTeacherRequest $request){
-        $user_type = $this->user_category("school");
+        
+        $user_type = $this->user_category($request->user_type??'');
         $edu_institutes = Auth::guard($user_type)->user();
-        $edu_institutes_id =  12;
-        // $user = Auth::user();
         if($request->details){
             foreach ($request->details as $data) {
-                $data['edu_institute_id'] = $edu_institutes_id;
+                $data['edu_institute_id'] = $edu_institutes->id??0;
                 $data['tour_id'] = $request->tour_id??'';
                 $data['school_id'] = $request->school_id??'';
                 Groupmember::create($data);

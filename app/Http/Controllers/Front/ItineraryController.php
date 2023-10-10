@@ -260,8 +260,7 @@ class ItineraryController extends BaseController
                 $encyData = Encyclopedia::where('city_name',$iCity)->first();
                 if($encyData){
                     array_push($iTencyclopedia, $encyData);
-                }
-                
+                }   
             }
         }
         //$data->iTcities = $iTcities

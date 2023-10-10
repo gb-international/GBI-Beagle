@@ -99,21 +99,23 @@ class UserController extends Controller{
 
     public function update(Request $request)
     {
-        $user_type = $this->user_category("school");
+        // $user_type = $this->user_category("school");
+        // $edu_institutes = Auth::guard($user_type)->user();
+        // $edu_institutes = $this->educational_institute();
+        $user_type = $this->user_category($request->user_type??'');
         $edu_institutes = Auth::guard($user_type)->user();
-        $edu_institutes = $this->educational_institute();
 
-        $userId = $edu_institutes->id??0;
+        $edu_institutes_id = $edu_institutes->id??0;
         
         $validator = Validator::make($request->all(), [ 
             'name' => 'required', 
-            'email' => ['required','email',new EmailValidate, 'unique:edu_institutes,email,'.$userId.',id'],
-            'phone_no' => ['required','numeric',new PhoneNubmerValidate, 'unique:edu_institutes,phone_no,'.$userId.',id'],
+            'email' => ['required','email',new EmailValidate, 'unique:edu_institutes,email,'.$edu_institutes_id.',id'],
+            'phone_no' => ['required','numeric',new PhoneNubmerValidate, 'unique:edu_institutes,phone_no,'.$edu_institutes_id.',id'],
         ]);
         
         if ($validator->fails()) { 
             return response()->json(['error'=>$validator->errors()], 422);            
-        }
+        }   
         // $edu_institutes = Auth::guard('school')->user();
         $edu_institutes->name = $request->name??$edu_institutes->name;
         $edu_institutes->email = $request->email??$edu_institutes->email;
@@ -154,9 +156,8 @@ class UserController extends Controller{
 
     public function UserImage(Request $request){
         // $user = Auth::user();
-        $edu_institutes = Auth::guard('school')->user();
-        $edu_institutes_id = 12;
-        $edu_institutes = $this->educational_institute();
+        $user_type = $this->user_category($request->user_type??'');
+        $edu_institutes = Auth::guard($user_type)->user();
 
         if ($request->hasFile('photo')) {
             // exit;
@@ -164,18 +165,17 @@ class UserController extends Controller{
            $name = time().'-'.$file->getClientOriginalName();
            $filePath = config('gbi.user_image') . $name;
            \Storage::disk('s3')->put($filePath, file_get_contents($file));
+           $edu_institutes->photo = $name;
        }
         // $information = Information::where('user_id', $user->id)->first();
-        $edu_institutes->photo = $name;
         $edu_institutes->save();
         return response()->json(['photo'=>$edu_institutes->photo]);
     }
 
     public function UserDocs(Request $request){
         // $user = Auth::user();
-        $edu_institutes = Auth::guard('school')->user();
-        $edu_institutes_id = 12;
-        $edu_institutes = $this->educational_institute();
+        $user_type = $this->user_category($request->user_type??'');
+        $edu_institutes = Auth::guard($user_type)->user();
 
         $validator = Validator::make($request->all(), [ 
             'docFront' => 'required|file|max:5000',
@@ -217,34 +217,34 @@ class UserController extends Controller{
      */ 
     public function details() 
     {  
-        $edu_institutes = Auth::guard('school-api')->user();
+        $user_type = $this->user_category($request->user_type??'');
+        $edu_institutes = Auth::guard($user_type)->user();
         return response()->json(['success' => $edu_institutes], $this-> successStatus); 
     } 
     
     public function show(){
-        $edu_institutes = Auth::guard('school')->user();
-        // $edu_institutes = $user->information;
-        $edu_institutes_id = 12;
-        $edu_institutes = $this->educational_institute();
-        // $information = $edu_institutes->subscribe;
+        $user_type = $this->user_category($request->user_type??'');
+        $edu_institutes = Auth::guard($user_type)->user();
         return response()->json(['success' => $edu_institutes], $this-> successStatus); 
     }
     /// user more information on model from model
     public function infoUpdate(Request $request){
 
-        $edu_institutes = Auth::guard('school')->user();
-        // $edu_institutes = $user->information;
-        $edu_institutes_id = 13;
-        $edu_institutes = $this->educational_institute();
+        $user_type = $this->user_category($request->user_type??'');
+        $edu_institutes = Auth::guard($user_type)->user();
         $edu_institutes->status = 1;
         $edu_institutes->role_type = $request->user_profession??0;
         $edu_institutes->profession_name = $request->profession_name??'';
         $edu_institutes->profession_address = $request->profession_address??'';
         if($request->school_id == 'other'){
-            $this->validate($request,[
-                'profession_name'=>'required|unique:schools,school_name',
-                'profession_address' => 'required'
+                $validator = Validator::make($request->all(), [ 
+                    'profession_name'=>'required|unique:schools,school_name',
+                    'profession_address' => 'required',
             ]);
+            if ($validator->fails()) { 
+                return response()->json(['error'=>$validator->errors()], 401);            
+            }
+
             $data = ['school_name'=>$request->profession_name,'address'=>$request->profession_address];
             $school = School::create($data);
             $edu_institutes->school_id = $school->id;
@@ -261,12 +261,9 @@ class UserController extends Controller{
     }
 
     public function UpdatePassword(Request $request){
-        // return Hash::make($request->new_password);
-        $edu_institutes = Auth::guard('school')->user();
-        // $edu_institutes = $user->information;
-        $edu_institutes_id = 12;
-        $edu_institutes = $this->educational_institute();
-        // return Hash::make($request->new_password);
+        $user_type = $this->user_category($request->user_type??'');
+        $edu_institutes = Auth::guard($user_type)->user();
+
         $request->validate([
             'current_password' => ['required', new MatchOldPassword($edu_institutes)],
             'new_password' => ['required'],

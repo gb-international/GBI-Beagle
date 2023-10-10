@@ -129,7 +129,6 @@ Route::namespace('Admin')->group(function (){
 		Route::post('groupmember/add','GroupmemberController@addMember');
 		Route::post('groupmembers/addlogindetail','GroupmemberController@addlogindetail');
 		Route::post('groupmembers/send-member-login','GroupmemberController@sendMemberLogin');
-		
 	});
 
 	Route::namespace('Corporate')->group(function(){

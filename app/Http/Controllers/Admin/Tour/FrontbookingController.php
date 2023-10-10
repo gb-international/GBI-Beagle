@@ -9,7 +9,6 @@ use Auth;
 
 class FrontbookingController extends Controller
 {
-
     public function all($size)
     {
         $bookings = Frontbooking::latest('updated_at')->paginate($size);
@@ -23,7 +22,7 @@ class FrontbookingController extends Controller
     }
 
     public function show($id){
-        return response()->json(Frontbooking::with(['itinerary','user'])->where('id',$id)->first());
+        return response()->json(Frontbooking::with(['itinerary','user', 'edu_institute'])->where('id',$id)->first());
     }
 
     public function status(Request $request){

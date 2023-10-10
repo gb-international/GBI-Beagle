@@ -116,7 +116,6 @@ class GroupmemberController extends Controller
         return $edu_institute;
     }
 
-
     public function sendMemberLogin(Request $request){
 
          $user = User::where('email',$request->email)->first();
