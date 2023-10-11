@@ -166,7 +166,7 @@ class UserController extends Controller{
            $filePath = config('gbi.user_image') . $name;
            \Storage::disk('s3')->put($filePath, file_get_contents($file));
            $edu_institutes->photo = $name;
-       }
+        }
         // $information = Information::where('user_id', $user->id)->first();
         $edu_institutes->save();
         return response()->json(['photo'=>$edu_institutes->photo]);

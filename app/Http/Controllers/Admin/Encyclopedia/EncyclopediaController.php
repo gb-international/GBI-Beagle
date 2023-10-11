@@ -8,7 +8,10 @@
 
 namespace App\Http\Controllers\Admin\Encyclopedia;
 
+use App\Http\Requests\Admin\EncyclopediaRequest;
 use App\Model\Encyclopedia\Encyclopedia;
+use App\Model\Encyclopedia\EncyclopediasCultural;
+use App\Model\Encyclopedia\EncyclopediasFood;
 use App\Model\Encyclopedia\EncyclopediaImage;
 use App\Model\Itinerary\Itinerary;
 use App\Model\Itinerary\Itinerarypdf;
@@ -99,14 +102,26 @@ class EncyclopediaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(EncyclopediaRequest $request)
     {
-        $this->data = $this->validateEncyclopedia($request);
-
+        $data = array();
+        $data['state_name'] = $request->state_name??'';
+        $data['city_name'] = $request->city_name??'';
+        $data['country'] = $request->country??'';
+        $data['description'] = $request->description??'';
+        $data['map_link'] = $request->map_link??'';
+        $data['slug'] = $request->slug??'';
+        $data['meta_title'] = $request->meta_title??'';
+        $data['meta_description'] = $request->meta_description??'';
+        $data['food_title'] = $request->food_title??'';
+        $data['food_description'] = $request->food_description??'';
+        $data['culture_title'] = $request->culture_title??'';
+        $data['culture_description'] = $request->culture_description??'';
+        $this->data = $data; 
         $tag_id= array();
         $meta_keyword="";   
         foreach ($request->tags as $tag) {
-            if($tag['id'] == ''){
+            if( $tag['id'] == ''){
                 $tag = Tag::create($tag);
             }
             array_push($tag_id,$tag['id']);
@@ -121,6 +136,10 @@ class EncyclopediaController extends Controller
 
         $encyclopedia = Encyclopedia::create($this->data);
         $this->uploadMultipleImages($request,$encyclopedia->id);
+        // Added Cultural Image
+        $this->uploadMultipleImagesInCultural($request,$encyclopedia->id);
+        // Added Food Image
+        $this->uploadMultipleImagesInFood($request,$encyclopedia->id);
 
         $encyclopedia->meta_keyword = $meta_keyword;
         $encyclopedia->save();
@@ -262,7 +281,11 @@ class EncyclopediaController extends Controller
             'map_link'=>'required',
             'slug'=>'',
             'meta_title'=>'required',
-            'meta_description' => 'required'
+            'meta_description' => 'required',
+            'food_title' => 'required',
+            'food_description' => 'required',
+            'culture_title' => 'required',
+            'culture_description' => 'required',
       ]);
     }
 
@@ -290,7 +313,6 @@ class EncyclopediaController extends Controller
             foreach ($request->images as $imagedata) {
                 $imagename = explode('.',$imagedata['name'])[0];
                 // $image = $this->singleFile($imagedata['file'],'/encyclopedia/',$imagename);
-
                 $image = $this->AwsFileUpload($imagedata['file'],config('gbi.encyclopedia_image'),$imagename);
                 EncyclopediaImage::create([
                     'encyclopedia_id'=>$id,
@@ -300,5 +322,33 @@ class EncyclopediaController extends Controller
             }                
         }
     }
-
+    public function uploadMultipleImagesInFood($request, $id){
+        if(count($request->food_images) > 0){
+            foreach ($request->food_images as $img_data) {
+                $food_img_name = explode('.',$img_data['name'])[0];
+                $food_image = $this->AwsFileUpload($img_data['file'],config('gbi.encyclopedia_food'),$food_img_name);
+                EncyclopediasFood::create([
+                    'encyclopedias_id'=>$id,
+                    'food_image'=>$food_image,
+                    'food_image_alt'=>$food_img_name
+                ]);
+            }                
+        }
+    }
+    public function uploadMultipleImagesInCultural($request, $id){
+        if(count($request->cultural_images) > 0){
+            foreach ($request->cultural_images as $cultural_img_data) {
+                $cultural_img_name = explode('.',$cultural_img_data['name'])[0];
+                $cultural_image = $this->AwsFileUpload($cultural_img_data['file'],config('gbi.encyclopedia_cultural'),$cultural_img_name);
+                EncyclopediasCultural::create([
+                    'encyclopedias_id'=>$id,
+                    'cultural_image'=>$cultural_image,
+                    'cultural_image_alt'=>$cultural_img_name
+                ]);
+            }                
+        }
+    }
 }
+
+
+

@@ -26,6 +26,11 @@ class Encyclopedia extends Model
         'meta_title',
         'meta_keyword',
         'meta_description',
+        'location',  
+        'food_title',  
+        'food_description',    
+        'culture_title',  
+        'culture_description',  
     ];
 
     public function getBannerImageAttribute($image)
@@ -60,5 +65,11 @@ class Encyclopedia extends Model
     }
     public function itinerarypdfs(){
     	return $this->hasMany('App\Model\Itinerary\Itinerarypdf');
+    }
+    public function encyclopedias_cultural_imgs(){
+    	return $this->hasMany('App\Model\Encyclopedia\EncyclopediasCultural');
+    }
+    public function encyclopedias_food_imgs(){
+    	return $this->hasMany('App\Model\Encyclopedia\EncyclopediasFood');
     }
 }

@@ -26,6 +26,12 @@ class Encyclopedia extends Model
         'meta_title',
         'meta_keyword',
         'meta_description',
+        'location',  
+        'food_title',  
+        'food_description',  
+        'culture_title',
+        'culture_description',  
+
     ];
 
     public function getBannerImageAttribute($image)
@@ -61,4 +67,5 @@ class Encyclopedia extends Model
     public function itinerarypdfs(){
     	return $this->hasMany('App\Model\Itinerary\Itinerarypdf');
     }
+     
 }

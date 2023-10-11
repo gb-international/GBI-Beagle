@@ -25,6 +25,8 @@ return [
     'gallery_image' => 'images/gallery/',
     'encyclopedia_image' => 'images/encyclopedia/',
     'encyclopedia_pdf' => 'images/encyclopedia/pdf/',   
+    'encyclopedia_food' => 'images/encyclopedia/food/',   
+    'encyclopedia_cultural' => 'images/encyclopedia/cultural/',   
     'user_image' => 'images/user/',
     'resume_pdf' => 'images/resume/',
     'itinerary' => 'JsonFiles/Itinerary/itineraries.json',
