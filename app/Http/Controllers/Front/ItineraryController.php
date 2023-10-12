@@ -14,6 +14,7 @@ use App\Model\DefaultSet\DefaultSet;
 use App\Model\Admin\Article\Posts;
 use App\Model\Post\Post;
 use App\Http\Controllers\Admin\BaseController;
+use App\Model\Reservation\Sightseeing;
 use App\Http\Requests\Front\ItineraryrequestRequest;
 use App\Http\Requests\Front\ItinerarySearchRequest;
 use App\Model\Itinerary\Itineraryrequest;
@@ -246,25 +247,38 @@ class ItineraryController extends BaseController
 
         $data->mapData = $mapData;*/
         
-        $data->save();
+        // $data->save();
         if($data->itinerarydays){
             $iTcities = array();
             $itDays = $data->itinerarydays;
             $iTencyclopedia = array();
-            foreach($itDays as $iday){
-                array_push($iTcities, $iday->day_source);
+            $sightseeing_collection = array();
+            foreach($itDays as $key => $iday){
+                if($key != 0){
+                    array_push($iTcities, $iday->day_source);
+                }
                 array_push($iTcities, $iday->day_destination);
             }
+
             $iTcities = array_unique($iTcities);
             foreach($iTcities as $iCity){
                 $encyData = Encyclopedia::where('city_name',$iCity)->first();
                 if($encyData){
+                    $encyData->encyclopedias_cultural_imgs;
+                    $encyData->encyclopedias_food_imgs;
                     array_push($iTencyclopedia, $encyData);
                 }   
+                $sightseeing = Sightseeing::whereHas('city',function ($q) use($iCity){
+                    $q->where('name', $iCity);
+                 })->get();
+                 if($sightseeing->count() > 0){
+                    $sightseeing_collection[$iCity] = $sightseeing;
+                 }
             }
+            // Fetch Sightseeing 
         }
-        //$data->iTcities = $iTcities
         $data->Ency = $iTencyclopedia;
+        $data->sightseeing = $sightseeing_collection;
         return response()->json($data);
     }
 }

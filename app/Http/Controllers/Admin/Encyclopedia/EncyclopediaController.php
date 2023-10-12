@@ -7,7 +7,7 @@
 /* Edits: Added cities system, country field to json responses, Added Meta Properties and tags */
 
 namespace App\Http\Controllers\Admin\Encyclopedia;
-
+use App\Http\Controllers\Admin\BaseController;
 use App\Http\Requests\Admin\EncyclopediaRequest;
 use App\Model\Encyclopedia\Encyclopedia;
 use App\Model\Encyclopedia\EncyclopediasCultural;
@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\File;
 use App\Model\Post\Tag;
 use Image;
 
-class EncyclopediaController extends Controller
+class EncyclopediaController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -167,6 +167,8 @@ class EncyclopediaController extends Controller
     {
         $encyclopedia = Encyclopedia::with(['itinerarypdfs','images'])->findOrFail($encyclopedia);
         $encyclopedia->tags;
+        $encyclopedia->encyclopedias_cultural_imgs;
+        $encyclopedia->encyclopedias_food_imgs;
         return response()->json($encyclopedia);
     }
 
@@ -180,6 +182,8 @@ class EncyclopediaController extends Controller
     {   
         $encyclopedia = Encyclopedia::with(['itinerarypdfs','images'])->findOrFail($encyclopedia);
         $encyclopedia->tags;
+        $encyclopedia->encyclopedias_cultural_imgs;
+        $encyclopedia->encyclopedias_food_imgs;
         return response()->json($encyclopedia);
     }
 
@@ -192,7 +196,22 @@ class EncyclopediaController extends Controller
      */
     public function update(Request $request,Encyclopedia $encyclopedia)
     {
-        $this->data = $this->validateEncyclopedia($request);
+        // $this->data = $this->validateEncyclopedia($request);
+        $data = array();
+        $data['state_name'] = $request->state_name??$encyclopedia->state_name;
+        $data['city_name'] = $request->city_name??$encyclopedia->city_name;
+        $data['country'] = $request->country??$encyclopedia->country;
+        $data['description'] = $request->description??$encyclopedia->description;
+        $data['map_link'] = $request->map_link??$encyclopedia->map_link;
+        $data['slug'] = $request->slug??$encyclopedia->slug;
+        $data['meta_title'] = $request->meta_title??$encyclopedia->meta_title;
+        $data['meta_description'] = $request->meta_description??$encyclopedia->meta_description;
+        $data['food_title'] = $request->food_title??$encyclopedia->food_title;
+        $data['food_description'] = $request->food_description??$encyclopedia->food_description;
+        $data['culture_title'] = $request->culture_title??$encyclopedia->culture_title;
+        $data['culture_description'] = $request->culture_description??$encyclopedia->culture_description;
+        $this->data = $data; 
+
         $tag_id= [];
         $meta_keyword="";   
         foreach ($request->tags as $tag) {
@@ -208,8 +227,13 @@ class EncyclopediaController extends Controller
         }
         $this->uploadImages($request);
         $encyclopedia->update($this->data);
-        $this->uploadMultipleImages($request,$encyclopedia->id);
 
+        $this->uploadMultipleImages($request,$encyclopedia->id);
+        // Added Cultural Image
+        $this->uploadMultipleImagesInCultural($request,$encyclopedia->id);
+        // Added Food Image
+
+        $this->uploadMultipleImagesInFood($request,$encyclopedia->id);
         $encyclopedia->meta_keyword = $meta_keyword;
         $encyclopedia->save();
         $encyclopedia->tags()->sync($tag_id);
@@ -223,7 +247,7 @@ class EncyclopediaController extends Controller
             }
             $encyclopedia->itinerarypdfs()->saveMany($pdf);            
         }
-        return response()->json('Successfully Added');
+        return response()->json('Successfully updated');
     }
 
     /**
@@ -247,8 +271,40 @@ class EncyclopediaController extends Controller
         $image->delete();
         return response()->json('successfully deleted');
     }
-
+    public function deleteFood($id)
+    {
+        try{
+            $encyclopedias_food = EncyclopediasFood::where('id',$id)->first();
+            if(!empty($encyclopedias_food)){
+                $this->AwsDeleteImage($encyclopedias_food->food_image);
+                $encyclopedias_food->delete();
+                return response()->json('successfully deleted');
+            }
+            else{
+                return $this->sendError("Id does not exist", 404);
+            }
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }
+    }
     
+    public function deleteCultural($id){
+        try{
+            $encyclopedias_cultural = EncyclopediasCultural::where('id',$id)->first();
+            if(!empty($encyclopedias_cultural)){
+                $this->AwsDeleteImage($encyclopedias_cultural->cultural_image);
+                $encyclopedias_cultural->delete();
+                return response()->json('successfully deleted');
+            }
+            else{
+                return $this->sendError("Id does not exist", 404);
+            }
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }
+    }
     public function deletePdf(Request $request)
     {
         $pdf_data = Itinerarypdf::where('id',$request->id)->first();
@@ -259,9 +315,6 @@ class EncyclopediaController extends Controller
         $pdf_data->delete();
         return response()->json('successfully deleted');
     }
-
-
-
 
     public function uploadPdf($filename,$data){
         $explode = explode(',', $data); // explode file 
@@ -290,7 +343,6 @@ class EncyclopediaController extends Controller
     }
 
     public function uploadImages($request){
-
         if($request->thumbnail){
             $imagename = explode('.',$request->thumbnail[0]['name'])[0];
             // $this->data['thumbnail'] = $this->singleFile($request->thumbnail[0]['file'],'/encyclopedia/',$imagename);

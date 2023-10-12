@@ -172,7 +172,7 @@ Route::namespace('Admin')->group(function (){
 
 	});
 
-	Route::namespace('Reservation')->group(function(){
+	Route::namespace('Reservation')->group(function(){ 
 		Route::resource('bookedescorts','BookedescortController');
 		Route::resource('bookedhotels','BookedhotelController');
 		Route::resource('bookedrestaurants','BookedrestaurantController');
@@ -228,12 +228,16 @@ Route::namespace('Admin')->group(function (){
 	});
 
 	Route::namespace('Encyclopedia')->group(function(){
+		Route::group(['prefix' => '/encyclopedia', 'as' => 'encyclopedia.'], function () {
+			Route::controller(EncyclopediaController::class)->group(function () {
+				Route::delete('food-image/{id}', 'deleteFood');
+				Route::delete('cultural-image/{id}', 'deleteCultural');
+			});	
+		});
 		Route::post('/encyclopedia-img','EncyclopediaController@deleteImage');
 		Route::post('/encyclopedia-pdf','EncyclopediaController@deletePdf');
 		Route::get('encyclopedias/all/{type}/{size}','EncyclopediaController@all');
 		Route::resource('encyclopedias','EncyclopediaController');
-		//Route::get('encyclopedias/cities/{size}','EncyclopediaController@allCity');
-		//Route::get('encyclopedias/cities/index','EncyclopediaController@indexCity');
 		Route::resource('encyclopediacomments','EncyclopediacommentController');
 	});
 

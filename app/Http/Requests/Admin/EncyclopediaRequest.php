@@ -29,9 +29,11 @@ class EncyclopediaRequest extends FormRequest
      */
     public function rules()
     {
+        $_thisId = $this->id??0;
+
         return [
             'state_name'=>'required',
-            'city_name'=>'nullable',
+            'city_name'=>['required', 'unique:encyclopedias,city_name,'.$_thisId.',id'],
             'country'=>'required',
             'description'=>'required',
             'map_link'=>'required',

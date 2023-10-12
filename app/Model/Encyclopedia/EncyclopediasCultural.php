@@ -14,4 +14,12 @@ class EncyclopediasCultural extends Model
         'cultural_image',
         'cultural_image_alt',
     ];
+    public function getCulturalImageAttribute($image)
+    {
+        if($image){
+            return \Storage::disk('s3')->url(config('gbi.encyclopedia_cultural').$image);
+        }else{
+            return '';
+        }
+    }
 }

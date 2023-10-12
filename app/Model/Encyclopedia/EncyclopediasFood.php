@@ -14,4 +14,12 @@ class EncyclopediasFood extends Model
         'food_image',
         'food_image_alt',
     ];
+    public function getFoodImageAttribute($image)
+    {
+        if($image){
+            return \Storage::disk('s3')->url(config('gbi.encyclopedia_food').$image);
+        }else{
+            return '';
+        }
+    }
 }

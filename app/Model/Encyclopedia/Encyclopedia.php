@@ -67,9 +67,9 @@ class Encyclopedia extends Model
     	return $this->hasMany('App\Model\Itinerary\Itinerarypdf');
     }
     public function encyclopedias_cultural_imgs(){
-    	return $this->hasMany('App\Model\Encyclopedia\EncyclopediasCultural');
+    	return $this->hasMany('App\Model\Encyclopedia\EncyclopediasCultural','encyclopedias_id','id')->select(['id', 'cultural_image', 'cultural_image_alt']);
     }
     public function encyclopedias_food_imgs(){
-    	return $this->hasMany('App\Model\Encyclopedia\EncyclopediasFood');
+    	return $this->hasMany('App\Model\Encyclopedia\EncyclopediasFood','encyclopedias_id','id')->select(['id', 'food_image', 'food_image_alt']);
     }
 }
