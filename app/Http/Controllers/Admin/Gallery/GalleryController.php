@@ -7,8 +7,10 @@ use Illuminate\Http\Request;
 use App\Model\Gallery\Gallery;
 use App\Model\Gallery\Galleryimage;
 use App\Traits\ImageTrait;
+use App\Http\Requests\Admin\GalleryRequest;
+use App\Http\Controllers\Admin\BaseController;
 
-class GalleryController extends Controller
+class GalleryController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -45,26 +47,23 @@ class GalleryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(GalleryRequest $request)
     {
-        $data = $this->validate($request,[
-            'title'=>'required',
-            'school_id'=>'required|exists:schools,id',
-            'category'=>'required|in:domestic,international',
-            // 'slug'=>''
-        ]);
-        $gallery = Gallery::create($data);
-        
-        foreach ($request->images as $imagedata) {
-            $imagename = explode('.',$imagedata['name'])[0];
-            $path=$this->AwsFileUpload($imagedata['file'],config('gbi.gallery_image'),$imagename);
-            $data = ['gallery_id'=>$gallery->id,'path'=>$path,'alt'=>$imagename];
-            Galleryimage::create($data);
+        try{
+            $gallery = Gallery::create(["title"=>$request->title??"", "school_id"=>$request->school_id??0, "category"=>$request->category??""]);
+            if(count($request->images) > 0){
+                foreach ($request->images as $imagedata) {
+                    $imagename = explode('.',$imagedata['name'])[0];
+                    $path=$this->AwsFileUpload($imagedata['file'],config('gbi.gallery_image'),$imagename);
+                    $data = ['gallery_id'=>$gallery->id,'path'=>$path,'alt'=>$imagename];
+                    Galleryimage::create($data);
+                }
+            }
         }
-            
-        $gallery = $gallery->update(['slug'=>$gallery->slug.'-'.$gallery->id]);
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        } 
         return response()->json('succesfull created');
-        
     }
 
     /**
@@ -75,7 +74,9 @@ class GalleryController extends Controller
      */
     public function show($id)
     {
-        //
+        $gallery = Gallery::where('id', $id)->first();
+        $gallery->images;
+        return response()->json($gallery);
     }
 
     /**
@@ -97,23 +98,20 @@ class GalleryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,Gallery $gallery)
+    public function update(GalleryRequest $request,Gallery $gallery)
     {
-        $data = $this->validate($request,[
-            'title'=>'required',
-            'school_id'=>'required|exists:schools,id',
-            'category'=>'required|in:domestic,international',
-            // 'slug'=>''
-        ]);
-
-        $gallery->update($data);
-        foreach ($request->images as $imagedata) {
-            $imagename = explode('.',$imagedata['name'])[0];
-            $path=$this->AwsFileUpload($imagedata['file'],config('gbi.gallery_image'),$imagename);
-            $data = ['gallery_id'=>$gallery->id,'path'=>$path,'alt'=>$imagename];
-            Galleryimage::create($data);
+        try{
+            $gallery->update(["title"=>$request->title??$gallery->title, "school_id"=>$request->school_id??$gallery->school_id, "category"=>$request->category??$gallery->category]);
+            foreach ($request->images as $imagedata) {
+                $imagename = explode('.',$imagedata['name'])[0];
+                $path=$this->AwsFileUpload($imagedata['file'],config('gbi.gallery_image'),$imagename);
+                $data = ['gallery_id'=>$gallery->id,'path'=>$path,'alt'=>$imagename];
+                Galleryimage::create($data);
+            }
         }
-        $gallery = $gallery->update(['slug'=>$gallery->slug.'-'.$gallery->id]);
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }
         return response()->json('succesfull updated');
     }
 
@@ -133,10 +131,19 @@ class GalleryController extends Controller
     }
 
     public function galleryImageDelete(Request $request){
-        $galleryimage = Galleryimage::where('id',$request->id)->first();
-        // delete image 
-        $this->AwsDeleteImage($galleryimage->path);
-        $galleryimage->delete();
+        try{
+            $galleryimage = Galleryimage::where('id',$request->id)->first();
+            if(!empty($galleryimage)){
+                $this->AwsDeleteImage($galleryimage->path);
+                $galleryimage->delete();
+            }
+            else{
+                return $this->sendError("Id does not exist", 404);
+            }
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }
         return response()->json('Successfully deleted');
     }
 }

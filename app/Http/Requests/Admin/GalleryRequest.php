@@ -10,7 +10,7 @@ use App\Rules\EmailValidate;
 use App\Rules\PhoneNubmerValidate;
 use App\Rules\AlphaSpace;
 
-class EncyclopediaRequest extends FormRequest
+class GalleryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -29,25 +29,15 @@ class EncyclopediaRequest extends FormRequest
      */
     public function rules()
     {
-        $_thisId = $this->id??0;
-
         return [
-            'type'=> 'required|in:country,state,city',
-            'country'=>'required_if:type,country,state',
-            'state_name'=>'required_if:type,state,city',
-            'city_name'=>['required_if:type,city', 'unique:encyclopedias,city_name,'.$_thisId.',id'],
-            'description'=>'required',
-            'map_link'=>'required',
-            'meta_title'=>'required',
-            'meta_description' => 'required',
-            'food_title' => 'required',
-            'food_description' => 'required',
-            'culture_title' => 'required',
-            'culture_description' => 'required',
+            'title'=>'required',
+            'school_id'=>'required|exists:schools,id',
+            'category'=>'required|in:domestic,international',
         ];
     }
     protected function failedValidation(Validator $validator) : void
     {
         throw new HttpResponseException(response()->json(['message' => "The given data was invalid.", 'errors' =>$validator->errors()]));
     }
+
 }
