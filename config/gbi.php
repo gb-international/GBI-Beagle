@@ -27,6 +27,8 @@ return [
     'encyclopedia_pdf' => 'images/encyclopedia/pdf/',   
     'encyclopedia_food' => 'images/encyclopedia/food/',   
     'encyclopedia_cultural' => 'images/encyclopedia/cultural/',   
+    'encylopedia_event_banner_image' => 'images/encyclopedia/event_banner/',
+    'encylopedia_event_image' => 'images/encyclopedia/event_image/',
     'user_image' => 'images/user/',
     'resume_pdf' => 'images/resume/',
     'itinerary' => 'JsonFiles/Itinerary/itineraries.json',

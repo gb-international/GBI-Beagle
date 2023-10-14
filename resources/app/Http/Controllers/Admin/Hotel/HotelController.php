@@ -28,7 +28,7 @@ class HotelController extends Controller
     {
         $state = str_replace('-', ' ', $state);
         $data = Hotel::where('state', $state)
-        ->latest('updated_at')
+        ->latest('id')
         ->paginate($size);
         foreach ($data as $d){
             $d->images = unserialize($d->images);

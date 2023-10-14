@@ -233,6 +233,8 @@ Route::namespace('Admin')->group(function (){
 				Route::delete('food-image/{id}', 'deleteFood');
 				Route::delete('cultural-image/{id}', 'deleteCultural');
 			});	
+			Route::resource('event','EncylopediaEventController');
+			Route::get('event/all/{size}','EncylopediaEventController@all');
 		});
 		Route::post('/encyclopedia-img','EncyclopediaController@deleteImage');
 		Route::post('/encyclopedia-pdf','EncyclopediaController@deletePdf');
