@@ -10,14 +10,10 @@ use App\Jobs\SubscribeJob;
 
 class SubscriberController extends Controller
 {
-
     public function all($size)
     {
         return response()->json(Subscriber::select([
-            'id','user_id','email','status','updated_at'
-            ])
-            ->latest('updated_at')
-            ->paginate($size));
+            'id','user_id', 'edu_institute_id', 'email','status','updated_at'])->latest('updated_at')->paginate($size));
     }
 
     public function store(Request $request)

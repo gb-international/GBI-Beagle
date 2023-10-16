@@ -76,19 +76,21 @@ class BookeduserController extends Controller
         $tour = TourUser::where('id',$id)->with('user:id,name')->first();
         return response()->json($tour);
     }
+    
     public function update(Request $request,$id){
         $tour = TourUser::where('id',$id)->first();
         $tour->update($request->all());
         return response()->json('updated successfully');
     }
+
     public function destroy(TourUser $touruser)
     {
         $touruser->delete();
         return response()->json('successfully deleted');
     }
+
     public function bankdetails($tour_code){
         $data = Schoolbankdetail::Banks($tour_code)->get();
         return response()->json($data);
     }
-
 }

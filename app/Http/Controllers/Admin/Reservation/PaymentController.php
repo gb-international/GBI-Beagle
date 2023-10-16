@@ -104,7 +104,7 @@ class PaymentController extends Controller
       if($user->is_incharge == '1'){
         Userpayment::create($data);
       }else{
-        $touruser = TourUser::where(['tour_code'=>$track->tour_id,'user_id'=>$user->id])
+        $touruserPour = TourUser::where(['tour_code'=>$track->tour_id,'user_id'=>$user->id])
                       ->first();
         $touruser->update($data);
       }
@@ -153,3 +153,4 @@ class PaymentController extends Controller
     ];
   }
 }
+

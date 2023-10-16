@@ -1,6 +1,6 @@
 <?php
 namespace App\Http\Controllers\Front;
-use App\Http\Requests\Front\SchoolBankDetailRequest;
+use App\Http\Requests\SchoolBankDetailRequest;
 use App\Http\Controllers\API\BaseController;
 use App\Http\Controllers\Controller; 
 use App\Model\Tour\Schoolbankdetail;

@@ -4,6 +4,7 @@ Purpose : Manage bankdetail of gbi  */
 namespace App\Http\Controllers\Admin\Tour;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SchoolBankDetailRequest;
 
 use App\Model\Tour\Schoolbankdetail;
 use Auth;
@@ -47,12 +48,17 @@ class SchoolbankdetailController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SchoolBankDetailRequest $request)
     {
-        $data = $this->validateBankdetail($request);
+        $data = array("name" => $request->name??'',
+        "bank_name" => $request->bank_name??'',
+        "account_number" => $request->account_number??'',
+        "account_type" => $request->account_type??'',
+        "ifsc_code" => $request->ifsc_code??'',
+        "tour_code" => $request->tour_code??'');
         $data['user_id'] = 26;
         Schoolbankdetail::create($data);
-        return response()->json(['Message'=> 'Successfully Added...']);
+        return response()->json(["Message"=> "Successfully Added..."]);
     }
 
     /**
@@ -84,10 +90,15 @@ class SchoolbankdetailController extends Controller
      * @param  \App\Bankdetail  $bankdetail
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Schoolbankdetail $schoolbankdetail)
+    public function update(SchoolBankDetailRequest $request, Schoolbankdetail $schoolbankdetail)
     {
-        
-        $schoolbankdetail->update($this->validateBankdetail($request));
+        $data = array("name" => $request->name??$schoolbankdetail->name,
+        "bank_name" => $request->bank_name??$schoolbankdetail->bank_name,
+        "account_number" => $request->account_number??$schoolbankdetail->account_number,
+        "account_type" => $request->account_type??$schoolbankdetail->account_type,
+        "ifsc_code" => $request->ifsc_code??$schoolbankdetail->ifsc_code,
+        "tour_code" => $request->tour_code??$schoolbankdetail->tour_code);
+        $schoolbankdetail->update($data);
         return response()->json(['message'=>'Successfully Updated']);
     }
 

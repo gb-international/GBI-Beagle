@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Admin\Tour;
-
+use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Model\Tour\TourUser;
@@ -17,18 +17,43 @@ class TouruserController extends Controller
     }
 
     public function addPnrUser(Request $request){
-        foreach ($request->all() as $row) {
-            PnrUser::create($row);
+        $validator = Validator::make($request->all(), [ 
+            "details" => "required|array",
+            "details.*.edu_institute_id"=>"required|exists:edu_institutes,id",
+            "details.*.pnr_id" => "required|exists:pnrs,id",
+            "details.*.tour_id" =>"required|exists:tours,tour_id",
+            "details.*.transport_id"=> "required",
+            "details.*.transport_type"=> "required|in:bus,train,flight"
+        ]);
+    
+        if ($validator->fails()) {
+            return response()->json(['message' => "The given data was invalid.", 'errors' =>$validator->errors()]);
+        }
+        // return $request->details;
+        if($request->details){
+            foreach ($request->details as $row) {
+                PnrUser::create($row);
+            }
         }
         return response()->json(['success',true]);
     }
 
     public function PnrUserGet(Request $request){
+        $validator = Validator::make($request->all(), [ 
+            "tour_code" =>"required|exists:tours,tour_id",
+            "transport_id"=> "required",
+            "transport_type"=> "required|in:bus,train,flight"
+        ]);
+    
+        if ($validator->fails()) {
+            return response()->json(['message' => "The given data was invalid.", 'errors' =>$validator->errors()]);
+        }
+
         $pnr = PnrUser::where([
             'transport_id'=> $request->transport_id,
             'transport_type' => $request->transport_type,
             'tour_id' => $request->tour_code
-        ])->with(['user','pnr'])
+        ])->with(['user','pnr', 'edu_institute'])
         ->get()
         ->map->format();
         return $pnr;

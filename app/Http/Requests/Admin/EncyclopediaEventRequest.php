@@ -33,7 +33,7 @@ class EncyclopediaEventRequest extends FormRequest
         return [
             'title'=>'required',
             'state'=>'required',
-            'city'=>['required', 'unique:encylopedia_events,city,'.$_thisId.',id'],
+            'city'=>['required'],
             'description'=>'required',
             'type'=>'required',
             'images' => 'required|array',

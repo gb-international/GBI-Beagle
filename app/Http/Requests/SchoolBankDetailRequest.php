@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Requests\Front;
+namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;

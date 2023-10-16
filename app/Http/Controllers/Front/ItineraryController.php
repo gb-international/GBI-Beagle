@@ -23,6 +23,7 @@ use DB;
 use Carbon\Carbon;
 use GoogleMaps as Map;
 use App\Jobs\SendItineraryRequestToGbiMailJob;
+use App\Model\Encyclopedia\EncylopediaEvent;
 
 class ItineraryController extends BaseController
 {
@@ -253,6 +254,7 @@ class ItineraryController extends BaseController
             $itDays = $data->itinerarydays;
             $iTencyclopedia = array();
             $sightseeing_collection = array();
+            $event_collection = array();
             foreach($itDays as $key => $iday){
                 if($key != 0){
                     array_push($iTcities, $iday->day_source);
@@ -271,14 +273,26 @@ class ItineraryController extends BaseController
                 $sightseeing = Sightseeing::whereHas('city',function ($q) use($iCity){
                     $q->where('name', $iCity);
                  })->get();
+
                  if($sightseeing->count() > 0){
                     $sightseeing_collection[$iCity] = $sightseeing;
                  }
+                 $encylopedia_event = EncylopediaEvent::where('city', $iCity)->get();
+                 if($encylopedia_event->count() > 0){
+                        foreach ($encylopedia_event as $d){
+                            $d->image = unserialize($d->image);
+                            $d->image_alt = unserialize($d->image_alt);
+                        }
+                    $event_collection[$iCity] = $encylopedia_event;
+                 }
+
+
             }
             // Fetch Sightseeing 
         }
         $data->Ency = $iTencyclopedia;
         $data->sightseeing = $sightseeing_collection;
+        $data->event = $event_collection;
         return response()->json($data);
     }
 }
