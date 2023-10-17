@@ -16,18 +16,19 @@ class BookeduserController extends Controller
         $data = '';
         $tour = Tour::where('tour_id',$tour_id)
             ->select('school_id')
-            ->with('school:id,user_id')
             ->first();
         if($tour){
-            $user_id = $tour->school->user_id;
+            $edu_institute_id = $tour->school->education_institute?$tour->school->education_institute->id:0;
+            // return $edu_institute_id;
             $userpayment = Userpayment::where([
-                'user_id'=>$user_id,
+                'edu_institute_id'=>$edu_institute_id,
                 'tour_code'=>$tour_id
             ])->first();
-            $where = [['tour_code','=',$tour_id],['user_id','!=', $user_id]];
+            $where = [['tour_code','=',$tour_id],['edu_institute_id','!=', $edu_institute_id]];
             if($userpayment){
+                // return $userpayment->payment_mode;
                 if($userpayment->payment_mode == 'self'){
-                    $data = TourUser::where($where)->with('user:id,name')->get();
+                    $data = TourUser::where($where)->with('edu_institute:id,name')->get();
                     if($userpayment->status=='success'){
                         foreach ($data as $d) {
                             $d['payment'] = 'success';
@@ -40,9 +41,10 @@ class BookeduserController extends Controller
                         }
                     }
                 }
+
                 if($userpayment->payment_mode == 'student'){
                     $data = TourUser::where($where)
-                                ->with('user:id,name')
+                                ->with('edu_institute:id,name')
                                 ->get();
                     foreach ($data as $d ) {
                         if($d->status == 'success'){
@@ -55,7 +57,7 @@ class BookeduserController extends Controller
                     }
                 }
             }else{
-                $data = TourUser::where($where)->with('user:id,name')->get();
+                $data = TourUser::where($where)->with('edu_institute:id,name')->get();
                 foreach ($data as $d) {
                     $d['payment'] = 'pending';
                     $d['paid_by'] = 'none';
@@ -73,7 +75,7 @@ class BookeduserController extends Controller
     }
     public function show($id)
     {
-        $tour = TourUser::where('id',$id)->with('user:id,name')->first();
+        $tour = TourUser::where('id',$id)->with('edu_institute:id,name')->first();
         return response()->json($tour);
     }
     

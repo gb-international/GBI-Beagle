@@ -14,9 +14,9 @@ class Userpayment extends Model
     public function adminFormat(){
         return  [
             'id' => $this->id,
-            'user_id' => $this->user_id,
-            'edu_institute_id' => $this->edu_institute_id,
-            'user_name' => $this->user->name,
+            'user_id' => $this->user_id??0,
+            'edu_institute_id' => $this->edu_institute->id??0,
+            'user_name' => $this->user->name??$this->edu_institute->name,
             'school_id' => $this->school_id,
             'school_name' => $this->school->school_name,
             'tour_code' => $this->tour_code,
