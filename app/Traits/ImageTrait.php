@@ -76,6 +76,8 @@ trait ImageTrait {
     
     private function getFileName($single, $imagename)
     {
+        echo $single;
+        exit;
         $strpos = strpos($single,';');
         $sub = substr($single,0,$strpos);
         $ex = explode('/',$sub)[1];

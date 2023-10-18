@@ -41,7 +41,7 @@ class ItineraryController extends BaseController
         return response()->json(Itinerary::select([
             'id','title','source','destination','noofdays'
             ])
-            ->latest('updated_at')
+            ->latest('id')
             ->paginate($size));
     }
     public function index()
@@ -195,7 +195,7 @@ class ItineraryController extends BaseController
             $itinerary->endLoc = $locDestination['results'][0]['geometry']['location']??0;
 
             $itinerary->save();
-            return $this->sendResponse($itinerary,'Successfully added',201);
+            return response()->json(['success'=>'Successfully added']);
         }
         catch(Exception $e){
             return $this->sendError($e->getMessage(), 500);
@@ -279,12 +279,11 @@ class ItineraryController extends BaseController
                 }
             }   
             // thumbnail photo upload
+
             if($request->photo != $itinerary->photo){
-                $data['photo'] = $this->AwsFileUpload($request->photo,config('gbi.itinerary_image'),$request->photo_alt);
-                $this->AwsDeleteImage($itinerary->photo);
-            }else{
-                unset($data['photo']);
-                unset($data['photo_alt']);
+                    $data['photo'] = $this->AwsFileUpload($request->photo,config('gbi.itinerary_image'),$request->photo_alt);
+                    $this->AwsDeleteImage($itinerary->photo);
+                    $data['photo_alt'] = $request->photo_alt;
             }
             // detail photo upload
             /*if($request->detail_photo != $itinerary->detail_photo){
@@ -426,3 +425,5 @@ class ItineraryController extends BaseController
 
 
 }
+
+

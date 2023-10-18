@@ -19,7 +19,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 // Route::post('/payment','Front\PaymentController@payment');
 // Route::group(['middleware' => ['auth:api'],'namespace'=>'Front'],function(){
 Route::namespace('Admin')->group(function (){
-
 	Route::namespace('Transport')->group(function(){
 		Route::get('bus/all/{size}','BusController@all');
 		Route::resource('bus', 'BusController');
@@ -206,6 +205,7 @@ Route::namespace('Admin')->group(function (){
 		Route::get('corporate/getUserpayments/{id}','CorpPaymentController@getUserpayments');
 
 	});
+
 	Route::namespace('GbiMember')->group(function(){
 		Route::get('/members/all/{size}','GBIMemberController@all');
 		Route::get('/members','GBIMemberController@index');
@@ -222,6 +222,7 @@ Route::namespace('Admin')->group(function (){
 		Route::get('assign-users/remove/{user}','AssignParentController@removeParent');
 		Route::get('assign-users-list/{role}/{size}/{dep_id}','AssignParentController@index');
 	});
+
 	Route::namespace('Account')->group(function(){
 		Route::get('/accounts/all/{size}','AccountController@all');
 		Route::resource('/accounts','AccountController');

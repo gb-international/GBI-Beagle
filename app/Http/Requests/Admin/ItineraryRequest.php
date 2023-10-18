@@ -31,7 +31,7 @@ class ItineraryRequest extends FormRequest
             'food' => 'required|numeric|between:0,1',
             'hotel_type'=>'required',
             'bus'=>'required|numeric|between:0,1',
-             'train'=>'required|numeric|between:0,1',
+            'train'=>'required|numeric|between:0,1',
             'flight'=>'required|numeric|between:0,1',
             'price'=>'required|numeric|min:0',
             'client_type'=>'required',
@@ -41,6 +41,7 @@ class ItineraryRequest extends FormRequest
             'itinerarydays.*.day_source' => 'required',
             'itinerarydays.*.day_destination' => 'required|different:day_source',
             'itinerarydays.*.day_description' => 'required',
+            'itinerarydays.*.sightseeing_id' => 'required|array',
             'policy' => 'required',
         ];
     }
