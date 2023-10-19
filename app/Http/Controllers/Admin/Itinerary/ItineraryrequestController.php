@@ -91,6 +91,6 @@ class ItineraryrequestController extends Controller
     {
         $data = Itineraryrequest::where('id',$id)->first();
         $data->delete();
-        return response()->json('successfully deleted !!!');
+        return response()->json("Successfully deleted !!!");
     }
 }

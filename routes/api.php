@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Front\AuthController;
+use App\Http\Controllers\Front\ItinerarySightseeingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -76,6 +77,10 @@ Route::namespace('Front')->group(function(){
 	Route::post('/user/save-social','UserController@socialAuth');
 	Route::post('/user/social/{userId}','UserController@socialIndex');
 	Route::group(['middleware' => 'auth:school-api'], function () {
+		//Sightseeing 
+		Route::group(['prefix' => '/itineray', 'as' => 'itineray.'], function () {
+			Route::post('sightseeing', [ItinerarySightseeingController::class, 'itinerary_sightseeing_request']);
+		});
 	// Route::group(['middleware' => 'auth:api'], function(){
 		Route::post('details', 'UserController@details');
 		Route::post('/user-show', 'UserController@show');
@@ -193,10 +198,3 @@ Route::group(['prefix' => '/school_trip_payment', 'as' => 'school_trip_payment.'
 	});	
 });
 
-
-// sendotp2
-// user-update
-// update-password
-// login-user
-// sendotp
-// register-user

@@ -146,9 +146,7 @@ class HotelNewController extends Controller
             'banquets' => 'required',
             'banquet_category' => 'required',
             'amenities' => 'required',
-            'image' => 'required'
-            'description' => 'required'
-          
+            'image' => 'required'          
       ]);
     }
 

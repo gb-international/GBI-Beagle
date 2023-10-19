@@ -19,6 +19,7 @@ class CreatedItinerarySightseeingRequestsTable extends Migration
             $table->unsignedInteger('itinerary_id')->nullable();
             $table->unsignedInteger('itineraryday_id')->nullable();
             $table->text('sightseeing_id')->nullable();
+            $table->tinyInteger('status')->default(0)->comment("0=>Pending, 1=>Underprocessing, 2=>Complete");
             $table->dateTime('created_at')->useCurrent();
             $table->dateTime('updated_at')->nullable();
             $table->softDeletes();

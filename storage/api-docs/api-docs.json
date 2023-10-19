@@ -201,8 +201,5 @@
             "name": "Blogs",
             "description": "API Endpoints of Blogs"
         }
-    ],
-    "security": [
-        []
     ]
 }
