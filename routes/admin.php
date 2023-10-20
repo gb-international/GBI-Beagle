@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Admin\Itinerary\SightseeingRequestController as SightseeingRequest;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -334,7 +335,13 @@ Route::namespace('Admin')->group(function (){
 		Route::get('schooltrip/all/{size}','SchoolTripController@all');
 		Route::resource('schooltrip','SchoolTripController');
 	});
+
+	Route::group(['prefix' => '/itineray', 'as' => 'itineray.'], function () {
+		Route::resource('sightseeing-request',SightseeingRequestController::class);
+		Route::get('all-sightseeing-request/{size?}',[SightseeingRequest::class, 'all']);
+	});
 });
+
 
 
 
