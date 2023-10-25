@@ -337,13 +337,10 @@ Route::namespace('Admin')->group(function (){
 	});
 
 	Route::group(['prefix' => '/itineray', 'as' => 'itineray.'], function () {
-		Route::resource('sightseeing-request',SightseeingRequestController::class);
+		Route::resource('sightseeing-request',Itinerary\SightseeingRequestController::class);
 		Route::get('all-sightseeing-request/{size?}',[SightseeingRequest::class, 'all']);
 	});
 });
-
-
-
 
 
 

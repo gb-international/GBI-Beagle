@@ -13,8 +13,15 @@ class SightseeingRequestController extends BaseController
         if (!$size) {
             $size = 10;
         }
-        return response()->json(ItinerarySightseeingRequest::with('itinerary','edu_institute')
-        ->latest('id')
+        return response()->json(ItinerarySightseeingRequest::select('id', 'edu_institute_id', 'itinerary_id', 'itineraryday_id', 'sightseeing_id', 'status')->with(
+            ['itinerary' => function ($query) {
+            $query->select('id', 'title');
+        }])->with(
+        ['itinerarydays' => function ($query) {
+            $query->select('id', 'day');
+        }])->with(['edu_institute' => function ($query) {
+            $query->select('id', 'name');
+        }])->orderBy('iti_sightseeing_requests.id', 'DESC')
         ->paginate($size));
     }
     /**
@@ -56,7 +63,24 @@ class SightseeingRequestController extends BaseController
      */
     public function show($id)
     {
-        //
+        try{
+            $data = ItinerarySightseeingRequest::where('id', $id)->select('id', 'edu_institute_id', 'itinerary_id', 'itineraryday_id', 'sightseeing_id', 'status')->with(
+                ['itinerary' => function ($query) {
+                $query->select('id', 'title');
+            }])->with(
+            ['itinerarydays' => function ($query) {
+                $query->select('id', 'day');
+            }])->with(['edu_institute' => function ($query) {
+                $query->select('id', 'name');
+            }])->first();
+            if(empty($data)){
+                return $this->sendError("data does not found", 404);
+            }
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }
+        return response()->json($data);
     }
 
     /**
@@ -67,7 +91,24 @@ class SightseeingRequestController extends BaseController
      */
     public function edit($id)
     {
-        //
+        try{
+            $data = ItinerarySightseeingRequest::where('id', $id)->select('id', 'edu_institute_id', 'itinerary_id', 'itineraryday_id', 'sightseeing_id', 'status')->with(
+                ['itinerary' => function ($query) {
+                $query->select('id', 'title');
+            }])->with(
+            ['itinerarydays' => function ($query) {
+                $query->select('id', 'day');
+            }])->with(['edu_institute' => function ($query) {
+                $query->select('id', 'name');
+            }])->first();
+            if(empty($data)){
+                return $this->sendError("data does not found", 404);
+            }
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }
+        return response()->json($data);
     }
 
     /**
@@ -79,7 +120,17 @@ class SightseeingRequestController extends BaseController
      */
     public function update(Request $request, $id)
     {
-        //
+        try{
+            $data = ItinerarySightseeingRequest::where('id', $id)->first();
+            if(empty($data)){
+                return $this->sendError("data does not found", 404);
+            }
+            
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }
+        return response()->json($data);
     }
 
     /**
@@ -90,6 +141,18 @@ class SightseeingRequestController extends BaseController
      */
     public function destroy($id)
     {
-        //
+        try{
+            $data = ItinerarySightseeingRequest::where('id',$id)->first();
+            if(!empty($data)){
+                $data->delete();
+            }
+            else{
+                return $this->sendError("Id does not exist", 404);
+            }
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }
+        return response()->json('Successfully deleted');
     }
 }

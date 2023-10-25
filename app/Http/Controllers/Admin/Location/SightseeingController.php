@@ -145,8 +145,7 @@ class SightseeingController extends Controller
           'description'=>'required',
           'adult_price' => '',
           'child_price' => '',
-          'alt'=>'',
-          
+          'alt'=>'',          
       ]);
     }
 }
