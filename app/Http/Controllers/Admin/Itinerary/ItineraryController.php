@@ -422,8 +422,6 @@ class ItineraryController extends BaseController
             'meta_description' => 'required'     
       ]);
     }
-
-
 }
 
 

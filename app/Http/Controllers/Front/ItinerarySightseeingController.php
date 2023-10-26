@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Admin\BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\Front\Itinerary\ItinerarySightseeingRequest as ItiSightseeingRequest;
+use App\Http\Requests\ItinerarySightseeingRequest as ItiSightseeingRequest;
 use App\Model\Itinerary\ItinerarySightseeingRequest;
 class ItinerarySightseeingController extends BaseController
 {

@@ -335,10 +335,12 @@ Route::namespace('Admin')->group(function (){
 		Route::get('schooltrip/all/{size}','SchoolTripController@all');
 		Route::resource('schooltrip','SchoolTripController');
 	});
-
+	
 	Route::group(['prefix' => '/itineray', 'as' => 'itineray.'], function () {
 		Route::resource('sightseeing-request',Itinerary\SightseeingRequestController::class);
 		Route::get('all-sightseeing-request/{size?}',[SightseeingRequest::class, 'all']);
+		Route::post('sightseeing-request/status-update',[SightseeingRequest::class, 'statusUpdate']);
+		Route::post('sightseeing-request/confirmation',[SightseeingRequest::class, 'sendConfirmationMail']);
 	});
 });
 
