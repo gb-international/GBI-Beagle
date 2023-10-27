@@ -30,11 +30,7 @@ class AmenitiesController extends Controller
 
     public function index()
     {
-        return response()->json(Amenities::select([
-            'id','description','title','updated_at'
-            ])
-            ->latest('updated_at')
-            ->get());
+        return response()->json(Amenities::select(['id','description','title','updated_at'])->latest('updated_at')->get());
     }
 
     /**
@@ -55,8 +51,8 @@ class AmenitiesController extends Controller
      */
     public function store(Request $request)
     {
+        
         $data = $request->all();
-
         if($request->image){
             $imagename = explode('.',$request->image[0]['name'])[0];
             //$data['image'] = $this->AwsFileUpload($request->image[0]['file'],config('gbi.hotel_image'),$imagename);
