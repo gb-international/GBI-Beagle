@@ -6,26 +6,39 @@ Purpose : Manage Amenities
 */
 namespace App\Http\Controllers\Admin\Hotel;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Admin\BaseController;
 use App\Model\Hotel\Amenities;
 use Illuminate\Http\Request;
 use App\Traits\ImageTrait;
+use Image;
+use App\Http\Requests\Admin\Hotel\AmenitiesRequest;
 
-class AmenitiesController extends Controller
+class AmenitiesController extends BaseController
 {
-    /**
+    /** 
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     use ImageTrait;
+    protected $data;
+ 
+    public function __construct(){
+        $this->data = [];
+    }
 
-    public function all($size)
+    public function all($size=null)
     {
-        return response()->json(Amenities::select([
-            'id','description','title','updated_at'
-            ])
-            ->latest('updated_at')
-            ->paginate($size));
+        try{
+            if (empty($size)) {
+                $size = 10;
+            }
+            $amenities = Amenities::latest()->paginate($size);
+            return $this->sendResponse($amenities, 'success', 200);
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }
     }
 
     public function index()
@@ -49,16 +62,29 @@ class AmenitiesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AmenitiesRequest $request)
     {
-        
-        $data = $request->all();
-        if($request->image){
-            $imagename = explode('.',$request->image[0]['name'])[0];
-            //$data['image'] = $this->AwsFileUpload($request->image[0]['file'],config('gbi.hotel_image'),$imagename);
-            $data['alt'] = $imagename;
+        try{
+            // return config('gbi.amenities_img');
+            $this->data = array('title'=>$request->title??'',
+            'description'=>$request->description??'');
+            if($request->image){
+                $imagename = explode('.',$request->image[0]['name'])[0];
+
+                $this->data['image'] = $this->AwsFileUpload($request->image[0]['file'],config('gbi.post_image'),$imagename);
+                $this->data['alt'] = $imagename;
+            }
+            // exit;
+            if($request->icon_image){
+                $img_name = explode('.',$request->icon_image[0]['name'])[0];
+                $this->data['icon_image'] = $this->AwsFileUpload($request->icon_image[0]['file'],config('gbi.amenities_img_icon'),$img_name);
+                $this->data['icon_alt'] = $img_name;
+            }
+            Amenities::create($this->data);
         }
-        Amenities::create($data);
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }
         return response()->json('succesfull created');
     }
 
@@ -68,9 +94,15 @@ class AmenitiesController extends Controller
      * @param  \App\Model\Post\Amenities  $amn
      * @return \Illuminate\Http\Response
      */
-    public function show(Amenities $amn)
+    public function show($id)
     {
-        return response()->json($amn);
+        $amenities = Amenities::where('id', $id)->first();
+        if(!empty($amenities)){
+            return response()->json($amenities);
+        }
+        else{
+            return $this->sendError("Id does not exist", 404);
+        }
     }
 
     /**
@@ -79,9 +111,15 @@ class AmenitiesController extends Controller
      * @param  \App\Model\Post\Amenities  $amn
      * @return \Illuminate\Http\Response
      */
-    public function edit(Amenities $amn)
+    public function edit($id)
     {
-        return response()->json($amn);
+        $amenities = Amenities::where('id', $id)->first();
+        if(!empty($amenities)){
+            return response()->json($amenities);
+        }
+        else{
+            return $this->sendError("Id does not exist", 404);
+        }
     }
 
     /**
@@ -91,18 +129,40 @@ class AmenitiesController extends Controller
      * @param  \App\Model\Post\Amenities  $amn
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Amenities $amn)
+    public function update(AmenitiesRequest $request, $id)
     {
-        $data = $request->all();        
-        if($request->image){
-            $imagename = explode('.',$request->image[0]['name'])[0];
-            //$data['image'] = $this->AwsFileUpload($request->image[0]['file'],config('gbi.hotel_image'),$imagename);
-            $this->AwsDeleteImage($amn->image);
-        }else{
-            unset($data['image']);
+        try{
+        $amenities = Amenities::where('id', $id)->first();
+        if(!empty($amenities)){
+            $this->data = array('title'=>$request->title??$amenities->title,
+            'description'=>$request->description??$amenities->description);
+            if($request->image){
+                $img_name = explode('.',$request->image[0]['name'])[0];
+                $this->data['image'] = $this->AwsFileUpload($request->image[0]['file'],config('gbi.amenities_img'),$img_name);
+                $this->data['alt'] = $img_name;
+                if($amenities->image){
+                    $this->AwsDeleteImage($amenities->image);
+                }
+            }
+            if($request->icon_image){
+                $img_name = explode('.',$request->icon_image[0]['name'])[0];
+                $this->data['icon_image'] = $this->AwsFileUpload($request->icon_image[0]['file'],config('gbi.amenities_img_icon'),$img_name);
+                $this->data['icon_alt'] = $img_name;
+                if($amenities->image_icon){
+                    $this->AwsDeleteImage($amenities->image_icon);
+                }
+            }
+           
+             $amenities->update($this->data);
+            }
+            else{
+                return $this->sendError("Id does not exist", 404);
+            }
         }
-        $amn->update($data);
-        return response()->json('succesfull created');
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }
+            return response()->json(['message'=>"updated successful"]);
     }
 
     /**
@@ -111,10 +171,26 @@ class AmenitiesController extends Controller
      * @param  \App\Model\Post\Amenities  $amn
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Amenities $amn)
+    public function destroy($id)
     {
-        $this->AwsDeleteImage($amn->image);
-        $amn->delete();
+        try{
+            $amenities = Amenities::where('id', $id)->first();
+            if(!empty($amenities)){
+                if($amenities->image){
+                    $this->AwsDeleteImage($amenities->image);
+                }
+                if($amenities->icon_image){
+                    $this->AwsDeleteImage($amenities->icon_image);
+                }
+                $amenities->delete();
+            }
+            else{
+                return $this->sendError("Id does not exist", 404);
+            }
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }
         return response()->json('successfully deleted');
     }
 }

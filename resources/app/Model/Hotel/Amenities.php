@@ -8,5 +8,5 @@ class Amenities extends Model
 {
     protected $guarded = [];
     protected $table = "amenities";
-    protected $fillable = ['id', 'title', 'description', 'image', 'alt', 'created_at', 'updated_at'];
+    protected $fillable = ['id', 'title', 'description', 'image', 'alt', 'icon_image', 'icon_alt', 'created_at', 'updated_at'];
 }

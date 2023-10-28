@@ -70,14 +70,14 @@ trait ImageTrait {
     */
     public function AwsFileUpload($base64,$folder='',$imagename=''){
         $name = $this->getFileName($base64,$imagename);
+        // echo $folder;
+        // exit;
         $this->uploadFile($base64,$name,$folder);
         return $name;
     }
     
     private function getFileName($single, $imagename)
     {
-        echo $single;
-        exit;
         $strpos = strpos($single,';');
         $sub = substr($single,0,$strpos);
         $ex = explode('/',$sub)[1];

@@ -149,5 +149,4 @@ class HotelNewController extends Controller
             'image' => 'required'          
       ]);
     }
-
 }

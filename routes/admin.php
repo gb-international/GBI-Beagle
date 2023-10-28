@@ -108,6 +108,8 @@ Route::namespace('Admin')->group(function (){
 	});
 
 	Route::namespace('Hotel')->group(function(){
+		Route::get('amenities/all/{size?}','AmenitiesController@all');
+		Route::resource('amenities','AmenitiesController');
 		Route::get('hotel/all/{size}/{state}','HotelController@all');
 		Route::resource('hotel','HotelController');
 		Route::get('banquet/all/{size}','BanquetController@all');

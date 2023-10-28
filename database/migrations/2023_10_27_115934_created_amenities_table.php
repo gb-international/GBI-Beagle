@@ -19,6 +19,8 @@ class CreatedAmenitiesTable extends Migration
             $table->text('description')->nullable();
             $table->string('alt')->nullable();
             $table->text('image')->nullable();
+            $table->string('icon_alt')->nullable();
+            $table->text('icon_image')->nullable();
             $table->dateTime('created_at')->useCurrent();
             $table->dateTime('updated_at')->nullable();
             $table->softDeletes();

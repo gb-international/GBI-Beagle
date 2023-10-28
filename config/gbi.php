@@ -28,6 +28,8 @@ return [
     'encyclopedia_food' => 'images/encyclopedia/food/',   
     'encyclopedia_cultural' => 'images/encyclopedia/cultural/',   
     'encylopedia_event_banner_image' => 'images/encyclopedia/event_banner/',
+    'amenities_img' => 'images/amenities_img/',
+    'amenities_img_icon' => 'images/amenities_img_icon/',
     'encylopedia_event_image' => 'images/encyclopedia/event_image/',
     'user_image' => 'images/user/',
     'resume_pdf' => 'images/resume/',
