@@ -7,6 +7,7 @@ Purpose : Manage Hotel
 namespace App\Http\Controllers\Admin\Hotel;
 use App\Http\Resources\Admin\HotelCollection;
 use App\Model\Hotel\Hotel as Hotel;
+use App\Model\Hotel\MetaKeyword; 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Traits\ImageTrait;
@@ -14,6 +15,7 @@ use Image;
 use App\Rules\EmailValidate;
 use App\Rules\PhoneNubmerValidate;
 use App\Rules\AlphaSpace;
+use App\Http\Requests\Admin\Hotel\HotelRequest;
 
 class HotelController extends Controller
 {
@@ -27,9 +29,7 @@ class HotelController extends Controller
     public function all($size, $state)
     {
         $state = str_replace('-', ' ', $state);
-        $data = Hotel::where('state', $state)
-        ->latest('updated_at')
-        ->paginate($size);
+        $data = Hotel::where('state', $state)->latest('updated_at')->paginate($size);
         foreach ($data as $d){
             $d->images = unserialize($d->images);
             $d->banquet_categories = unserialize($d->banquet_categories);
@@ -63,9 +63,37 @@ class HotelController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(HotelRequest $request)
     {
-        //$data = $this->validateHotel($request);
+        try{
+            $data = array("name"=>$request->name, "state"=>$request->state, "city"=>$request->city, "pincode"=>$request->pincode, "country" => $request->country??'',"address" => $request->address??'', "phoneno" => $request->phoneno??'',"email" => $request->email??'', "rooms"=>$request->rooms??'',"star_category" => $request->star_category??'', "banquets" => $request->banquets??'', "description" => $request->description??'', "meta_title" => $request->meta_title??'', "meta_description"=> $request->meta_description??'');
+            $hotel = Hotel::create($data);
+            $hotel_id =  $hotel->id??0;
+            $meta_keywords= [];
+            if($request->meta_keywords){
+                foreach ($request->meta_keywords as $meta_keyword) {
+                    if($meta_keyword['id'] == ''){
+                        $meta_keyword = MetaKeyword::create($meta_keyword);
+                    }
+                    $meta_keywords[] = $meta_keyword['id'];
+                }
+            }
+            $hotel->metaKeyword()->sync($meta_keywords);
+            
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }
+        return response()->json('successfull created');
+
+
+        
+        // "room_categories" => ,
+        // "banquet_categories" => ,
+        // "amenities" => ,
+        // "images" => "",
+        // "meta_keywords" => ,
+        // "meta_keywords.*.title" => "required",
         $data = $request->all();
         $data['meta_keywords'] = serialize($request->meta_keywords);
         $data['room_categories'] = serialize($request->room_categories);
@@ -98,6 +126,7 @@ class HotelController extends Controller
         $hotel->images = unserialize($hotel->images);
         $hotel->banquet_categories = unserialize($hotel->banquet_categories);
         $hotel->amenities = unserialize($hotel->amenities);
+        
         $hotel->alt = unserialize($hotel->alt);
         $hotel->meta_keywords = unserialize($hotel->meta_keywords);
         $hotel->room_categories = unserialize($hotel->room_categories);

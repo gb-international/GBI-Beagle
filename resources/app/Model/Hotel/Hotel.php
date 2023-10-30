@@ -40,4 +40,8 @@ class Hotel extends Model
     public function amenities(){
         return $this->hasMany('App\Model\Hotel\Amenities');
     }
+    public function metaKeyword()
+    {
+        return $this->belongsToMany('App\Model\Hotel\MetaKeyword');
+    }
 }

@@ -5,7 +5,7 @@ Purpose : Manage Amenities
 
 */
 namespace App\Http\Controllers\Admin\Hotel;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Controller; 
 use App\Http\Controllers\Admin\BaseController;
 use App\Model\Hotel\Amenities;
 use Illuminate\Http\Request;
@@ -31,7 +31,7 @@ class AmenitiesController extends BaseController
     {
         try{
             if (empty($size)) {
-                $size = 10;
+                $size = 10; 
             }
             $amenities = Amenities::latest()->paginate($size);
             return $this->sendResponse($amenities, 'success', 200);
