@@ -16,6 +16,7 @@ use App\Rules\EmailValidate;
 use App\Rules\PhoneNubmerValidate;
 use App\Rules\AlphaSpace;
 use App\Http\Requests\Admin\Hotel\HotelRequest;
+use App\Model\Hotel\HotelImages;
 
 class HotelController extends Controller
 {
@@ -28,15 +29,13 @@ class HotelController extends Controller
 
     public function all($size, $state)
     {
-        $state = str_replace('-', ' ', $state);
         $data = Hotel::where('state', $state)->latest('updated_at')->paginate($size);
-        foreach ($data as $d){
-            $d->images = unserialize($d->images);
-            $d->banquet_categories = unserialize($d->banquet_categories);
-            $d->amenities = unserialize($d->amenities);
-            $d->alt = unserialize($d->alt);
-            $d->meta_keywords = unserialize($d->meta_keywords);
-            $d->room_categories = unserialize($d->room_categories);
+        foreach ($data as $hotel){
+            $hotel->roomCategory;
+            $hotel->banquetCategory;
+            $hotel->amenities;
+            $hotel->metaKeyword;
+            $hotel->hotelimages;
         }
         return response()->json($data);
     }
@@ -44,7 +43,6 @@ class HotelController extends Controller
     {
         $hotel = Hotel::select('name','id')->get();
         return response()->json($hotel);
-        //return HotelCollection::collection(Hotel::all());
     }
 
     /**
@@ -75,44 +73,25 @@ class HotelController extends Controller
                     if($meta_keyword['id'] == ''){
                         $meta_keyword = MetaKeyword::create($meta_keyword);
                     }
-                    $meta_keywords[] = $meta_keyword['id'];
+                    $meta_keywords[] = $meta_keyword['id']??'';
                 }
             }
-            $hotel->metaKeyword()->sync($meta_keywords);
-            
+            if($request->images){
+                foreach($request->images as $imagedata) {
+                    $imagename = explode('.',$imagedata['name'])[0];
+                    $img=$this->AwsFileUpload($imagedata['file'],config('gbi.hotel_image'),$imagename);
+                    HotelImages::create(['hotel_id'=>$hotel_id,'image'=>$img,'alt'=>$imagename]);
+                }
+            }
+            $hotel->metaKeyword()->sync(array_unique($meta_keywords));
+            $hotel->roomCategory()->sync(array_unique($request->room_categories??''));
+            $hotel->banquetCategory()->sync(array_unique($request->banquet_categories??''));
+            $hotel->amenities()->sync(array_unique($request->amenities??''));            
         }
         catch(Exception $e){
             return $this->sendError($e->getMessage(), 500);
         }
         return response()->json('successfull created');
-
-
-        
-        // "room_categories" => ,
-        // "banquet_categories" => ,
-        // "amenities" => ,
-        // "images" => "",
-        // "meta_keywords" => ,
-        // "meta_keywords.*.title" => "required",
-        $data = $request->all();
-        $data['meta_keywords'] = serialize($request->meta_keywords);
-        $data['room_categories'] = serialize($request->room_categories);
-        $data['banquet_categories'] = serialize($request->banquet_categories);
-        $data['amenities'] = serialize($request->amenities);
-        $data['alt'] = serialize($request->alt);
-
-        $images = array();
-        if($request->images){
-            $count = 0;
-            foreach($request->images as $img){
-              $images[$count] = $this->AwsFileUpload($img,config('gbi.hotel_image'),$request->alt[$count]);
-              $count++;
-            }
-        }
-        $data['images'] = serialize($images);
-        
-        $hotel = Hotel::create($data);
-        return response()->json(['Message'=> 'Successfully Added...']);
     }
 
     /**
@@ -123,13 +102,11 @@ class HotelController extends Controller
      */
     public function show(Hotel $hotel)
     {
-        $hotel->images = unserialize($hotel->images);
-        $hotel->banquet_categories = unserialize($hotel->banquet_categories);
-        $hotel->amenities = unserialize($hotel->amenities);
-        
-        $hotel->alt = unserialize($hotel->alt);
-        $hotel->meta_keywords = unserialize($hotel->meta_keywords);
-        $hotel->room_categories = unserialize($hotel->room_categories);
+        $hotel->roomCategory;
+        $hotel->banquetCategory;
+        $hotel->amenities;
+        $hotel->metaKeyword;
+        $hotel->hotelimages;
         return response()->json($hotel);
     }
 
@@ -141,12 +118,11 @@ class HotelController extends Controller
      */
     public function edit(Hotel $hotel)
     {
-        $hotel->images = unserialize($hotel->images);
-        $hotel->banquet_categories = unserialize($hotel->banquet_categories);
-        $hotel->amenities = unserialize($hotel->amenities);
-        $hotel->alt = unserialize($hotel->alt);
-        $hotel->meta_keywords = unserialize($hotel->meta_keywords);
-        $hotel->room_categories = unserialize($hotel->room_categories);
+        $hotel->roomCategory;
+        $hotel->banquetCategory;
+        $hotel->amenities;
+        $hotel->metaKeyword;
+        $hotel->hotelimages;
         return response()->json($hotel);
     }
 
@@ -157,44 +133,20 @@ class HotelController extends Controller
      * @param  \App\hotel  $hotel
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Hotel $hotel)
+    public function update(HotelRequest $request, Hotel $hotel)
     {
-
-        //$data = $this->validateHotel($request);
-        $data = $request->all();
-        $data['meta_keywords'] = serialize($data['meta_keywords']);
-        $data['room_categories'] = serialize($data['room_categories']);
-        $data['banquet_categories'] = serialize($data['banquet_categories']);
-        $data['amenities'] = serialize($data['amenities']);
-
-       $newImages = array();
-       $newAlts = array();
-        if($data['newImages']){
-            $count = 0;
-            foreach($data['newImages'] as $img){
-              $newImages[$count] = $this->AwsFileUpload($img,config('gbi.hotel_image'),'hotel_image_'.uniqid());
-              $newAlts[$count] = 'hotel_image_'.uniqid();
-              $count++;
-            }
-            array_push($data['images'], $newImages);
-            array_push($data['alt'], $newAlts);
-        }
-
-        if($data['delImages']){
-            $count = 0;
-            foreach($data['delImages'] as $img){
-               // $this->AwsDeleteImage($img);
-                $count++;
+        try{
+            if($request->new_images){
+                foreach($request->new_images as $imagedata) {
+                    $imagename = explode('.',$imagedata['name'])[0];
+                    $img=$this->AwsFileUpload($imagedata['file'],config('gbi.hotel_image'),$imagename);
+                    HotelImages::create(['hotel_id'=>$hotel->id,'image'=>$img,'alt'=>$imagename]);
+                }
             }
         }
-
-        unset($data['newImages'], $data['delImages']);
-
-        $data['images'] = serialize($data['images']);
-        $data['alt'] = serialize($data['alt']);
-
-        $hotel->update($data);
-        return response()->json(['message'=>$data]);
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }
     }
 
     /**
@@ -205,8 +157,21 @@ class HotelController extends Controller
      */
     public function destroy(Hotel $hotel)
     {
-        $this->AwsDeleteImage($hotel->image);
-        $hotel->delete();
+        try{
+            if($hotel->hotelimages){
+                foreach($hotel->hotelimages as $img){
+                    if($img->image){
+                        $this->AwsDeleteImage($img->image);
+                    }
+                    $img->delete();
+                }
+            }
+            $hotel->delete();
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }
+
         return response()->json('successfully deleted');
     }
 

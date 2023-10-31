@@ -13,11 +13,11 @@ class CreatedHotelMetaKeywordsTable extends Migration
      */
     public function up()
     {
-        Schema::create('hotel_meta_keywords', function (Blueprint $table) {
+        Schema::create('hotel_meta_keyword', function (Blueprint $table) {
             $table->unsignedInteger('hotel_id')->nullable();
-            $table->unsignedInteger('meta_keywords_id')->nullable();
+            $table->unsignedInteger('meta_keyword_id')->nullable();
             $table->foreign('hotel_id')->references('id')->on('hotels')->onDelete('cascade');
-            $table->foreign('meta_keywords_id')->references('id')->on('meta_keywords')->onDelete('cascade');
+            $table->foreign('meta_keyword_id')->references('id')->on('meta_keywords')->onDelete('cascade');
         });
     }
 
@@ -28,6 +28,6 @@ class CreatedHotelMetaKeywordsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hotel_meta_keywords');
+        Schema::dropIfExists('hotel_meta_keyword');
     }
 }

@@ -13,7 +13,7 @@ class CreatedHotelBanquetCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('hotel_banquet_categories', function (Blueprint $table) {
+        Schema::create('banquet_category_hotel', function (Blueprint $table) {
             $table->unsignedInteger('hotel_id')->nullable();
             $table->unsignedBigInteger('banquet_category_id')->nullable();
             $table->foreign('hotel_id')->references('id')->on('hotels')->onDelete('cascade');
@@ -28,6 +28,6 @@ class CreatedHotelBanquetCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hotel_banquet_categories');
+        Schema::dropIfExists('banquet_category_hotel');
     }
 }

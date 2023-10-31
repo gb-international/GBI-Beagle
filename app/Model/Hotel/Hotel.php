@@ -4,6 +4,7 @@ namespace App\Model\Hotel;
 
 use Illuminate\Database\Eloquent\Model;
 
+
 class Hotel extends Model
 {
     protected $guarded = [];
@@ -30,14 +31,23 @@ class Hotel extends Model
     }
 
     public function roomCategory(){
-        return $this->hasMany('App\Model\Hotel\RoomCategory');
+        return $this->belongsToMany('App\Model\Hotel\RoomCategory')->select('id', 'title', 'description');
     }
 
     public function banquetCategory(){
-        return $this->hasMany('App\Model\Hotel\BanquetCategory');
+        return $this->belongsToMany('App\Model\Hotel\BanquetCategory')->select('id', 'title', 'description');
     }
 
     public function amenities(){
-        return $this->hasMany('App\Model\Hotel\Amenities');
+        return $this->belongsToMany('App\Model\Hotel\Amenities')->select('id', 'title','description', 'alt', 'image', 'icon_alt', 'icon_image');
     }
+    public function metaKeyword()
+    {
+        return $this->belongsToMany('App\Model\Hotel\MetaKeyword')->select('id', 'title')->select('id', 'title');
+    }
+    public function hotelimages()
+	{
+		return $this->hasMany('App\Model\Hotel\HotelImages')->select('id', 'hotel_id', 'alt', 'image');
+	}
+
 }
