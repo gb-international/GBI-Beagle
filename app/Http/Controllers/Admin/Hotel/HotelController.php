@@ -17,8 +17,9 @@ use App\Rules\PhoneNubmerValidate;
 use App\Rules\AlphaSpace;
 use App\Http\Requests\Admin\Hotel\HotelRequest;
 use App\Model\Hotel\HotelImages;
+use App\Http\Controllers\Admin\BaseController;
 
-class HotelController extends Controller
+class HotelController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -64,7 +65,7 @@ class HotelController extends Controller
     public function store(HotelRequest $request)
     {
         try{
-            $data = array("name"=>$request->name, "state"=>$request->state, "city"=>$request->city, "pincode"=>$request->pincode, "country" => $request->country??'',"address" => $request->address??'', "phoneno" => $request->phoneno??'',"email" => $request->email??'', "rooms"=>$request->rooms??'',"star_category" => $request->star_category??'', "banquets" => $request->banquets??'', "description" => $request->description??'', "meta_title" => $request->meta_title??'', "meta_description"=> $request->meta_description??'');
+            $data = array("name"=>$request->name, "state"=>$request->state, "city"=>$request->city, "pincode"=>$request->pincode, "country" => $request->country??'',"address" => $request->address??'', "phoneno" => $request->phoneno??'',"email" => $request->email??'', "room"=>$request->rooms??'',"star_category" => $request->star_category??'', "banquets" => $request->banquets??'', "description" => $request->description??'', "meta_title" => $request->meta_title??'', "meta_description"=> $request->meta_description??'');
             $hotel = Hotel::create($data);
             $hotel_id =  $hotel->id??0;
             $meta_keywords= [];
@@ -136,6 +137,8 @@ class HotelController extends Controller
     public function update(HotelRequest $request, Hotel $hotel)
     {
         try{
+            $data = array("name"=>$request->name??$hotel->name, "state"=>$request->state??$hotel->state, "city"=>$request->city??$hotel->city, "pincode"=>$request->pincode??$hotel->pincode, "country" => $request->country??$hotel->country,"address" => $request->address??$hotel->address, "phoneno" => $request->phoneno??$hotel->phoneno,"email" => $request->email??$hotel->email, "room"=>$request->rooms??$hotel->rooms,"star_category" => $request->star_category??$hotel->star_category, "banquets" => $request->banquets??$hotel->banquets, "description" => $request->description??$hotel->description, "meta_title" => $request->meta_title??$hotel->meta_title, "meta_description"=> $request->meta_description??$hotel->meta_description);
+            $hotel->update($data);
             if($request->new_images){
                 foreach($request->new_images as $imagedata) {
                     $imagename = explode('.',$imagedata['name'])[0];
@@ -143,10 +146,25 @@ class HotelController extends Controller
                     HotelImages::create(['hotel_id'=>$hotel->id,'image'=>$img,'alt'=>$imagename]);
                 }
             }
+            $meta_keywords= [];
+            if($request->meta_keywords){
+                foreach ($request->meta_keywords as $meta_keyword) {
+                    if($meta_keyword['id'] == ''){
+                        $meta_keyword = MetaKeyword::create($meta_keyword);
+                    }
+                    $meta_keywords[] = $meta_keyword['id']??'';
+                }
+            }
+            $hotel->metaKeyword()->sync(array_unique($meta_keywords));
+            $hotel->roomCategory()->sync(array_unique($request->room_categories??''));
+            $hotel->banquetCategory()->sync(array_unique($request->banquet_categories??''));
+            $hotel->amenities()->sync(array_unique($request->amenities??''));
+            $hotel->save();             
         }
         catch(Exception $e){
             return $this->sendError($e->getMessage(), 500);
         }
+        return response()->json('successful updated');
     }
 
     /**
@@ -175,7 +193,21 @@ class HotelController extends Controller
         return response()->json('successfully deleted');
     }
 
-
+    public function destroyImage($id){
+        try{
+            $data = HotelImages::where('id',$id)->first();
+            if(!empty($data)){
+                $data->delete();
+            }
+            else{
+                return $this->sendError("Id does not exist", 404);
+            }
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }
+        return response()->json('Successfully deleted');
+    }
     // Validate hotel
 
     public function validateHotel($request)

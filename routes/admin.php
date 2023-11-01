@@ -115,6 +115,7 @@ Route::namespace('Admin')->group(function (){
 		Route::resource('amenities','AmenitiesController');
 		Route::get('hotel/all/{size}/{state}','HotelController@all');
 		Route::resource('hotel','HotelController');
+		Route::get('hotel-image/{id}','HotelController@destroyImage');
 		Route::get('banquet/all/{size}','BanquetController@all');
 		Route::resource('banquet','BanquetController');
 		Route::get('room-categories/all/{size}','RoomCategoryController@all');
