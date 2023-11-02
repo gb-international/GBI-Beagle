@@ -29,6 +29,7 @@ class AmenitiesRequest extends FormRequest
         return [
             'title'=>'required',
             'description'=>'required',
+            'type'=>'required|in:0,1,2'
         ];
     }
     protected function failedValidation(Validator $validator) : void

@@ -27,13 +27,16 @@ class AmenitiesController extends BaseController
         $this->data = [];
     }
 
-    public function all($size=null)
+    public function all($size=null, $type=null)
     {
         try{
             if (empty($size)) {
                 $size = 10; 
             }
-            $amenities = Amenities::latest()->paginate($size);
+            if (empty($type)) {
+                $type = 2; 
+            }
+            $amenities = Amenities::where('type', $type)->latest()->paginate($size);
             return $this->sendResponse($amenities, 'success', 200);
         }
         catch(Exception $e){
@@ -67,7 +70,7 @@ class AmenitiesController extends BaseController
         try{
             // return config('gbi.amenities_img');
             $this->data = array('title'=>$request->title??'',
-            'description'=>$request->description??'');
+            'description'=>$request->description??'', 'type'=>$request->type??0);
             if($request->image){
                 $imagename = explode('.',$request->image[0]['name'])[0];
 
@@ -135,7 +138,7 @@ class AmenitiesController extends BaseController
         $amenities = Amenities::where('id', $id)->first();
         if(!empty($amenities)){
             $this->data = array('title'=>$request->title??$amenities->title,
-            'description'=>$request->description??$amenities->description);
+            'description'=>$request->description??$amenities->description, 'type'=>$request->type??$amenities->type);
             if($request->image){
                 $img_name = explode('.',$request->image[0]['name'])[0];
                 $this->data['image'] = $this->AwsFileUpload($request->image[0]['file'],config('gbi.amenities_img'),$img_name);

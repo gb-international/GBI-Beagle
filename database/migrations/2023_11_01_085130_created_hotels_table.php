@@ -16,21 +16,30 @@ class CreatedHotelsTable extends Migration
         Schema::create('hotels', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->nullable();
-            $table->string('state')->nullable();
-            $table->string('city')->nullable();
-            $table->text('address')->nullable();
-            $table->string('phoneno')->nullable();
-            $table->string('country')->nullable();
-            $table->string('pincode')->nullable();
-            $table->string('email')->nullable();
-            $table->Integer('room')->default(2);            
-            $table->tinyInteger('star_category')->default(2);            
-            $table->Integer('banquets')->default(2);            
-            $table->enum('status', ['0', '1'])->default('1');
-            $table->string('meta_title')->nullable();
             $table->text('description')->nullable();
-            $table->text('meta_description')->nullable();
-            $table->timestamps();
+            $table->Integer('no_of_rooms')->default(0);            
+            $table->double('star_category')->default(0);            
+            $table->string('hotel_type')->nullable();
+            $table->string('email')->nullable();
+            $table->string('phone_number')->nullable();
+            $table->Integer('no_of_banquet')->default(2);            
+            $table->text('hotel_policies_description')->nullable();
+            $table->text('safety_hygiene_description')->nullable();
+            $table->text('address')->nullable();
+            $table->unsignedInteger('city_id')->nullable();
+            $table->unsignedInteger('state_id')->nullable();
+            $table->unsignedInteger('country_id')->nullable();
+            $table->string('pincode')->nullable();
+            $table->text('location')->nullable();
+            $table->enum('status', ['0', '1'])->default('1');
+            $table->string('banner_image')->nullable();
+            $table->string('banner_alt')->nullable();
+            $table->dateTime('created_at')->useCurrent();
+            $table->dateTime('updated_at')->nullable();
+            $table->softDeletes();
+            $table->foreign('city_id')->references('id')->on('cities')->onDelete('cascade');
+            $table->foreign('state_id')->references('id')->on('states')->onDelete('cascade');
+            $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
         });
     }
 

@@ -13,11 +13,11 @@ class CreatedHotelRoomCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('hotel_room_category', function (Blueprint $table) {
+        Schema::create('hotel_room', function (Blueprint $table) {
             $table->unsignedInteger('hotel_id')->nullable();
-            $table->unsignedInteger('room_category_id')->nullable();
+            $table->unsignedInteger('room_id')->nullable();
             $table->foreign('hotel_id')->references('id')->on('hotels')->onDelete('cascade');
-            $table->foreign('room_category_id')->references('id')->on('room_categories')->onDelete('cascade');
+            $table->foreign('room_id')->references('id')->on('rooms')->onDelete('cascade');
         });
     }
 
@@ -28,6 +28,6 @@ class CreatedHotelRoomCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hotel_room_category');
+        Schema::dropIfExists('hotel_room');
     }
 }

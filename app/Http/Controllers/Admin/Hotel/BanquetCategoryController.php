@@ -25,11 +25,7 @@ class BanquetCategoryController extends Controller
 
     public function index()
     {
-        return response()->json(BanquetCategory::select([
-            'id','description','title','updated_at'
-            ])
-            ->latest('updated_at')
-            ->get());
+        return response()->json(BanquetCategory::select(['id','description','title','updated_at'])->latest('updated_at')->get());
     }
 
     public function create()

@@ -13,11 +13,11 @@ class CreatedHotelBanquetCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('banquet_category_hotel', function (Blueprint $table) {
+        Schema::create('hotel_banquet', function (Blueprint $table) {
             $table->unsignedInteger('hotel_id')->nullable();
-            $table->unsignedBigInteger('banquet_category_id')->nullable();
+            $table->unsignedBigInteger('banquet_id')->nullable();
             $table->foreign('hotel_id')->references('id')->on('hotels')->onDelete('cascade');
-            $table->foreign('banquet_category_id')->references('id')->on('banquet_categories')->onDelete('cascade');
+            $table->foreign('banquet_id')->references('id')->on('banquets')->onDelete('cascade');
         });
     }
 
@@ -28,6 +28,6 @@ class CreatedHotelBanquetCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('banquet_category_hotel');
+        Schema::dropIfExists('hotel_banquet');
     }
 }

@@ -15,6 +15,7 @@ class CreatedAmenitiesTable extends Migration
     {
         Schema::create('amenities', function (Blueprint $table) {
             $table->increments('id');
+            $table->tinyInteger('type')->default(2)->comment("0=>room, 1=>banquet, 2=>hotel");
             $table->string('title')->nullable();
             $table->text('description')->nullable();
             $table->string('alt')->nullable();
