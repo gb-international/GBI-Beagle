@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatedHotelsTable extends Migration
+class CreatedBanquetsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,25 +13,20 @@ class CreatedHotelsTable extends Migration
      */
     public function up()
     {
-        Schema::create('hotels', function (Blueprint $table) {
+        Schema::create('banquets', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->nullable();
             $table->text('description')->nullable();
-            $table->Integer('no_of_rooms')->default(0);            
+            $table->Integer('no_of_banquet')->default(2);            
             $table->double('star_category')->default(0);            
-            $table->string('hotel_type')->nullable();
             $table->string('email')->nullable();
             $table->string('phone_number')->nullable();
-            $table->Integer('no_of_banquet')->default(2);            
-            $table->text('hotel_policies_description')->nullable();
-            $table->text('safety_hygiene_description')->nullable();
             $table->text('address')->nullable();
             $table->unsignedInteger('city_id')->nullable();
             $table->unsignedInteger('state_id')->nullable();
-            $table->unsignedInteger('country_id')->nullable();
+            $table->unsignedBigInteger('country_id')->nullable();
             $table->string('pincode')->nullable();
             $table->text('location')->nullable();
-            $table->enum('status', ['0', '1'])->default('1');
             $table->string('banner_image')->nullable();
             $table->string('banner_alt')->nullable();
             $table->dateTime('created_at')->useCurrent();
@@ -50,6 +45,6 @@ class CreatedHotelsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hotels');
+        Schema::dropIfExists('banquets');   
     }
 }

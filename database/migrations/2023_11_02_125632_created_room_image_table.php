@@ -13,7 +13,16 @@ class CreatedRoomImageTable extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('room_images', function (Blueprint $table) {
+            $table->increments('id');
+            $table->unsignedInteger('room_id')->nullable();
+            $table->string('alt')->nullable();
+            $table->text('image')->nullable();
+            $table->dateTime('created_at')->useCurrent();
+            $table->dateTime('updated_at')->nullable();
+            $table->softDeletes();
+            $table->foreign('room_id')->references('id')->on('rooms')->onDelete('cascade');
+        });
     }
 
     /**
@@ -23,6 +32,6 @@ class CreatedRoomImageTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('room_images'); 
     }
 }

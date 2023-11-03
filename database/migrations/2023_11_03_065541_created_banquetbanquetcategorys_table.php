@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatedHotelBanquetTable extends Migration
+class CreatedBanquetbanquetcategorysTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreatedHotelBanquetTable extends Migration
      */
     public function up()
     {
-        Schema::create('hotel_banquet', function (Blueprint $table) {
-            $table->unsignedInteger('hotel_id')->nullable();
+        Schema::create('banquetbanquetcategorys', function (Blueprint $table) {
             $table->unsignedInteger('banquet_id')->nullable();
-            $table->foreign('hotel_id')->references('id')->on('hotels')->onDelete('cascade');
+            $table->unsignedInteger('banquetcategory_id')->nullable();
             $table->foreign('banquet_id')->references('id')->on('banquets')->onDelete('cascade');
+            $table->foreign('banquetcategory_id')->references('id')->on('banquetcategorys')->onDelete('cascade');
         });
     }
 
@@ -28,6 +28,6 @@ class CreatedHotelBanquetTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hotel_banquet');
+        Schema::dropIfExists('banquetbanquetcategorys');
     }
 }

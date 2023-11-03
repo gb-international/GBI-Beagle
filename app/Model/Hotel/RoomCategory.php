@@ -12,13 +12,4 @@ class RoomCategory extends Model
     protected $fillable = [
     'title', 'description', 'created_at', 'updated_at'
     ];
-
-    public function hotel(){
-        return $this->hasMany('App\Model\Hotel\Hotel');
-    }
-
-    public function rooms(){
-        return $this->hasMany('App\Model\Hotel\HotelRooms');
-    }
-
 }

@@ -21,6 +21,7 @@ return [
     'event_image' => 'images/events/',
     'schoolTrip_img' => 'images/SchoolTrips/',
     'hotel_image' => 'images/hotel/',
+    'banquet_image' => 'images/banquet_image/',
     'sightseeing_image' => 'images/sightseeing/',
     'gallery_image' => 'images/gallery/',
     'encyclopedia_image' => 'images/encyclopedia/',
