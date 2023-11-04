@@ -16,6 +16,7 @@ return [
     //  aws images path (folder)
     'category_image' => 'images/category/',
     'post_image' => 'images/post/',
+    'room_image' => 'images/room_image/',
     'tourprogram_image' => 'images/tourprogram/',
     'itinerary_image' => 'images/itinerary/',
     'event_image' => 'images/events/',
@@ -29,6 +30,7 @@ return [
     'encyclopedia_food' => 'images/encyclopedia/food/',   
     'encyclopedia_cultural' => 'images/encyclopedia/cultural/',   
     'encylopedia_event_banner_image' => 'images/encyclopedia/event_banner/',
+    'banner_image' => 'images/banner_image/',
     'amenities_img' => 'images/amenities_img/',
     'amenities_img_icon' => 'images/amenities_img_icon/',
     'encylopedia_event_image' => 'images/encyclopedia/event_image/',

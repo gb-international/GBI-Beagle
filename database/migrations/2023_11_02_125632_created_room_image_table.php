@@ -17,7 +17,7 @@ class CreatedRoomImageTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('room_id')->nullable();
             $table->string('alt')->nullable();
-            $table->text('image')->nullable();
+            $table->text ('image')->nullable();
             $table->dateTime('created_at')->useCurrent();
             $table->dateTime('updated_at')->nullable();
             $table->softDeletes();

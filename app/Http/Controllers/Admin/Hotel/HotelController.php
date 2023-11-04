@@ -65,18 +65,20 @@ class HotelController extends BaseController
     public function store(HotelRequest $request)
     {
         try{
-            $data = array("name"=>$request->name, "state"=>$request->state, "city"=>$request->city, "pincode"=>$request->pincode, "country" => $request->country??'',"address" => $request->address??'', "phoneno" => $request->phoneno??'',"email" => $request->email??'', "room"=>$request->rooms??'',"star_category" => $request->star_category??'', "banquets" => $request->banquets??'', "description" => $request->description??'', "meta_title" => $request->meta_title??'', "meta_description"=> $request->meta_description??'');
+            $data = array("name"=>$request->name, "description" => $request->description??'',"no_of_room"=>$request->no_of_room??0,
+            "star_category"=>$request->star_category??0, "hotel_type"=>$request->hotel_type??0, "email" => $request->email??'', "phone_number" => $request->phoneno??'', "no_of_banquet" => $request->no_of_banquet??0, "hotel_policies_description" => $request->hotel_policies_description??'', "safety_hygiene_description" => $request->safety_hygiene_description??'', "state"=>$request->state, "city"=>$request->city, "pincode"=>$request->pincode, "country" => $request->country??'',"address" => $request->address??'');
             $hotel = Hotel::create($data);
             $hotel_id =  $hotel->id??0;
-            $meta_keywords= [];
-            if($request->meta_keywords){
-                foreach ($request->meta_keywords as $meta_keyword) {
-                    if($meta_keyword['id'] == ''){
-                        $meta_keyword = MetaKeyword::create($meta_keyword);
-                    }
-                    $meta_keywords[] = $meta_keyword['id']??'';
-                }
-            }
+            // $meta_keywords= [];
+            // if($request->meta_keywords){
+            //     foreach ($request->meta_keywords as $meta_keyword) {
+            //         if($meta_keyword['id'] == ''){
+            //             $meta_keyword = MetaKeyword::create($meta_keyword);
+            //         }
+            //         $meta_keywords[] = $meta_keyword['id']??'';
+            //     }
+            // }
+            // $hotel->metaKeyword()->sync(array_unique($meta_keywords));
             if($request->images){
                 foreach($request->images as $imagedata) {
                     $imagename = explode('.',$imagedata['name'])[0];
@@ -84,10 +86,22 @@ class HotelController extends BaseController
                     HotelImages::create(['hotel_id'=>$hotel_id,'image'=>$img,'alt'=>$imagename]);
                 }
             }
-            $hotel->metaKeyword()->sync(array_unique($meta_keywords));
-            $hotel->roomCategory()->sync(array_unique($request->room_categories??''));
-            $hotel->banquetCategory()->sync(array_unique($request->banquet_categories??''));
-            $hotel->amenities()->sync(array_unique($request->amenities??''));            
+
+            if($request->banner_image){
+                $imagename = explode('.',$request->banner_image[0]['name'])[0];
+                $hotel->banner_image = $this->AwsFileUpload($request->banner_image[0]['file'],config('gbi.banner_image'),$imagename);
+                $hotel->banner_alt = $imagename;
+                $hotel->save();
+            }
+            
+            $hotel->room()->sync(array_unique($request->rooms??''));
+
+            if($request->no_of_banquet??0 > 0){
+                $hotel->banquet()->sync(array_unique($request->banquet??''));
+            }
+
+            $hotel->amenities()->sync(array_unique($request->amenities??''));    
+
         }
         catch(Exception $e){
             return $this->sendError($e->getMessage(), 500);
@@ -146,6 +160,7 @@ class HotelController extends BaseController
                     HotelImages::create(['hotel_id'=>$hotel->id,'image'=>$img,'alt'=>$imagename]);
                 }
             }
+            
             $meta_keywords= [];
             if($request->meta_keywords){
                 foreach ($request->meta_keywords as $meta_keyword) {

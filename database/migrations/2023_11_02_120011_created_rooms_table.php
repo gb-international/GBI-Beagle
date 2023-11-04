@@ -17,6 +17,7 @@ class CreatedRoomsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('room_category_id')->nullable();
             $table->text('description')->nullable();
+            $table->string('meal_plan_type')->nullable();
             $table->Integer('maximum_occupancy')->default(0);            
             $table->double('inches')->default(0);            
             $table->double('length')->default(0);            
