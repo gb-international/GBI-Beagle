@@ -24,19 +24,42 @@ class RoomController extends BaseController
      */
     use ImageTrait;
 
-    public function all($size)
+    public function all($size=null)
     {
-        return response()->json(HotelRooms::select([
-            'id','name', 'room_category', 'room_price'
-            ])
-            ->latest('updated_at')
-            ->paginate($size));
+        try{
+            if (empty($size)) {
+                $size = 10; 
+            }
+            $room = Room::latest('updated_at')->paginate($size);
+            if($room->count() > 0){
+                foreach($room as $roomVal){
+                    $roomVal->room_category;
+                    $roomVal->roomimages;
+                }
+            }
+            return response()->json($room);
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }
     }
     public function index()
     {
-        $room = HotelRooms::select('id','name', 'room_category', 'room_price')->get();
-        return response()->json($room);
-        //return RoomCollection::collection(HotelRooms::all());
+        try{
+
+            $room = Room::select('id','room_category_id', 'description', 'meal_plan_type', 'maximum_occupancy', 'inches', 'length', 'width', 'height', 'currency_type')->latest()->get();
+            if($room->count() > 0){
+                foreach($room as $roomVal){
+                    $roomVal->room_category;
+                    $roomVal->roomimages;
+                }
+            }
+
+            return response()->json($room);
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }
     }
 
     /**
@@ -92,8 +115,10 @@ class RoomController extends BaseController
      * @param  \App\room  $room
      * @return \Illuminate\Http\Response
      */
-    public function show(HotelRooms $room)
+    public function show(Room $room)
     {
+        $room->room_category;
+        $room->roomimages;
         return response()->json($room);
     }
 
@@ -103,8 +128,10 @@ class RoomController extends BaseController
      * @param  \App\room  $room
      * @return \Illuminate\Http\Response
      */
-    public function edit(HotelRooms $room)
+    public function edit(Room $room)
     {
+        $room->room_category;
+        $room->roomimages;
         return response()->json($room);
     }
 
@@ -150,13 +177,35 @@ class RoomController extends BaseController
      * @param  \App\room  $room
      * @return \Illuminate\Http\Response
      */
-    public function destroy(HotelRooms $room)
+    public function destroy(Room $room)
     {
-        $this->AwsDeleteImage($room->image);
+        if($room->hotelimages){
+            foreach($room->roomimages as $img){
+                if($img->image){
+                    $this->AwsDeleteImage($img->image);
+                }
+                $img->delete();
+            }
+        }
         $room->delete();
         return response()->json('successfully deleted');
     }
 
+    public function destroyImage($id){
+        try{
+            $data = RoomImages::where('id',$id)->first();
+            if(!empty($data)){
+                $data->delete();
+            }
+            else{
+                return $this->sendError("Id does not exist", 404);
+            }
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }
+        return response()->json('Successfully deleted');
+    }
 
     // Validate room
 

@@ -28,7 +28,7 @@ class Hotel extends Model
 
     
     public function amenities(){
-        return $this->belongsToMany('App\Model\Hotel\Amenities')->select('id', 'title','description', 'alt', 'image', 'icon_alt', 'icon_image');
+        return $this->belongsToMany('App\Model\Hotel\Amenities');
     }
     
     public function rooms(){

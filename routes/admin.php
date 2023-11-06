@@ -120,7 +120,8 @@ Route::namespace('Admin')->group(function (){
 		Route::resource('banquet','BanquetController');
 		Route::get('room-categories/all/{size}','RoomCategoryController@all');
 		Route::resource('room-categories','RoomCategoryController');
-		Route::get('room','RoomController@all');
+		Route::get('all-room/{size?}','RoomController@all');
+		Route::get('delete-room-image/{id}','RoomController@destroyImage');
 		Route::resource('room','RoomController');
 		Route::get('banquet-categories/all/{size}','BanquetCategoryController@all');
 		Route::resource('banquet-categories','BanquetCategoryController');

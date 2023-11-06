@@ -13,7 +13,7 @@ class CreatedHotelAmenitiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('hotel_amenities', function (Blueprint $table) {
+        Schema::create('amenities_hotel', function (Blueprint $table) {
             $table->unsignedInteger('hotel_id')->nullable();
             $table->unsignedInteger('amenities_id')->nullable();
             $table->foreign('hotel_id')->references('id')->on('hotels')->onDelete('cascade');
@@ -28,6 +28,6 @@ class CreatedHotelAmenitiesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hotel_amenities'); 
+        Schema::dropIfExists('amenities_hotel'); 
     }
 }

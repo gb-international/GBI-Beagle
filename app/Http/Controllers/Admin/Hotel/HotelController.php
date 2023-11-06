@@ -32,11 +32,11 @@ class HotelController extends BaseController
     {
         $data = Hotel::where('state', $state)->latest('updated_at')->paginate($size);
         foreach ($data as $hotel){
-            $hotel->roomCategory;
-            $hotel->banquetCategory;
-            $hotel->amenities;
-            $hotel->metaKeyword;
+            $hotel->rooms;
             $hotel->hotelimages;
+            $hotel->banquet;
+            $hotel->amenities;
+            return response()->json($hotel);
         }
         return response()->json($data);
     }
@@ -65,8 +65,8 @@ class HotelController extends BaseController
     public function store(HotelRequest $request)
     {
         try{
-            $data = array("name"=>$request->name, "description" => $request->description??'',"no_of_room"=>$request->no_of_room??0,
-            "star_category"=>$request->star_category??0, "hotel_type"=>$request->hotel_type??0, "email" => $request->email??'', "phone_number" => $request->phoneno??'', "no_of_banquet" => $request->no_of_banquet??0, "hotel_policies_description" => $request->hotel_policies_description??'', "safety_hygiene_description" => $request->safety_hygiene_description??'', "state"=>$request->state, "city"=>$request->city, "pincode"=>$request->pincode, "country" => $request->country??'',"address" => $request->address??'');
+            $data = array("name"=>$request->name, "description" => $request->description??'',"no_of_rooms"=>$request->no_of_room??0,
+            "star_category"=>$request->star_category??0, "hotel_type"=>$request->hotel_type??0, "email" => $request->email??'', "phone_number" => $request->phone_number??'', "no_of_banquet" => $request->no_of_banquet??0, "hotel_policies_description" => $request->hotel_policies_description??'', "safety_hygiene_description" => $request->safety_hygiene_description??'', "address" => $request->address??'', "state_id"=>$request->state_id??0, "city_id"=>$request->city_id??0, "pincode"=>$request->pincode, "country_id" => $request->country_id??'');
             $hotel = Hotel::create($data);
             $hotel_id =  $hotel->id??0;
             // $meta_keywords= [];
@@ -94,14 +94,13 @@ class HotelController extends BaseController
                 $hotel->save();
             }
             
-            $hotel->room()->sync(array_unique($request->rooms??''));
+            $hotel->rooms()->sync(array_unique($request->rooms??''));
 
             if($request->no_of_banquet??0 > 0){
                 $hotel->banquet()->sync(array_unique($request->banquet??''));
             }
 
             $hotel->amenities()->sync(array_unique($request->amenities??''));    
-
         }
         catch(Exception $e){
             return $this->sendError($e->getMessage(), 500);
@@ -117,11 +116,10 @@ class HotelController extends BaseController
      */
     public function show(Hotel $hotel)
     {
-        $hotel->roomCategory;
-        $hotel->banquetCategory;
-        $hotel->amenities;
-        $hotel->metaKeyword;
+        $hotel->rooms;
         $hotel->hotelimages;
+        $hotel->banquet;
+        $hotel->amenities;
         return response()->json($hotel);
     }
 
@@ -133,11 +131,10 @@ class HotelController extends BaseController
      */
     public function edit(Hotel $hotel)
     {
-        $hotel->roomCategory;
-        $hotel->banquetCategory;
-        $hotel->amenities;
-        $hotel->metaKeyword;
+        $hotel->rooms;
         $hotel->hotelimages;
+        $hotel->banquet;
+        $hotel->amenities;
         return response()->json($hotel);
     }
 
@@ -151,7 +148,8 @@ class HotelController extends BaseController
     public function update(HotelRequest $request, Hotel $hotel)
     {
         try{
-            $data = array("name"=>$request->name??$hotel->name, "state"=>$request->state??$hotel->state, "city"=>$request->city??$hotel->city, "pincode"=>$request->pincode??$hotel->pincode, "country" => $request->country??$hotel->country,"address" => $request->address??$hotel->address, "phoneno" => $request->phoneno??$hotel->phoneno,"email" => $request->email??$hotel->email, "room"=>$request->rooms??$hotel->rooms,"star_category" => $request->star_category??$hotel->star_category, "banquets" => $request->banquets??$hotel->banquets, "description" => $request->description??$hotel->description, "meta_title" => $request->meta_title??$hotel->meta_title, "meta_description"=> $request->meta_description??$hotel->meta_description);
+            $data = array("name"=>$request->name??$hotel->name, "description" => $request->description??$hotel->description,"no_of_rooms"=>$request->no_of_room??$hotel->no_of_room,
+            "star_category"=>$request->star_category??$hotel->star_category, "hotel_type"=>$request->hotel_type??$hotel->hotel_type, "email" => $request->email??$hotel->email, "phone_number" => $request->phone_number??$hotel->phone_number, "no_of_banquet" => $request->no_of_banquet??$hotel->no_of_banquet, "hotel_policies_description" => $request->hotel_policies_description??$hotel->hotel_policies_description, "safety_hygiene_description" => $request->safety_hygiene_description??$hotel->hotel_policies_description, "address" => $request->address??$hotel->address, "state_id"=>$request->state_id??$hotel->state_id, "city_id"=>$request->city_id??$hotel->city_id, "pincode"=>$request->pincode??$hotel->pincode, "country_id" => $request->country_id??$hotel->country_id);
             $hotel->update($data);
             if($request->new_images){
                 foreach($request->new_images as $imagedata) {
@@ -161,19 +159,20 @@ class HotelController extends BaseController
                 }
             }
             
-            $meta_keywords= [];
-            if($request->meta_keywords){
-                foreach ($request->meta_keywords as $meta_keyword) {
-                    if($meta_keyword['id'] == ''){
-                        $meta_keyword = MetaKeyword::create($meta_keyword);
-                    }
-                    $meta_keywords[] = $meta_keyword['id']??'';
-                }
+            if($request->banner_image){
+                $imagename = explode('.',$request->banner_image[0]['name'])[0];
+                $hotel->banner_image = $this->AwsFileUpload($request->banner_image[0]['file'],config('gbi.banner_image'),$imagename);
+                $hotel->banner_alt = $imagename;
+                $hotel->save();
             }
-            $hotel->metaKeyword()->sync(array_unique($meta_keywords));
-            $hotel->roomCategory()->sync(array_unique($request->room_categories??''));
-            $hotel->banquetCategory()->sync(array_unique($request->banquet_categories??''));
-            $hotel->amenities()->sync(array_unique($request->amenities??''));
+            
+            $hotel->rooms()->sync(array_unique($request->rooms??''));
+
+            if($request->no_of_banquet??0 > 0){
+                $hotel->banquet()->sync(array_unique($request->banquet??''));
+            }
+
+            $hotel->amenities()->sync(array_unique($request->amenities??''));    
             $hotel->save();             
         }
         catch(Exception $e){
@@ -223,33 +222,4 @@ class HotelController extends BaseController
         }
         return response()->json('Successfully deleted');
     }
-    // Validate hotel
-
-    public function validateHotel($request)
-    {
-         return $this->validate($request, [
-
-            'name' => ['required',new AlphaSpace],
-            'state'=>'required',
-            'city' =>'required',
-            'pincode' => 'required',
-            'country' => 'required',
-            'address' => 'required',
-            'phoneno' => ['required','numeric',new PhoneNubmerValidate],
-            'email' => ['required','email',new EmailValidate],
-            'rooms'=>'required|numeric|min:1',
-            'room_categories' => '',
-            'star_category' => 'required',
-            'banquets' => 'required',
-            'banquet_categories' => '',
-            'amenities' => '',
-            'images' => '',
-            'description' => '',
-            'meta_title' => '',
-            'meta_keywords' => '',
-            'meta_description' => ''
-          
-      ]);
-    }
-
 }

@@ -11,7 +11,7 @@ class Room extends Model
     protected $table = "rooms";
     protected $fillable = ['id', 'room_category_id', 'description', 'maximum_occupancy', 'inches', 'length', 'width', 'height', 'currency_type', 'meal_plan_type'];
     public function room_category(){
-        return $this->belongsTo('App\Model\Hotel\RoomCategory', 'id', 'room_category_id');
+        return $this->belongsTo('App\Model\Hotel\RoomCategory')->select(['id', 'title', 'description']);
     }
 
     public function roomimages()
