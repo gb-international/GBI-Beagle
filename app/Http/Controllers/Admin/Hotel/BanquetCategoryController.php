@@ -8,16 +8,16 @@ namespace App\Http\Controllers\Admin\Hotel;
 use App\Http\Controllers\Controller;
 use App\Model\Hotel\BanquetCategory;
 use Illuminate\Http\Request;
+use App\Http\Requests\Admin\Hotel\BanquetCategoryRequest;
 use Validator;
 //use App\Traits\ImageTrait;
 
 class BanquetCategoryController extends Controller
-{
-    
+{    
     public function all($size)
     {
         return response()->json(BanquetCategory::select([
-            'id','description','title','updated_at'
+            'id', 'title', 'description', 'dimension_type', 'length', 'width', 'height', 'area', 'seating_type', 'no_of_people', 'updated_at'
             ])
             ->latest('updated_at')
             ->paginate($size));
@@ -33,19 +33,19 @@ class BanquetCategoryController extends Controller
         //
     }
 
-    public function store(Request $request)
+    public function store(BanquetCategoryRequest $request)
     {
         try{
-            $validator = Validator::make($request->all(), [ 
-                'title'=>'required',
-                'description'=>'required',
-            ]);
-            if ($validator->fails()) {
-                return response()->json(['message' => "The given data was invalid.", 'errors' =>$validator->errors()]);
-            }
             $banquet_category = new BanquetCategory();
             $banquet_category->title = $request->title??'';
             $banquet_category->description = $request->description??'';
+            $banquet_category->dimension_type = $request->dimension_type??'';
+            $banquet_category->length = $request->length??0; 
+            $banquet_category->width = $request->width??0; 
+            $banquet_category->height = $request->height??0; 
+            $banquet_category->area = $request->area??0; 
+            $banquet_category->seating_type = $request->seating_type??0; 
+            $banquet_category->no_of_people = $request->no_of_people??0; 
             $banquet_category->save();
         }
         catch(Exception $e){
@@ -66,19 +66,19 @@ class BanquetCategoryController extends Controller
         return response()->json($banquetcategory);
     }
 
-    public function update(Request $request, $id)
+    public function update(BanquetCategoryRequest $request, $id)
     {
         try{
-            $validator = Validator::make($request->all(), [ 
-                'title'=>'required',
-                'description'=>'required',
-            ]);
-            if ($validator->fails()) {
-                return response()->json(['message' => "The given data was invalid.", 'errors' =>$validator->errors()]);
-            }            
             $banquetcategory = BanquetCategory::find($id);
             $banquetcategory->title = $request->title??$banquetcategory->title;
             $banquetcategory->description = $request->description??$banquetcategory->description;
+            $banquetcategory->dimension_type = $request->dimension_type??$banquetcategory->dimension_type;
+            $banquetcategory->length = $request->length??$banquetcategory->length; 
+            $banquetcategory->width = $request->width??$banquetcategory->width; 
+            $banquetcategory->height = $request->height??$banquetcategory->height; 
+            $banquetcategory->area = $request->area??$banquetcategory->area; 
+            $banquetcategory->seating_type = $request->seating_type??$banquetcategory->seating_type; 
+            $banquetcategory->no_of_people = $request->no_of_people??$banquetcategory->no_of_people; 
             $banquetcategory->save();
         }
         catch(Exception $e){

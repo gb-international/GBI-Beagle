@@ -152,7 +152,7 @@ class AuthController extends Controller{
         }
         $input = $request->all(); 
         // $input['password'] = bcrypt($input['password']??'');  
-        $input['password'] = bcrypt($request->email);  
+        $input['password'] = bcrypt($request->password);  
         $eduInstitute = EduInstitute::create($input);
         $eduInstitute->varified = '1';
         $eduInstitute->photo = 'user.png';

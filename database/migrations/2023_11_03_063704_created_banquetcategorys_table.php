@@ -23,7 +23,7 @@ class CreatedBanquetcategorysTable extends Migration
             $table->double('height')->default(0);
             $table->double('area')->default(0);
             $table->string('seating_type')->nullable();
-            $table->Integer('people')->default(0);            
+            $table->Integer('no_of_people')->default(0);            
             $table->dateTime('created_at')->useCurrent();
             $table->dateTime('updated_at')->nullable();
             $table->softDeletes();
