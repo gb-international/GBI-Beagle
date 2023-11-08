@@ -14,6 +14,7 @@ use Image;
 use App\Rules\EmailValidate;
 use App\Rules\PhoneNubmerValidate;
 use App\Rules\AlphaSpace;
+use App\Http\Requests\Admin\Hotel\BanquetRequest;
 
 class BanquetController extends Controller
 {
@@ -26,22 +27,27 @@ class BanquetController extends Controller
 
     public function all($size)
     {
-        $data = Banquet::latest('updated_at')
-        ->paginate($size);
-        foreach ($data as $d){
-            $d->images = unserialize($d->images);
-            //$d->banquet_categories = unserialize($d->banquet_categories);
-            //$d->amenities = unserialize($d->amenities);
-            $d->alt = unserialize($d->alt);
+        $data = Banquet::latest()->paginate($size);
+        // return $data;
+        foreach ($data as $b){
+            $b->banquetCategory;
+            $b->amenities;
+            $b->banquet_states;
+            $b->banquet_cities;
+            $b->banquet_countries;
         }
         return response()->json($data);
     }
     public function index()
     {
-        $banquet = Banquet::select('id','name','address','phoneno', 'star_category', 'price')->get();
-        /*foreach ($banquet as $b){
-            $b->images = unserialize($b->images);
-        }*/
+        $banquet = Banquet::select('id','name','description',  'no_of_banquet', 'star_category', 'email', 'phone_number', 'address', 'city_id', 'state_id', 'country_id', 'pincode', 'banner_image', 'banner_alt', 'status')->latest()->get();
+        foreach ($banquet as $b){
+            $b->banquetCategory;
+            $b->amenities;
+            $b->banquet_states;
+            $b->banquet_cities;
+            $b->banquet_countries;
+        }
         return response()->json($banquet);
     }
 
@@ -61,42 +67,26 @@ class BanquetController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BanquetRequest $request)
     {
-         //$data = $this->validateBanquet($request);
-         $data = $request->except(['banquetCategory', 'amenities']);
-         //$data['banquet_categories'] = serialize($request->banquet_categories);
-         //$data['amenities'] = serialize($request->amenities);
-         $data['alt'] = serialize($request->alt);
- 
-         $images = array();
-         if($request->images){
-             $count = 0;
-             foreach($request->images as $img){
-               $images[$count] = $this->AwsFileUpload($img,config('gbi.banquet_image'),$request->alt[$count]);
-               $count++;
-             }
-         }
-         $data['images'] = serialize($images);
-         $banquet = Banquet::create($data);
-         $bCount = 0;
-
-         foreach($request->banquetCategory[0] as $dimen){
-            BanquetCategories::create([
-                'banquet_id' => $banquet->id,
-                'amenities' => serialize($request->amenities),
-                'dimension_type' => $dimen['dimen_type'],
-                'length' => $dimen['length'],
-                'width' => $dimen['width'],
-                'height' => $dimen['height'],
-                'area' => $dimen['area'],
-                'seating_type' => $dimen['seat_type'],
-                'people' => $dimen['people']
-            ]);
-            $bCount++;
-         }
-
-         return response()->json(['Message'=> 'Successfully Added...']);
+        try{
+            $data = array("name"=>$request->name, "description" => $request->description??'', "no_of_banquet" =>$request->no_of_banquet??0, "star_category"=>$request->star_category??0, "email" => $request->email??'', "phone_number" => $request->phone_number??'', "address" => $request->address??'', "state_id"=>$request->state_id??0, "city_id"=>$request->city_id??0, "pincode"=>$request->pincode, "country_id" => $request->country_id??''); 
+            $banquet = Banquet::create($data);
+            $banquet_id =  $banquet->id??0;
+            if($request->banner_image){
+                $imagename = explode('.',$request->banner_image[0]['name'])[0];
+                $banquet->banner_image = $this->AwsFileUpload($request->banner_image[0]['file'],config('gbi.banner_image'),$imagename);
+                $banquet->banner_alt = $imagename;
+                $banquet->save();
+            }
+             
+            $banquet->banquetCategory()->sync(array_unique($request->banquet_category??''));
+            $banquet->amenities()->sync(array_unique($request->amenities??''));
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }
+        return response()->json('successfull created');
     }
 
     /**
@@ -107,9 +97,11 @@ class BanquetController extends Controller
      */
     public function show(Banquet $banquet)
     {
-        //$banquet->banquet_categories = unserialize($banquet->banquet_categories);
-        $banquet->amenities = unserialize($banquet->amenities);
-        $banquet->alt = unserialize($banquet->alt);
+        $banquet->banquetCategory;
+        $banquet->amenities;
+        $banquet->banquet_states;
+        $banquet->banquet_cities;
+        $banquet->banquet_countries;
         return response()->json($banquet);
     }
 
@@ -121,9 +113,11 @@ class BanquetController extends Controller
      */
     public function edit(Banquet $banquet)
     {
-        //$banquet->banquet_categories = unserialize($banquet->banquet_categories);
-        $banquet->amenities = unserialize($banquet->amenities);
-        $banquet->alt = unserialize($banquet->alt);
+        $banquet->banquetCategory;
+        $banquet->amenities;
+        $banquet->banquet_states;
+        $banquet->banquet_cities;
+        $banquet->banquet_countries;
         return response()->json($banquet);
     }
 
@@ -134,28 +128,26 @@ class BanquetController extends Controller
      * @param  \App\banquet  $banquet
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Banquet $banquet)
+    public function update(BanquetRequest $request, Banquet $banquet)
     {
-
-        //$data = $this->validateBanquet($request);
-        $data = $request->all();
-        //$data->meta_keywords = serialize($data->meta_keywords);
-        //$data->room_categories = serialize($data->room_categories);
-        //$data->banquet_categories = serialize($data->banquet_categories);
-        $data->amenities = serialize($data->amenities);
-
-        if($request->images){
-            $count = 0;
-            foreach($request->images as $img){
-             if($img != $banquet->images[$count]){
-                $data['images'][$count] = $this->AwsFileUpload($img,config('gbi.banquet_image'),$request->alt[$count]);
-                $this->AwsDeleteImage($banquet->images[$count]);
-             }
-             $count++;
+        try{
+            $data = array("name"=>$request->name??$banquet->name, "description" => $request->description??$banquet->description, "no_of_banquet" => $request->no_of_banquet??$banquet->no_of_banquet,     "star_category"=>$request->star_category??$banquet->star_category, "email" => $request->email??$banquet->email, "phone_number" => $request->phone_number??$banquet->phone_number, "address" => $request->address??$banquet->address, "state_id"=>$request->state_id??$banquet->state_id, "city_id"=>$request->city_id??$banquet->city_id, "pincode"=>$request->pincode??$banquet->pincode, "country_id" => $request->country_id??$banquet->country_id, 'status'=>$request->status??$banquet->status); 
+            $banquet->update($data);
+            if($request->banner_image){
+                $this->AwsDeleteImage($banquet->banner_image);
+                $imagename = explode('.',$request->banner_image[0]['name'])[0];
+                $banquet->banner_image = $this->AwsFileUpload($request->banner_image[0]['file'],config('gbi.banner_image'),$imagename);
+                $banquet->banner_alt = $imagename;
+                $banquet->save();
             }
+            
+            $banquet->banquetCategory()->sync(array_unique($request->banquet_category??''));
+            $banquet->amenities()->sync(array_unique($request->amenities??''));
         }
-        $banquet->update($data);
-        return response()->json(['message'=>$data]);
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }
+        return response()->json('successfull updated');
     }
 
     /**
@@ -166,9 +158,9 @@ class BanquetController extends Controller
      */
     public function destroy(Banquet $banquet)
     {
-        $this->AwsDeleteImage($banquet->image);
+        $this->AwsDeleteImage($banquet->banner_image);
         $banquet->delete();
-        return response()->json('successfully deleted');
+        return response()->json('successful deleted');
     }
 
 
@@ -177,7 +169,6 @@ class BanquetController extends Controller
     public function validateBanquet($request)
     {
          return $this->validate($request, [
-
             'hotel_id' => '',
             'name' => ['required',new AlphaSpace],
             'state'=>'required',
@@ -195,7 +186,6 @@ class BanquetController extends Controller
             'check_in' => 'required',
             'check_out' => 'required',
             'price' => 'required',
-          
       ]);
     }
 

@@ -13,7 +13,7 @@ class BanquetAmenities extends Migration
      */
     public function up()
     {
-        Schema::create('banquetamenities', function (Blueprint $table) {
+        Schema::create('amenities_banquet', function (Blueprint $table) {
             $table->unsignedInteger('banquet_id')->nullable();
             $table->unsignedInteger('amenities_id')->nullable();
             $table->foreign('banquet_id')->references('id')->on('banquets')->onDelete('cascade');
@@ -28,6 +28,6 @@ class BanquetAmenities extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('banquetamenities');
+        Schema::dropIfExists('amenities_banquet');
     }
 }

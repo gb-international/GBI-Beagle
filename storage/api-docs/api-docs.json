@@ -261,6 +261,12 @@
                     "content": {
                         "multipart/form-data": {
                             "schema": {
+                                "required": [
+                                    "name",
+                                    "email",
+                                    "password",
+                                    "c_password"
+                                ],
                                 "properties": {
                                     "name": {
                                         "type": "text"

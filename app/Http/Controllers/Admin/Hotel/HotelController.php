@@ -28,21 +28,23 @@ class HotelController extends BaseController
      */
     use ImageTrait;
 
-    public function all($size, $state)
+    public function all($size, $state_id)
     {
-        $data = Hotel::where('state', $state)->latest('updated_at')->paginate($size);
+        $data = Hotel::where('state_id', $state_id)->latest()->paginate($size);
         foreach ($data as $hotel){
             $hotel->rooms;
             $hotel->hotelimages;
-            $hotel->banquet;
+            $hotel->banquets;
             $hotel->amenities;
-            return response()->json($hotel);
+            $hotel->hotel_states;
+            $hotel->hotel_cities;
+            $hotel->hotel_countries;
         }
         return response()->json($data);
     }
     public function index()
     {
-        $hotel = Hotel::select('name','id')->get();
+        $hotel = Hotel::select('name','id')->latest()->get();
         return response()->json($hotel);
     }
 
@@ -68,7 +70,7 @@ class HotelController extends BaseController
             $data = array("name"=>$request->name, "description" => $request->description??'',"no_of_rooms"=>$request->no_of_room??0,
             "star_category"=>$request->star_category??0, "hotel_type"=>$request->hotel_type??0, "email" => $request->email??'', "phone_number" => $request->phone_number??'', "no_of_banquet" => $request->no_of_banquet??0, "hotel_policies_description" => $request->hotel_policies_description??'', "safety_hygiene_description" => $request->safety_hygiene_description??'', "address" => $request->address??'', "state_id"=>$request->state_id??0, "city_id"=>$request->city_id??0, "pincode"=>$request->pincode, "country_id" => $request->country_id??'');
             $hotel = Hotel::create($data);
-            $hotel_id =  $hotel->id??0;
+            $hotel_id = $hotel->id??0;
             // $meta_keywords= [];
             // if($request->meta_keywords){
             //     foreach ($request->meta_keywords as $meta_keyword) {
@@ -97,7 +99,7 @@ class HotelController extends BaseController
             $hotel->rooms()->sync(array_unique($request->rooms??''));
 
             if($request->no_of_banquet??0 > 0){
-                $hotel->banquet()->sync(array_unique($request->banquet??''));
+                $hotel->banquets()->sync(array_unique($request->banquet??''));
             }
 
             $hotel->amenities()->sync(array_unique($request->amenities??''));    
@@ -118,8 +120,11 @@ class HotelController extends BaseController
     {
         $hotel->rooms;
         $hotel->hotelimages;
-        $hotel->banquet;
+        $hotel->banquets;
         $hotel->amenities;
+        $hotel->hotel_states;
+        $hotel->hotel_cities;
+        $hotel->hotel_countries;
         return response()->json($hotel);
     }
 
@@ -135,6 +140,9 @@ class HotelController extends BaseController
         $hotel->hotelimages;
         $hotel->banquet;
         $hotel->amenities;
+        $hotel->hotel_states;
+        $hotel->hotel_cities;
+        $hotel->hotel_countries;
         return response()->json($hotel);
     }
 
@@ -149,7 +157,7 @@ class HotelController extends BaseController
     {
         try{
             $data = array("name"=>$request->name??$hotel->name, "description" => $request->description??$hotel->description,"no_of_rooms"=>$request->no_of_room??$hotel->no_of_room,
-            "star_category"=>$request->star_category??$hotel->star_category, "hotel_type"=>$request->hotel_type??$hotel->hotel_type, "email" => $request->email??$hotel->email, "phone_number" => $request->phone_number??$hotel->phone_number, "no_of_banquet" => $request->no_of_banquet??$hotel->no_of_banquet, "hotel_policies_description" => $request->hotel_policies_description??$hotel->hotel_policies_description, "safety_hygiene_description" => $request->safety_hygiene_description??$hotel->hotel_policies_description, "address" => $request->address??$hotel->address, "state_id"=>$request->state_id??$hotel->state_id, "city_id"=>$request->city_id??$hotel->city_id, "pincode"=>$request->pincode??$hotel->pincode, "country_id" => $request->country_id??$hotel->country_id);
+            "star_category"=>$request->star_category??$hotel->star_category, "hotel_type"=>$request->hotel_type??$hotel->hotel_type, "email" => $request->email??$hotel->email, "phone_number" => $request->phone_number??$hotel->phone_number, "no_of_banquet" => $request->no_of_banquet??$hotel->no_of_banquet, "hotel_policies_description" => $request->hotel_policies_description??$hotel->hotel_policies_description, "safety_hygiene_description" => $request->safety_hygiene_description??$hotel->hotel_policies_description, "address" => $request->address??$hotel->address, "state_id"=>$request->state_id??$hotel->state_id, "city_id"=>$request->city_id??$hotel->city_id, "pincode"=>$request->pincode??$hotel->pincode, "country_id" => $request->country_id??$hotel->country_id, 'status'=>$request->status??$hotel->status);
             $hotel->update($data);
             if($request->new_images){
                 foreach($request->new_images as $imagedata) {
@@ -160,6 +168,7 @@ class HotelController extends BaseController
             }
             
             if($request->banner_image){
+                $this->AwsDeleteImage($hotel->banner_image);
                 $imagename = explode('.',$request->banner_image[0]['name'])[0];
                 $hotel->banner_image = $this->AwsFileUpload($request->banner_image[0]['file'],config('gbi.banner_image'),$imagename);
                 $hotel->banner_alt = $imagename;
@@ -167,9 +176,9 @@ class HotelController extends BaseController
             }
             
             $hotel->rooms()->sync(array_unique($request->rooms??''));
-
+ 
             if($request->no_of_banquet??0 > 0){
-                $hotel->banquet()->sync(array_unique($request->banquet??''));
+                $hotel->banquets()->sync(array_unique($request->banquet??''));
             }
 
             $hotel->amenities()->sync(array_unique($request->amenities??''));    
@@ -221,5 +230,16 @@ class HotelController extends BaseController
             return $this->sendError($e->getMessage(), 500);
         }
         return response()->json('Successfully deleted');
+    }
+
+    public function search(Request $request){
+        $min = 4;
+        // if($request->min_price && $request->min_price){
+        //    $hotel = Hotel::WhereHas('rooms.room_price',  function ($q) use ($min) {
+        //         $q->where('net_price' ,4);
+        //     })->get();
+           $hotel = Hotel::with('rooms.room_price')->get();
+            return $hotel; 
+        // }
     }
 }

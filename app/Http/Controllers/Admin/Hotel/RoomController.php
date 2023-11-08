@@ -2,7 +2,6 @@
 /* 
 Created by : Manas
 Purpose : Manage Hotel Rooms 
-
 */
 namespace App\Http\Controllers\Admin\Hotel;
 use App\Http\Resources\Admin\HotelCollection;
@@ -47,7 +46,7 @@ class RoomController extends BaseController
     {
         try{
 
-            $room = Room::select('id','room_category_id', 'description', 'meal_plan_type', 'maximum_occupancy', 'inches', 'length', 'width', 'height', 'currency_type')->latest()->get();
+            $room = Room::select('id','room_category_id', 'description', 'meal_plan_type', 'maximum_occupancy', 'inches', 'length', 'width', 'height', 'currency_type', 'status')->latest()->get();
             if($room->count() > 0){
                 foreach($room as $roomVal){
                     $roomVal->room_category;
@@ -146,7 +145,7 @@ class RoomController extends BaseController
     {
         try{
             $data = array("room_category_id"=>$request->room_category_id??$room->room_category_id, "description" => $request->description??$room->description,"maximum_occupancy"=>$request->maximum_occupancy??$room->maximum_occupancy, "meal_plan_type"=>$request->meal_plan_type??$room->meal_plan_type,
-            "inches"=>$request->inches??$room->inches, "length"=>$request->length??$room->length, "width" => $request->width??$room->width, "height" => $request->height??$room->height, "currency_type" => $request->currency_type??$room->currency_type);
+            "inches"=>$request->inches??$room->inches, "length"=>$request->length??$room->length, "width" => $request->width??$room->width, "height" => $request->height??$room->height, "currency_type" => $request->currency_type??$room->currency_type, 'status'=>$request->status??$room->status);
 
             $room->update($data);
             if($request->room_price_details){

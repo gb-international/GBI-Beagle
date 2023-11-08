@@ -23,7 +23,8 @@ class CreatedRoomsTable extends Migration
             $table->double('length')->default(0);            
             $table->double('width')->default(0);            
             $table->double('height')->default(0);            
-            $table->string('currency_type')->default(0);            
+            $table->string('currency_type')->default(0); 
+            $table->tinyInteger('status')->default(0)->comment("0=>draft, 1=>published");           
             $table->dateTime('created_at')->useCurrent();
             $table->dateTime('updated_at')->nullable();
             $table->softDeletes();

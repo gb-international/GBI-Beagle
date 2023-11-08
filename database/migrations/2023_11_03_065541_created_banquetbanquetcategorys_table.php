@@ -13,11 +13,11 @@ class CreatedBanquetbanquetcategorysTable extends Migration
      */
     public function up()
     {
-        Schema::create('banquetbanquetcategorys', function (Blueprint $table) {
+        Schema::create('banquet_banquet_category', function (Blueprint $table) {
             $table->unsignedInteger('banquet_id')->nullable();
-            $table->unsignedInteger('banquetcategory_id')->nullable();
+            $table->unsignedInteger('banquet_category_id')->nullable();
             $table->foreign('banquet_id')->references('id')->on('banquets')->onDelete('cascade');
-            $table->foreign('banquetcategory_id')->references('id')->on('banquetcategorys')->onDelete('cascade');
+            $table->foreign('banquet_category_id')->references('id')->on('banquetcategorys')->onDelete('cascade');
         });
     }
 
@@ -28,6 +28,6 @@ class CreatedBanquetbanquetcategorysTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('banquetbanquetcategorys');
+        Schema::dropIfExists('banquet_banquet_category');
     }
 }

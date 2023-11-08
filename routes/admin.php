@@ -123,6 +123,7 @@ Route::namespace('Admin')->group(function (){
 		Route::get('all-room/{size?}','RoomController@all');
 		Route::get('delete-room-image/{id}','RoomController@destroyImage');
 		Route::resource('room','RoomController');
+		Route::post('admin-hotel-search', 'HotelController@search');
 		Route::get('banquet-categories/all/{size}','BanquetCategoryController@all');
 		Route::resource('banquet-categories','BanquetCategoryController');
 	});

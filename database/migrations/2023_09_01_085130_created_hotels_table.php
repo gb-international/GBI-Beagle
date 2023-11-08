@@ -31,7 +31,7 @@ class CreatedHotelsTable extends Migration
             $table->unsignedBigInteger('country_id')->nullable();
             $table->string('pincode')->nullable();
             $table->text('location')->nullable();
-            $table->enum('status', ['0', '1'])->default('1');
+            $table->tinyInteger('status')->default(0)->comment("0=>draft, 1=>published");
             $table->string('banner_image')->nullable();
             $table->string('banner_alt')->nullable();
             $table->dateTime('created_at')->useCurrent();

@@ -13,7 +13,7 @@ class CreatedHotelBanquetTable extends Migration
      */
     public function up()
     {
-        Schema::create('hotel_banquet', function (Blueprint $table) {
+        Schema::create('banquet_hotel', function (Blueprint $table) {
             $table->unsignedInteger('hotel_id')->nullable();
             $table->unsignedInteger('banquet_id')->nullable();
             $table->foreign('hotel_id')->references('id')->on('hotels')->onDelete('cascade');
@@ -28,6 +28,6 @@ class CreatedHotelBanquetTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hotel_banquet');
+        Schema::dropIfExists('banquet_hotel');
     }
 }
