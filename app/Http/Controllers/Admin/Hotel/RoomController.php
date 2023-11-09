@@ -13,6 +13,7 @@ use App\Http\Requests\Admin\Hotel\RoomRequest;
 use App\Model\Hotel\Room;
 use App\Model\Hotel\RoomPriceDetail;
 use App\Model\Hotel\RoomImages;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Admin\BaseController;
 class RoomController extends BaseController
 {
@@ -177,7 +178,10 @@ class RoomController extends BaseController
      * @return \Illuminate\Http\Response
      */
     public function destroy(Room $room)
-    {
+    {  
+        if($room->totalHotal->count() > 0){
+            return $this->sendError("Access denied due to add in hotel", 422);
+        }
         if($room->hotelimages){
             foreach($room->roomimages as $img){
                 if($img->image){
@@ -204,6 +208,24 @@ class RoomController extends BaseController
             return $this->sendError($e->getMessage(), 500);
         }
         return response()->json('Successfully deleted');
+    }
+
+    public function publish($id){
+        try{
+            $data = Room::where('id',$id)->first();
+            if(!empty($data)){
+                $data->status = 1;
+                $data->publish_by = Auth::user()->id??26;
+                $data->save();
+            }
+            else{
+                return $this->sendError("Id does not exist", 404);
+            }
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }
+        return response()->json('Successful published!'); 
     }
 
     // Validate room

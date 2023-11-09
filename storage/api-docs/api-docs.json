@@ -322,6 +322,55 @@
                     }
                 }
             }
+        },
+        "/tour-list": {
+            "post": {
+                "tags": [
+                    "tourList"
+                ],
+                "summary": "Tour list per travel code",
+                "description": "User tourList here",
+                "operationId": "tourList",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {}
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successfully Registered !!!",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Successfully Registered !!!",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
         }
     },
     "tags": [

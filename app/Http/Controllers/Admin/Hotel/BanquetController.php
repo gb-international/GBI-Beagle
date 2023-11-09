@@ -15,6 +15,7 @@ use App\Rules\EmailValidate;
 use App\Rules\PhoneNubmerValidate;
 use App\Rules\AlphaSpace;
 use App\Http\Requests\Admin\Hotel\BanquetRequest;
+use Illuminate\Support\Facades\Auth;
 
 class BanquetController extends Controller
 {
@@ -162,7 +163,24 @@ class BanquetController extends Controller
         $banquet->delete();
         return response()->json('successful deleted');
     }
-
+    
+    public function publish($id){
+        try{
+            $data = Banquet::where('id',$id)->first();
+            if(!empty($data)){
+                $data->status = 1;
+                $data->publish_by = Auth::user()->id??26;
+                $data->save();
+            }
+            else{
+                return $this->sendError("Id does not exist", 404);
+            }
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }
+        return response()->json('Successful published!'); 
+    }
 
     // Validate banquet
 
@@ -188,5 +206,4 @@ class BanquetController extends Controller
             'price' => 'required',
       ]);
     }
-
 }

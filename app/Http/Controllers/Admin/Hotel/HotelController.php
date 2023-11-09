@@ -12,12 +12,14 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Traits\ImageTrait;
 use Image;
+use Illuminate\Support\Facades\DB;
 use App\Rules\EmailValidate;
 use App\Rules\PhoneNubmerValidate;
 use App\Rules\AlphaSpace;
 use App\Http\Requests\Admin\Hotel\HotelRequest;
 use App\Model\Hotel\HotelImages;
 use App\Http\Controllers\Admin\BaseController;
+use Illuminate\Support\Facades\Auth;
 
 class HotelController extends BaseController
 {
@@ -102,7 +104,9 @@ class HotelController extends BaseController
                 $hotel->banquets()->sync(array_unique($request->banquet??''));
             }
 
-            $hotel->amenities()->sync(array_unique($request->amenities??''));    
+            $hotel->amenities()->sync(array_unique($request->amenities??''));
+            $hotel->price = $hotel->totalPrice();
+            $hotel->save();
         }
         catch(Exception $e){
             return $this->sendError($e->getMessage(), 500);
@@ -181,7 +185,8 @@ class HotelController extends BaseController
                 $hotel->banquets()->sync(array_unique($request->banquet??''));
             }
 
-            $hotel->amenities()->sync(array_unique($request->amenities??''));    
+            $hotel->amenities()->sync(array_unique($request->amenities??'')); 
+            $hotel->price = $hotel->totalPrice();   
             $hotel->save();             
         }
         catch(Exception $e){
@@ -233,13 +238,26 @@ class HotelController extends BaseController
     }
 
     public function search(Request $request){
-        $min = 4;
-        // if($request->min_price && $request->min_price){
-        //    $hotel = Hotel::WhereHas('rooms.room_price',  function ($q) use ($min) {
-        //         $q->where('net_price' ,4);
-        //     })->get();
-           $hotel = Hotel::with('rooms.room_price')->get();
-            return $hotel; 
-        // }
+        // $min = 2;    
+        // $max = 30;
+        $data = Hotel::whereBetween('price', [$min, $max])->paginate(10);
+        return $query;
+    }
+    public function publish($id){
+        try{
+            $data = Hotel::where('id',$id)->first();
+            if(!empty($data)){
+                $data->publish_by = Auth::user()->id??26;
+                $data->status = 1;
+                $data->save();
+            }
+            else{
+                return $this->sendError("Id does not exist", 404);
+            }
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }
+        return response()->json('Successful published!'); 
     }
 }

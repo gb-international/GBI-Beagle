@@ -5,7 +5,6 @@ Edited by: Manas Bhowmick
 Purpose : Manage front Tpur
 
 Edits: Added tour_id & user_type field in the tourDetailSave(), and also changed post api for TourUser Model.
-
 */
 namespace App\Http\Controllers\Front;
 use Illuminate\Http\Request;

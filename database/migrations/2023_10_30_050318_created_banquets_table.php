@@ -25,6 +25,7 @@ class CreatedBanquetsTable extends Migration
             $table->unsignedInteger('city_id')->nullable();
             $table->unsignedInteger('state_id')->nullable();
             $table->unsignedBigInteger('country_id')->nullable();
+            $table->unsignedInteger('publish_by')->nullable();
             $table->string('pincode')->nullable();
             $table->text('location')->nullable();
             $table->tinyInteger('status')->default(0)->comment("0=>draft, 1=>published");
@@ -36,6 +37,7 @@ class CreatedBanquetsTable extends Migration
             $table->foreign('city_id')->references('id')->on('cities')->onDelete('cascade');
             $table->foreign('state_id')->references('id')->on('states')->onDelete('cascade');
             $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
+            $table->foreign('publish_by')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

@@ -22,13 +22,15 @@ class CreatedRoomsTable extends Migration
             $table->double('inches')->default(0);            
             $table->double('length')->default(0);            
             $table->double('width')->default(0);            
-            $table->double('height')->default(0);            
+            $table->double('height')->default(0);   
+            $table->unsignedInteger('publish_by')->nullable();         
             $table->string('currency_type')->default(0); 
             $table->tinyInteger('status')->default(0)->comment("0=>draft, 1=>published");           
             $table->dateTime('created_at')->useCurrent();
             $table->dateTime('updated_at')->nullable();
             $table->softDeletes();
             $table->foreign('room_category_id')->references('id')->on('room_categories')->onDelete('cascade');
+            $table->foreign('publish_by')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

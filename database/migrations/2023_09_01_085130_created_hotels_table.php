@@ -19,6 +19,7 @@ class CreatedHotelsTable extends Migration
             $table->text('description')->nullable();
             $table->Integer('no_of_rooms')->default(0);            
             $table->double('star_category')->default(0);            
+            $table->double('price')->default(0);            
             $table->string('hotel_type')->nullable();
             $table->string('email')->nullable();
             $table->string('phone_number')->nullable();
@@ -34,12 +35,14 @@ class CreatedHotelsTable extends Migration
             $table->tinyInteger('status')->default(0)->comment("0=>draft, 1=>published");
             $table->string('banner_image')->nullable();
             $table->string('banner_alt')->nullable();
+            $table->unsignedInteger('publish_by')->nullable();
             $table->dateTime('created_at')->useCurrent();
             $table->dateTime('updated_at')->nullable();
             $table->softDeletes();
             $table->foreign('city_id')->references('id')->on('cities')->onDelete('cascade');
             $table->foreign('state_id')->references('id')->on('states')->onDelete('cascade');
             $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
+            $table->foreign('publish_by')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

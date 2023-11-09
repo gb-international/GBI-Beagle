@@ -22,4 +22,7 @@ class Room extends Model
 	{
 		return $this->hasMany('App\Model\Hotel\RoomPriceDetail', 'room_id', 'id');
 	}
+    public function totalHotal(){
+        return $this->belongsToMany('App\Model\Hotel\Hotel');
+    }
 }

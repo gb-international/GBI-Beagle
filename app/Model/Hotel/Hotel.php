@@ -16,6 +16,7 @@ class Hotel extends Model
         }
     }
 
+
     public function setEmailAttribute($value){
         return $this->attributes['email'] = strtolower($value);
     }
@@ -55,5 +56,15 @@ class Hotel extends Model
     }
     public function hotel_countries(){
     	return $this->hasOne('App\Model\Location\Country', 'id', 'country_id')->select(['id', 'name']);;
+    }
+
+    public function totalPrice(){
+        $sum = 0;
+        if($this->rooms->count()>0){
+            foreach($this->rooms as $key => $val){
+                $sum = $val->room_price->sum('net_rate')??0;
+            }
+        }
+        return $sum;
     }
 }

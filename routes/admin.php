@@ -114,15 +114,18 @@ Route::namespace('Admin')->group(function (){
 		Route::get('amenities/all/{size?}/{type?}','AmenitiesController@all');
 		Route::resource('amenities','AmenitiesController');
 		Route::get('hotel/all/{size}/{state}','HotelController@all');
+		Route::get('hotel-publish/{id}','HotelController@publish');
 		Route::resource('hotel','HotelController');
 		Route::get('hotel-image/{id}','HotelController@destroyImage');
 		Route::get('banquet/all/{size}','BanquetController@all');
 		Route::resource('banquet','BanquetController');
+		Route::get('banquet-publish/{id}','BanquetController@publish');
 		Route::get('room-categories/all/{size}','RoomCategoryController@all');
 		Route::resource('room-categories','RoomCategoryController');
 		Route::get('all-room/{size?}','RoomController@all');
 		Route::get('delete-room-image/{id}','RoomController@destroyImage');
 		Route::resource('room','RoomController');
+		Route::get('room-publish/{id}','RoomController@publish');
 		Route::post('admin-hotel-search', 'HotelController@search');
 		Route::get('banquet-categories/all/{size}','BanquetCategoryController@all');
 		Route::resource('banquet-categories','BanquetCategoryController');
