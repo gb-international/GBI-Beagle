@@ -20,6 +20,7 @@ use App\Http\Requests\Admin\Hotel\HotelRequest;
 use App\Model\Hotel\HotelImages;
 use App\Http\Controllers\Admin\BaseController;
 use Illuminate\Support\Facades\Auth;
+use Validator;
 
 class HotelController extends BaseController
 {
@@ -238,10 +239,87 @@ class HotelController extends BaseController
     }
 
     public function search(Request $request){
-        // $min = 2;    
-        // $max = 30;
-        $data = Hotel::whereBetween('price', [$min, $max])->paginate(10);
-        return $query;
+        try{
+            $validator = Validator::make($request->all(), [ 
+                'minimum_price'  => 'integer|gt:0',
+                'maximun_price' => 'integer|gt:minimum_price',
+                'star_rating'  => 'integer|gt:0',
+                'hotel_type' => 'in:apartment,hotel,homestay',
+                'amenities' => 'array',
+                'amenities.*' => 'required|exists:amenities,id',
+            ]);
+            if ($validator->fails()) {
+                return response()->json(['message' => "The given data was invalid.", 'errors' =>$validator->errors()]);
+            }
+            
+            if($request->minimum_price && $request->maximun_price && !$request->star_rating && !$request->hotel_type && !$request->amenities){
+                $data = Hotel::whereBetween('price', [$request->minimum_price, $request->maximun_price])->orderBy('price', 'asc')->paginate(10);  
+            }
+
+            else if($request->minimum_price && $request->maximun_price && $request->star_rating && !$request->hotel_type && !$request->amenities){
+                $data = Hotel::where('star_category', $request->star_rating)->whereBetween('price', [$request->minimum_price, $request->maximun_price])->orderBy('price', 'asc')->paginate(10);  
+            }
+
+            else if($request->minimum_price && $request->maximun_price && $request->star_rating && $request->hotel_type && !$request->amenities){
+                $data = Hotel::where(['star_category'=>$request->star_rating, 'hotel_type'=> $request->hotel_type])->whereBetween('price', [$request->minimum_price, $request->maximun_price])->orderBy('price', 'asc')->paginate(10);  
+            }
+
+            else if($request->minimum_price && $request->maximun_price && $request->star_rating && $request->hotel_type && $request->amenities){
+                $amenities = $request->amenities??'';
+
+                $data = Hotel::where(['star_category'=> $request->star_rating, 'hotel_type'=> $request->hotel_type])->whereBetween('price', [$request->minimum_price, $request->maximun_price])->whereHas('amenities',  function ($q) use ($amenities) {
+                    $q->whereIn('id' , $amenities??'');
+                })->orderBy('price', 'asc')->paginate(10); 
+            }
+            else if(($request->minimum_price && $request->maximun_price) && !$request->star_rating && !$request->hotel_type && $request->amenities){
+                $data = Hotel::whereHas('amenities',  function ($q) use ($amenities) {
+                    $q->whereIn('id' , $amenities??'');
+                })->orderBy('price', 'asc')->paginate(10); 
+            }
+            else if(!($request->minimum_price && $request->maximun_price) && !$request->star_rating && $request->hotel_type && $request->amenities){
+                $amenities = $request->amenities??'';
+                $data = Hotel::where('hotel_type', $request->hotel_type)->whereHas('amenities',  function ($q) use ($amenities) {
+                    $q->whereIn('id' , $amenities??'');
+                })->orderBy('price', 'asc')->paginate(10); 
+            }
+            else if(!($request->minimum_price && $request->maximun_price) && $request->star_rating && $request->hotel_type && $request->amenities){
+                $amenities = $request->amenities??'';
+                $data = Hotel::where(['star_category'=> $request->star_rating, 'hotel_type'=> $request->hotel_type])->whereHas('amenities',  function ($q) use ($amenities) {
+                    $q->whereIn('id' , $amenities??'');
+                })->orderBy('price', 'asc')->paginate(10); 
+            }
+            else if($request->minimum_price && $request->maximun_price && $request->star_rating && $request->hotel_type && $request->amenities){
+                $amenities = $request->amenities??'';
+                $data = Hotel::whereBetween('price', [$request->minimum_price, $request->maximun_price])->where(['star_category'=> $request->star_rating, 'hotel_type'=> $request->hotel_type])->whereHas('amenities',  function ($q) use ($amenities) {
+                    $q->whereIn('id' , $amenities??'');
+                })->orderBy('price', 'asc')->paginate(10); 
+            }
+            else if(!($request->minimum_price && $request->maximun_price) && $request->star_rating && !$request->hotel_type && $request->amenities){
+                $amenities = $request->amenities??'';
+                $data = Hotel::where('star_category', $request->star_rating)->whereHas('amenities',  function ($q) use ($amenities) {
+                    $q->whereIn('id' , $amenities??'');
+                })->orderBy('price', 'asc')->paginate(10);
+            }
+            else if(($request->minimum_price && $request->maximun_price) && !$request->star_rating && $request->hotel_type && !$request->amenities){
+                $data = Hotel::whereBetween('price', [$request->minimum_price, $request->maximun_price])->where('hotel_type', $request->hotel_type)->orderBy('price', 'asc')->paginate(10); 
+            }
+            else{
+                $data = Hotel::orderBy('price', 'asc')->paginate(10); 
+            }
+            foreach ($data as $hotel){
+                $hotel->rooms;
+                $hotel->hotelimages;
+                $hotel->banquets;
+                $hotel->amenities;
+                $hotel->hotel_states;
+                $hotel->hotel_cities;
+                $hotel->hotel_countries;
+            }
+            return response()->json($data);
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }
     }
     public function publish($id){
         try{
