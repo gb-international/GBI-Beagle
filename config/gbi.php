@@ -15,6 +15,7 @@ return [
     'gbi_email' => env('CONTACT_US_MAIL'),
     //  aws images path (folder)
     'category_image' => 'images/category/',
+    'marketing_campaign_image' => 'images/marketing_campaign/',
     'post_image' => 'images/post/',
     'room_image' => 'images/room_image/',
     'tourprogram_image' => 'images/tourprogram/',

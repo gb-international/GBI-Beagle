@@ -355,6 +355,9 @@ Route::namespace('Admin')->group(function (){
 		Route::post('sightseeing-request/status-update',[SightseeingRequest::class, 'statusUpdate']);
 		Route::post('sightseeing-request/confirmation',[SightseeingRequest::class, 'sendConfirmationMail']);
 	});
+	Route::group(['prefix' => '/advertising', 'as' => 'advertising.'], function () {
+		Route::resource('marketing-campaign',Advertising_And_Discount\MarketingCampaignController::class);
+	});
 });
 
 
