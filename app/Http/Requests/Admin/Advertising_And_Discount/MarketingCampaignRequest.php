@@ -29,8 +29,8 @@ class MarketingCampaignRequest extends FormRequest
         return [
             'title'=>['required', new AlphaSpace],
             'description'=>'required',
-            'start_date' => 'required|date|after:today',
-            'end_date' => 'required|date|after_or_equal:start_date',
+            'start_date' => 'required|date_format:Y-m-d|after:today',
+            'end_date' => 'required|date_format:Y-m-d|after_or_equal:start_date',
             'meta_keywords' => 'required|array',
             'meta_keywords.*' => 'required|exists:meta_keywords,id',
         ];

@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Admin\Itinerary\SightseeingRequestController as SightseeingRequest;
+use App\Http\Controllers\Admin\Advertising_And_Discount\MarketingCampaignController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -357,6 +358,7 @@ Route::namespace('Admin')->group(function (){
 	});
 	Route::group(['prefix' => '/advertising', 'as' => 'advertising.'], function () {
 		Route::resource('marketing-campaign',Advertising_And_Discount\MarketingCampaignController::class);
+		Route::get('all-marketing-campaign/{size?}',[MarketingCampaignController::class, 'all']);
 	});
 });
 

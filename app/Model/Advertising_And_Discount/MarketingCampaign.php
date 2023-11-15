@@ -14,7 +14,15 @@ class MarketingCampaign extends Model
     protected $fillable = ['title', 'description', 'slug','alt','image','start_date','end_date'];
     
     public function meta_keywords(){
-        return $this->belongsToMany('App\Model\Hotel\MetaKeyword');
+        return $this->belongsToMany('App\Model\Hotel\MetaKeyword')->select(['id', 'title']);
+    }
+    public function getImageAttribute($image)
+    {
+        if($image){
+            return \Storage::disk('s3')->url(config('gbi.marketing_campaign_image').$image);
+        }else{
+            return '';
+        }
     }
 
     public function setTitleAttribute($value)
