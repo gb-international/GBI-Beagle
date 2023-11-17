@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use App\Http\Controllers\Admin\Itinerary\SightseeingRequestController as SightseeingRequest;
 use App\Http\Controllers\Admin\Advertising_And_Discount\MarketingCampaignController;
+use App\Http\Controllers\Admin\Advertising_And_Discount\DiscountCouponController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -359,6 +360,8 @@ Route::namespace('Admin')->group(function (){
 	Route::group(['prefix' => '/advertising', 'as' => 'advertising.'], function () {
 		Route::resource('marketing-campaign',Advertising_And_Discount\MarketingCampaignController::class);
 		Route::get('all-marketing-campaign/{size?}',[MarketingCampaignController::class, 'all']);
+		Route::resource('discount-coupon',Advertising_And_Discount\DiscountCouponController::class);
+		Route::get('all-discount-coupon/{size?}',[DiscountCouponController::class, 'all']);
 	});
 });
 
