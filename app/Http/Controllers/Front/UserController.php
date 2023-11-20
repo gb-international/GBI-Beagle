@@ -210,11 +210,36 @@ class UserController extends Controller{
         return response()->json(['docType'=>$edu_institutes->doc_type, 'docFront'=>$edu_institutes->doc_front, 'docBack'=>$edu_institutes->doc_back]);
     }
     // User Edit 
-/** 
-     * details api 
-     * 
-     * @return \Illuminate\Http\Response 
-     */ 
+    /** 
+    * details api 
+    * 
+    * @return \Illuminate\Http\Response 
+    */ 
+    /**
+    * @OA\Post(
+    * path="/details",
+    * operationId="Details",
+    * tags={"Details"},
+    *   security={
+    *    {
+    *     "passport": {}},
+    *    },
+    
+    * summary="User Details",
+    * description="User Details here",
+    *     @OA\RequestBody(
+    *         @OA\JsonContent()
+    *    ),
+    *      @OA\Response(
+    *          response=200,
+    *          description="Successfully get details !!!",
+    *          @OA\JsonContent()
+    *       ),
+    *      @OA\Response(response=400, description="Bad request"),
+    *      @OA\Response(response=404, description="Resource Not Found"),
+    *      @OA\Response(response=401, description="Unauthentication"),
+    * )
+    */
     public function details() 
     {  
         $user_type = $this->user_category($request->user_type??'');

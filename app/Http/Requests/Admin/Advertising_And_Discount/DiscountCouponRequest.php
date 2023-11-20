@@ -26,12 +26,13 @@ class DiscountCouponRequest extends FormRequest
      */
     public function rules()
     {
+        $curr_discount_coupon_id = $this->discount_coupon->id??0;
         return [
             'name' => ['required', new AlphaSpace],
             'description' => 'required',
-            'coupon_code' => ['required','unique:discount_coupons'],
+            'coupon_code' => ['required','unique:discount_coupons,name,'.$curr_discount_coupon_id.',id'],
             'price'=>'required|numeric|min:1',
-            'discount' =>'required|numeric|min:1',
+            'discount' =>'required|numeric|between:0,100',
             'use_time_per_user' => 'required|numeric|min:1',
             'start_date' => 'required|date_format:Y-m-d|after:today',
             'end_date' => 'required|date_format:Y-m-d|after_or_equal:start_date',

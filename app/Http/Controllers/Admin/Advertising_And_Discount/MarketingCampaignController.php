@@ -145,6 +145,9 @@ class MarketingCampaignController extends BaseController
                 $data->end_date = $request->end_date??$data->end_date;
                 
                 if($request->image){
+                    if($data->image){
+                        $this->AwsDeleteImage($data->image);
+                    }
                     $imagename = explode('.',$request->image[0]['name'])[0];
                     $data->image = $this->AwsFileUpload($request->image[0]['file'],config('gbi.marketing_campaign_image'),$imagename);
                     $data->alt = $imagename;
