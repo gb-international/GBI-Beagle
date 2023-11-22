@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Model\Advertising_And_Discount\DiscountCoupon;
 use App\Http\Controllers\Admin\BaseController;
 use App\Http\Requests\Admin\Advertising_And_Discount\DiscountCouponRequest;
+use App\Model\Advertising_And_Discount\AttermptDiscountCoupon;
 use App\Traits\ImageTrait;
 use Image;
 
@@ -196,5 +197,19 @@ class DiscountCouponController extends BaseController
         catch(Exception $e){
             return $this->sendError($e->getMessage(), 500);
         }
+    }
+/**
+ * Fetch customer used coupon details
+ */
+    public function attemptDiscountCoupon($size=null){
+        if (empty($size)) {
+            $size = 10; 
+        }
+        $data = AttermptDiscountCoupon::latest()->paginate($size);
+        foreach ($data as $discount_coupon){
+            $discount_coupon->education_institutes;
+            $discount_coupon->discount_coupon;
+        }
+        return response()->json($data);
     }
 }

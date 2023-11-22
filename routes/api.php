@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use App\Http\Controllers\Front\AuthController;
 use App\Http\Controllers\Front\ItinerarySightseeingController;
+use App\Http\Controllers\Front\DiscountCoupon\DiscountCouponController;
 
 /*
 |--------------------------------------------------------------------------
@@ -196,5 +197,10 @@ Route::group(['prefix' => '/school_trip_payment', 'as' => 'school_trip_payment.'
 		Route::get('school_trip_payment/{id}', 'show');
 		Route::delete('school_trip_payment/{id}', 'delete');
 	});	
+});
+
+//Discount Coupon 
+Route::group(['prefix' => '/advertising', 'as' => 'advertising.'], function () {
+	Route::post('check-discount-coupon',[DiscountCouponController::class, 'checkCouponValidation']);
 });
 

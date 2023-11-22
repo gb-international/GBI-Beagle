@@ -362,6 +362,7 @@ Route::namespace('Admin')->group(function (){
 		Route::get('all-marketing-campaign/{size?}',[MarketingCampaignController::class, 'all']);
 		Route::resource('discount-coupon',Advertising_And_Discount\DiscountCouponController::class);
 		Route::get('all-discount-coupon/{size?}',[DiscountCouponController::class, 'all']);
+		Route::get('attempt-discount-coupon/{size?}',[DiscountCouponController::class, 'attemptDiscountCoupon']);
 	});
 });
 

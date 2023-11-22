@@ -12,10 +12,10 @@ class AttermptDiscountCoupon extends Model
     protected $fillable = ['edu_institute_id', 'discount_coupon_id', 'use_per_user'];
     
     public function education_institutes(){
-        return $this->belongsToMany('App\Model\School\EducationInstitute')->select(['id', 'name', 'school_id']);
+        return $this->belongsTo('App\Model\School\EducationInstitute', 'edu_institute_id', 'id')->select(['id', 'name', 'school_id']);
     }
 
     public function discount_coupon(){
-        return $this->belongsToMany('App\Model\Advertising_And_Discount\DiscountCoupon')->select(['id', 'name', 'coupon_code', 'price', 'discount', 'use_time_per_user']);
+        return $this->belongsTo('App\Model\Advertising_And_Discount\DiscountCoupon')->select(['id', 'name', 'coupon_code', 'price', 'discount', 'use_time_per_user']);
     }
 }
