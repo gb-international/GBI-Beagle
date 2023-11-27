@@ -14,6 +14,8 @@ class AddedDeletedAtColumnInUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
+            $table->string('gstin')->nullable()->after('status');
+            $table->string('customer_id')->nullable()->after('gstin');
             $table->softDeletes();
         });
     }
@@ -26,6 +28,8 @@ class AddedDeletedAtColumnInUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
+            Schema::dropColumn('customer_id');
+            Schema::dropColumn('gstin');
             Schema::dropColumn('deleted_at');
         });
     }

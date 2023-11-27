@@ -15,6 +15,7 @@ class AddedCustomerIdColumnInEduInstitutesTable extends Migration
     {
         Schema::table('edu_institutes', function (Blueprint $table) {
             $table->string('customer_id')->nullable()->after('is_incharge');
+            $table->string('gstin')->nullable()->after('customer_id');
         });
     }
 
@@ -27,6 +28,7 @@ class AddedCustomerIdColumnInEduInstitutesTable extends Migration
     {
         Schema::table('edu_institutes', function (Blueprint $table) {
             Schema::dropColumn('customer_id');
+            Schema::dropColumn('gstin');
         });
     }
 }

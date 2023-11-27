@@ -203,4 +203,9 @@ Route::group(['prefix' => '/school_trip_payment', 'as' => 'school_trip_payment.'
 Route::group(['prefix' => '/advertising', 'as' => 'advertising.'], function () {
 	Route::post('check-discount-coupon',[DiscountCouponController::class, 'checkCouponValidation']);
 });
-
+ 
+Route::group(['prefix' => '/razorpay-payment', 'as' => 'razorpay-payment.'], function () {
+	Route::controller(\Front\RazorpayPaymentController::class)->group(function () {
+		Route::post('make-order', 'makeOrder')->middleware(['auth:school-api']);
+	});	
+});

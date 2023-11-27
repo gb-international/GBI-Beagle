@@ -18,6 +18,7 @@
         "darkaonline/l5-swagger": "^8.5",
         "fideloper/proxy": "^4.0",
         "guzzlehttp/guzzle": "^7.0.1",
+        "guzzlehttp/psr7": "^1.9",
         "ijeffro/laravel-airports": "dev-master",
         "intervention/image": "^2.5",
         "laravel/framework": "^8.0",
@@ -28,13 +29,17 @@
         "laravel/ui": "^3.0",
         "lcobucci/jwt": "3.3.3",
         "league/flysystem-aws-s3-v3": "^1.0",
+        "nyholm/psr7": "^1.6",
         "predis/predis": "^1.1",
         "pusher/pusher-php-server": "~4.0",
+        "razorpay/razorpay": "2.*",
+        "react/http": "^1.9",
         "smartins/passport-multiauth": "^0.1.2",
         "softon/indipay": "^1.2",
         "spatie/laravel-permission": "^4.2",
         "spatie/laravel-server-side-rendering": "^1.4",
-        "spatie/laravel-sitemap": "^5.9"
+        "spatie/laravel-sitemap": "^5.9",
+        "symfony/http-kernel": "^5.4"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.7",

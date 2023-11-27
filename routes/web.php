@@ -179,6 +179,7 @@ Route::get('/itinerary-pdf/{slug}', 'Front\AppController@get');
 
 //Support
 Route::get('/support', 'Front\AppController@get');
+Route::get('/payment', 'Front\RazorpayPaymentController@formPage');
 
 //Any
 Route::get('/{any}', 'Front\AppController@get')->where('any', '.*');
