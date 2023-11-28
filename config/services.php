@@ -35,5 +35,9 @@ return [
         'client_id' => env('PASSPORT_CLIENT_ID'),
         'client_secret' => env('PASSPORT_CLIENT_SECRET'),
     ],
+    'razorpay'=>[
+        'razorpay_key_id' => env('RAZORPAY_KEY_ID'),
+        'razorpay_secret' => env('RAZORPAY_SECRET'),
+    ],
 
 ];
