@@ -1,1 +1,323 @@
-"use strict";(self.webpackChunk=self.webpackChunk||[]).push([[923],{25935:(t,a,s)=>{s.r(a),s.d(a,{default:()=>e});const i={name:"ListItineraryAccount",data:function(){return{oddclass:!1,evenclass:!0,itineraryData:[]}},created:function(){var t=this;axios.get("/account/sales_itinerary").then((function(a){t.itineraryData=a.data.data,console.log(t.itineraryData)}))},methods:{}};const e=(0,s(51900).Z)(i,(function(){var t=this,a=t.$createElement,s=t._self._c||a;return s("section",{staticClass:"content"},[s("div",{staticClass:"row justify-content-around"},[s("div",{staticClass:"col-md-12"},[s("div",{staticClass:"container container_admin_body"},[s("table",{staticClass:"display table nowrap",staticStyle:{width:"100%"},attrs:{id:"example"}},[t._m(0),t._v(" "),s("tbody",t._l(t.itineraryData,(function(a){return s("tr",{key:a.id,staticClass:"row_list",class:{odd:t.oddclass,even:t.evenclass},attrs:{role:"row"}},[s("td",[t._v(t._s(a.title))]),t._v(" "),s("td",[t._v(t._s(a.noofdays))]),t._v(" "),s("td",[t._v(t._s(a.price)+" /-")]),t._v(" "),s("td",["confirm"==a.status?s("span",{staticClass:"badge badge-success"},[t._v(t._s(a.status))]):t._e(),t._v(" "),"cancel"==a.status?s("span",{staticClass:"badge badge-danger"},[t._v(t._s(a.status))]):t._e(),t._v(" "),"pending"==a.status?s("span",{staticClass:"badge badge-warning"},[t._v(t._s(a.status))]):t._e()]),t._v(" "),s("td",{staticClass:"edit_section"},[s("router-link",{staticClass:"edit_link",attrs:{to:"submit-details/"+a.id}},[s("span",{staticClass:"badge badge-primary",attrs:{title:"Send Itinerary"}},[s("i",{staticClass:"fas fa-paper-plane"})])]),t._v(" "),s("router-link",{staticClass:"edit_link",attrs:{to:"/view-itinerary/"+a.itinerary_id}},[s("span",{staticClass:"badge badge-primary",attrs:{title:"View Itinerary"}},[s("i",{staticClass:"fas fa-eye"})])])],1)])})),0)])])])]),t._v(" "),s("p",{attrs:{id:"post"}})])}),[function(){var t=this,a=t.$createElement,s=t._self._c||a;return s("thead",[s("tr",[s("th",[t._v("Itinerary Title "),s("i",{staticClass:"fas fa-sort"})]),t._v(" "),s("th",[t._v("No Of Days "),s("i",{staticClass:"fas fa-sort"})]),t._v(" "),s("th",[t._v("Price "),s("i",{staticClass:"fas fa-sort"})]),t._v(" "),s("th",[t._v("Status "),s("i",{staticClass:"fas fa-sort"})]),t._v(" "),s("th",[t._v("Action "),s("i",{staticClass:"fas fa-cog"})])])])}],!1,null,null,null).exports}}]);
+"use strict";
+(self["webpackChunk"] = self["webpackChunk"] || []).push([["js/admin/itineraryAccount"],{
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/admin/pages/sales/ItineraryFromAccount.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/admin/pages/sales/ItineraryFromAccount.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "ListItineraryAccount",
+  data: function data() {
+    return {
+      oddclass: false,
+      evenclass: true,
+      itineraryData: []
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    axios.get("/account/sales_itinerary").then(function (response) {
+      _this.itineraryData = response.data.data; // add data to the itineraryData
+
+      console.log(_this.itineraryData);
+    });
+  },
+  methods: {}
+});
+
+/***/ }),
+
+/***/ "./resources/js/admin/pages/sales/ItineraryFromAccount.vue":
+/*!*****************************************************************!*\
+  !*** ./resources/js/admin/pages/sales/ItineraryFromAccount.vue ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ItineraryFromAccount_vue_vue_type_template_id_77984744___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ItineraryFromAccount.vue?vue&type=template&id=77984744& */ "./resources/js/admin/pages/sales/ItineraryFromAccount.vue?vue&type=template&id=77984744&");
+/* harmony import */ var _ItineraryFromAccount_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ItineraryFromAccount.vue?vue&type=script&lang=js& */ "./resources/js/admin/pages/sales/ItineraryFromAccount.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _ItineraryFromAccount_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ItineraryFromAccount_vue_vue_type_template_id_77984744___WEBPACK_IMPORTED_MODULE_0__.render,
+  _ItineraryFromAccount_vue_vue_type_template_id_77984744___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/admin/pages/sales/ItineraryFromAccount.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/admin/pages/sales/ItineraryFromAccount.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************!*\
+  !*** ./resources/js/admin/pages/sales/ItineraryFromAccount.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ItineraryFromAccount_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./ItineraryFromAccount.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/admin/pages/sales/ItineraryFromAccount.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ItineraryFromAccount_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/admin/pages/sales/ItineraryFromAccount.vue?vue&type=template&id=77984744&":
+/*!************************************************************************************************!*\
+  !*** ./resources/js/admin/pages/sales/ItineraryFromAccount.vue?vue&type=template&id=77984744& ***!
+  \************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ItineraryFromAccount_vue_vue_type_template_id_77984744___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ItineraryFromAccount_vue_vue_type_template_id_77984744___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ItineraryFromAccount_vue_vue_type_template_id_77984744___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./ItineraryFromAccount.vue?vue&type=template&id=77984744& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/admin/pages/sales/ItineraryFromAccount.vue?vue&type=template&id=77984744&");
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/admin/pages/sales/ItineraryFromAccount.vue?vue&type=template&id=77984744&":
+/*!***************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/admin/pages/sales/ItineraryFromAccount.vue?vue&type=template&id=77984744& ***!
+  \***************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render),
+/* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("section", { staticClass: "content" }, [
+    _c("div", { staticClass: "row justify-content-around" }, [
+      _c("div", { staticClass: "col-md-12" }, [
+        _c("div", { staticClass: "container container_admin_body" }, [
+          _c(
+            "table",
+            {
+              staticClass: "display table nowrap",
+              staticStyle: { width: "100%" },
+              attrs: { id: "example" },
+            },
+            [
+              _vm._m(0),
+              _vm._v(" "),
+              _c(
+                "tbody",
+                _vm._l(_vm.itineraryData, function (itinerary) {
+                  return _c(
+                    "tr",
+                    {
+                      key: itinerary.id,
+                      staticClass: "row_list",
+                      class: { odd: _vm.oddclass, even: _vm.evenclass },
+                      attrs: { role: "row" },
+                    },
+                    [
+                      _c("td", [_vm._v(_vm._s(itinerary.title))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(itinerary.noofdays))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(itinerary.price) + " /-")]),
+                      _vm._v(" "),
+                      _c("td", [
+                        itinerary.status == "confirm"
+                          ? _c("span", { staticClass: "badge badge-success" }, [
+                              _vm._v(_vm._s(itinerary.status)),
+                            ])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        itinerary.status == "cancel"
+                          ? _c("span", { staticClass: "badge badge-danger" }, [
+                              _vm._v(_vm._s(itinerary.status)),
+                            ])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        itinerary.status == "pending"
+                          ? _c("span", { staticClass: "badge badge-warning" }, [
+                              _vm._v(_vm._s(itinerary.status)),
+                            ])
+                          : _vm._e(),
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        { staticClass: "edit_section" },
+                        [
+                          _c(
+                            "router-link",
+                            {
+                              staticClass: "edit_link",
+                              attrs: { to: "submit-details/" + itinerary.id },
+                            },
+                            [
+                              _c(
+                                "span",
+                                {
+                                  staticClass: "badge badge-primary",
+                                  attrs: { title: "Send Itinerary" },
+                                },
+                                [_c("i", { staticClass: "fas fa-paper-plane" })]
+                              ),
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "router-link",
+                            {
+                              staticClass: "edit_link",
+                              attrs: {
+                                to: "/view-itinerary/" + itinerary.itinerary_id,
+                              },
+                            },
+                            [
+                              _c(
+                                "span",
+                                {
+                                  staticClass: "badge badge-primary",
+                                  attrs: { title: "View Itinerary" },
+                                },
+                                [_c("i", { staticClass: "fas fa-eye" })]
+                              ),
+                            ]
+                          ),
+                        ],
+                        1
+                      ),
+                    ]
+                  )
+                }),
+                0
+              ),
+            ]
+          ),
+        ]),
+      ]),
+    ]),
+    _vm._v(" "),
+    _c("p", { attrs: { id: "post" } }),
+  ])
+}
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [
+          _vm._v("Itinerary Title "),
+          _c("i", { staticClass: "fas fa-sort" }),
+        ]),
+        _vm._v(" "),
+        _c("th", [
+          _vm._v("No Of Days "),
+          _c("i", { staticClass: "fas fa-sort" }),
+        ]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Price "), _c("i", { staticClass: "fas fa-sort" })]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Status "), _c("i", { staticClass: "fas fa-sort" })]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Action "), _c("i", { staticClass: "fas fa-cog" })]),
+      ]),
+    ])
+  },
+]
+render._withStripped = true
+
+
+
+/***/ })
+
+}]);
