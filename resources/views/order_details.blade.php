@@ -18,7 +18,7 @@
             </div>
             <div class="card-body">
                 <div class="form-group text-center">
-                    <button id="rzp-button" amount=25.40 class="btn btn-primary">Payment Now1</button>
+                    <button id="rzp-button" amount=100.40 class="btn btn-primary">Payment Now1</button>
                 </div>
                 <!-- <form action="" method="post">
                     @csrf

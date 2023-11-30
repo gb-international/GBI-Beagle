@@ -82,7 +82,7 @@ class RazorpayPaymentController extends BaseController
             return array("name"=>$edu_institutes->name??'', "email"=>$edu_institutes->email??'', "phone_no"=>$edu_institutes->phone_no??'');
         }
         else if($customer_type == "user"){
-        
+            
         }
     }
     public function paymentRecord(Request $request){
@@ -90,8 +90,7 @@ class RazorpayPaymentController extends BaseController
             $validator = Validator::make($request->all(), [ 
                 'razorpay_order_id' => 'required',
                 'razorpay_payment_id'  => 'required',
-            ]);
-
+            ]);            
             if ($validator->fails()) {
                 return response()->json(['message' => "The given data was invalid.", 'errors' =>$validator->errors()]);
             }
@@ -100,6 +99,7 @@ class RazorpayPaymentController extends BaseController
             if($data->order_id){
                 $razorpay_payment = RazorpayPayment::where("order_id", $data->order_id??'')->first(); 
                 $razorpay_payment->razorpay_payment_id = $request->razorpay_payment_id??'';
+                $razorpay_payment->razorpay_signature = $request->razorpay_signature??'';
                 $razorpay_payment->tax_amount = $data->tax??0;
                 $razorpay_payment->fee_amount = $data->fee??0;
                 $razorpay_payment->total_amount = $data->amount??0+$data->tax??0+$data->fee??0;
@@ -113,5 +113,15 @@ class RazorpayPaymentController extends BaseController
         catch(Exception $e){
             return $this->sendError($e->getMessage(), 500);
         }  
+    }
+
+    public function invoice(){
+
+        // $data = $this->api->Item->create(array("name" => "Book / English August","description" => "An indian story, Booker prize winner.","amount" => 20000,"currency" => "INR"));
+        // return response()->json(($data->id));
+
+        $data = $this->api->invoice->create(array ('type' => 'invoice', 'customer_id'=> 'cust_N6YV0AsWKQEGZH', 'line_items'=>array(array('item_id'=>'item_N6akfFncR02NKE'))));
+        // $json = json_encode($data);
+        return response()->json(($data->toArray()));
     }
 }

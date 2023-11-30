@@ -30,6 +30,7 @@ class CreatedRazorpayPaymentsTable extends Migration
             $table->string('currency')->nullable();
             $table->string('payment_method')->nullable();
             $table->string('status')->nullable();
+            $table->string('razorpay_signature')->nullable();
             $table->string('customer_type')->nullable();
             $table->dateTime('created_at')->useCurrent();
             $table->dateTime('updated_at')->nullable();

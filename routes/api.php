@@ -208,5 +208,6 @@ Route::group(['prefix' => '/razorpay-payment', 'as' => 'razorpay-payment.'], fun
 	Route::controller(\Front\RazorpayPaymentController::class)->group(function () {
 		Route::post('make-order', 'makeOrder')->middleware(['auth:school-api']);
 		Route::post('payment-record', 'paymentRecord')->middleware(['auth:school-api']);
+		Route::get('invoice', 'invoice')->middleware(['auth:school-api']);
 	});	
 });
