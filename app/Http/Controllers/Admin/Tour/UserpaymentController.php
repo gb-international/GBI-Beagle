@@ -2,12 +2,26 @@
 
 namespace App\Http\Controllers\Admin\Tour;
 
+use App\Http\Requests\Payment\PaymentGatewayRequest;
+use App\Http\Requests\Payment\ChequePaymentRequest;
+use App\Http\Requests\Payment\PaymentOrderRequest;
+use App\Http\Requests\Payment\CashPaymentRequest;
+use App\Http\Controllers\API\BaseController;
+use Illuminate\Support\Facades\Config;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Model\Tour\Userpayment;
+use App\Model\Tour\Payment;
+use Razorpay\Api\Api;
+use Carbon\Carbon;
 
-class UserpaymentController extends Controller
+class UserpaymentController extends BaseController
 {
+    protected $api;
+    //Constructor 
+    protected function __construct() {
+        $this->api = new Api(Config::get('services.razorpay.razorpay_key_id'), Config::get('services.razorpay.razorpay_secret'));
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -46,7 +60,7 @@ class UserpaymentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**
@@ -96,6 +110,14 @@ class UserpaymentController extends Controller
     {
         $userpayment->delete();
         return response()->json('successfully deleted');
+    }
+    public function makeOrder(PaymentOrderRequest $request){
+        $discount = 0;
+        if($request->discount_coupon_id){
+            $discount = (($request->amount??0)*DiscountCoupon::where('id', $request->discount_coupon_id)->first('discount')->discount??0)/100;
+        }
+
+        $amount = ($request->amount??0)-$discount;
     }
 }
 

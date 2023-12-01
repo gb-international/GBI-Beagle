@@ -4,7 +4,6 @@ Purpose : Manage tour of gbi  */
 namespace App\Http\Controllers\Admin\Tour;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
 use App\Model\Tour\Tour;
 use App\Http\Resources\TourCollection;
 use App\Model\Reservation\Bookedbus;
@@ -198,5 +197,4 @@ class TourController extends BaseController
             'tour_price' => 'required',
       ]);
     }
-
 }
