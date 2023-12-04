@@ -27,7 +27,12 @@ class CashPaymentRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'amount' => 'required|numeric|gt:0',
+            'tour_price' => 'required|numeric|gt:0',
+            'tour_id' => 'required|exists:tours,id',
+            'school_id' => 'required|exists:schools,id',
+            'doc_proof' => 'required|file|max:5000',
+            'payment_by' => 'required|in:cash,self,student, teacher',
         ];
     }
     protected function failedValidation(Validator $validator) : void

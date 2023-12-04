@@ -22,7 +22,7 @@ class CreatedPaymentsTable extends Migration
             $table->unsignedInteger('tour_id')->nullable();
             $table->unsignedBigInteger('school_id')->nullable();
             $table->string('order_id')->nullable();
-            $table->string('payment_by')->nullable();
+            $table->string('payment_by')->nullable()->comment("self, student, teacher");
             $table->string('payment_mode')->nullable()->comment("cash, cheque, payment gateway");
             $table->string('ifsc_code')->nullable();
             $table->string('cheque_bank_name')->nullable();
@@ -41,6 +41,8 @@ class CreatedPaymentsTable extends Migration
             $table->string('status')->nullable();
             $table->string('razorpay_signature')->nullable();
             $table->string('customer_type')->nullable();
+            $table->string('doc_proof')->nullable();
+            $table->string('doc_proof_alt')->nullable();
             $table->dateTime('created_at')->useCurrent();
             $table->dateTime('updated_at')->nullable();
             $table->dateTime('payment_date')->nullable();

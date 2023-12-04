@@ -14,6 +14,7 @@ return [
     'bank_id' => env('GBI_BANK_DETAIL_ID'),
     'gbi_email' => env('CONTACT_US_MAIL'),
     //  aws images path (folder)
+    'doc_proof' => 'images/doc_proof/',
     'category_image' => 'images/category/',
     'marketing_campaign_image' => 'images/marketing_campaign/',
     'discount_coupon_image' => 'images/DiscountCouponImage/',

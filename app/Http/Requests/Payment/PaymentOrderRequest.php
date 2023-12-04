@@ -32,6 +32,7 @@ class PaymentOrderRequest extends FormRequest
             'school_id' => 'required|exists:schools,id',
             'discount_coupon_id' => 'discount_coupons,id',
             'total_tour_price'  => 'required|numeric|gt:0',
+            'payment_by' => 'required|in:cash,self,student, teacher',
         ];
     }
     protected function failedValidation(Validator $validator) : void

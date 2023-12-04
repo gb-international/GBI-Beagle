@@ -6,6 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Contracts\Validation\Rule;
+use App\Rules\AlphaSpace;
 
 class ChequePaymentRequest extends FormRequest
 {
@@ -27,7 +28,15 @@ class ChequePaymentRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'bank_name' => ['required',new AlphaSpace],
+            'date_of_issue' => 'required|date|after_or_equal:today|date_format:Y-m-d',
+            'ifsc_code' => 'required',
+            'cheque_number' => 'required',
+            'amount' => 'required|numeric|gt:0',
+            'tour_price' => 'required|numeric|gt:0',
+            'tour_id' => 'required|exists:tours,id',
+            'school_id' => 'required|exists:schools,id',
+            'payment_by' => 'required|in:cash,self,student,teacher',
         ];
     }
     protected function failedValidation(Validator $validator) : void
