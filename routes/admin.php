@@ -19,7 +19,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// Route::post('/payment','Front\PaymentController@payment');
 // Route::group(['middleware' => ['auth:api'],'namespace'=>'Front'],function(){
 Route::namespace('Admin')->group(function (){
 	Route::namespace('Transport')->group(function(){
@@ -364,24 +363,26 @@ Route::namespace('Admin')->group(function (){
 		Route::get('all-discount-coupon/{size?}',[DiscountCouponController::class, 'all']);
 		Route::get('attempt-discount-coupon/{size?}',[DiscountCouponController::class, 'attemptDiscountCoupon']);
 	});
-	Route::group(['prefix' => '/payment', 'as' => 'payment.'], function () {
-		Route::group(['prefix' => '/payment-gateway', 'as' => 'payment-gateway.'], function () {
-			Route::controller(\Tour\UserpaymentController::class)->group(function () {
-				Route::post('make-order', 'makeOrder');
-				Route::post('payment-record', 'paymentRecord');
+	// Route::group(['middleware' => 'auth:user-api'], function () {
+		Route::group(['prefix' => '/payment', 'as' => 'payment.'], function () {
+			Route::group(['prefix' => '/payment-gateway', 'as' => 'payment-gateway.'], function () {
+				Route::controller(\Tour\UserpaymentController::class)->group(function () {
+					Route::post('make-order', 'makeOrder');
+					Route::post('payment-record', 'paymentRecord');
+				});	
+			});	 
+			Route::group(['prefix' => '/cash', 'as' => 'cash.'], function () {
+				Route::controller(\Tour\UserpaymentController::class)->group(function () {
+					Route::post('record', 'cashRecord');
+				});	
 			});	
-		});	
-		Route::group(['prefix' => '/cash', 'as' => 'cash.'], function () {
-			Route::controller(\Tour\UserpaymentController::class)->group(function () {
-				Route::post('record', 'cashRecord');
+			Route::group(['prefix' => '/cheque', 'as' => 'cheque.'], function () {
+				Route::controller(\Tour\UserpaymentController::class)->group(function () {
+					Route::post('cheque-record', 'chequeRecord');
+				});	
 			});	
-		});	
-		Route::group(['prefix' => '/cheque', 'as' => 'cheque.'], function () {
-			Route::controller(\Tour\UserpaymentController::class)->group(function () {
-				Route::post('cheque-record', 'chequeRecord');
-			});	
-		});	
-	});
+		});
+	// });
 });
 
 

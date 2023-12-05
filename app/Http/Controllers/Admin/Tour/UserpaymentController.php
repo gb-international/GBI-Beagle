@@ -7,6 +7,8 @@ use App\Http\Requests\Payment\ChequePaymentRequest;
 use App\Http\Requests\Payment\PaymentOrderRequest;
 use App\Http\Requests\Payment\CashPaymentRequest;
 use App\Http\Controllers\Controller;
+use App\User;
+use Auth;
 use App\Http\Controllers\Admin\BaseController;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Http\Request;
@@ -119,24 +121,52 @@ class UserpaymentController extends BaseController
      * @return \Illuminate\Http\Response
      */
     public function makeOrder(PaymentOrderRequest $request){
-        $discount = 0;
-        if($request->discount_coupon_id){
-            $discount = (($request->amount??0)*DiscountCoupon::where('id', $request->discount_coupon_id)->first('discount')->discount??0)/100;
-        }
-        $order = $this->api->order->create(array('amount' => $amount*100, 'currency' => 'INR'));
-        $orderId = $order->id??'';
-        $status = $order->status??'';
-        $amount = $order->amount??'';
-        if($order->id){
+        // return response()->json("tt");
+        try{
+            $user = Auth::guard('user-api')->user();
+            $discount = 0;
+            if($request->discount_coupon_id){
+                $discount = (($request->amount??0)*DiscountCoupon::where('id', $request->discount_coupon_id)->first('discount')->discount??0)/100;
+            }
+            $amount = ($request->amount??0)-$discount;
+            $customer = $this->api->customer->create(array("name"=>$user->name??'', "email"=>$user->email??'', "contact"=>$user->phone_no??'', "fail_existing"=>0, "gstin"=>$user->gstin??null, "notes"=>array("address"=>$user->address??null,"city"=>$user->city??null,"zip_code"=>$user->zip_code??null, "country"=>$user->country??null, "state"=>$user->state??null, "country_code"=>$user->country_code??null)));    
+            $user->customer_id = $customer->id??'';
+            $user->save();
 
+            $order = $this->api->order->create(array('amount' => $amount*100, 'currency' => 'INR'));
+            $orderId = $order->id??'';
+            if($order->id){
+                $status = $order->status??'';
+                $amount = ($order->amount??0)/100;
+                $payment = new Payment;
+                $payment->amount = $amount;
+                $payment->discount = $discount;
+                $payment->order_id = $orderId;
+                $payment->total_amount = $amount;
+                $payment->status =$status;
+                $payment->discount_coupon_id = $request->discount_coupon_id;
+                $payment->tour_id = $request->tour_id;
+                $payment->school_id = $request->school_id;
+                $payment->customer_type = 'GBI Member';
+                $payment->payment_by_user_id = $user->id??0;
+                $payment->payment_mode = 'payment gateway';
+                $payment->payment_by = $request->payment_by??null;
+                $payment->total_tour_price = $request->total_tour_price??0;
+                $payment->save();
+                $payment->customer_id = $customer->id??'';
+                return response()->json($payment);  
+            }
+            else{
+                return $this->sendError("Something went wrong!");
+            }
         }
-        else{
-            return $this->sendError("Something went wrong!");
+        catch(Exception $e){
+            return $this->sendError($e->getMessage());
         }
-
     }
 
     public function chequeRecord(ChequePaymentRequest $request){
+        $user = Auth::guard('user-api')->user();
         try{
             $cheque_record = Payment::create([
                 'cheque_bank_name' => $request->bank_name??'',
@@ -150,7 +180,7 @@ class UserpaymentController extends BaseController
                 'school_id' => $request->school_id??null,
                 'status' => 'pending',
                 'customer_type' => 'GBI Member',
-                'payment_by_user_id' => 196,
+                'payment_by_user_id' => $user->id??0,
                 'payment_mode'=>'cheque', 
                 'payment_by'=>$request->payment_by??null, 
             ]);
@@ -166,6 +196,7 @@ class UserpaymentController extends BaseController
         }
     }
     public function cashRecord(CashPaymentRequest $request){
+        $user = Auth::guard('user-api')->user();
         try{
             $cash_record = Payment::create([
                 'amount' => $request->amount??0,
@@ -175,7 +206,7 @@ class UserpaymentController extends BaseController
                 'school_id' => $request->school_id??null,
                 'status' => 'success',
                 'customer_type' => 'GBI Member',
-                'payment_by_user_id' => 196,
+                'payment_by_user_id' => $user->id??0,
                 'payment_mode'=>'cash', 
                 'payment_by'=>$request->payment_by??null, 
             ]);
@@ -197,10 +228,28 @@ class UserpaymentController extends BaseController
         catch(Exception $e){
             return $this->sendError($e->getMessage());
         }
-
     }
     public function paymentRecord(PaymentGatewayRequest $request){
-        
+        try{
+            $data = $this->api->payment->fetch($request->razorpay_payment_id??'');
+            if($data->order_id){
+                $payment = Payment::where("order_id", $data->order_id??'')->first(); 
+                $payment->razorpay_payment_id = $request->razorpay_payment_id??'';
+                $payment->razorpay_signature = $request->razorpay_signature??'';
+                $payment->amount = ($data->amount??0)/100;
+                $payment->tax_amount = $data->tax??0;
+                $payment->fee_amount = $data->fee??0;
+                $payment->total_amount = (($data->amount??0)/100)+$data->tax??0+$data->fee??0;
+                $payment->payment_method = $data->method??'';
+                $payment->status = $data->status;
+                $payment->payment_date = Carbon::now('Asia/Kolkata')->format('Y-m-d H:i:s');
+                $payment->save();
+                return response()->json("Payment successfully");
+            }
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage());
+        }
     }
 }
 

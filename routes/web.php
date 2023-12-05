@@ -34,14 +34,14 @@ Route::resource('projects', 'ProjectsController');
 
 Route::get('/sh/{shCode}','Front\ShortLinkController@index');
 
-Route::post('/payment','Front\PaymentController@payment');
-Route::post('/response','Front\PaymentController@response');
-Route::post('/cancel','Front\PaymentController@cancel');
+// Route::post('/payment','Front\PaymentController@payment');
+// Route::post('/response','Front\PaymentController@response');
+// Route::post('/cancel','Front\PaymentController@cancel');
 
 // Admin Net Banking
-Route::post('admin/payment','Admin\Reservation\PaymentController@payment');
-Route::post('admin/response','Admin\Reservation\PaymentController@response');
-Route::post('admin/cancel','Admin\Reservation\PaymentController@cancel');
+// Route::post('admin/payment','Admin\Reservation\PaymentController@payment');
+// Route::post('admin/response','Admin\Reservation\PaymentController@response');
+// Route::post('admin/cancel','Admin\Reservation\PaymentController@cancel');
 
 // marketing
 Route::get('/marketings/{slug}','Front\MarketingController@index');
