@@ -365,20 +365,24 @@ Route::namespace('Admin')->group(function (){
 	});
 	// Route::group(['middleware' => 'auth:user-api'], function () {
 		Route::group(['prefix' => '/payment', 'as' => 'payment.'], function () {
+			
 			Route::group(['prefix' => '/payment-gateway', 'as' => 'payment-gateway.'], function () {
 				Route::controller(\Tour\UserpaymentController::class)->group(function () {
 					Route::post('make-order', 'makeOrder');
 					Route::post('payment-record', 'paymentRecord');
 				});	
-			});	 
+			});
+
 			Route::group(['prefix' => '/cash', 'as' => 'cash.'], function () {
 				Route::controller(\Tour\UserpaymentController::class)->group(function () {
 					Route::post('record', 'cashRecord');
 				});	
-			});	
+			});
+
 			Route::group(['prefix' => '/cheque', 'as' => 'cheque.'], function () {
 				Route::controller(\Tour\UserpaymentController::class)->group(function () {
-					Route::post('cheque-record', 'chequeRecord');
+					Route::post('cheque-draft-record', 'chequeOrdraftRecord');
+					Route::post('cheque-status', 'chequeStatus');
 				});	
 			});	
 		});

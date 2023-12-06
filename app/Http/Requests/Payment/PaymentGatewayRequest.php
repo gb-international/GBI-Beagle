@@ -27,7 +27,6 @@ class PaymentGatewayRequest extends FormRequest
     public function rules()
     {
         return [
-            'customer_type' => 'required|in:cash,cheque,payment gateway',
             'razorpay_order_id' => 'required',
             'razorpay_payment_id'  => 'required',
             'razorpay_signature'  => 'required',

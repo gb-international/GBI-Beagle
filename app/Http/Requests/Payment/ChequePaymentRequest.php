@@ -28,15 +28,21 @@ class ChequePaymentRequest extends FormRequest
     public function rules()
     {
         return [
+            'payment_mode' => 'required|in:cheque,demand draft',
             'bank_name' => ['required',new AlphaSpace],
-            'date_of_issue' => 'required|date|after_or_equal:today|date_format:Y-m-d',
-            'ifsc_code' => 'required',
+            'date_of_issue' => 'required|date|date_format:Y-m-d',
+            'branch' => 'required',
+            'bank_holder_name' => 'required',
+            'account_number' => 'required',
+            'ifs_code' => 'required',
             'cheque_number' => 'required',
             'amount' => 'required|numeric|gt:0',
             'tour_price' => 'required|numeric|gt:0',
             'tour_id' => 'required|exists:tours,id',
             'school_id' => 'required|exists:schools,id',
             'payment_by' => 'required|in:cash,self,student,teacher',
+            'status' => 'required|in:pending,success',
+            'doc_proof' => 'required|file|max:5000',
         ];
     }
     protected function failedValidation(Validator $validator) : void
