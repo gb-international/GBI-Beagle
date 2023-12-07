@@ -28,18 +28,18 @@ class Payment
     }
     public function cash($data, $customer_type, $user){
         $payment = new PaymentModel();
-        $payment->amount = $request->amount??0;
-        $payment->total_amount = $request->amount??0;
-        $payment->tour_price = $request->tour_price??0;
-        $payment->tour_id = $request->tour_id??null;
-        $payment->school_id = $request->school_id??null;
-        $payment->status = $request->status??null;
+        $payment->amount = $data->amount??0;
+        $payment->total_amount = $data->amount??0;
+        $payment->tour_price = $data->tour_price??0;
+        $payment->tour_id = $data->tour_id??null;
+        $payment->school_id = $data->school_id??null;
+        $payment->status = $data->status??'pending';
         $payment->customer_type = $customer_type;
-        if($data->customer_type == "user"){
+        if($customer_type == "user"){
             $payment->payment_by_user_id = $user->id??null;
         }
         $payment->payment_mode = "cash"; 
-        $payment->payment_by=$request->payment_by??null; 
+        $payment->payment_by = $data->payment_by??null; 
         return $payment;
     }
 }

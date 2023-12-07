@@ -1,12 +1,40 @@
 <?php
 namespace App\Http\Controllers\Front;
+use App\Helpers\RazorpayPayment as RazorpayPaymentHelper;
+use App\Http\Requests\Payment\PaymentGatewayRequest;
+use App\Http\Requests\Payment\PaymentOrderRequest;
 use App\Http\Controllers\Controller; 
 use Illuminate\Http\Request;
 use App\Model\Tour\Userpayment;
 use App\Model\Tour\TourUser;
 use Auth;
-class UserpaymentController extends Controller
+
+use App\Http\Controllers\Admin\BaseController;
+
+class UserpaymentController extends BaseController
 {
+    protected $razorpay_payment_helper;
+    //Constructor to connected razorpay authentication
+    public function __construct() {
+        $this->razorpay_payment_helper = new RazorpayPaymentHelper;
+    }
+
+    public function makeOrder(PaymentOrderRequest $request){
+        $customer_type = $request->customer_type??'school';
+        try{
+            $user = Auth::guard($customer_type.'-api')->user();
+            $customer = $this->razorpay_payment_helper->createCustomer($user);
+            $payment = $this->razorpay_payment_helper->createOrder($request, $customer_type, $user);
+            $payment->customer_id = $customer->id??'';
+            return response()->json($payment);            
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage());
+        }
+
+        // Auth::guard('school-api')->user();
+    }
+
     public function store(Request $request){
         $user = Auth::user();
         $this->validate($request, [ 
@@ -45,4 +73,5 @@ class UserpaymentController extends Controller
         }
         return response()->json($data);
     }
+
 }

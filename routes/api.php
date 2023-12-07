@@ -211,3 +211,15 @@ Route::group(['prefix' => '/razorpay-payment', 'as' => 'razorpay-payment.'], fun
 		Route::get('invoice', 'invoice')->middleware(['auth:school-api']);
 	});	
 });
+
+//Front end payment gateway
+Route::group(['middleware' => 'auth:school-api'], function () {
+	Route::group(['prefix' => '/payment', 'as' => 'payment.'], function () {		
+		Route::group(['prefix' => '/payment-gateway', 'as' => 'payment-gateway.'], function () {
+			Route::controller(\Front\UserpaymentController::class)->group(function () {
+				Route::post('make-order', 'makeOrder');
+				Route::post('payment-record', 'paymentRecord');
+			});	
+		});
+	});
+});

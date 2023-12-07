@@ -32,6 +32,7 @@ class CashPaymentRequest extends FormRequest
             'tour_id' => 'required|exists:tours,id',
             'school_id' => 'required|exists:schools,id',
             'doc_proof' => 'required|file|max:5000',
+            'status' => 'required|in:pending,success',
             'payment_by' => 'required|in:cash,self,student, teacher',
         ];
     }
