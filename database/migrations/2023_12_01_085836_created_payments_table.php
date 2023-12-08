@@ -51,11 +51,11 @@ class CreatedPaymentsTable extends Migration
             $table->string('refund_status')->nullable()->comment("null, partial, full");
             $table->string('email')->nullable();
             $table->string('contact')->nullable();
-            $table->string('token_id')->nullable();
             $table->string('card_id')->nullable();
             $table->string('vpa')->nullable();
             $table->string('bank')->nullable();
             $table->string('wallet')->nullable();
+            $table->string('customer_id')->nullable();
             $table->text('upi')->nullable();
             $table->string('card_last_four_digit')->nullable();
             $table->text('card_details')->nullable();

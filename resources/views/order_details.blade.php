@@ -43,9 +43,9 @@ let options = {
     "order_id": "", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
     "handler": function (response){
         $.ajax({
-            url: "http://127.0.0.1:8000/api/razorpay-payment/payment-record",
+            url: "http://localhost:8000/api/payment/payment-gateway/payment-record",
             type: "POST",
-            headers: { Authorization: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5YTUzNzc1NC1mMjQ3LTQ5YjUtYjMwNC05Y2MyYWI2YzU3MzQiLCJqdGkiOiI1YTE3MGIwODRmYjk0YzllOWRhMGU4NzU2Y2YxZWEwMWU2MTExZGI5MWUyMjUyZDMzZTMxYzBjMzAwZjRlMDU3OTkzZjUxMDIzZjdkMDQwNiIsImlhdCI6MTcwMTIzNTg4MywibmJmIjoxNzAxMjM1ODgzLCJleHAiOjE3MzI4NTgyODMsInN1YiI6IjEyIiwic2NvcGVzIjpbInNjaG9vbCJdfQ.zFDCmwsIOR4q18zHzU5D91QE76veYQKrfbNj_KnHQGoya9nCOEGy0JB-Kn2sNEyLb7E1C_YZdrZeM1oi5x4uGuykaZaWQl-KvSXYVOu2G_K_zx44mSlUjdYMB4UDC54sJzxlqrpPyrgG7N60fshuBtoTsWLOuge8vjkmeKu7EscAS3HDUgvHO7oOYIESMbfUmTuI8LUJHX_R7g_zMQcnlrx7L4hEmW-KHgguEWaOdgQWsdYN5XZNwj17Hs1C_Ks5-YT8ZoFiFXh7x2jvfQz8q1rRZaVn3U6FcK7EWD2aFGjXvChm9UzavpYOzs4eMfTMS4zmAE2l9WGPFFYJHHfHGdf2_z0f5H90dLkxYPE0GpkltW7idgfzG6LhUVeHgk65HI2t3uZ5STH0XGq-YlksMO_O7xqGqir0c3DhQJYwt5dlC2mAsavFrHv8Ptd8XaOVIQ3c_O19ODTeAk3dvxucTrTqARQFTMWiRHRj2iY4ess9B-A8JHpkoNM6xC3LTFT8UJ4v8vMnzF9BdsXqZbKaGY_LBkZ5bs85D4jxf-PYsS-LjZMmhns1QUy6chIyy3UCHa4C4dUTJmvWADJpZrPVDFdyC8Dk7f-I6LpH7_HQivEtUU9kw0CJ64ee3uioQY5oCnNA0VmjrCRRUqzdRWinLYTwOVmrIZJ-xOo-Zkx78dA" },
+            headers: { Authorization: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5YTUzNzc1NC1mMjQ3LTQ5YjUtYjMwNC05Y2MyYWI2YzU3MzQiLCJqdGkiOiIyZDQ1Mzk0MjNmMGI0OTExYWQ3MzI5ODI1ODE1OTU4ODQ5OTNmMzE5ZGQ4NWY4OTI2OGE1OWVmOTM1M2VkYmU1NTViNzBmNmE1Yjk1MWE2ZCIsImlhdCI6MTcwMTkzMDMwNSwibmJmIjoxNzAxOTMwMzA1LCJleHAiOjE3MzM1NTI3MDUsInN1YiI6IjEyIiwic2NvcGVzIjpbInNjaG9vbCJdfQ.XxUj_iSc39tUoj4p-7yMTlilXZmNEqqczepgausouM1--H7GW8S9uZkZngQ5izRk5PBuYr3HtXutF2MT9o8n-IMo7aabqi2ugPah-TXCoXWq2EGiuEIZjYbNhDz1ozvag13PS45VI663W6bvxh-zGXv2AgTsllBOuNEOvYDp3HFRBRdx4KN0NzKA_vePHMRGy8uci7GfTXV4-OH5GmDPT_RuXqgKQ7AVBbeAqGwj4fIDaZrMxB748galdxaQCngMi_oIlOR0ff4EbFAlg92xMSqSK3nj25ket4ma1JMAfXc2Uw-Q_tzRju3tQohATXRVkUAS4kL1tcyvE3GYg9X3umEgNNXM6EXk4jNekxEP4m4NGRrlhN04MqyhhlIaqqJ3SlX5Omoo6e747JvnOgLohAFJdkw98eBM9hfVjheHx25OQ3ay3XVY7ApUiI4N2-zmFt1ZNJvK9b16wJl9InRDHFOzzUs0hCLnboGDJijBEUmlDa-w6ndUkL18PHuHTIGqCsJM5cFsZDU74cxntAqzjrWffxebXMHJAOMe_dMYP0LdfXEwRAC1i8L91bFWK5oGVAZViMcZEW1r8E3UtVkDhax9-Az7-HSTgsTgkwg9MjXlAFc4OTpOrI-X99cE9QkHyK4XlelvXFnF4ttDYkn-A21FnNiTyQ2nbLkcp-GJyuo" },
             data: JSON.stringify(response),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -84,11 +84,11 @@ document.getElementById('rzp-button').onclick = function(e){
     let amount = document.getElementById('rzp-button').getAttribute("amount");
     // console.log(amount);
     $.ajax({
-        url: "http://127.0.0.1:8000/api/razorpay-payment/make-order",
+        url: "http://localhost:8000/api/payment/payment-gateway/make-order",
         type: "POST",
-        headers: { Authorization: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5YTUzNzc1NC1mMjQ3LTQ5YjUtYjMwNC05Y2MyYWI2YzU3MzQiLCJqdGkiOiI1YTE3MGIwODRmYjk0YzllOWRhMGU4NzU2Y2YxZWEwMWU2MTExZGI5MWUyMjUyZDMzZTMxYzBjMzAwZjRlMDU3OTkzZjUxMDIzZjdkMDQwNiIsImlhdCI6MTcwMTIzNTg4MywibmJmIjoxNzAxMjM1ODgzLCJleHAiOjE3MzI4NTgyODMsInN1YiI6IjEyIiwic2NvcGVzIjpbInNjaG9vbCJdfQ.zFDCmwsIOR4q18zHzU5D91QE76veYQKrfbNj_KnHQGoya9nCOEGy0JB-Kn2sNEyLb7E1C_YZdrZeM1oi5x4uGuykaZaWQl-KvSXYVOu2G_K_zx44mSlUjdYMB4UDC54sJzxlqrpPyrgG7N60fshuBtoTsWLOuge8vjkmeKu7EscAS3HDUgvHO7oOYIESMbfUmTuI8LUJHX_R7g_zMQcnlrx7L4hEmW-KHgguEWaOdgQWsdYN5XZNwj17Hs1C_Ks5-YT8ZoFiFXh7x2jvfQz8q1rRZaVn3U6FcK7EWD2aFGjXvChm9UzavpYOzs4eMfTMS4zmAE2l9WGPFFYJHHfHGdf2_z0f5H90dLkxYPE0GpkltW7idgfzG6LhUVeHgk65HI2t3uZ5STH0XGq-YlksMO_O7xqGqir0c3DhQJYwt5dlC2mAsavFrHv8Ptd8XaOVIQ3c_O19ODTeAk3dvxucTrTqARQFTMWiRHRj2iY4ess9B-A8JHpkoNM6xC3LTFT8UJ4v8vMnzF9BdsXqZbKaGY_LBkZ5bs85D4jxf-PYsS-LjZMmhns1QUy6chIyy3UCHa4C4dUTJmvWADJpZrPVDFdyC8Dk7f-I6LpH7_HQivEtUU9kw0CJ64ee3uioQY5oCnNA0VmjrCRRUqzdRWinLYTwOVmrIZJ-xOo-Zkx78dA" },
-        data: JSON.stringify({amount: amount, "tour_id" :32,
-        "school_id" : 962}),
+        headers: { Authorization: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5YTUzNzc1NC1mMjQ3LTQ5YjUtYjMwNC05Y2MyYWI2YzU3MzQiLCJqdGkiOiIyZDQ1Mzk0MjNmMGI0OTExYWQ3MzI5ODI1ODE1OTU4ODQ5OTNmMzE5ZGQ4NWY4OTI2OGE1OWVmOTM1M2VkYmU1NTViNzBmNmE1Yjk1MWE2ZCIsImlhdCI6MTcwMTkzMDMwNSwibmJmIjoxNzAxOTMwMzA1LCJleHAiOjE3MzM1NTI3MDUsInN1YiI6IjEyIiwic2NvcGVzIjpbInNjaG9vbCJdfQ.XxUj_iSc39tUoj4p-7yMTlilXZmNEqqczepgausouM1--H7GW8S9uZkZngQ5izRk5PBuYr3HtXutF2MT9o8n-IMo7aabqi2ugPah-TXCoXWq2EGiuEIZjYbNhDz1ozvag13PS45VI663W6bvxh-zGXv2AgTsllBOuNEOvYDp3HFRBRdx4KN0NzKA_vePHMRGy8uci7GfTXV4-OH5GmDPT_RuXqgKQ7AVBbeAqGwj4fIDaZrMxB748galdxaQCngMi_oIlOR0ff4EbFAlg92xMSqSK3nj25ket4ma1JMAfXc2Uw-Q_tzRju3tQohATXRVkUAS4kL1tcyvE3GYg9X3umEgNNXM6EXk4jNekxEP4m4NGRrlhN04MqyhhlIaqqJ3SlX5Omoo6e747JvnOgLohAFJdkw98eBM9hfVjheHx25OQ3ay3XVY7ApUiI4N2-zmFt1ZNJvK9b16wJl9InRDHFOzzUs0hCLnboGDJijBEUmlDa-w6ndUkL18PHuHTIGqCsJM5cFsZDU74cxntAqzjrWffxebXMHJAOMe_dMYP0LdfXEwRAC1i8L91bFWK5oGVAZViMcZEW1r8E3UtVkDhax9-Az7-HSTgsTgkwg9MjXlAFc4OTpOrI-X99cE9QkHyK4XlelvXFnF4ttDYkn-A21FnNiTyQ2nbLkcp-GJyuo" },
+        data: JSON.stringify({amount: amount, "tour_price":5000,
+    "amount":100, "tour_id":32, "school_id":962, "payment_by":"teacher"}),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         error: function(err) {
