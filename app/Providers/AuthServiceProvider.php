@@ -42,15 +42,16 @@ class AuthServiceProvider extends ServiceProvider
         Passport::refreshTokensExpireIn(Carbon::now()->addDays(5));
         Passport::tokensCan([
             'school' => 'For education institute',
+            'user' => 'For users',
         ]);
         Passport::setDefaultScope([
             'school',
+            'user'
         ]);
 
         Gate::before(function ($user, $ability) {
             return $user->hasRole('Admin') ? true : null;
         });
-
     }
 
     /*protected function makeOtpGrant()

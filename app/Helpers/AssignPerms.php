@@ -39,7 +39,7 @@ class AssignPerms
 
     public function finance($userRoleId){
 
-    	$perms = ermission::whereIn('id', [58, 57, 84, 83, 62, 64, 63, 86, 88, 93, 92, 87, 75, 66, 61, 60, 59, 56, 91, 54])->get();
+    	$perms = Permission::whereIn('id', [58, 57, 84, 83, 62, 64, 63, 86, 88, 93, 92, 87, 75, 66, 61, 60, 59, 56, 91, 54])->get();
 
     	foreach ($perms as $perm) {
     		$userRolePermission = new UserRolePermission;

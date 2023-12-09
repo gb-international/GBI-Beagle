@@ -19,9 +19,9 @@ class Payment
         $payment->school_id = $data->school_id??0;
         $payment->payment_by = $data->payment_by??null;
         $payment->status = $data->status??null;
-        $payment->customer_type = $data->customer_type??null;
+        $payment->customer_type = $customer_type??null;
         $payment->payment_by = $request->payment_by??null;
-        if($data->customer_type == "user"){
+        if($customer_type == "user"){
             $payment->payment_by_user_id = $user->id??null;
         }
         return $payment;
