@@ -66,6 +66,7 @@ class AuthController extends Controller{
         $validator = Validator::make($request->all(), [ 
             'email' => ['required','email',new EmailValidate],
             'password' => 'required',
+            'login_type' =>  'required|in:user,school'
         ]);
         if ($validator->fails()) { 
             return response()->json(['error'=>$validator->errors()], 422);            
@@ -74,9 +75,17 @@ class AuthController extends Controller{
             'email' => $request->email,
             'password' => $request->password
         ];
-        if (Auth::guard('school')->attempt($credentials)) {
-                $token = Auth::guard('school')->user()->createToken('MyToken',['school'])->accessToken;                
-                return response()->json(['token' => $token, 'user'=>Auth::guard('school')->user()], 200);
+        if($request->login_type??'' == 'school'){
+            if (Auth::guard('school')->attempt($credentials)) {
+                    $token = Auth::guard('school')->user()->createToken('MyToken',['school'])->accessToken;                
+                    return response()->json(['token' => $token, 'user'=>Auth::guard('school')->user()], 200);
+            }
+        }
+        if($request->login_type??'' == 'user'){
+            if(Auth::guard('user')->attempt($credentials)) {
+                $token = Auth::guard('user')->user()->createToken('MyToken',['user'])->accessToken;                
+                return response()->json(['token' => $token, 'user'=>Auth::guard('user')->user()], 200);
+            }
         }
         else {
             return response()->json(['error' => 'UnAuthorised'], 401);

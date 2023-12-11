@@ -14,30 +14,11 @@ class Authenticate extends Middleware
      * @param  \Illuminate\Http\Request  $request
      * @return string|null
      */
-    // protected function redirectTo($request)
-    // {
-    //                 if (! $request->expectsJson()) {
-    //             return route('login');
-    //         }  
-    //         return $next($request);
-        
-    //     }
-        public function handle($request, Closure $next, ...$guards)
-        {
-            if($request->is('api/*')){
-                if (!Auth::guard('school-api')->check()) {
-                    return response()->json([
-                        'message' => 'Unauthentication',
-                        'status' => 401
-                    ], 401);
-                }
-                else{
-                    return $next($request);
-                }
-            }
-            if (! $request->expectsJson()) {
-                return redirect('login');
-            }  
-            return $next($request);
+    protected function redirectTo($request)
+    {
+        if (! $request->expectsJson()) {
+            return route('login');
+        }
+        return $next($request);  
     }
 }

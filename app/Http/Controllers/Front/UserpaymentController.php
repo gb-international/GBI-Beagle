@@ -14,11 +14,17 @@ use App\Http\Controllers\Admin\BaseController;
 class UserpaymentController extends BaseController
 {
     protected $razorpay_payment_helper;
+
     //Constructor to connected razorpay authentication
     public function __construct() {
         $this->razorpay_payment_helper = new RazorpayPaymentHelper;
     }
 
+    /**
+     * Create customer in razorpay.
+     * If not exist otherwise fetch customer data (Check customer exist razorpay both email & phone number is same). 
+     * Save customer id in table according to customer type, Create order in razorpay & saved record in database.
+    */
     public function makeOrder(PaymentOrderRequest $request){
         $customer_type = $request->customer_type??'school';
         try{
@@ -74,4 +80,19 @@ class UserpaymentController extends BaseController
         return response()->json($data);
     }
 
+    /**
+     * Call payment data from razorpay by payment id. 
+     * saved payment record & payment type is card, upi, wallet & netbanking.
+     * 
+     */ 
+    
+    public function paymentRecord(PaymentGatewayRequest $request){
+        try{
+            $payment = $this->razorpay_payment_helper->checkPayment($request);
+                return response()->json("Payment successfully");
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage());
+        }
+    }
 }

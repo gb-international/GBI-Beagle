@@ -363,7 +363,7 @@ Route::namespace('Admin')->group(function (){
 		Route::get('all-discount-coupon/{size?}',[DiscountCouponController::class, 'all']);
 		Route::get('attempt-discount-coupon/{size?}',[DiscountCouponController::class, 'attemptDiscountCoupon']);
 	});
-	// Route::group(['middleware' => 'auth:user-api'], function () {
+	Route::group(['middleware' => 'auth:user-api'], function () {
 		Route::group(['prefix' => '/payment', 'as' => 'payment.'], function () {
 			
 			Route::group(['prefix' => '/cash', 'as' => 'cash.'], function () {
@@ -379,7 +379,7 @@ Route::namespace('Admin')->group(function (){
 				});	
 			});	
 		});
-	// });
+	});
 });
 
 

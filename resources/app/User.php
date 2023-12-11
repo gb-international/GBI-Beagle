@@ -14,8 +14,10 @@ use App\Otp;
 
 class User extends Authenticatable
 {
-    use HasApiTokens,Notifiable;
+    use HasApiTokens, Notifiable;
     use HasRoles;
+    protected $guard = 'user';
+    protected $table = 'users';
 
     /**
      * The attributes that are mass assignable.

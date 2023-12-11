@@ -55,6 +55,15 @@ return [
             'driver' => 'passport',
             'provider' => 'school',
         ],
+        'user' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
+    
+        'user-api' => [
+            'driver' => 'passport',
+            'provider' => 'users',
+        ],
     
         // 'edu_institutes' => [
         //     'driver' => 'passport',
