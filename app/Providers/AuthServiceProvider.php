@@ -43,10 +43,14 @@ class AuthServiceProvider extends ServiceProvider
         Passport::tokensCan([
             'school' => 'For education institute',
             'user' => 'For users',
+            'company' => 'Company User',
+            'family' => 'Family',
         ]);
         Passport::setDefaultScope([
             'school',
-            'user'
+            'user',
+            'company',
+            'family',
         ]);
 
         Gate::before(function ($user, $ability) {

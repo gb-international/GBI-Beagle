@@ -64,6 +64,24 @@ return [
             'driver' => 'passport',
             'provider' => 'users',
         ],
+        'family' => [
+            'driver' => 'session',
+            'provider' => 'familys',
+        ],
+    
+        'family-api' => [
+            'driver' => 'passport',
+            'provider' => 'familys',
+        ],
+        'company' => [
+            'driver' => 'session',
+            'provider' => 'companys',
+        ],
+    
+        'company-api' => [
+            'driver' => 'passport',
+            'provider' => 'companys',
+        ],
     
         // 'edu_institutes' => [
         //     'driver' => 'passport',
@@ -108,6 +126,14 @@ return [
         'school' => [
             'driver' => 'eloquent',
             'model' => App\Model\School\EducationInstitute::class,
+        ],
+        'companys' => [
+            'driver' => 'eloquent',
+            'model' => App\CompanyUser::class,
+        ],
+        'companys' => [
+            'driver' => 'eloquent',
+            'model' => App\FamilyUser::class,
         ],
     ],
 

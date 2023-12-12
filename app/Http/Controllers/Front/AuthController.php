@@ -7,7 +7,6 @@ Purpose : Login & register using guard
 namespace App\Http\Controllers\Front;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller; 
-use App\User;
 use App\Otp;
 use App\Model\User\Information;
 use App\Model\Tour\TourUser;
@@ -27,6 +26,9 @@ use App\Rules\EmailValidate;
 use App\Model\User\Subscriber;
 use App\Model\Notification\Notifier;
 use App\Model\School\EducationInstitute as EduInstitute;
+use App\CompanyUser;
+use App\FamilyUser;
+use App\User;
 
 class AuthController extends Controller{
 /**
@@ -66,7 +68,7 @@ class AuthController extends Controller{
         $validator = Validator::make($request->all(), [ 
             'email' => ['required','email',new EmailValidate],
             'password' => 'required',
-            'login_type' =>  'required|in:user,school'
+            'login_type' =>  'required|in:user,school,company'
         ]);
         if ($validator->fails()) { 
             return response()->json(['error'=>$validator->errors()], 422);            
@@ -75,15 +77,21 @@ class AuthController extends Controller{
             'email' => $request->email,
             'password' => $request->password
         ];
-        if($request->login_type??'' == 'school'){
+        if($request->login_type == 'school'){
             if (Auth::guard('school')->attempt($credentials)) {
                     $token = Auth::guard('school')->user()->createToken('MyToken',['school'])->accessToken;                
                     return response()->json(['token' => $token, 'user'=>Auth::guard('school')->user()], 200);
             }
         }
-        if($request->login_type??'' == 'user'){
+        if($request->login_type == 'user'){
             if(Auth::guard('user')->attempt($credentials)) {
                 $token = Auth::guard('user')->user()->createToken('MyToken',['user'])->accessToken;                
+                return response()->json(['token' => $token, 'user'=>Auth::guard('user')->user()], 200);
+            }
+        }
+        if($request->login_type??'' == 'company'){
+            if(Auth::guard('company')->attempt($credentials)) {
+                $token = Auth::guard('company')->user()->createToken('MyToken',['company'])->accessToken;                
                 return response()->json(['token' => $token, 'user'=>Auth::guard('user')->user()], 200);
             }
         }
@@ -141,47 +149,69 @@ class AuthController extends Controller{
 
     public function register(Request $request) 
     { 
-        // exit;
-        // if($request->email != 'csrikhi@gbinternational.in'){
-            $validator = Validator::make($request->all(), [ 
-                'name' => 'required', 
-                'email' => ['required','email',new EmailValidate, 'unique:edu_institutes,email'],
-                'password' => 'required', 
-                'c_password' => 'required|same:password', 
-            ]);
-        // } else {
-            // $validator = Validator::make($request->all(), [ 
-            //     'name' => 'required', 
-            //     'password' => 'required', 
-            //     'c_password' => 'required|same:password', 
-            // ]);
-        // }
+        $validator = Validator::make($request->all(), [ 
+            'client_type' =>  'required|in:family,company,school',
+            'name' => 'required',  
+            'email' => ['required_if:client_type,school', 'email',new EmailValidate, 'unique:edu_institutes,email'],
+            'company_email' => ['required_if:client_type,company', 'email',new EmailValidate, 'unique:company_users,email'],
+            'family_email' => ['required_if:client_type,family', 'email',new EmailValidate, 'unique:family_users,email'],
+            'password' => 'required', 
+            'c_password' => 'required|same:password', 
+        ]);
+       
         if ($validator->fails()) { 
             return response()->json(['error'=>$validator->errors()], 422);            
         }
-        $input = $request->all(); 
-        // $input['password'] = bcrypt($input['password']??'');  
-        $input['password'] = bcrypt($request->password);  
-        $eduInstitute = EduInstitute::create($input);
-        $eduInstitute->varified = '1';
-        $eduInstitute->photo = 'user.png';
-        $eduInstitute->gender = '';
-        $eduInstitute->save();
-        $sendsms = new SendSms; // send welcome sms
-        $sendsms->signUpSMS($request->phone_no,$eduInstitute);
+        if($request->client_type == "family"){
+            $family_user = new FamilyUser();
+            $family_user->name = $request->name??null;
+            $family_user->email = $request->family_email??null;
+            $family_user->password = bcrypt($request->password);
+            $family_user->varified = '1';
+            $family_user->photo = 'user.png';
+            $family_user->gender = '';
+            $family_user->save();
+            $sendsms = new SendSms; // send welcome sms
+            $sendsms->signUpSMS($request->phone_no, $family_user);
+        }
+        else if($request->client_type == "school"){
+            $eduInstitute = new EduInstitute();
+            $eduInstitute->name = $request->name??null;
+            $eduInstitute->email = $request->email??null;
+            $eduInstitute->password = bcrypt($request->password);
+            $eduInstitute->varified = '1';
+            $eduInstitute->photo = 'user.png';
+            $eduInstitute->gender = '';
+            $eduInstitute->save();
+            $sendsms = new SendSms; // send welcome sms
+            $sendsms->signUpSMS($request->phone_no,$eduInstitute);
+        }
+        else if($request->client_type == "company"){
+            $company_user = new CompanyUser();
+            $company_user->name = $request->name??null;
+            $company_user->email = $request->company_email??null;
+            $company_user->password = bcrypt($request->password);
+            $company_user->varified = '1';
+            $company_user->photo = 'user.png';
+            $company_user->gender = '';
+            $company_user->save();
+            $sendsms = new SendSms; // send welcome sms
+            $sendsms->signUpSMS($request->phone_no,$company_user);
+        }
         return response()->json('Successfully Registered !!!');
     }
-
+    
+    
     public function logout(Request $request){
         $user_type = $this->user_category($request->user_type??'');
         $accessToken = Auth::guard($user_type)->user()->token();
         \DB::table('oauth_refresh_tokens')
-            ->where('access_token_id', $accessToken->id)
+        ->where('access_token_id', $accessToken->id)
             ->update([
                 'revoked' => true
             ]);
-
-        $accessToken->revoke();
+            
+            $accessToken->revoke();
         // return $user_type;
         // $accessToken = auth()->user()->token();
         // Auth::user()->tokens->each(function($token,$key){
