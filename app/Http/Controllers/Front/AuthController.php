@@ -68,7 +68,7 @@ class AuthController extends Controller{
         $validator = Validator::make($request->all(), [ 
             'email' => ['required','email',new EmailValidate],
             'password' => 'required',
-            'login_type' =>  'required|in:user,school,company'
+            'login_type' =>  'required|in:user,school,company,family'
         ]);
         if ($validator->fails()) { 
             return response()->json(['error'=>$validator->errors()], 422);            
@@ -79,8 +79,11 @@ class AuthController extends Controller{
         ];
         if($request->login_type == 'school'){
             if (Auth::guard('school')->attempt($credentials)) {
-                    $token = Auth::guard('school')->user()->createToken('MyToken',['school'])->accessToken;                
-                    return response()->json(['token' => $token, 'user'=>Auth::guard('school')->user()], 200);
+                $token = Auth::guard('school')->user()->createToken('MyToken',['school'])->accessToken;                
+                return response()->json(['token' => $token, 'user'=>Auth::guard('school')->user()], 200);
+            }
+            else {
+                return response()->json(['error' => 'UnAuthorised'], 401);
             }
         }
         if($request->login_type == 'user'){
@@ -88,15 +91,27 @@ class AuthController extends Controller{
                 $token = Auth::guard('user')->user()->createToken('MyToken',['user'])->accessToken;                
                 return response()->json(['token' => $token, 'user'=>Auth::guard('user')->user()], 200);
             }
-        }
-        if($request->login_type??'' == 'company'){
-            if(Auth::guard('company')->attempt($credentials)) {
-                $token = Auth::guard('company')->user()->createToken('MyToken',['company'])->accessToken;                
-                return response()->json(['token' => $token, 'user'=>Auth::guard('user')->user()], 200);
+            else {
+                return response()->json(['error' => 'UnAuthorised'], 401);
             }
         }
-        else {
-            return response()->json(['error' => 'UnAuthorised'], 401);
+        if($request->login_type == 'company'){
+            if(Auth::guard('company')->attempt($credentials)) {
+                $token = Auth::guard('company')->user()->createToken('MyToken',['company'])->accessToken;                
+                return response()->json(['token' => $token, 'company'=>Auth::guard('company')->user()], 200);
+            }
+            else {
+                return response()->json(['error' => 'UnAuthorised'], 401);
+            }
+        }
+        if($request->login_type == 'family'){
+            if(Auth::guard('family')->attempt($credentials)) {
+                $token = Auth::guard('family')->user()->createToken('MyToken',['family'])->accessToken;                
+                return response()->json(['token'=>$token, 'family'=>Auth::guard('family')->user()], 200);
+            }
+            else {
+                return response()->json(['error' => 'UnAuthorised'], 401);
+            }
         }
     }
 

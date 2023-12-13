@@ -33,6 +33,7 @@ class PaymentOrderRequest extends FormRequest
             'discount_coupon_id' => 'discount_coupons,id',
             'tour_price' => 'required|numeric|gt:0',
             'payment_by' => 'required|in:cash,self,student,teacher',
+            // 'customer_type' => 'required|in:school,company,family,user',
         ];
     }
     protected function failedValidation(Validator $validator) : void

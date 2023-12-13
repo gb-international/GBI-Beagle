@@ -47,6 +47,8 @@ class CreatedCompanyUsersTable extends Migration
             $table->string('employee_id')->nullable();
             $table->tinyInteger('register_by')->default(0)->comment("0=>Normal, 1=>Admin");
             $table->tinyInteger('is_incharge')->default(0)->comment("0=>No, 1=>Yes");
+            $table->string('customer_id')->nullable();
+            $table->string('gstin')->nullable();
             $table->dateTime('created_at')->useCurrent();
             $table->dateTime('updated_at')->nullable();
             $table->rememberToken();

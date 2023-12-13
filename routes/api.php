@@ -23,7 +23,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 // front	
 
 Route::namespace('Front')->group(function(){
-
 	Route::get('/travel-program/{slug}','ItineraryController@travelProgram');
 	Route::get('/upcoming-events','ItineraryController@upcomingEvents');
 	Route::get('/popular-tours','ItineraryController@popularTours');
@@ -211,12 +210,12 @@ Route::group(['prefix' => '/razorpay-payment', 'as' => 'razorpay-payment.'], fun
 		Route::get('invoice', 'invoice')->middleware(['auth:school-api']);
 	});	
 });
-
 //Front end payment gateway
-Route::group(['middleware' => 'auth:school-api'], function () {
-	Route::group(['prefix' => '/payment', 'as' => 'payment.'], function () {		
-		Route::group(['prefix' => '/payment-gateway', 'as' => 'payment-gateway.'], function () {
-			Route::controller(\Front\UserpaymentController::class)->group(function () {
+
+Route::group(['middleware' => ['auth:company-api'|'auth:user-api'|'auth:school-api'|'auth:family-api']], function () {
+	Route::group(['prefix' => '/payment', 'as' => 'payment.'], function() {		
+		Route::group(['prefix' => '/payment-gateway', 'as' => 'payment-gateway.'], function() {
+			Route::controller(\Front\UserpaymentController::class)->group(function() {
 				Route::post('make-order', 'makeOrder');
 				Route::post('payment-record', 'paymentRecord');
 			});	

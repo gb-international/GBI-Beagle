@@ -131,7 +131,7 @@ return [
             'driver' => 'eloquent',
             'model' => App\CompanyUser::class,
         ],
-        'companys' => [
+        'familys' => [
             'driver' => 'eloquent',
             'model' => App\FamilyUser::class,
         ],
