@@ -47,10 +47,7 @@ class AuthServiceProvider extends ServiceProvider
             'family' => 'Family',
         ]);
         Passport::setDefaultScope([
-            'school',
             'user',
-            'company',
-            'family',
         ]);
 
         Gate::before(function ($user, $ability) {

@@ -25,10 +25,12 @@ class UserpaymentController extends BaseController
      * If not exist otherwise fetch customer data (Check customer exist razorpay both email & phone number is same). 
      * Save customer id in table according to customer type, Create order in razorpay & saved record in database.
     */
-    public function makeOrder(PaymentOrderRequest $request)
+    
+    public function makeOrder(Request $request)
     {
         $customer_type = $request->customer_type??'school';
         $guard = Auth::getDefaultDriver();
+        return $guard;
         $customer_type = trim(str_replace("-api", "", $guard));
         try{
             $user = Auth::guard($guard)->user();

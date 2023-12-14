@@ -100,7 +100,6 @@ class RazorpayPayment
         }
         else if($payment->payment_method == "wallet"){
             $payment->wallet = $data->wallet??null;
-
         }
         $payment->status = $data->status;
         $payment->payment_date = Carbon::now('Asia/Kolkata')->format('Y-m-d H:i:s');
