@@ -18,7 +18,7 @@ class Company
      */
     public function handle(Request $request, Closure $next)
     {
-        if(!Auth::guard('company-api')->user()){
+        if(!Auth::guard('company')->user()){
             return Response::json(array("message"=>"Unauthenticated."), 401);
         }
         return $next($request);

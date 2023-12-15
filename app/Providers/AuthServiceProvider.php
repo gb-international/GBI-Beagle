@@ -42,12 +42,12 @@ class AuthServiceProvider extends ServiceProvider
         Passport::refreshTokensExpireIn(Carbon::now()->addDays(5));
         Passport::tokensCan([
             'school' => 'For education institute',
-            'user' => 'For users',
-            'company' => 'Company User',
-            'family' => 'Family',
+            'users' => 'For users',
+            'companys' => 'Company User',
+            'familys' => 'Family',
         ]);
         Passport::setDefaultScope([
-            'user',
+            'user' 
         ]);
 
         Gate::before(function ($user, $ability) {

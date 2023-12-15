@@ -30,7 +30,8 @@ class UserpaymentController extends BaseController
     {
         $customer_type = $request->customer_type??'school';
         $guard = Auth::getDefaultDriver();
-        return $guard;
+        return Auth::guard(str_replace("-api", "", $guard))->user();
+        return Auth::getDefaultDriver();
         $customer_type = trim(str_replace("-api", "", $guard));
         try{
             $user = Auth::guard($guard)->user();

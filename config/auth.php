@@ -160,6 +160,24 @@ return [
             'expire' => 60,
             'throttle' => 60,
         ],
+        'companys' => [
+            'provider' => 'companys',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'familys' => [
+            'provider' => 'familys',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'school' => [
+            'provider' => 'school',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
     ],
 
     /*

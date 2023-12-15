@@ -212,7 +212,8 @@ Route::group(['prefix' => '/razorpay-payment', 'as' => 'razorpay-payment.'], fun
 });
 //Front end payment gateway
 //  OR 'auth:user-api' OR 'auth:school-api' OR 'auth:family-api'
-Route::group(['middleware' => 'company'], function () {
+// Route::group(['middleware' => 'auth:company-api'], function () {
+Route::group(['middleware' => 'auth.company'], function () {
 	Route::group(['prefix' => '/payment', 'as' => 'payment.'], function() {		
 		Route::group(['prefix' => '/payment-gateway', 'as' => 'payment-gateway.'], function() {
 			Route::controller(\Front\UserpaymentController::class)->group(function() {
