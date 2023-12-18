@@ -13,7 +13,7 @@ use Laravel\Passport\HasApiTokens;
 
 class EducationInstitute extends Authenticatable
 {
-    use HasFactory, HasApiTokens, Notifiable;
+    use HasApiTokens, Notifiable, HasFactory;
     protected $table = 'edu_institutes';
     protected $guard = 'school';
     protected $fillable = ['id', 'name', 'school_id', 'role_type', 'email', 'email_verified_at', 'password', 'reset_link', 'link_time', 'status', 'change_password', 'gbi_link', 'client_input', 'phone_no', 'otp', 'father_name', 'mother_name', 'dob', 'address', 'city', 'state', 'country', 'zip_code', 'user_class', 'admission_year', 'varified', 'photo', 'gender', 'doc_front', 'doc_back', 'doc_type', 'profession_name', 'profession_address', 'institution_code', 'register_by', 'remember_token', 'created_at', 'updated_at', 'deleted_at'];

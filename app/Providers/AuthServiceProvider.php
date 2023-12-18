@@ -36,18 +36,16 @@ class AuthServiceProvider extends ServiceProvider
         );*/
         if (! $this->app->routesAreCached()) {
             Passport::routes();
+            Passport::tokensExpireIn(Carbon::now()->addDays(5));
+            Passport::refreshTokensExpireIn(Carbon::now()->addDays(5));
        }
+       
         // Passport::routes();
-        Passport::tokensExpireIn(Carbon::now()->addDays(5));
-        Passport::refreshTokensExpireIn(Carbon::now()->addDays(5));
         Passport::tokensCan([
             'school' => 'For education institute',
-            'users' => 'For users',
-            'companys' => 'Company User',
-            'familys' => 'Family',
-        ]);
-        Passport::setDefaultScope([
-            'user' 
+            'user' => 'For users',
+            'company' => 'Company User',
+            'family' => 'Family',
         ]);
 
         Gate::before(function ($user, $ability) {

@@ -210,10 +210,9 @@ Route::group(['prefix' => '/razorpay-payment', 'as' => 'razorpay-payment.'], fun
 		Route::get('invoice', 'invoice')->middleware(['auth:school-api']);
 	});	
 });
-//Front end payment gateway
-//  OR 'auth:user-api' OR 'auth:school-api' OR 'auth:family-api'
-// Route::group(['middleware' => 'auth:company-api'], function () {
-Route::group(['middleware' => 'auth.company'], function () {
+
+//Company
+Route::group(['prefix' => 'company', 'middleware' => ['auth:company-api', 'scopes:company']], function () {
 	Route::group(['prefix' => '/payment', 'as' => 'payment.'], function() {		
 		Route::group(['prefix' => '/payment-gateway', 'as' => 'payment-gateway.'], function() {
 			Route::controller(\Front\UserpaymentController::class)->group(function() {
@@ -224,9 +223,28 @@ Route::group(['middleware' => 'auth.company'], function () {
 	});
 });
 
-// 'company' => \App\Http\Middleware\Company::class,
-// 'family' => \App\Http\Middleware\Family::class,
-// 'user' => \App\Http\Middleware\User::class,
-// 'school' => \App\Http\Middleware\School::class,
+// School
+Route::group(['prefix' => 'school', 'middleware' => ['auth:school-api', 'scopes:school']], function () {
+	Route::group(['prefix' => '/payment', 'as' => 'payment.'], function() {		
+		Route::group(['prefix' => '/payment-gateway', 'as' => 'payment-gateway.'], function() {
+			Route::controller(\Front\UserpaymentController::class)->group(function() {
+				Route::post('make-order', 'makeOrder');
+				Route::post('payment-record', 'paymentRecord');
+			});	
+		});
+	});
+});
+
+// Family
+Route::group(['prefix' => 'family', 'middleware' => ['auth:family-api', 'scopes:family']], function () {
+	Route::group(['prefix' => '/payment', 'as' => 'payment.'], function() {		
+		Route::group(['prefix' => '/payment-gateway', 'as' => 'payment-gateway.'], function() {
+			Route::controller(\Front\UserpaymentController::class)->group(function() {
+				Route::post('make-order', 'makeOrder');
+				Route::post('payment-record', 'paymentRecord');
+			});	
+		});
+	});
+});
 
 

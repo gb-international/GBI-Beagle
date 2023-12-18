@@ -29,15 +29,29 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-
+        // Passport::enableImplicitGrant();
         /*app(AuthorizationServer::class)->enableGrantType(
             $this->makeOtpGrant(), 
             Passport::tokensExpireIn()
         );*/
-
-        Passport::routes();
+        if (! $this->app->routesAreCached()) {
+            Passport::routes();
+       }
+        // Passport::routes();
         Passport::tokensExpireIn(Carbon::now()->addDays(5));
         Passport::refreshTokensExpireIn(Carbon::now()->addDays(5));
+        Passport::tokensCan([
+            'school' => 'For education institute',
+            'user' => 'For users',
+            'company' => 'Company User',
+            'family' => 'Family',
+        ]);
+        Passport::setDefaultScope([
+            'user',
+            'school',
+            'company',
+            'family',
+        ]);
 
         Gate::before(function ($user, $ability) {
             return $user->hasRole('Admin') ? true : null;

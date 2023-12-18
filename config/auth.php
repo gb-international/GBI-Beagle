@@ -46,6 +46,7 @@ return [
             'provider' => 'users',
         ],
 
+        //School 
         'school' => [
             'driver' => 'session',
             'provider' => 'school',
@@ -55,6 +56,8 @@ return [
             'driver' => 'passport',
             'provider' => 'school',
         ],
+
+        //User
         'user' => [
             'driver' => 'session',
             'provider' => 'users',
@@ -64,6 +67,8 @@ return [
             'driver' => 'passport',
             'provider' => 'users',
         ],
+
+        //Family
         'family' => [
             'driver' => 'session',
             'provider' => 'familys',
@@ -73,6 +78,8 @@ return [
             'driver' => 'passport',
             'provider' => 'familys',
         ],
+
+        //Company
         'company' => [
             'driver' => 'session',
             'provider' => 'companys',
@@ -81,24 +88,7 @@ return [
         'company-api' => [
             'driver' => 'passport',
             'provider' => 'companys',
-        ],
-    
-        // 'edu_institutes' => [
-        //     'driver' => 'passport',
-        //     'provider' => 'edu_institutes',
-        // ],
-        // 'web' => [
-        //     'driver' => 'session',
-        //     'provider' => 'users',
-        // ],
-        // 'api' => [
-        //     'driver' => 'passport',
-        //     'provider' => 'users',
-        // ],
-        // 'edu_institutes_api' => [
-        //     'driver' => 'passport',
-        //     'provider' => 'edu_institutes',
-        // ],    
+        ],    
     ],
 
     /*
@@ -156,24 +146,6 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
-            'table' => 'password_resets',
-            'expire' => 60,
-            'throttle' => 60,
-        ],
-        'companys' => [
-            'provider' => 'companys',
-            'table' => 'password_resets',
-            'expire' => 60,
-            'throttle' => 60,
-        ],
-        'familys' => [
-            'provider' => 'familys',
-            'table' => 'password_resets',
-            'expire' => 60,
-            'throttle' => 60,
-        ],
-        'school' => [
-            'provider' => 'school',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,

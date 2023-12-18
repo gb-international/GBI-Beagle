@@ -26,12 +26,9 @@ class UserpaymentController extends BaseController
      * Save customer id in table according to customer type, Create order in razorpay & saved record in database.
     */
     
-    public function makeOrder(Request $request)
+    public function makeOrder(PaymentOrderRequest $request)
     {
-        $customer_type = $request->customer_type??'school';
         $guard = Auth::getDefaultDriver();
-        return Auth::guard(str_replace("-api", "", $guard))->user();
-        return Auth::getDefaultDriver();
         $customer_type = trim(str_replace("-api", "", $guard));
         try{
             $user = Auth::guard($guard)->user();
