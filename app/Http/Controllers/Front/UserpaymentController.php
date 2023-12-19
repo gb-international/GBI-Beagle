@@ -97,4 +97,22 @@ class UserpaymentController extends BaseController
             return $this->sendError($e->getMessage());
         }
     }
+
+    //Get payment history pay by use
+    public function all($size=null)
+    {
+        if (empty($size)) {
+            $size = 10; 
+        }
+        $guard = Auth::getDefaultDriver();
+        $customer_type = trim(str_replace("-api", "", $guard));
+        if($customer_type == "school"){
+            $data = MarketingCampaign::latest()->paginate($size);
+        }
+
+        // foreach ($data as $marketing_campaign){
+        //     $marketing_campaign->meta_keywords;
+        // }
+        // return response()->json($data);
+    }
 }

@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,6 +16,8 @@ class CreatedPaymentsTable extends Migration
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('payment_by_edu_institute_id')->nullable();
+            $table->unsignedInteger('payment_by_company_user_id')->nullable();
+            $table->unsignedInteger('payment_by_family_user_id')->nullable();
             $table->unsignedBigInteger('schoolbankdetail_id')->nullable();
             $table->unsignedInteger('payment_by_user_id')->nullable();
             $table->unsignedBigInteger('discount_coupon_id')->nullable();
@@ -66,6 +69,8 @@ class CreatedPaymentsTable extends Migration
             $table->dateTime('payment_date')->nullable();
             $table->softDeletes();
             $table->foreign('payment_by_edu_institute_id')->references('id')->on('edu_institutes')->onDelete('cascade');
+            $table->foreign('payment_by_company_user_id')->references('id')->on('company_users')->onDelete('cascade');
+            $table->foreign('payment_by_family_user_id')->references('id')->on('family_users')->onDelete('cascade');
             $table->foreign('payment_by_user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('discount_coupon_id')->references('id')->on('discount_coupons')->onDelete('cascade');
             $table->foreign('tour_id')->references('id')->on('tours')->onDelete('cascade');

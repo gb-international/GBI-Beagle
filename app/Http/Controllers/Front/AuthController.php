@@ -78,6 +78,43 @@ class AuthController extends Controller{
             'email' => $request->email,
             'password' => $request->password
         ];
+
+        $client = DB::table('oauth_clients')
+            ->where(['password_client'=> true, 'provider'=>'school'])
+            ->first();
+        
+        // Make sure a Password Client exists in the DB
+        if (!$client) {
+            return response()->json([
+                'message' => 'Laravel Passport is not setup properly.',
+                'status' => 500
+            ], 500);
+        }
+
+         $data = [
+            'grant_type' => 'School Password',
+            'client_id' => $client->id,
+            'client_secret' => $client->secret,
+            'username' => $request->email,
+            'password' => $request->password,
+            'client_scope' => 'school',
+            'provider' => 'school-api'
+        ];
+
+        $request = Request::create('/oauth/token', 'POST', $data);
+        
+        $response = app()->handle($request);
+        return $response;
+        // Check if the request was successful
+        if ($response->getStatusCode() != 200) {
+            return response()->json([
+                'message' => 'Wrong details, please try again',
+                //'response' => $response,
+                'status' => 422
+            ], 422);
+        } 
+        return json_decode($response->getContent());
+
         if($request->login_type == 'school'){
             if (Auth::guard('school')->attempt($credentials)) {
                 config(['auth.guards.school-api.provider' => 'school']);

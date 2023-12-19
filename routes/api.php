@@ -230,6 +230,7 @@ Route::group(['prefix' => 'school', 'middleware' => ['auth:school-api', 'scopes:
 			Route::controller(\Front\UserpaymentController::class)->group(function() {
 				Route::post('make-order', 'makeOrder');
 				Route::post('payment-record', 'paymentRecord');
+				Route::get('payment-history/{size?}', 'allHistory');
 			});	
 		});
 	});
