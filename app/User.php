@@ -45,13 +45,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function validateForPassportPasswordGrant($password)
-    {
-        if($this->where('password', $password)->exists())
-        {
-            return true; 
-        }
-    }
+
 
     public function setEmailAttribute($value){
         return $this->attributes['email'] = strtolower($value);
@@ -127,5 +121,11 @@ class User extends Authenticatable
         }
         return $permissions;
     }
-
+    // public function validateForPassportPasswordGrant($password)
+    // {
+    //     if($this->where('password', $password)->exists())
+    //     {
+    //         return true; 
+    //     }
+    // }
 }

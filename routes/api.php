@@ -57,8 +57,7 @@ Route::namespace('Front')->group(function(){
 
 	// Route::post('login-user', 'AuthController@login');
 	Route::post('register-user', 'AuthController@register');
-	Route::post('refreshtoken','AuthController@refresh');
-
+	
 	// Related Cities
 	Route::get('/related-cities/{id}','LocationController@relatedCities');
 	Route::get('/regional-cities/{region}','LocationController@regionalCities');
@@ -76,7 +75,7 @@ Route::namespace('Front')->group(function(){
 
 	Route::post('/user/save-social','UserController@socialAuth');
 	Route::post('/user/social/{userId}','UserController@socialIndex');
-	Route::group(['middleware' => 'auth:school-api'], function () {
+	Route::group(['middleware' => 'school.authentication'], function () {
 		//Sightseeing 
 		Route::group(['prefix' => '/itineray', 'as' => 'itineray.'], function () {
 			Route::post('sightseeing', [ItinerarySightseeingController::class, 'itinerary_sightseeing_request']);
@@ -212,7 +211,8 @@ Route::group(['prefix' => '/razorpay-payment', 'as' => 'razorpay-payment.'], fun
 });
 
 //Company
-Route::group(['prefix' => 'company', 'middleware' => ['auth:company-api', 'scopes:company']], function () {
+Route::group(['prefix' => 'company', 'middleware' => 'company.authentication'], function () {
+	Route::post('refreshtoken/{company}',[AuthController::class, 'refresh'])->where('company', 'company');
 	Route::group(['prefix' => '/payment', 'as' => 'payment.'], function() {		
 		Route::group(['prefix' => '/payment-gateway', 'as' => 'payment-gateway.'], function() {
 			Route::controller(\Front\UserpaymentController::class)->group(function() {
@@ -224,7 +224,8 @@ Route::group(['prefix' => 'company', 'middleware' => ['auth:company-api', 'scope
 });
 
 // School
-Route::group(['prefix' => 'school', 'middleware' => ['auth:school-api', 'scopes:school']], function () {
+Route::group(['prefix' => 'school', 'middleware' => 'school.authentication'], function () {
+	Route::post('refreshtoken/{school}',[AuthController::class, 'refresh'])->where('school', 'school');
 	Route::group(['prefix' => '/payment', 'as' => 'payment.'], function() {		
 		Route::group(['prefix' => '/payment-gateway', 'as' => 'payment-gateway.'], function() {
 			Route::controller(\Front\UserpaymentController::class)->group(function() {
@@ -237,7 +238,8 @@ Route::group(['prefix' => 'school', 'middleware' => ['auth:school-api', 'scopes:
 });
 
 // Family
-Route::group(['prefix' => 'family', 'middleware' => ['auth:family-api', 'scopes:family']], function () {
+Route::group(['prefix' => 'family', 'middleware' => 'family.authentication'], function () {
+	Route::post('refreshtoken/{family}',[AuthController::class, 'refresh'])->where('family', 'family');
 	Route::group(['prefix' => '/payment', 'as' => 'payment.'], function() {		
 		Route::group(['prefix' => '/payment-gateway', 'as' => 'payment-gateway.'], function() {
 			Route::controller(\Front\UserpaymentController::class)->group(function() {
@@ -246,6 +248,11 @@ Route::group(['prefix' => 'family', 'middleware' => ['auth:family-api', 'scopes:
 			});	
 		});
 	});
+});
+
+//User
+Route::group(['prefix' => 'user', 'middleware' => 'user.authentication'], function () {
+	Route::post('refreshtoken/{user}',[AuthController::class, 'refresh'])->where('user', 'user');
 });
 
 

@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
 use Closure;
+use Response;
 use Illuminate\Support\Facades\Auth;
 
 class Authenticate extends Middleware
@@ -20,7 +21,7 @@ class Authenticate extends Middleware
             return route('login');
         }
         if ($request->expectsJson()) {
-            return response()->json(['error' => 'Unauthenticated.'], 401);
+            return response()->json(['message' => 'Unauthenticated.'], 401);
         }
         return $next($request);  
     }

@@ -38,12 +38,12 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'user',
         ],
     
         'api' => [
             'driver' => 'token',
-            'provider' => 'users',
+            'provider' => 'user',
         ],
 
         //School 
@@ -60,34 +60,34 @@ return [
         //User
         'user' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'user',
         ],
     
         'user-api' => [
             'driver' => 'passport',
-            'provider' => 'users',
+            'provider' => 'user',
         ],
 
         //Family
         'family' => [
             'driver' => 'session',
-            'provider' => 'familys',
+            'provider' => 'family',
         ],
     
         'family-api' => [
             'driver' => 'passport',
-            'provider' => 'familys',
+            'provider' => 'family',
         ],
 
         //Company
         'company' => [
             'driver' => 'session',
-            'provider' => 'companys',
+            'provider' => 'company',
         ],
     
         'company-api' => [
             'driver' => 'passport',
-            'provider' => 'companys',
+            'provider' => 'company',
         ],    
     ],
 
@@ -109,7 +109,7 @@ return [
     */
 
     'providers' => [
-        'users' => [
+        'user' => [
             'driver' => 'eloquent',
             'model' => App\User::class,
         ],
@@ -117,11 +117,11 @@ return [
             'driver' => 'eloquent',
             'model' => App\Model\School\EducationInstitute::class,
         ],
-        'companys' => [
+        'company' => [
             'driver' => 'eloquent',
             'model' => App\CompanyUser::class,
         ],
-        'familys' => [
+        'family' => [
             'driver' => 'eloquent',
             'model' => App\FamilyUser::class,
         ],

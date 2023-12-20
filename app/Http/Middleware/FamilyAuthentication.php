@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Response;
 
-class AdminAuthentication
+class FamilyAuthentication
 {
     /**
      * Handle an incoming request.
@@ -18,10 +18,9 @@ class AdminAuthentication
      */
     public function handle(Request $request, Closure $next)
     {
-        $user = Auth::guard('user-api')->user();
-        if(($user->user_role_id??0) != 1){
+        if(!Auth::guard('family-api')->user()){
             return Response::json(['message' => "Unauthenticated" ], 401);
         }
-        return $next($request);  
+        return $next($request);
     }
 }

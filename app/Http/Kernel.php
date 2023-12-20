@@ -63,8 +63,13 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'scopes' => \Laravel\Passport\Http\Middleware\CheckScopes::class,
         'scope' => \Laravel\Passport\Http\Middleware\CheckForAnyScope::class,
-        'admin.authentication' => \App\Http\Middleware\AdminAuthentication::class
+        'admin.authentication' => \App\Http\Middleware\AdminAuthentication::class,
+        'user.authentication' => \App\Http\Middleware\UserAuthentication::class,
+        'company.authentication' => \App\Http\Middleware\CompanyAuthentication::class,
+        'family.authentication' => \App\Http\Middleware\FamilyAuthentication::class,
+        'school.authentication' => \App\Http\Middleware\SchoolAuthentication::class,
     ];
+    
     
     /**
      * The priority-sorted list of middleware.

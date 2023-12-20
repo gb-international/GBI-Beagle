@@ -37,13 +37,13 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function validateForPassportPasswordGrant($password)
-    {
-        if($this->where('password', $password)->exists())
-        {
-            return true; 
-        }
-    }
+    // public function validateForPassportPasswordGrant($password)
+    // {
+    //     if($this->where('password', $password)->exists())
+    //     {
+    //         return true; 
+    //     }
+    // }
 
     public function setEmailAttribute($value){
         return $this->attributes['email'] = strtolower($value);

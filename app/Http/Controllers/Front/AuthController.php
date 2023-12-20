@@ -80,9 +80,9 @@ class AuthController extends Controller{
         ];
 
         $client = DB::table('oauth_clients')
-            ->where(['password_client'=> true, 'provider'=>'school'])
+            ->where(['password_client'=> true, 'provider'=>$request->login_type])
             ->first();
-        
+        // return $client;
         // Make sure a Password Client exists in the DB
         if (!$client) {
             return response()->json([
@@ -92,19 +92,17 @@ class AuthController extends Controller{
         }
 
          $data = [
-            'grant_type' => 'School Password',
+            'grant_type' => 'password',
             'client_id' => $client->id,
             'client_secret' => $client->secret,
             'username' => $request->email,
             'password' => $request->password,
-            'client_scope' => 'school',
-            'provider' => 'school-api'
+            'scope' => $request->login_type,
+            'provider' => $request->login_type,
         ];
-
         $request = Request::create('/oauth/token', 'POST', $data);
         
         $response = app()->handle($request);
-        return $response;
         // Check if the request was successful
         if ($response->getStatusCode() != 200) {
             return response()->json([
@@ -113,48 +111,57 @@ class AuthController extends Controller{
                 'status' => 422
             ], 422);
         } 
-        return json_decode($response->getContent());
 
-        if($request->login_type == 'school'){
-            if (Auth::guard('school')->attempt($credentials)) {
-                config(['auth.guards.school-api.provider' => 'school']);
-                $token = Auth::guard('school')->user()->createToken('MyToken',['school'])->accessToken;                
-                return response()->json(['token' => $token, 'user'=>Auth::guard('school')->user()], 200);
-            }
-            else {
-                return response()->json(['error' => 'UnAuthorised'], 401);
-            }
-        }
-        if($request->login_type == 'user'){
-            if(Auth::guard('user')->attempt($credentials)) {
-                config(['auth.guards.user-api.provider' => 'users']);
-                $token = Auth::guard('user')->user()->createToken('MyToken',['user'])->accessToken;                
-                return response()->json(['token' => $token, 'user'=>Auth::guard('user')->user()], 200);
-            }
-            else {
-                return response()->json(['error' => 'UnAuthorised'], 401);
-            }
-        }
-        if($request->login_type == 'company'){
-            if(Auth::guard('company')->attempt($credentials)) {
-                config(['auth.guards.company-api.provider' => 'companys']);
-                $token = Auth::guard('company')->user()->createToken('MyToken',['company'])->accessToken;                
-                return response()->json(['token' => $token, 'company'=>Auth::guard('company')->user()], 200);
-            }
-            else {
-                return response()->json(['error' => 'UnAuthorised'], 401);
-            }
-        }
-        if($request->login_type == 'family'){
-            if(Auth::guard('family')->attempt($credentials)) {
-                config(['auth.guards.family-api.provider' => 'familys']);
-                $token = Auth::guard('family')->user()->createToken('MyToken',['family'])->accessToken;                
-                return response()->json(['token'=>$token, 'family'=>Auth::guard('family')->user()], 200);
-            }
-            else {
-                return response()->json(['error' => 'UnAuthorised'], 401);
-            }
-        }
+        $data = json_decode($response->getContent());
+
+        // Format the final response in a desirable format
+        return response()->json([
+            "token_type" => $data->token_type,
+            "expires_in" => $data->expires_in,
+            'token' => $data->access_token,
+            'refresh_token' => $data->refresh_token,
+            'status' => 200
+        ], 200);
+        // if($request->login_type == 'school'){
+        //     if (Auth::guard('school')->attempt($credentials)) {
+        //         config(['auth.guards.school-api.provider' => 'school']);
+        //         $token = Auth::guard('school')->user()->createToken('MyToken',['school'])->accessToken;                
+        //         return response()->json(['token' => $token, 'user'=>Auth::guard('school')->user()], 200);
+        //     }
+        //     else {
+        //         return response()->json(['error' => 'UnAuthorised'], 401);
+        //     }
+        // }
+        // if($request->login_type == 'user'){
+        //     if(Auth::guard('user')->attempt($credentials)) {
+        //         config(['auth.guards.user-api.provider' => 'users']);
+        //         $token = Auth::guard('user')->user()->createToken('MyToken',['user'])->accessToken;                
+        //         return response()->json(['token' => $token, 'user'=>Auth::guard('user')->user()], 200);
+        //     }
+        //     else {
+        //         return response()->json(['error' => 'UnAuthorised'], 401);
+        //     }
+        // }
+        // if($request->login_type == 'company'){
+        //     if(Auth::guard('company')->attempt($credentials)) {
+        //         config(['auth.guards.company-api.provider' => 'companys']);
+        //         $token = Auth::guard('company')->user()->createToken('MyToken',['company'])->accessToken;                
+        //         return response()->json(['token' => $token, 'company'=>Auth::guard('company')->user()], 200);
+        //     }
+        //     else {
+        //         return response()->json(['error' => 'UnAuthorised'], 401);
+        //     }
+        // }
+        // if($request->login_type == 'family'){
+        //     if(Auth::guard('family')->attempt($credentials)) {
+        //         config(['auth.guards.family-api.provider' => 'familys']);
+        //         $token = Auth::guard('family')->user()->createToken('MyToken',['family'])->accessToken;                
+        //         return response()->json(['token'=>$token, 'family'=>Auth::guard('family')->user()], 200);
+        //     }
+        //     else {
+        //         return response()->json(['error' => 'UnAuthorised'], 401);
+        //     }
+        // }
     }
 
     /** 
@@ -260,6 +267,7 @@ class AuthController extends Controller{
     
     
     public function logout(Request $request){
+        
         $user_type = $this->user_category($request->user_type??'');
         $accessToken = Auth::guard($user_type)->user()->token();
         \DB::table('oauth_refresh_tokens')
@@ -269,34 +277,45 @@ class AuthController extends Controller{
             ]);
             
             $accessToken->revoke();
-        // return $user_type;
-        // $accessToken = auth()->user()->token();
-        // Auth::user()->tokens->each(function($token,$key){
-        //     $token->delete();
-        // });
 
-        // $refreshToken = DB::table('oauth_refresh_tokens')
-        //     ->where('access_token_id', $accessToken->id)
-        //     ->update([
-        //         'revoked' => true
-        //     ]);
 
-        // $accessToken->revoke();
+            $accessToken = auth()->user()->token();
+            Auth::user()->tokens->each(function($token,$key){
+                $token->delete();
+            });
+    
+            $refreshToken = DB::table('oauth_refresh_tokens')
+                ->where('access_token_id', $accessToken->id)
+                ->update([
+                    'revoked' => true
+                ]);
+    
+            $accessToken->revoke();
 
         return response()->json('Logged out successfully');
     }
 
-    public function refresh(Request $request){
-
+    public function refresh($guard_name, Request $request){
+        
         $client = DB::table('oauth_clients')
-                    ->where('password_client',true)
-                    ->first();
+            ->where(['password_client'=> true, 'provider'=>$guard_name])
+            ->first();
+        // return $client;
+        // Make sure a Password Client exists in the DB
+        if (!$client) {
+            return response()->json([
+                'message' => 'Laravel Passport is not setup properly.',
+                'status' => 500
+            ], 500);
+        }
+        
         $data = [
             'grant_type' => 'refresh_token',
             'refresh_token' => $request->refresh_token,
             'client_id' => $client->id,
-            'client_secret' =>  $client->secret,
-            'scope' => '',
+            'client_secret' => $client->secret,
+            'scope' => $guard_name,
+            'provider' => $guard_name,
         ];
 
         $request = Request::create('/oauth/token', 'POST', $data);
@@ -312,11 +331,11 @@ class AuthController extends Controller{
 
         // Get the data from the response
         $data = json_decode($response->getContent());
-        
         return response()->json([
+            "token_type" => $data->token_type,
+            "expires_in" => $data->expires_in,
             'token' => $data->access_token,
             'refresh_token' => $data->refresh_token,
-            'user' => '',
             'status' => 200
         ]);
     }
