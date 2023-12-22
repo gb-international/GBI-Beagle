@@ -8,6 +8,7 @@ namespace App\Http\Controllers\Front;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller; 
 use App\User;
+use Illuminate\Validation\Rule; //import Rule class 
 use App\Model\User\Information;
 use App\Model\User\Subscriber;
 use App\Model\Tour\TourUser;
@@ -27,6 +28,7 @@ use App\Jobs\ChangePasswordJob;
 use App\Rules\EmailValidate;
 use App\Traits\ImageTrait;
 use App\Http\Resources\SocialResource;
+use App\Model\Corporate\Company;
 
 class UserController extends Controller{
     public $successStatus = 200;
@@ -97,60 +99,111 @@ class UserController extends Controller{
         return response()->json('Successfully Registered !!!');
     }
 
-    public function update(Request $request)
+    public function update($guard_name, Request $request)
     {
-        // $user_type = $this->user_category("school");
-        // $edu_institutes = Auth::guard($user_type)->user();
-        // $edu_institutes = $this->educational_institute();
-        $user_type = $this->user_category($request->user_type??'');
-        $edu_institutes = Auth::guard($user_type)->user();
+        $user = Auth::guard($guard_name."-api")->user();
+        $user_id = $user->id??0;
+        if($guard_name == "school"){
+            $validator = Validator::make($request->all(), [ 
+                'name' => 'required',
+                'email' => ['required','email',new EmailValidate, Rule::unique('edu_institutes')->ignore($user_id)],
+                'phone_no' => ['required','numeric',new PhoneNubmerValidate, Rule::unique('edu_institutes')->ignore($user_id)], 
+            ]);
+            
+            if ($validator->fails()) { 
+                return response()->json(['error'=>$validator->errors()], 422);            
+            }
+            
+            // if user is already subscribed
+            if($subscriber = Subscriber::where('edu_institute_id',$user_id)->first()){
+                $subscriber->status = $request->subscribe??$subscriber->status;
+                $subscriber->email = $request->email??$user->email;
+                $subscriber->save();           
+            }else{            
+                if($request->subscribe){
+                    $data['email'] = $request->email??$user->email;
+                    $data['edu_institutes'] = $user_id;
+                    Subscriber::create($data);
+                }
+            }
 
-        $edu_institutes_id = $edu_institutes->id??0;
-        
-        $validator = Validator::make($request->all(), [ 
-            'name' => 'required', 
-            'email' => ['required','email',new EmailValidate, 'unique:edu_institutes,email,'.$edu_institutes_id.',id'],
-            'phone_no' => ['required','numeric',new PhoneNubmerValidate, 'unique:edu_institutes,phone_no,'.$edu_institutes_id.',id'],
-        ]);
-        
-        if ($validator->fails()) { 
-            return response()->json(['error'=>$validator->errors()], 422);            
-        }   
-        // $edu_institutes = Auth::guard('school')->user();
-        $edu_institutes->name = $request->name??$edu_institutes->name;
-        $edu_institutes->email = $request->email??$edu_institutes->email;
-        $edu_institutes->gbi_link = $request->gbi_link??$edu_institutes->gbi_link;
-        $edu_institutes->school_id = $request->school_id??$edu_institutes->school_id;
-        $edu_institutes->profession_name = $request->profession_name??$edu_institutes->profession_name;
-        $edu_institutes->profession_address = $request->profession_address??$edu_institutes->profession_address;
-        $edu_institutes->institution_code = $request->institution_code??$edu_institutes->institution_code;
-        $edu_institutes->phone_no = $request->phone_no??$edu_institutes->phone_no;
-        $edu_institutes->father_name = $request->father_name??$edu_institutes->father_name;
-        $edu_institutes->mother_name = $request->mother_name??$edu_institutes->mother_name;
-        $edu_institutes->dob = $request->dob??$edu_institutes->dob;
-        $edu_institutes->address = $request->address??$edu_institutes->address;
-        $edu_institutes->city = $request->city??$edu_institutes->city;
-        $edu_institutes->state = $request->state??$edu_institutes->state;
-        $edu_institutes->country = $request->country??$edu_institutes->country;
-        $edu_institutes->zip_code = $request->zip_code??$edu_institutes->zip_code;
-        $edu_institutes->user_class = $request->user_class??$edu_institutes->user_class;
-        $edu_institutes->admission_year = $request->admission_year??$edu_institutes->admission_year;
-        $edu_institutes->gender = $request->gender??$edu_institutes->gender;
-        $edu_institutes->save();
-        $edu_institute_id = $edu_institutes->edu_institute_id??0;
-        // if user is already subscribed
-        if($subscriber = Subscriber::where('edu_institute_id',$edu_institute_id)->first()){
-            $subscriber->status = $request->subscribe??'';
-            $subscriber->edu_institute_id = $edu_institute_id;
-            $subscriber->save();           
-        }else{            
-            if($request->subscribe){
-                $data['email'] = $user->email??'';
-                $data['edu_institutes'] = $edu_institute_id;
-                Subscriber::create($data);
+            $user->school_id = $request->school_id??$user->school_id;
+            $user->profession_name = $request->profession_name??$user->profession_name;
+            $user->profession_address = $request->profession_address??$user->profession_address;
+            $user->institution_code = $request->institution_code??$user->institution_code; 
+            $user->address = $request->address??$user->address;
+            $user->admission_year = $request->admission_year??$user->admission_year;
+            $user->user_class = $request->user_class??$user->user_class;
+        }
+        elseif($guard_name == "company"){
+            $validator = Validator::make($request->all(), [ 
+                'name' => 'required', 
+                'email' => ['required','email',new EmailValidate, Rule::unique('company_users')->ignore($user_id)],
+                'phone_no' => ['required','numeric',new PhoneNubmerValidate, Rule::unique('company_users')->ignore($user_id)],
+            ]);
+            
+            if ($validator->fails()) { 
+                return response()->json(['error'=>$validator->errors()], 422);            
+            } 
+
+            // if user is already subscribed
+            if($subscriber = Subscriber::where('company_user_id',$user_id)->first()){
+                $subscriber->status = $request->subscribe??$subscriber->status;
+                $subscriber->email = $request->email??$user->email;
+                $subscriber->save();           
+            }else{            
+                if($request->subscribe){
+                    $data['email'] = $request->email??$user->email;
+                    $data['company_user_id'] = $user_id;
+                    Subscriber::create($data);
+                }
+            }
+
+            $user->employee_id = $request->employee_id??$user->employee_id;
+            $user->company_name = $request->company_name??$user->company_name;
+            $user->company_address = $request->company_address??$user->company_address;
+            $user->company_code = $request->company_code??$user->company_code; 
+            $user->address1 = $request->address1??$user->address1; 
+            $user->address2 = $request->address2??$user->address2; 
+        }
+        elseif($guard_name == "family"){
+            $validator = Validator::make($request->all(), [ 
+                'name' => 'required', 
+                'email' => ['required','email',new EmailValidate, Rule::unique('family_users')->ignore($user_id)],
+                'phone_no' => ['required','numeric',new PhoneNubmerValidate, Rule::unique('family_users')->ignore($user_id)],
+            ]);
+            
+            if ($validator->fails()) { 
+                return response()->json(['error'=>$validator->errors()], 422);            
+            }
+            $user->address1 = $request->address1??$user->address1; 
+            $user->address2 = $request->address2??$user->address2; 
+            // if user is already subscribed
+            if($subscriber = Subscriber::where('family_user_id',$user_id)->first()){
+                $subscriber->status = $request->subscribe??$subscriber->status;
+                $subscriber->email = $request->email??$user->email;
+                $subscriber->save();           
+            }else{            
+                if($request->subscribe){
+                    $data['email'] = $request->email??$user->email;
+                    $data['family_user_id'] = $user_id;
+                    Subscriber::create($data);
+                }
             }
         }
-        
+        $user->name = $request->name??$user->name;
+        $user->email = $request->email??$user->email;
+        $user->gbi_link = $request->gbi_link??$user->gbi_link;
+        $user->phone_no = $request->phone_no??$user->phone_no;
+        $user->father_name = $request->father_name??$user->father_name;
+        $user->mother_name = $request->mother_name??$user->mother_name;
+        $user->dob = $request->dob??$user->dob;
+        $user->city = $request->city??$user->city;
+        $user->state = $request->state??$user->state;
+        $user->country = $request->country??$user->country;
+        $user->zip_code = $request->zip_code??$user->zip_code;
+        $user->gender = $request->gender??$user->gender;
+        $user->save();        
         return response()->json('Successuflly updated');
     }
 
@@ -246,35 +299,53 @@ class UserController extends Controller{
         return response()->json(['success' => $user], $this-> successStatus); 
     }
     /// user more information on model from model
-    public function infoUpdate(Request $request){
-
-        $user_type = $this->user_category($request->user_type??'');
-        $edu_institutes = Auth::guard($user_type)->user();
-        $edu_institutes->status = 1;
-        $edu_institutes->role_type = $request->user_profession??0;
-        $edu_institutes->profession_name = $request->profession_name??'';
-        $edu_institutes->profession_address = $request->profession_address??'';
-        if($request->school_id == 'other'){
-                $validator = Validator::make($request->all(), [ 
-                    'profession_name'=>'required|unique:schools,school_name',
-                    'profession_address' => 'required',
-            ]);
-            if ($validator->fails()) { 
-                return response()->json(['error'=>$validator->errors()], 401);            
+    public function infoUpdate($guard_name, Request $request){
+        $user = Auth::guard($guard_name."-api")->user();
+        if($guard_name == "school"){
+            if($request->school_id == 'other'){
+                    $validator = Validator::make($request->all(), [ 
+                        'profession_name'=>'required|unique:schools,school_name',
+                        'profession_address' => 'required',
+                ]);
+                if ($validator->fails()) { 
+                    return response()->json(['error'=>$validator->errors()], 401);            
+                }
+    
+                $data = array('school_name'=>$request->profession_name,'address'=>$request->profession_address);
+                $school = School::create($data);
+                $user->school_id = $school->id;
             }
-
-            $data = ['school_name'=>$request->profession_name,'address'=>$request->profession_address];
-            $school = School::create($data);
-            $edu_institutes->school_id = $school->id;
+            else{
+                $user->school_id = $request->school_id??0;
+            }
+            $user->role_type = $request->user_profession??$user->user_profession;
+            $user->profession_name = $request->profession_name??$user->profession_name;
+            $user->profession_address = $request->profession_address??$user->profession_name;
+            $user->institution_code = $request->institution_code??$user->institution_code;
         }
-        else{
-            $edu_institutes->school_id = $request->school_id??0;
-        }
-        $edu_institutes->institution_code = $request->institution_code;
-        
+        else if($guard_name == "company"){
+            if($request->company_id == 'other'){
+                $validator = Validator::make($request->all(), [ 
+                'company_name' => ['required', Rule::unique('companies')->ignore($user->id)],
+                'company_address' => 'required']);
+                if ($validator->fails()) { 
+                    return response()->json(['error'=>$validator->errors()], 401);            
+                }
 
-        $edu_institutes->save();
-        // $user->save();
+                $data = array('company_name'=>$request->company_name,'address'=>$request->company_address);
+                $company = Company::create($data);
+                $user->company_id = $company->id;
+            }
+            else{
+                $user->company_id = $request->company_id??0;
+            }
+            $user->employee_id = $request->employee_id??$user->employee_id;
+            $user->company_name = $request->company_name??$user->company_name;
+            $user->company_address = $request->company_address??$user->company_address;
+            $user->company_code = $request->company_code??$user->company_code;
+        }
+        $user->status = 1;
+        $user->save();
         return response()->json('success');
     }
 

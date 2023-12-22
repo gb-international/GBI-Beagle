@@ -175,17 +175,56 @@ Route::group(['prefix' => '/razorpay-payment', 'as' => 'razorpay-payment.'], fun
 });
 
 //Company
-Route::group(['prefix' => 'company', 'middleware' => 'company.authentication'], function () {
-	Route::post('logout-user/{company}',[AuthController::class, 'logout'])->where('company', 'company');
-	Route::post('refreshtoken/{company}',[AuthController::class, 'refresh'])->where('company', 'company');
+Route::group(['prefix' => '{company}', 'middleware' => 'company.authentication'], function () {
+	Route::post('logout-user',[AuthController::class, 'logout'])->where('company', 'company');
+	Route::post('refreshtoken',[AuthController::class, 'refresh'])->where('company', 'company');
 	Route::group(['prefix' => '/payment', 'as' => 'payment.'], function() {		
 		Route::group(['prefix' => '/payment-gateway', 'as' => 'payment-gateway.'], function() {
 			Route::controller(\Front\UserpaymentController::class)->group(function() {
-				Route::post('make-order', 'makeOrder');
-				Route::post('payment-record', 'paymentRecord');
+				Route::post('make-order', 'makeOrder')->where('company', 'company');
+				Route::post('payment-record', 'paymentRecord')->where('company', 'company');
+				Route::get('payment-history/{size?}', 'allHistory')->where('company', 'company');
 			});	
 		});
 	});
+	
+	//Sightseeing 
+	Route::group(['prefix' => '/itineray', 'as' => 'itineray.'], function () {
+		Route::post('sightseeing', [ItinerarySightseeingController::class, 'itinerary_sightseeing_request'])->where('company', 'company');
+	});
+	Route::post('details',[UserController::class, 'details'])->where('company', 'company');
+	Route::post('user-show',[UserController::class, 'show'])->where('company', 'company');
+	Route::post('user-info-update',[UserController::class, 'infoUpdate'])->where('company', 'company');
+	Route::post('user-update',[UserController::class, 'update'])->where('company', 'company');
+	Route::post('update-password',[UserController::class, 'UpdatePassword'])->where('company', 'company');
+	Route::post('update-user-image',[UserController::class, 'UserImage'])->where('company', 'company');
+	Route::post('update-user-docs',[UserController::class, 'UserDocs'])->where('company', 'company');
+	Route::post('tour-detail',[TourController::class, 'tourDetail'])->where('company', 'company');
+
+	// School
+	Route::post('/tour-list', 'TourController@tourList');
+
+	// Corporate
+	Route::post('/corp-tour-list', 'TourController@corpTourList');
+
+	Route::post('/tour-travel-save', 'TourController@tourDetailSave');
+	Route::post('/payment-tour', 'TourController@paymentTour');
+	Route::post('/tour-bankdetail-student', 'SchoolbankdetailController@bankdetailsStudent');
+	Route::post('/tour-bankdetail', 'SchoolbankdetailController@bankdetails');
+	Route::post('/tour-bankdetail-store', 'SchoolbankdetailController@store');
+	Route::post('/tour-submit-payment', 'UserpaymentController@store');
+	Route::post('/tour-payment-status', 'UserpaymentController@tourPayStatus');
+	// payment by ccavenue
+	Route::post('/user-tour-payment','FrontPaymentController@payment');
+	//Payment History - School
+	Route::post('/schoool/payment-history','FrontPaymentController@viewPaymentDeails');
+	// Comments
+	Route::post('/encyclopedia-comments','EncyclopediaController@PostComment');
+	Route::post('/booking','FrontbookingController@booking');
+	Route::post('/group-member','GroupmemberController@index');
+	Route::post('/group-add','GroupmemberController@studentStore');
+	Route::post('/group-member-update','GroupmemberController@update');
+	Route::post('/destroy-member','GroupmemberController@destroy');
 });
 
 // School
@@ -242,17 +281,56 @@ Route::group(['prefix' => '{school}', 'middleware' => 'school.authentication'], 
 });
 
 // Family
-Route::group(['prefix' => 'family', 'middleware' => 'family.authentication'], function () {
-	Route::post('logout-user/{family}',[AuthController::class, 'logout'])->where('family', 'family');
-	Route::post('refreshtoken/{family}',[AuthController::class, 'refresh'])->where('family', 'family');
+Route::group(['prefix' => '{family}', 'middleware' => 'family.authentication'], function () {
+	Route::post('logout-user',[AuthController::class, 'logout'])->where('family', 'family');
+	Route::post('refreshtoken',[AuthController::class, 'refresh'])->where('family', 'family');
 	Route::group(['prefix' => '/payment', 'as' => 'payment.'], function() {		
 		Route::group(['prefix' => '/payment-gateway', 'as' => 'payment-gateway.'], function() {
 			Route::controller(\Front\UserpaymentController::class)->group(function() {
-				Route::post('make-order', 'makeOrder');
-				Route::post('payment-record', 'paymentRecord');
+				Route::post('make-order', 'makeOrder')->where('family', 'family');
+				Route::post('payment-record', 'paymentRecord')->where('family', 'family');
+				Route::get('payment-history/{size?}', 'allHistory')->where('family', 'family');
 			});	
 		});
 	});
+	
+	//Sightseeing 
+	Route::group(['prefix' => '/itineray', 'as' => 'itineray.'], function () {
+		Route::post('sightseeing', [ItinerarySightseeingController::class, 'itinerary_sightseeing_request'])->where('family', 'family');
+	});
+	Route::post('details',[UserController::class, 'details'])->where('family', 'family');
+	Route::post('user-show',[UserController::class, 'show'])->where('family', 'family');
+	Route::post('user-info-update',[UserController::class, 'infoUpdate'])->where('family', 'family');
+	Route::post('user-update',[UserController::class, 'update'])->where('family', 'family');
+	Route::post('update-password',[UserController::class, 'UpdatePassword'])->where('family', 'family');
+	Route::post('update-user-image',[UserController::class, 'UserImage'])->where('family', 'family');
+	Route::post('update-user-docs',[UserController::class, 'UserDocs'])->where('family', 'family');
+	Route::post('tour-detail',[TourController::class, 'tourDetail'])->where('family', 'family');
+
+	// School
+	Route::post('/tour-list', 'TourController@tourList');
+
+	// Corporate
+	Route::post('/corp-tour-list', 'TourController@corpTourList');
+
+	Route::post('/tour-travel-save', 'TourController@tourDetailSave');
+	Route::post('/payment-tour', 'TourController@paymentTour');
+	Route::post('/tour-bankdetail-student', 'SchoolbankdetailController@bankdetailsStudent');
+	Route::post('/tour-bankdetail', 'SchoolbankdetailController@bankdetails');
+	Route::post('/tour-bankdetail-store', 'SchoolbankdetailController@store');
+	Route::post('/tour-submit-payment', 'UserpaymentController@store');
+	Route::post('/tour-payment-status', 'UserpaymentController@tourPayStatus');
+	// payment by ccavenue
+	Route::post('/user-tour-payment','FrontPaymentController@payment');
+	//Payment History - School
+	Route::post('/schoool/payment-history','FrontPaymentController@viewPaymentDeails');
+	// Comments
+	Route::post('/encyclopedia-comments','EncyclopediaController@PostComment');
+	Route::post('/booking','FrontbookingController@booking');
+	Route::post('/group-member','GroupmemberController@index');
+	Route::post('/group-add','GroupmemberController@studentStore');
+	Route::post('/group-member-update','GroupmemberController@update');
+	Route::post('/destroy-member','GroupmemberController@destroy');
 });
 
 //User
