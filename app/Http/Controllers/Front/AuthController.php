@@ -29,8 +29,11 @@ use App\Model\School\EducationInstitute as EduInstitute;
 use App\CompanyUser;
 use App\FamilyUser;
 use App\User;
+use App\Http\Controllers\API\BaseController;
+use Laravel\Passport\RefreshToken;
+use Laravel\Passport\Token;
 
-class AuthController extends Controller{
+class AuthController extends BaseController{
     
 /**
     * @OA\Post(
@@ -266,33 +269,25 @@ class AuthController extends Controller{
     }
     
     
-    public function logout(Request $request){
-        
-        $user_type = $this->user_category($request->user_type??'');
-        $accessToken = Auth::guard($user_type)->user()->token();
-        \DB::table('oauth_refresh_tokens')
-        ->where('access_token_id', $accessToken->id)
-            ->update([
-                'revoked' => true
-            ]);
-            
-            $accessToken->revoke();
+    public function logout($guard_name, Request $request){  
+        try{
+            /** 
+            *  If you want to log out from all the devices where he's logged in. Then do this instead
+            */
+             $tokens = Auth::guard($guard_name."-api")->user()->tokens->pluck('id');
+              Token::whereIn('id', $tokens)->update(['revoked'=> true]);
+              RefreshToken::whereIn('access_token_id', $tokens)->update(['revoked' => true]);
 
-
-            $accessToken = auth()->user()->token();
-            Auth::user()->tokens->each(function($token,$key){
-                $token->delete();
-            });
-    
-            $refreshToken = DB::table('oauth_refresh_tokens')
-                ->where('access_token_id', $accessToken->id)
-                ->update([
-                    'revoked' => true
-                ]);
-    
-            $accessToken->revoke();
-
-        return response()->json('Logged out successfully');
+            /** 
+             * This will log the user out from the current device where he requested to log out.
+            */
+            // $user = Auth::guard($guard_name."-api")->user()->token();
+            // $user->revoke();
+            return response()->json('Logged out successfully');
+        } 
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);      
+        }
     }
 
     public function refresh($guard_name, Request $request){

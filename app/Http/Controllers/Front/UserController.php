@@ -154,48 +154,43 @@ class UserController extends Controller{
         return response()->json('Successuflly updated');
     }
 
-    public function UserImage(Request $request){
-        // $user = Auth::user();
-        $user_type = $this->user_category($request->user_type??'');
-        $edu_institutes = Auth::guard($user_type)->user();
-
+    public function UserImage($guard_name, Request $request){
+        $user = Auth::guard($guard_name."-api")->user();
         if ($request->hasFile('photo')) {
             // exit;
            $file = $request->file('photo');
            $name = time().'-'.$file->getClientOriginalName();
            $filePath = config('gbi.user_image') . $name;
            \Storage::disk('s3')->put($filePath, file_get_contents($file));
-           $edu_institutes->photo = $name;
+           $user->photo = $name;
         }
         // $information = Information::where('user_id', $user->id)->first();
-        $edu_institutes->save();
-        return response()->json(['photo'=>$edu_institutes->photo]);
+        $user->save();
+        return response()->json(['photo'=>$user->photo]);
     }
 
-    public function UserDocs(Request $request){
+    public function UserDocs($guard_name, Request $request){
         // $user = Auth::user();
-        $user_type = $this->user_category($request->user_type??'');
-        $edu_institutes = Auth::guard($user_type)->user();
-
         $validator = Validator::make($request->all(), [ 
             'docFront' => 'required|file|max:5000',
             'docBottom' => 'required|file|max:5000',
             'docType' => 'required',
         ]);
-
+        
         if ($validator->fails()) { 
             return response()->json(['error'=>$validator->errors()], 422);            
         }
+        $user = Auth::guard($guard_name."-api")->user();
 
         // $information = Information::where('user_id', $user->id)->first();
-        $edu_institutes->doc_type = $request->docType;
+        $user->doc_type = $request->docType;
 
         if ($request->hasFile('docFront')) {
            $file1 = $request->docFront;
            $name1 = time().'-'.$file1->getClientOriginalName();
            $filePath1 = config('gbi.user_docs') . $name1;
            \Storage::disk('s3')->put($filePath1, file_get_contents($file1));
-           $edu_institutes->doc_front = $name1;
+           $user->doc_front = $name1;
        }
 
        if ($request->hasFile('docBottom')) {
@@ -203,11 +198,11 @@ class UserController extends Controller{
            $name2 = time().'-'.$file2->getClientOriginalName();
            $filePath2 = config('gbi.user_docs') . $name2;
            \Storage::disk('s3')->put($filePath2, file_get_contents($file2));
-           $edu_institutes->doc_back = $name2;
+           $user->doc_back = $name2;
        }
-       $edu_institutes->save();
+       $user->save();
         
-        return response()->json(['docType'=>$edu_institutes->doc_type, 'docFront'=>$edu_institutes->doc_front, 'docBack'=>$edu_institutes->doc_back]);
+        return response()->json(['docType'=>$user->doc_type, 'docFront'=>$user->doc_front, 'docBack'=>$user->doc_back]);
     }
     // User Edit 
     /** 
@@ -240,17 +235,15 @@ class UserController extends Controller{
     *      @OA\Response(response=401, description="Unauthentication"),
     * )
     */
-    public function details() 
+    public function details($guard_name) 
     {  
-        $user_type = $this->user_category($request->user_type??'');
-        $edu_institutes = Auth::guard($user_type)->user();
-        return response()->json(['success' => $edu_institutes], $this-> successStatus); 
+        $user = Auth::guard($guard_name."-api")->user();
+        return response()->json(['success' => $user], $this->successStatus); 
     } 
     
-    public function show(){
-        $user_type = $this->user_category($request->user_type??'');
-        $edu_institutes = Auth::guard($user_type)->user();
-        return response()->json(['success' => $edu_institutes], $this-> successStatus); 
+    public function show($guard_name){
+        $user = Auth::guard($guard_name."-api")->user();
+        return response()->json(['success' => $user], $this-> successStatus); 
     }
     /// user more information on model from model
     public function infoUpdate(Request $request){
@@ -285,20 +278,18 @@ class UserController extends Controller{
         return response()->json('success');
     }
 
-    public function UpdatePassword(Request $request){
-        $user_type = $this->user_category($request->user_type??'');
-        $edu_institutes = Auth::guard($user_type)->user();
-
+    public function UpdatePassword($guard_name, Request $request){
+        $user = Auth::guard($guard_name."-api")->user();
         $request->validate([
-            'current_password' => ['required', new MatchOldPassword($edu_institutes)],
+            'current_password' => ['required', new MatchOldPassword($user)],
             'new_password' => ['required'],
-            'confirm_password' => ['same:new_password'],
+            'confirm_password' => ['required','same:new_password'],
         ]);
-        $edu_institutes->update(['password'=> Hash::make($request->new_password), 'change_password'=>1]);
+        $user->update(['password'=> Hash::make($request->new_password), 'change_password'=>1]);
         // $info = Information::where('user_id',$user->id)->first();
         // $info->change_password = 1;
         // $info->save(); 
-        ChangePasswordJob::dispatchNow($edu_institutes);
+        ChangePasswordJob::dispatchNow($user);
         return response()->json('Password change successfully.');
     }
 
