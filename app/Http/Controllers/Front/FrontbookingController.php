@@ -14,10 +14,9 @@ use App\Http\Controllers\API\BaseController;
 
 class FrontbookingController extends BaseController
 {
-    public function booking(FrontbookingRequest $request){
+    public function booking($guard_name, FrontbookingRequest $request){
         try{
-            $user_type = $this->user_category($request->user_type??'');
-            $edu_institutes = Auth::guard($user_type)->user();
+            $user = Auth::guard($guard_name."-api")->user();
             $data = array();
             $data['start_date'] = $request->start_date??'';
             $data['end_date'] = $request->end_date??'';
@@ -49,22 +48,29 @@ class FrontbookingController extends BaseController
                  }
             }
 
-            // $validate['user_id'] = $user->id;
-            $data['edu_institute_id'] = $edu_institutes->id??0;
+            if($guard_name == "school"){
+                $data['edu_institute_id'] = $user->id??0;
+            }
+            else if($guard_name == "company"){
+                $data['company_user_id'] = $user->id??0;
+            }
+            else if($guard_name == "family"){
+                $data['family_user_id'] = $user->id??0;
+            }
+            
+            $data['tour_type'] = $guard_name;
             $data['noofday'] = $request->noofday??0;
             $data['accomodation'] = $request->accommodation??0;
-            // $data['itinerary_id'] = $request->itinerary_id;
             $data['city'] = substr($citylist, 0, -2);
             $data['transport'] = substr($transport, 0, -2);
             $data['sightseen'] = substr($sightseen, 0, -2);
             $booking =  Frontbooking::create($data);
 
-            $this->sendAdminMail($edu_institutes, $booking);
-            $this->sendUserMail($edu_institutes, $booking);
+            $this->sendAdminMail($user, $booking);
+            $this->sendUserMail($user, $booking);
 
             $sendsms = new SendSms;
-            // return $edu_institutes;
-            $sendsms->frontBookingUserSms($edu_institutes,$booking->itinerary->title);
+            $sendsms->frontBookingUserSms($user,$booking->itinerary->title);
             return response()->json('Booking query has sent Successfully'); 
         } 
         catch(Exception $e){

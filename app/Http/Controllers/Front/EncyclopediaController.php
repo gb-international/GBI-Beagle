@@ -80,20 +80,10 @@ class EncyclopediaController extends BaseController
     public function getComment($id){
         return response()->json(Encyclopediacomment::with('user','user.information')->where('encyclopedia_id',$id)->orderBy('created_at','DESC')->get());
     }
-
-    public function PostComment(Request $request){
-        // $user_type = $this->user_category("school");
-        // return $user_type;
-        // $user = Auth::user();
-
-        // $user_category = new UserCategory(); 
-        // $user_type = $user_category->user_category($request->user_profession??'');
-        // return $user_type;
-        $user_type = $this->user_category($request->user_type??'');
-        $edu_institutes = Auth::guard($user_type)->user();
-
-        // $edu_institutes = Auth::guard($user_type)->user();
-        // $edu_institutes_id =  12;
+    
+    public function PostComment($guard_name, Request $request){
+        
+        $user = Auth::guard($guard_name."-api")->user();
         $validator = Validator::make($request->all(),[
             'body' => 'required',
             'encyclopedia_id' => 'required|exists:encyclopedias,id'
@@ -101,15 +91,21 @@ class EncyclopediaController extends BaseController
         if ($validator->fails()) { 
             return response()->json(['error'=>$validator->errors()], 422);            
         }
-
-        $data = [
-            'encyclopedia_id' => $request->encyclopedia_id,
-            'edu_institute_id' => $edu_institutes->id??0,
-            'body' => $request->body,
-            'parent_id' => $request->parent_id??NULL
-        ];
-        $data = Encyclopediacomment::create($data);
-        return response()->json($data);
+        $encyclopedia_comment = new Encyclopediacomment;
+        if($guard_name == "school"){
+            $encyclopedia_comment->edu_institute_id = $user->id??0;
+        }
+        else if($guard_name == "company"){
+            $encyclopedia_comment->company_user_id = $user->id??0;
+        }
+        else if($guard_name == "family"){
+            $encyclopedia_comment->family_user_id = $user->id??0;
+        }
+        $encyclopedia_comment->encyclopedia_id = $request->encyclopedia_id; 
+        $encyclopedia_comment->body = $request->body; 
+        $encyclopedia_comment->parent_id = $request->parent_id??NULL; 
+        $encyclopedia_comment->save(); 
+        return response()->json($encyclopedia_comment);
     }
 
     public function Pdf($slug){

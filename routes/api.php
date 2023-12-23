@@ -6,6 +6,8 @@ use App\Http\Controllers\Front\ItinerarySightseeingController;
 use App\Http\Controllers\Front\DiscountCoupon\DiscountCouponController;
 use App\Http\Controllers\Front\UserController;
 use App\Http\Controllers\Front\TourController;
+use App\Http\Controllers\Front\EncyclopediaController;
+use App\Http\Controllers\Front\FrontbookingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -203,10 +205,10 @@ Route::group(['prefix' => '{company}', 'middleware' => 'company.authentication']
 
 	// School
 	Route::post('/tour-list', 'TourController@tourList');
-
+	
 	// Corporate
 	Route::post('/corp-tour-list', 'TourController@corpTourList');
-
+	
 	Route::post('/tour-travel-save', 'TourController@tourDetailSave');
 	Route::post('/payment-tour', 'TourController@paymentTour');
 	Route::post('/tour-bankdetail-student', 'SchoolbankdetailController@bankdetailsStudent');
@@ -219,8 +221,9 @@ Route::group(['prefix' => '{company}', 'middleware' => 'company.authentication']
 	//Payment History - School
 	Route::post('/schoool/payment-history','FrontPaymentController@viewPaymentDeails');
 	// Comments
-	Route::post('/encyclopedia-comments','EncyclopediaController@PostComment');
-	Route::post('/booking','FrontbookingController@booking');
+
+	Route::post('encyclopedia-comments',[EncyclopediaController::class, 'PostComment'])->where('company', 'company');
+	Route::post('booking',[FrontbookingController::class, 'booking'])->where('company', 'company');
 	Route::post('/group-member','GroupmemberController@index');
 	Route::post('/group-add','GroupmemberController@studentStore');
 	Route::post('/group-member-update','GroupmemberController@update');
@@ -272,8 +275,8 @@ Route::group(['prefix' => '{school}', 'middleware' => 'school.authentication'], 
 	//Payment History - School
 	Route::post('/schoool/payment-history','FrontPaymentController@viewPaymentDeails');
 	// Comments
-	Route::post('/encyclopedia-comments','EncyclopediaController@PostComment');
-	Route::post('/booking','FrontbookingController@booking');
+	Route::post('encyclopedia-comments',[EncyclopediaController::class, 'PostComment'])->where('school', 'school');
+	Route::post('booking',[FrontbookingController::class, 'booking'])->where('school', 'school');
 	Route::post('/group-member','GroupmemberController@index');
 	Route::post('/group-add','GroupmemberController@studentStore');
 	Route::post('/group-member-update','GroupmemberController@update');
@@ -316,8 +319,8 @@ Route::group(['prefix' => '{family}', 'middleware' => 'family.authentication'], 
 	Route::post('/tour-travel-save', 'TourController@tourDetailSave');
 	Route::post('/payment-tour', 'TourController@paymentTour');
 	Route::post('/tour-bankdetail-student', 'SchoolbankdetailController@bankdetailsStudent');
-	Route::post('/tour-bankdetail', 'SchoolbankdetailController@bankdetails');
-	Route::post('/tour-bankdetail-store', 'SchoolbankdetailController@store');
+	// Route::post('/tour-bankdetail', 'SchoolbankdetailController@bankdetails');
+	// Route::post('/tour-bankdetail-store', 'SchoolbankdetailController@store');
 	Route::post('/tour-submit-payment', 'UserpaymentController@store');
 	Route::post('/tour-payment-status', 'UserpaymentController@tourPayStatus');
 	// payment by ccavenue
@@ -325,8 +328,8 @@ Route::group(['prefix' => '{family}', 'middleware' => 'family.authentication'], 
 	//Payment History - School
 	Route::post('/schoool/payment-history','FrontPaymentController@viewPaymentDeails');
 	// Comments
-	Route::post('/encyclopedia-comments','EncyclopediaController@PostComment');
-	Route::post('/booking','FrontbookingController@booking');
+	Route::post('encyclopedia-comments',[EncyclopediaController::class, 'PostComment'])->where('family', 'family');
+	Route::post('booking',[FrontbookingController::class, 'booking'])->where('family', 'family');
 	Route::post('/group-member','GroupmemberController@index');
 	Route::post('/group-add','GroupmemberController@studentStore');
 	Route::post('/group-member-update','GroupmemberController@update');
