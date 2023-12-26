@@ -3,15 +3,17 @@
 Edited by : Rahul Rawat studentStore function
 Purpose : Manage studentStore function and validation  
 */
+
 namespace App\Http\Controllers\Front;
 use App\Http\Controllers\Controller;
 use App\Model\School\EducationInstitute as EduInstitute;
-use App\Http\Requests\Front\StudentTeacherRequest;
+use App\Http\Requests\Front\GroupMemberRequest;
 use App\Http\Controllers\Admin\BaseController;
 use Illuminate\Http\Request;
 use App\Model\School\Groupmember;
 use App\User;
 use Auth;
+
 class GroupmemberController extends BaseController
 {
     public function index(Request $request){
@@ -29,15 +31,23 @@ class GroupmemberController extends BaseController
         return response()->json($data);
     }
 
-    public function studentStore(StudentTeacherRequest $request){
-        
-        $user_type = $this->user_category($request->user_type??'');
-        $edu_institutes = Auth::guard($user_type)->user();
+    public function addGroupMember($guard_name, GroupMemberRequest $request){
+        $user = Auth::guard($guard_name."-api")->user();
         if($request->details){
             foreach ($request->details as $data) {
-                $data['edu_institute_id'] = $edu_institutes->id??0;
+                if($guard_name == "school"){
+                    $data['edu_institute_id'] = $user->id??0;
+                    $data['school_id'] = $request->school_id??NULL;
+                }
+                else if($guard_name == "company"){
+                    $data['company_user_id'] = $user->id??0;
+                    $data['company_id'] = $request->company_id??NULL;
+                }
+                else if($guard_name == "family"){
+                    $data['family_id'] = $user->id??NULL;
+                }
                 $data['tour_id'] = $request->tour_id??'';
-                $data['school_id'] = $request->school_id??'';
+                $data['user_type'] = $request->user_type??'';
                 Groupmember::create($data);
             }
         }

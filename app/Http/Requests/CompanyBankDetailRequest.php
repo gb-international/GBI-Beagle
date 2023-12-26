@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -6,7 +7,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Contracts\Validation\Rule;
 
-class SchoolBankDetailRequest extends FormRequest
+class CompanyBankDetailRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,7 +29,7 @@ class SchoolBankDetailRequest extends FormRequest
         return [
             'name' => 'required',
             'bank_name' => 'required',
-            'account_number' => 'required|unique:schoolbankdetails',
+            'account_number' => 'required|unique:corp_bankdetails',
             'account_type' => 'required',
             'ifsc_code' => 'required',
             'tour_code' => 'required|exists:tours,tour_id',  
