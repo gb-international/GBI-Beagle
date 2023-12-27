@@ -16,7 +16,7 @@ Route::namespace('Escort')->group(function(){
     Route::get('/trains/{id}','TourController@trains');
     Route::get('/restaurants/{id}','TourController@restaurants');
     Route::get('/pax/{id}','TourController@pax');
-    Route::get('/pax/{id}','TourController@pax');
+    // Route::get('/pax/{id}','TourController@pax');
     Route::get('/pax/get/{id}','PaxController@index');
     Route::post('/pax/store','PaxController@store');
 });

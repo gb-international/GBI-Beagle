@@ -85,7 +85,7 @@ class TourController extends Controller
     public function hotels($tour_code){
         $data = Bookedhotel::select('hotel_id','id','tour_code','check_in','check_out')
             ->where('tour_code',$tour_code)
-            ->with('hotel:id,name,phoneno')
+            ->with('hotel:id,name,phone_number')
             ->get();
 
             return response()->json($data);

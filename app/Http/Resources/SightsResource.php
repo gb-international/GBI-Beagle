@@ -21,11 +21,11 @@ class SightsResource extends JsonResource
         $stR = Bookedsightseeing::where('tour_code',$this->tour_code)->where('mark_arrive', 1)->orderBy('updated_at', 'DESC')->first();
 
         if($onG){
-            $onG = ['latLng' => json_decode($onG->sightseeing->latlng)];
+            $onG = ['latLng' => json_decode($onG->sightseeing->latlng??'')];
         }
 
         if($stR){
-            $stR = ['latLng' => json_decode($stR->sightseeing->latlng)];
+            $stR = ['latLng' => json_decode($stR->sightseeing->latlng??'')];
         }
 
         if($stR && !$onG){
@@ -35,15 +35,15 @@ class SightsResource extends JsonResource
         }
          
         return [
-                'id'=>$this->id,
-                'name'=>$this->sightseeing->name,
-                'sightseeing_id'=>$this->sightseeing_id,
-                'itineraryday_id'=>$this->itineraryday_id,
-                'latLng'=>json_decode($this->sightseeing->latlng),
+                'id'=>$this->id??0,
+                'name'=>$this->sightseeing->name??'',
+                'sightseeing_id'=>$this->sightseeing_id??'',
+                'itineraryday_id'=>$this->itineraryday_id??'',
+                'latLng'=>json_decode($this->sightseeing->latlng??''),
                 'onG'=> $onG,
                 'stR'=> $stR,
                 'completed' => $comp,
-                'mark_arrive'=>$this->mark_arrive,
+                'mark_arrive'=>$this->mark_arrive??'',
         ];
     }
 }

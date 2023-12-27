@@ -243,7 +243,7 @@ class TourController extends Controller{
         return response()->json($tour->itinerary);
     }
 
-    public function tourDetailSave(Request $request){
+    public function tourDetailSave($guard, Request $request){
         $this->validate($request, [ 
             'travel_code' => 'required',
         ]);
@@ -268,7 +268,7 @@ class TourController extends Controller{
         return response()->json(['success'=>"success"]);
     }
 
-    public function paymentTour(Request $request){
+    public function paymentTour($guard_name, Request $request){
 
         $user_type = $this->user_category($request->user_type??'');
         $edu_institutes = Auth::guard($user_type)->user();
