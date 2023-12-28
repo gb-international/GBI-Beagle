@@ -28,7 +28,10 @@ class TourUser extends Model
         'date_of_issue',
         'payment_data',
         'status',
-        'added_by'
+        'added_by',
+        'company_user_id',
+        'family_user_id',
+        'tour_type'  
     ];
 
     public function tour(){
@@ -38,9 +41,17 @@ class TourUser extends Model
     public function user(){
         return $this->belongsTo('App\User');
     }
-
+    
     public function edu_institute(){
-        return $this->belongsTo('App\Model\School\EducationInstitute');
+        return $this->belongsTo('App\Model\School\EducationInstitute', 'edu_institute_id', 'id');
+    }
+
+    public function family_user(){
+        return $this->belongsTo('App\FamilyUser', 'family_user_id','id');
+    }
+    
+    public function company_user(){
+        return $this->belongsTo('App\CompanyUser', 'company_user_id','id');
     }
     
     protected $casts = [

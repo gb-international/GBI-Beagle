@@ -16,7 +16,9 @@ use App\Model\Restaurant\Restaurant;
 use App\Model\Tour\Tour;
 use App\Model\Tour\TourUser;
 use App\Model\Tour\Food;
-class TourController extends Controller 
+use App\Http\Controllers\API\BaseController;
+
+class TourController extends BaseController 
 {
     public function tourList($id){
 
@@ -129,27 +131,58 @@ class TourController extends Controller
 
     
     public function pax($tour_code){
-        // select travel_code from tour table 
-        $tour = Tour::where('tour_id',$tour_code)->select('travel_code')->first();
-        // select user who are going on tour
-        $data = TourUser::select('id','user_id')
+        try{
+            //select travel_code from tour table 
+            $tour = Tour::where('tour_id',$tour_code)->select('travel_code','customer_type')->first();
+            $response = array();
+            if($tour){
+                // select user who are going on tour with seperate by female & male
+                if($tour->customer_type == "corporate"){
+                    $response['male'] = TourUser::select('id','company_user_id')
+                    ->where('travel_code',$tour->travel_code)
+                    ->whereHas('company_user', function($q){
+                        $q->where('gender','male');})->count();
+    
+                    $response['female'] = TourUser::select('id','edu_institute_id')
+                    ->where('travel_code',$tour->travel_code)
+                    ->whereHas('edu_institute', function($q){
+                        $q->where('gender','female');})->count();
+                }
+                else if($tour->customer_type == "school"){
+                $response['male'] = TourUser::select('id','edu_institute_id')
                 ->where('travel_code',$tour->travel_code)
-                ->with('user:id','user.information:user_id,gender')
-                ->get();
-        $male = 0;$female = 0;
-        // count male and female from data
-        foreach ($data as $d ) {
-            if($d->user->information->gender == 'male'){
-                $male += 1;
+                ->whereHas('edu_institute', function($q){
+                    $q->where('gender','male');})->count();
+
+                $response['female'] = TourUser::select('id','edu_institute_id')
+                ->where('travel_code',$tour->travel_code)
+                ->whereHas('edu_institute', function($q){
+                    $q->where('gender','female');})->count();
+
+                }
+                else if($tour->customer_type == "family"){
+                $response['male'] = TourUser::select('id','family_user_id')
+                ->where('travel_code',$tour->travel_code)
+                ->whereHas('family_user', function($q){
+                    $q->where('gender','male');})->count();
+
+                $response['female'] = TourUser::select('id','family_user_id')
+                ->where('travel_code',$tour->travel_code)
+                ->whereHas('family_user', function($q){
+                    $q->where('gender','female');})->count();  
             }
-            if($d->user->information->gender == 'female'){
-                $female += 1;
+                // return male and female
+                return response()->json($response);
             }
-        };
-        // return male and female
-        $response['male'] = $male;
-        $response['female'] = $female;
-        return response()->json($response);
+            else{
+                return $this->sendError("Data not found!", 404);
+            }
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }
+        
+        
     } 
         
 }

@@ -206,11 +206,10 @@ Route::group(['prefix' => '{company}', 'middleware' => 'company.authentication']
 	Route::post('update-user-image',[UserController::class, 'UserImage'])->where('company', 'company');
 	Route::post('update-user-docs',[UserController::class, 'UserDocs'])->where('company', 'company');
 	Route::post('tour-detail',[TourController::class, 'tourDetail'])->where('company', 'company');
-
-
+	Route::post('tour-travel-save',[TourController::class, 'tourDetailSave'])->where('company', 'company');
+	Route::post('payment-tour',[TourController::class, 'paymentTour'])->where('company', 'company');
 	Route::post('tour-bankdetail',[CompanybankdetailController::class, 'bankdetails'])->where('company', 'company');
 	Route::post('tour-bankdetail-store',[CompanybankdetailController::class, 'store'])->where('company', 'company');
-	
 	// Comments
 
 	Route::post('encyclopedia-comments',[EncyclopediaController::class, 'PostComment'])->where('company', 'company');
@@ -246,18 +245,17 @@ Route::group(['prefix' => '{school}', 'middleware' => 'school.authentication'], 
 	Route::post('update-password',[UserController::class, 'UpdatePassword'])->where('school', 'school');
 	Route::post('update-user-image',[UserController::class, 'UserImage'])->where('school', 'school');
 	Route::post('update-user-docs',[UserController::class, 'UserDocs'])->where('school', 'school');
+	
 	Route::post('tour-detail',[TourController::class, 'tourDetail'])->where('school', 'school');
 
 	// School
-	Route::post('/tour-list', 'TourController@tourList');
-
+	// Route::post('/tour-list', 'TourController@tourList');
+	
 	// Corporate
-	Route::post('/corp-tour-list', 'TourController@corpTourList');
-
-	Route::post('/tour-travel-save', 'TourController@tourDetailSave');
-	Route::post('/payment-tour', 'TourController@paymentTour');
+	// Route::post('/corp-tour-list', 'TourController@corpTourList');
+	
 	// Route::post('/tour-submit-payment', 'UserpaymentController@store');
-	Route::post('/tour-payment-status', 'UserpaymentController@tourPayStatus');
+	// Route::post('/tour-payment-status', 'UserpaymentController@tourPayStatus');
 	// payment by ccavenue
 	// Route::post('/user-tour-payment','FrontPaymentController@payment');
 	//Payment History - School
@@ -266,7 +264,8 @@ Route::group(['prefix' => '{school}', 'middleware' => 'school.authentication'], 
 	Route::post('tour-bankdetail',[SchoolbankdetailController::class, 'bankdetails'])->where('school', 'school');
 	Route::post('tour-bankdetail-store',[SchoolbankdetailController::class, 'store'])->where('school', 'school');
 	// Route::post('/tour-bankdetail-student', 'SchoolbankdetailController@bankdetailsStudent');
-	
+	Route::post('tour-travel-save',[TourController::class, 'tourDetailSave'])->where('school', 'school');
+	Route::post('payment-tour',[TourController::class, 'paymentTour'])->where('school', 'school');
 	// Comments
 	Route::post('encyclopedia-comments',[EncyclopediaController::class, 'PostComment'])->where('school', 'school');
 	Route::post('booking',[FrontbookingController::class, 'booking'])->where('school', 'school');
@@ -302,7 +301,8 @@ Route::group(['prefix' => '{family}', 'middleware' => 'family.authentication'], 
 	Route::post('update-user-image',[UserController::class, 'UserImage'])->where('family', 'family');
 	Route::post('update-user-docs',[UserController::class, 'UserDocs'])->where('family', 'family');
 	Route::post('tour-detail',[TourController::class, 'tourDetail'])->where('family', 'family');
-
+	Route::post('tour-travel-save',[TourController::class, 'tourDetailSave'])->where('family', 'family');
+	Route::post('payment-tour',[TourController::class, 'paymentTour'])->where('family', 'family');
 	
 	Route::post('tour-bankdetail',[FamilybankdetailController::class, 'bankdetails'])->where('family', 'family');
 	Route::post('tour-bankdetail-store',[FamilybankdetailController::class, 'store'])->where('family', 'family');

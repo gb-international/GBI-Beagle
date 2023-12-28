@@ -243,41 +243,50 @@ class TourController extends Controller{
         return response()->json($tour->itinerary);
     }
 
-    public function tourDetailSave($guard, Request $request){
+    public function tourDetailSave($guard_name, Request $request){
         $this->validate($request, [ 
-            'travel_code' => 'required',
+            'travel_code' => 'required|exists:tours,travel_code',
         ]);
+        $user = Auth::guard($guard_name."-api")->user();
+        $data = array();
+        if($guard_name == "school"){
+            $data['edu_institute_id'] = $user->id??0;
+        }
+        else if($guard_name == "company"){
+            $data['company_user_id'] = $user->id??0;
+        }
+        else if($guard_name == "family"){
+            $data['family_user_id'] = $user->id??0;
+        }
 
-        $user_type = $this->user_category($request->user_type??'');
-        $edu_institutes = Auth::guard($user_type)->user();
-
-        $data = ['edu_institute_id'=>$edu_institutes->id??12,'travel_code'=>$request->travel_code];
+        $data['travel_code']= $request->travel_code??'';
 
         $travel = TourUser::where($data)->get();
         if(count($travel) != 0){
             return response()->json('error');
         }
         $tour = Tour::where('travel_code',$request->travel_code)->first();
-
-        if(!$tour){
-            return response()->json('error');
-        }
-        $data['tour_code'] = $tour->tour_id;
-        $data['user_type'] = "school";
+        
+        $data['tour_code'] = $tour->tour_id??'';
+        $data['user_type'] = $guard_name;
+        $data['tour_type'] = $guard_name;
         TourUser::create($data);
         return response()->json(['success'=>"success"]);
     }
 
     public function paymentTour($guard_name, Request $request){
-
-        $user_type = $this->user_category($request->user_type??'');
-        $edu_institutes = Auth::guard($user_type)->user();
+        $this->validate($request, [ 
+            'travel_code' => 'required|exists:tours,tour_id',
+        ]);
+        $user = Auth::guard($guard_name."-api")->user();
+        $data = array();
+        
         $tour = Tour::select(['tour_price','travel_code'])
             ->where("tour_id", $request->travel_code)
             ->first();
 
         $data = [];
-        if($edu_institutes->is_incharge == 1){
+        if($user->is_incharge == 1){
         //---
             $tour_user = Groupmember::where('tour_id',$request->travel_code)
             ->select('is_paid')
@@ -292,19 +301,26 @@ class TourController extends Controller{
             $data['unpaid_person'] = Groupmember::where('tour_id', $request->travel_code)->where('is_paid', '0')->count();
             $data['total_members'] = Groupmember::where('tour_id', $request->travel_code)->count();
             $data['price'] = $tour->tour_price * ($data['paid_person'] - $data['already_paid']);
-            $data['students'] = Groupmember::where('tour_id', $request->travel_code)->where('user_type', 'student')->count();
-            $data['teachers'] = Groupmember::where('tour_id', $request->travel_code)->where('user_type', 'teacher')->count();
 
+            if($guard_name == "school"){
+                $data['students'] = Groupmember::where('tour_id', $request->travel_code)->where('user_type', 'student')->count();
+                $data['teachers'] = Groupmember::where('tour_id', $request->travel_code)->where('user_type', 'teacher')->count();
+            }
             $data['base_price'] = $tour->tour_price;
-            $data['edu_institute_id'] = $edu_institutes->id;
             $data['travel_code'] = $tour->travel_code;
         }else{
             $data['base_price'] = $tour->tour_price??0;
-            // $data['user_id'] = $user->id;
-            $data['edu_institute_id'] = $edu_institutes->id;
             $data['travel_code'] = $tour->travel_code;
+        }
+        if($guard_name == "school"){
+            $data['edu_institute_id'] = $user->id??0;
+        }
+        else if($guard_name == "company"){
+            $data['company_user_id'] = $user->id??0;
+        }
+        else if($guard_name == "family"){
+            $data['family_user_id'] = $user->id??0;
         }
         return response()->json($data);
     }
-
 }
