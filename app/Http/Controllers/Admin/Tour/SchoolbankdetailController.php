@@ -50,7 +50,6 @@ class SchoolbankdetailController extends Controller
      */
     public function store(SchoolBankDetailRequest $request)
     {
-        
         $data = array("name" => $request->name??'',
         "bank_name" => $request->bank_name??'',
         "account_number" => $request->account_number??'',
@@ -61,7 +60,7 @@ class SchoolbankdetailController extends Controller
             $data['edu_institute_id'] = $request->edu_institutes??'';
         }
         else{
-            $data['user_id'] = 26;
+            $data['user_id'] = Auth::guard("user-api")->user()->id;
         }
         Schoolbankdetail::create($data);
         return response()->json(["Message"=> "Successfully Added..."]);
@@ -101,7 +100,7 @@ class SchoolbankdetailController extends Controller
         $validator = Validator::make($request->all(), [ 
             'name' => 'required',
             'bank_name' => 'required',
-            'account_number' => 'required|unique:Schoolbankdetails,account_number,'.$schoolbankdetail->id.',id',
+            'account_number' => 'required|unique:schoolbankdetails,account_number,'.$schoolbankdetail->id.',id',
             'account_type' => 'required',
             'ifsc_code' => 'required',
             'tour_code' => 'required',

@@ -25,5 +25,11 @@ class Frontbooking extends Model
         return $this->belongsTo('App\Model\School\EducationInstitute');
     }
 
+    public function family_user(){
+        return $this->belongsTo('App\FamilyUser', 'family_user_id','id');
+    }
     
+    public function company_user(){
+        return $this->belongsTo('App\CompanyUser', 'company_user_id','id');
+    }    
 }

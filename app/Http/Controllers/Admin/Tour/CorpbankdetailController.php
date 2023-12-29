@@ -5,7 +5,9 @@ Purpose : Manage bankdetails of Corporate Users  */
 namespace App\Http\Controllers\Admin\Tour;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use App\Http\Requests\CompanyBankDetailRequest;
+use Validator;
+use Illuminate\Validation\Rule; //import Rule class 
 use App\Model\Tour\Corpbankdetail;
 use Auth;
 use App\Rules\AlphaSpace;
@@ -48,10 +50,20 @@ class CorpbankdetailController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CompanyBankDetailRequest $request)
     {
-        $data = $this->validateBankdetail($request);
-        $data['user_id'] = 26;
+        $data = array("name" => $request->name??'',
+        "bank_name" => $request->bank_name??'',
+        "account_number" => $request->account_number??'',
+        "account_type" => $request->account_type??'',
+        "ifsc_code" => $request->ifsc_code??'',
+        "tour_code" => $request->tour_code??'');
+        if(!empty($request->company_user_id)){
+            $data['company_user_id'] = $request->company_user_id??'';
+        }
+        else{
+            $data['user_id'] = Auth::guard("user-api")->user()->id;
+        }
         Corpbankdetail::create($data);
         return response()->json(['Message'=> 'Successfully Added...']);
     }
@@ -85,10 +97,26 @@ class CorpbankdetailController extends Controller
      * @param  \App\Bankdetail  $bankdetail
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Corpbankdetail $sorpbankdetail)
+    public function update(Request $request, Corpbankdetail $corpbankdetail)
     {
-        
-        $Corpbankdetail->update($this->validateBankdetail($request));
+        $validator = Validator::make($request->all(), [ 
+            'name' => 'required',
+            'bank_name' => 'required',
+            'account_number' => ['required', Rule::unique('corp_bankdetails')->ignore($corpbankdetail->id)],
+            'account_type' => 'required',
+            'ifsc_code' => 'required',
+            'tour_code' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['message' => "The given data was invalid.", 'errors' =>$validator->errors()]);
+        }
+        $data = array("name" => $request->name??$schoolbankdetail->name,
+        "bank_name" => $request->bank_name??$schoolbankdetail->bank_name,
+        "account_number" => $request->account_number??$schoolbankdetail->account_number,
+        "account_type" => $request->account_type??$schoolbankdetail->account_type,
+        "ifsc_code" => $request->ifsc_code??$schoolbankdetail->ifsc_code,
+        "tour_code" => $request->tour_code??$schoolbankdetail->tour_code);
+        $corpbankdetail->update($data);
         return response()->json(['message'=>'Successfully Updated']);
     }
 

@@ -29,7 +29,7 @@ class TourRequest extends FormRequest
             'customer_type' => 'required',
             'school_id' => 'required_if:customer_type,school|required_if:exists:schools,id',
             'company_id' => 'required_if:customer_type,corporate|required_if:exists:companies,id',
-            'family_id' => 'required_if:customer_type,family|required_if:exists:family,id',
+            // 'family_id' => 'required_if:customer_type,family|required_if:exists:family,id',
             'itinerary_id' => 'required|exists:itineraries,id',
             'tour_id' => 'required|unique:tours',
             'travel_code' => 'required',

@@ -17,15 +17,16 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\AccountRegistered;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\Admin\GroupMemberRequest;
+use App\Http\Controllers\Admin\BaseController;
 
-class GroupmemberController extends Controller
+class GroupmemberController extends BaseController
 {
     public function getMember($tour_code,$type){
-        $where = ['tour_id'=>$tour_code,'user_type'=>$type];
+        $where = ['tour_id'=>$tour_code,'user_type'=>$type, 'tour_type'=>'school'];
         return Groupmember::where($where)->get();
     }
     public function getMemberPending($tour_code,$type){
-        $where = ['tour_id'=>$tour_code,'user_type'=>$type,'payment_status'=>'pending'];
+        $where = ['tour_id'=>$tour_code,'user_type'=>$type,'payment_status'=>'pending', 'tour_type'=>'school'];
         return Groupmember::where($where)->get();
     }
     public function updateMember(Request $request){
@@ -47,17 +48,26 @@ class GroupmemberController extends Controller
     }
 
     public function addMember(GroupMemberRequest $request){
-        $edu_institute = EduInstitute::where('school_id', $request->school_id??0)->first();
-        $edu_institutes_id = $edu_institute->id??0;
-        if($request->details){
-            foreach ($request->details as $data) {
-                $data['edu_institute_id'] = $edu_institutes_id;
-                $data['tour_id'] = $request->tour_id??'';
-                $data['school_id'] = $request->school_id??'';
-                Groupmember::create($data);
+        try{
+            $edu_institute = EduInstitute::where('school_id', $request->school_id??0)->first();
+            if(!$edu_institute){
+                return $this->sendError("Invalid user", 404);
             }
+            $edu_institutes_id = $edu_institute->id??0;
+            if($request->details){
+                foreach ($request->details as $data) {
+                    $data['edu_institute_id'] = $edu_institutes_id;
+                    $data['tour_id'] = $request->tour_id??'';
+                    $data['school_id'] = $request->school_id??'';
+                    $data['tour_type'] = "school";
+                    Groupmember::create($data);
+                }
+            }
+            return response()->json('succesfully added');
         }
-        return response()->json('succesfully added');
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }
     }
 
     public function addlogindetail(GroupMemberRequest $request){

@@ -80,7 +80,7 @@ class TourController extends BaseController
             $data['customer_type'] = $request->customer_type??0; 
             $data['school_id'] = $request->school_id??0; 
             $data['company_id'] = $request->company_id??0; 
-            $data['family_id'] = $request->family_id??0; 
+            // $data['family_id'] = $request->family_id??0; 
             $data['itinerary_id'] = $request->itinerary_id??0; 
             $data['tour_id'] = $request->tour_id??0; 
             $data['travel_code'] = $request->travel_code??''; 
@@ -153,7 +153,7 @@ class TourController extends BaseController
             $data['customer_type'] = $request->customer_type??$tour->customer_type; 
             $data['school_id'] = $request->school_id??$tour->school_id; 
             $data['company_id'] = $request->company_id??$tour->company_id; 
-            $data['family_id'] = $request->family_id??$tour->family_id; 
+            // $data['family_id'] = $request->family_id??$tour->family_id; 
             $data['itinerary_id'] = $request->itinerary_id??$tour->itinerary_id; 
             $data['tour_id'] = $request->tour_id??$tour->tour_id; 
             $data['travel_code'] = $request->travel_code??$tour->travel_code; 
@@ -187,7 +187,7 @@ class TourController extends BaseController
       return $this->validate($request, [
             'school_id' => '',
             'company_id' => '',
-            'family_id' => '',
+            // 'family_id' => '',
             'customer_type' => 'required',
             'itinerary_id' => 'required',
             'tour_id' => 'required',

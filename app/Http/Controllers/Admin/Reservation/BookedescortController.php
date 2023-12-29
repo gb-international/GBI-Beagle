@@ -10,8 +10,9 @@ use App\Http\Resources\BookedescortCollection;
 use App\Model\Reservation\Bookedescort;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
-class BookedescortController extends Controller
+use App\Http\Controllers\Admin\BaseController;
+use App\Http\Requests\Admin\Reservation\EscortsRequest;
+class BookedescortController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -39,20 +40,26 @@ class BookedescortController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(EscortsRequest $request)
     {
-        $this->validate($request,[
-            'escort_id'=>'required'
-        ]);
-        $tour_code = $request->tour_code;
-        $escort_id = $request->escort_id;
-        $check = Bookedescort::where(['tour_code'=>$tour_code,'escort_id'=>$escort_id])->get();
-        if(count($check->all()) > 0){
-            return '1';
-        }else{
-            Bookedescort::create($request->all());
-            return response()->json('Successfully Created');            
+        try{
+            $escort_id = $request->escort_id??0;
+            $tour_id = $request->tour_id??0;
+            $tour_code = $request->tour_code??'';
+            $result = Bookedescort::updateOrCreate(['tour_id'=>$tour_id, 'tour_code'=>$tour_code, 'escort_id'=>$escort_id],['tour_id'=>$tour_id, 'tour_code'=>$tour_code]);
+            return response()->json('Successfully Created');
+
         }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }
+        // $check = Bookedescort::where(['tour_code'=>$tour_code,'escort_id'=>$escort_id])->get();
+        // if(count($check->all()) > 0){
+        //     return '1';
+        // }else{
+        //     Bookedescort::create($request->all());
+        //     return response()->json('Successfully Created');            
+        // }
     }
 
     /**
@@ -63,7 +70,7 @@ class BookedescortController extends Controller
      */
     public function show(Bookedescort $bookedescort)
     {
-        return Bookedescort::with(['tour','escort'])->where('tour_id',$id)->get(); 
+        return Bookedescort::with(['tour','escort'])->where('id',$bookedescort->id)->get(); 
     }
 
     /**
@@ -97,7 +104,12 @@ class BookedescortController extends Controller
      */
      public function destroy(Bookedescort $bookedescort)
     {
-        $bookedescort->delete();
-        return response()->json("Successfully Deleted");
+        try{
+            $bookedescort->delete();
+            return response()->json('Successfully deleted');
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }
     }
 }

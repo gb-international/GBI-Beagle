@@ -22,7 +22,13 @@ class FrontbookingController extends Controller
     }
 
     public function show($id){
-        return response()->json(Frontbooking::with(['itinerary','user', 'edu_institute'])->where('id',$id)->first());
+        $frontbooking = Frontbooking::where('id',$id)->first();
+        $frontbooking->itinerary;
+        $frontbooking->edu_institute;
+        $frontbooking->user;
+        $frontbooking->family_user;
+        $frontbooking->company_user;
+        return response()->json($frontbooking);
     }
 
     public function status(Request $request){

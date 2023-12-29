@@ -96,6 +96,10 @@ Route::group(['middleware' => ['admin.authentication', 'user.authentication']], 
 			Route::get('corppayments/all/{size}','CorpPaymentController@all');
 			Route::resource('corppayments','CorpPaymentController');
 			Route::get('tour/corporate/{size}','TourController@corporate');
+			
+			//Family
+			Route::resource('familybankdetails',FamilybankdetailController::class);
+			Route::get('familybankdetails/all/{size?}',[FamilybankdetailController::class, 'all']);
 
 			// foods
 			Route::get('foods/{id}','FoodController@index');
@@ -182,7 +186,7 @@ Route::group(['middleware' => ['admin.authentication', 'user.authentication']], 
 			Route::post('permission/assign','UserRolePermissionController@store');//Assign user permissions
 			Route::get('permission/remove/{permission}','UserRolePermissionController@destroy');//Remove user permissions
 			Route::get('permissions/{userRoleId}/{size}','UserRolePermissionController@showUserPermissions'); //Check user permissions
-			Route::get('user-permissions/{userId}','UserRolePermissionController@showPermission');
+ 			Route::get('user-permissions/{userId}','UserRolePermissionController@showPermission');
 			Route::get('check/permission/{permId}/{userRoleId}','UserRolePermissionController@UserPerm');
 
 		});
@@ -364,7 +368,6 @@ Route::group(['middleware' => ['admin.authentication', 'user.authentication']], 
 		});
 
 		Route::group(['prefix' => '/payment', 'as' => 'payment.'], function () {
-			
 			Route::group(['prefix' => '/cash', 'as' => 'cash.'], function () {
 				Route::controller(\Tour\UserpaymentController::class)->group(function () {
 					Route::post('record', 'cashRecord');
