@@ -32,22 +32,31 @@ class GroupmemberController extends BaseController
 
     public function addGroupMember($guard_name, GroupMemberRequest $request){
         $user = Auth::guard($guard_name."-api")->user();
+        $data = array();
+        $data['tour_type'] = $guard_name;
+        if($guard_name == "school"){
+            $data['edu_institute_id'] = $user->id??0;
+            $data['school_id'] = $request->school_id??NULL;
+        }
+        else if($guard_name == "company"){
+            $data['company_user_id'] = $user->id??0;
+            $data['company_id'] = $request->company_id??NULL;
+        }
+        else if($guard_name == "family"){
+            $data['family_user_id'] = $user->id??NULL;
+        }
+        $data['user_type'] = $request->user_type??NULL;
+        $data['tour_id'] = $request->tour_id??NULL;
         if($request->details){
             foreach ($request->details as $data) {
-                $data['tour_type'] = $guard_name;
-                if($guard_name == "school"){
-                    $data['edu_institute_id'] = $user->id??0;
-                    $data['school_id'] = $request->school_id??NULL;
-                }
-                else if($guard_name == "company"){
-                    $data['company_user_id'] = $user->id??0;
-                    $data['company_id'] = $request->company_id??NULL;
-                }
-                else if($guard_name == "family"){
-                    $data['family_user_id'] = $user->id??NULL;
-                }
-                $data['tour_id'] = $request->tour_id??'';
-                $data['user_type'] = $request->user_type??'';
+                $data['first_name'] = $data->first_name??NULL;
+                $data['last_name'] = $data->last_name??NULL;
+                $data['email'] = $data->email??NULL;
+                $data['gender'] = $data->gender??NULL;
+                $data['age'] = $data->age??NULL;
+                $data['mobile'] = $data->mobile??NULL;
+                $data['is_paid']= $data->is_paid??NULL;
+                $data['payment_status'] = $data->payment_status??NULL;
                 Groupmember::create($data);
             }
         }

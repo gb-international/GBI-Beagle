@@ -143,11 +143,12 @@ Route::group(['middleware' => ['admin.authentication', 'user.authentication']], 
 			Route::get('schools-login-details/{id}','SchoolController@login');
 			Route::resource('school','SchoolController');
 			Route::resource('student','StudentController');
-			Route::get('groupmembers/{tour_code}/{type}','GroupmemberController@getMember');
-			Route::get('groupmembers/{tour_code}/{type}/pending','GroupmemberController@getMemberPending');
-			Route::post('groupmembers/update','GroupmemberController@updateMember');
-			Route::post('groupmember/destroy','GroupmemberController@destroyMember');
-			Route::post('groupmember/add','GroupmemberController@addMember');
+			// Route::post('groupmembers/update','GroupmemberController@updateMember');
+			// Route::post('groupmember/destroy','GroupmemberController@destroyMember');
+			// Route::post('groupmember/add','GroupmemberController@addMember');
+
+			// Route::get('groupmembers/{tour_code}/{type}','GroupmemberController@getMember');
+			// Route::get('groupmembers/{tour_code}/{type}/pending','GroupmemberController@getMemberPending');
 			Route::post('groupmembers/addlogindetail','GroupmemberController@addlogindetail');
 			Route::post('groupmembers/send-member-login','GroupmemberController@sendMemberLogin');
 		});
@@ -380,6 +381,15 @@ Route::group(['middleware' => ['admin.authentication', 'user.authentication']], 
 					Route::post('cheque-status', 'chequeStatus');
 				});	
 			});	
+		});
+		Route::group(['prefix' => '/groupmember', 'as' => 'groupmember.'], function () {
+			Route::controller(\GroupmemberController::class)->group(function () {
+				Route::post('update','updateMember');
+				Route::post('destroy','destroyMember');
+				Route::post('add','addMember');
+				Route::get('{tour_code}/{user_type}/{tour_type}','getMember');
+				Route::get('{tour_code}/{user_type}/{tour_type}/{pending}','getMemberPending')->where('pending', 'pending');	
+			});
 		});
 	});
 });
