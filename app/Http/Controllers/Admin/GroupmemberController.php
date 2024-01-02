@@ -4,19 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Model\School\EducationInstitute as EduInstitute; 
 use App\Http\Controllers\Admin\BaseController;
-use Illuminate\Support\Facades\Mail;
-use App\User;
 use App\CompanyUser;
-use App\Helpers\SendSms;
-use App\Mail\AccountRegistered;
-use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\Admin\GroupMemberRequest;
-use App\Http\Controllers\Controller;
 use App\Model\School\Groupmember;
 use Illuminate\Http\Request;
-use App\Model\User\Subscriber;
-use App\Model\Tour\Tour;
-use App\Model\Tour\TourUser;
 
 class GroupmemberController extends BaseController
 {

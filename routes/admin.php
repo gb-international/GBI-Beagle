@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Http\Request;
 use App\Http\Controllers\Admin\Itinerary\SightseeingRequestController as SightseeingRequest;
 use App\Http\Controllers\Admin\Advertising_And_Discount\MarketingCampaignController;
@@ -149,8 +148,6 @@ Route::group(['middleware' => ['admin.authentication', 'user.authentication']], 
 
 			// Route::get('groupmembers/{tour_code}/{type}','GroupmemberController@getMember');
 			// Route::get('groupmembers/{tour_code}/{type}/pending','GroupmemberController@getMemberPending');
-			Route::post('groupmembers/addlogindetail','GroupmemberController@addlogindetail');
-			Route::post('groupmembers/send-member-login','GroupmemberController@sendMemberLogin');
 		});
 
 		Route::namespace('Corporate')->group(function(){
@@ -158,19 +155,19 @@ Route::group(['middleware' => ['admin.authentication', 'user.authentication']], 
 			Route::get('corporate-login-details/{id}','CompanyController@login');
 			Route::resource('company','CompanyController');
 			//Route::resource('student','StudentController');
-			Route::get('corp-group/{tour_code}/{type}','CorpGroupmemberController@getMember');
-			Route::post('corp-group/update','CorpGroupmemberController@updateMember');
-			Route::post('corp-group/destroy','CorpGroupmemberController@destroyMember');
-			Route::post('corp-group/add','CorpGroupmemberController@addMember');
-			Route::post('corp-group/addlogindetail','CorpGroupmemberController@addlogindetail');
-			Route::post('corp-group/send-member-login','CorpGroupmemberController@sendMemberLogin');
+			// Route::get('corp-group/{tour_code}/{type}','CorpGroupmemberController@getMember');
+			// Route::post('corp-group/update','CorpGroupmemberController@updateMember');
+			// Route::post('corp-group/destroy','CorpGroupmemberController@destroyMember');
+			// Route::post('corp-group/add','CorpGroupmemberController@addMember');
+			// Route::post('corp-group/addlogindetail','CorpGroupmemberController@addlogindetail');
+			// Route::post('corp-group/send-member-login','CorpGroupmemberController@sendMemberLogin');
 		});
 
 		Route::namespace('Escort')->group(function(){
 			Route::get('escort/all/{size}','EscortController@all');
 			Route::post('escort-login-link','EscortController@sendLink');
 			Route::resource('escort','EscortController');
-		});
+		}); 
 		
 		Route::namespace('Gallery')->group(function(){
 			Route::post('gallery-img-delete','GalleryController@galleryImageDelete');
@@ -389,6 +386,18 @@ Route::group(['middleware' => ['admin.authentication', 'user.authentication']], 
 				Route::post('add','addMember');
 				Route::get('{tour_code}/{user_type}/{tour_type}','getMember');
 				Route::get('{tour_code}/{user_type}/{tour_type}/{pending}','getMemberPending')->where('pending', 'pending');	
+			});
+			Route::group(['prefix' => '/school', 'as' => 'school.'], function () {
+				Route::controller(School\GroupmemberController::class)->group(function () {
+					Route::post('addlogindetail','addlogindetail');
+					Route::post('send-member-login','sendMemberLogin');
+				});
+			});
+			Route::group(['prefix' => '/corporate', 'as' => 'corporate.'], function () {
+				Route::controller(Corporate\CorpGroupmemberController::class)->group(function () {
+					Route::post('addlogindetail','addlogindetail');
+					Route::post('send-member-login','sendMemberLogin');
+				});
 			});
 		});
 	});

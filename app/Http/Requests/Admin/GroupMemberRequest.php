@@ -43,7 +43,7 @@ class GroupMemberRequest extends FormRequest
             "details.*.gender" => "required|in:M,F",
             "details.*.age" => "required|numeric",
             "details.*.mobile" => ['required','numeric',new PhoneNubmerValidate],
-            "details.*.is_paid"=> "required|in:true,false",
+            "details.*.is_paid"=> "required|in:1,0",
             "details.*.payment_status"=> "required|in:pending,success",
         ];
     }
