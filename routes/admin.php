@@ -83,22 +83,22 @@ Route::group(['middleware' => ['admin.authentication', 'user.authentication']], 
 			//school
 			//Route::get('tour/school/all','TourController@Allschool');
 			Route::get('tour/school/{size}','TourController@school');
-			Route::resource('schoolbankdetails','SchoolbankdetailController');
-			Route::get('schoolbankdetails/all/{size}','SchoolbankdetailController@all');
+			// Route::resource('schoolbankdetails','SchoolbankdetailController');
+			// Route::get('schoolbankdetails/all/{size}','SchoolbankdetailController@all');
 			Route::get('userpayments/all/{size}','UserpaymentController@all');
 			Route::resource('userpayments','UserpaymentController');
 
 			//corporate
 			//Route::get('tour/corporate/all','TourController@AllCorp');
-			Route::get('corpbankdetails/all/{size}','CorpbankdetailController@all');
-			Route::resource('corpbankdetails','CorpbankdetailController');
+			// Route::get('corpbankdetails/all/{size}','CorpbankdetailController@all');
+			// Route::resource('corpbankdetails','CorpbankdetailController');
 			Route::get('corppayments/all/{size}','CorpPaymentController@all');
 			Route::resource('corppayments','CorpPaymentController');
 			Route::get('tour/corporate/{size}','TourController@corporate');
 			
 			//Family
-			Route::resource('familybankdetails',FamilybankdetailController::class);
-			Route::get('familybankdetails/all/{size?}',[FamilybankdetailController::class, 'all']);
+			// Route::resource('familybankdetails',FamilybankdetailController::class);
+			// Route::get('familybankdetails/all/{size?}',[FamilybankdetailController::class, 'all']);
 
 			// foods
 			Route::get('foods/{id}','FoodController@index');

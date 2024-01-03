@@ -8,7 +8,7 @@ namespace App\Http\Controllers\Admin\Corporate;
 use App\Model\Corporate\Company;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use App\CompanyUser;
 use App\Rules\EmailValidate;
 use App\Rules\PhoneNubmerValidate;
 use App\Rules\AlphaSpace;
@@ -29,7 +29,7 @@ class CompanyController extends BaseController
     public function all($size)
     {
         return response()->json(Company::select([
-            'id','company_name','incharge_email_id','incharge_name','user_id','updated_at'
+            'id','company_name','incharge_email_id','incharge_name','user_id','updated_at','company_user_id'
             ])
             ->with('incharge:id,name')
             ->latest('updated_at')
@@ -38,14 +38,14 @@ class CompanyController extends BaseController
 
     public function login($id){
         $company = Company::where('id',$id)->first();
-        $user = User::where('email',$company->incharge_email_id)->first();
-        if($user == null){
-            $user = $this->createUser($company);
+        $company_user = CompanyUser::where('email',$company->incharge_email_id)->first();
+        if($company_user == null){
+            $company_user = $this->createUser($company);
         }else{
-            $user = $this->updateUser($user,$company);
+            $company_user = $this->updateUser($company_user,$company);
         }
-        if($company->user_id != $user->id){
-            $company->user_id = $user->id;
+        if($company_user->id != $company->company_user_id){
+            $company->company_user_id = $company_user->id;
             $company->save();
         }
 
@@ -53,9 +53,10 @@ class CompanyController extends BaseController
         $message = 'Please check your email to get the GBI Login Credentials';
         $sendsms->sendLoginDetails($company->incharge_mobile_number,$message);
         $emaildata = [
-            'email'=>$user->email,
-            'password'=>$user->email
+            'email'=>$company_user->email,
+            'password'=>$company_user->email
         ];
+        // exit;
         SendLoginDetialJob::dispatchNow($emaildata);
         return response()->json('Successfully created');
     }
@@ -146,45 +147,38 @@ class CompanyController extends BaseController
         'mobile' => ['required',new PhoneNubmerValidate],
         'street' => 'required',
         'incharge_name'=>['required',new AlphaSpace],
-        'incharge_mobile_number'=>$request->incharge_mobile_number != null ?['required',new PhoneNubmerValidate,'unique:informations,phone_no']:'',
+        'incharge_mobile_number'=> $request->incharge_mobile_number != null ? 'required|numeric|regex:/^[0-9\-\+]{9,11}$/ix|unique:company_users,phone_no' : '',
         'city_name' => 'required',
         'state_name' => 'required',
         'country_name' => 'required',
         'pincode' => 'required|numeric|min:1',
-        'address' => 'required',
+        'address1' => 'required',
+        'address2' => '',
       ]);
     }
 
     protected function createUser($data){
-        $user = new User(); 
-        $user->name = $data->incharge_name;
-        $user->email = $data->incharge_email_id;
-        $user->password = bcrypt($data->incharge_email_id);
-        $user->status = 1;
-        $user->is_incharge = '1';
-        $user->save();
-        $more  = new Information();
-        $more->company_id = $data->company_id;
-        $more->user_profession = 'corporate';
-        $more->client_type = 'corporate';
-        $more->user_id = $user->id;
-        $more->phone_no = $data->incharge_mobile_number;
-        $more->varified = '1';
-        $more->photo = 'user.png';
-        $more->change_password = 0;
-        $more->save();
-        return $user;
+        $company_user = new CompanyUser(); 
+        $company_user->name = $data->incharge_name;
+        $company_user->email = $data->incharge_email_id;
+        $company_user->password = bcrypt($data->incharge_email_id);
+        $company_user->status = 1;
+        $company_user->is_incharge = '1';
+        $company_user->company_id = $data->id;
+        $company_user->phone_no = $data->incharge_mobile_number;
+        $company_user->varified = '1';
+        $company_user->photo = 'user.png';
+        $company_user->change_password = 0;
+        $company_user->save();
+        return $company_user;
     }
-    protected function updateUser($user,$data){
-        $user->name = $data->incharge_name;
-        $user->password = bcrypt($data->incharge_email_id);
-        $user->status = 1;
-        $user->is_incharge = '1';
-        $more = Information::where('user_id',$user->id)->first();
-        $more->company_id = $data->id;
-
-        $more->save();
-        $user->save();
-        return $user;
+    protected function updateUser($company_user,$data){
+        $company_user->name = $data->incharge_name;
+        $company_user->password = bcrypt($data->incharge_email_id);
+        $company_user->status = 1;
+        $company_user->is_incharge = '1';
+        $company_user->company_id = $data->id;
+        $company_user->save();
+        return $company_user;
     }
 }

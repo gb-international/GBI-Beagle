@@ -5,6 +5,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Contracts\Validation\Rule;
+use App\Rules\AlphaSpace;
 
 class SchoolBankDetailRequest extends FormRequest
 {
@@ -26,12 +27,13 @@ class SchoolBankDetailRequest extends FormRequest
     public function rules()
     {
         return [
+            'name' => ['required','unique:states',new AlphaSpace],
             'name' => 'required',
             'bank_name' => 'required',
-            'account_number' => 'required|unique:schoolbankdetails',
+            'account_number' => ['required','unique:schoolbankdetails'],
             'account_type' => 'required',
             'ifsc_code' => 'required',
-            'tour_code' => 'required|exists:tours,tour_id',  
+            // 'tour_code' => 'required|exists:tours,tour_id',  
         ];
     }
     protected function failedValidation(Validator $validator) : void

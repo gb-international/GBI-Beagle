@@ -113,7 +113,6 @@ class StudentController extends Controller
             'father_name' => ['required',new AlphaSpace],
             'email' => ['required','email',new EmailValidate],
     		'mobile' => ['required','numeric',new PhoneNubmerValidate],
-
             'school_id' => 'required',
             'gender' => 'required',
             'dob' => 'required',

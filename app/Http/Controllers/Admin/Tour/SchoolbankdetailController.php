@@ -55,12 +55,10 @@ class SchoolbankdetailController extends Controller
         "account_number" => $request->account_number??'',
         "account_type" => $request->account_type??'',
         "ifsc_code" => $request->ifsc_code??'',
-        "tour_code" => $request->tour_code??'');
+        "edu_institute_id" => $request->edu_institutes??NULL
+        // "tour_code" => $request->tour_code??''
+    );
         if(!empty($request->edu_institutes??'')){
-            $data['edu_institute_id'] = $request->edu_institutes??'';
-        }
-        else{
-            $data['user_id'] = Auth::guard("user-api")->user()->id;
         }
         Schoolbankdetail::create($data);
         return response()->json(["Message"=> "Successfully Added..."]);
@@ -103,7 +101,7 @@ class SchoolbankdetailController extends Controller
             'account_number' => 'required|unique:schoolbankdetails,account_number,'.$schoolbankdetail->id.',id',
             'account_type' => 'required',
             'ifsc_code' => 'required',
-            'tour_code' => 'required',
+            // 'tour_code' => 'required',
         ]);
         if ($validator->fails()) {
             return response()->json(['message' => "The given data was invalid.", 'errors' =>$validator->errors()]);
@@ -112,8 +110,8 @@ class SchoolbankdetailController extends Controller
         "bank_name" => $request->bank_name??$schoolbankdetail->bank_name,
         "account_number" => $request->account_number??$schoolbankdetail->account_number,
         "account_type" => $request->account_type??$schoolbankdetail->account_type,
-        "ifsc_code" => $request->ifsc_code??$schoolbankdetail->ifsc_code,
-        "tour_code" => $request->tour_code??$schoolbankdetail->tour_code);
+        "ifsc_code" => $request->ifsc_code??$schoolbankdetail->ifsc_code);
+    // "tour_code" => $request->tour_code??$schoolbankdetail->tour_code
         $schoolbankdetail->update($data);
         return response()->json(['message'=>'Successfully Updated']);
     }
