@@ -3,6 +3,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Admin\Itinerary\SightseeingRequestController as SightseeingRequest;
 use App\Http\Controllers\Admin\Advertising_And_Discount\MarketingCampaignController;
 use App\Http\Controllers\Admin\Advertising_And_Discount\DiscountCouponController;
+use App\Http\Controllers\Admin\Payment\BankDetailController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -399,6 +400,15 @@ Route::group(['middleware' => ['admin.authentication', 'user.authentication']], 
 					Route::post('send-member-login','sendMemberLogin');
 				});
 			});
+		});
+		
+		Route::group(['prefix' => '/{user_type}/bank-detail', 'as' => 'bank-detail.'], function () {
+			Route::post('store',[BankDetailController::class, 'store'])->where('user_type', 'school|company|family');
+			Route::put('update/{id}',[BankDetailController::class, 'update'])->where('user_type', 'school|company|family');
+			Route::delete('delete/{id}',[BankDetailController::class, 'destroy'])->where('user_type', 'school|company|family');
+			Route::get('{id}/edit',[BankDetailController::class, 'edit'])->where('user_type', 'school|company|family');
+			Route::get('{id}/show',[BankDetailController::class, 'show'])->where('user_type', 'school|company|family');
+			Route::get('all/{size?}',[BankDetailController::class, 'all'])->where('user_type', 'school|company|family');
 		});
 	});
 });

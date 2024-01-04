@@ -14,7 +14,7 @@ class AddExtraColumnInPaymentsTable extends Migration
     public function up()
     {
         Schema::table('payments', function (Blueprint $table) {
-            $table->unsignedInteger('bank_detail_id')->nullable();
+            $table->unsignedBigInteger('bank_detail_id')->nullable();
             $table->foreign('bank_detail_id')->references('id')->on('bank_details')->onDelete('cascade'); 
         });
     }
