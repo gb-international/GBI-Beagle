@@ -28,7 +28,6 @@ class SchoolBankDetailRequest extends FormRequest
     {
         return [
             'name' => ['required','unique:states',new AlphaSpace],
-            'name' => 'required',
             'bank_name' => 'required',
             'account_number' => ['required','unique:schoolbankdetails'],
             'account_type' => 'required',

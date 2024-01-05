@@ -12,6 +12,7 @@ use App\Http\Controllers\Front\SchoolbankdetailController;
 use App\Http\Controllers\Front\CompanybankdetailController;
 use App\Http\Controllers\Front\FamilybankdetailController;
 use App\Http\Controllers\Front\GroupmemberController;
+use App\Http\Controllers\Front\Payment\BankDetailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -218,6 +219,14 @@ Route::group(['prefix' => '{company}', 'middleware' => 'company.authentication']
 	Route::post('group-member',[GroupmemberController::class, 'index'])->where('company', 'company');
 	Route::post('group-member-update',[GroupmemberController::class, 'update'])->where('company', 'company');
 	Route::post('destroy-member',[GroupmemberController::class, 'destroy'])->where('company', 'company');
+	Route::group(['prefix' => '/bankdetail', 'as' => 'bankdetail.'], function () {
+		Route::post('store',[BankDetailController::class, 'store'])->where('company', 'company');
+		Route::put('update/{id}',[BankDetailController::class, 'update'])->where('company', 'company');
+		Route::delete('delete/{id}',[BankDetailController::class, 'destroy'])->where('company', 'company');
+		Route::get('{id}/edit',[BankDetailController::class, 'edit'])->where('company', 'company');
+		Route::get('{id}/show',[BankDetailController::class, 'show'])->where('company', 'company');
+		Route::get('all/{size?}',[BankDetailController::class, 'all'])->where('company', 'company');
+	});
 });
 
 // School
@@ -273,6 +282,14 @@ Route::group(['prefix' => '{school}', 'middleware' => 'school.authentication'], 
 	Route::post('group-member',[GroupmemberController::class, 'index'])->where('school', 'school');
 	Route::post('group-member-update',[GroupmemberController::class, 'update'])->where('school', 'school');
 	Route::post('destroy-member',[GroupmemberController::class, 'destroy'])->where('school', 'school');
+	Route::group(['prefix' => '/bankdetail', 'as' => 'bankdetail.'], function () {
+		Route::post('store',[BankDetailController::class, 'store'])->where('school', 'school');
+		Route::put('update/{id}',[BankDetailController::class, 'update'])->where('school', 'school');
+		Route::delete('delete/{id}',[BankDetailController::class, 'destroy'])->where('school', 'school');
+		Route::get('{id}/edit',[BankDetailController::class, 'edit'])->where('school', 'school');
+		Route::get('{id}/show',[BankDetailController::class, 'show'])->where('school', 'school');
+		Route::get('all/{size?}',[BankDetailController::class, 'all'])->where('school', 'school');
+	});
 });
 
 // Family
@@ -313,6 +330,14 @@ Route::group(['prefix' => '{family}', 'middleware' => 'family.authentication'], 
 	Route::post('destroy-member',[GroupmemberController::class, 'destroy'])->where('family', 'family');
 	Route::post('encyclopedia-comments',[EncyclopediaController::class, 'PostComment'])->where('family', 'family');
 	Route::post('booking',[FrontbookingController::class, 'booking'])->where('family', 'family');
+	Route::group(['prefix' => '/bankdetail', 'as' => 'bankdetail.'], function () {
+		Route::post('store',[BankDetailController::class, 'store'])->where('school', 'school');
+		Route::put('update/{id}',[BankDetailController::class, 'update'])->where('school', 'school');
+		Route::delete('delete/{id}',[BankDetailController::class, 'destroy'])->where('school', 'school');
+		Route::get('{id}/edit',[BankDetailController::class, 'edit'])->where('school', 'school');
+		Route::get('{id}/show',[BankDetailController::class, 'show'])->where('school', 'school');
+		Route::get('all/{size?}',[BankDetailController::class, 'all'])->where('school', 'school');
+	});
 });
 
 //User

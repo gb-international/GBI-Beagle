@@ -233,7 +233,7 @@ Route::group(['middleware' => ['admin.authentication', 'user.authentication']], 
 			Route::delete('/members/{id}',"GBIMemberController@destroy");
 			Route::get('/members/salesman',"GBIMemberController@memberType");
 			Route::get('/departments/all/{size}','DepartmentController@all');
-			Route::resource('/departments',"DepartmentController");
+			Route::resource('/depaJobrtments',"DepartmentController");
 			//Assign User
 			Route::get('assign-user/{user}/{parentId}','AssignParentController@assignParent');
 			Route::get('assign-users/remove/{user}','AssignParentController@removeParent');
