@@ -18,7 +18,7 @@
         "/posts/all/{size}": {
             "get": {
                 "tags": [
-                    "Blogs"
+                    "Admin/Blogs"
                 ],
                 "summary": "Get list of blogs",
                 "description": "Returns list of blogs, paginated by page size mentioned",
@@ -323,14 +323,14 @@
                 }
             }
         },
-        "/tour-list": {
+        "/details": {
             "post": {
                 "tags": [
-                    "tourList"
+                    "Details"
                 ],
-                "summary": "Tour list per travel code",
-                "description": "User tourList here",
-                "operationId": "tourList",
+                "summary": "User Details",
+                "description": "User Details here",
+                "operationId": "Details",
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -339,24 +339,8 @@
                     }
                 },
                 "responses": {
-                    "201": {
-                        "description": "Successfully Registered !!!",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
                     "200": {
-                        "description": "Successfully Registered !!!",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "Unprocessable Entity",
+                        "description": "Successfully get details !!!",
                         "content": {
                             "application/json": {
                                 "schema": {}
@@ -368,8 +352,16 @@
                     },
                     "404": {
                         "description": "Resource Not Found"
+                    },
+                    "401": {
+                        "description": "Unauthentication"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "passport": []
+                    }
+                ]
             }
         }
     },
