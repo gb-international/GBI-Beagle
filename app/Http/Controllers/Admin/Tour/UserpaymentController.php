@@ -122,9 +122,9 @@ class UserpaymentController extends BaseController
     
     public function chequeOrdraftRecord(ChequePaymentRequest $request){
         try{
-            $customer_type = $request->customer??'user';
-            $user = Auth::guard($customer_type.'-api')->user();
-            $cheque_record = $this->payment_helper->chequeOrdraft($request, $customer_type, $user);
+            $tour_type = request()->route('tour_type')??'';
+            $user = Auth::guard('user-api')->user();
+            $cheque_record = $this->payment_helper->chequeOrdraft($request, "user", $user, $tour_type);
             if($cheque_record){ 
                 if ($request->hasFile('doc_proof')) {
                     $cheque_record->doc_proof = $this->uploadImage($request->doc_proof);
@@ -149,9 +149,9 @@ class UserpaymentController extends BaseController
      */
     public function cashRecord(CashPaymentRequest $request){
         try{
-            $customer_type = $request->customer??'user';
-            $user = Auth::guard($customer_type.'-api')->user();
-             $cash_record = $this->payment_helper->cash($request, $customer_type, $user);
+            $tour_type = request()->route('tour_type')??'';
+            $user = Auth::guard('user-api')->user();
+             $cash_record = $this->payment_helper->cash($request, "user", $user, $tour_type);
             if($cash_record){
                 if ($request->hasFile('doc_proof')) {
                     $cash_record->doc_proof = $this->uploadImage($request->doc_proof);
@@ -177,6 +177,7 @@ class UserpaymentController extends BaseController
             'payment_id' => 'required|exists:payments,id',
             'status' => 'required|in:pending,success',
         ]);
+        
         if ($validator->fails()) {
             return response()->json(['message' => "The given data was invalid.", 'errors' =>$validator->errors()]);
         }

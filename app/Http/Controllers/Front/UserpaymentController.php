@@ -8,17 +8,26 @@ use Illuminate\Http\Request;
 use App\Model\Tour\Userpayment;
 use App\Model\Tour\TourUser;
 use Auth;
-
 use App\Http\Controllers\Admin\BaseController;
+use App\Model\Tour\Payment;
+use Carbon\Carbon;
+use Validator;
+use App\Http\Requests\Payment\ChequePaymentRequest;
+use App\Http\Requests\Payment\CashPaymentRequest;
+use App\User;
+use App\Helpers\Payment as PaymentHelper;
 
 class UserpaymentController extends BaseController
 {
     protected $razorpay_payment_helper;
+    protected $payment_helper;
 
     //Constructor to connected razorpay authentication
     public function __construct() {
         $this->razorpay_payment_helper = new RazorpayPaymentHelper;
+        $this->payment_helper = new PaymentHelper;
     }
+    
 
     /**
      * Create customer in razorpay.
@@ -114,5 +123,68 @@ class UserpaymentController extends BaseController
         //     $marketing_campaign->meta_keywords;
         // }
         // return response()->json($data);
+    }
+
+    /**
+     * Saved record of cheque or demand draft.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    
+     public function chequeOrdraftRecord($guard_name, ChequePaymentRequest $request){
+        try{
+            $user = Auth::guard($guard_name.'-api')->user();
+            $cheque_record = $this->payment_helper->chequeOrdraft($request, $guard_name, $user, $guard_name);
+            if($cheque_record){ 
+                if ($request->hasFile('doc_proof')) {
+                    $cheque_record->doc_proof = $this->uploadImage($request->doc_proof);
+                    $cheque_record->save();
+                }
+                return response()->json(['Message'=> 'Cheque/draft record added']);            
+            }
+            else{
+                return $this->sendError("Something went wrong!");
+            }
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage());
+        }
+    }
+
+    /**
+     * Saved record of Cash.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function cashRecord($guardname, CashPaymentRequest $request){
+        try{
+            $user = Auth::guard($guardname.'-api')->user();
+             $cash_record = $this->payment_helper->cash($request, $guardname, $user, $guardname);
+            if($cash_record){
+                if ($request->hasFile('doc_proof')) {
+                    $cash_record->doc_proof = $this->uploadImage($request->doc_proof);
+                    $cash_record->save();
+                }
+                return response()->json(['Message'=> 'Successfully added']);            
+            }
+            else{
+                return $this->sendError("Something went wrong!");
+            }
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage());
+        }
+    }
+    
+    /**
+    * Upload image in amazon.
+    */
+    protected function uploadImage($doc_proof){
+        $doc_proof_name = time().'-'.$doc_proof->getClientOriginalName();
+        $path = config('gbi.doc_proof') . $doc_proof_name;
+        \Storage::disk('s3')->put($path, file_get_contents($doc_proof));
+        return $doc_proof_name;
     }
 }

@@ -3,7 +3,7 @@ namespace App\Helpers;
 use App\Model\Tour\Payment as PaymentModel;
 class Payment  
 {
-    public function chequeOrdraft($data, $customer_type, $user){
+    public function chequeOrdraft($data, $customer_type, $user, $client_type){
         $payment = new PaymentModel();
         $payment->payment_mode = $data->payment_mode??'';
         $payment->bank_name = $data->bank_name??'';
@@ -16,7 +16,15 @@ class Payment
         $payment->amount = $data->amount??0;
         $payment->tour_price = $data->tour_price??0;
         $payment->tour_id = $data->tour_id??0;
-        $payment->school_id = $data->school_id??0;
+        if($client_type == "school"){
+            $payment->school_id = $data->school_id??NULL;
+        }
+        else if($client_type == "family"){
+            $payment->family_id = $data->family_id??null;
+        }
+        else if($client_type == "company"){
+            $payment->company_id = $data->company_id??null;
+        }
         $payment->payment_by = $data->payment_by??null;
         $payment->status = $data->status??null;
         $payment->customer_type = $customer_type??null;
@@ -24,19 +32,46 @@ class Payment
         if($customer_type == "user"){
             $payment->payment_by_user_id = $user->id??null;
         }
+        else if($customer_type == "school"){
+            $payment->payment_by_edu_institute_id = $user->id??null;
+        }
+        else if($customer_type == "company"){
+            $payment->payment_by_company_user_id = $user->id??null;
+        }
+        else if($customer_type == "family"){
+            $payment->payment_by_family_user_id = $user->id??null;
+        }
+        
         return $payment;
     }
-    public function cash($data, $customer_type, $user){
+    public function cash($data, $customer_type, $user, $client_type){
         $payment = new PaymentModel();
         $payment->amount = $data->amount??0;
         $payment->total_amount = $data->amount??0;
         $payment->tour_price = $data->tour_price??0;
         $payment->tour_id = $data->tour_id??null;
-        $payment->school_id = $data->school_id??null;
+        if($client_type == "school"){
+            $payment->school_id = $data->school_id??0;
+        }
+        else if($client_type == "family"){
+            $payment->family_id = $data->family_id??null;
+        }
+        else if($client_type == "company"){
+            $payment->company_id = $data->company_id??null;
+        }
         $payment->status = $data->status??'pending';
         $payment->customer_type = $customer_type;
         if($customer_type == "user"){
             $payment->payment_by_user_id = $user->id??null;
+        }
+        else if($customer_type == "school"){ 
+            $payment->payment_by_edu_institute_id = $user->id??null;
+        }
+        else if($customer_type == "company"){
+            $payment->payment_by_company_user_id = $user->id??null;
+        }
+        else if($customer_type == "family"){
+            $payment->payment_by_family_user_id = $user->id??null;
         }
         $payment->payment_mode = "cash"; 
         $payment->payment_by = $data->payment_by??null; 

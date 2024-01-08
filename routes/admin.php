@@ -4,6 +4,8 @@ use App\Http\Controllers\Admin\Itinerary\SightseeingRequestController as Sightse
 use App\Http\Controllers\Admin\Advertising_And_Discount\MarketingCampaignController;
 use App\Http\Controllers\Admin\Advertising_And_Discount\DiscountCouponController;
 use App\Http\Controllers\Admin\Payment\BankDetailController;
+use App\Http\Controllers\Admin\Tour\UserpaymentController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -366,18 +368,14 @@ Route::group(['middleware' => ['admin.authentication', 'user.authentication']], 
 			Route::get('attempt-discount-coupon/{size?}',[DiscountCouponController::class, 'attemptDiscountCoupon']);
 		});
 
-		Route::group(['prefix' => '/payment', 'as' => 'payment.'], function () {
+		Route::group(['prefix' => '{user}/{tour_type}/payment', 'as' => 'payment.'], function () {
 			Route::group(['prefix' => '/cash', 'as' => 'cash.'], function () {
-				Route::controller(\Tour\UserpaymentController::class)->group(function () {
-					Route::post('record', 'cashRecord');
-				});	
+				Route::post('record',[UserpaymentController::class, 'cashRecord'])->where('user', 'user')->where('tour_type','school|company|family');
 			});
-
+			
 			Route::group(['prefix' => '/cheque', 'as' => 'cheque.'], function () {
-				Route::controller(\Tour\UserpaymentController::class)->group(function () {
-					Route::post('cheque-draft-record', 'chequeOrdraftRecord');
-					Route::post('cheque-status', 'chequeStatus');
-				});	
+				Route::post('cheque-draft-record',[UserpaymentController::class, 'chequeOrdraftRecord'])->where('user', 'user')->where('tour_type','school|company|family');
+				Route::post('cheque-status',[UserpaymentController::class, 'chequeStatus'])->where('user', 'user')->where('tour_type','school|company|family');
 			});	
 		});
 		Route::group(['prefix' => '/groupmember', 'as' => 'groupmember.'], function () {
