@@ -18,7 +18,7 @@
         "/posts/all/{size}": {
             "get": {
                 "tags": [
-                    "Admin/Blogs"
+                    "Admin.Blogs"
                 ],
                 "summary": "Get list of blogs",
                 "description": "Returns list of blogs, paginated by page size mentioned",

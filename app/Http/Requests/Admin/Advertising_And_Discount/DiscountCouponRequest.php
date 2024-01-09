@@ -26,8 +26,10 @@ class DiscountCouponRequest extends FormRequest
      */
     public function rules()
     {
+        $client_type = request()->route('client_type')??'';
         $curr_discount_coupon_id = $this->discount_coupon->id??0;
         return [
+            'client_type'=>'required|in:school,corporate,family',
             'name' => ['required', new AlphaSpace],
             'description' => 'required',
             'coupon_code' => ['required','unique:discount_coupons,name,'.$curr_discount_coupon_id.',id'],
@@ -36,8 +38,12 @@ class DiscountCouponRequest extends FormRequest
             'use_time_per_user' => 'required|numeric|min:1',
             'start_date' => 'required|date_format:Y-m-d H:i|after:today',
             'end_date' => 'required|date_format:Y-m-d H:i|after_or_equal:start_date',
-            'edu_institute_id' => 'required|array',
-            'edu_institute_id.*' => 'required|exists:edu_institutes,id',
+            'edu_institute_id' => $client_type == 'school' ?'required|array':'',
+            'edu_institute_id.*' => $client_type == 'school' ?'required|exists:edu_institutes,id':'',
+            'company_user_id' => $client_type == 'corporate' ?'required|array':'',
+            'company_user_id.*' => $client_type == 'corporate' ? 'required|exists:company_users,id' : '',
+            'family_user_id' => $client_type == 'family' ?'required|array':'',
+            'family_user_id.*' => $client_type == 'family' ?'required|exists:family_users,id':'',
         ];
     } 
     protected function failedValidation(Validator $validator) : void

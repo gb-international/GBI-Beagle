@@ -363,12 +363,12 @@ Route::group(['middleware' => ['admin.authentication', 'user.authentication']], 
 		Route::group(['prefix' => '/advertising', 'as' => 'advertising.'], function () {
 			Route::resource('marketing-campaign',Advertising_And_Discount\MarketingCampaignController::class);
 			Route::get('all-marketing-campaign/{size?}',[MarketingCampaignController::class, 'all']);
-			Route::group(['prefix' => '{client_type}/discount-coupon/', 'as'=>'.discount-coupon'], function () {
-				Route::post('store',[BankDetailController::class, 'store'])->where('client_type', 'school|company|family');
-				Route::put('update/{id}',[BankDetailController::class, 'update'])->where('client_type', 'school|company|family');
-				Route::delete('delete/{id}',[BankDetailController::class, 'destroy'])->where('client_type', 'school|company|family');
-				Route::get('{id}/edit',[BankDetailController::class, 'edit'])->where('client_type', 'school|company|family');
-				Route::get('{id}/show',[BankDetailController::class, 'show'])->where('client_type', 'school|company|family');
+			Route::group(['prefix' => '/{client_type}/discount-coupon/', 'as'=>'discount-coupon.'], function () {
+				Route::post('store',[DiscountCouponController::class, 'store'])->where('client_type', 'school|corporate|family');
+				Route::put('update/{id}',[DiscountCouponController::class, 'update'])->where('client_type', 'school|corporate|family');
+				Route::delete('delete/{id}',[DiscountCouponController::class, 'destroy'])->where('client_type', 'school|corporate|family');
+				Route::get('{id}/edit',[DiscountCouponController::class, 'edit'])->where('client_type', 'school|corporate|family');
+				Route::get('{id}/show',[DiscountCouponController::class, 'show'])->where('client_type', 'school|corporate|family');
 				// Route::resource('discount-coupon',Advertising_And_Discount\DiscountCouponController::class);
 				Route::get('all-discount-coupon/{size?}',[DiscountCouponController::class, 'all']);
 				Route::get('attempt-discount-coupon/{size?}',[DiscountCouponController::class, 'attemptDiscountCoupon']);

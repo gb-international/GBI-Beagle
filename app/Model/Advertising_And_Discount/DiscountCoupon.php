@@ -23,10 +23,10 @@ class DiscountCoupon extends Model
         }
     }
     public function family_users(){
-        return $this->belongsTo('App\FamilyUser', 'family_user_id','id')->select(['id', 'name']);
+        return $this->belongsToMany('App\FamilyUser')->select(['id', 'name']);
     }
     
     public function company_users(){
-        return $this->belongsTo('App\CompanyUser', 'company_user_id','id')->select(['id', 'name', 'company_id']);
+        return $this->belongsToMany('App\CompanyUser')->select(['id', 'name', 'company_id']);
     }
 }

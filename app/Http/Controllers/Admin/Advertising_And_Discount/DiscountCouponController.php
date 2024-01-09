@@ -20,7 +20,7 @@ class DiscountCouponController extends BaseController
      */
     use ImageTrait;
 
-    public function all($size=null)
+    public function all($client_type, $size=null)
     {
         if (empty($size)) {
             $size = 10; 
@@ -28,6 +28,8 @@ class DiscountCouponController extends BaseController
         $data = DiscountCoupon::latest()->paginate($size);
         foreach ($data as $discount_coupon){
             $discount_coupon->edu_institutes;
+            $discount_coupon->company_users;
+            $discount_coupon->family_users;
         }
         return response()->json($data);
     }
@@ -53,11 +55,12 @@ class DiscountCouponController extends BaseController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(DiscountCouponRequest $request)
+    public function store($client_type, DiscountCouponRequest $request)
     {
         try{
             $discount_coupon = new DiscountCoupon();
             $discount_coupon->name = $request->name??'';
+            $discount_coupon->client_type = $client_type;
             $discount_coupon->description = $request->description??'';
             $discount_coupon->coupon_code = $request->coupon_code??'';
             $discount_coupon->price = $request->price??'';
@@ -74,8 +77,16 @@ class DiscountCouponController extends BaseController
             $discount_coupon->save();
 
             //Connected discount coupon to education institutes table
-            $discount_coupon->edu_institutes()->sync(array_unique($request->edu_institute_id??''));
-              
+            if($client_type == "school"){
+                $discount_coupon->edu_institutes()->sync(array_unique($request->edu_institute_id??''));
+            }
+            else if($client_type == "corporate"){
+                $discount_coupon->company_users()->sync(array_unique($request->company_user_id??''));
+            }
+            else if($client_type == "family"){
+                $discount_coupon->family_users()->sync(array_unique($request->family_user_id??''));
+            }
+            
         } 
         catch(Exception $e){
             return $this->sendError($e->getMessage(), 500);
@@ -89,12 +100,14 @@ class DiscountCouponController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($client_type, $id)
     {
         try{
             $data = DiscountCoupon::where('id',$id)->first();
             if(!empty($data)){
                 $data->edu_institutes;
+                $data->company_users;
+                $data->family_users;
                 return response()->json($data);
             }
             else{
@@ -112,12 +125,14 @@ class DiscountCouponController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($client_type, $id)
     {
         try{
             $data = DiscountCoupon::where('id',$id)->first();
             if(!empty($data)){
                 $data->edu_institutes;
+                $data->company_users;
+                $data->family_users;
                 return response()->json($data);
             }
             else{
@@ -136,7 +151,7 @@ class DiscountCouponController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(DiscountCouponRequest $request, DiscountCoupon $discount_coupon)
+    public function update($client_type, DiscountCouponRequest $request, DiscountCoupon $discount_coupon)
     {
         try{             
             if(!empty($discount_coupon)){
@@ -161,8 +176,23 @@ class DiscountCouponController extends BaseController
                 $discount_coupon->save();
     
                 //Connected discount coupon to education institutes table
-                if($request->edu_institute_id){
-                    $discount_coupon->edu_institutes()->sync(array_unique($request->edu_institute_id??''));
+                // if($request->edu_institute_id){
+                //     $discount_coupon->edu_institutes()->sync(array_unique($request->edu_institute_id??''));
+                // }
+                if($client_type == "school"){
+                    if($request->edu_institute_id){
+                        $discount_coupon->edu_institutes()->sync(array_unique($request->edu_institute_id??''));
+                    }
+                }
+                else if($client_type == "corporate"){
+                    if($request->company_user_id){
+                        $discount_coupon->company_users()->sync(array_unique($request->company_user_id??''));
+                    }
+                }
+                else if($client_type == "family"){
+                    if($request->family_user_id){
+                        $discount_coupon->family_users()->sync(array_unique($request->family_user_id??''));
+                    }
                 }
             }
             else{
@@ -181,11 +211,11 @@ class DiscountCouponController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($client_type, $id)
     {
         try{
             //fetch data from table 
-            $data = DiscountCoupon::where('id',$id)->first();
+            $data = DiscountCoupon::where(['id'=>$id])->first();
             if(!empty($data)){
                 $data->delete();
                 return response()->json("Deleted successful!");
