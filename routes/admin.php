@@ -364,14 +364,14 @@ Route::group(['middleware' => ['admin.authentication', 'user.authentication']], 
 			Route::resource('marketing-campaign',Advertising_And_Discount\MarketingCampaignController::class);
 			Route::get('all-marketing-campaign/{size?}',[MarketingCampaignController::class, 'all']);
 			Route::group(['prefix' => '/{client_type}/discount-coupon/', 'as'=>'discount-coupon.'], function () {
-				Route::post('store',[DiscountCouponController::class, 'store'])->where('client_type', 'school|corporate|family');
-				Route::put('update/{id}',[DiscountCouponController::class, 'update'])->where('client_type', 'school|corporate|family');
-				Route::delete('delete/{id}',[DiscountCouponController::class, 'destroy'])->where('client_type', 'school|corporate|family');
-				Route::get('{id}/edit',[DiscountCouponController::class, 'edit'])->where('client_type', 'school|corporate|family');
-				Route::get('{id}/show',[DiscountCouponController::class, 'show'])->where('client_type', 'school|corporate|family');
+				Route::post('store',[DiscountCouponController::class, 'store'])->where('client_type', 'school|company|family');
+				Route::put('update/{id}',[DiscountCouponController::class, 'update'])->where('client_type', 'school|company|family');
+				Route::delete('delete/{id}',[DiscountCouponController::class, 'destroy'])->where('client_type', 'school|company|family');
+				Route::get('{id}/edit',[DiscountCouponController::class, 'edit'])->where('client_type', 'school|company|family');
+				Route::get('{id}/show',[DiscountCouponController::class, 'show'])->where('client_type', 'school|company|family');
 				// Route::resource('discount-coupon',Advertising_And_Discount\DiscountCouponController::class);
-				Route::get('all-discount-coupon/{size?}',[DiscountCouponController::class, 'all']);
-				Route::get('attempt-discount-coupon/{size?}',[DiscountCouponController::class, 'attemptDiscountCoupon']);
+				Route::get('all-discount-coupon/{size?}',[DiscountCouponController::class, 'all'])->where('client_type', 'school|company|family');
+				Route::get('attempt-discount-coupon/{size?}',[DiscountCouponController::class, 'attemptDiscountCoupon'])->where('client_type', 'school|company|family');
 			});
 		});
 

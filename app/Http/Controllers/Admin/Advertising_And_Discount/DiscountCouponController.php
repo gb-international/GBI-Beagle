@@ -22,16 +22,32 @@ class DiscountCouponController extends BaseController
 
     public function all($client_type, $size=null)
     {
-        if (empty($size)) {
-            $size = 10; 
+        try{
+            if (empty($size)) {
+                $size = 10; 
+            }
+            $data = DiscountCoupon::where('client_type',$client_type)->latest()->paginate($size);
+            if($data->count() > 0){
+                foreach ($data as $discount_coupon){
+                    if($client_type == "school"){
+                        $discount_coupon->edu_institutes;
+                    }
+                    else if($client_type == "company"){
+                        $discount_coupon->company_users;
+                    }
+                    else{
+                        $discount_coupon->family_users;
+                    }
+                }
+                return response()->json($data);
+            }
+            else{
+                return $this->sendError("Data not exist!", 404);
+            }
         }
-        $data = DiscountCoupon::latest()->paginate($size);
-        foreach ($data as $discount_coupon){
-            $discount_coupon->edu_institutes;
-            $discount_coupon->company_users;
-            $discount_coupon->family_users;
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
         }
-        return response()->json($data);
     }
 
     public function index()
@@ -80,7 +96,7 @@ class DiscountCouponController extends BaseController
             if($client_type == "school"){
                 $discount_coupon->edu_institutes()->sync(array_unique($request->edu_institute_id??''));
             }
-            else if($client_type == "corporate"){
+            else if($client_type == "company"){
                 $discount_coupon->company_users()->sync(array_unique($request->company_user_id??''));
             }
             else if($client_type == "family"){
@@ -104,14 +120,20 @@ class DiscountCouponController extends BaseController
     {
         try{
             $data = DiscountCoupon::where('id',$id)->first();
-            if(!empty($data)){
-                $data->edu_institutes;
-                $data->company_users;
-                $data->family_users;
+            if(!empty($data) && ($data->client_type == $client_type)){
+                if($client_type == "school"){
+                    $data->edu_institutes;
+                }
+                else if($client_type == "company"){
+                    $data->company_users;
+                }
+                else{
+                    $data->family_users;
+                }
                 return response()->json($data);
             }
             else{
-                return $this->sendError("Id does not exist", 404);
+                return $this->sendError("Data does not exist", 404);
             }
         }
         catch(Exception $e){
@@ -129,14 +151,20 @@ class DiscountCouponController extends BaseController
     {
         try{
             $data = DiscountCoupon::where('id',$id)->first();
-            if(!empty($data)){
-                $data->edu_institutes;
-                $data->company_users;
-                $data->family_users;
+            if(!empty($data) && ($data->client_type == $client_type)){
+                if($client_type == "school"){
+                    $data->edu_institutes;
+                }
+                else if($client_type == "company"){
+                    $data->company_users;
+                }
+                else{
+                    $data->family_users;
+                }
                 return response()->json($data);
             }
             else{
-                return $this->sendError("Id does not exist", 404);
+                return $this->sendError("Data does not exist", 404);
             }
         }
         catch(Exception $e){
@@ -151,8 +179,9 @@ class DiscountCouponController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update($client_type, DiscountCouponRequest $request, DiscountCoupon $discount_coupon)
+    public function update($client_type, DiscountCouponRequest $request, $id)
     {
+        $discount_coupon = DiscountCoupon::where(['id'=>$id, 'client_type'=>$client_type])->first();
         try{             
             if(!empty($discount_coupon)){
                 $discount_coupon->name = $request->name??$discount_coupon->name;
@@ -184,7 +213,7 @@ class DiscountCouponController extends BaseController
                         $discount_coupon->edu_institutes()->sync(array_unique($request->edu_institute_id??''));
                     }
                 }
-                else if($client_type == "corporate"){
+                else if($client_type == "company"){
                     if($request->company_user_id){
                         $discount_coupon->company_users()->sync(array_unique($request->company_user_id??''));
                     }
@@ -215,29 +244,37 @@ class DiscountCouponController extends BaseController
     {
         try{
             //fetch data from table 
-            $data = DiscountCoupon::where(['id'=>$id])->first();
+            $data = DiscountCoupon::where(['id'=>$id, 'client_type'=>$client_type])->first();
             if(!empty($data)){
                 $data->delete();
                 return response()->json("Deleted successful!");
             }
             else{
-                return $this->sendError("Id does not exist", 404);
+                return $this->sendError("Data does not exist", 404);
             }
         }
         catch(Exception $e){
             return $this->sendError($e->getMessage(), 500);
         }
     }
-/**
- * Fetch customer used coupon details
- */
-    public function attemptDiscountCoupon($size=null){
+    /**
+     * Fetch customer used coupon details
+     */
+    public function attemptDiscountCoupon($client_type, $size=null){
         if (empty($size)) {
             $size = 10; 
         }
-        $data = AttermptDiscountCoupon::latest()->paginate($size);
+        $data = AttermptDiscountCoupon::where('client_type', $client_type)->latest()->paginate($size);
         foreach ($data as $discount_coupon){
-            $discount_coupon->education_institutes;
+            if($client_type == "school"){
+                $discount_coupon->education_institutes;
+            }
+            else if($client_type == "company"){
+                $discount_coupon->company_users;
+            }
+            else if($client_type == "family"){
+                $discount_coupon->family_users;
+            }
             $discount_coupon->discount_coupon;
         }
         return response()->json($data);

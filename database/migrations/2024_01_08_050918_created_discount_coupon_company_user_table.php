@@ -13,11 +13,11 @@ class CreatedDiscountCouponCompanyUserTable extends Migration
      */
     public function up()
     {
-        Schema::create('discount_coupon_company_user', function (Blueprint $table) {
-            $table->unsignedBigInteger('discount_coupon_id')->nullable();
+        Schema::create('company_user_discount_coupon', function (Blueprint $table) {
             $table->unsignedInteger('company_user_id')->nullable();
-            $table->foreign('discount_coupon_id')->references('id')->on('discount_coupons')->onDelete('cascade');
+            $table->unsignedBigInteger('discount_coupon_id')->nullable();
             $table->foreign('company_user_id')->references('id')->on('company_users')->onDelete('cascade');
+            $table->foreign('discount_coupon_id')->references('id')->on('discount_coupons')->onDelete('cascade');
         });
     }
 
@@ -28,6 +28,6 @@ class CreatedDiscountCouponCompanyUserTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('discount_coupon_company_user');
+        Schema::dropIfExists('company_user_discount_coupon');
     }
 }

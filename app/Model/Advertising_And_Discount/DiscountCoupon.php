@@ -9,7 +9,7 @@ class DiscountCoupon extends Model
 {
     use HasFactory;
     protected $table = "discount_coupons";
-    protected $fillable = ['name', 'description', 'coupon_code', 'price', 'discount', 'image', 'alt', 'use_time_per_user', 'start_date','end_date', 'client_type'];
+    protected $fillable = ['id', 'name', 'description', 'coupon_code', 'price', 'discount', 'image', 'alt', 'use_time_per_user', 'start_date','end_date', 'client_type'];
     
     public function edu_institutes(){
         return $this->belongsToMany('App\Model\School\EducationInstitute')->select(['id', 'name', 'school_id']);
