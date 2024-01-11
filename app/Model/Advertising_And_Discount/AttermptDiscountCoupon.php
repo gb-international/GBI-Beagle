@@ -11,11 +11,11 @@ class AttermptDiscountCoupon extends Model
     protected $table = "attermpt_user_coupons";
     protected $fillable = ['client_type', 'family_user_id', 'company_user_id', 'edu_institute_id', 'discount_coupon_id', 'use_per_user'];
     
-    public function education_institutes(){
+    public function education_backinstitutes(){
         return $this->belongsTo('App\Model\School\EducationInstitute', 'edu_institute_id', 'id')->select(['id', 'name', 'school_id']);
     }
     public function family_users(){
-        return $this->belongsTo('App/FamilyUser', 'family_user_id', 'id')->select(['id', 'name']);
+        return $this->belongsTo('App\FamilyUser', 'family_user_id', 'id')->select(['id', 'name']);
     }
     public function company_users(){
         return $this->belongsTo('App\CompanyUser', 'company_user_id', 'id')->select(['id', 'name', 'company_id']);

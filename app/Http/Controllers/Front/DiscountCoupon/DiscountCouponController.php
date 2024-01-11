@@ -9,6 +9,7 @@ use App\Model\Advertising_And_Discount\AttermptDiscountCoupon;
 use App\Http\Controllers\Admin\BaseController;
 use Carbon\Carbon;
 use Validator;
+use Auth;
 
 class DiscountCouponController extends BaseController
 {
@@ -16,41 +17,75 @@ class DiscountCouponController extends BaseController
      * Check Coupon Validation & exist coupon for particular Customer or not
      */
     
-    public function checkCouponValidation(Request $request){
+    public function checkCouponValidation($guard_name, Request $request){
         
         try{
             $validator = Validator::make($request->all(), [ 
-                'edu_institute_id' => 'required|exists:edu_institutes,id', 
-                'discount_coupon_id' => 'required|exists:discount_coupons,id', 
+                'discount_coupon_id' => 'required|exists:discount_coupons,id,client_type,'.$guard_name, 
             ]);
     
             if ($validator->fails()) { 
                 return response()->json(['error'=>$validator->errors()], 401);            
             }
-    
-            $current_date = Carbon::now('Asia/Kolkata')->format('Y-m-d H:i');
+
+            $user = Auth::guard($guard_name."-api")->user();
+            $current_date = Carbon::now('Asia/Kolkata')->format('Y-m-d H:i:s');
 
             //fetch data from table 
-            $data = DiscountCoupon::where('id',$request->discount_coupon_id??0)->where('start_date', '<=', $current_date)
-            ->where('end_date', '>=', $current_date)->first();
-            if(!empty($data)){
-                $use_time_per_customer = $data->use_time_per_user??0;
-                //Check for coupon is applicable for particular customer
-                if($data->edu_institutes->count() > 0){
-                    //Check for coupon is exist for passing id of customer 
-                    if(empty($data->edu_institutes->where('id', $request->edu_institute_id)->first())){
+            $discount_coupon = DiscountCoupon::where(array('id'=>$request->discount_coupon_id??0, 'client_type'=>$guard_name))->where('start_date', '<=', $current_date)->where('end_date', '>=', $current_date)->first();
+            if(!empty($discount_coupon)){
+                $use_time_per_customer = $discount_coupon->use_time_per_user??0;
+                //Check for coupon is applicable for particular customer of school
+                if($guard_name == "school" && $discount_coupon->edu_institutes->count() > 0){
+                    //Check for coupon is exist for passing id of customer school 
+                    if(empty($discount_coupon->edu_institutes->where('id', $user->id??0)->first())){
                         return $this->sendError("Invalid coupon", 404); 
                     }
                 }
+
+                //Check for coupon is applicable for particular customer of family
+                if($guard_name == "family" && $discount_coupon->family_users->count() > 0){
+                    //Check for coupon is exist for passing id of customer family 
+                    if(empty($discount_coupon->family_users->where('id', $user->id??0)->first())){
+                        return $this->sendError("Invalid coupon", 404); 
+                    }
+                }
+
+                //Check for coupon is applicable for particular customer of company
+                if($guard_name == "company" && $discount_coupon->company_users->count() > 0){
+                    //Check for coupon is exist for passing id of customer company 
+                    if(empty($discount_coupon->company_users->where('id', $user->id??0)->first())){
+                        return $this->sendError("Invalid coupon", 404); 
+                    }
+                }
+                $data = array();
                 // Check Attempt of Customer
-                $attermpt_discount_coupon = AttermptDiscountCoupon::where(['edu_institute_id' => $request->edu_institute_id, 'discount_coupon_id' => $request->discount_coupon_id])->first();
+                if($guard_name == "school"){
+                    $data['client_type'] = $guard_name;
+                    $data['edu_institute_id'] = $user->id??null;
+                }
+                else if($guard_name == "company"){
+                    $data['client_type'] = $guard_name;
+                    $data['company_user_id'] = $user->id??null;
+                }
+                else if($guard_name == "family"){
+                    $data['client_type'] = $guard_name;
+                    $data['family_user_id'] = $user->id??null;
+                }
+                $data['discount_coupon_id'] = $request->discount_coupon_id??null;
+                $attermpt_discount_coupon = AttermptDiscountCoupon::where($data)->first();
                 $attermpt_discount_coupon_customer = $attermpt_discount_coupon->use_per_user??0;
                 $attermpt_discount_coupon_customer += 1;
-                if($attermpt_discount_coupon_customer > $use_time_per_customer){
+                if($attermpt_discount_coupon_customer <= $use_time_per_customer){
+                    $attermpt_discount_coupon = $data;
+                    $attermpt_discount_coupon['use_per_user'] = $attermpt_discount_coupon_customer;
+                    
+                    $result = AttermptDiscountCoupon::updateOrCreate($data, $attermpt_discount_coupon);
+                    return response()->json('Coupon applied');
+                }
+                else{
                     return $this->sendError("Coupon already used", 404); 
                 }
-                $result = AttermptDiscountCoupon::updateOrCreate(['discount_coupon_id'=>$request->discount_coupon_id, 'edu_institute_id'=>$request->edu_institute_id],['discount_coupon_id'=>$request->discount_coupon_id, 'edu_institute_id'=>$request->edu_institute_id,'use_per_user'=>$attermpt_discount_coupon_customer]);
-                return response()->json('Coupon applied');
             }
             else{
                 return $this->sendError("Invalid coupon", 404);

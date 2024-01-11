@@ -168,11 +168,6 @@ Route::group(['prefix' => '/school_trip_payment', 'as' => 'school_trip_payment.'
 		Route::delete('school_trip_payment/{id}', 'delete');
 	});	
 });
-
-//Discount Coupon 
-Route::group(['prefix' => '/advertising', 'as' => 'advertising.'], function () {
-	Route::post('check-discount-coupon',[DiscountCouponController::class, 'checkCouponValidation']);
-});
  
 Route::group(['prefix' => '/razorpay-payment', 'as' => 'razorpay-payment.'], function () {
 	Route::controller(\Front\RazorpayPaymentController::class)->group(function () {
@@ -184,6 +179,12 @@ Route::group(['prefix' => '/razorpay-payment', 'as' => 'razorpay-payment.'], fun
 
 //Company
 Route::group(['prefix' => '{company}', 'middleware' => 'company.authentication'], function () {
+	
+	//Discount Coupon 
+	Route::group(['prefix' => '/advertising', 'as' => 'advertising.'], function () {
+		Route::post('check-discount-coupon',[DiscountCouponController::class, 'checkCouponValidation'])->where('company', 'company');
+	});
+
 	Route::group(['prefix' => 'payment', 'as' => 'payment.'], function () {
 		Route::group(['prefix' => '/cash', 'as' => 'cash.'], function () {
 			Route::post('record',[UserpaymentController::class, 'cashRecord'])->where('company', 'company');
@@ -243,6 +244,10 @@ Route::group(['prefix' => '{company}', 'middleware' => 'company.authentication']
 
 // School
 Route::group(['prefix' => '{school}', 'middleware' => 'school.authentication'], function () {
+	//Discount Coupon 
+	Route::group(['prefix' => '/advertising', 'as' => 'advertising.'], function () {
+		Route::post('check-discount-coupon',[DiscountCouponController::class, 'checkCouponValidation'])->where('school', 'school');
+	});
 	Route::group(['prefix' => 'payment', 'as' => 'payment.'], function () {
 		Route::group(['prefix' => '/cash', 'as' => 'cash.'], function () {
 			Route::post('record',[UserpaymentController::class, 'cashRecord'])->where('school', 'school');
@@ -315,6 +320,12 @@ Route::group(['prefix' => '{school}', 'middleware' => 'school.authentication'], 
 
 // Family
 Route::group(['prefix' => '{family}', 'middleware' => 'family.authentication'], function () {
+	
+	//Discount Coupon 
+	Route::group(['prefix' => '/advertising', 'as' => 'advertising.'], function () {
+		Route::post('check-discount-coupon',[DiscountCouponController::class, 'checkCouponValidation'])->where('family', 'family');
+	});
+
 	Route::group(['prefix' => 'payment', 'as' => 'payment.'], function () {
 		Route::group(['prefix' => '/cash', 'as' => 'cash.'], function () {
 			Route::post('record',[UserpaymentController::class, 'cashRecord'])->where('family', 'family');
