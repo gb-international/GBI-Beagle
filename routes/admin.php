@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\Advertising_And_Discount\MarketingCampaignControl
 use App\Http\Controllers\Admin\Advertising_And_Discount\DiscountCouponController;
 use App\Http\Controllers\Admin\Payment\BankDetailController;
 use App\Http\Controllers\Admin\Tour\UserpaymentController;
+use App\Http\Controllers\Admin\TravellerPolicy\TravellerPolicyCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -414,6 +415,14 @@ Route::group(['middleware' => ['admin.authentication', 'user.authentication']], 
 			Route::get('{id}/edit',[BankDetailController::class, 'edit'])->where('user_type', 'school|company|family');
 			Route::get('{id}/show',[BankDetailController::class, 'show'])->where('user_type', 'school|company|family');
 			Route::get('all/{size?}',[BankDetailController::class, 'all'])->where('user_type', 'school|company|family');
+		});
+		Route::group(['prefix' => '/traveller-policy-category', 'as' => 'traveller-policy-category.'], function () {
+			Route::post('store',[TravellerPolicyCategoryController::class, 'store']);
+			Route::put('update/{id}',[TravellerPolicyCategoryController::class, 'update']);
+			Route::delete('delete/{id}',[TravellerPolicyCategoryController::class, 'destroy']);
+			Route::get('{id}/edit',[TravellerPolicyCategoryController::class, 'edit']);
+			Route::get('{id}/show',[TravellerPolicyCategoryController::class, 'show']);
+			Route::get('all/{size?}',[TravellerPolicyCategoryController::class, 'all']);
 		});
 	});
 });
