@@ -38,5 +38,8 @@ class Banquet extends Model
     public function banquet_countries(){
     	return $this->hasOne('App\Model\Location\Country', 'id', 'country_id')->select(['id', 'name']);;
     }
+    public function traveller_policy(){
+    	return $this->hasOne('App\Model\TravellerPolicy\TravellerPolicy', 'id', 'traveller_policy_id')->select(['id', 'name']);;
+    }
 
 }

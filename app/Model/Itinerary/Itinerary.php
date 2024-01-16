@@ -73,5 +73,7 @@ class Itinerary extends Model
     {
         return $this->belongsToMany('App\Model\Post\Tag');
     }
-    
+	public function traveller_policy(){
+    	return $this->hasOne('App\Model\TravellerPolicy\TravellerPolicy', 'id', 'traveller_policy_id')->select(['id', 'name']);;
+    }
 }

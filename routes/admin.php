@@ -433,6 +433,7 @@ Route::group(['middleware' => ['admin.authentication', 'user.authentication']], 
 			Route::get('{id}/show',[TravellerPolicyController::class, 'show']);
 			Route::get('all/{size?}',[TravellerPolicyController::class, 'all']);
 			Route::get('policy-per-category/{category_id}/{size?}',[TravellerPolicyController::class, 'all']);
+			Route::post('policy-per-category',[TravellerPolicyController::class, 'getAllPolicy']);
 			Route::post('status',[TravellerPolicyController::class, 'publish']);
 		});
 	});

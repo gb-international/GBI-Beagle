@@ -9,7 +9,7 @@ class Room extends Model
 {
     use HasFactory;
     protected $table = "rooms";
-    protected $fillable = ['id', 'room_category_id', 'description', 'maximum_occupancy', 'inches', 'length', 'width', 'height', 'currency_type', 'meal_plan_type', 'status'];
+    protected $fillable = ['id', 'room_category_id', 'traveller_policy_id', 'description', 'maximum_occupancy', 'inches', 'length', 'width', 'height', 'currency_type', 'meal_plan_type', 'status'];
     public function room_category(){
         return $this->belongsTo('App\Model\Hotel\RoomCategory')->select(['id', 'title', 'description']);
     }
@@ -24,5 +24,8 @@ class Room extends Model
 	}
     public function totalHotal(){
         return $this->belongsToMany('App\Model\Hotel\Hotel');
+    }
+    public function traveller_policy(){
+    	return $this->hasOne('App\Model\TravellerPolicy\TravellerPolicy', 'id', 'traveller_policy_id')->select(['id', 'name']);;
     }
 }

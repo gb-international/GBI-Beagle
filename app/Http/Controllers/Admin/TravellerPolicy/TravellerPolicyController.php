@@ -6,8 +6,28 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\API\BaseController;
 use App\Model\TravellerPolicy\TravellerPolicy;
 use App\Http\Requests\Admin\Policy\TravellerPolicyRequest;
+use Illuminate\Validation\Rule;
+use Validator;
 class TravellerPolicyController extends BaseController
 {
+    //Get all policy per category
+    public function getAllPolicy(){
+        try{
+            $validator = Validator::make($request->all(), [ 
+                'traveller_category_id'=>'required|exists:traveller_policys,id',  
+                'policy_type'=> 'required|in:domestic,international',
+            ]);
+    
+            if ($validator->fails()) { 
+                return response()->json(['error'=>$validator->errors()], 422);            
+            }
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }
+        return response()->json('successfully updated!');
+    }
+
     //Fetch all data
     public function all($size=null){
         try{
@@ -171,6 +191,27 @@ class TravellerPolicyController extends BaseController
         }
     }
     public function publish(Request $request){
-        
+        try{
+            $validator = Validator::make($request->all(), [ 
+                'traveller_policy_id'=>'required|exists:traveller_policys,id',  
+                'status'=> 'required|in:0,1',
+            ]);
+    
+            if ($validator->fails()) { 
+                return response()->json(['error'=>$validator->errors()], 422);            
+            }
+            $traveller_policy = TravellerPolicy::where('id', $request->traveller_policy_id??0)->first();
+            if(!empty($traveller_policy)){
+                $traveller_policy->status = $request->status??0;
+                $traveller_policy->save();
+            }
+            else{
+                return $this->sendError("Data not fount!", 404);
+            }        
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }
+        return response()->json('successfully updated!');
     }
 }
