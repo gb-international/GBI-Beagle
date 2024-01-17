@@ -19,7 +19,7 @@ class CreatedEncylopediaEventsTable extends Migration
             $table->string('city')->nullable();
             $table->string('state')->nullable();
             $table->string('type')->nullable();
-            $table->text('description ')->nullable();
+            $table->text('description')->nullable();
             $table->text('image')->nullable();
             $table->text('image_alt')->nullable();
             $table->text('banner_image')->nullable();

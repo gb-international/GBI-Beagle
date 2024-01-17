@@ -26,6 +26,6 @@ class Room extends Model
         return $this->belongsToMany('App\Model\Hotel\Hotel');
     }
     public function traveller_policy(){
-    	return $this->hasOne('App\Model\TravellerPolicy\TravellerPolicy', 'id', 'traveller_policy_id')->select(['id', 'name']);;
+    	return $this->hasOne('App\Model\TravellerPolicy\TravellerPolicy', 'id', 'traveller_policy_id')->select(['id', 'name', 'traveller_policy_category_id', 'policy_type', 'description', 'status']);
     }
 }

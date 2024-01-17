@@ -11,16 +11,20 @@ use Validator;
 class TravellerPolicyController extends BaseController
 {
     //Get all policy per category
-    public function getAllPolicy(){
+    public function getAllPolicy(Request $request){
         try{
             $validator = Validator::make($request->all(), [ 
-                'traveller_category_id'=>'required|exists:traveller_policys,id',  
-                'policy_type'=> 'required|in:domestic,international',
+                'traveller_policy_category_id'=>'required|exists:traveller_policy_categorys,id',  
+                'policy_type' => 'required|in:domestic,international',
+                'customer_type' => 'required|in:family,company,school',
+                'country_id' => 'exists:countries,id',
             ]);
     
-            if ($validator->fails()) { 
+            if ($validator->fails() ) { 
                 return response()->json(['error'=>$validator->errors()], 422);            
             }
+            $data = TravellerPolicy::where(array('traveller_policy_category_id'=>$request->traveller_policy_category_id, 'policy_type'=>$request->policy_type, 'customer_type'=>$request->customer_type))->pluck('name','id');
+            return response()->json($data);
         }
         catch(Exception $e){
             return $this->sendError($e->getMessage(), 500);
@@ -32,8 +36,13 @@ class TravellerPolicyController extends BaseController
     public function all($size=null){
         try{
             $size = empty($size)?10:$size;
-            $data = TravellerPolicy::paginate($size);
-            return response()->json($data);
+            $data = TravellerPolicy::with('policy_category','country')->paginate($size);
+            if($data->count()>0){
+                return response()->json($data);
+            }
+            else{
+                return $this->sendError("Data not fount!", 404);
+            }
         }
         catch(Exception $e){
             return $this->sendError($e->getMessage(), 500);
@@ -44,7 +53,7 @@ class TravellerPolicyController extends BaseController
     public function policy_per_category($traveller_category_id, $size=null){
         try{
             $size = empty($size)?10:$size;
-            $data = TravellerPolicy::where('traveller_policy_category_id',$traveller_category_id)->paginate($size);
+            $data = TravellerPolicy::where('traveller_policy_category_id',$traveller_category_id)->with('policy_category','country')->paginate($size);
             return response()->json($data);
         }
         catch(Exception $e){
@@ -84,6 +93,8 @@ class TravellerPolicyController extends BaseController
             $traveller_policy = new TravellerPolicy;
             $traveller_policy->name = $request->name??NULL;
             $traveller_policy->traveller_policy_category_id = $request->traveller_policy_category_id??NULL;
+            $traveller_policy->country_id = $request->country_id??NULL;
+            $traveller_policy->customer_type = $request->customer_type??NULL;
             $traveller_policy->policy_type = $request->policy_type??NULL;
             $traveller_policy->description = $request->description??NULL;
             $traveller_policy->status = $request->status??0;
@@ -106,6 +117,8 @@ class TravellerPolicyController extends BaseController
         try{
             $traveller_policy = TravellerPolicy::where('id', $id)->first();
             if(!empty($traveller_policy)){
+                $traveller_policy->policy_category;
+                $traveller_policy->country;
                 return response()->json($traveller_policy);
             }
             else{
@@ -128,6 +141,8 @@ class TravellerPolicyController extends BaseController
         try{
             $traveller_policy = TravellerPolicy::where('id', $id)->first();
             if(!empty($traveller_policy)){
+                $traveller_policy->policy_category;
+                $traveller_policy->country;
                 return response()->json($traveller_policy);
             }
             else{
@@ -156,6 +171,8 @@ class TravellerPolicyController extends BaseController
                 $traveller_policy->policy_type = $request->policy_type??$traveller_policy->policy_type;
                 $traveller_policy->description = $request->description??$traveller_policy->description;
                 $traveller_policy->status = $request->status??$traveller_policy->status;
+                $traveller_policy->country_id = $request->country_id??$traveller_policy->country_id;
+                $traveller_policy->customer_type = $request->customer_type??$traveller_policy->customer_type;
                 $traveller_policy->save();
             }
             else{

@@ -30,9 +30,11 @@ class TravellerPolicyRequest extends FormRequest
         return [
             'name' => ['required','unique:traveller_policys,name,'.$traveller_policy_id.',id'],
             'traveller_policy_category_id' => 'required|exists:traveller_policy_categorys,id',  
-            'policy_type'=> 'required|in:domestic,international',
-            'description'=> 'required',
-            'status'=> 'required|in:0,1',
+            'customer_type' => 'required|in:family,company,school',
+            'country_id' => 'exists:countries,id',  
+            'policy_type' => 'required|in:domestic,international',
+            'description' => 'required',
+            'status' => 'required|in:0,1',
         ];
     }
 } 

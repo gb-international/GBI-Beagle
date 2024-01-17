@@ -87,8 +87,12 @@ class BusController extends Controller
      */
     public function update(Request $request,$bus)
     {
-        $bus = Bus::where('id',$bus)->first();
-        $bus->update($this->validateBus($request));
+        try{
+            $bus->update($this->validateBus($request, $bus->id??0));
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }
         return response()->json(['message'=>'Successfully Updated']);
     }
 
@@ -107,6 +111,7 @@ class BusController extends Controller
     public function validateBus($request)
     {
         return $this->validate($request,[
+            'traveller_policy_id' => 'required|exists:traveller_policys,id',  
             'company_name' => 'required',
             'seater' => 'required',
             'seat_type' => 'required',

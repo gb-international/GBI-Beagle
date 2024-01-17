@@ -32,14 +32,16 @@ class Banquet extends Model
     public function banquet_states(){
     	return $this->hasOne('App\Model\Location\State', 'id', 'state_id')->select(['id', 'name']);
     }
+
     public function banquet_cities(){
     	return $this->hasOne('App\Model\Location\City', 'id', 'city_id')->select(['id', 'name']);;
     }
+    
     public function banquet_countries(){
     	return $this->hasOne('App\Model\Location\Country', 'id', 'country_id')->select(['id', 'name']);;
     }
-    public function traveller_policy(){
-    	return $this->hasOne('App\Model\TravellerPolicy\TravellerPolicy', 'id', 'traveller_policy_id')->select(['id', 'name']);;
-    }
 
+    public function traveller_policy(){
+    	return $this->hasOne('App\Model\TravellerPolicy\TravellerPolicy', 'id', 'traveller_policy_id')->select(['id', 'name', 'traveller_policy_category_id', 'policy_type', 'description', 'status']);
+    }
 }
