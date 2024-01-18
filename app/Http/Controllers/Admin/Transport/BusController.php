@@ -22,8 +22,8 @@ class BusController extends Controller
     public function all($size)
     {
         return response()->json(Bus::select([
-            'id','company_name','seater','seat_type','updated_at','price'
-            ])
+            'id','company_name','seater','seat_type','updated_at','price', 'traveller_policy_id'
+            ])->with('traveller_policy')
             ->latest('updated_at')
             ->paginate($size));
     }
@@ -63,6 +63,7 @@ class BusController extends Controller
     public function show($bus)
     {
         $bus = Bus::where('id',$bus)->first();
+        $bus->traveller_policy;
         return response()->json($bus);
     }
 
@@ -75,6 +76,7 @@ class BusController extends Controller
     public function edit($bus)
     {
         $bus = Bus::where('id',$bus)->first();
+        $bus->traveller_policy;
         return response()->json($bus);
     }
 
@@ -85,10 +87,16 @@ class BusController extends Controller
      * @param  \App\bus  $bus
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$bus)
+    public function update(Request $request, $id)
     {
         try{
-            $bus->update($this->validateBus($request, $bus->id??0));
+            $bus = Bus::where('id', $id)->first();
+            if(!empty($bus)){
+                $bus->update($this->validateBus($request, $bus->id??0));
+            }
+            else{
+                return $this->sendError("Data not fount!", 404);
+            }
         }
         catch(Exception $e){
             return $this->sendError($e->getMessage(), 500);

@@ -20,8 +20,8 @@ class FlightController extends Controller
     public function all($size)
     {
         return response()->json(Flight::select([
-            'id','name','code'
-            ])
+            'id','name','code','traveller_policy_id'
+            ])->with('traveller_policy')
             ->latest('updated_at')
             ->paginate($size));
     }
@@ -61,6 +61,7 @@ class FlightController extends Controller
      */
     public function show(Flight $flight)
     {
+        $flight->traveller_policy;
         return response()->json($flight);
     }
 
@@ -72,6 +73,7 @@ class FlightController extends Controller
      */
     public function edit(Flight $flight)
     {
+        $flight->traveller_policy;
         return response()->json($flight);
     }
 
@@ -103,6 +105,7 @@ class FlightController extends Controller
     public function validateFlight($request)
     {
         return $this->validate($request,[
+            'traveller_policy_id' => 'required|exists:traveller_policys,id',
             'code' => 'required',
             'name' => 'required'
         ]);

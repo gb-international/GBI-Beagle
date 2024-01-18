@@ -87,7 +87,9 @@ class ItineraryController extends BaseController
             $data['client_type'] = $request->client_type??'';
             $data['meta_title'] = $request->meta_title??'';
             $data['meta_description'] = $request->meta_description??'';
+            $data['traveller_policy_id'] = $request->traveller_policy_id??null;
             $data['policy'] = $request->policy??'';
+            
             $tag_id= array();
             $meta_keyword="";   
             foreach ($request->tags as $tag) {
@@ -214,6 +216,7 @@ class ItineraryController extends BaseController
         $itinerary->seasons;
         $itinerary->tags;
         $itinerary->itineraryimages;
+        $itinerary->traveller_policy;
         return response()->json($itinerary);
     }
 
@@ -230,6 +233,7 @@ class ItineraryController extends BaseController
         $itinerary->tourtypes;
         $itinerary->seasons;
         $itinerary->tags;
+        $itinerary->traveller_policy;
         return response()->json($itinerary);
     }
 
@@ -262,6 +266,7 @@ class ItineraryController extends BaseController
             $data['meta_title'] = $request->meta_title??$itinerary->meta_title;
             $data['meta_description'] = $request->meta_description??$itinerary->meta_description;
             $data['policy'] = $request->policy??$itinerary->policy;
+            $data['traveller_policy_id'] = $request->traveller_policy_id??$itinerary->traveller_policy_id;
             //$data = $request->all();
             $tag_id= [];
             $meta_keyword="";

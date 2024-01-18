@@ -20,8 +20,8 @@ class TrainController extends Controller
     public function all($size)
     {
         return response()->json(Train::select([
-            'id','code','name','updated_at'
-            ])
+            'id','code','name', 'traveller_policy_id','updated_at'
+            ])->with('traveller_policy')
             ->latest('updated_at')
             ->paginate($size));
     }
@@ -60,7 +60,8 @@ class TrainController extends Controller
      */
     public function show(Train $train)
     {
-        //
+        $train->traveller_policy;
+        return response()->json($train);
     }
 
     /**
@@ -71,6 +72,7 @@ class TrainController extends Controller
      */
     public function edit(Train $train)
     {
+        $train->traveller_policy;
         return response()->json($train);
     }
 
@@ -102,6 +104,7 @@ class TrainController extends Controller
     public function validateTrain($request)
     {
         return $this->validate($request,[
+            'traveller_policy_id' => 'required|exists:traveller_policys,id',
             'code' => 'required|numeric',
             'name' => 'required'
         ]);

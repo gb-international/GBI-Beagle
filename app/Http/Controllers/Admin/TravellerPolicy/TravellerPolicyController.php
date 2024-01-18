@@ -23,7 +23,12 @@ class TravellerPolicyController extends BaseController
             if ($validator->fails() ) { 
                 return response()->json(['error'=>$validator->errors()], 422);            
             }
-            $data = TravellerPolicy::where(array('traveller_policy_category_id'=>$request->traveller_policy_category_id, 'policy_type'=>$request->policy_type, 'customer_type'=>$request->customer_type))->pluck('name','id');
+            $data;
+            if(!empty($request->country_id)){
+                $data = TravellerPolicy::where(array('traveller_policy_category_id'=>$request->traveller_policy_category_id, 'policy_type'=>$request->policy_type, 'customer_type'=>$request->customer_type,''=>$request->country_id))->pluck('name','id');
+            }else{
+                $data = TravellerPolicy::where(array('traveller_policy_category_id'=>$request->traveller_policy_category_id, 'policy_type'=>$request->policy_type, 'customer_type'=>$request->customer_type))->pluck('name','id');
+            }
             return response()->json($data);
         }
         catch(Exception $e){

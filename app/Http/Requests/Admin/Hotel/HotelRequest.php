@@ -33,6 +33,7 @@ class HotelRequest extends FormRequest
             'name' => ['required',new AlphaSpace],
             'description' => 'required',
             'no_of_room'=>'required|numeric|min:1',
+            'traveller_policy_id' => 'required|exists:traveller_policys,id',
             'star_category' => 'required',
             'hotel_type' => 'required|in:apartment,hotel,homestay',
             'email' => ['required','email',new EmailValidate],

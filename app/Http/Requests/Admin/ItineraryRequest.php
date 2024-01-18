@@ -22,6 +22,7 @@ class ItineraryRequest extends FormRequest
     public function rules()
     {
         return [
+            'traveller_policy_id' => 'required|exists:traveller_policys,id',
             'source' => 'required|min:2|max:100',
             'destination' => 'required|different:source|min:3|max:100',
             'noofdays' => 'required|numeric|min:1|max:15',
