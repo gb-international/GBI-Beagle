@@ -362,6 +362,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 			Route::post('sightseeing-request/status-update',[SightseeingRequest::class, 'statusUpdate']);
 			Route::post('sightseeing-request/confirmation',[SightseeingRequest::class, 'sendConfirmationMail']);
 		});
+
 		Route::group(['prefix' => '/advertising', 'as' => 'advertising.'], function () {
 			Route::resource('marketing-campaign',Advertising_And_Discount\MarketingCampaignController::class);
 			Route::get('all-marketing-campaign/{size?}',[MarketingCampaignController::class, 'all']);
@@ -436,7 +437,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 			Route::post('policy-per-category',[TravellerPolicyController::class, 'getAllPolicy']);
 			Route::post('status',[TravellerPolicyController::class, 'publish']);
 		});
+		Route::group(['prefix' => '/fact', 'as' => 'fact.'], function () {
+			Route::resource('fact',FactController::class);
+			Route::get('all/{size?}',[App\Http\Controllers\Admin\FactController::class, 'all']);
+			Route::get('status/{id}/{status}',[App\Http\Controllers\Admin\FactController::class, 'status'])->where('status', '0|1');
+		});
 	});
+
 // });
 
 

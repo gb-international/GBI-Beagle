@@ -33,6 +33,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 // front	
 
 Route::namespace('Front')->group(function(){
+	Route::get('random-fact',[App\Http\Controllers\Front\FactController::class, 'random_fact']);
+
 	Route::get('/travel-program/{slug}','ItineraryController@travelProgram');
 	Route::get('/upcoming-events','ItineraryController@upcomingEvents');
 	Route::get('/popular-tours','ItineraryController@popularTours');
