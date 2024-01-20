@@ -32,6 +32,9 @@ class FactRequest extends FormRequest
             'name' => ['required','unique:facts,name,'.$fact_id.',id'],
             'description' => 'required',
             'status' => 'required|in:0,1',
+            'city_id' =>'exists:cities,id',
+            'state_id'=>'exists:states,id',
+            'country_id' => 'exists:countries,id',
         ];
     }
     protected function failedValidation(Validator $validator) : void

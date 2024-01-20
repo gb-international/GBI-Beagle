@@ -34,7 +34,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::namespace('Front')->group(function(){
 	Route::get('random-fact',[App\Http\Controllers\Front\FactController::class, 'random_fact']);
-
+	Route::get('random-fact-acc-city/{city}',[App\Http\Controllers\Front\FactController::class, 'random_fact_acc_to_city']);
 	Route::get('/travel-program/{slug}','ItineraryController@travelProgram');
 	Route::get('/upcoming-events','ItineraryController@upcomingEvents');
 	Route::get('/popular-tours','ItineraryController@popularTours');
@@ -175,7 +175,7 @@ Route::group(['prefix' => '/razorpay-payment', 'as' => 'razorpay-payment.'], fun
 	Route::controller(\Front\RazorpayPaymentController::class)->group(function () {
 		Route::post('make-order', 'makeOrder')->middleware(['auth:school-api']);
 		Route::post('payment-record', 'paymentRecord')->middleware(['auth:school-api']);
-		Route::get('invoice', 'invoice')->middleware(['auth:school-api']);
+		// Route::get('invoice', 'invoice')->middleware(['auth:school-api']);
 	});	
 });
 

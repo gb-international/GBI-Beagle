@@ -25,7 +25,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 // Route::group(['middleware' => ['auth:api'],'namespace'=>'Front'],function(){
 // Route::group(['middleware' => ['auth:user-api', 'scopes:user', 'admin.authentication']], function () {
-// Route::group(['middleware' => ['admin.authentication', 'user.authentication']], function () {
+Route::group(['middleware' => ['admin.authentication', 'user.authentication']], function () {
 	Route::namespace('Admin')->group(function (){
 		Route::namespace('Transport')->group(function(){
 			Route::get('bus/all/{size}','BusController@all');
@@ -444,7 +444,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 		});
 	});
 
-// });
+});
 
 
 

@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Controllers\API\BaseController;
 use App\Model\Fact;
 use App\Http\Requests\Admin\FactRequest;
+use App\Http\Controllers\API\BaseController;
+
 class FactController extends BaseController
 {
     public function all($size=null){
@@ -58,6 +59,12 @@ class FactController extends BaseController
             $fact->name = $request->name??NULL;
             $fact->description = $request->description??NULL;
             $fact->status = $request->status??0;
+            $fact->city_id =$request->city_id??NULL;
+            $fact->state_id = $request->state_id??NULL;
+            $fact->country_id = $request->country_id??NULL;
+            $fact->meta_keyword = $request->meta_keyword??NULL;
+            $fact->meta_title = $request->meta_title??NULL;
+            $fact->meta_description = $request->meta_description??NULL;
             $fact->save();
         }
         catch(Exception $e){
@@ -125,6 +132,12 @@ class FactController extends BaseController
                 $fact->name = $request->name??$fact->name;
                 $fact->description = $request->description??$fact->description;
                 $fact->status = $request->status??$fact->status;
+                $fact->city_id =$request->city_id??$fact->city_id;
+                $fact->state_id = $request->state_id??$fact->state_id;
+                $fact->country_id = $request->country_id??$fact->country_id;
+                $fact->meta_keyword = $request->meta_keyword??$fact->meta_keyword;
+                $fact->meta_title = $request->meta_title??$fact->meta_title;
+                $fact->meta_description = $request->meta_description??$fact->meta_description;
                 $fact->save();
             }
             else{
