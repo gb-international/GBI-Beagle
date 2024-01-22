@@ -14,13 +14,9 @@
                 <div class="nav-sreach-explo">
                   <ul class="nav nav-tabs serch-explo-menu">
                     <li class="nav-item">
-                      <a
-                        class="nav-link active border-none"
+                      <a class="nav-link active border-none"
                         data-toggle="tab"
-                        href="#home"
-                        v-on:click="panel = 'Itinerary'" 
-                        >Itinerary</a
-                      >
+                        href="#home" v-on:click="panel = 'Itinerary'">Itinerary</a>
                     </li>
                     <!-- <li class="nav-item">
                       <a

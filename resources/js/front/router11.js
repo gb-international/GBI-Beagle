@@ -54,6 +54,7 @@ export function createRouter() {
         { path: '/', component:  Home },
         { path: '/resources/faq', component: faq },
         { path: '/explore-destination', component: ExploreDestination },
+        { path: '/progress-bar', component: ProgressBar },
         { path: '/resources/safety-security', component: SafetySecurity },
         { path: '/resources/travel-education', component: TravelEducation },
         { path: '/resources/travel-encyclopedia', component: States },
