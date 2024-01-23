@@ -49,8 +49,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "exploreDestination",
@@ -59,11 +57,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     return {
       apiFailed: false,
       fact: '',
-      timeData: ''
+      intervalId: ''
     };
   },
   methods: {
-    search: function search() {
+    fact_api: function fact_api() {
       var _this = this;
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
@@ -78,11 +76,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   _this.fact = response.data;
                 });
               case 2:
-                _this.timeData = 12;
-                setInterval(function () {
-                  _this.timeData -= 1;
-                }, 1000);
-              case 4:
               case "end":
                 return _context.stop();
             }
@@ -90,7 +83,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee);
       }))();
     }
-  }
+  },
+  watch: {
+    // whenever question changes, this function will run
+    intervalId: function intervalId(newQuestion, oldQuestion) {
+      if (newQuestion.includes('?')) {
+        this.getAnswer();
+      }
+    }
+  },
+  mounted: function mounted() {
+    var currentObj = this;
+    this.intervalId = setInterval(function () {
+      currentObj.fact_api();
+    }, 2000);
+  } // clearInterval(this.intervalId);
 });
 
 /***/ }),
@@ -112,7 +119,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.card[data-v-b8cea5aa] {\n    border: 0.5px solid gray !important;\n    color: #000;\n    box-shadow: rgba(0, 0, 0, 0.35) 0px 2px 3px;\n    /* width: 50%; */\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.loader_fixed[data-v-b8cea5aa]{\n  margin:auto !important;\n  left:0 !important;\n  right:0 !important;\n  top:30vh !important;\n  position:fixed !important;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1025,27 +1032,33 @@ var render = function () {
       })
     : _c("div", [
         _c("main", [
-          _c("div", { staticClass: "container" }, [
-            _c("div", { staticClass: "justify-content-center" }, [
-              _vm.fact && _vm.timeData > 0
-                ? _c("div", { staticClass: "card" }, [
-                    _c("div", { staticClass: "card-body" }, [
-                      _c("h5", { staticClass: "card-title" }, [
-                        _vm._v(_vm._s(_vm.fact.name)),
+          _c(
+            "div",
+            { staticClass: "container" },
+            [
+              _c("Transition", { attrs: { name: "bounce" } }, [
+                _vm.fact
+                  ? _c("div", { staticClass: "card loader_fixed" }, [
+                      _c("div", { staticClass: "card-body text-center" }, [
+                        _c("img", {
+                          staticClass: "loading-img",
+                          attrs: {
+                            src: _vm.$gbiAssets + "/images/icons/loader.gif",
+                          },
+                        }),
+                        _vm._v(" "),
+                        _c("h1", {}, [_vm._v(_vm._s(_vm.fact.name))]),
+                        _vm._v(" "),
+                        _c("h4", { staticClass: "card-text" }, [
+                          _vm._v(_vm._s(_vm.fact.description)),
+                        ]),
                       ]),
-                      _vm._v(" "),
-                      _c("p", { staticClass: "card-text" }, [
-                        _vm._v(_vm._s(_vm.fact.description)),
-                      ]),
-                    ]),
-                  ])
-                : _vm._e(),
-              _vm._v(" "),
-              _c("button", { staticClass: "mt-5", on: { click: _vm.search } }, [
-                _vm._v("Search"),
+                    ])
+                  : _vm._e(),
               ]),
-            ]),
-          ]),
+            ],
+            1
+          ),
         ]),
       ])
 }

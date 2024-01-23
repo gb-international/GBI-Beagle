@@ -1,6 +1,7 @@
 import AssignUsers from '@/admin/routes/assignUsers.js'
 import Bank from '@/admin/routes/Bank.js';
 import Blog from '@/admin/routes/Blog.js';
+import Fact from '@/admin/routes/fact.js';
 import BookedTour from '@/admin/routes/BookedTour.js';
 import Corporate from '@/admin/routes/Corporate.js';
 import Escort from '@/admin/routes/Escort.js';
@@ -56,4 +57,5 @@ export const routes = [
     ...Transport,
     ...Website,
     ...ErrorFile,
+    ...Fact,
 ]
