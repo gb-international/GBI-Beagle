@@ -29,6 +29,10 @@ class CountryController extends Controller
         return response()->json(Country::get());
     }
 
+    public function getAllCountry(){
+        return response()->json(Country::get(["name","id"])->toArray());
+    }
+
     /**
      * Show the form for creating a new resource.
      *

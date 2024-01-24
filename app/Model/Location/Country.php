@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Country extends Model
 {
-    protected $fillable = ['name'];
+    protected $fillable = ['id', 'name'];
     
     public function state(){
         return $this->hasMany('App\Model\Location\State');

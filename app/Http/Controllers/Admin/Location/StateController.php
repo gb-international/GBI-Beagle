@@ -30,6 +30,10 @@ class StateController extends BaseController
     {
         return response()->json(State::with('country')->get());
     }
+    public function allStatePerCountry($id)
+    {
+        return response()->json(State::where('country_id', $id)->get(["name","id"])->toArray());
+    }
 
     /**
      * Show the form for creating a new resource.

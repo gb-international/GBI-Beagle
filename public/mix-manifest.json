@@ -16,6 +16,10 @@
     "/js/admin/js/admin/Tag.js": "/js/admin/js/admin/Tag.js",
     "/js/admin/js/admin/TagAdd.js": "/js/admin/js/admin/TagAdd.js",
     "/js/admin/js/admin/TagEdit.js": "/js/admin/js/admin/TagEdit.js",
+    "/js/admin/js/admin/Fact.js": "/js/admin/js/admin/Fact.js",
+    "/js/admin/js/admin/FactAdd.js": "/js/admin/js/admin/FactAdd.js",
+    "/js/admin/js/admin/FactEdit.js": "/js/admin/js/admin/FactEdit.js",
+    "/js/admin/js/admin/FactView.js": "/js/admin/js/admin/FactView.js",
     "/js/admin/js/admin/BookedTours.js": "/js/admin/js/admin/BookedTours.js",
     "/js/admin/js/admin/BookedEscort.js": "/js/admin/js/admin/BookedEscort.js",
     "/js/admin/js/admin/BookedHotel.js": "/js/admin/js/admin/BookedHotel.js",
@@ -185,9 +189,5 @@
     "/js/admin/js/admin/FlightEdit.js": "/js/admin/js/admin/FlightEdit.js",
     "/js/admin/js/admin/FightView.js": "/js/admin/js/admin/FightView.js",
     "/js/admin/js/admin/FlightAdd.js": "/js/admin/js/admin/FlightAdd.js",
-    "/css/admin/app.css": "/css/admin/app.css",
-    "/js/admin/js/admin/Fact.js": "/js/admin/js/admin/Fact.js",
-    "/js/admin/js/admin/FactAdd.js": "/js/admin/js/admin/FactAdd.js",
-    "/js/admin/js/admin/FactEdit.js": "/js/admin/js/admin/FactEdit.js",
-    "/js/admin/js/admin/FactView.js": "/js/admin/js/admin/FactView.js"
+    "/css/admin/app.css": "/css/admin/app.css"
 }

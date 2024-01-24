@@ -38,9 +38,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 		Route::namespace('Location')->group(function(){
 			Route::get('country/all/{size}','CountryController@all');
+			Route::get('all-country','CountryController@getAllCountry');
 			Route::resource('country','CountryController');
 			Route::get('city/all/{size}','CityController@all');
 			Route::resource('city','CityController');
+			Route::get('all-city-per-state/{state_id}','CityController@allCityPerState');
+			Route::get('all-state-per-country/{country_id}','StateController@allStatePerCountry');
 			Route::get('state/all/{size}','StateController@all');
 			Route::resource('state','StateController');
 			Route::get('sightseeings/all/{size}','SightseeingController@all');

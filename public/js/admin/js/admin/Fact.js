@@ -683,8 +683,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {
       fields: [{
-        key: 'title',
-        label: 'title',
+        key: 'name',
+        label: 'name',
+        sortable: true,
+        thClass: 'table-head'
+      }, {
+        key: 'description',
+        label: 'description',
         sortable: true,
         thClass: 'table-head'
       }, {
@@ -723,7 +728,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     getitems: function getitems() {
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
       var size = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.perPage;
-      this.$store.dispatch('getItems', '/posts/all/' + size + '?page=' + page);
+      this.$store.dispatch('getItems', '/fact/all/' + size + '?page=' + page);
     },
     deleteItem: function deleteItem(id) {
       var index = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : -1;
@@ -735,7 +740,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     publishItem: function publishItem(id, user_id) {
       var _this = this;
-      axios.post("/api/posts/" + id + "/publish/" + user_id).then(function (res) {});
+      axios.post("/api/status/" + id + "/publish/" + user_id).then(function (res) {});
       setTimeout(function () {
         return _this.socket.emit('sendToServer', 'NA');
       }, 3000);
@@ -4715,7 +4720,7 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("list-layout", {
-    attrs: { addurl: "/posts-add", buttontext: "add post" },
+    attrs: { addurl: "/fact-add", buttontext: "add post" },
     scopedSlots: _vm._u(
       [
         {
@@ -4806,7 +4811,7 @@ var render = function () {
                       return [
                         data.item.status == 1
                           ? _c("span", { staticClass: "badge badge-success" }, [
-                              _vm._v("Publish"),
+                              _vm._v("Published"),
                             ])
                           : _c("span", { staticClass: "badge badge-default" }, [
                               _vm._v("Draft"),

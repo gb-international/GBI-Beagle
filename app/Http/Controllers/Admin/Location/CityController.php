@@ -23,6 +23,13 @@ class CityController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
+
+     public function allCityPerState($id)
+     {
+         return response()->json(City::where('state_id', $id)->get(["name","id"])->toArray());
+     }
+
+     
     public function all($size)
     {
         return response()->json(City::with('state')
