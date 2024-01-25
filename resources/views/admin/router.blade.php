@@ -637,5 +637,14 @@
         </li>
         @endif
 
+        @if(auth()->user()->hasPermissionTo(73) || auth()->user()->hasRole(1))
+        <li class="nav-item">
+            <router-link to="/fact" class="nav-link nav-cols" title="GBI Fact">
+            <i class="nav-icon fas fa-industry"></i>
+                <p>Fact</p>
+            </router-link>
+        </li>
+        @endif
+
     </ul>
 </nav>

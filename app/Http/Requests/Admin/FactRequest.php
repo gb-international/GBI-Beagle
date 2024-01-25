@@ -27,9 +27,8 @@ class FactRequest extends FormRequest
      */
     public function rules()
     {
-        $fact_id = request()->route('id')??0;
         return [
-            'name' => ['required','unique:facts,name,'.$fact_id.',id'],
+            'name' => ['required','unique:facts,name'],
             'description' => 'required',
             'status' => 'required|in:0,1',
             'city_id' =>'exists:cities,id',

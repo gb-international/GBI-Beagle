@@ -3,7 +3,7 @@ This Template is for listing for the Category profile using function to get the
 data from the api to display the data about the Category from the backend .
 -->
 <template>
-  <list-layout addurl="/posts-add" buttontext="add post">
+  <list-layout addurl="/fact-add" buttontext="Add Fact">
     <template #perpage>
       <b-form-group
         label="Per page"
@@ -46,26 +46,25 @@ data from the api to display the data about the Category from the backend .
         <template #cell(status)="data">
           <span 
               v-if="data.item.status == 1" 
-              class="badge badge-success">Publish</span>
+              class="badge badge-success">Published</span>
           <span class="badge badge-default" v-else>Draft</span>
         </template>
         <template #cell(action)="data">
           <publish-icon 
             v-if="data.item.status == 0" 
-            @click.native="publishItem(data.item.id,user_id)"
+            @click.native="publishItem(data.item.id,1)"
             >
           </publish-icon>
           <draft-icon
             v-else
-            @click.native="draftItem(data.item.id,user_id)"
+            @click.native="draftItem(data.item.id,0)"
             >
           </draft-icon>
-          <edit-icon :url="`/posts/${data.item.id}`"></edit-icon>
+          <edit-icon :url="`/fact/${data.item.id}`"></edit-icon>
           <delete-icon 
             @click.native="deleteItem(data.item.id,data.index)"
             >
           </delete-icon>
-          <view-icon :url="`/posts-view/${data.item.id}`"></view-icon>
         </template>
       </b-table> 
     </template>
@@ -108,7 +107,8 @@ export default {
   data() {
     return {
       fields: [
-        {key:'title',label:'title',sortable:true,thClass: 'table-head'},
+        {key:'name',label:'name',sortable:true,thClass: 'table-head'},
+        {key:'description',label:'description',sortable:true,thClass: 'table-head'},
         {key:'status',label:'status',sortable:true,thClass: 'table-head'},
         {key:'updated_at',label:'last update',sortable:true,thClass: 'table-head'},
         {key:'action',label:'action',thClass: 'table-head'}
@@ -135,14 +135,15 @@ export default {
 
   methods: {
     getitems(page=1,size= this.perPage) {
-      this.$store.dispatch('getItems','/posts/all/'+size+'?page='+page);
+      this.$store.dispatch('getItems','/fact/all/'+size+'?page='+page);
     },
     deleteItem(id,index=-1) {
-      let payload = {'api':"/posts/"+id,index,'index':index};
+      let payload = {'api':"/fact/fact/"+id,index,'index':index};
       this.$store.dispatch('deleteItem',payload);
     },
-    publishItem(id, user_id) {
-      axios.post("/api/posts/"+id+"/publish/"+user_id).then((res) => {});
+    publishItem(id, status) {
+      console.log(status)
+      axios.get("/api/fact/status/"+id+"/"+status).then((res) => {});
       setTimeout(() =>
         this.socket.emit('sendToServer', 'NA'), 
       3000);
@@ -153,10 +154,12 @@ export default {
 
       this.getitems();
     },
-    draftItem(id, user_id){
-      axios.post("/api/posts/"+id+"/draft/"+user_id).then((res) => {});
+    draftItem(id, status){
+      axios.get("/api/fact/status/"+id+"/"+status).then((res) => {});
       this.getitems();
     }
   },
 };
 </script>
+
+

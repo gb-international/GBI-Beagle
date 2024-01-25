@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Model\Fact;
 use App\Http\Requests\Admin\FactRequest;
+use Validator;
+use Illuminate\Validation\Rule; //import Rule class 
 use App\Http\Controllers\API\BaseController;
 
 class FactController extends BaseController
@@ -106,6 +108,7 @@ class FactController extends BaseController
         try{
             $fact = Fact::where('id', $id)->first();
             if(!empty($fact)){
+                $fact->city;
                 return response()->json($fact);
             }
             else{
@@ -124,9 +127,20 @@ class FactController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(FactRequest $request, $id)
+    public function update(Request $request, $id)
     {
         try{
+            $validator = Validator::make($request->all(), [ 
+                'name' => ['required',Rule::unique('facts')->ignore($id)],
+                'description' => 'required',
+                'status' => 'required|in:0,1',
+                'city_id' =>'exists:cities,id',
+                'state_id'=>'exists:states,id',
+                'country_id' => 'exists:countries,id',
+            ]);
+            if ($validator->fails()) { 
+                return response()->json(['errors'=>$validator->errors()], 422);            
+            }
             $fact = Fact::where('id', $id)->first();
             if(!empty($fact)){
                 $fact->name = $request->name??$fact->name;

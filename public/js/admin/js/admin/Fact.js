@@ -655,7 +655,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 
 
 
@@ -733,14 +732,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     deleteItem: function deleteItem(id) {
       var index = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : -1;
       var payload = _defineProperty({
-        'api': "/posts/" + id,
+        'api': "/fact/fact/" + id,
         index: index
       }, "index", index);
       this.$store.dispatch('deleteItem', payload);
     },
-    publishItem: function publishItem(id, user_id) {
+    publishItem: function publishItem(id, status) {
       var _this = this;
-      axios.post("/api/status/" + id + "/publish/" + user_id).then(function (res) {});
+      console.log(status);
+      axios.get("/api/fact/status/" + id + "/" + status).then(function (res) {});
       setTimeout(function () {
         return _this.socket.emit('sendToServer', 'NA');
       }, 3000);
@@ -749,8 +749,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
       this.getitems();
     },
-    draftItem: function draftItem(id, user_id) {
-      axios.post("/api/posts/" + id + "/draft/" + user_id).then(function (res) {});
+    draftItem: function draftItem(id, status) {
+      axios.get("/api/fact/status/" + id + "/" + status).then(function (res) {});
       this.getitems();
     }
   }
@@ -4720,7 +4720,7 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("list-layout", {
-    attrs: { addurl: "/fact-add", buttontext: "add post" },
+    attrs: { addurl: "/fact-add", buttontext: "Add Fact" },
     scopedSlots: _vm._u(
       [
         {
@@ -4827,26 +4827,20 @@ var render = function () {
                           ? _c("publish-icon", {
                               nativeOn: {
                                 click: function ($event) {
-                                  return _vm.publishItem(
-                                    data.item.id,
-                                    _vm.user_id
-                                  )
+                                  return _vm.publishItem(data.item.id, 1)
                                 },
                               },
                             })
                           : _c("draft-icon", {
                               nativeOn: {
                                 click: function ($event) {
-                                  return _vm.draftItem(
-                                    data.item.id,
-                                    _vm.user_id
-                                  )
+                                  return _vm.draftItem(data.item.id, 0)
                                 },
                               },
                             }),
                         _vm._v(" "),
                         _c("edit-icon", {
-                          attrs: { url: "/posts/" + data.item.id },
+                          attrs: { url: "/fact/" + data.item.id },
                         }),
                         _vm._v(" "),
                         _c("delete-icon", {
@@ -4855,10 +4849,6 @@ var render = function () {
                               return _vm.deleteItem(data.item.id, data.index)
                             },
                           },
-                        }),
-                        _vm._v(" "),
-                        _c("view-icon", {
-                          attrs: { url: "/posts-view/" + data.item.id },
                         }),
                       ]
                     },
