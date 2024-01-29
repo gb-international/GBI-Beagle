@@ -106,25 +106,34 @@ class UserpaymentController extends BaseController
             return $this->sendError($e->getMessage());
         }
     }
-
+    
     //Get payment history pay by use
-    public function all($size=null)
-    {
-        if (empty($size)) {
-            $size = 10; 
+    public function all($guard_name, $size=null)
+    { 
+        try{
+            if (empty($size)) {
+                $size = 10; 
+            }
+            $data;
+            if($guard_name == "school"){
+                $user = Auth::guard($guard_name.'-api')->user();
+                $data = Payment::where('payment_by_edu_institute_id',$user->id??0)->latest()->paginate($size);
+            }
+            else if($guard_name == "family"){
+                $user = Auth::guard($guard_name.'-api')->user();
+                $data = Payment::where('payment_by_family_user_id',$user->id??0)->latest()->paginate($size);
+            }
+            else if($guard_name == "company"){
+                $user = Auth::guard($guard_name.'-api')->user();
+                $data = Payment::where('payment_by_company_user_id',$user->id??0)->latest()->paginate($size);
+            }
+            return response()->json($data);
         }
-        $guard = Auth::getDefaultDriver();
-        $customer_type = trim(str_replace("-api", "", $guard));
-        if($customer_type == "school"){
-            $data = MarketingCampaign::latest()->paginate($size);
-        }
-
-        // foreach ($data as $marketing_campaign){
-        //     $marketing_campaign->meta_keywords;
-        // }
-        // return response()->json($data);
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }  
     }
-
+    
     /**
      * Saved record of cheque or demand draft.
      *

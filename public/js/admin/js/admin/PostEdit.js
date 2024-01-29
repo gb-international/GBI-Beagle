@@ -871,7 +871,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
+
 
 
 
@@ -949,7 +949,6 @@ __webpack_require__.r(__webpack_exports__);
           this.form.title = input;
         }
       }
-
       if (field === 'summery') {
         if (input === '') {
           this.summeryWarn = true;
@@ -957,7 +956,6 @@ __webpack_require__.r(__webpack_exports__);
           this.summeryWarn = false;
         }
       }
-
       if (field === 'meta_title') {
         if (input === '') {
           this.meta_titleWarn = true;
@@ -965,7 +963,6 @@ __webpack_require__.r(__webpack_exports__);
           this.meta_titleWarn = false;
         }
       }
-
       if (field === 'meta_keyword') {
         if (input === '') {
           this.meta_keywordWarn = true;
@@ -976,17 +973,13 @@ __webpack_require__.r(__webpack_exports__);
     },
     editPost: function editPost() {
       var _this = this;
-
       axios.get("/api/posts/".concat(this.$route.params.id, "/edit")).then(function (response) {
         setTimeout(function () {
           return $("#example").DataTable();
         }, 1000);
-
         _this.form.fill(response.data);
-
         _this.form.image = [];
         _this.img_image = response.data.image;
-
         for (var i = 0; i < response.data.tags.length; i++) {
           _this.meta_key.push({
             value: response.data.tags[i].title,
@@ -997,7 +990,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     updateTags: function updateTags() {
       this.form.meta_keyword = [];
-
       for (var i = 0; i < this.meta_key.length; i++) {
         this.form.meta_keyword.push({
           title: this.meta_key[i].value,
@@ -1007,7 +999,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     getCategories: function getCategories() {
       var _this2 = this;
-
       axios.get("/api/categories").then(function (res) {
         if (res) {
           for (var i = 0; i < res.data.length; i++) {
@@ -1027,7 +1018,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     getTags: function getTags() {
       var _this3 = this;
-
       axios.get("/api/tags").then(function (res) {
         //this.tags = response.data;
         if (res) {
@@ -1036,16 +1026,14 @@ __webpack_require__.r(__webpack_exports__);
               value: res.data[i].title,
               key: res.data[i].id
             });
-          } //console.log(this.form.tags)
-
+          }
+          //console.log(this.form.tags)
         }
       });
     },
     UpdatePost: function UpdatePost() {
       var _this4 = this;
-
       console.log('start');
-
       if (!this.form.title) {
         this.titleWarn = true;
         this.$toast.fire({
@@ -1054,9 +1042,7 @@ __webpack_require__.r(__webpack_exports__);
         });
         return false;
       }
-
       console.log('title');
-
       if (!this.form.description) {
         this.descriptionWarn = true;
         this.$toast.fire({
@@ -1065,9 +1051,7 @@ __webpack_require__.r(__webpack_exports__);
         });
         return false;
       }
-
       console.log('description');
-
       if (!this.form.summery) {
         this.summeryWarn = true;
         this.$toast.fire({
@@ -1076,9 +1060,7 @@ __webpack_require__.r(__webpack_exports__);
         });
         return false;
       }
-
       console.log('summery');
-
       if (!this.form.meta_title) {
         this.meta_titleWarn = true;
         this.$toast.fire({
@@ -1087,9 +1069,7 @@ __webpack_require__.r(__webpack_exports__);
         });
         return false;
       }
-
       console.log('meta_title');
-
       if (this.form.meta_keyword.length < 1) {
         this.tagsWarn = true;
         this.$toast.fire({
@@ -1098,9 +1078,7 @@ __webpack_require__.r(__webpack_exports__);
         });
         return false;
       }
-
       console.log('meta_keyword');
-
       if (this.form.status === '') {
         this.statusWarn = true;
         this.$toast.fire({
@@ -1109,9 +1087,7 @@ __webpack_require__.r(__webpack_exports__);
         });
         return false;
       }
-
       console.log('status');
-
       if (this.form.category === '') {
         this.categoryWarn = true;
         this.$toast.fire({
@@ -1120,9 +1096,7 @@ __webpack_require__.r(__webpack_exports__);
         });
         return false;
       }
-
       console.log('category');
-
       if (this.form.client_type === '') {
         this.clientTypeWarn = true;
         this.$toast.fire({
@@ -1131,9 +1105,7 @@ __webpack_require__.r(__webpack_exports__);
         });
         return false;
       }
-
       console.log('client_type');
-
       if (!this.img_image) {
         this.imageWarn = true;
         this.$toast.fire({
@@ -1142,18 +1114,15 @@ __webpack_require__.r(__webpack_exports__);
         });
         return false;
       }
-
       console.log('img_image');
       this.form.tags = this.form.meta_keyword;
       this.loading = true;
-
       if (this.titleWarn !== true && this.form.tags.length !== 0) {
         //this.form.tags = this.form.meta_keyword
         this.form.user_id = window.userId;
         this.form.put("/api/posts/".concat(this.$route.params.id)).then(function (response) {
-          _this4.$swal.fire("Updated!", "Item Updated successfully", "success"); //this.emitSock()
-
-
+          _this4.$swal.fire("Updated!", "Item Updated successfully", "success");
+          //this.emitSock()
           _this4.loading = false;
         })["catch"](function () {});
       }
@@ -1164,19 +1133,15 @@ __webpack_require__.r(__webpack_exports__);
     },
     changeDetailPhoto: function changeDetailPhoto(event) {
       var _this5 = this;
-
       var file = event.target.files[0];
       var reader = new FileReader();
-
       reader.onload = function (event) {
         _this5.form.image.push({
           name: file.name,
           file: event.target.result
         });
-
         _this5.img_image = event.target.result;
       };
-
       reader.readAsDataURL(file);
     },
     back: function back() {

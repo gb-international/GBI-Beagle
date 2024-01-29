@@ -142,16 +142,7 @@ export default {
       this.$store.dispatch('deleteItem',payload);
     },
     publishItem(id, status) {
-      console.log(status)
       axios.get("/api/fact/status/"+id+"/"+status).then((res) => {});
-      setTimeout(() =>
-        this.socket.emit('sendToServer', 'NA'), 
-      3000);
-
-      notifsCollection.doc('New_Notif').set({
-          type: "SiteNotif",
-      })
-
       this.getitems();
     },
     draftItem(id, status){

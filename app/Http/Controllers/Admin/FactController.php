@@ -16,12 +16,7 @@ class FactController extends BaseController
         try{
             $size = empty($size)?10:$size;
             $data = Fact::paginate($size);
-            if($data->count()>0){
-                return response()->json($data);
-            }
-            else{
-                return $this->sendError("Data not fount!", 404);
-            }
+            return response()->json($data);
         }
         catch(Exception $e){
             return $this->sendError($e->getMessage(), 500);

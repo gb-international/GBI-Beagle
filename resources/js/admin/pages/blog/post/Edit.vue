@@ -123,8 +123,7 @@ to submit the data we are using a function.
               <label for="categories">Category</label>
               <dropdown-list class="mb-2" 
                 :itemList="categories" 
-                v-model="form.category_id"
-              />
+                v-model="form.category_id"/>
 
               <has-error :form="form" field="categories"></has-error>
             </div>
@@ -314,7 +313,7 @@ export default {
       });
     },
 
-    UpdateCategory(v){ this.form.category_id = v.id },    
+    UpdateCategory(v){this.form.category_id = v.id },    
     updateStatus(v){ this.form.status = v.id },
 
     getTags() {

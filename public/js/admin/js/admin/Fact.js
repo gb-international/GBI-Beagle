@@ -738,15 +738,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.$store.dispatch('deleteItem', payload);
     },
     publishItem: function publishItem(id, status) {
-      var _this = this;
-      console.log(status);
       axios.get("/api/fact/status/" + id + "/" + status).then(function (res) {});
-      setTimeout(function () {
-        return _this.socket.emit('sendToServer', 'NA');
-      }, 3000);
-      _firebase__WEBPACK_IMPORTED_MODULE_9__.notifsCollection.doc('New_Notif').set({
-        type: "SiteNotif"
-      });
       this.getitems();
     },
     draftItem: function draftItem(id, status) {

@@ -32,7 +32,7 @@ class StateController extends BaseController
     }
     public function allStatePerCountry($id)
     {
-        return response()->json(State::where('country_id', $id)->get(["name","id"])->toArray());
+        return response()->json(State::where('country_id', $id)->get(["id","name"])->toArray());
     }
 
     /**

@@ -26,7 +26,7 @@ class CityController extends BaseController
 
      public function allCityPerState($id)
      {
-         return response()->json(City::where('state_id', $id)->get(["name","id"])->toArray());
+         return response()->json(City::where('state_id', $id)->get(["id","name"])->toArray());
      }
 
      

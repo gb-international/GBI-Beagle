@@ -562,6 +562,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -629,36 +647,27 @@ __webpack_require__.r(__webpack_exports__);
     updateStatus: function updateStatus(status) {
       this.form.status = status.id;
     },
-    editFact: function editFact() {
-      var _this = this;
-      axios.get("/api/fact/fact/".concat(this.$route.params.id, "/edit")).then(function (response) {
-        setTimeout(function () {
-          return $("#example").DataTable();
-        }, 1000);
-        _this.form.fill(response.data);
-      });
-    },
     getcountries: function getcountries() {
-      var _this2 = this;
+      var _this = this;
       axios.get("/api/all-country").then(function (res) {
         if (res) {
-          _this2.country_list = res.data;
+          _this.country_list = res.data;
         }
       });
     },
     stateData: function stateData(id) {
-      var _this3 = this;
+      var _this2 = this;
       axios.get("/api/all-state-per-country/" + id).then(function (res) {
         if (res) {
-          _this3.state_list = res.data;
+          _this2.state_list = res.data;
         }
       });
     },
     cityData: function cityData(id) {
-      var _this4 = this;
+      var _this3 = this;
       axios.get("/api/all-city-per-state/" + id).then(function (res) {
         if (res) {
-          _this4.city_list = res.data;
+          _this3.city_list = res.data;
         }
       });
     },
@@ -667,7 +676,7 @@ __webpack_require__.r(__webpack_exports__);
       this.socket.emit('sendToServer', 'NA');
     },*/
     updateFact: function updateFact() {
-      var _this5 = this;
+      var _this4 = this;
       this.form_collection = new vform__WEBPACK_IMPORTED_MODULE_0__.Form({
         name: this.form.name,
         description: this.form.description,
@@ -692,53 +701,62 @@ __webpack_require__.r(__webpack_exports__);
       this.form_collection.put("/api/fact/fact/".concat(this.$route.params.id)).then(function (res) {
         if (res.data.status == 422) {
           if (res.data.errors.name) {
-            _this5.$toast.fire({
+            _this4.$toast.fire({
               icon: "error",
               title: res.data.errors.name[0]
             });
             return false;
           }
           if (res.data.errors.description) {
-            _this5.$toast.fire({
+            _this4.$toast.fire({
               icon: "error",
               title: res.data.errors.description[0]
             });
             return false;
           }
           if (res.data.errors.status) {
-            _this5.$toast.fire({
+            _this4.$toast.fire({
               icon: "error",
               title: res.data.errors.status[0]
             });
             return false;
           }
           if (res.data.errors.country_id) {
-            _this5.$toast.fire({
+            _this4.$toast.fire({
               icon: "error",
               title: res.data.errors.country_id[0]
             });
             return false;
           }
           if (res.data.errors.state_id) {
-            _this5.$toast.fire({
+            _this4.$toast.fire({
               icon: "error",
               title: res.data.errors.state_id[0]
             });
             return false;
           }
           if (res.data.errors.city_id) {
-            _this5.$toast.fire({
+            _this4.$toast.fire({
               icon: "error",
               title: res.data.errors.city_id[0]
             });
             return false;
           }
         }
-        _this5.$router.push("/fact/");
-        _this5.$toast.fire({
+        _this4.$router.push("/fact/");
+        _this4.$toast.fire({
           title: res.data
         });
       })["catch"](function (error) {});
+    },
+    editFact: function editFact() {
+      var _this5 = this;
+      axios.get("/api/fact/fact/".concat(this.$route.params.id, "/edit")).then(function (response) {
+        setTimeout(function () {
+          return $("#example").DataTable();
+        }, 1000);
+        _this5.form.fill(response.data);
+      });
     }
   }
 });
@@ -16172,81 +16190,155 @@ var render = function () {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "col-sm-6" }, [
-                      _c(
-                        "div",
-                        { staticClass: "form-group" },
-                        [
-                          _c("label", { attrs: { for: "countries" } }, [
-                            _vm._v("Country"),
-                          ]),
-                          _vm._v(" "),
-                          _c("dropdown-list", {
-                            staticClass: "mb-2",
-                            attrs: { itemList: _vm.country_list },
-                            on: { "update:option": _vm.UpdateCountry },
-                            model: {
-                              value: _vm.form.country_id,
-                              callback: function ($$v) {
-                                _vm.$set(_vm.form, "country_id", $$v)
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", { attrs: { for: "countries" } }, [
+                          _vm._v("Country"),
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.country_id,
+                                expression: "form.country_id",
                               },
-                              expression: "form.country_id",
+                            ],
+                            staticClass: "form-control customSelect",
+                            on: {
+                              change: function ($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function (o) {
+                                    return o.selected
+                                  })
+                                  .map(function (o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.form,
+                                  "country_id",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              },
                             },
+                          },
+                          _vm._l(_vm.country_list, function (data) {
+                            return _c(
+                              "option",
+                              { key: data.id, domProps: { value: data.id } },
+                              [_vm._v(_vm._s(data.name))]
+                            )
                           }),
-                        ],
-                        1
-                      ),
+                          0
+                        ),
+                      ]),
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "col-sm-6" }, [
-                      _c(
-                        "div",
-                        { staticClass: "form-group" },
-                        [
-                          _c("label", { attrs: { for: "state_id" } }, [
-                            _vm._v("State"),
-                          ]),
-                          _vm._v(" "),
-                          _c("dropdown-list", {
-                            staticClass: "mb-2",
-                            attrs: { itemList: _vm.state_list },
-                            on: { "update:option": _vm.UpdateState },
-                            model: {
-                              value: _vm.form.state_id,
-                              callback: function ($$v) {
-                                _vm.$set(_vm.form, "state_id", $$v)
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", { attrs: { for: "state" } }, [
+                          _vm._v("State"),
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.state_id,
+                                expression: "form.state_id",
                               },
-                              expression: "form.state_id",
+                            ],
+                            staticClass: "form-control customSelect",
+                            on: {
+                              "update:option": _vm.UpdateState,
+                              change: function ($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function (o) {
+                                    return o.selected
+                                  })
+                                  .map(function (o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.form,
+                                  "state_id",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              },
                             },
+                          },
+                          _vm._l(_vm.state_list, function (data) {
+                            return _c(
+                              "option",
+                              { key: data.id, domProps: { value: data.id } },
+                              [_vm._v(_vm._s(data.name))]
+                            )
                           }),
-                        ],
-                        1
-                      ),
+                          0
+                        ),
+                      ]),
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "col-sm-6" }, [
-                      _c(
-                        "div",
-                        { staticClass: "form-group" },
-                        [
-                          _c("label", { attrs: { for: "city_id" } }, [
-                            _vm._v("City"),
-                          ]),
-                          _vm._v(" "),
-                          _c("dropdown-list", {
-                            staticClass: "mb-2",
-                            attrs: { itemList: _vm.city_list },
-                            on: { "update:option": _vm.UpdateCity },
-                            model: {
-                              value: _vm.form.city_id,
-                              callback: function ($$v) {
-                                _vm.$set(_vm.form, "city_id", $$v)
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", { attrs: { for: "city_id" } }, [
+                          _vm._v("City"),
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.city_id,
+                                expression: "form.city_id",
                               },
-                              expression: "form.city_id",
+                            ],
+                            staticClass: "form-control customSelect",
+                            on: {
+                              "update:option": _vm.UpdateCity,
+                              change: function ($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function (o) {
+                                    return o.selected
+                                  })
+                                  .map(function (o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.form,
+                                  "city_id",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              },
                             },
+                          },
+                          _vm._l(_vm.city_list, function (data) {
+                            return _c(
+                              "option",
+                              { key: data.id, domProps: { value: data.id } },
+                              [_vm._v(_vm._s(data.name))]
+                            )
                           }),
-                        ],
-                        1
-                      ),
+                          0
+                        ),
+                      ]),
                     ]),
                   ]),
                   _vm._v(" "),

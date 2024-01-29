@@ -30,7 +30,7 @@ class CountryController extends Controller
     }
 
     public function getAllCountry(){
-        return response()->json(Country::get(["name","id"])->toArray());
+        return response()->json(Country::get(["id","name"])->toArray());
     }
 
     /**

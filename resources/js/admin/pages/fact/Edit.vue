@@ -51,29 +51,47 @@ to submit the data we are using a function.
             </div>
           </div>
           <div class="col-sm-6">
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <label for="countries">Country</label>
                 <dropdown-list class="mb-2" 
                 :itemList="country_list" 
                     @update:option="UpdateCountry"
                      v-model="form.country_id"/>
+            </div> -->
+              <div class="form-group">
+                <label for="countries">Country</label>
+                  <select v-model="form.country_id" class="form-control customSelect">
+                    <option v-for="(data) in country_list" :value="data.id"  :key="data.id">{{data.name}}</option>
+                </select>
             </div>
           </div>
           <div class="col-sm-6">
             <div class="form-group">
-                <label for="state_id">State</label>
-                <dropdown-list class="mb-2" 
-                :itemList="state_list" @update:option="UpdateState" 
-                v-model="form.state_id" />
+                <label for="state">State</label>
+                  <select @update:option="UpdateState" v-model="form.state_id" class="form-control customSelect">
+                    <option v-for="(data) in state_list" :value="data.id"  :key="data.id">{{data.name}}</option>
+                </select>
             </div>
+            <!-- <div class="form-group">
+              <label for="state_id">State</label>
+              <dropdown-list class="mb-2" 
+              :itemList="state_list" @update:option="UpdateState" 
+              v-model="form.state_id" />
+            </div> -->
           </div>
           <div class="col-sm-6">
             <div class="form-group">
                 <label for="city_id">City</label>
+                  <select @update:option="UpdateCity" v-model="form.city_id" class="form-control customSelect">
+                    <option v-for="(data) in city_list" :value="data.id"  :key="data.id">{{data.name}}</option>
+                </select>
+            </div>
+            <!-- <div class="form-group">
+                <label for="city_id">City</label>
                 <dropdown-list class="mb-2" 
                 :itemList="city_list" @update:option="UpdateCity" 
                 v-model="form.city_id"/>
-            </div>
+            </div> -->
           </div>
         </div>
         <form-buttons />
@@ -141,119 +159,119 @@ export default {
       UpdateState(state){ this.form.state_id = state.id },
       UpdateCity(city){ this.form.city_id = city.id },    
       updateStatus(status){ this.form.status = status.id }, 
+      getcountries() {
+        axios.get("/api/all-country").then((res) => {
+          if (res) {
+            this.country_list = res.data
+          }
+        });
+      },
+      stateData(id) {
+        axios.get("/api/all-state-per-country/" + id).then((res) => {
+          if (res) {
+            this.state_list = res.data; 
+          }
+        });
+      },
+      cityData(id) {
+        axios.get("/api/all-city-per-state/" + id).then((res) => {
+          if (res) {
+            this.city_list = res.data; 
+          }
+        });
+      },
+  
+      /*emitSock(){
+        //console.log('Emit')
+        this.socket.emit('sendToServer', 'NA');
+      },*/
+      
+      
+      updateFact() {
+        this.form_collection = new Form({name: this.form.name, description: this.form.description, status:this.form.status});
+        console.log(this.form.city_id)
+        
+        if(this.form.country_id == null){
+          delete this.form_collection.country_id;
+        }
+        else{
+          this.form_collection.country_id = this.form.country_id;
+        }
+        
+        if(this.form.state_id == null){
+          delete this.form_collection.state_id;
+        }
+        else{
+          this.form_collection.state_id = this.form.state_id;
+        }
+        
+        if(this.form.city_id ==null){
+          delete this.form_collection.city_id;
+        }
+        else{
+          this.form_collection.city_id = this.form.city_id;
+        }
+  
+        this.form_collection.put(`/api/fact/fact/${this.$route.params.id}`)
+        .then((res) => {
+            if(res.data.status == 422){
+              if(res.data.errors.name){
+                this.$toast.fire({
+                    icon: "error",
+                    title: res.data.errors.name[0],
+                  });        
+                return false;
+              }
+              if(res.data.errors.description){
+                this.$toast.fire({
+                    icon: "error",
+                    title: res.data.errors.description[0],
+                  });        
+                return false;
+              }
+              if(res.data.errors.status){
+                this.$toast.fire({
+                    icon: "error",
+                    title: res.data.errors.status[0],
+                  });        
+                return false;
+              }
+              if(res.data.errors.country_id){
+                this.$toast.fire({
+                    icon: "error",
+                    title: res.data.errors.country_id[0],
+                  });        
+                return false;
+              }
+              if(res.data.errors.state_id){
+                this.$toast.fire({
+                    icon: "error",
+                    title: res.data.errors.state_id[0],
+                  });        
+                return false;
+              }
+              if(res.data.errors.city_id){
+                this.$toast.fire({
+                    icon: "error",
+                    title: res.data.errors.city_id[0],
+                  });        
+                return false;
+              }
+            }
+            this.$router.push(`/fact/`);
+            this.$toast.fire({
+              title: res.data,
+            });
+          })
+          .catch((error) => {
+          });
+      },
       editFact() {
         axios.get(`/api/fact/fact/${this.$route.params.id}/edit`).then((response) => {
           setTimeout(() => $("#example").DataTable(), 1000);
           this.form.fill(response.data);
       });
     },   
-    getcountries() {
-      axios.get("/api/all-country").then((res) => {
-        if (res) {
-          this.country_list = res.data
-        }
-      });
-    },
-    stateData(id) {
-      axios.get("/api/all-state-per-country/" + id).then((res) => {
-        if (res) {
-          this.state_list = res.data; 
-        }
-      });
-    },
-    cityData(id) {
-      axios.get("/api/all-city-per-state/" + id).then((res) => {
-        if (res) {
-          this.city_list = res.data; 
-        }
-      });
-    },
-
-    /*emitSock(){
-      //console.log('Emit')
-      this.socket.emit('sendToServer', 'NA');
-    },*/
-    
-    
-    updateFact() {
-      this.form_collection = new Form({name: this.form.name, description: this.form.description, status:this.form.status});
-      console.log(this.form.city_id)
-      
-      if(this.form.country_id == null){
-        delete this.form_collection.country_id;
-      }
-      else{
-        this.form_collection.country_id = this.form.country_id;
-      }
-      
-      if(this.form.state_id == null){
-        delete this.form_collection.state_id;
-      }
-      else{
-        this.form_collection.state_id = this.form.state_id;
-      }
-      
-      if(this.form.city_id ==null){
-        delete this.form_collection.city_id;
-      }
-      else{
-        this.form_collection.city_id = this.form.city_id;
-      }
-
-      this.form_collection.put(`/api/fact/fact/${this.$route.params.id}`)
-      .then((res) => {
-          if(res.data.status == 422){
-            if(res.data.errors.name){
-              this.$toast.fire({
-                  icon: "error",
-                  title: res.data.errors.name[0],
-                });        
-              return false;
-            }
-            if(res.data.errors.description){
-              this.$toast.fire({
-                  icon: "error",
-                  title: res.data.errors.description[0],
-                });        
-              return false;
-            }
-            if(res.data.errors.status){
-              this.$toast.fire({
-                  icon: "error",
-                  title: res.data.errors.status[0],
-                });        
-              return false;
-            }
-            if(res.data.errors.country_id){
-              this.$toast.fire({
-                  icon: "error",
-                  title: res.data.errors.country_id[0],
-                });        
-              return false;
-            }
-            if(res.data.errors.state_id){
-              this.$toast.fire({
-                  icon: "error",
-                  title: res.data.errors.state_id[0],
-                });        
-              return false;
-            }
-            if(res.data.errors.city_id){
-              this.$toast.fire({
-                  icon: "error",
-                  title: res.data.errors.city_id[0],
-                });        
-              return false;
-            }
-          }
-          this.$router.push(`/fact/`);
-          this.$toast.fire({
-            title: res.data,
-          });
-        })
-        .catch((error) => {
-        });
-    },
   },
 };
 </script>

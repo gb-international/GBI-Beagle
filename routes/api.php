@@ -195,10 +195,7 @@ Route::group(['prefix' => '{company}', 'middleware' => 'company.authentication']
 		Route::group(['prefix' => '/cheque', 'as' => 'cheque.'], function () {
 			Route::post('cheque-draft-record',[UserpaymentController::class, 'chequeOrdraftRecord'])->where('company', 'company');
 		});
-	});
-	Route::post('logout-user',[AuthController::class, 'logout'])->where('company', 'company');
-	Route::post('refreshtoken',[AuthController::class, 'refresh'])->where('company', 'company');
-	Route::group(['prefix' => '/payment', 'as' => 'payment.'], function() {		
+
 		Route::group(['prefix' => '/payment-gateway', 'as' => 'payment-gateway.'], function() {
 			Route::controller(\Front\UserpaymentController::class)->group(function() {
 				Route::post('make-order', 'makeOrder')->where('company', 'company');
@@ -207,6 +204,9 @@ Route::group(['prefix' => '{company}', 'middleware' => 'company.authentication']
 			});	
 		});
 	});
+
+	Route::post('logout-user',[AuthController::class, 'logout'])->where('company', 'company');
+	Route::post('refreshtoken',[AuthController::class, 'refresh'])->where('company', 'company');
 	
 	//Sightseeing 
 	Route::group(['prefix' => '/itineray', 'as' => 'itineray.'], function () {
@@ -258,10 +258,6 @@ Route::group(['prefix' => '{school}', 'middleware' => 'school.authentication'], 
 		Route::group(['prefix' => '/cheque', 'as' => 'cheque.'], function () {
 			Route::post('cheque-draft-record',[UserpaymentController::class, 'chequeOrdraftRecord'])->where('school', 'school');
 		});
-	});
-	Route::post('logout-user',[AuthController::class, 'logout'])->where('school', 'school');
-	Route::post('refreshtoken',[AuthController::class, 'refresh'])->where('school', 'school');
-	Route::group(['prefix' => '/payment', 'as' => 'payment.'], function() {		
 		Route::group(['prefix' => '/payment-gateway', 'as' => 'payment-gateway.'], function() {
 			Route::controller(\Front\UserpaymentController::class)->group(function() {
 				Route::post('make-order', 'makeOrder')->where('school', 'school');
@@ -270,6 +266,9 @@ Route::group(['prefix' => '{school}', 'middleware' => 'school.authentication'], 
 			});	
 		});
 	});
+
+	Route::post('logout-user',[AuthController::class, 'logout'])->where('school', 'school');
+	Route::post('refreshtoken',[AuthController::class, 'refresh'])->where('school', 'school');
 	
 	//Sightseeing 
 	Route::group(['prefix' => '/itineray', 'as' => 'itineray.'], function () {
@@ -336,10 +335,7 @@ Route::group(['prefix' => '{family}', 'middleware' => 'family.authentication'], 
 		Route::group(['prefix' => '/cheque', 'as' => 'cheque.'], function () {
 			Route::post('cheque-draft-record',[UserpaymentController::class, 'chequeOrdraftRecord'])->where('family', 'family');
 		});
-	});
-	Route::post('logout-user',[AuthController::class, 'logout'])->where('family', 'family');
-	Route::post('refreshtoken',[AuthController::class, 'refresh'])->where('family', 'family');
-	Route::group(['prefix' => '/payment', 'as' => 'payment.'], function() {		
+
 		Route::group(['prefix' => '/payment-gateway', 'as' => 'payment-gateway.'], function() {
 			Route::controller(\Front\UserpaymentController::class)->group(function() {
 				Route::post('make-order', 'makeOrder')->where('family', 'family');
@@ -348,6 +344,8 @@ Route::group(['prefix' => '{family}', 'middleware' => 'family.authentication'], 
 			});	
 		});
 	});
+	Route::post('logout-user',[AuthController::class, 'logout'])->where('family', 'family');
+	Route::post('refreshtoken',[AuthController::class, 'refresh'])->where('family', 'family');
 	
 	//Sightseeing 
 	Route::group(['prefix' => '/itineray', 'as' => 'itineray.'], function () {
