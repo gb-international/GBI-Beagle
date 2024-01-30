@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Tour;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Tour\Tour;
+use App\Model\Tour\Payment as PaymentModel;
 use App\Http\Resources\TourCollection;
 use App\Model\Reservation\Bookedbus;
 use App\Model\Reservation\Bookedescort;
@@ -15,14 +16,40 @@ use App\Model\Reservation\Bookedtrain;
 use App\Model\Reservation\Bookedsightseeing;
 use App\Http\Controllers\Admin\BaseController;
 use App\Http\Requests\Admin\TourRequest;
+use Validator;
 
 class TourController extends BaseController
 {
+    public function paymentThrough(Request $request){
+       try{
+           $validator = Validator::make($request->all(), [ 
+               'tour_id'=>'required|exists:tours,id',
+               'payment_through_status'=>'required|in:0,1',
+           ]);
+           
+           if ($validator->fails()) {
+               return response()->json(['message' => "The given data was invalid.", 'errors' =>$validator->errors()]);
+           }
+           $payment_count = PaymentModel::where('tour_id', $request->tour_id)->count();
+           if($payment_count > 0){
+               return $this->sendError("Payment done or processing");
+           }
+           $tour = Tour::where('id', $request->tour_id)->first();
+           $tour->payment_through_status = $request->payment_through_status??0;
+           $tour->save();
+           return response()->json('successfully updated!');
+       }
+       catch(Exception $e){
+           return $this->sendError($e->getMessage());
+       }
+    }
+    
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
 
     public function all($size)
     {

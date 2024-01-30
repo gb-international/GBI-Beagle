@@ -76,6 +76,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 			Route::get('tourtype/all/{size}','TourtypeController@all');
 			Route::resource('tourtype','TourtypeController');
 			Route::get('tourprogram/all/{size}','TourprogramController@all');
+			Route::post('tour-payment-through-status','TourController@paymentThrough');
 			Route::resource('tourprogram','TourprogramController');
 			
 			//Booking

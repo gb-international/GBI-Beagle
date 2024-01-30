@@ -12,6 +12,7 @@ use App\Http\Controllers\Controller;
 use App\User;
 use App\Model\User\Information;
 use App\Model\Tour\TourUser;
+use App\Model\Tour\Payment as PaymentModel;
 use App\Model\Reservation\Bookeduser;
 use App\Model\Tour\Tour;
 use App\Model\School\School;
@@ -26,10 +27,37 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Resources\SightsResource;
 use App\Model\Reservation\Bookedsightseeing;
 use App\Model\School\EducationInstitute as EduInstitute;
+use App\Http\Controllers\Admin\BaseController;
 
-class TourController extends Controller{
-
-     public function tourList(Request $request){
+class TourController extends BaseController{
+    public function paymentThrough($guard_name, Request $request){
+        try{
+            $user = Auth::guard($guard_name."-api")->user();
+            if($user->is_incharge == 0){
+                return $this->sendError("Permission not allowed!");
+            }
+            $validator = Validator::make($request->all(), [ 
+                'tour_id'=>'required|exists:tours,id',
+                'payment_through_status'=>'required|in:0,1',
+            ]);
+            
+            if ($validator->fails()) {
+                return response()->json(['message' => "The given data was invalid.", 'errors' =>$validator->errors()]);
+            }
+            $payment_count = PaymentModel::where('tour_id', $request->tour_id)->count();
+            if($payment_count > 0){
+                return $this->sendError("Payment done or processing");
+            }
+            $tour = Tour::where('id', $request->tour_id)->first();
+            $tour->payment_through_status = $request->payment_through_status??0;
+            $tour->save();
+            return response()->json('successfully updated!');
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage());
+        }
+     }
+    public function tourList(Request $request){
         $user_type = $this->user_category($request->user_type??'');
         // $edu_institutes = Auth::guard($user_type)->user();
         $edu_institutes = Auth::guard($user_type)->user();
@@ -37,7 +65,7 @@ class TourController extends Controller{
         $total_pax = Groupmember::where('tour_id', $request->travel_code)->count();
         $already_paid = Groupmember::where('tour_id', $request->travel_code)->where('payment_status', 'success')->count();
         // return $edu_institutes->is_incharge;
-         // if user is student or teacher
+            // if user is student or teacher
         if($edu_institutes->is_incharge == 0){
             $travels =  TourUser::with([
                 'tour' => function($tour){
@@ -70,7 +98,7 @@ class TourController extends Controller{
                         'tour_code'=>$travel->tour->tour_id,
                         'edu_institute_id'=> $edu_institute->id??0
                     ])->first();
-                   
+                    
                     if($incharge_paid){
                         // teacher payment mode by self
                         if($incharge_paid->payment_mode === 'self'){
@@ -136,7 +164,7 @@ class TourController extends Controller{
                 }
             }            
         }
-         return response()->json($travels);
+        return response()->json($travels);
     }
 
 

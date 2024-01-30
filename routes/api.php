@@ -182,6 +182,9 @@ Route::group(['prefix' => '/razorpay-payment', 'as' => 'razorpay-payment.'], fun
 //Company
 Route::group(['prefix' => '{company}', 'middleware' => 'company.authentication'], function () {
 	
+	//Incharge payment status update on tour
+	Route::post('tour-payment-through-status',[TourController::class, 'paymentThrough'])->where('company', 'company');
+	
 	//Discount Coupon 
 	Route::group(['prefix' => '/advertising', 'as' => 'advertising.'], function () {
 		Route::post('check-discount-coupon',[DiscountCouponController::class, 'checkCouponValidation'])->where('company', 'company');
@@ -246,6 +249,10 @@ Route::group(['prefix' => '{company}', 'middleware' => 'company.authentication']
 
 // School
 Route::group(['prefix' => '{school}', 'middleware' => 'school.authentication'], function () {
+
+	//Incharge payment status update on tour
+	Route::post('tour-payment-through-status',[TourController::class, 'paymentThrough'])->where('school', 'school');
+
 	//Discount Coupon 
 	Route::group(['prefix' => '/advertising', 'as' => 'advertising.'], function () {
 		Route::post('check-discount-coupon',[DiscountCouponController::class, 'checkCouponValidation'])->where('school', 'school');
@@ -281,7 +288,6 @@ Route::group(['prefix' => '{school}', 'middleware' => 'school.authentication'], 
 	Route::post('update-password',[UserController::class, 'UpdatePassword'])->where('school', 'school');
 	Route::post('update-user-image',[UserController::class, 'UserImage'])->where('school', 'school');
 	Route::post('update-user-docs',[UserController::class, 'UserDocs'])->where('school', 'school');
-	
 	Route::post('tour-detail',[TourController::class, 'tourDetail'])->where('school', 'school');
 
 	// School
@@ -322,6 +328,9 @@ Route::group(['prefix' => '{school}', 'middleware' => 'school.authentication'], 
 // Family
 Route::group(['prefix' => '{family}', 'middleware' => 'family.authentication'], function () {
 	
+	//Incharge payment status update on tour
+	Route::post('tour-payment-through-status',[TourController::class, 'paymentThrough'])->where('family', 'family');
+
 	//Discount Coupon 
 	Route::group(['prefix' => '/advertising', 'as' => 'advertising.'], function () {
 		Route::post('check-discount-coupon',[DiscountCouponController::class, 'checkCouponValidation'])->where('family', 'family');
