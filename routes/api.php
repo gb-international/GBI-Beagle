@@ -203,8 +203,11 @@ Route::group(['prefix' => '{company}', 'middleware' => 'company.authentication']
 			Route::controller(\Front\UserpaymentController::class)->group(function() {
 				Route::post('make-order', 'makeOrder')->where('company', 'company');
 				Route::post('payment-record', 'paymentRecord')->where('company', 'company');
-				Route::get('payment-history/{size?}', 'allHistory')->where('company', 'company');
 			});	
+		});
+		
+		Route::controller(\Front\UserpaymentController::class)->group(function() {
+			Route::get('payment-history/{size?}', 'allHistory')->where('company', 'company');
 		});
 	});
 
@@ -269,8 +272,11 @@ Route::group(['prefix' => '{school}', 'middleware' => 'school.authentication'], 
 			Route::controller(\Front\UserpaymentController::class)->group(function() {
 				Route::post('make-order', 'makeOrder')->where('school', 'school');
 				Route::post('payment-record', 'paymentRecord')->where('school', 'school');
-				Route::get('payment-history/{size?}', 'allHistory')->where('school', 'school');
 			});	
+		});
+
+		Route::controller(\Front\UserpaymentController::class)->group(function() {
+			Route::get('payment-history/{size?}', 'allHistory')->where('school', 'school');
 		});
 	});
 
@@ -349,8 +355,10 @@ Route::group(['prefix' => '{family}', 'middleware' => 'family.authentication'], 
 			Route::controller(\Front\UserpaymentController::class)->group(function() {
 				Route::post('make-order', 'makeOrder')->where('family', 'family');
 				Route::post('payment-record', 'paymentRecord')->where('family', 'family');
-				Route::get('payment-history/{size?}', 'allHistory')->where('family', 'family');
 			});	
+		});
+		Route::controller(\Front\UserpaymentController::class)->group(function() {
+			Route::get('payment-history/{size?}', 'allHistory')->where('family', 'family');
 		});
 	});
 	Route::post('logout-user',[AuthController::class, 'logout'])->where('family', 'family');

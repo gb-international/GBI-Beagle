@@ -386,6 +386,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 			Route::group(['prefix' => '/cash', 'as' => 'cash.'], function () {
 				Route::post('record',[UserpaymentController::class, 'cashRecord'])->where('user', 'user')->where('tour_type','school|company|family');
 			});
+			Route::get('payment-history/{tour_id}/{size?}',[UserpaymentController::class, 'allHistory'])->where('user', 'user')->where('tour_type','school|company|family');
 			
 			Route::group(['prefix' => '/cheque', 'as' => 'cheque.'], function () {
 				Route::post('cheque-draft-record',[UserpaymentController::class, 'chequeOrdraftRecord'])->where('user', 'user')->where('tour_type','school|company|family');

@@ -192,6 +192,7 @@ class UserpaymentController extends BaseController
             return $this->sendError("No Such Payment Found!");  
         }
     }
+
     /**
     * Upload image in amazon.
     */
@@ -201,6 +202,32 @@ class UserpaymentController extends BaseController
         \Storage::disk('s3')->put($path, file_get_contents($doc_proof));
         return $doc_proof_name;
     }
+
+    /**
+     * Fetch payment History 
+     */
+    public function allHistory($user, $tour_type, $tour_id, $size=10){
+        try{
+            $fetch_column = array('id', 'tour_id', 'customer_type', 'payment_mode', 'payment_by_user_id', 'tour_price', 'amount', 'total_amount', 'status', 'doc_proof');
+
+            if($tour_type == "family"){
+                $fetch_column[] = 'payment_by_family_user_id';  
+            }
+            else if($tour_type == "school"){
+                $fetch_column[] = 'payment_by_edu_institute_id';    
+            }
+            else if($tour_type == "company"){
+                $fetch_column[] = 'payment_by_company_user_id';  
+            }
+
+            $data = Payment::where(array('tour_id'=>$tour_id, 'customer_type'=>$tour_type))->paginate($size, $fetch_column);
+            return response()->json($data);
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }   
+    }
+
 }
 
 

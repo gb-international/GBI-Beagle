@@ -28,10 +28,12 @@ use App\Http\Resources\SightsResource;
 use App\Model\Reservation\Bookedsightseeing;
 use App\Model\School\EducationInstitute as EduInstitute;
 use App\Http\Controllers\Admin\BaseController;
+use Validator;
 
 class TourController extends BaseController{
     public function paymentThrough($guard_name, Request $request){
         try{
+
             $user = Auth::guard($guard_name."-api")->user();
             if($user->is_incharge == 0){
                 return $this->sendError("Permission not allowed!");

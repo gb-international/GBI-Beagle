@@ -176,7 +176,7 @@ class UserpaymentController extends BaseController
                     $cash_record->doc_proof = $this->uploadImage($request->doc_proof);
                     $cash_record->save();
                 }
-                return response()->json(['Message'=> 'Successfully added']);            
+                return response()->json('Successfully added');            
             }
             else{
                 return $this->sendError("Something went wrong!");
@@ -195,5 +195,27 @@ class UserpaymentController extends BaseController
         $path = config('gbi.doc_proof') . $doc_proof_name;
         \Storage::disk('s3')->put($path, file_get_contents($doc_proof));
         return $doc_proof_name;
+    }
+
+    public function allHistory($guard_name, $size=10){
+        try{
+            $user = Auth::guard($guard_name.'-api')->user();
+            $fetch_column = array('id', 'tour_id', 'customer_type', 'payment_mode', 'payment_by_user_id', 'tour_price', 'amount', 'total_amount', 'status', 'doc_proof');
+            $filter_data = array('customer_type' => $guard_name);
+            if($guard_name == "family"){
+                $filter_data['payment_by_family_user_id'] = $user->id??0;  
+            }
+            else if($guard_name == "school"){
+                $filter_data['payment_by_edu_institute_id'] = $user->id??0;    
+            }
+            else if($guard_name == "company"){
+                $filter_data['payment_by_company_user_id'] = $user->id??0;  
+            }
+            $data = Payment::where($filter_data)->paginate($size, $fetch_column);
+            return response()->json($data);
+        }
+        catch(Exception $e){
+            return $this->sendError($e->getMessage(), 500);
+        }
     }
 }

@@ -44,10 +44,10 @@ class CashPaymentRequest extends FormRequest
             'tour_id' => 'required|exists:tours,id',
             'school_id' =>(($login_type == 'school') || ($client_type == "user" && $tour_type == "school")) ? 'required|exists:schools,id' : '',
             'company_id' =>(($login_type == 'company') || ($client_type == "user" && $tour_type == "company")) ? 'required|exists:companies,id' : '',
-            'family_id' =>(($login_type == 'family') || ($client_type == "family" && $tour_type == "family")) ? 'required|exists:family_users,id' : '',
+            'family_id' =>(($login_type == 'family') || ($client_type == "user" && $tour_type == "family")) ? 'required|exists:family_users,id' : '',
             'doc_proof' => 'required|file|max:5000',
             'status' => 'required|in:pending,success',
-            'payment_by' => 'required|in:cash,self,student, teacher',
+            'payment_by' => 'required|in:cash,self,student,teacher',
         ];
     }
     protected function failedValidation(Validator $validator) : void
