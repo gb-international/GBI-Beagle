@@ -152,8 +152,7 @@ class CompanyController extends BaseController
         'state_name' => 'required',
         'country_name' => 'required',
         'pincode' => 'required|numeric|min:1',
-        'address1' => 'required',
-        'address2' => '',
+        'address' => 'required',
       ]);
     }
 

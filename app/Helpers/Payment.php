@@ -3,6 +3,27 @@ namespace App\Helpers;
 use App\Model\Tour\Payment as PaymentModel;
 class Payment  
 {
+    public function alreadyPay($user_id, $tour_id, $guardname){
+        $tour = Payment::where(array('tour_id'=> $request->tour_id??0, 'customer_type'=>$guardname))->first();
+        if($tour){
+            if($guardname == "school"){ 
+                if($tour->payment_by_edu_institute_id == $user_id || $tour->incharge_edu_institute_id == $user_id){
+                    return 1;
+                }
+            }
+            else if($guardname == "company"){
+                if($tour->payment_by_company_user_id == $user_id || $tour->incharge_company_user_id == $user_id){
+                    return 1;
+                }
+            }
+            else if($guardname == "family"){
+                if($tour->payment_by_family_user_id == $user_id || $tour->incharge_family_user_id == $user_id){
+                    return 1;
+                }
+            }
+        }
+        return 0;
+    }
     public function chequeOrdraft($data, $customer_type, $user, $client_type){
         $payment = new PaymentModel();
         $payment->payment_mode = $data->payment_mode??'';

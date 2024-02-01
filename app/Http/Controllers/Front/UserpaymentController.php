@@ -41,6 +41,10 @@ class UserpaymentController extends BaseController
         $customer_type = trim(str_replace("-api", "", $guard));
         try{
             $user = Auth::guard($guard)->user();
+            $alreadyPay = $this->payment_helper->alreadyPay($user->id??0, $request->tour_id??0, $guard_name);
+            if($alreadyPay == 1){
+                return response()->json(array('message'=>"Payment already done or processing"), 409);   
+            }
             $customer = $this->razorpay_payment_helper->createCustomer($user);
             $payment = $this->razorpay_payment_helper->createOrder($request, $customer_type, $user);
             $payment->customer_id = $customer->id??'';
@@ -144,6 +148,10 @@ class UserpaymentController extends BaseController
      public function chequeOrdraftRecord($guard_name, ChequePaymentRequest $request){
         try{
             $user = Auth::guard($guard_name.'-api')->user();
+            $alreadyPay = $this->payment_helper->alreadyPay($user->id??0, $request->tour_id??0, $guard_name);
+            if($alreadyPay == 1){
+                return response()->json(array('message'=>"Payment already done or processing"), 409);   
+            }
             $cheque_record = $this->payment_helper->chequeOrdraft($request, $guard_name, $user, $guard_name);
             if($cheque_record){ 
                 if ($request->hasFile('doc_proof')) {
@@ -170,7 +178,13 @@ class UserpaymentController extends BaseController
     public function cashRecord($guardname, CashPaymentRequest $request){
         try{
             $user = Auth::guard($guardname.'-api')->user();
-             $cash_record = $this->payment_helper->cash($request, $guardname, $user, $guardname);
+            $request->tour_id??0; 
+            $alreadyPay = $this->payment_helper->alreadyPay($user->id??0, $request->tour_id??0, $guardname);
+            if($alreadyPay == 1){
+                return response()->json(array('message'=>"Payment already done or processing"), 409);   
+            }
+
+            $cash_record = $this->payment_helper->cash($request, $guardname, $user, $guardname);
             if($cash_record){
                 if ($request->hasFile('doc_proof')) {
                     $cash_record->doc_proof = $this->uploadImage($request->doc_proof);

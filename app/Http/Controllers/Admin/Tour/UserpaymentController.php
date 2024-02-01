@@ -123,7 +123,22 @@ class UserpaymentController extends BaseController
     public function chequeOrdraftRecord(ChequePaymentRequest $request){
         try{
             $tour_type = request()->route('tour_type')??'';
+            if($tour_type == "school"){ 
+                $user_id = $request->incharge_edu_institute_id??0;
+            }
+            else if($client_type == "company"){
+                $user_id = $request->incharge_company_user_id??0;
+            }
+            else if($client_type == "family"){
+                $user_id = $request->incharge_family_user_id??0;
+            }
+
             $user = Auth::guard('user-api')->user();
+            $alreadyPay = $this->payment_helper->alreadyPay($user_id, $request->tour_id??0, $tour_type);
+            if($alreadyPay == 1){
+                return response()->json(array('message'=>"Payment already done or processing"), 409);   
+            }
+
             $cheque_record = $this->payment_helper->chequeOrdraft($request, "user", $user, $tour_type);
             if($cheque_record){ 
                 if ($request->hasFile('doc_proof')) {
@@ -150,7 +165,22 @@ class UserpaymentController extends BaseController
     public function cashRecord(CashPaymentRequest $request){
         try{
             $tour_type = request()->route('tour_type')??'';
+            $user_id = 0;
+            if($tour_type == "school"){ 
+                $user_id = $request->incharge_edu_institute_id??0;
+            }
+            else if($client_type == "company"){
+                $user_id = $request->incharge_company_user_id??0;
+            }
+            else if($client_type == "family"){
+                $user_id = $request->incharge_family_user_id??0;
+            }
+
             $user = Auth::guard('user-api')->user();
+            $alreadyPay = $this->payment_helper->alreadyPay($user_id, $request->tour_id??0, $tour_type);
+            if($alreadyPay == 1){
+                return response()->json(array('message'=>"Payment already done or processing"), 409);   
+            }
              $cash_record = $this->payment_helper->cash($request, "user", $user, $tour_type);
             if($cash_record){
                 if ($request->hasFile('doc_proof')) {

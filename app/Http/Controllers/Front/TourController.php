@@ -33,7 +33,6 @@ use Validator;
 class TourController extends BaseController{
     public function paymentThrough($guard_name, Request $request){
         try{
-
             $user = Auth::guard($guard_name."-api")->user();
             if($user->is_incharge == 0){
                 return $this->sendError("Permission not allowed!");
@@ -46,11 +45,18 @@ class TourController extends BaseController{
             if ($validator->fails()) {
                 return response()->json(['message' => "The given data was invalid.", 'errors' =>$validator->errors()]);
             }
+            if($guard_name == "company"){
+                $guard_name = "corporate";
+            }
+
+            $tour = Tour::where(array('id'=>$request->tour_id, 'customer_type'=>$guard_name))->first();
+            if(!$tour){
+                return $this->sendError("Tour is not found!");
+            }
             $payment_count = PaymentModel::where('tour_id', $request->tour_id)->count();
             if($payment_count > 0){
                 return $this->sendError("Payment done or processing");
             }
-            $tour = Tour::where('id', $request->tour_id)->first();
             $tour->payment_through_status = $request->payment_through_status??0;
             $tour->save();
             return response()->json('successfully updated!');
