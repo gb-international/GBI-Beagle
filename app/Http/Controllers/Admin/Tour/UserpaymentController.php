@@ -107,6 +107,7 @@ class UserpaymentController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function destroy(Userpayment $userpayment)
     {
         $userpayment->delete();
@@ -123,16 +124,16 @@ class UserpaymentController extends BaseController
     public function chequeOrdraftRecord(ChequePaymentRequest $request){
         try{
             $tour_type = request()->route('tour_type')??'';
+            $user_id = null;
             if($tour_type == "school"){ 
-                $user_id = $request->incharge_edu_institute_id??0;
+                $user_id = $request->incharge_edu_institute_id??null;
             }
-            else if($client_type == "company"){
-                $user_id = $request->incharge_company_user_id??0;
+            else if($tour_type == "company"){
+                $user_id = $request->incharge_company_user_id??null;
             }
-            else if($client_type == "family"){
-                $user_id = $request->incharge_family_user_id??0;
+            else if($tour_type == "family"){
+                $user_id = $request->incharge_family_user_id??null;
             }
-
             $user = Auth::guard('user-api')->user();
             $alreadyPay = $this->payment_helper->alreadyPay($user_id, $request->tour_id??0, $tour_type);
             if($alreadyPay == 1){
@@ -165,15 +166,15 @@ class UserpaymentController extends BaseController
     public function cashRecord(CashPaymentRequest $request){
         try{
             $tour_type = request()->route('tour_type')??'';
-            $user_id = 0;
+            $user_id = null;
             if($tour_type == "school"){ 
-                $user_id = $request->incharge_edu_institute_id??0;
+                $user_id = $request->incharge_edu_institute_id??null;
             }
-            else if($client_type == "company"){
-                $user_id = $request->incharge_company_user_id??0;
+            else if($tour_type == "company"){
+                $user_id = $request->incharge_company_user_id??null;
             }
-            else if($client_type == "family"){
-                $user_id = $request->incharge_family_user_id??0;
+            else if($tour_type == "family"){
+                $user_id = $request->incharge_family_user_id??null;
             }
 
             $user = Auth::guard('user-api')->user();
@@ -181,7 +182,7 @@ class UserpaymentController extends BaseController
             if($alreadyPay == 1){
                 return response()->json(array('message'=>"Payment already done or processing"), 409);   
             }
-             $cash_record = $this->payment_helper->cash($request, "user", $user, $tour_type);
+             $cash_record = $this->payment_helper->cash($request, "user", $user, $tour_type, $user_id);
             if($cash_record){
                 if ($request->hasFile('doc_proof')) {
                     $cash_record->doc_proof = $this->uploadImage($request->doc_proof);
@@ -238,7 +239,7 @@ class UserpaymentController extends BaseController
      */
     public function allHistory($user, $tour_type, $tour_id, $size=10){
         try{
-            $fetch_column = array('id', 'tour_id', 'customer_type', 'payment_mode', 'payment_by_user_id', 'tour_price', 'amount', 'total_amount', 'status', 'doc_proof');
+            $fetch_column = array('id', 'tour_id', 'customer_type', 'payment_mode', 'payment_by_user_id', 'tour_price', 'amount', 'total_amount', 'status', 'doc_proof', 'order_payment_status');
 
             if($tour_type == "family"){
                 $fetch_column[] = 'payment_by_family_user_id';  
@@ -250,7 +251,7 @@ class UserpaymentController extends BaseController
                 $fetch_column[] = 'payment_by_company_user_id';  
             }
 
-            $data = Payment::where(array('tour_id'=>$tour_id, 'customer_type'=>$tour_type))->paginate($size, $fetch_column);
+            $data = Payment::where(array('order_payment_status'=>1,'tour_id'=>$tour_id, 'customer_type'=>$tour_type))->paginate($size, $fetch_column);
             return response()->json($data);
         }
         catch(Exception $e){

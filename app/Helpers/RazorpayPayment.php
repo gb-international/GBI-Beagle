@@ -20,7 +20,7 @@ class RazorpayPayment
     */
 
     public function createCustomer($data){
-        $customer = $this->api->customer->create(array("name"=>$data->name??'', "email"=>$data->email??'', "contact"=>$data->phone_no??'', "fail_existing"=>0, "gstin"=>$data->gstin??null, "notes"=>array("address"=>$data->address??null,"city"=>$data->city??null,"zip_code"=>$data->zip_code??null, "country"=>$data->country??null, "state"=>$data->state??null, "country_code"=>$data->country_code??null)));    
+        $customer = $this->api->customer->create(array("name"=>$data->name??'', "email"=>$data->email??'', "contact"=>$data->phone_no??'', "fail_existing"=>0, "gstin"=>$data->gstin??null, "notes"=>array("address"=>$data->address??null,"city"=>$data->city??null,"zip_code"=>$data->zip_code??null, "country"=>$data->country??null, "state"=>$data->state??null, "country_code"=>$data->country_code??null)));
         $data->customer_id = $customer->id??'';
         $data->save();
         return $customer;
@@ -53,9 +53,16 @@ class RazorpayPayment
         if($customer_type == "school"){
             $payment->payment_by_edu_institute_id = $user->id??null;
         }
+        else if($customer_type == "company"){
+            $payment->payment_by_company_user_id = $user->id??null;
+        }
+        else if($customer_type == "family"){
+            $payment->payment_by_family_user_id = $user->id??null;
+        }
         $payment->payment_mode = 'payment gateway';
         $payment->payment_by = $data->payment_by??null;
         $payment->tour_price = $data->tour_price??0;
+        $payment->order_payment_status = 0;
         $payment->save();
         return $payment;  
     }
@@ -102,6 +109,7 @@ class RazorpayPayment
             $payment->wallet = $data->wallet??null;
         }
         $payment->status = $data->status;
+        $payment->order_payment_status = 1;
         $payment->payment_date = Carbon::now('Asia/Kolkata')->format('Y-m-d H:i:s');
         $payment->save();   
     }

@@ -28,25 +28,22 @@ class UserpaymentController extends BaseController
         $this->payment_helper = new PaymentHelper;
     }
     
-
     /**
      * Create customer in razorpay.
      * If not exist otherwise fetch customer data (Check customer exist razorpay both email & phone number is same). 
      * Save customer id in table according to customer type, Create order in razorpay & saved record in database.
     */
     
-    public function makeOrder(PaymentOrderRequest $request)
+    public function makeOrder($guard_name, PaymentOrderRequest $request)
     {
-        $guard = Auth::getDefaultDriver();
-        $customer_type = trim(str_replace("-api", "", $guard));
         try{
-            $user = Auth::guard($guard)->user();
+            $user = Auth::guard($guard_name.'-api')->user();
             $alreadyPay = $this->payment_helper->alreadyPay($user->id??0, $request->tour_id??0, $guard_name);
             if($alreadyPay == 1){
                 return response()->json(array('message'=>"Payment already done or processing"), 409);   
             }
             $customer = $this->razorpay_payment_helper->createCustomer($user);
-            $payment = $this->razorpay_payment_helper->createOrder($request, $customer_type, $user);
+            $payment = $this->razorpay_payment_helper->createOrder($request, $guard_name, $user);
             $payment->customer_id = $customer->id??'';
             return response()->json($payment);            
         }
@@ -215,7 +212,8 @@ class UserpaymentController extends BaseController
         try{
             $user = Auth::guard($guard_name.'-api')->user();
             $fetch_column = array('id', 'tour_id', 'customer_type', 'payment_mode', 'payment_by_user_id', 'tour_price', 'amount', 'total_amount', 'status', 'doc_proof');
-            $filter_data = array('customer_type' => $guard_name);
+            $filter_data = array('customer_type' => $guard_name, 'order_payment_status'=>1);
+            
             if($guard_name == "family"){
                 $filter_data['payment_by_family_user_id'] = $user->id??0;  
             }

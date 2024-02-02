@@ -26,13 +26,25 @@ class PaymentOrderRequest extends FormRequest
      */
     public function rules()
     {
+        $login_type = "";
+        if(request()->route('school')){
+           $login_type = request()->route('school')??'';
+        }
+        else if(request()->route('family')){
+            $login_type = request()->route('family')??'';
+        }
+        else if(request()->route('company')){
+            $login_type = request()->route('company')??'';
+        }
         return [
             'amount'  => 'required|numeric|gt:0',
             'tour_id' => 'required|exists:tours,id',
-            'school_id' => 'required|exists:schools,id',
+            'school_id' =>($login_type == 'school') ? 'required|exists:schools,id' : '',
+            'company_id' =>($login_type == 'company') ? 'required|exists:companies,id' : '',
+            'family_id' =>($login_type == 'family') ? 'required|exists:family_users,id' : '',
             'discount_coupon_id' => 'discount_coupons,id',
             'tour_price' => 'required|numeric|gt:0',
-            'payment_by' => 'required|in:cash,self,student,teacher',
+            'payment_by' => 'required|in:cash,self,student,teacher,company,family',
             // 'customer_type' => 'required|in:school,company,family,user',
         ];
     }

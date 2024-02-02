@@ -4,20 +4,20 @@ use App\Model\Tour\Payment as PaymentModel;
 class Payment  
 {
     public function alreadyPay($user_id, $tour_id, $guardname){
-        $tour = Payment::where(array('tour_id'=> $request->tour_id??0, 'customer_type'=>$guardname))->first();
+        $tour = PaymentModel::where(array('tour_id'=> $tour_id, 'order_payment_status'=>1))->first();
         if($tour){
             if($guardname == "school"){ 
-                if($tour->payment_by_edu_institute_id == $user_id || $tour->incharge_edu_institute_id == $user_id){
+                if(($tour->customer_type == $guardname || $tour->customer_type == "user") && ($tour->payment_by_edu_institute_id == $user_id || $tour->incharge_edu_institute_id == $user_id)){
                     return 1;
                 }
             }
             else if($guardname == "company"){
-                if($tour->payment_by_company_user_id == $user_id || $tour->incharge_company_user_id == $user_id){
+                if(($tour->customer_type == $guardname || $tour->customer_type == "user") && ($tour->payment_by_company_user_id == $user_id || $tour->incharge_company_user_id == $user_id)){
                     return 1;
                 }
             }
             else if($guardname == "family"){
-                if($tour->payment_by_family_user_id == $user_id || $tour->incharge_family_user_id == $user_id){
+                if(($tour->customer_type == $guardname || $tour->customer_type == "user") && ($tour->payment_by_family_user_id == $user_id || $tour->incharge_family_user_id == $user_id)){
                     return 1;
                 }
             }
@@ -39,12 +39,15 @@ class Payment
         $payment->tour_id = $data->tour_id??0;
         if($client_type == "school"){
             $payment->school_id = $data->school_id??NULL;
+            $payment->incharge_edu_institute_id = $data->incharge_edu_institute_id??null;;
         }
         else if($client_type == "family"){
             $payment->family_id = $data->family_id??null;
+            $payment->incharge_family_user_id =$data->incharge_family_user_id??null;
         }
         else if($client_type == "company"){
             $payment->company_id = $data->company_id??null;
+            $payment->incharge_company_user_id = $data->incharge_company_user_id??null;
         }
         $payment->payment_by = $data->payment_by??null;
         $payment->status = $data->status??null;
@@ -72,13 +75,16 @@ class Payment
         $payment->tour_price = $data->tour_price??0;
         $payment->tour_id = $data->tour_id??null;
         if($client_type == "school"){
-            $payment->school_id = $data->school_id??0;
+            $payment->school_id = $data->school_id??NULL;
+            $payment->incharge_edu_institute_id = $data->incharge_edu_institute_id??null;;
         }
         else if($client_type == "family"){
             $payment->family_id = $data->family_id??null;
+            $payment->incharge_family_user_id =$data->incharge_family_user_id??null;
         }
         else if($client_type == "company"){
             $payment->company_id = $data->company_id??null;
+            $payment->incharge_company_user_id = $data->incharge_company_user_id??null;
         }
         $payment->status = $data->status??'pending';
         $payment->customer_type = $customer_type;
