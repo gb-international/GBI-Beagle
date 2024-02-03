@@ -138,7 +138,6 @@ export function createStore() {
                     .then((response) => {
                         console.log(response.data.data);
                         context.commit('getSearchPostAll', response.data.data)
-
                     })
             },
         },

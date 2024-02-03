@@ -32,11 +32,11 @@ let options = {
     "name": "GB International", //your business name
     "description": "Test Transaction from GB International",
     "customer_id": "" ,
-    "image": "https://gowithgbi.com/assets/front/images/favicon.png",
+    "image": "/assets/front/images/gbi_logo.png",
     "order_id": "", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
     "handler": function (response){
         $.ajax({
-            url: "http://localhost:8000/api/school/payment/payment-gateway/payment-record",
+            url: "/api/school/payment/payment-gateway/payment-record",
             type: "POST",
             headers: { Authorization: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5YjFkMDFkNy04ZTBkLTQ4MjUtOTRjNi05YTAzYjY4NDUzZTkiLCJqdGkiOiJiMTZjNGE0NjI4YTExYWRiNDhiMmJiNTY3ODIyNjA5MTdlNzQwZmZiOGEzMTMzOTlhZGI5N2U3YzIxZDgyNjRhOTZkMTk0YTBiYmRlMWUyNiIsImlhdCI6MTcwNjg3NTU4OSwibmJmIjoxNzA2ODc1NTg5LCJleHAiOjE3Mzg0OTc5ODksInN1YiI6IjQiLCJzY29wZXMiOlsic2Nob29sIl19.KyPPWCoeMRDig6p1w8LfdetOsMXRgEw9WmGykLOZmfRTu8LjSpnyI3tuAI50eIOlbqdg7dpmr3qrRmPDzmwL5GWE-CsIEj7E76qeSpab7hRzcLZ9RK_DlJrOZLR2gB4l5LpEw5QHSezmogQN_A-OAo6z9JcWYXrHIS7kaHr3-hU_dcBqCwqdTbpDtjrbjWxf_-_dQ7aAo0P9bip39wtnnLj9Po-KCk2GQqWRn35BBMw1mvcEmyrgDKwSsqg45E4N_cPv6tD6Ds41xXAqc7-YoGmLChzR17XsVGll1NjmFqC5tXQyk7-ZW52jgg5B3GjOutlk7gW0QzunnuzjwCvZwWBDgZnnsUGjOmfTVCSWxMQWxlXVr9DGx_Yo_ENz41sapSP7aqgT2yM5JWb7RC5B96IZKi-O_frBBqdIfDBz5iDZGTOFiDt0prwIuAQYVe_wg9Edg073S4x2vpp0HG2vcUODmh809ObnuvvZsjz4D0htKFa5hab3xUgVbD126WC5JyQ24zPTMI4IkO6uz4Ft8i5-ExcRiD3-kKborh0BO0rVapHOdS6sjVbXkV4tFM5mOS1GI_dR7fPrbh-Xcp7JDYPWITi8_VanzgYNEiqrc5vbGiYBWNZ13nBbHPRB0k5KDMpLtC1VqU-J_nW_OWppP_WeJiQ5Ilx3p-mwwIm9PBY" },
             data: JSON.stringify(response),
@@ -68,16 +68,15 @@ let options = {
         "address": "GB International"
     },
     "theme": {
-        "color": "#3399cc"
+        "color": "#2F2A52"
     }
 };
 
 document.getElementById('rzp-button').onclick = function(e){
     e.preventDefault();
     let amount = document.getElementById('rzp-button').getAttribute("amount");
-    console.log(amount);
     $.ajax({
-        url: "http://localhost:8000/api/school/payment/payment-gateway/make-order",
+        url: "/api/school/payment/payment-gateway/make-order",
         type: "POST",
         headers: { Authorization: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5YjFkMDFkNy04ZTBkLTQ4MjUtOTRjNi05YTAzYjY4NDUzZTkiLCJqdGkiOiJiMTZjNGE0NjI4YTExYWRiNDhiMmJiNTY3ODIyNjA5MTdlNzQwZmZiOGEzMTMzOTlhZGI5N2U3YzIxZDgyNjRhOTZkMTk0YTBiYmRlMWUyNiIsImlhdCI6MTcwNjg3NTU4OSwibmJmIjoxNzA2ODc1NTg5LCJleHAiOjE3Mzg0OTc5ODksInN1YiI6IjQiLCJzY29wZXMiOlsic2Nob29sIl19.KyPPWCoeMRDig6p1w8LfdetOsMXRgEw9WmGykLOZmfRTu8LjSpnyI3tuAI50eIOlbqdg7dpmr3qrRmPDzmwL5GWE-CsIEj7E76qeSpab7hRzcLZ9RK_DlJrOZLR2gB4l5LpEw5QHSezmogQN_A-OAo6z9JcWYXrHIS7kaHr3-hU_dcBqCwqdTbpDtjrbjWxf_-_dQ7aAo0P9bip39wtnnLj9Po-KCk2GQqWRn35BBMw1mvcEmyrgDKwSsqg45E4N_cPv6tD6Ds41xXAqc7-YoGmLChzR17XsVGll1NjmFqC5tXQyk7-ZW52jgg5B3GjOutlk7gW0QzunnuzjwCvZwWBDgZnnsUGjOmfTVCSWxMQWxlXVr9DGx_Yo_ENz41sapSP7aqgT2yM5JWb7RC5B96IZKi-O_frBBqdIfDBz5iDZGTOFiDt0prwIuAQYVe_wg9Edg073S4x2vpp0HG2vcUODmh809ObnuvvZsjz4D0htKFa5hab3xUgVbD126WC5JyQ24zPTMI4IkO6uz4Ft8i5-ExcRiD3-kKborh0BO0rVapHOdS6sjVbXkV4tFM5mOS1GI_dR7fPrbh-Xcp7JDYPWITi8_VanzgYNEiqrc5vbGiYBWNZ13nBbHPRB0k5KDMpLtC1VqU-J_nW_OWppP_WeJiQ5Ilx3p-mwwIm9PBY" },
         data: JSON.stringify({amount: amount, "tour_price":2300,
