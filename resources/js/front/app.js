@@ -80,7 +80,7 @@ Vue.config.productionTip = false;
 Vue.config.devtools = false;
 Vue.config.debug = false;
 Vue.config.silent = true;
-console.log = function() {};
+// console.log = function() {};
 // End
 
 

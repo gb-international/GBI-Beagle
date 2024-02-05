@@ -6,6 +6,7 @@ Vue.use(VueMeta);
 
 
 import Home from '@/front/routes/Home.js';
+import Payment from '@/front/routes/Payment.js';
 import Resources from '@/front/routes/Resources.js';
 import GBIBlog from '@/front/routes/GBIBlog.js';
 import AboutUs from '@/front/routes/AboutUs.js';
@@ -42,6 +43,7 @@ export function createRouter() {
             ...Static,
             ...TourPage,
             ...User,
+            ...Payment
         ]
     })
 }

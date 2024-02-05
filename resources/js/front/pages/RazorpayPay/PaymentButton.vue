@@ -9,6 +9,7 @@ export default {
     data(){
         return{
             razorpay_script_url: `https://checkout.razorpay.com/v1/checkout.js`,
+            razorpay_api:"",
             options: {
                 "key": "rzp_test_zqEQ6FLsiHc4WG", // Enter the Key ID generated from the Dashboard
                 "amount": 0, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
@@ -19,7 +20,7 @@ export default {
                 "image": "/assets/front/images/gbi_logo.png",
                 "order_id": "", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
                 "handler": async function (response){
-                    await axios.post('/api/school/payment/payment-gateway/payment-record', response, {
+                     await axios.post('/api/school/payment/payment-gateway/payment-record', response, {
                         headers: {
                             'Content-Type': 'application/json; charset=utf-8',
                             'Data-Type': 'json',
@@ -31,9 +32,10 @@ export default {
                          if(res.data.status == 422){
 
                         }
-                        console.log(data);
+                        console.log(res.data);
                     })
                     .catch((error) => {
+
                     });
                 },
 
@@ -41,35 +43,31 @@ export default {
                     "address": "GB International"
                 },
                 "theme": {
-                    "color": "#3399cc"
+                    "color": "#2F2A52"
+
                 }
             },
             order_data:{
-                amount : 0, 
-                tour_price:0,
-                amount:0,
-                tour_id:0,
-                school_id:0,
-                payment_by:""
+                tour_price:2300,
+                amount:2300,
+                tour_id:51,
+                school_id:960,
+                payment_by:"teacher"
             }
         }
     },
     methods :{ 
         async loadRazorPay(){
-            return new Promise(resolve=>{
-                const razorpay_script_url = document.createElement('razorpay_script_url')
-                razorpay_script_url.src = this.razorpay_script_url
-                razorpay_script_url.onload = () =>{
-                resolve(true)
-                }
-                razorpay_script_url.onerror = () =>{
-                resolve(false)
-                }        
-                document.body.appendChild(razorpay_script_url)
-            })      
+            const plugin = await document.createElement("script");
+            await plugin.setAttribute(
+            "src",
+            this.razorpay_script_url
+            );
+            plugin.async = true;
+            await document.body.appendChild(plugin)      
         },
-        async payment_gateway(event){
-            event.preventDefault();
+        async payment_gateway(){
+            // event.preventDefault();
               await axios.post('/api/school/payment/payment-gateway/make-order', this.order_data, {
                 headers: {
                     'Content-Type': 'application/json; charset=utf-8',
@@ -80,22 +78,25 @@ export default {
             }
             ).then((res) => {          
                 if(res.data.status == 409){
-
+                    console.log(res.data.message)
+                    return false;
                 }
                 else if(res.data.status == 422){
+                    console.log(res.data.errors)
+                    return false;
                 }
-
                 this.options.order_id = res.data.order_id;
                 this.options.customer_id = res.data.customer_id;
                 this.options.amount = res.data.total_amount/100;
-                let razorpay_api = new Razorpay(this.options);
+                const razorpay_api = new Razorpay(this.options);
                 razorpay_api.open();
             })
             .catch((error) => {
             });
-
-
         }
     },
+    created() {
+        this.loadRazorPay();
+    }
 }
-</script>
+</script> 

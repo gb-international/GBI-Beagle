@@ -54,8 +54,8 @@ let options = {
                         // forbidden
                         break;
                         default:
-                            //Something bad happened
-                            break;
+                        //Something bad happened
+                        break;
                 }
             },
             success: function(data) {
