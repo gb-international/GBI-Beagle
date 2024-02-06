@@ -40,7 +40,7 @@ class UserpaymentController extends BaseController
             $user = Auth::guard($guard_name.'-api')->user();
             $alreadyPay = $this->payment_helper->alreadyPay($user->id??0, $request->tour_id??0, $guard_name);
             if($alreadyPay == 1){
-                return response()->json(array('message'=>"Payment already done or processing"), 409);   
+                return response()->json(array('message'=>"Payment already done or processing", 'status'=>409));   
             }
             $customer = $this->razorpay_payment_helper->createCustomer($user);
             $payment = $this->razorpay_payment_helper->createOrder($request, $guard_name, $user);

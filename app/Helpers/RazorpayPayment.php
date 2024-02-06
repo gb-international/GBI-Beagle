@@ -36,7 +36,7 @@ class RazorpayPayment
             $discount = (($data->amount??0)*DiscountCoupon::where('id', $data->discount_coupon_id)->first('discount')->discount??0)/100;
         }
         $amount = ($data->amount??0)-$discount;
-        $order = $this->api->order->create(array('amount' => $amount*100, 'currency' => 'INR'));
+        $order = $this->api->order->create(array('amount' => $amount*100, 'currency' =>'INR'));
         $orderId = $order->id??'';
         $status = $order->status??'';
         $amount = ($order->amount??0)/100;

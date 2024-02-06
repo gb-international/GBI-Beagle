@@ -50,6 +50,6 @@ class PaymentOrderRequest extends FormRequest
     }
     protected function failedValidation(Validator $validator) : void
     {
-        throw new HttpResponseException(response()->json(['message' => "The given data was invalid.", 'errors' =>$validator->errors()], 422));
+        throw new HttpResponseException(response()->json(['message' => "The given data was invalid.", 'status'=>422, 'errors' =>$validator->errors()]));
     }
 }

@@ -35,6 +35,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: 'PaymentButton',
+  props: ['orderData'],
   data: function data() {
     return {
       razorpay_script_url: "https://checkout.razorpay.com/v1/checkout.js",
@@ -54,6 +56,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
         "handler": function () {
           var _handler = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(response) {
+            var _this = this;
             return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
               while (1) {
                 switch (_context.prev = _context.next) {
@@ -67,8 +70,32 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                         'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5YjFkMDFkNy04ZTBkLTQ4MjUtOTRjNi05YTAzYjY4NDUzZTkiLCJqdGkiOiJiMTZjNGE0NjI4YTExYWRiNDhiMmJiNTY3ODIyNjA5MTdlNzQwZmZiOGEzMTMzOTlhZGI5N2U3YzIxZDgyNjRhOTZkMTk0YTBiYmRlMWUyNiIsImlhdCI6MTcwNjg3NTU4OSwibmJmIjoxNzA2ODc1NTg5LCJleHAiOjE3Mzg0OTc5ODksInN1YiI6IjQiLCJzY29wZXMiOlsic2Nob29sIl19.KyPPWCoeMRDig6p1w8LfdetOsMXRgEw9WmGykLOZmfRTu8LjSpnyI3tuAI50eIOlbqdg7dpmr3qrRmPDzmwL5GWE-CsIEj7E76qeSpab7hRzcLZ9RK_DlJrOZLR2gB4l5LpEw5QHSezmogQN_A-OAo6z9JcWYXrHIS7kaHr3-hU_dcBqCwqdTbpDtjrbjWxf_-_dQ7aAo0P9bip39wtnnLj9Po-KCk2GQqWRn35BBMw1mvcEmyrgDKwSsqg45E4N_cPv6tD6Ds41xXAqc7-YoGmLChzR17XsVGll1NjmFqC5tXQyk7-ZW52jgg5B3GjOutlk7gW0QzunnuzjwCvZwWBDgZnnsUGjOmfTVCSWxMQWxlXVr9DGx_Yo_ENz41sapSP7aqgT2yM5JWb7RC5B96IZKi-O_frBBqdIfDBz5iDZGTOFiDt0prwIuAQYVe_wg9Edg073S4x2vpp0HG2vcUODmh809ObnuvvZsjz4D0htKFa5hab3xUgVbD126WC5JyQ24zPTMI4IkO6uz4Ft8i5-ExcRiD3-kKborh0BO0rVapHOdS6sjVbXkV4tFM5mOS1GI_dR7fPrbh-Xcp7JDYPWITi8_VanzgYNEiqrc5vbGiYBWNZ13nBbHPRB0k5KDMpLtC1VqU-J_nW_OWppP_WeJiQ5Ilx3p-mwwIm9PBY'
                       }
                     }).then(function (res) {
-                      if (res.data.status == 422) {}
-                      console.log(res.data);
+                      if (res.data.status == 422) {
+                        if (res.data.errors.razorpay_order_id) {
+                          _this.$toast.fire({
+                            icon: "error",
+                            title: res.data.errors.razorpay_payment_id[0]
+                          });
+                          return false;
+                        }
+                        if (res.data.errors.razorpay_payment_id) {
+                          _this.$toast.fire({
+                            icon: "error",
+                            title: res.data.errors.razorpay_payment_id[0]
+                          });
+                          return false;
+                        }
+                        if (res.data.errors.razorpay_signature) {
+                          _this.$toast.fire({
+                            icon: "error",
+                            title: res.data.errors.razorpay_signature[0]
+                          });
+                          return false;
+                        }
+                      }
+                      _this.$toast.fire({
+                        title: res.data
+                      });
                     })["catch"](function (error) {});
                   case 2:
                   case "end":
@@ -89,18 +116,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           "color": "#2F2A52"
         }
       },
-      order_data: {
-        tour_price: 2300,
-        amount: 2300,
-        tour_id: 51,
-        school_id: 960,
-        payment_by: "teacher"
-      }
+      order_data: ""
     };
   },
   methods: {
     loadRazorPay: function loadRazorPay() {
-      var _this = this;
+      var _this2 = this;
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
         var plugin;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
@@ -112,7 +133,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 2:
                 plugin = _context2.sent;
                 _context2.next = 5;
-                return plugin.setAttribute("src", _this.razorpay_script_url);
+                return plugin.setAttribute("src", _this2.razorpay_script_url);
               case 5:
                 plugin.async = true;
                 _context2.next = 8;
@@ -126,14 +147,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     payment_gateway: function payment_gateway() {
-      var _this2 = this;
+      var _this3 = this;
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
                 _context3.next = 2;
-                return axios.post('/api/school/payment/payment-gateway/make-order', _this2.order_data, {
+                return axios.post('/api/school/payment/payment-gateway/make-order', _this3.orderData, {
                   headers: {
                     'Content-Type': 'application/json; charset=utf-8',
                     'Data-Type': 'json',
@@ -141,18 +162,87 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5YjFkMDFkNy04ZTBkLTQ4MjUtOTRjNi05YTAzYjY4NDUzZTkiLCJqdGkiOiJiMTZjNGE0NjI4YTExYWRiNDhiMmJiNTY3ODIyNjA5MTdlNzQwZmZiOGEzMTMzOTlhZGI5N2U3YzIxZDgyNjRhOTZkMTk0YTBiYmRlMWUyNiIsImlhdCI6MTcwNjg3NTU4OSwibmJmIjoxNzA2ODc1NTg5LCJleHAiOjE3Mzg0OTc5ODksInN1YiI6IjQiLCJzY29wZXMiOlsic2Nob29sIl19.KyPPWCoeMRDig6p1w8LfdetOsMXRgEw9WmGykLOZmfRTu8LjSpnyI3tuAI50eIOlbqdg7dpmr3qrRmPDzmwL5GWE-CsIEj7E76qeSpab7hRzcLZ9RK_DlJrOZLR2gB4l5LpEw5QHSezmogQN_A-OAo6z9JcWYXrHIS7kaHr3-hU_dcBqCwqdTbpDtjrbjWxf_-_dQ7aAo0P9bip39wtnnLj9Po-KCk2GQqWRn35BBMw1mvcEmyrgDKwSsqg45E4N_cPv6tD6Ds41xXAqc7-YoGmLChzR17XsVGll1NjmFqC5tXQyk7-ZW52jgg5B3GjOutlk7gW0QzunnuzjwCvZwWBDgZnnsUGjOmfTVCSWxMQWxlXVr9DGx_Yo_ENz41sapSP7aqgT2yM5JWb7RC5B96IZKi-O_frBBqdIfDBz5iDZGTOFiDt0prwIuAQYVe_wg9Edg073S4x2vpp0HG2vcUODmh809ObnuvvZsjz4D0htKFa5hab3xUgVbD126WC5JyQ24zPTMI4IkO6uz4Ft8i5-ExcRiD3-kKborh0BO0rVapHOdS6sjVbXkV4tFM5mOS1GI_dR7fPrbh-Xcp7JDYPWITi8_VanzgYNEiqrc5vbGiYBWNZ13nBbHPRB0k5KDMpLtC1VqU-J_nW_OWppP_WeJiQ5Ilx3p-mwwIm9PBY'
                   }
                 }).then(function (res) {
-                  if (res.data.status == 409) {
-                    console.log(res.data.message);
-                    return false;
-                  } else if (res.data.status == 422) {
-                    console.log(res.data.errors);
-                    return false;
+                  if (res.data.status == 422) {
+                    if (res.data.errors.amount) {
+                      _this3.$toast.fire({
+                        icon: "error",
+                        title: res.data.errors.amount[0]
+                      });
+                      return false;
+                    }
+                    if (res.data.errors.tour_id) {
+                      _this3.$toast.fire({
+                        icon: "error",
+                        title: res.data.errors.tour_id[0]
+                      });
+                      return false;
+                    }
+                    if (res.data.errors.school_id) {
+                      _this3.$toast.fire({
+                        icon: "error",
+                        title: res.data.errors.school_id[0]
+                      });
+                      return false;
+                    }
+                    if (res.data.errors.company_id) {
+                      _this3.$toast.fire({
+                        icon: "error",
+                        title: res.data.errors.company_id[0]
+                      });
+                      return false;
+                    }
+                    if (res.data.errors.family_id) {
+                      _this3.$toast.fire({
+                        icon: "error",
+                        title: res.data.errors.family_id[0]
+                      });
+                      return false;
+                    }
+                    if (res.data.errors.discount_coupon_id) {
+                      _this3.$toast.fire({
+                        icon: "error",
+                        title: res.data.errors.discount_coupon_id[0]
+                      });
+                      return false;
+                    }
+                    if (res.data.errors.tour_price) {
+                      _this3.$toast.fire({
+                        icon: "error",
+                        title: res.data.errors.tour_price[0]
+                      });
+                      return false;
+                    }
+                    if (res.data.errors.payment_by) {
+                      _this3.$toast.fire({
+                        icon: "error",
+                        title: res.data.errors.payment_by[0]
+                      });
+                      return false;
+                    }
                   }
-                  _this2.options.order_id = res.data.order_id;
-                  _this2.options.customer_id = res.data.customer_id;
-                  _this2.options.amount = res.data.total_amount / 100;
-                  var razorpay_api = new Razorpay(_this2.options);
+                  if (res.data.status == 409) {
+                    if (res.data.message) {
+                      _this3.$toast.fire({
+                        icon: "error",
+                        title: res.data.message
+                      });
+                      return false;
+                    }
+                  }
+                  _this3.options.order_id = res.data.order_id;
+                  _this3.options.customer_id = res.data.customer_id;
+                  _this3.options.amount = res.data.total_amount / 100;
+                  var razorpay_api = new Razorpay(_this3.options);
                   razorpay_api.open();
+                  razorpay_api.on('payment.failed', function (response) {
+                    if (response.error.reason) {
+                      this.$toast.fire({
+                        icon: "error",
+                        title: response.error.reason
+                      });
+                      return false;
+                    }
+                  });
                 })["catch"](function (error) {});
               case 2:
               case "end":
@@ -190,6 +280,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     PaymentButton: _front_pages_RazorpayPay_PaymentButton_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  data: function data() {
+    return {
+      orderData: {}
+    };
+  },
+  mounted: function mounted() {
+    this.orderData = {
+      tour_price: 2300,
+      amount: 2300,
+      tour_id: 51,
+      school_id: 960,
+      payment_by: "teacher"
+    };
+    // this.orderData = {amount:2300, tour_id:51, school_id:960, payment_by:"teacher"}
   }
 });
 
@@ -1157,7 +1262,7 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("PaymentButton")
+  return _c("PaymentButton", { attrs: { "order-data": _vm.orderData } })
 }
 var staticRenderFns = []
 render._withStripped = true
