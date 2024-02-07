@@ -16,6 +16,7 @@
         "calebporzio/sushi": "^2.4",
         "codebar-ag/laravel-prerender": "^3.1",
         "darkaonline/l5-swagger": "^8.5",
+        "doctrine/dbal": "^3.8",
         "fideloper/proxy": "^4.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "guzzlehttp/psr7": "^1.9",
