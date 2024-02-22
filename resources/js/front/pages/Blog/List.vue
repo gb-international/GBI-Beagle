@@ -172,20 +172,20 @@ export default {
 
    metaInfo() {
     return{
-      title: "Blogs | Around The World",
+      title: "Read travel blogs and learn more about Incredible India| GOwithGBI",
       meta: [
         {
           name: "description",
           content:
-            "Dream, read, and go. Before going on a trip it is good to take reviews and experiences of the ones who have been there once. Find out about the places before you go there.",
+            "Travel blogs that will help you learn more about India| Find out about the places before you go there| GOwithGBI",
         },
         {
           name: "keywords",
-          content:this.posts.meta_keyword,
+          content:"@GoWithGBI,GBI Process,Program Engineering Process ,GBI How we work,learn,explore,discover,dream travel journeys,behind the scenes,dream,educational programs,corporate events,team building programs,international programs,domestic programs",
         },
         {
           name: "url",
-          content: `https://www.gowithgbi.com/blog/${this.posts.slug}`,
+          content: `https://www.gowithgbi.com/blog`,
         },
         { name: "type", content: "website" },
       ]
@@ -194,8 +194,8 @@ export default {
 
   beforeCreate(){
     var metaInfo = {
-      title: 'Blogs | Around The World',
-      description: 'Dream, read, and go. Before going on a trip it is good to take reviews and experiences of the ones who have been there once. Find out about the places before you go there.',
+      title: 'Read travel blogs and learn more about Incredible India| GOwithGBI',
+      description: 'Travel blogs that will help you learn more about India| Find out about the places before you go there| GOwithGBI',
       keywords: '@GoWithGBI,GBI Process,Program Engineering Process ,GBI How we work,learn,explore,discover,dream travel journeys,behind the scenes,dream,educational programs,corporate events,team building programs,international programs,domestic programs',
       url: 'https://www.gowithgbi.com/blog',
       type: 'website'

@@ -53,7 +53,7 @@ export default {
         title: 'Safety and Security',
         description: '@GoWithGBI aims to provide complete safety of its travellers during the education programs,GBI team members assuers the safety of passengers and is known for it',
         keywords: '@GoWithGBI,travel safety tips,our security policies,GBI strict policies,GBI terms and conditions,safe travel',
-        url: 'https://www.gowithgbi.com/about-us/safety-security',
+        url: 'https://www.gowithgbi.com/safety-security',
         type: 'website'
       }
      document.cookie = "GBIMeta =" + JSON.stringify(metaInfo) +"; path=/";
@@ -63,7 +63,7 @@ export default {
     meta:[
       { name: 'description', content: '@GoWithGBI aims to provide complete safety of its travellers during the education programs,GBI team members assuers the safety of passengers and is known for it' },
       { name: 'keywords', content: '@GoWithGBI,travel safety tips,our security policies,GBI strict policies,GBI terms and conditions,safe travel' },
-      { name: 'url', content: 'https://www.gowithgbi.com/about-us/safety-security' },
+      { name: 'url', content: 'https://www.gowithgbi.com/safety-security' },
     ]
   },
 };

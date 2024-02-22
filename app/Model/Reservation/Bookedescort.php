@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Bookedescort extends Model
 {
-	protected $fillable = ['escort_id','tour_id','tour_code'];
+	protected $fillable = ['escort_id','tour_id','tour_code','salary'];
     public function tour()
     {
     	return $this->belongsTo('App\Model\Tour\Tour');

@@ -24,11 +24,12 @@ class HotelController extends Controller
      */
     use ImageTrait;
 
-    public function all($size, $state)
+    //public function all($size, $state)
+    public function all($size)
     {
-        $state = str_replace('-', ' ', $state);
-        $data = Hotel::where('state', $state)
-        ->latest('updated_at')
+        //$state = str_replace('-', ' ', $state);
+        //$data = Hotel::where('state', $state)
+        $data = Hotel::latest('created_at')
         ->paginate($size);
         foreach ($data as $d){
             $d->images = unserialize($d->images);
@@ -40,6 +41,7 @@ class HotelController extends Controller
         }
         return response()->json($data);
     }
+    
     public function index()
     {
         $hotel = Hotel::select('name','id')->get();

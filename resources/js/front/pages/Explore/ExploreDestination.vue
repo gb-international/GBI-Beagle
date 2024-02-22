@@ -5,7 +5,7 @@
   ****************************************************-->
   <errorState :imgName="'explore_destination_500x500.png'" v-if="apiFailed"/>
   <div id="exploreDestination" v-else>
-    <div class="explore_banner text_on_image banner_bg2 explore_bg_img">
+    <div :class="'explore_banner_'+clientType" class="text_on_image banner_bg2 explore_bg_img">
       <div class="content">
         <div class="container-custom">
           <div class="row">
@@ -15,6 +15,7 @@
                   <ul class="nav nav-tabs serch-explo-menu">
                     <li class="nav-item">
                       <a
+                       :class="clientType"
                         class="nav-link active border-none"
                         data-toggle="tab"
                         href="#home"
@@ -33,7 +34,7 @@
                     </li> -->
                   </ul>
                   <!-- start single location Tab panes serach bar for source and destination-->
-                  <div class="explor-content pb-1" v-if="panel == 'Itinerary'">
+                  <div :class="clientType == 'Student' ? 'explor-content' : 'explor-'+clientType" class="pb-1" v-if="panel == 'Itinerary'">
                     <div class="container" v-if="tripType == 'return'">
                       <div class="row search-radio">
                         <div class="col-sm-6">
@@ -112,11 +113,11 @@
                                     name="typetour"
                                     @change="clientTypeOnChange($event)"
                                   >
-                                    <option selected disabled>Client Type</option>
+                                    <!-- <option selected disabled>Client Type</option> -->
                                     <option
                                       v-for="index in clientType_option"
                                       :key="index.id"
-                                      :value="index"
+                                      :value="index.name"
                                     >
                                       {{ index.name }}
                                     </option>
@@ -182,7 +183,8 @@
                       </div>
                       <p class="text-center">
                         <button
-                          class="btn-defalt btn-lg center-block explore_custom_button"
+                          class="btn-defalt btn-lg center-block"
+                          :class="clientType == 'Student' ? 'explore_custom_button' : 'explore_custom_button_'+clientType"
                           @click.prevent="searchAll()"
                           type="submit"
                           @click="show = !show"
@@ -273,11 +275,10 @@
                                     name="typetour"
                                     @change="clientTypeOnChange($event)"
                                   >
-                                    <option selected disabled>Client Type</option>
                                     <option
                                       v-for="index in clientType_option"
                                       :key="index.id"
-                                      :value="index"
+                                      :value="index.name"
                                     >
                                       {{ index.name }}
                                     </option>
@@ -385,7 +386,8 @@
                       </div>
                       <p class="text-center">
                         <button
-                          class="btn-defalt btn-lg center-block explore_custom_button"
+                          class="btn-defalt btn-lg center-block"
+                          :class="clientType == 'Student' ? 'explore_custom_button' : 'explore_custom_button_'+clientType"
                           @click.prevent="searchAll()"
                           type="submit"
                           @click="show = !show"
@@ -690,12 +692,12 @@ export default {
   name: "exploreDestination",
   mixins: [ExploreSearchMixin],
   metaInfo: {
-    title: "Explore Destinations | GB International - Travel With GBI ",
+    title: "Get best tour packages and deals only at GOwithGBI",
     meta: [
       {
         name: "description",
         content:
-          "If you are looking for a place for the upcoming long weekend or an extended tour, these are the popular locations in your budget to go to.",
+          "Best travel agency in India| explore India with best deals for tours and travel packages only on GowithGBI.",
       },
       {
         name: "keywords",
@@ -704,7 +706,7 @@ export default {
       },
       {
         name: "url",
-        content: "https://www.gowithgbi.com/resources/explore-destination",
+        content: "https://www.gowithgbi.com/explore-destination",
       },
     ],
   },
@@ -741,10 +743,10 @@ export default {
 
   beforeCreate(){
       let metaInfo = {
-        title: 'GBI Explore Destination',
-        description: '@GoWithGBI a state of art platform which allows user to satiate all its travel needs at one click of a button',
+        title: 'Get best tour packages and deals only at GOwithGBI',
+        description: 'Best travel agency in India| explore India with best deals for tours and travel packages only on GowithGBI.',
         keywords: '@GoWithGBI,explore desired destinations,tailored made itineraries ,custom built itineraries,itineraries of your choice and preferences,explore itineraries,explore educational programs',
-        url: 'https://www.gowithgbi.com/resources/explore-destination',
+        url: 'https://www.gowithgbi.com/explore-destination',
         type: 'website'
       }
       document.cookie = "GBIMeta =" + JSON.stringify(metaInfo) +"; path=/";
@@ -850,6 +852,7 @@ export default {
 
     searchAll() {
       // Submit form
+      console.log(this.tourtype_option)
       let vm = this;
       if(vm.noofday == '' || vm.tourtype == '' || vm.noofday == 'No. of days' || vm.tourtype == 'In mood for' || vm.clientType == 'Client Type'){
         return this.$swal.fire("Error", "Please select all the fields", "warning");
@@ -909,7 +912,10 @@ export default {
 </script>
 
 <style scoped>
-.explor-content input[type="text"], .explor-content select, .explor-content textarea {
+.explor-content input[type="text"], .explor-content select, .explor-content textarea,
+.explor-Corporate input[type="text"], .explor-Corporate select, .explor-Corporate textarea,
+.explor-General input[type="text"], .explor-General select, .explor-General textarea
+ {
     border: 0px solid #ccc !important;
     width: 100%;
     height: 46.2px;

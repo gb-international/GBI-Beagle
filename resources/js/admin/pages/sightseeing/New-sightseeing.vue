@@ -95,7 +95,7 @@ to submit the data we are using a function.
 
           <div class="col-sm-12">
             <div class="form-group">
-              <label for="description">Descripttion</label>
+              <label for="description">Description</label>
               <textarea
                 class="form-control textarea"
                 rows="3"
@@ -225,7 +225,7 @@ export default {
           this.$router.push(`/sightseeing/`);
           this.$toast.fire({
             icon: "success",
-            title: "Hotel Added successfully",
+            title: "Sight Added",
           });
         })
         .catch(() => {});

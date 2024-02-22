@@ -110,7 +110,8 @@ Route::namespace('Admin')->group(function (){
 	});
 
 	Route::namespace('Hotel')->group(function(){
-		Route::get('hotel/all/{size}/{state}','HotelController@all');
+		Route::get('hotel/all/{size}','HotelController@all');
+		//Route::get('hotel/all/{size}/{state}','HotelController@all');
 		Route::resource('hotel','HotelController');
 		Route::get('banquet/all/{size}','BanquetController@all');
 		Route::resource('banquet','BanquetController');
@@ -254,6 +255,7 @@ Route::namespace('Admin')->group(function (){
 		Route::post('/images/delete','ImageController@delete');
 	});
 
+	//Blogs
 	Route::namespace('Post')->group(function(){
 		Route::get('categories/all/{size}','CategoryController@all');
 		Route::resource('categories','CategoryController');
@@ -262,6 +264,17 @@ Route::namespace('Admin')->group(function (){
 		Route::get('tags/all/{size}','TagController@all');
 		Route::resource('tags','TagController');
 		Route::post('posts/{post}/{status}/{user_id}','PostController@publish');
+	});
+
+	//Articles
+	Route::namespace('Article')->group(function(){
+		Route::get('categories/all/{size}','CategoryController@all');
+		Route::resource('categories','CategoryController');
+		Route::get('articles/all/{size}','ArticleController@all');
+		Route::resource('articles','ArticleController');
+		Route::get('tags/all/{size}','TagController@all');
+		Route::resource('tags','TagController');
+		Route::post('articles/{article}/{status}/{user_id}','ArticleController@publish');
 	});
 
 	//Feedbacks

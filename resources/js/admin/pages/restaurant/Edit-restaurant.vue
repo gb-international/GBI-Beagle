@@ -61,7 +61,7 @@ to submit the data we are using a function.
                 class="form-control"
                 v-model="form.contact_number"
                 :class="{ 'is-invalid': form.errors.has('contact_number') }"
-                placeholder="Enter contact number name"
+                placeholder="Enter contact number"
               />
               <has-error :form="form" field="contact_number"></has-error>
             </div>

@@ -126,7 +126,8 @@ to submit the data we are using a function.
             <div class="form-group">
               <label for="tour_price">Tour Price</label>
               <input
-                type="text"
+                type="number"
+                min="0"
                 class="form-control"
                 placeholder="Enter Tour Price"
                 v-model="form.tour_price"

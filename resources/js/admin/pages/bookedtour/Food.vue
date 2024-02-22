@@ -8,7 +8,7 @@
         data-toggle="modal"
         data-target="#foodModal"
         @click="foodModal()"
-        >NEW FOOD</a>
+        >ADD FOOD</a>
     </div>
     <list-layout>
       <template #searchbar>
@@ -44,7 +44,7 @@
               @click="editFood(data.item, data.index)"
               class="edit_link pointer"
             >
-              <span class="badge badge-primary" title="View Itinerary"
+              <span class="badge badge-primary" style="padding: 6px" title="View Itinerary"
                 ><i class="fas fa-pencil-alt"></i
               ></span>
             </span>
@@ -142,16 +142,16 @@ export default {
         },
         {
           key: "quantity",
-          label: "AMOUNT",
+          label: "Quantity",
           sortable: true,
           thClass: "table-head",
         },
-        {
+        /*{
           key: "updated_at",
           label: "LAST UPDATE",
           sortable: true,
           thClass: "table-head",
-        },
+        },*/
         { key: "action", label: "ACTION", thClass: "table-head" },
       ],
       filter: "",

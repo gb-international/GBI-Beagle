@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fbb040;
+        mix-blend-mode: multiply;
+      }
+
+      .cls-1, .cls-2, .cls-3, .cls-4 {
+        stroke-width: 0px;
+      }
+
+      .cls-5 {
+        fill: none;
+        stroke: #212121;
+        stroke-linecap: round;
+        stroke-miterlimit: 10;
+      }
+
+      .cls-6 {
+        isolation: isolate;
+      }
+
+      .cls-2 {
+        fill: #fdd837;
+      }
+
+      .cls-3 {
+        fill: #fff;
+      }
+
+      .cls-4 {
+        fill: #212121;
+      }
+    </style>
+  </defs>
+  <g class="cls-6">
+    <g id="Layer_1" data-name="Layer 1">
+      <g>
+        <circle class="cls-2" cx="13" cy="13" r="13"/>
+        <circle class="cls-1" cx="13" cy="13" r="13"/>
+        <circle class="cls-4" cx="7.59" cy="12.51" r="2.24"/>
+        <circle class="cls-4" cx="18.41" cy="12.51" r="2.24"/>
+        <path class="cls-5" d="m9.82,17.89s3.07,2.11,6.36,0"/>
+        <path class="cls-3" d="m8.68,11.44c0,.3-.25.55-.55.55s-.55-.25-.55-.55.25-.55.55-.55.55.25.55.55Z"/>
+        <path class="cls-3" d="m19.51,11.44c0,.3-.25.55-.55.55s-.55-.25-.55-.55.25-.55.55-.55.55.25.55.55Z"/>
+      </g>
+    </g>
+  </g>
+</svg>

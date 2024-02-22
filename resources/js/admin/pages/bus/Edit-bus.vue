@@ -26,8 +26,23 @@ to submit the data we are using a function.
               <has-error :form="form" field="company_name"></has-error>
             </div>
           </div>
-
+          
           <div class="col-sm-4">
+            <div class="form-group">
+              <label for="seater">Seater</label>
+              <input
+                type="number"
+                min="2"
+                class="form-control"
+                v-model="form.seater"
+                :class="{ 'is-invalid': form.errors.has('seater') }"
+                placeholder="Enter seater"
+              />
+              <has-error :form="form" field="seater"></has-error>
+            </div>
+          </div>
+
+          <!-- <div class="col-sm-4">
             <div class="form-group">
               <label for="seater">Seater</label>
               <dropdown-filter 
@@ -37,7 +52,7 @@ to submit the data we are using a function.
               />
               <has-error :form="form" field="seater"></has-error>
             </div>
-          </div>
+          </div> -->
 
           <div class="col-sm-4">
             <div class="form-group">
@@ -58,6 +73,7 @@ to submit the data we are using a function.
               <label for="price">Price</label>
               <input
                 type="number"
+                min="0"
                 class="form-control"
                 placeholder="Enter price"
                 rows="5"

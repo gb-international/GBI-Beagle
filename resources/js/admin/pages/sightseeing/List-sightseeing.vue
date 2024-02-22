@@ -1,6 +1,6 @@
 <!--
-This Template is for listing for the Category profile using function to get the 
-data from the api to display the data about the Category from the backend .
+This Template is for listing for the Sights using function to get the 
+data from the api to display the data from the backend .
 -->
 <template>
   <list-layout addurl="/sightseeing-add" buttontext="add sightseeing">
@@ -89,7 +89,7 @@ export default {
   data() {
     return {
       fields: [
-        {key:'name',label:'city',sortable:true,thClass: 'table-head'},
+        {key:'name',label:'name',sortable:true,thClass: 'table-head'},
         {key:'address',label:'address',sortable:true,thClass: 'table-head'},
         {key:'city',label:'city',sortable:true,thClass: 'table-head'},
         {key:'action',label:'action',thClass: 'table-head'}

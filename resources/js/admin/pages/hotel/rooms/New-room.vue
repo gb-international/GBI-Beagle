@@ -500,7 +500,7 @@ export default {
           this.$router.push(`/hotel-list/`);
           this.$toast.fire({
             icon: "success",
-            title: "Hotel Added successfully",
+            title: "Added successfully",
           });
         })
         .catch(() => {});

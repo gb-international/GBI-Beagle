@@ -20,9 +20,9 @@ const ExploreSearchMixin = {
             noofdays_option: 10,
             tourtype_option: [],
             clientType_option: [
-                { name: "Student", id: "1" },
-                { name: "Corporate", id: "2" },
-                { name: "General", id: "3" },
+                { id: 1 , name: "Student"  },
+                { id: 2 , name: "Corporate"},
+                { id: 3 , name: "Family" }
             ],
             options: [],
             optionsHotel: [],
@@ -57,19 +57,19 @@ const ExploreSearchMixin = {
             allSearchdata: [],
             noofday: "",
             tourtype: "",
-            clientType: "",
+            clientType: "Student",
             loading: false,
             page: 1,
             items_list: [],
             modoals_show:false,
             tour_type_text:'',
+            //clientType_text:'',
             searchForm: new Form({
                 source: [],
                 destination: [],
                 tourtype: "",
-                clientType: "",
                 noofday: "",
-                clientType: 'student',
+                clientType: 'Student',
             }),
         };
     },
@@ -245,12 +245,11 @@ const ExploreSearchMixin = {
             this.item2 = this.options2[0].value;
         },
         clientTypeOnChange(event) {
-            this.clientType = event.target.value;
-            for (let i = 0; i < this.clientType_option.length;i++){
-                if(this.clientType == this.clientType_option[i].id){
-                    this.clientType_text = this.clientType_option[i].name;
-                }
-            }
+            if(event.target.value == 'Family'){
+                this.clientType = 'General';
+            } else{
+                this.clientType = event.target.value;
+            }   
         },
         tourtypeOnChange(event) {
             this.tourtype = event.target.value;

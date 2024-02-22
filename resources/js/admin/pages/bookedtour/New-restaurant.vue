@@ -1,6 +1,6 @@
 <!--
-This Template is for listing for the Hotel profile using function to get the 
-data from the api to display the data about the Hotel from the backend .
+This Template is for listing for the Restaurant profile using function to get the 
+data from the api to display the data from the backend .
 -->
 <template>
   <form-layout>
@@ -8,7 +8,7 @@ data from the api to display the data about the Hotel from the backend .
       <form
         role="form"
         enctype="multipart/form-data"
-        @submit.prevent="addHotel()"
+        @submit.prevent="addRest()"
       >
         <div class="row">
           <div class="col-sm-4">
@@ -92,7 +92,7 @@ export default {
     },
 
 
-    addHotel() {
+    addRest() {
       var path = `/api/bookedrestaurants`;
       this.form.tour_id = this.$route.params.id;
       this.form.tour_code = this.$route.params.tour_code;
@@ -102,14 +102,14 @@ export default {
           if (response.data == 1) {
             this.$toast.fire({
               icon: "error",
-              title: "Tour Manager already going on this tour !!!",
+              title: "Please try again",
             });
             return false;
           }
           // this.$router.push(`/hotel-list/`)
           this.$toast.fire({
             icon: "success",
-            title: "restaurant Added successfully",
+            title: "Restaurant Added successfully",
           });
         })
         .catch(() => {});

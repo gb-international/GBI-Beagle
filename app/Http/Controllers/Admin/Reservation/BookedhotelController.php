@@ -47,13 +47,15 @@ class BookedhotelController extends Controller
             'check_out'=>'required',
             'hotel_id' => 'required' 
         ]);
-        $check = Bookedhotel::where(['tour_code' => $request->tour_code, 'hotel_id' => $request->hotel_id])->get();
-        if(count($check->all()) > 0){
+        //$check = Bookedhotel::where(['tour_code' => $request->tour_code, 'hotel_id' => $request->hotel_id])->get();
+        /*if(count($check->all()) > 0){
             return '1';
         }else{
             Bookedhotel::create($request->all());
             return response()->json('Successfully Created');            
-        }
+        }*/
+        Bookedhotel::create($request->all());
+        return response()->json('Successfully Created');  
     }
 
     /**

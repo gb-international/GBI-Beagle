@@ -18,6 +18,7 @@ use App\Http\Controllers\Controller;
 use App\Traits\ImageTrait;
 use Image;
 use App\Jobs\Notifications;
+use Illuminate\Support\Str;
 
 
 /**
@@ -38,6 +39,14 @@ class ItineraryController extends Controller
     use ImageTrait;
     public function all($size)
     {
+
+       /* $It = Itinerary::all();
+        foreach ($It as $itn) {
+            $itinerary = Itinerary::where('id', $itn->id)->first();
+            $itinerary->slug = $this->createSlug($itinerary->title);
+            $itinerary->save();
+        }*/
+
         return response()->json(Itinerary::select([
             'id','title','source','destination','noofdays'
             ])
@@ -104,6 +113,8 @@ class ItineraryController extends Controller
             $data['detail_photo'] = $this->AwsFileUpload($request->detail_photo,config('gbi.detail_photo'),$request->detail_photo_alt);
         }*/
 
+        $data['slug'] = $this->createSlug($request->title);
+
         $itinerary = new Itinerary();
         $id = $itinerary->insertGetId($data);
         $itinerary = Itinerary::where('id',$id)->first();
@@ -131,6 +142,7 @@ class ItineraryController extends Controller
         $itinerary->seasons()->attach($seasonModels);
 
         $itinerary->meta_keyword = $meta_keyword;
+
         $itinerary->save();
 
         // Itinerary Banner Images
@@ -286,6 +298,8 @@ class ItineraryController extends Controller
 
          unset($data['newImages'], $data['delImages']);
 
+         $data['slug'] = $this->createSlug($request->title);
+
          $itinerary->update($data);
         
         // Itinerary Day 
@@ -355,7 +369,7 @@ class ItineraryController extends Controller
             'source' => 'required|min:2|max:100',
             'destination' => 'required|min:3|max:100',
             'noofdays' => 'required|numeric|min:1|max:15',
-            'title' => 'required|min:3|max:50',
+            'title' => 'required|min:3|max:150',
             'description' => 'required|min:3',
             'tourtype' => 'required',
             'food' => 'required',
@@ -370,6 +384,14 @@ class ItineraryController extends Controller
             'meta_title'=>'required',
             'meta_description' => 'required'     
       ]);
+    }
+
+    public function createSlug($val){
+        $slug = Str::slug($val);
+        if (Itinerary::where('slug', $slug)->exists()) {
+            $slug = $slug.'-'.Str::random(4);
+        }
+        return $slug;
     }
 
 

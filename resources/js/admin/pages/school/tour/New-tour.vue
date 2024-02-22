@@ -131,7 +131,8 @@ This template helps us to create a new Tour.
             <div class="form-group">
               <label for="tour_price">Tour Price</label>
               <input
-                type="text"
+                type="number"
+                min="0"
                 class="form-control"
                 placeholder="Enter Tour Price"
                 v-model="form.tour_price"
@@ -258,11 +259,14 @@ export default {
       axios.get(`/api/tour`).then((res) => {
         if (res.data) {
           this.tours = res.data.data;
-          if (this.tours.length >= 1) {
+          if (this.tours.length >= 1 && this.tours.length) {
             var last_id = this.tours[this.tours.length - 1].id;
             last_id++;
-            var javaScriptRelease = "TOURCODE000" + last_id;
-            this.form.tour_id = javaScriptRelease;
+            var trCode = "GBI TOUR CODE 00" + last_id;
+            this.form.tour_id = trCode;
+          } else {
+            var trCode = "GBI TOUR CODE 001";
+            this.form.tour_id = trCode;
           }
         }
       });

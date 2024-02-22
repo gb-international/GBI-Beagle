@@ -113,12 +113,12 @@ export default {
   },
 
   methods: {
-    getitems(page=1,size= this.perPage,state= this.$route.params.state) {
+    /*getitems(page=1,size= this.perPage,state= this.$route.params.state) {
       this.$store.dispatch('getItems','/hotel/all/'+size+'/'+state+'?page='+page);
-    },
-    /*getitems(page=1,size= this.perPage) {
-      this.$store.dispatch('getItems','/hotel/all/'+size+'?page='+page);
     },*/
+    getitems(page=1,size= this.perPage) {
+      this.$store.dispatch('getItems','/hotel/all/'+size+'?page='+page);
+    },
     deleteItem(id,index=-1) {
       let payload = {'api':"/hotel/"+id,index,'index':index};
       this.$store.dispatch('deleteItem',payload);

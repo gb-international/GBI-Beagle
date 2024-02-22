@@ -234,10 +234,11 @@ export default {
     };
   },
   metaInfo: {
-    title: 'Homepage | GB International - Your Travel Partner ',
+    title: 'India Tourism| Tour packages and travel guide| GOwithGBI',
     meta:[
-      { property: 'og:description', content: 'GB International provides the best practical learning experience to not only students but to the travellers as well.' },
-      { property: 'og:title', content: 'GB International - Your Travel Partner' },
+      { property: 'og:description', content: 'Best travel guides on India tourism| Explore the best of India at affordable India tour packages only with GOwithGBI.' },
+      { property: 'og:title', content: 'India Tourism| Tour packages and travel guide| GOwithGBI' },
+      { property: 'og:keywords', content: 'india tourism packages, India Tourism' },
       { property: 'og:image', content: 'https://www.gowithgbi.com/assets/front/images/banner2.jpg' },
       { property: 'og:type', content: 'website' },
       { property: 'og:site_name', content: 'gowithgbi.com' },

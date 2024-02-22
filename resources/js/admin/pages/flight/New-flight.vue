@@ -10,7 +10,7 @@ to submit the data we are using a function.
       <form
         role="form"
         enctype="multipart/form-data"
-        @submit.prevent="AddSchool()"
+        @submit.prevent="AddFlight()"
       >
         <div class="row">
           <div class="col-sm-6">
@@ -70,7 +70,7 @@ export default {
     };
   },
   methods: {
-    AddSchool() {
+    AddFlight() {
       this.form
         .post("/api/flight")
         .then((response) => {

@@ -32,23 +32,41 @@ class TourController extends Controller
 
     public function school($size)
     {
-        return response()->json(Tour::where('customer_type', 'school')->with('school:id,school_name')
+        if($size == 'all'){
+            return response()->json(Tour::where('customer_type', 'school')->with('school:id,school_name')
+            ->latest('updated_at')
+        );
+        }else {
+            return response()->json(Tour::where('customer_type', 'school')->with('school:id,school_name')
             ->latest('updated_at')
             ->paginate($size));
+        }
     }
 
     public function corporate($size)
     {
+        if($size == 'all'){
+            return response()->json(Tour::where('customer_type', 'corporate')->with('company:id,company_name')
+            ->latest('updated_at')
+        );
+        }else {
         return response()->json(Tour::where('customer_type', 'corporate')->with('company:id,company_name')
             ->latest('updated_at')
             ->paginate($size));
+        }
     }
 
     public function general($size)
     {
+        if($size == 'all'){
+            return response()->json(Tour::where('customer_type', 'general')->with('family:id,family_name')
+            ->latest('updated_at')
+        );
+        }else {
         return response()->json(Tour::where('customer_type', 'general')->with('family:id,family_name')
             ->latest('updated_at')
             ->paginate($size));
+        }
     }
 
     public function index()
@@ -96,6 +114,7 @@ class TourController extends Controller
         $buses = Bookedbus::with('bus')->where('tour_id',$tour->id)->get();
         $restaurant = Bookedrestaurant::with('restaurant')->where('tour_id',$tour->id)->get();
         $sightseeing = Bookedsightseeing::with('sightseeing')->where('tour_id',$tour->id)->get()->groupBy('itineraryday_id');
+        //$sightseeing = array_filter( $sightseeing);
         
         if($tour->customer_type == 'school'){
             $data = ['itinerary'=>$tour->itinerary,'entity'=>$tour->school,'tour'=>$tour,'escort'=>$escorts,'train'=>$trains,'flight'=>$flights,'hotel'=>$hotels,'restaurant'=>$restaurant,'bus'=>$buses,'sightseeing'=>$sightseeing];

@@ -131,30 +131,29 @@ This is template is for the viewing the booked tour details.
           <div class="card" v-if="escorts.length > 0">
             <h4>Tour Manager</h4>
             <div class="row" v-for="escort in escorts" :key="escort.id">
-              <div class="col-sm-2">
+              <div class="col-sm-2" v-if="escort['escort']">
                 <label>Name</label>
                 <p>{{ escort["escort"].name }}</p>
               </div>
-              <div class="col-sm-3">
+              <div class="col-sm-3" v-if="escort['escort']">
                 <label>Perday Allowance</label>
-                <p>{{ escort["escort"].salaryPerday }}</p>
+                <p>{{ escort.salary }}</p>
               </div>
-              <div class="col-sm-2">
+              <div class="col-sm-2" v-if="escort['escort']">
                 <label>Contact</label>
                 <p>{{ escort["escort"].phoneno }}</p>
               </div>
-              <div class="col-sm-3">
+              <div class="col-sm-3" v-if="escort['escort']">
                 <label>Email</label>
                 <p>{{ escort["escort"].email }}</p>
               </div>
-              <div class="col-sm-1 p-0">
+              <div class="col-sm-1 p-0" v-if="escort['escort']">
                 <label>Login Link</label>
                 <p class="cursor-pointer text-info" @click="sendLink(escort['escort'].phoneno,escort['escort'].name)"><b>Send Link</b></p>
               </div>
-              <div class="col-sm-1">
+              <div class="col-sm-1" v-if="escort['escort']">
                 <a
                   href
-                  v-if="$can('delete clients')"
                   class="delete_link"
                   @click.prevent="deleteBookedEscort(escort.id)"
                 >
@@ -169,27 +168,26 @@ This is template is for the viewing the booked tour details.
           <div class="card" v-if="hotel.length > 0">
             <h4>Hotel</h4>
             <div class="row" v-for="hotel in hotel" :key="hotel.id">
-              <div class="col-sm-2">
+              <div class="col-sm-2" v-if="hotel['hotel']">
                 <label>Name</label>
                 <p>{{ hotel["hotel"].name }}</p>
               </div>
-              <div class="col-sm-3">
+              <div class="col-sm-3" v-if="hotel['hotel']">
                 <label>Address</label>
                 <p>{{ hotel["hotel"].address }}</p>
               </div>
-              <div class="col-sm-3">
+              <div class="col-sm-3" v-if="hotel['hotel']">
                 <label>Contact</label>
                 <p>{{ hotel["hotel"].phoneno }}</p>
               </div>
-              <div class="col-sm-3">
+              <div class="col-sm-3" v-if="hotel['hotel']">
                 <label>Email</label>
                 <p>{{ hotel["hotel"].email }}</p>
               </div>
 
-              <div class="col-sm-1">
+              <div class="col-sm-1" v-if="hotel['hotel']">
                 <a
                   href
-                  v-if="$can('delete clients')"
                   class="delete_link"
                   @click.prevent="deleteBookedHotel(hotel.id)"
                 >
@@ -204,27 +202,26 @@ This is template is for the viewing the booked tour details.
           <div class="card" v-if="restaurant.length > 0">
             <h4>Restaurant</h4>
             <div class="row" v-for="rest in restaurant" :key="rest.id">
-              <div class="col-sm-2">
+              <div class="col-sm-2" v-if="rest['restaurant']">
                 <label>Name</label>
                 <p>{{ rest["restaurant"].name }}</p>
               </div>
-              <div class="col-sm-3">
+              <div class="col-sm-3" v-if="rest['restaurant']">
                 <label>Address</label>
                 <p>{{ rest["restaurant"].address }}</p>
               </div>
-              <div class="col-sm-3">
+              <div class="col-sm-3" v-if="rest['restaurant']">
                 <label>Contact</label>
                 <p>{{ rest["restaurant"].contact_number }}</p>
               </div>
-              <div class="col-sm-3">
+              <div class="col-sm-3" v-if="rest['restaurant']">
                 <label>Person</label>
                 <p>{{ rest["restaurant"].contact_name }}</p>
               </div>
 
-              <div class="col-sm-1">
+              <div class="col-sm-1" v-if="rest['restaurant']">
                 <a
                   href
-                  v-if="$can('delete clients')"
                   class="delete_link"
                   @click.prevent="deleteBookedRestaurant(rest.id)"
                 >
@@ -241,14 +238,15 @@ This is template is for the viewing the booked tour details.
             <div class="row">
               <div class="col-sm-11">
                 <div class="row" v-for="(parent,key,i) in sightseeing" :key="i+i">
-                  <div class="col-sm-4">
-                    <p>Day {{ ++i }}</p>
+                  <div class="col-sm-4" v-if="parent[0].sightseeing">
+                    <p>Day {{ parent[0].itineraryday }}</p>
                   </div>
                   <div class="col-sm-8">
                     <div
                       class="text-dark"
                       v-for="(single, index) in parent"
                       :key="single.id"
+                      v-if="single.sightseeing"
                     >
                       {{ ++index }}. {{ single.sightseeing.name }}
                     </div>
@@ -259,7 +257,6 @@ This is template is for the viewing the booked tour details.
               <div class="col-sm-1">
                 <a
                   href
-                  v-if="$can('delete clients')"
                   class="delete_link"
                   @click.prevent="deleteBookedsightseeing()"
                 >
@@ -274,24 +271,24 @@ This is template is for the viewing the booked tour details.
           <div class="card" v-if="train.length > 0">
             <h4>Train</h4>
             <div class="row" v-for="train in train" :key="train.id">
-              <div class="col-sm-2">
+              <div class="col-sm-2" v-if="train['train']">
                 <label>Name</label>
                 <p>{{ train["train"].name }}</p>
               </div>
-              <div class="col-sm-2">
+              <div class="col-sm-2" v-if="train['train']">
                 <label>Code</label>
                 <p>{{ train["train"].code }}</p>
               </div>
-              <div class="col-sm-2">
+              <div class="col-sm-2" v-if="train['train']">
                 <label>Price</label>
                 <p>{{ train.price }}</p>
               </div>
-              <div class="col-sm-3">
+              <div class="col-sm-3" v-if="train['train']">
                 <label>Travel</label>
                 <p>{{ train.source }} - {{ train.destination }}</p>
               </div>
 
-              <div class="col-sm-2 text-center">
+              <div class="col-sm-2 text-center" v-if="train['train']">
                 <label>PNR</label>
                 <br />
                 <span
@@ -310,10 +307,9 @@ This is template is for the viewing the booked tour details.
                 >
               </div>
 
-              <div class="col-sm-1 text-center">
+              <div class="col-sm-1 text-center" v-if="train['train']">
                 <a
                   href
-                  v-if="$can('delete clients')"
                   class="delete_link"
                   @click.prevent="deleteBookedTrain(train.id)"
                 >
@@ -328,24 +324,24 @@ This is template is for the viewing the booked tour details.
           <div class="card" v-if="flight.length > 0">
             <h4>Flight</h4>
             <div class="row" v-for="flight in flight" :key="flight.id">
-              <div class="col-sm-2">
+              <div class="col-sm-2" v-if="flight['flight']">
                 <label>Name</label>
                 <p>{{ flight["flight"].name }}</p>
               </div>
-              <div class="col-sm-2">
-                <label>Seat Type</label>
-                <p>{{ flight["flight"].code }}</p>
+              <div class="col-sm-2" v-if="flight['flight']">
+                <label>Flight Number</label>
+                <p>{{ flight.flight_number }}</p>
               </div>
-              <div class="col-sm-2">
+              <div class="col-sm-2" v-if="flight['flight']">
                 <label>Price</label>
                 <p>{{ flight.price }}</p>
               </div>
-              <div class="col-sm-3">
+              <div class="col-sm-3" v-if="flight['flight']">
                 <label>Travel</label>
                 <p>{{ flight.source }} - {{ flight.destination }}</p>
               </div>
 
-              <div class="col-sm-2 text-center">
+              <div class="col-sm-2 text-center" v-if="flight['flight']">
                 <label>PNR</label>
                 <br />
                 <span
@@ -364,10 +360,9 @@ This is template is for the viewing the booked tour details.
                 >
               </div>
 
-              <div class="col-sm-1 text-center">
+              <div class="col-sm-1 text-center" v-if="flight['flight']">
                 <a
                   href
-                  v-if="$can('delete clients')"
                   class="delete_link"
                   @click.prevent="deleteBookedFlight(flight.id)"
                 >
@@ -382,24 +377,28 @@ This is template is for the viewing the booked tour details.
           <div class="card" v-if="bus.length > 0">
             <h4>Bus</h4>
             <div class="row" v-for="bus in bus" :key="bus.id">
-              <div class="col-sm-2">
+              <div class="col-sm-2" v-if="bus['bus']">
                 <label>Company Name</label>
                 <p>{{ bus["bus"].company_name }}</p>
               </div>
-              <div class="col-sm-2">
+              <div class="col-sm-2" v-if="bus['bus']">
+                <label>Seater</label>
+                <p>{{ bus["bus"].seater }}</p>
+              </div>
+              <div class="col-sm-2" v-if="bus['bus']">
                 <label>Seat Type</label>
                 <p>{{ bus["bus"].seat_type }}</p>
               </div>
-              <div class="col-sm-2">
+              <!-- <div class="col-sm-2">
                 <label>Price</label>
                 <p>{{ bus.price }}</p>
-              </div>
-              <div class="col-sm-3">
+              </div> -->
+              <div class="col-sm-3" v-if="bus['bus']">
                 <label>Travel</label>
                 <p>{{ bus.source }} - {{ bus.destination }}</p>
               </div>
 
-              <div class="col-sm-2 text-center">
+              <div class="col-sm-2 text-center" v-if="bus['bus']">
                 <label>Bus Number</label>
                 <br />
                 <span
@@ -418,10 +417,9 @@ This is template is for the viewing the booked tour details.
                 >
               </div>
 
-              <div class="col-sm-1 text-center">
+              <div class="col-sm-1 text-center" v-if="bus['bus']">
                 <a
                   href
-                  v-if="$can('delete clients')"
                   class="delete_link"
                   @click.prevent="deleteBookedBus(bus.id)"
                 >

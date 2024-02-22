@@ -8,6 +8,7 @@ Vue.use(VueMeta);
 import Home from '@/front/routes/Home.js';
 import Resources from '@/front/routes/Resources.js';
 import GBIBlog from '@/front/routes/GBIBlog.js';
+import Article from '@/front/routes/Article.js';
 import AboutUs from '@/front/routes/AboutUs.js';
 import Feedback from '@/front/routes/Feedback.js';
 import ContactUs from '@/front/routes/ContactUs.js';
@@ -31,6 +32,7 @@ export function createRouter() {
             ...Resources,
             ...GBIBlog,
             ...AboutUs,
+            ...Article,
             ...ContactUs,
             ...ExploreDestination,
             ...ErrorPage,

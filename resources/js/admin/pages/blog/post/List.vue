@@ -143,19 +143,21 @@ export default {
     },
     publishItem(id, user_id) {
       axios.post("/api/posts/"+id+"/publish/"+user_id).then((res) => {});
-      setTimeout(() =>
+      /*setTimeout(() =>
         this.socket.emit('sendToServer', 'NA'), 
       3000);
 
       notifsCollection.doc('New_Notif').set({
           type: "SiteNotif",
-      })
+      })*/
 
       this.getitems();
+      this.$router.go();
     },
     draftItem(id, user_id){
       axios.post("/api/posts/"+id+"/draft/"+user_id).then((res) => {});
       this.getitems();
+      this.$router.go();
     }
   },
 };

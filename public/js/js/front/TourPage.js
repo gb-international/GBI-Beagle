@@ -1,1 +1,1614 @@
-"use strict";(self.webpackChunk=self.webpackChunk||[]).push([[7163],{46010:(t,a,o)=>{o.d(a,{Z:()=>i});var e=o(1519),n=o.n(e)()((function(t){return t[1]}));n.push([t.id,".widthControl[data-v-60b90648]{width:70%!important}@media only screen and (max-width:824px){.widthControl[data-v-60b90648]{width:90%!important}}",""]);const i=n},76015:(t,a,o)=>{o.d(a,{Z:()=>i});var e=o(1519),n=o.n(e)()((function(t){return t[1]}));n.push([t.id,".TourLogin[data-v-69011e7b]{color:#f77736!important;font-size:18px!important}",""]);const i=n},59489:(t,a,o)=>{o.d(a,{Z:()=>n});const e={props:["text"],data:function(){return{}}};const n=(0,o(51900).Z)(e,(function(){var t=this,a=t.$createElement;return(t._self._c||a)("h1",{staticClass:"gbi_main-heading pt-3 text-capitalize"},[t._v("\n    "+t._s(t.text)+"\n")])}),[],!1,null,null,null).exports},44644:(t,a,o)=>{o.d(a,{Z:()=>n});const e={props:["text"]};const n=(0,o(51900).Z)(e,(function(){var t=this,a=t.$createElement;return(t._self._c||a)("p",{staticClass:"gbi_paragraph largeFirstLetter pt-2"},[t._v("\n    "+t._s(t.text)+"\n")])}),[],!1,null,null,null).exports},51430:(t,a,o)=>{o.d(a,{Z:()=>n});const e={props:["text"],data:function(){return{}}};const n=(0,o(51900).Z)(e,(function(){var t=this,a=t.$createElement;return(t._self._c||a)("h4",{staticClass:"gbi_sub-heading text-capitalize m-0 p-0"},[t._v("\n    "+t._s(t.text)+"\n")])}),[],!1,null,null,null).exports},64861:(t,a,o)=>{o.r(a),o.d(a,{default:()=>b});var e=o(50175),n=o(69622);function i(t,a,o){return a in t?Object.defineProperty(t,a,{value:o,enumerable:!0,configurable:!0,writable:!0}):t[a]=o,t}const r={name:"tourLogin",components:{Form:e.Form,HasError:e.HasError,loader:n.Z},data:function(){var t;return i(t={formno:"1",isRunning:!1,interval:null,isLoading:!1,loginform:new e.Form({phone_no:"",otp:""}),login_message:"",otp_validate:0,otp_button:1,verify_button:0,otp_verify:0,otp_id:""},"interval",null),i(t,"running_time",0),i(t,"time",90),t},methods:{test_otp:function(){this.$root.$emit("login-tour")},send_otp:function(t){var a=this,o=this.loginform.phone_no;if(o.match(/^[789]\d{9}$/)){var e=new FormData;e.append("phone_no",o),e.append("_method","post");this.$axios.post("/api/sendotp3",e).then((function(t){t.data.success?(a.otp_id=t.data.otp_id,a.otp_button=0,a.otp_verify=1,a.verify_button=1,a.running_time=1,a.toggleTimer(),a.$swal.fire("Otp Sent","Otp sent To your number!!","success")):a.$swal.fire(t.data.error)})).catch((function(t){return a.$swal.fire("The phone no. isn't valid.")}))}else this.$swal.fire("Invalid Phone Number")},toggleTimer:function(){this.isRunning?clearInterval(this.interval):this.interval=setInterval(this.incrementTime,1e3),this.isRunning=!this.isRunning},incrementTime:function(){this.time=parseInt(this.time)-1,0==this.time&&(this.otp_button=1,this.otp_verify=0,this.verify_button=0,this.running_time=0,this.loginform.phone_no="",this.time=90,this.isRunning=!this.isRunning,clearInterval(this.interval),this.$swal.fire("Alert","Time Over !!!","error","customClass"))},otp_verify_user:function(t){var a=this,o=this.loginform.otp,e=this.otp_id;if(4==o.length){var n=new FormData;n.append("otp",o),n.append("id",e),n.append("slug1",this.$route.params.name),n.append("slug2",this.$route.params.id),n.append("phone_no",this.loginform.phone_no),n.append("_method","post");this.$axios.post("/api/otpverify-tour",n).then((function(t){a.otp_button=0,"success"==t.data.type?(a.otp_validate=1,a.verify_button=0,a.running_time=0,a.otp_button=0,a.otp_verify=1,a.verify_button=0,a.toggleTimer(),localStorage.setItem("tour_otp",o),localStorage.setItem("tour_otp_id",e),a.$root.$emit("login-tour")):a.$swal.fire({icon:"error",title:"Oops...",text:"Invalid OTP!!!"})})).catch((function(t){return a.$swal.fire(t)}))}else this.$swal.fire("Please Enter Valid Otp")}}};var s=o(93379),l=o.n(s),p=o(76015),u={insert:"head",singleton:!1};l()(p.Z,u);p.Z.locals;var c=o(51900);const g=(0,c.Z)(r,(function(){var t=this,a=t.$createElement,o=t._self._c||a;return o("div",{attrs:{id:"tourLogin"}},[o("div",{staticClass:"mx-auto border-0"},[t._m(0),t._v(" "),o("div",{staticClass:"pb-4 loginform"},[o("div",{staticClass:"tab-content",attrs:{id:"pills-tabContent"}},[o("div",{staticClass:"tab-pane fade show active",attrs:{id:"pills-login",role:"tabpanel","aria-labelledby":"pills-login-tab"}},[o("form",{attrs:{role:"form",id:"login-form",enctype:"multipart/form-data"}},[t.otp_button?o("div",{staticClass:"input_with_button"},[o("div",{staticClass:"input-group mb-2"},[o("div",{staticClass:"input-group-prepend"},[o("span",{staticClass:"input-group-text"},[o("img",{staticClass:"icon-width",attrs:{src:t.$gbiAssets+"/images/icons/mobile.png"}})])]),t._v(" "),o("input",{directives:[{name:"model",rawName:"v-model",value:t.loginform.phone_no,expression:"loginform.phone_no"}],staticClass:"form-control",class:{"is-invalid":t.loginform.errors.has("phone_no")},attrs:{id:"phone_no",type:"text",placeholder:"Enter Phone No."},domProps:{value:t.loginform.phone_no},on:{input:function(a){a.target.composing||t.$set(t.loginform,"phone_no",a.target.value)}}}),t._v(" "),o("has-error",{attrs:{form:t.loginform,field:"phone_no"}})],1)]):t._e(),t._v(" "),t.otp_button?o("div",{staticClass:"input_button"},[o("div",{staticClass:"input-group mb-1"},[o("button",{staticClass:"btn btn-default",attrs:{type:"button"},on:{click:t.send_otp}},[t._v("\n                  Send OTP\n                ")])])]):t._e(),t._v(" "),t.otp_verify?o("div",{staticClass:"input_with_button input_verify"},[o("div",{staticClass:"input-group mb-1"},[t._m(1),t._v(" "),o("input",{directives:[{name:"model",rawName:"v-model",value:t.loginform.otp,expression:"loginform.otp"}],staticClass:"form-control",class:{"is-invalid":t.loginform.errors.has("otp")},attrs:{type:"text",placeholder:"OTP"},domProps:{value:t.loginform.otp},on:{input:function(a){a.target.composing||t.$set(t.loginform,"otp",a.target.value)}}}),t._v(" "),o("has-error",{attrs:{form:t.loginform,field:"otp"}})],1)]):t._e(),t._v(" "),o("div",{staticClass:"input_button"},[o("div",{staticClass:"input-group mb-1"},[t.running_time?o("span",{staticClass:"timer"},[t._v("Time : "+t._s(t.time))]):t._e(),t._v(" "),t.verify_button?o("button",{staticClass:"btn btn-default",attrs:{type:"button"},on:{click:t.otp_verify_user}},[t._v("\n                  VERIFY\n                ")]):t._e(),t._v(" "),t.otp_validate?o("p",{staticStyle:{"font-size":"30px",color:"green","margin-top":"12px",position:"absolute",right:"30px"}},[o("i",{staticClass:"fas fa-check-circle"})]):t._e()])]),t._v(" "),1==t.isLoading?o("loader"):t._e()],1)])])])])])}),[function(){var t=this,a=t.$createElement,o=t._self._c||a;return o("div",{staticClass:"border-bottom-0 bg-transparent"},[o("ul",{staticClass:"nav nav-tabs justify-content-center",attrs:{id:"pills-tab",role:"tablist"}},[o("li",{staticClass:"nav-item"},[o("a",{staticClass:"nav-link TourLogin",attrs:{id:"pills-login-tab","data-toggle":"pill",href:"#pills-login",role:"tab","aria-controls":"pills-login","aria-selected":"true"}},[t._v("Tour Login")])])])])},function(){var t=this.$createElement,a=this._self._c||t;return a("div",{staticClass:"input-group-prepend"},[a("span",{staticClass:"input-group-text"})])}],!1,null,"69011e7b",null).exports;var d=o(59489),_=o(51430),m=o(44644);const v={name:"TourPage",components:{heading:d.Z,"sub-heading":_.Z,paragraph:m.Z,"tour-login":g},data:function(){return{tourData:[],allCreated:!1,logged:!1}},metaInfo:{title:"Tour Page | GBI",meta:[{name:"description",content:"We, GB International deal in providing customized itineraries to educational institutions, corporates, and to family travellers."},{name:"keywords",content:"@GoWithGBI,Our Story,about us,GBI Process,Program Engineering Process ,GBI How we work,learn,explore,discover,dream travel journeys,behind the scenes,dream,educational programs,corporate events,team building programs,international programs,domestic programs"},{name:"url",content:"https://www.gowithgbi.com/"}]},beforeCreate:function(){document.cookie="GBIMeta ="+JSON.stringify({title:"Tour Page | GBI",description:"We, GB International deal in providing customized itineraries to educational institutions, corporates, and to family travellers.",keywords:"@GoWithGBI,Our Story,about us,GBI Process,Program Engineering Process ,GBI How we work,learn,explore,discover,dream travel journeys,behind the scenes,dream,educational programs,corporate events,team building programs,international programs,domestic programs",url:"https://www.gowithgbi.com/",type:"website"})+"; path=/"},created:function(){this.getTour()},beforeMount:function(){"logged"==this.logged&&this.getTour()},mounted:function(){var t=this;this.$root.$on("login-tour",(function(){t.getTour(),t.logFunc(),t.$swal.fire("Logged","You are logged in","success")}))},methods:{getTour:function(){var t=this,a=localStorage.getItem("tour_otp"),o=localStorage.getItem("tour_otp_id");this.$axios.get("/api/tour-data/".concat(this.$route.params.name,"/").concat(this.$route.params.id,"/").concat(a,"/").concat(o)).then((function(a){0==a.data.logged?(localStorage.setItem("tourLog",""),t.logged=localStorage.getItem("tourLog"),t.$root.$emit("tour-log"),t.allCreated=!0):(t.tourData=a.data,t.logFunc(),t.allCreated=!0)}))},logFunc:function(){localStorage.setItem("tourLog","logged"),this.$root.$emit("tour-log"),this.logged=localStorage.getItem("tourLog")},formatDate:function(t){var a=t.match(/\d+/g),o=a[0].substring(2),e=a[1];return a[2]+"/"+e+"/"+o}}};var h=o(46010),f={insert:"head",singleton:!1};l()(h.Z,f);h.Z.locals;const b=(0,c.Z)(v,(function(){var t=this,a=t.$createElement,o=t._self._c||a;return t.allCreated?o("div",{attrs:{id:"tourPage"}},["logged"==t.logged?o("section",[t._m(0),t._v(" "),t.allCreated?o("div",{staticClass:"container"},[o("h1",{staticClass:"gbi_main-heading pt-3 text-capitalize",staticStyle:{"margin-bottom":"10px !important"}},[t._v("\n          "+t._s(t.tourData.school_name)+"\n      ")]),t._v(" "),o("h4",{staticClass:"gbi_sub-heading text-capitalize m-0 p-0"},[t._v("\n          "+t._s(t.tourData.trip_name)+"\n      ")]),t._v(" "),o("p",{staticClass:"gbi_paragraph mt-5"},[o("b",[t._v("Tour Starting from:")]),t._v(" "+t._s(t.formatDate(t.tourData.start_date))+" \n      ")]),t._v(" "),o("p",{staticClass:"gbi_paragraph pt-1"},[o("b",[t._v("Tour Ends on:")]),t._v(" "+t._s(t.formatDate(t.tourData.end_date))+"\n      ")]),t._v(" "),o("p",{staticClass:"gbi_paragraph pt-1"},[o("b",[t._v("Number of students travelling:")]),t._v(" "+t._s(t.tourData.no_of_student)+"\n      ")]),t._v(" "),o("p",{staticClass:"gbi_paragraph pt-1"},[o("b",[t._v("Number of teachers travelling:")]),t._v(" "+t._s(t.tourData.no_of_teachers)+"\n      ")]),t._v(" "),o("p",{staticClass:"gbi_paragraph pt-1"},[o("b",[t._v("Total cost per student:")]),t._v(" ₹"+t._s(t.tourData.amt_per_pax.toLocaleString())+"\n      ")]),t._v(" "),o("p",{staticClass:"gbi_paragraph pt-1"},[o("b",[t._v("Total Amount:")]),t._v(" ₹"+t._s(t.tourData.amount_total.toLocaleString())+"\n      ")]),t._v(" "),o("p",{staticClass:"gbi_paragraph pt-1"},[o("b",[t._v("Total Paid:")]),t._v(" ₹"+t._s(t.tourData.amount_paid.toLocaleString())+"\n      ")]),t._v(" "),o("p",{staticClass:"gbi_paragraph pt-1"},[o("b",[t._v("Pending Amount:")]),t._v(" ₹"+t._s(t.tourData.amount_pending.toLocaleString())+"\n      ")]),t._v(" "),o("p",{staticClass:"gbi_paragraph pt-1"},[o("b",[t._v("Payment Status:")]),t._v(" "),1==t.tourData.payment_status?o("span",{staticStyle:{color:"green"}},[t._v("Complete")]):3==t.tourData.payment_status?o("span",{staticStyle:{color:"orange"}},[t._v("In Progress")]):o("span",{staticStyle:{color:"yellow"}},[t._v("Pending")])]),t._v(" "),o("p",{staticClass:"gbi_paragraph pt-1"},[o("b",[t._v("Booking Status:")]),t._v(" "),o("span",{style:1==t.tourData.booking_status?"color: green":"color: orange"},[t._v(t._s(1==t.tourData.booking_status?"Confirmed":"In Progress"))])]),t._v(" "),o("div",{staticClass:"clear"})]):t._e()]):o("section",[o("div",{staticClass:"modal show",staticStyle:{"padding-right":"17px",display:"block"},attrs:{id:"LoginForm","aria-modal":"true"}},[o("div",{staticClass:"modal-dialog w-100"},[o("div",{staticClass:"modal-content"},[o("div",{staticClass:"modal-body loginform"},[o("tour-login")],1)])])])])]):t._e()}),[function(){var t=this.$createElement,a=this._self._c||t;return a("div",{staticClass:"text_on_image banner_bg",staticStyle:{"background-image":"url('https://gbi-assets.s3.ap-south-1.amazonaws.com/itinerary-image-63fc4ca9d91b5-1677479081129070.jpeg')","background-position":"center"}},[a("div",{staticClass:"content"})])}],!1,null,"60b90648",null).exports}}]);
+"use strict";
+(self["webpackChunk"] = self["webpackChunk"] || []).push([["js/front/TourPage"],{
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/front/components/layout/Heading.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/front/components/layout/Heading.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: ['text'],
+  data: function data() {
+    return {};
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/front/components/layout/Paragraph.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/front/components/layout/Paragraph.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: ['text']
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/front/components/layout/SubHeading.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/front/components/layout/SubHeading.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: ['text'],
+  data: function data() {
+    return {};
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/front/pages/TourPage/tour.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/front/pages/TourPage/tour.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _front_pages_TourPage_tourLogin_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/front/pages/TourPage/tourLogin.vue */ "./resources/js/front/pages/TourPage/tourLogin.vue");
+/* harmony import */ var _front_components_layout_Heading_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/front/components/layout/Heading.vue */ "./resources/js/front/components/layout/Heading.vue");
+/* harmony import */ var _front_components_layout_SubHeading_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/front/components/layout/SubHeading.vue */ "./resources/js/front/components/layout/SubHeading.vue");
+/* harmony import */ var _front_components_layout_Paragraph_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/front/components/layout/Paragraph.vue */ "./resources/js/front/components/layout/Paragraph.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "TourPage",
+  components: {
+    "heading": _front_components_layout_Heading_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+    "sub-heading": _front_components_layout_SubHeading_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+    "paragraph": _front_components_layout_Paragraph_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
+    "tour-login": _front_pages_TourPage_tourLogin_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  data: function data() {
+    return {
+      tourData: [],
+      allCreated: false,
+      logged: false
+    };
+  },
+  metaInfo: {
+    title: 'Tour Page | GBI',
+    meta: [{
+      name: 'description',
+      content: 'We, GB International deal in providing customized itineraries to educational institutions, corporates, and to family travellers.'
+    }, {
+      name: 'keywords',
+      content: '@GoWithGBI,Our Story,about us,GBI Process,Program Engineering Process ,GBI How we work,learn,explore,discover,dream travel journeys,behind the scenes,dream,educational programs,corporate events,team building programs,international programs,domestic programs'
+    }, {
+      name: 'url',
+      content: 'https://www.gowithgbi.com/'
+    }]
+  },
+  beforeCreate: function beforeCreate() {
+    var metaInfo = {
+      title: 'Tour Page | GBI',
+      description: 'We, GB International deal in providing customized itineraries to educational institutions, corporates, and to family travellers.',
+      keywords: '@GoWithGBI,Our Story,about us,GBI Process,Program Engineering Process ,GBI How we work,learn,explore,discover,dream travel journeys,behind the scenes,dream,educational programs,corporate events,team building programs,international programs,domestic programs',
+      url: 'https://www.gowithgbi.com/',
+      type: 'website'
+    };
+    document.cookie = "GBIMeta =" + JSON.stringify(metaInfo) + "; path=/";
+  },
+  created: function created() {
+    this.getTour();
+  },
+  beforeMount: function beforeMount() {
+    if (this.logged == 'logged') {
+      this.getTour();
+    }
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    this.$root.$on('login-tour', function () {
+      _this.getTour();
+
+      _this.logFunc();
+
+      _this.$swal.fire("Logged", "You are logged in", "success");
+    });
+  },
+  methods: {
+    getTour: function getTour() {
+      var _this2 = this;
+
+      var tour_otp = localStorage.getItem("tour_otp");
+      var tour_otp_id = localStorage.getItem("tour_otp_id");
+      this.$axios.get("/api/tour-data/".concat(this.$route.params.name, "/").concat(this.$route.params.id, "/").concat(tour_otp, "/").concat(tour_otp_id)).then(function (res) {
+        if (res.data.logged == false) {
+          localStorage.setItem("tourLog", '');
+          _this2.logged = localStorage.getItem("tourLog");
+
+          _this2.$root.$emit('tour-log');
+
+          _this2.allCreated = true; //this.$router.go()
+        } else {
+          _this2.tourData = res.data;
+
+          _this2.logFunc();
+
+          _this2.allCreated = true;
+        }
+      });
+    },
+    logFunc: function logFunc() {
+      localStorage.setItem("tourLog", 'logged');
+      this.$root.$emit('tour-log');
+      this.logged = localStorage.getItem("tourLog");
+    },
+    formatDate: function formatDate(val) {
+      var dateVal = val.match(/\d+/g),
+          year = dateVal[0].substring(2),
+          // get only two digits
+      month = dateVal[1],
+          day = dateVal[2];
+      return day + '/' + month + '/' + year;
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/front/pages/TourPage/tourLogin.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/front/pages/TourPage/tourLogin.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vform */ "./node_modules/vform/dist/vform.common.js");
+/* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vform__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _front_components_Loader_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/front/components/Loader.vue */ "./resources/js/front/components/Loader.vue");
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "tourLogin",
+  components: {
+    Form: vform__WEBPACK_IMPORTED_MODULE_0__.Form,
+    HasError: vform__WEBPACK_IMPORTED_MODULE_0__.HasError,
+    loader: _front_components_Loader_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  data: function data() {
+    var _ref;
+
+    return _ref = {
+      formno: "1",
+      isRunning: false,
+      interval: null,
+      isLoading: false,
+      loginform: new vform__WEBPACK_IMPORTED_MODULE_0__.Form({
+        phone_no: "",
+        otp: ""
+      }),
+      login_message: "",
+      otp_validate: 0,
+      otp_button: 1,
+      verify_button: 0,
+      otp_verify: 0,
+      otp_id: ""
+    }, _defineProperty(_ref, "interval", null), _defineProperty(_ref, "running_time", 0), _defineProperty(_ref, "time", 90), _ref;
+  },
+  methods: {
+    test_otp: function test_otp() {
+      this.$root.$emit('login-tour');
+    },
+    send_otp: function send_otp(e) {
+      var _this = this;
+
+      var phone_no = this.loginform.phone_no;
+      var pattern = /^[789]\d{9}$/;
+
+      if (phone_no.match(pattern)) {
+        // If Valid Number
+        var data = new FormData();
+        data.append("phone_no", phone_no);
+        data.append("_method", "post"); // add this
+        // data.append('_token',this.csrf);
+
+        var api = "/api/sendotp3";
+        this.$axios.post(api, data) // change this to post )
+        .then(function (res) {
+          if (res.data.success) {
+            _this.otp_id = res.data.otp_id;
+            _this.otp_button = 0;
+            _this.otp_verify = 1;
+            _this.verify_button = 1;
+            _this.running_time = 1;
+
+            _this.toggleTimer();
+
+            _this.$swal.fire("Otp Sent", "Otp sent To your number!!", "success");
+          } else {
+            _this.$swal.fire(res.data.error);
+          }
+        })["catch"](function (error) {
+          return _this.$swal.fire("The phone no. isn't valid.");
+        });
+      } else {
+        // If Not Valid Number
+        this.$swal.fire("Invalid Phone Number");
+      }
+    },
+    // Timer start here
+    toggleTimer: function toggleTimer() {
+      if (this.isRunning) {
+        clearInterval(this.interval);
+      } else {
+        this.interval = setInterval(this.incrementTime, 1000);
+      }
+
+      this.isRunning = !this.isRunning;
+    },
+    incrementTime: function incrementTime() {
+      this.time = parseInt(this.time) - 1;
+
+      if (this.time == 0) {
+        this.otp_button = 1;
+        this.otp_verify = 0;
+        this.verify_button = 0;
+        this.running_time = 0;
+        this.loginform.phone_no = "";
+        this.time = 90;
+        this.isRunning = !this.isRunning;
+        clearInterval(this.interval);
+        this.$swal.fire("Alert", "Time Over !!!", "error", "customClass");
+      }
+    },
+    // End timer here
+    // Otp Verification
+    otp_verify_user: function otp_verify_user(e) {
+      var _this2 = this;
+
+      //this.loginUser();
+      var otp = this.loginform.otp;
+      var otp_id = this.otp_id;
+
+      if (otp.length == 4) {
+        var data = new FormData();
+        data.append("otp", otp);
+        data.append("id", otp_id);
+        data.append("slug1", this.$route.params.name);
+        data.append("slug2", this.$route.params.id);
+        data.append("phone_no", this.loginform.phone_no);
+        data.append("_method", "post"); // add this
+
+        var api = "/api/otpverify-tour";
+        this.$axios.post(api, data) //   this to post )
+        .then(function (res) {
+          _this2.otp_button = 0;
+
+          if (res.data.type == "success") {
+            _this2.otp_validate = 1;
+            _this2.verify_button = 0;
+            _this2.running_time = 0;
+            _this2.otp_button = 0;
+            _this2.otp_verify = 1;
+            _this2.verify_button = 0;
+
+            _this2.toggleTimer();
+
+            localStorage.setItem("tour_otp", otp);
+            localStorage.setItem("tour_otp_id", otp_id); //localStorage.setItem("tourLog", 'logged');
+
+            _this2.$root.$emit('login-tour');
+          } else {
+            _this2.$swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Invalid OTP!!!"
+            });
+          }
+        })["catch"](function (error) {
+          return _this2.$swal.fire(error);
+        }); //
+      } else {
+        this.$swal.fire("Please Enter Valid Otp");
+      }
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/front/pages/TourPage/tour.vue?vue&type=style&index=0&id=7c4a2e41&scoped=true&lang=css&":
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/front/pages/TourPage/tour.vue?vue&type=style&index=0&id=7c4a2e41&scoped=true&lang=css& ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../../node_modules/laravel-mix/node_modules/css-loader/dist/runtime/api.js */ "./node_modules/laravel-mix/node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "\n.widthControl[data-v-7c4a2e41]{\r\n  width: 70% !important\n}\n@media only screen and (max-width: 824px) {\n.widthControl[data-v-7c4a2e41]{\r\n  width: 90% !important\n}\n}\r\n", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ "./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/front/pages/TourPage/tourLogin.vue?vue&type=style&index=0&id=410b4b58&scoped=true&lang=css&":
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/front/pages/TourPage/tourLogin.vue?vue&type=style&index=0&id=410b4b58&scoped=true&lang=css& ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../../node_modules/laravel-mix/node_modules/css-loader/dist/runtime/api.js */ "./node_modules/laravel-mix/node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "\n.TourLogin[data-v-410b4b58]{\r\n  color: #f77736 !important;\r\n  font-size: 18px !important;\n}\r\n", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/front/pages/TourPage/tour.vue?vue&type=style&index=0&id=7c4a2e41&scoped=true&lang=css&":
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/front/pages/TourPage/tour.vue?vue&type=style&index=0&id=7c4a2e41&scoped=true&lang=css& ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_tour_vue_vue_type_style_index_0_id_7c4a2e41_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../../node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./tour.vue?vue&type=style&index=0&id=7c4a2e41&scoped=true&lang=css& */ "./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/front/pages/TourPage/tour.vue?vue&type=style&index=0&id=7c4a2e41&scoped=true&lang=css&");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_tour_vue_vue_type_style_index_0_id_7c4a2e41_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_tour_vue_vue_type_style_index_0_id_7c4a2e41_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/front/pages/TourPage/tourLogin.vue?vue&type=style&index=0&id=410b4b58&scoped=true&lang=css&":
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/front/pages/TourPage/tourLogin.vue?vue&type=style&index=0&id=410b4b58&scoped=true&lang=css& ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_tourLogin_vue_vue_type_style_index_0_id_410b4b58_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../../node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./tourLogin.vue?vue&type=style&index=0&id=410b4b58&scoped=true&lang=css& */ "./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/front/pages/TourPage/tourLogin.vue?vue&type=style&index=0&id=410b4b58&scoped=true&lang=css&");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_tourLogin_vue_vue_type_style_index_0_id_410b4b58_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_tourLogin_vue_vue_type_style_index_0_id_410b4b58_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+
+/***/ }),
+
+/***/ "./resources/js/front/components/layout/Heading.vue":
+/*!**********************************************************!*\
+  !*** ./resources/js/front/components/layout/Heading.vue ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Heading_vue_vue_type_template_id_431e53a2___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Heading.vue?vue&type=template&id=431e53a2& */ "./resources/js/front/components/layout/Heading.vue?vue&type=template&id=431e53a2&");
+/* harmony import */ var _Heading_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Heading.vue?vue&type=script&lang=js& */ "./resources/js/front/components/layout/Heading.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Heading_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Heading_vue_vue_type_template_id_431e53a2___WEBPACK_IMPORTED_MODULE_0__.render,
+  _Heading_vue_vue_type_template_id_431e53a2___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/front/components/layout/Heading.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/front/components/layout/Paragraph.vue":
+/*!************************************************************!*\
+  !*** ./resources/js/front/components/layout/Paragraph.vue ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Paragraph_vue_vue_type_template_id_0c63b1e4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Paragraph.vue?vue&type=template&id=0c63b1e4& */ "./resources/js/front/components/layout/Paragraph.vue?vue&type=template&id=0c63b1e4&");
+/* harmony import */ var _Paragraph_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Paragraph.vue?vue&type=script&lang=js& */ "./resources/js/front/components/layout/Paragraph.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Paragraph_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Paragraph_vue_vue_type_template_id_0c63b1e4___WEBPACK_IMPORTED_MODULE_0__.render,
+  _Paragraph_vue_vue_type_template_id_0c63b1e4___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/front/components/layout/Paragraph.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/front/components/layout/SubHeading.vue":
+/*!*************************************************************!*\
+  !*** ./resources/js/front/components/layout/SubHeading.vue ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _SubHeading_vue_vue_type_template_id_d853df9c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SubHeading.vue?vue&type=template&id=d853df9c& */ "./resources/js/front/components/layout/SubHeading.vue?vue&type=template&id=d853df9c&");
+/* harmony import */ var _SubHeading_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SubHeading.vue?vue&type=script&lang=js& */ "./resources/js/front/components/layout/SubHeading.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _SubHeading_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _SubHeading_vue_vue_type_template_id_d853df9c___WEBPACK_IMPORTED_MODULE_0__.render,
+  _SubHeading_vue_vue_type_template_id_d853df9c___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/front/components/layout/SubHeading.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/front/pages/TourPage/tour.vue":
+/*!****************************************************!*\
+  !*** ./resources/js/front/pages/TourPage/tour.vue ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _tour_vue_vue_type_template_id_7c4a2e41_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tour.vue?vue&type=template&id=7c4a2e41&scoped=true& */ "./resources/js/front/pages/TourPage/tour.vue?vue&type=template&id=7c4a2e41&scoped=true&");
+/* harmony import */ var _tour_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tour.vue?vue&type=script&lang=js& */ "./resources/js/front/pages/TourPage/tour.vue?vue&type=script&lang=js&");
+/* harmony import */ var _tour_vue_vue_type_style_index_0_id_7c4a2e41_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./tour.vue?vue&type=style&index=0&id=7c4a2e41&scoped=true&lang=css& */ "./resources/js/front/pages/TourPage/tour.vue?vue&type=style&index=0&id=7c4a2e41&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _tour_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _tour_vue_vue_type_template_id_7c4a2e41_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _tour_vue_vue_type_template_id_7c4a2e41_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "7c4a2e41",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/front/pages/TourPage/tour.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/front/pages/TourPage/tourLogin.vue":
+/*!*********************************************************!*\
+  !*** ./resources/js/front/pages/TourPage/tourLogin.vue ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _tourLogin_vue_vue_type_template_id_410b4b58_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tourLogin.vue?vue&type=template&id=410b4b58&scoped=true& */ "./resources/js/front/pages/TourPage/tourLogin.vue?vue&type=template&id=410b4b58&scoped=true&");
+/* harmony import */ var _tourLogin_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tourLogin.vue?vue&type=script&lang=js& */ "./resources/js/front/pages/TourPage/tourLogin.vue?vue&type=script&lang=js&");
+/* harmony import */ var _tourLogin_vue_vue_type_style_index_0_id_410b4b58_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./tourLogin.vue?vue&type=style&index=0&id=410b4b58&scoped=true&lang=css& */ "./resources/js/front/pages/TourPage/tourLogin.vue?vue&type=style&index=0&id=410b4b58&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _tourLogin_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _tourLogin_vue_vue_type_template_id_410b4b58_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _tourLogin_vue_vue_type_template_id_410b4b58_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "410b4b58",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/front/pages/TourPage/tourLogin.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/front/components/layout/Heading.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/front/components/layout/Heading.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Heading_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Heading.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/front/components/layout/Heading.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Heading_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/front/components/layout/Paragraph.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/front/components/layout/Paragraph.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Paragraph_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Paragraph.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/front/components/layout/Paragraph.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Paragraph_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/front/components/layout/SubHeading.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************!*\
+  !*** ./resources/js/front/components/layout/SubHeading.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SubHeading_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./SubHeading.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/front/components/layout/SubHeading.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SubHeading_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/front/pages/TourPage/tour.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************!*\
+  !*** ./resources/js/front/pages/TourPage/tour.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_tour_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./tour.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/front/pages/TourPage/tour.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_tour_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/front/pages/TourPage/tourLogin.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/front/pages/TourPage/tourLogin.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_tourLogin_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./tourLogin.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/front/pages/TourPage/tourLogin.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_tourLogin_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/front/pages/TourPage/tour.vue?vue&type=style&index=0&id=7c4a2e41&scoped=true&lang=css&":
+/*!*************************************************************************************************************!*\
+  !*** ./resources/js/front/pages/TourPage/tour.vue?vue&type=style&index=0&id=7c4a2e41&scoped=true&lang=css& ***!
+  \*************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_tour_vue_vue_type_style_index_0_id_7c4a2e41_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader/dist/cjs.js!../../../../../node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./tour.vue?vue&type=style&index=0&id=7c4a2e41&scoped=true&lang=css& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/front/pages/TourPage/tour.vue?vue&type=style&index=0&id=7c4a2e41&scoped=true&lang=css&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_style_loader_dist_cjs_js_node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_tour_vue_vue_type_style_index_0_id_7c4a2e41_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/front/pages/TourPage/tourLogin.vue?vue&type=style&index=0&id=410b4b58&scoped=true&lang=css&":
+/*!******************************************************************************************************************!*\
+  !*** ./resources/js/front/pages/TourPage/tourLogin.vue?vue&type=style&index=0&id=410b4b58&scoped=true&lang=css& ***!
+  \******************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_tourLogin_vue_vue_type_style_index_0_id_410b4b58_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader/dist/cjs.js!../../../../../node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./tourLogin.vue?vue&type=style&index=0&id=410b4b58&scoped=true&lang=css& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/front/pages/TourPage/tourLogin.vue?vue&type=style&index=0&id=410b4b58&scoped=true&lang=css&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_style_loader_dist_cjs_js_node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_tourLogin_vue_vue_type_style_index_0_id_410b4b58_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/front/components/layout/Heading.vue?vue&type=template&id=431e53a2&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/front/components/layout/Heading.vue?vue&type=template&id=431e53a2& ***!
+  \*****************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Heading_vue_vue_type_template_id_431e53a2___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Heading_vue_vue_type_template_id_431e53a2___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Heading_vue_vue_type_template_id_431e53a2___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Heading.vue?vue&type=template&id=431e53a2& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/front/components/layout/Heading.vue?vue&type=template&id=431e53a2&");
+
+
+/***/ }),
+
+/***/ "./resources/js/front/components/layout/Paragraph.vue?vue&type=template&id=0c63b1e4&":
+/*!*******************************************************************************************!*\
+  !*** ./resources/js/front/components/layout/Paragraph.vue?vue&type=template&id=0c63b1e4& ***!
+  \*******************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Paragraph_vue_vue_type_template_id_0c63b1e4___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Paragraph_vue_vue_type_template_id_0c63b1e4___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Paragraph_vue_vue_type_template_id_0c63b1e4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Paragraph.vue?vue&type=template&id=0c63b1e4& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/front/components/layout/Paragraph.vue?vue&type=template&id=0c63b1e4&");
+
+
+/***/ }),
+
+/***/ "./resources/js/front/components/layout/SubHeading.vue?vue&type=template&id=d853df9c&":
+/*!********************************************************************************************!*\
+  !*** ./resources/js/front/components/layout/SubHeading.vue?vue&type=template&id=d853df9c& ***!
+  \********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SubHeading_vue_vue_type_template_id_d853df9c___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SubHeading_vue_vue_type_template_id_d853df9c___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SubHeading_vue_vue_type_template_id_d853df9c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./SubHeading.vue?vue&type=template&id=d853df9c& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/front/components/layout/SubHeading.vue?vue&type=template&id=d853df9c&");
+
+
+/***/ }),
+
+/***/ "./resources/js/front/pages/TourPage/tour.vue?vue&type=template&id=7c4a2e41&scoped=true&":
+/*!***********************************************************************************************!*\
+  !*** ./resources/js/front/pages/TourPage/tour.vue?vue&type=template&id=7c4a2e41&scoped=true& ***!
+  \***********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_tour_vue_vue_type_template_id_7c4a2e41_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_tour_vue_vue_type_template_id_7c4a2e41_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_tour_vue_vue_type_template_id_7c4a2e41_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./tour.vue?vue&type=template&id=7c4a2e41&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/front/pages/TourPage/tour.vue?vue&type=template&id=7c4a2e41&scoped=true&");
+
+
+/***/ }),
+
+/***/ "./resources/js/front/pages/TourPage/tourLogin.vue?vue&type=template&id=410b4b58&scoped=true&":
+/*!****************************************************************************************************!*\
+  !*** ./resources/js/front/pages/TourPage/tourLogin.vue?vue&type=template&id=410b4b58&scoped=true& ***!
+  \****************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_tourLogin_vue_vue_type_template_id_410b4b58_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_tourLogin_vue_vue_type_template_id_410b4b58_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_tourLogin_vue_vue_type_template_id_410b4b58_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./tourLogin.vue?vue&type=template&id=410b4b58&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/front/pages/TourPage/tourLogin.vue?vue&type=template&id=410b4b58&scoped=true&");
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/front/components/layout/Heading.vue?vue&type=template&id=431e53a2&":
+/*!********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/front/components/layout/Heading.vue?vue&type=template&id=431e53a2& ***!
+  \********************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render),
+/* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("h1", { staticClass: "gbi_main-heading pt-3 text-capitalize" }, [
+    _vm._v("\n    " + _vm._s(_vm.text) + "\n"),
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/front/components/layout/Paragraph.vue?vue&type=template&id=0c63b1e4&":
+/*!**********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/front/components/layout/Paragraph.vue?vue&type=template&id=0c63b1e4& ***!
+  \**********************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render),
+/* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("p", { staticClass: "gbi_paragraph largeFirstLetter pt-2" }, [
+    _vm._v("\n    " + _vm._s(_vm.text) + "\n"),
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/front/components/layout/SubHeading.vue?vue&type=template&id=d853df9c&":
+/*!***********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/front/components/layout/SubHeading.vue?vue&type=template&id=d853df9c& ***!
+  \***********************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render),
+/* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("h4", { staticClass: "gbi_sub-heading text-capitalize m-0 p-0" }, [
+    _vm._v("\n    " + _vm._s(_vm.text) + "\n"),
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/front/pages/TourPage/tour.vue?vue&type=template&id=7c4a2e41&scoped=true&":
+/*!**************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/front/pages/TourPage/tour.vue?vue&type=template&id=7c4a2e41&scoped=true& ***!
+  \**************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render),
+/* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm.allCreated
+    ? _c("div", { attrs: { id: "tourPage" } }, [
+        _vm.logged == "logged"
+          ? _c("section", [
+              _vm._m(0),
+              _vm._v(" "),
+              _vm.allCreated
+                ? _c("div", { staticClass: "container" }, [
+                    _c(
+                      "h1",
+                      {
+                        staticClass: "gbi_main-heading pt-3 text-capitalize",
+                        staticStyle: { "margin-bottom": "10px !important" },
+                      },
+                      [
+                        _vm._v(
+                          "\n          " +
+                            _vm._s(_vm.tourData.school_name) +
+                            "\n      "
+                        ),
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "h4",
+                      {
+                        staticClass: "gbi_sub-heading text-capitalize m-0 p-0",
+                      },
+                      [
+                        _vm._v(
+                          "\n          " +
+                            _vm._s(_vm.tourData.trip_name) +
+                            "\n      "
+                        ),
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "gbi_paragraph mt-5" }, [
+                      _c("b", [_vm._v("Tour Starting from:")]),
+                      _vm._v(
+                        " " +
+                          _vm._s(_vm.formatDate(_vm.tourData.start_date)) +
+                          " \n      "
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "gbi_paragraph pt-1" }, [
+                      _c("b", [_vm._v("Tour Ends on:")]),
+                      _vm._v(
+                        " " +
+                          _vm._s(_vm.formatDate(_vm.tourData.end_date)) +
+                          "\n      "
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "gbi_paragraph pt-1" }, [
+                      _c("b", [_vm._v("Number of students travelling:")]),
+                      _vm._v(
+                        " " + _vm._s(_vm.tourData.no_of_student) + "\n      "
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "gbi_paragraph pt-1" }, [
+                      _c("b", [_vm._v("Number of teachers travelling:")]),
+                      _vm._v(
+                        " " + _vm._s(_vm.tourData.no_of_teachers) + "\n      "
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "gbi_paragraph pt-1" }, [
+                      _c("b", [_vm._v("Total cost per student:")]),
+                      _vm._v(
+                        " ₹" +
+                          _vm._s(_vm.tourData.amt_per_pax.toLocaleString()) +
+                          "\n      "
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "gbi_paragraph pt-1" }, [
+                      _c("b", [_vm._v("Total Amount:")]),
+                      _vm._v(
+                        " ₹" +
+                          _vm._s(_vm.tourData.amount_total.toLocaleString()) +
+                          "\n      "
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "gbi_paragraph pt-1" }, [
+                      _c("b", [_vm._v("Total Paid:")]),
+                      _vm._v(
+                        " ₹" +
+                          _vm._s(_vm.tourData.amount_paid.toLocaleString()) +
+                          "\n      "
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "gbi_paragraph pt-1" }, [
+                      _c("b", [_vm._v("Pending Amount:")]),
+                      _vm._v(
+                        " ₹" +
+                          _vm._s(_vm.tourData.amount_pending.toLocaleString()) +
+                          "\n      "
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "gbi_paragraph pt-1" }, [
+                      _c("b", [_vm._v("Payment Status:")]),
+                      _vm._v(" "),
+                      _vm.tourData.payment_status == 1
+                        ? _c("span", { staticStyle: { color: "green" } }, [
+                            _vm._v("Complete"),
+                          ])
+                        : _vm.tourData.payment_status == 3
+                        ? _c("span", { staticStyle: { color: "orange" } }, [
+                            _vm._v("In Progress"),
+                          ])
+                        : _c("span", { staticStyle: { color: "yellow" } }, [
+                            _vm._v("Pending"),
+                          ]),
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "gbi_paragraph pt-1" }, [
+                      _c("b", [_vm._v("Booking Status:")]),
+                      _vm._v(" "),
+                      _c(
+                        "span",
+                        {
+                          style:
+                            _vm.tourData.booking_status == 1
+                              ? "color: green"
+                              : "color: orange",
+                        },
+                        [
+                          _vm._v(
+                            _vm._s(
+                              _vm.tourData.booking_status == 1
+                                ? "Confirmed"
+                                : "In Progress"
+                            )
+                          ),
+                        ]
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "clear" }),
+                  ])
+                : _vm._e(),
+            ])
+          : _c("section", [
+              _c(
+                "div",
+                {
+                  staticClass: "modal show",
+                  staticStyle: { "padding-right": "17px", display: "block" },
+                  attrs: { id: "LoginForm", "aria-modal": "true" },
+                },
+                [
+                  _c("div", { staticClass: "modal-dialog w-100" }, [
+                    _c("div", { staticClass: "modal-content" }, [
+                      _c(
+                        "div",
+                        { staticClass: "modal-body loginform" },
+                        [_c("tour-login")],
+                        1
+                      ),
+                    ]),
+                  ]),
+                ]
+              ),
+            ]),
+      ])
+    : _vm._e()
+}
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass: "text_on_image banner_bg",
+        staticStyle: {
+          "background-image":
+            "url('https://gbi-assets.s3.ap-south-1.amazonaws.com/itinerary-image-63fc4ca9d91b5-1677479081129070.jpeg')",
+          "background-position": "center",
+        },
+      },
+      [_c("div", { staticClass: "content" })]
+    )
+  },
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/front/pages/TourPage/tourLogin.vue?vue&type=template&id=410b4b58&scoped=true&":
+/*!*******************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/front/pages/TourPage/tourLogin.vue?vue&type=template&id=410b4b58&scoped=true& ***!
+  \*******************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render),
+/* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { attrs: { id: "tourLogin" } }, [
+    _c("div", { staticClass: "mx-auto border-0" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("div", { staticClass: "pb-4 loginform" }, [
+        _c(
+          "div",
+          { staticClass: "tab-content", attrs: { id: "pills-tabContent" } },
+          [
+            _c(
+              "div",
+              {
+                staticClass: "tab-pane fade show active",
+                attrs: {
+                  id: "pills-login",
+                  role: "tabpanel",
+                  "aria-labelledby": "pills-login-tab",
+                },
+              },
+              [
+                _c(
+                  "form",
+                  {
+                    attrs: {
+                      role: "form",
+                      id: "login-form",
+                      enctype: "multipart/form-data",
+                    },
+                  },
+                  [
+                    _vm.otp_button
+                      ? _c("div", { staticClass: "input_with_button" }, [
+                          _c(
+                            "div",
+                            { staticClass: "input-group mb-2" },
+                            [
+                              _c(
+                                "div",
+                                { staticClass: "input-group-prepend" },
+                                [
+                                  _c(
+                                    "span",
+                                    { staticClass: "input-group-text" },
+                                    [
+                                      _c("img", {
+                                        staticClass: "icon-width",
+                                        attrs: {
+                                          src:
+                                            _vm.$gbiAssets +
+                                            "/images/icons/mobile.png",
+                                        },
+                                      }),
+                                    ]
+                                  ),
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.loginform.phone_no,
+                                    expression: "loginform.phone_no",
+                                  },
+                                ],
+                                staticClass: "form-control",
+                                class: {
+                                  "is-invalid":
+                                    _vm.loginform.errors.has("phone_no"),
+                                },
+                                attrs: {
+                                  id: "phone_no",
+                                  type: "text",
+                                  placeholder: "Enter Phone No.",
+                                },
+                                domProps: { value: _vm.loginform.phone_no },
+                                on: {
+                                  input: function ($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.loginform,
+                                      "phone_no",
+                                      $event.target.value
+                                    )
+                                  },
+                                },
+                              }),
+                              _vm._v(" "),
+                              _c("has-error", {
+                                attrs: {
+                                  form: _vm.loginform,
+                                  field: "phone_no",
+                                },
+                              }),
+                            ],
+                            1
+                          ),
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.otp_button
+                      ? _c("div", { staticClass: "input_button" }, [
+                          _c("div", { staticClass: "input-group mb-1" }, [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-default",
+                                attrs: { type: "button" },
+                                on: { click: _vm.send_otp },
+                              },
+                              [
+                                _vm._v(
+                                  "\n                  Send OTP\n                "
+                                ),
+                              ]
+                            ),
+                          ]),
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.otp_verify
+                      ? _c(
+                          "div",
+                          { staticClass: "input_with_button input_verify" },
+                          [
+                            _c(
+                              "div",
+                              { staticClass: "input-group mb-1" },
+                              [
+                                _vm._m(1),
+                                _vm._v(" "),
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.loginform.otp,
+                                      expression: "loginform.otp",
+                                    },
+                                  ],
+                                  staticClass: "form-control",
+                                  class: {
+                                    "is-invalid":
+                                      _vm.loginform.errors.has("otp"),
+                                  },
+                                  attrs: { type: "text", placeholder: "OTP" },
+                                  domProps: { value: _vm.loginform.otp },
+                                  on: {
+                                    input: function ($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.loginform,
+                                        "otp",
+                                        $event.target.value
+                                      )
+                                    },
+                                  },
+                                }),
+                                _vm._v(" "),
+                                _c("has-error", {
+                                  attrs: { form: _vm.loginform, field: "otp" },
+                                }),
+                              ],
+                              1
+                            ),
+                          ]
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "input_button" }, [
+                      _c("div", { staticClass: "input-group mb-1" }, [
+                        _vm.running_time
+                          ? _c("span", { staticClass: "timer" }, [
+                              _vm._v("Time : " + _vm._s(_vm.time)),
+                            ])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.verify_button
+                          ? _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-default",
+                                attrs: { type: "button" },
+                                on: { click: _vm.otp_verify_user },
+                              },
+                              [
+                                _vm._v(
+                                  "\n                  VERIFY\n                "
+                                ),
+                              ]
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.otp_validate
+                          ? _c(
+                              "p",
+                              {
+                                staticStyle: {
+                                  "font-size": "30px",
+                                  color: "green",
+                                  "margin-top": "12px",
+                                  position: "absolute",
+                                  right: "30px",
+                                },
+                              },
+                              [_c("i", { staticClass: "fas fa-check-circle" })]
+                            )
+                          : _vm._e(),
+                      ]),
+                    ]),
+                    _vm._v(" "),
+                    _vm.isLoading == true ? _c("loader") : _vm._e(),
+                  ],
+                  1
+                ),
+              ]
+            ),
+          ]
+        ),
+      ]),
+    ]),
+  ])
+}
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "border-bottom-0 bg-transparent" }, [
+      _c(
+        "ul",
+        {
+          staticClass: "nav nav-tabs justify-content-center",
+          attrs: { id: "pills-tab", role: "tablist" },
+        },
+        [
+          _c("li", { staticClass: "nav-item" }, [
+            _c(
+              "a",
+              {
+                staticClass: "nav-link TourLogin",
+                attrs: {
+                  id: "pills-login-tab",
+                  "data-toggle": "pill",
+                  href: "#pills-login",
+                  role: "tab",
+                  "aria-controls": "pills-login",
+                  "aria-selected": "true",
+                },
+              },
+              [_vm._v("Tour Login")]
+            ),
+          ]),
+        ]
+      ),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-prepend" }, [
+      _c("span", { staticClass: "input-group-text" }),
+    ])
+  },
+]
+render._withStripped = true
+
+
+
+/***/ })
+
+}]);

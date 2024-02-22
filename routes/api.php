@@ -27,7 +27,7 @@ Route::namespace('Front')->group(function(){
 	Route::post('/search-itinerary','ItineraryController@searchItinerary');
 	Route::get('/search','ItineraryController@search_post');
 	Route::get('/itinerary-list/{count?}','ItineraryController@list');
-	Route::get('/itinerary-view/{id}','ItineraryController@view');
+	Route::get('/itinerary-view/{slug}','ItineraryController@view');
 
 	Route::post('/hotel-search','HotelController@searchHotel');
 	Route::post('/hotel-booking','HotelController@HotelBooking');
@@ -38,8 +38,10 @@ Route::namespace('Front')->group(function(){
 	Route::post('/join-our-team/send', 'JoinourteamController@resumeSend');
 	Route::post('/contact-us/send', 'JoinourteamController@contactUs');
 	Route::get('school-list','WebsiteController@school');
+	
 	// website
 	Route::get('/travel-programs','WebsiteController@travel_programs');
+
 	// Blog 
 	Route::get('/blog-list/{count?}','BlogController@list');
 	Route::get('/blog-recents','BlogController@recents');
@@ -50,6 +52,18 @@ Route::namespace('Front')->group(function(){
 	Route::get('/related-blog/{cat_id}','BlogController@relatedPost');
 	Route::post('/search-post','BlogController@searchPost');
 	Route::post('/add-post-comment','BlogController@addComment');
+
+	// Article
+	Route::get('/article-list/{count?}','ArticleController@list');
+	Route::get('/article-recents','ArticleController@recents');
+	Route::get('/category-list','ArticleController@categoryList');
+	Route::get('/keyword-list','ArticleController@keywordList');
+	Route::get('/category/{slug}','ArticleController@category');
+	Route::get('/getarticle/{slug}','ArticleController@view');
+	Route::get('/related-article/{cat_id}','ArticleController@relatedPost');
+	Route::post('/search-article','ArticleController@searchPost');
+	Route::post('/add-article-comment','ArticleController@addComment');
+
 	// Front user controller 
 	Route::post('login-user', 'AuthController@login');
 	Route::post('register-user', 'AuthController@register');

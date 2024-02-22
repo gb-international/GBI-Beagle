@@ -1,6 +1,5 @@
 <!--
-This Template is for listing for the Hotel profile using function to get the 
-data from the api to display the data about the Hotel from the backend .
+This Template is for listing for the Flight data.
 -->
 
 <template>
@@ -31,7 +30,7 @@ data from the api to display the data about the Hotel from the backend .
                 class="form-control"
                 v-model="form.flight_number"
                 :class="{ 'is-invalid': form.errors.has('flight_number') }"
-                placeholder="Enter flight_number"
+                placeholder="Enter flight number"
               />
               <has-error :form="form" field="flight_number"></has-error>
             </div>

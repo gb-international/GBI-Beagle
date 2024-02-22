@@ -10,7 +10,7 @@ to submit the data we are using a function.
       <form
         role="form"
         enctype="multipart/form-data"
-        @submit.prevent="UpdateTrain()"
+        @submit.prevent="UpdateFlight()"
       >
         <div class="row">
           <div class="col-sm-6">
@@ -82,7 +82,7 @@ export default {
           this.form.fill(response.data);
         });
     },
-    UpdateTrain() {
+    UpdateFlight() {
       // Submit the form via a itinerary request
       this.form
         .put(`/api/flight/${this.$route.params.id}`)

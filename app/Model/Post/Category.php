@@ -15,6 +15,11 @@ class Category extends Model
         return $this->belongsToMany('App\Model\Post\Post');
     }
 
+    public function articles()
+    {
+        return $this->belongsToMany('App\Model\Article\Article');
+    }
+
     public function getImageAttribute($image)
     {
         if($image){

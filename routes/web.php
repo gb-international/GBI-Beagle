@@ -120,10 +120,10 @@ Route::get('admin/{any}', 'HomeController@index')->where('any', '.*');
 Route::get('/', 'Front\AppController@get');
 
 //About Us
-Route::get('/about-us/our-story', 'Front\AppController@get');
+Route::get('/about-us', 'Front\AppController@get');
 Route::get('/about-us/how-we-work', 'Front\AppController@get');
-Route::get('/about-us/join-our-team', 'Front\AppController@get');
-Route::get('/image-gallery/domestic', 'Front\AppController@get');
+Route::get('/join-our-team', 'Front\AppController@get');
+Route::get('/image-gallery', 'Front\AppController@get');
 Route::get('/image-gallery/international', 'Front\AppController@get');
 Route::get('/image-gallery/images/{slug}', 'Front\AppController@get');
 
@@ -157,13 +157,21 @@ Route::get('/blog/{slug}', 'Front\AppController@get');
 //Route::get('/recent-search/{userID}', 'Front\AppController@get');
 
 //Resources
-Route::get('/resources/travel-education', 'Front\AppController@get');
-Route::get('/resources/faq', 'Front\AppController@get');
-Route::get('/resources/safety-security', 'Front\AppController@get');
-Route::get('/resources/travel-encyclopedia', 'Front\AppController@get');
-Route::get('/resources/travel-encyclopedia-international', 'Front\AppController@get');
+Route::get('/travel-education', 'Front\AppController@get');
+Route::get('/faq', 'Front\AppController@get');
+Route::get('/safety-security', 'Front\AppController@get');
+Route::get('/travel-encyclopedia', 'Front\AppController@get');
+Route::get('/travel-encyclopedia-international', 'Front\AppController@get');
 Route::get('/encyclopedia/{id}', 'Front\AppController@get');
 Route::get('/itinerary-pdf/{slug}', 'Front\AppController@get');
+
+//New
+Route::get('/media', 'Front\AppController@get');
+Route::get('/whats-new', 'Front\AppController@get');
+Route::get('/share-feedback', 'Front\AppController@get');
+Route::get('/platform-guide', 'Front\AppController@get');
+Route::get('/travel-guidelines', 'Front\AppController@get');
+Route::get('/news-letter', 'Front\AppController@get');
 
 //Support
 Route::get('/support', 'Front\AppController@get');

@@ -74,8 +74,9 @@ class SendSms{
         
         /*"Dear ".$name.". Thank you for choosing GBI. Please provide us your valuable feedback on your journey with GB International .Please click the following feedback link <a href=".$link.">Give Feedback</a>";*/
 
-        $template_id = 1007330159345850888;
-        $ApiUrl = "https://www.businesssms.co.in/smsaspx?Id=".$this->id."&Pwd=".urlencode($this->pwd)."&PhNo=".$phone."&TemplateID=".$template_id."&TEXT=".urldecode($message);
+        $template_id = 1007028197496675594;
+        $sender_id="GBISMS";
+        $ApiUrl = "https://www.businesssms.co.in/smsaspx?Id=".$this->id."&Pwd=".urlencode($this->pwd)."&PhNo=".$phone."&TemplateID=".$template_id."&TEXT=".urldecode($message)."&SenderID=".$sender_id;
         $client = new \GuzzleHttp\Client(['verify' => false ]);
         $request = $client->get($ApiUrl);
     }
@@ -83,7 +84,8 @@ class SendSms{
         $phone = '91'.$ph_no;
         $message = "Dear ".$user->name." Thank you for sharing your valuable feedback with GBI. We really appreciate your time. We are constantly working towards making your journey better. Regards GBI Team.";
         $template_id = 1007563217285792615;
-        $ApiUrl = "https://www.businesssms.co.in/smsaspx?Id=".$this->id."&Pwd=".urlencode($this->pwd)."&PhNo=".$phone."&TemplateID=".$template_id."&TEXT=".urldecode($message);
+        $sender_id="GBISMS";
+        $ApiUrl = "https://www.businesssms.co.in/smsaspx?Id=".$this->id."&Pwd=".urlencode($this->pwd)."&PhNo=".$phone."&TemplateID=".$template_id."&TEXT=".urldecode($message)."&SenderID=".$sender_id;
         $client = new \GuzzleHttp\Client(['verify' => false ]);
         $request = $client->get($ApiUrl);
     }

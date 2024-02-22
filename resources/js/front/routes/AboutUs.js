@@ -13,14 +13,14 @@ const JobPage = () => import(/* webpackChunkName: "js/front/JobPageGBI" */ '@/fr
 
 export default [
 
-    { path: '/about-us/our-story', component: OurStory },
+    { path: '/about-us', component: OurStory },
     { path: '/about-us/how-we-work', component: HowWework },
-    { path: '/about-us/join-our-team', component: JoinOurTeam },
+    { path: '/join-our-team', component: JoinOurTeam },
 
-    { path: '/about-us/join-our-team/:jobType', component: jobType },
-    { path: '/about-us/join-our-team/job/:id', component: JobPage },
+    { path: '/join-our-team/:jobType', component: jobType },
+    { path: '/join-our-team/job/:id', component: JobPage },
 
-    { path: '/image-gallery/domestic', component: Domestic, name: 'domestic' },
+    { path: '/image-gallery', component: Domestic, name: 'domestic' },
     { path: '/image-gallery/international', component: International, name: 'international' },
     { path: '/image-gallery/images/:slug', component: ImageList, name: 'images' },
 ]

@@ -6,51 +6,106 @@ This Template for the feedback form.
 
 <h1 class="FormTitle">GBI FEEDBACK FORM</h1>
 
-<h2 class="TourDetails" v-if="itinerary !== ''">{{itinerary.noofdays}} DAYS TOUR TO {{itinerary.title}}</h2>
+<h2 class="TourDetails" v-if="itinerary !== ''">{{itinerary.title}}</h2>
 
 <form>
 <div class="feedback-section "> 
 
 <div class="FeedbackQ">
-<p>Did you like the Itinerary of this trip?</p>
-  <input type="range" min="1" max="10" v-model="feedback.trip_itenerary" name="trip_itenerary" class="feedback-slider">
-  <span class="range-value">{{feedback.trip_itenerary}}</span>
+<p>1. Did you like the Itinerary of this trip?</p>
+<!--  list-icon-start   -->
+
+  <div class="listblock">
+    <ul>
+        <li @click="selectRate('Q1',2)" :class="feedback.trip_itenerary == 2 ? 'active' : '' "><img src="/worst.svg" alt=""></li>
+        <li @click="selectRate('Q1',4)" :class="feedback.trip_itenerary == 4 ? 'active' : '' "><img src="/poor.svg" alt=""></li>
+        <li @click="selectRate('Q1',6)" :class="feedback.trip_itenerary == 6 ? 'active' : '' "><img src="/average.svg" alt=""></li>
+        <li @click="selectRate('Q1',8)" :class="feedback.trip_itenerary == 8 ? 'active' : '' "><img src="/good.svg" alt=""></li>
+        <li @click="selectRate('Q1',10)" :class="feedback.trip_itenerary == 10 ? 'active' : '' "><img src="/excellent.svg" alt=""></li>
+     </ul>      
+  </div>
+
+  <!--  list-icon-and   -->
+ <!-- <input type="range" min="1" max="10" v-model="feedback.trip_itenerary" name="trip_itenerary" class="feedback-slider">
+  <span class="range-value">{{feedback.trip_itenerary}}</span> -->
 </div>
 
 <div class="FeedbackQ">
-<p>How Would You Rate Your Place Of Stay?</p>
-<input type="range" min="1" max="10" v-model="feedback.place_of_stay" class="feedback-slider">
-<span class="range-value">{{feedback.place_of_stay}}</span>
+<p>2. How Would You Rate Your Place Of Stay?</p>
+<div class="listblock">
+    <ul>
+        <li @click="selectRate('Q2',2)" :class="feedback.place_of_stay == 2 ? 'active' : '' "><img src="/worst.svg" alt=""></li>
+        <li @click="selectRate('Q2',4)" :class="feedback.place_of_stay == 4 ? 'active' : '' "><img src="/poor.svg" alt=""></li>
+        <li @click="selectRate('Q2',6)" :class="feedback.place_of_stay == 6 ? 'active' : '' "><img src="/average.svg" alt=""></li>
+        <li @click="selectRate('Q2',8)" :class="feedback.place_of_stay == 8 ? 'active' : '' "><img src="/good.svg" alt=""></li>
+        <li @click="selectRate('Q2',10)" :class="feedback.place_of_stay == 10 ? 'active' : '' "><img src="/excellent.svg" alt=""></li>
+     </ul>      
+  </div>
 </div>
 
 <div class="FeedbackQ">
-<p>How Would You Rate the food quality and service?</p>
-<input type="range" min="1" max="10" v-model="feedback.food_quality" class="feedback-slider">
-<span class="range-value">{{feedback.food_quality}}</span>
+<p>3. How Would You Rate the food quality and service?</p>
+<div class="listblock">
+    <ul>
+        <li @click="selectRate('Q3',2)" :class="feedback.food_quality == 2 ? 'active' : '' "><img src="/worst.svg" alt=""></li>
+        <li @click="selectRate('Q3',4)" :class="feedback.food_quality == 4 ? 'active' : '' "><img src="/poor.svg" alt=""></li>
+        <li @click="selectRate('Q3',6)" :class="feedback.food_quality == 6 ? 'active' : '' "><img src="/average.svg" alt=""></li>
+        <li @click="selectRate('Q3',8)" :class="feedback.food_quality == 8 ? 'active' : '' "><img src="/good.svg" alt=""></li>
+        <li @click="selectRate('Q3',10)" :class="feedback.food_quality == 10 ? 'active' : '' "><img src="/excellent.svg" alt=""></li>
+     </ul>      
+  </div>
 </div>
 
 <div class="FeedbackQ">
-<p>How were your Transportation and other arrangements?</p>
-<input type="range" min="1" max="10" v-model="feedback.transport_arrangements" class="feedback-slider">
-<span class="range-value">{{feedback.transport_arrangements}}</span>
+<p>4. How were your Transportation and other arrangements?</p>
+<div class="listblock">
+    <ul>
+        <li @click="selectRate('Q4',2)" :class="feedback.transport_arrangements == 2 ? 'active' : '' "><img src="/worst.svg" alt=""></li>
+        <li @click="selectRate('Q4',4)" :class="feedback.transport_arrangements == 4 ? 'active' : '' "><img src="/poor.svg" alt=""></li>
+        <li @click="selectRate('Q4',6)" :class="feedback.transport_arrangements == 6 ? 'active' : '' "><img src="/average.svg" alt=""></li>
+        <li @click="selectRate('Q4',8)" :class="feedback.transport_arrangements == 8 ? 'active' : '' "><img src="/good.svg" alt=""></li>
+        <li @click="selectRate('Q4',10)" :class="feedback.transport_arrangements == 10 ? 'active' : '' "><img src="/excellent.svg" alt=""></li>
+     </ul>      
+  </div>
 </div>
 
 <div class="FeedbackQ">
-<p>How likely would you Recommend GB International To Others?</p>
-<input type="range" min="1" max="10" v-model="feedback.recommend_to_others" class="feedback-slider">
-<span class="range-value">{{feedback.recommend_to_others}}</span>
+<p>5. How likely would you Recommend GB International To Others?</p>
+<div class="listblock">
+    <ul>
+        <li @click="selectRate('Q5',2)" :class="feedback.recommend_to_others == 2 ? 'active' : '' "><img src="/worst.svg" alt=""></li>
+        <li @click="selectRate('Q5',4)" :class="feedback.recommend_to_others == 4 ? 'active' : '' "><img src="/poor.svg" alt=""></li>
+        <li @click="selectRate('Q5',6)" :class="feedback.recommend_to_others == 6 ? 'active' : '' "><img src="/average.svg" alt=""></li>
+        <li @click="selectRate('Q5',8)" :class="feedback.recommend_to_others == 8 ? 'active' : '' "><img src="/good.svg" alt=""></li>
+        <li @click="selectRate('Q5',10)" :class="feedback.recommend_to_others == 10 ? 'active' : '' "><img src="/excellent.svg" alt=""></li>
+     </ul>      
+  </div>
 </div>
 
 <div class="FeedbackQ">
-<p>Would you like to Travel with GBI again on a new Journey?</p>
-<input type="range" min="1" max="10" v-model="feedback.travel_again" class="feedback-slider">
-<span class="range-value">{{feedback.travel_again}}</span>
+<p>6. Would you like to Travel with GBI again on a new Journey?</p>
+<div class="listblock">
+    <ul>
+        <li @click="selectRate('Q6',2)" :class="feedback.travel_again == 2 ? 'active' : '' "><img src="/worst.svg" alt=""></li>
+        <li @click="selectRate('Q6',4)" :class="feedback.travel_again == 4 ? 'active' : '' "><img src="/poor.svg" alt=""></li>
+        <li @click="selectRate('Q6',6)" :class="feedback.travel_again == 6 ? 'active' : '' "><img src="/average.svg" alt=""></li>
+        <li @click="selectRate('Q6',8)" :class="feedback.travel_again == 8 ? 'active' : '' "><img src="/good.svg" alt=""></li>
+        <li @click="selectRate('Q6',10)" :class="feedback.travel_again == 10 ? 'active' : '' "><img src="/excellent.svg" alt=""></li>
+     </ul>      
+  </div>
 </div>
 
 <div class="FeedbackQ">
-<p>How hospitable was our GBI Escort who accompanied with you on this trip?</p>
-<input type="range" min="1" max="10" v-model="feedback.escort_hospitality" class="feedback-slider">
-<span class="range-value">{{feedback.escort_hospitality}}</span>
+<p>7. How hospitable was our GBI Escort who accompanied with you on this trip?</p>
+<div class="listblock">
+    <ul>
+        <li @click="selectRate('Q7',2)" :class="feedback.escort_hospitality == 2 ? 'active' : '' "><img src="/worst.svg" alt=""></li>
+        <li @click="selectRate('Q7',4)" :class="feedback.escort_hospitality == 4 ? 'active' : '' "><img src="/poor.svg" alt=""></li>
+        <li @click="selectRate('Q7',6)" :class="feedback.escort_hospitality == 6 ? 'active' : '' "><img src="/average.svg" alt=""></li>
+        <li @click="selectRate('Q7',8)" :class="feedback.escort_hospitality == 8 ? 'active' : '' "><img src="/good.svg" alt=""></li>
+        <li @click="selectRate('Q7',10)" :class="feedback.escort_hospitality == 10 ? 'active' : '' "><img src="/excellent.svg" alt=""></li>
+     </ul>      
+  </div>
 </div>
 
 <div class="FeedbackQ">
@@ -78,6 +133,7 @@ This Template for the feedback form.
               <label for="ph_no">Phone Number</label>
               <input
                 type="number"
+                min=0
                 class="form-control"
                 placeholder="Phone Number"
                 v-model="feedback.ph_no"
@@ -148,53 +204,37 @@ export default {
     document.cookie = "GBIMeta =" + JSON.stringify(metaInfo) +"; path=/";
   },
   mounted() {
-  $(".feedback-slider").mousemove(function (e) {
-    var val = ($(this).val() - $(this).attr('min')) / ($(this).attr('max') - $(this).attr('min'));
-    var percent = val * 100;
-
-    $(this).css('background-image',
-        '-webkit-gradient(linear, left top, right top, ' +
-        'color-stop(' + percent + '%, #17a2b8), ' +
-        'color-stop(' + percent + '%, #d3d3d3)' +
-        ')');
-
-    $(this).css('background-image',
-        '-moz-linear-gradient(left center, #17a2b8 0%, #17a2b8 ' + percent + '%, #17a2b8 ' + percent + '%, #17a2b8 100%)');
-  });
-  $(".feedback-slider").on("touchmove", function(e) {
-      var val = ($(this).val() - $(this).attr('min')) / ($(this).attr('max') - $(this).attr('min'));
-      var percent = val * 100;
-
-      $(this).css('background-image',
-          '-webkit-gradient(linear, left top, right top, ' +
-          'color-stop(' + percent + '%, #17a2b8), ' +
-          'color-stop(' + percent + '%, #d3d3d3)' +
-          ')');
-
-      $(this).css('background-image',
-          '-moz-linear-gradient(left center, #17a2b8 0%, #17a2b8 ' + percent + '%, #17a2b8 ' + percent + '%, #17a2b8 100%)');
-  });
-
-  $(".feedback-slider").on("tap", function(e) {
-      var val = ($(this).val() - $(this).attr('min')) / ($(this).attr('max') - $(this).attr('min'));
-      var percent = val * 100;
-
-      $(this).css('background-image',
-          '-webkit-gradient(linear, left top, right top, ' +
-          'color-stop(' + percent + '%, #17a2b8), ' +
-          'color-stop(' + percent + '%, #d3d3d3)' +
-          ')');
-
-      $(this).css('background-image',
-          '-moz-linear-gradient(left center, #17a2b8 0%, #17a2b8 ' + percent + '%, #17a2b8 ' + percent + '%, #17a2b8 100%)');
-  });
-
   this.feedback.tour_id = this.$route.params.tourID;
   this.getTour();
   },
   computed:{
   },
   methods:{
+
+    selectRate(qs,val){
+      console.log(qs,val)
+      if(qs == 'Q1'){
+        this.feedback.trip_itenerary = val;
+      }
+      if(qs == 'Q2'){
+        this.feedback.place_of_stay = val;
+      }
+      if(qs == 'Q3'){
+        this.feedback.food_quality = val;
+      }
+      if(qs == 'Q4'){
+        this.feedback.transport_arrangements = val;
+      }
+      if(qs == 'Q5'){
+        this.feedback.recommend_to_others = val;
+      }
+      if(qs == 'Q6'){
+        this.feedback.travel_again = val;
+      }
+      if(qs == 'Q7'){
+        this.feedback.escort_hospitality = val;
+      }
+    },
 
     getTour(){
       this.$axios.get("/api/get-tour/"+this.$route.params.tourID).then(response => {
@@ -230,14 +270,12 @@ export default {
             });
           }
         })
-        .catch(error => {
-        });
-      this.$swal.fire(
+        this.$swal.fire(
               "Success",
               "Feedback Submitted",
               "success"
             );
-      window.location.href = '/';
+        window.location.href = '/';
       }
     },
   },
@@ -352,8 +390,8 @@ export default {
 }
 
 .commentArea{
-  background: #d3d3d3;
-  border: none;
+  /*background: #d3d3d3;
+  border: none;*/
   outline-color: #17a2b8;
   width: 100%;
 
@@ -450,4 +488,25 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
+
+ul, li { padding:0; margin:0; list-style: none; }
+.listblock li { float: left;  margin: 4px; padding: 0px 0px 0px 0px; cursor: pointer; position: relative;
+   transition: all 0.5s ease-in-out; -webkit-transition: all 0.5s ease-in-out;
+   -moz-transition: all 0.5s ease-in-out; border-radius: 50%; }
+.listblock li:hover, .listblock li.active { background:#2f2a52; border: 1px solid #2f2a52; }
+.listblock ul li img{ height: 44px; margin-top: 0px; }
+.listblock ul li img:hover, .listblock ul li.active img{ height: 50px; margin-top: 0px;}
+/*.fa-angry:hover, .r-act .fa-angry {color: red; font-size:2.5em !important;}
+.fa-tired:hover, .r-act .fa-tired {color: #FF4033; font-size:2.5em !important;}
+.fa-sad-tear:hover, .r-act .fa-sad-tear {color: #00b7eb; font-size:2.5em !important;}
+.fa-frown-open:hover, .r-act .fa-frown-open {color: #40e0d0; font-size:2.5em !important;}
+.fa-meh:hover, .r-act .fa-meh {color: #f8de7e; font-size:2.5em !important;}
+.fa-smile:hover, .r-act .fa-smile {color: #fcc200; font-size:2.5em !important;}
+.fa-smile-beam:hover, .r-act .fa-smile-beam {color: #ffd700; font-size:2.5em !important;}
+.fa-laugh:hover, .r-act .fa-laugh {color: #ff6700; font-size:2.5em !important;}
+.fa-laugh-beam:hover, .r-act .fa-laugh-beam {color: #fe5a1d; font-size:2.5em !important;}
+.fa-grin-stars:hover, .r-act .fa-grin-stars {color: #f94d00; font-size:2.5em !important;}*/
+.listblock {
+padding-bottom: 30px;
+}
 </style>

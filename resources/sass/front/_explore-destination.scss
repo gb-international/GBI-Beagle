@@ -237,7 +237,7 @@
     	color: #fff;
 	}
 
-	.explore_custom_button {
+	.explore_custom_button, .explore_custom_button_General, .explore_custom_button_Corporate{
 	    background: #00000036;
 	    color: #ffffff;
 	    border: 2px #ffffff solid;
@@ -257,18 +257,32 @@
 		background: white;
 		font-weight: 500;
 	}
+	
+	.explore_custom_button_General:hover{
+		color: #1acee78f;
+		border: 2px #1acee78f solid;
+		background: white;
+		font-weight: 500;
+	}
+	
+	.explore_custom_button_Corporate:hover {
+		color: #00000099;
+		border: 2px #00000099 solid;
+		background: white;
+		font-weight: 500;
+	}
 
 	 @media (min-width: 768px) {
 	 	custLabel{
 			margin-left: -1vw !important;
 		}
-		.explore_custom_button{
+		.explore_custom_button, .explore_custom_button_General, .explore_custom_button_Corporate{
 			margin-top: 2vh;
 		}
 	}
 
 	@media (min-width: 1024px) {
-		.explore_custom_button{
+		.explore_custom_button, .explore_custom_button_General, .explore_custom_button_Corporate{
 			margin-top: 3.5vh;
 		}
 		.cardPadding{
@@ -363,7 +377,28 @@
 	{
 		margin-bottom: 0px !important;
 	}
-	.active
+	/*.active
+	{
+		color: #ffffff !important;
+		background-color: #001041c7 !important;
+		border-color: #001041c7 !important;
+		border-radius: 0px 0px 0 0 !important;
+	}*/
+	.General
+	{
+		color: #ffffff !important;
+		background-color: #1acee78f !important;
+		border-color: #1acee78f !important;
+		border-radius: 0px 0px 0 0 !important;
+	}
+	.Corporate
+	{
+		color: #ffffff !important;
+		background-color: #00000099 !important;
+		border-color: #00000099 !important;
+		border-radius: 0px 0px 0 0 !important;
+	}
+	.Student
 	{
 		color: #ffffff !important;
 		background-color: #001041c7 !important;
@@ -463,6 +498,18 @@
 	background-color: #001041c7;
 	border-radius: 0px 0px 5px 5px;
 }
+.explor-Corporate
+{
+	// padding: 0px 10px 10px;
+	background-color: #00000099;
+	border-radius: 0px 0px 5px 5px;
+}
+.explor-General
+{
+	// padding: 0px 10px 10px;
+	background-color: #1acee78f;
+	border-radius: 0px 0px 5px 5px;
+}
 .button-explo
 {
 	margin-top: -270px;
@@ -536,7 +583,7 @@ select {
    padding-right: 5 !important;
 }
 
-.explor-content
+.explor-content, .explor-General, .explor-Corporate
 {
 	.button_group{
 		margin-bottom: 10px;
@@ -941,7 +988,7 @@ color: #000;
 	position: absolute;
 	bottom: 380px;
 }
-.explor-content
+.explor-content, .explor-General, .explor-Corporate
 {
 	.btn-block
 	{
@@ -988,7 +1035,7 @@ color: #000;
 	}
 }
 
-.explor-content
+.explor-content, .explor-General, .explor-Corporate
 {
 	.input-p
 	{
@@ -1095,7 +1142,7 @@ color: #000;
     margin-top: -80px;
 
 }
-.explor-content
+.explor-content, .explor-General, .explor-Corporate
 {
 	.input-p
 	{

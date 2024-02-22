@@ -557,7 +557,7 @@
         <li class="nav-item has-treeview">
             <a href="#" class="nav-link nav-cols" title="GBI Blogs">
                 <i class="nav-icon fas fa-file-alt"></i>
-                <p> Blog <i class="right fas fa-angle-right"></i></p>
+                <p> Blog/Articles <i class="right fas fa-angle-right"></i></p>
             </a>
             <ul class="nav nav-treeview">
 
@@ -581,6 +581,14 @@
             <li class="nav-item">
                 <router-link to="/posts" class="nav-link nav-cols" title="GBI Posts">
                 <p> Posts </p>
+                </router-link>
+            </li>
+            @endif
+
+            @if(auth()->user()->hasPermissionTo(77) || auth()->user()->hasRole(1))
+            <li class="nav-item">
+                <router-link to="/articles" class="nav-link nav-cols" title="GBI Aticles">
+                <p> Articles </p>
                 </router-link>
             </li>
             @endif

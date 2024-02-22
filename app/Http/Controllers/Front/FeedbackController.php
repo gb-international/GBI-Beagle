@@ -22,9 +22,14 @@ class FeedbackController extends Controller
     {
 
         //Checking if user exists
-        $user = User::where('email',$request->email)->first();
+        $info = Information::where('phone_no',$request->ph_no)->first();
         
-        if($user === null){
+        if($info){
+            $user = User::findOrFail($info->user_id);
+        }
+        
+        
+        if($info === null){
 
             $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyz@#%^&*()-';
             $pass = substr(str_shuffle($permitted_chars), 0, 15);

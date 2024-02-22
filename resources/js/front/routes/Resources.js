@@ -16,11 +16,11 @@ const PdfView = () => import(/* webpackChunkName: "js/front/PdfView" */ '@/front
 
 export default [
     //Escort
-    { path: '/resources/travel-education', component: TravelEducation },
-    { path: '/resources/faq', component: Faq },
-    { path: '/resources/safety-security', component: SafetySecurity },
-    { path: '/resources/travel-encyclopedia', component: EncyclopediaList },
-    { path: '/resources/travel-encyclopedia-international', component: InternationalList },
+    { path: '/travel-education', component: TravelEducation },
+    { path: '/faq', component: Faq },
+    { path: '/safety-security', component: SafetySecurity },
+    { path: '/travel-encyclopedia', component: EncyclopediaList },
+    { path: '/travel-encyclopedia-international', component: InternationalList },
     { path: '/encyclopedia/:id', component: EncyclopediaView },
     { path: '/itinerary-pdf/:slug', component: PdfView },
 ]

@@ -200,7 +200,7 @@ to submit the data we are using a function.
           </div>
           <div class="col-sm-5">
             <div class="form-group aligen_top_input">
-              <label for="hoteltype">Hotel Type</label>
+              <label for="hotel_type">Hotel Type</label>
               <br />
 
               <div class="custom-control custom-radio custom-control-inline">
@@ -208,8 +208,8 @@ to submit the data we are using a function.
                   type="radio"
                   class="custom-control-input"
                   id="nohotelRadio"
-                  name="hoteltype"
-                  v-model="form.hoteltype"
+                  name="hotel_type"
+                  v-model="form.hotel_type"
                   value="0"
                 />
                 <label class="custom-control-label" for="nohotelRadio"
@@ -222,8 +222,8 @@ to submit the data we are using a function.
                   type="radio"
                   class="custom-control-input"
                   id="hotelRadio"
-                  name="hoteltype"
-                  v-model="form.hoteltype"
+                  name="hotel_type"
+                  v-model="form.hotel_type"
                   value="3"
                 />
                 <label class="custom-control-label" for="hotelRadio"
@@ -236,8 +236,8 @@ to submit the data we are using a function.
                   type="radio"
                   class="custom-control-input"
                   id="hotelRadio1"
-                  name="hoteltype"
-                  v-model="form.hoteltype"
+                  name="hotel_type"
+                  v-model="form.hotel_type"
                   value="4"
                 />
                 <label class="custom-control-label" for="hotelRadio1"
@@ -249,17 +249,17 @@ to submit the data we are using a function.
                   type="radio"
                   class="custom-control-input"
                   id="hotelRadio2"
-                  name="hoteltype"
-                  v-model="form.hoteltype"
+                  name="hotel_type"
+                  v-model="form.hotel_type"
                   value="5"
                 />
                 <label class="custom-control-label" for="hotelRadio2"
                   >5 Star</label
                 >
               </div>
-              <div class="error" v-if="form.errors.has('hoteltype')">
+              <div class="error" v-if="form.errors.has('hotel_type')">
                 <lable class="danger text-danger">{{
-                  form.errors.get("hoteltype")
+                  form.errors.get("hotel_type")
                 }}</lable>
               </div>
             </div>
@@ -293,7 +293,7 @@ to submit the data we are using a function.
                   true-value="1"
                   false-value="0"
                 />
-                <label class="custom-control-label" for="transport1">Bus</label>
+                <label class="custom-control-label" for="transport1">Bus/Car</label>
               </div>
 
               <div class="custom-control custom-checkbox custom-control-inline">
@@ -480,7 +480,7 @@ to submit the data we are using a function.
           <div class="col-sm-6">
             <div class="form-group">
               <label class="label" for="input"
-                >Please upload a Banner image !</label
+                >Please upload the Banner images in kb, total size of the upload shouldn't exceed 2mb.</label
               >
               <br />
               <div class="row">
@@ -587,7 +587,7 @@ export default {
         price: "",
         description: "",
         tourtype: "",
-        hoteltype: "0",
+        hotel_type: "0",
         photo: "",
         detail_photo: [],
         photo_alt:'',
@@ -792,7 +792,13 @@ export default {
           });
           this.loading = false
         })
-        .catch(() => {});
+        .catch((error) => {
+           this.$toast.fire({
+            icon: "warning",
+            title: "Please input valid data!",
+          });
+          this.loading = false
+        });
     },
 
     addRow() {

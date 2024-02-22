@@ -75,7 +75,7 @@ export default {
     meta:[
       { name: 'description', content: '@GoWithGBI Story On How GBI believes in its core values and implement the same  to make your educational travel program a successful one' },
       { name: 'keywords', content: '@GoWithGBI,Our Story,about us,GBI Process,Program Engineering Process ,GBI How we work,learn,explore,discover,dream travel journeys,behind the scenes,dream,educational programs,corporate events,team building programs,international programs,domestic programs' },
-      { name: 'url', content: 'https://www.gowithgbi.com/about-us/our-story' },
+      { name: 'url', content: 'https://www.gowithgbi.com/join-our-team' },
     ]
   },
   beforeCreate(){
@@ -83,7 +83,7 @@ export default {
       title: 'Our Story',
       description: '@GoWithGBI Story On How GBI believes in its core values and implement the same  to make your educational travel program a successful one',
       keywords: '@GoWithGBI,Our Story,about us,GBI Process,Program Engineering Process ,GBI How we work,learn,explore,discover,dream travel journeys,behind the scenes,dream,educational programs,corporate events,team building programs,international programs,domestic programs',
-      url: 'https://www.gowithgbi.com/about-us/our-story',
+      url: 'https://www.gowithgbi.com/join-our-team',
       type: 'website'
     }
     document.cookie = "GBIMeta =" + JSON.stringify(metaInfo) +"; path=/";
@@ -93,7 +93,7 @@ export default {
       if(position == 'technology'){
         position = 'technology-design'
       }
-      this.$router.push('/about-us/join-our-team/'+position)
+      this.$router.push('/join-our-team/'+position)
     },
     onFileChange(e) {
       var files = e.target.files || e.dataTransfer.files;

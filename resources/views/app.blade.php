@@ -65,8 +65,8 @@
   <meta property="og:keywords" content="{{$meta->keyword}}">
   <meta property="og:image" content="{{$meta->image}}">
   @else
-  <meta property="og:title" content="Homepage | GB International - Your Travel Partner">
-  <meta property="og:description" content="GB International provides the best practical learning experience to not only students but to the travellers as well.">
+  <meta property="og:title" content="India Tourism| Tour packages and travel guide| GOwithGBI">
+  <meta property="og:description" content="Best travel guides on India tourism| Explore the best of India at affordable India tour packages only with GOwithGBI.">
   <meta property="og:image" content="https://www.gowithgbi.com/assets/front/images/banner2.jpg">
   @endif
 <meta property="og:site_name" content="gowithgbi.com">

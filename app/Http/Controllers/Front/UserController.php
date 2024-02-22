@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Helpers\SendSms;
 use App\Jobs\ChangePasswordJob;
 use App\Rules\EmailValidate;
+use App\Rules\PhoneNubmerValidate;
 use App\Traits\ImageTrait;
 use App\Http\Resources\SocialResource;
 class UserController extends Controller{
@@ -59,6 +60,7 @@ class UserController extends Controller{
         $validator = Validator::make($request->all(), [ 
             'name' => 'required', 
             'email' => ['required','email',new EmailValidate],
+            'phone_no' => ['required','phone_no',new PhoneNubmerValidate],
             'password' => 'required', 
             'c_password' => 'required|same:password', 
         ]);
@@ -101,6 +103,7 @@ class UserController extends Controller{
         $validator = Validator::make($request->all(), [ 
             'name' => 'required', 
             'email' => ['required','email',new EmailValidate],
+            'phone_no' => ['required','phone_no',new PhoneNubmerValidate],
         ]);
 
         $user = Auth::user();

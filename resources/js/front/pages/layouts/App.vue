@@ -47,7 +47,7 @@
             </li>
 
             <li class="nav-item mr-10 l-view">
-              <router-link class="nav-link" :to="`/resources/travel-encyclopedia`"
+              <router-link class="nav-link" :to="`/travel-encyclopedia`"
                 >Encyclopedia</router-link
               >
             </li>
@@ -74,7 +74,7 @@
 
                 <router-link
                   class="dropdown-item mt-10"
-                  :to="`/resources/travel-education`"
+                  :to="`/travel-education`"
                   >Travel & Education
                 </router-link>
                  
@@ -82,10 +82,10 @@
 
               <router-link
                   class="dropdown-item mt-10"
-                  :to="`/resources/safety-security`"
+                  :to="`/safety-security`"
                   >Safety & Security</router-link
                 >
-                <router-link class="dropdown-item mt-10" :to="`/resources/faq`"
+                <router-link class="dropdown-item mt-10" :to="`/faq`"
                   >Faq</router-link
                 >
                 <a
@@ -126,7 +126,7 @@
               >
                 <router-link
                   class="dropdown-item mt-10"
-                  :to="`/about-us/our-story`"
+                  :to="`/about-us`"
                   >Our Story</router-link
                 >
                 <router-link
@@ -136,7 +136,7 @@
                 >
                 <router-link
                   class="dropdown-item mt-10"
-                  :to="`/about-us/join-our-team`"
+                  :to="`/join-our-team`"
                   >Join Our Team</router-link
                 >
                 <a
@@ -149,7 +149,7 @@
 
                 <div class="dropdown-menu custom-dropdown dropright">
                   <router-link
-                    :to="`/image-gallery/domestic`"
+                    :to="`/image-gallery`"
                     class="dropdown-item"
                     >Domestic (India)
                   </router-link>

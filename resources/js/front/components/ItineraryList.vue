@@ -4,7 +4,7 @@
   ****************************************************-->
   <div class="row mt-35">
     <div class="col-lg-4 col-md-6 col-12 newCardList" v-for="(itinerary,index) in list" :key="index">
-      <div @click="$router.push(`/explore-detail/${itinerary.id}`)" class="card-1" style="cursor: pointer">
+      <div @click="$router.push(`/explore-detail/${itinerary.slug}`)" class="card-1" style="cursor: pointer">
         <div class="image-col">
           <figure v-lazyload class="image__wrapper">
             <ImageSpinner class="image__spinner" />
@@ -21,12 +21,12 @@
           <p class="pl-10 mb-2" style="font-size: 16px">{{itinerary.noofdays}} Days Tour</p>
           <div class="d-flex flex-column pl-10">
             <p class="priceText mt-2" style="font-size: 19.5px; font-weight: 600; margin-bottom: 0px !important;  color: #4a4343;">₹{{(itinerary.price).toLocaleString()}}</p>
-            <p class="personText" style="font-size: 15px; font-weight: 400; color: grey; margin-top: -6px;">per person</p>
+            <p class="personText" style="font-size: 15px; font-weight: 400; color: grey; margin-top: -6px;">per student</p>
           </div>
           <div class="d-flex flex-row justify-content-between pb-2 mt-2">
             <!-- Price & Icons -->
               <div class="pl-10 pt-1">
-                  <div class="card-icon float-left p-0 mr-1" v-if="itinerary.hotel_type != '0'">
+                  <div class="card-icon float-left p-0 mr-1" v-if="itinerary.hotel_type != '0' && itinerary.hotel_type">
                     <img :src="$gbiAssets+'/images/icons/Itinerary_hotel_icon.svg'" class="explore-icon-width filter-gray">
                     <br />
                   </div>

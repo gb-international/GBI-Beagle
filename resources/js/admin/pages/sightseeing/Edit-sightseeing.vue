@@ -1,5 +1,5 @@
 <!-- 
-This template helps us to create a new hotel it takes the data from the form and sumbit with the help of the api
+This template helps us to create a new Sight it takes the data from the form and sumbit with the help of the api
 to submit the data we are using a function.
  -->
 <template>
@@ -96,7 +96,7 @@ to submit the data we are using a function.
 
           <div class="col-sm-12">
             <div class="form-group">
-              <label for="description">Descripttion</label>
+              <label for="description">Description</label>
               <textarea
                 class="form-control textarea"
                 rows="3"

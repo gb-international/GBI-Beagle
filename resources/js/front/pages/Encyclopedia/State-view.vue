@@ -50,7 +50,7 @@
         </div>
       </div>
 
-      <!-- State Crasoul -->
+      <!-- State carousel -->
 
       <div class="row">
         <div class="col-sm-12">

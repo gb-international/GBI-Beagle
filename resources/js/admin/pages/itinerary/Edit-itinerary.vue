@@ -267,7 +267,7 @@
                     true-value="1"
                     false-value="0"
                   />
-                  <label class="custom-control-label" for="transport1">Bus</label>
+                  <label class="custom-control-label" for="transport1">Bus/Car</label>
                 </div>
 
                 <div class="custom-control custom-checkbox custom-control-inline">
@@ -346,16 +346,19 @@
           <div class="row mb-30">
             <div class="col-sm-4">
               <div class="form-group">
-                <label for="titleId">Itinerary Name</label>
+                <label for="title">Itinerary Name</label>
                 <input
                   type="text"
                   class="form-control"
                   placeholder="Enter Itinerary Name"
                   name="title"
+                  @change="changeField('title', $event.target.value)"
                   v-model="form.title"
                   :class="{ 'is-invalid': form.errors.has('title') }"
                 />
                 <has-error :form="form" field="title"></has-error>
+                <p v-if="titleWarn" class="warn-error">Title can't be empty.</p>
+                <p v-if="bigTitleWarn" class="warn-error">Title can't exceed 150 characters.</p>
               </div>
             </div>
 
@@ -451,7 +454,7 @@
 
             <div class="col-sm-6">
               <label class="label" for="input"
-              >Banner image</label>
+              >Please upload the Banner images in kb, total size of the upload shouldn't exceed 2mb.</label>
               <br />
               <div class="row">
                   <div v-for="(img, index) in img_images" :key="index" class="mr-2 mb-2 shadow smallImages">
@@ -550,6 +553,8 @@ export default {
       selected: null,
       summeryWarn: false,
       meta_titleWarn: false,
+      titleWarn: false,
+      bigTitleWarn: false,
       meta_keywordWarn: false,
       tagsWarn: false,
       photo: [],
@@ -614,6 +619,18 @@ export default {
             this.meta_titleWarn = true;
           } else {
             this.meta_titleWarn = false;
+          }
+      }
+      if(field === 'title'){
+          if(input === ''){
+            this.titleWarn = true;
+          } else if(input.length > 150){
+            this.titleWarn = false;
+            this.bigTitleWarn = true;
+          }
+          else {
+            this.titleWarn = false;
+            this.bigTitleWarn = false;
           }
       }
       /*if(field === 'meta_keyword'){
@@ -844,7 +861,13 @@ export default {
           });
           this.loading = false
         })
-        .catch(() => {});
+        .catch((error) => {
+           this.$toast.fire({
+            icon: "warning",
+            title: "Please input valid data",
+          });
+          this.loading = false
+        });
     },
 
     addRow() {

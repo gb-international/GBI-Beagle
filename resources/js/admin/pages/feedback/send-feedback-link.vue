@@ -156,7 +156,8 @@ export default {
             .catch((error) => {
               console.log(error)
             });
-            this.$router.push(`/feedbacks/`);
+            //this.$router.push(`/feedbacks/`);
+            this.$router.push(`/send-feedback-link/`);
             this.$toast.fire({
                 icon: "success",
                 title: "Feedback Link Sent successfully",

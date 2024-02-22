@@ -1,6 +1,6 @@
 <!--
-This Template is for listing for the Category profile using function to get the 
-data from the api to display the data about the Category from the backend .
+This Template is for listing for the Rooms using function to get the 
+data from the api to display the data from the backend .
 -->
 <template>
   <list-layout addurl="/add-hotel" buttontext="add hotel">

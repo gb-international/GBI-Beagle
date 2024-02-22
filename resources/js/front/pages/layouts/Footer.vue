@@ -9,26 +9,27 @@
           <div class="row text-white pt-5">
             <div class="col-sm-3">
               <p class="text-white m-0 p-0 pb-1 text-bold">Explore Us</p>
-              <router-link :to="'/about-us/our-story'" class="text-white d-block pb-1"><span class="white-important">About Us</span></router-link> 
-              <router-link :to="'/about-us/join-our-team'" class="text-white d-block pb-1"><span class="white-important">Join Our Team</span></router-link> 
-              <router-link :to="'/image-gallery/domestic'" class="text-white d-block pb-1"><span class="white-important">Our Travel Gallery</span></router-link> 
+              <router-link :to="'/about-us'" class="text-white d-block pb-1"><span class="white-important">About Us</span></router-link> 
+              <router-link :to="'/join-our-team'" class="text-white d-block pb-1"><span class="white-important">Join Our Team</span></router-link> 
+              <router-link :to="'/image-gallery'" class="text-white d-block pb-1"><span class="white-important">Our Travel Gallery</span></router-link> 
               <router-link :to="'/media'" class="text-white d-block pb-1"><span class="white-important">Media &amp; Investors Relations</span></router-link> 
               <p class="text-white m-0 p-0 pb-1 text-bold mt-2">Help &amp; Support</p>
               <router-link :to="'/whats-new'" class="text-white d-block pb-1"><span class="white-important">What's New</span></router-link> 
               <router-link :to="'/contact-us'" class="text-white d-block pb-1"><span class="white-important">Contact Us</span></router-link> 
               <router-link :to="'/share-feedback'" class="text-white d-block pb-1"><span class="white-important">Share Feedback</span></router-link> 
               <router-link :to="'/platform-guide'" class="text-white d-block pb-1"><span class="white-important">How To Use The Platform!!</span></router-link> 
-              <router-link :to="'/travel-guidelines'" class="text-white d-block pb-1"><span class="white-important">Travel Guidelines 2023</span></router-link>
+              <router-link :to="'/travel-guidelines'" class="text-white d-block pb-1"><span class="white-important">Travel Guidelines</span></router-link>
             </div>
             <div class="col-sm-2">
               <p class="text-white m-0 p-0 pb-1 text-bold">Resources</p>
               <router-link :to="'/news-letter'" class="text-white d-block pb-1"><span class="white-important">News Letter</span></router-link> 
-              <router-link :to="'/resources/faq'" class="text-white d-block pb-1"><span class="white-important">FAQ</span></router-link> 
+              <router-link :to="'/faq'" class="text-white d-block pb-1"><span class="white-important">FAQ</span></router-link> 
               <router-link :to="'/blog'" class="text-white d-block pb-1"><span class="white-important">Blogs</span></router-link> 
-              <router-link :to="'/resources/travel-education'" class="text-white d-block pb-1"><span class="white-important">Travel &amp; Education</span></router-link> 
-              <router-link :to="'/resources/safety-security'" class="text-white d-block pb-1"><span class="white-important">Safety &amp; Security</span></router-link> 
+              <router-link :to="'/travel-education'" class="text-white d-block pb-1"><span class="white-important">Travel &amp; Education</span></router-link> 
+              <router-link :to="'/safety-security'" class="text-white d-block pb-1"><span class="white-important">Safety &amp; Security</span></router-link> 
               <a href="https://s3.amazonaws.com/www.pands.gowithgbi.com/GBI+Privacy+and+Security+Policy.pdf" class="text-white d-block pb-1"><span class="white-important">Privacy Policy</span></a> 
               <a href="https://s3.amazonaws.com/www.tandc.gowithgbi.com/GBI+Terms+and+Conditions.pdf" class="text-white d-block pb-1"><span class="white-important">Terms of Use</span></a>
+              <a href="/sitemap.xml" class="text-white d-block pb-1"><span class="white-important">Site Map</span></a>
             </div>
             <div class="col-sm-3 footer-icons-section">
               <p class="text-white m-0 p-0 pb-2">Accreditaion & Recognitions</p>

@@ -10,12 +10,12 @@ class BlogController extends Controller
 {
     public function list($count=3)
     {
-        return response()->json(Post::with('category','tags')->paginate($count));
+        return response()->json(Post::where('status', 1)->with('category','tags')->paginate($count));
     }
 
     public function recents()
     {
-        return response()->json(Post::with('category','tags')->paginate(3));
+        return response()->json(Post::where('status', 1)->with('category','tags')->paginate(3));
     }
 
     public function category($slug)
@@ -49,12 +49,12 @@ class BlogController extends Controller
     public function searchPost(Request $request)
     {
         if($request->title != ''){
-            $data = Post::with('category','tags')
+            $data = Post::where('status', 1)->with('category','tags')
             ->where('title','like',"%$request->title%")
             ->orWhere('category_id',$request->category_id)
             ->get();
         }else{
-            $data = Post::with('category','tags')
+            $data = Post::where('status', 1)->with('category','tags')
             ->where('category_id',$request->category_id)
             ->where('title','like',"%$request->title%")
             ->get();

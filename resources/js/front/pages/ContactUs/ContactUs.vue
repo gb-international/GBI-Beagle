@@ -179,9 +179,9 @@ import counter from "@/front/pages/ContactUs/counter.js";
 export default {
   name: "ContactUs",
    metaInfo: {
-    title: 'Contact Us | We Are Just A Call Away',
+    title: 'Contact the best Travel and tourism agency and guide in the town| GOwithGBI',
     meta:[
-      { name: 'description', content: 'Address: Triveni complex, G-32, Sheikh Sarai Phase 1, Sheikh Sarai, New Delhi, Delhi 110017 | Contact No.: +91 9717922240 | E-Mail: csrikhi@gbinternational.in' },
+      { name: 'description', content: 'Contact GOwithGBI for any related queries regarding your upcoming tours or regarding booking tours. Best travel agency in India| GOwithGBI' },
       { name: 'keywords', content: '@GoWithGBI,GB International,Connect With GB International,Email Us,Talk To Us,Need a travel solution' },
       { name: 'url', content: 'https://www.gowithgbi.com/contact-us' },
     ]
@@ -198,8 +198,8 @@ export default {
   },
   beforeCreate(){
     var metaInfo = {
-      title: 'GBI Contact Us',
-      description: 'Connect With GB International for organizing your educational travel plans any where any time',
+      title: 'Contact the best Travel and tourism agency and guide in the town| GOwithGBI',
+      description: 'Contact GOwithGBI for any related queries regarding your upcoming tours or regarding booking tours. Best travel agency in India| GOwithGBI',
       keywords: '@GoWithGBI,GB International,Connect With GB International,Email Us,Talk To Us,Need a travel solution',
       url: 'https://www.gowithgbi.com/contact-us',
       type: 'website'

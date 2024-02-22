@@ -44,7 +44,7 @@ class ItineraryController extends Controller
             'noofday' => 'required',
             'source' => 'required',
             'destination' => 'required',
-            'clientType' => ''
+            'clientType' => 'required'
         ]);
 
         $data = [];
@@ -52,9 +52,11 @@ class ItineraryController extends Controller
         $destination = $request->destination;
         $tourtype = $request->tourtype;
         $noofday = $request->noofday;
+        $ctype = $request->clientType;
         if(count($source) > 1){ // Search on the basis of source of the itinerary
             $data = DB::table('itineraries')
                 ->where('noofdays',$noofday)
+                ->where('client_type',$ctype)
                 ->whereIn('source',$source)
                 ->get();
             return response()->json([
@@ -68,7 +70,8 @@ class ItineraryController extends Controller
             $data = Itinerary::where([
                 'source'=>$source,
                 'destination'=>$destination,
-                // 'noofdays' => $noofday,
+                //'noofdays' => $noofday,
+                'client_type' => $ctype,
             ])
             ->with('tourtypes')
             ->get();
@@ -216,8 +219,8 @@ class ItineraryController extends Controller
 
     }
 
-    public function view($id){
-        $data = Itinerary::where('id',$id)->with([
+    public function view($slug){
+        $data = Itinerary::where('slug',$slug)->with([
             'tourtypes',
             'itinerarydays',
             'itineraryimages'

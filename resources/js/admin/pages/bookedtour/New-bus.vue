@@ -1,6 +1,6 @@
 <!--
-This Template is for listing for the Hotel profile using function to get the 
-data from the api to display the data about the Hotel from the backend .
+This Template is for listing for the Bus using function to get the 
+data from the api to display the data from the backend .
 -->
 <template>
   <form-layout>

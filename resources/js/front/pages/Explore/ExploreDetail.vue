@@ -77,7 +77,7 @@
         </div>
       </div>
 
-      <button v-if="!login"
+      <button v-if="login"
         class="btn btnPay" 
         data-toggle="modal"
         data-target="#bookModal">
@@ -98,7 +98,7 @@
       <span class="smallP">(Incl. all taxes)</span>
       <p class="p2">₹{{(itineraryData.price * 5/100 + itineraryData.price).toLocaleString()}}</p>
     </div>
-    <button v-if="!login"
+    <button v-if="login"
       class="btn btnConfirm ml-auto" 
       data-toggle="modal"
       data-target="#bookModal">
@@ -137,7 +137,7 @@
     <div class="row2-card">
     <p class="rowheadings">Your Experience Includes</p>
     <div class="iconMainDiv">
-      <div class="iconClass" v-if="itineraryData.hotel_type != '0'">
+      <div class="iconClass" v-if="itineraryData.hotel_type != '0' && itineraryData.hotel_type">
         <img :src="$gbiAssets + '/images/icons/tour-hotel.svg'" class="svg-pink">
         <p>Hotel</p>
       </div>
@@ -490,7 +490,7 @@ export default {
       this.selectedPhoto = pic;
     },
     getItinerary(){
-      this.$axios.get(`/api/itinerary-view/${this.$route.params.id}`).then((res)=>{
+      this.$axios.get(`/api/itinerary-view/${this.$route.params.slug}`).then((res)=>{
         this.itineraryData = res.data;
         //Save search
         let searches = JSON.parse(localStorage.getItem("itSearches"));

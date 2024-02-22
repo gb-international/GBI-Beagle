@@ -102,19 +102,19 @@ export default {
     "paragraph" : Paragraph
   },
   metaInfo: {
-    title: 'About Us | Get To Know About Us',
+    title: 'Learn more about the best travel guide and agency| GowithGBI',
     meta:[
-      { name: 'description', content: 'We, GB International deal in providing customized itineraries to educational institutions, corporates, and to family travellers.' },
+      { name: 'description', content: 'GOwithGBI is in the business of tourism and travel since last 40 years| learn about us while getting the affordable deals only on GowithGBI' },
       { name: 'keywords', content: '@GoWithGBI,Our Story,about us,GBI Process,Program Engineering Process ,GBI How we work,learn,explore,discover,dream travel journeys,behind the scenes,dream,educational programs,corporate events,team building programs,international programs,domestic programs' },
-      { name: 'url', content: 'https://www.gowithgbi.com/about-us/our-story' },
+      { name: 'url', content: 'https://www.gowithgbi.com/about-us' },
     ]
   },
   beforeCreate(){
     let metaInfo = {
-      title: 'About Us | Get To Know About Us',
-      description: 'We, GB International deal in providing customized itineraries to educational institutions, corporates, and to family travellers.',
+      title: 'Learn more about the best travel guide and agency| GowithGBI',
+      description: 'GOwithGBI is in the business of tourism and travel since last 40 years| learn about us while getting the affordable deals only on GowithGBI',
       keywords: '@GoWithGBI,Our Story,about us,GBI Process,Program Engineering Process ,GBI How we work,learn,explore,discover,dream travel journeys,behind the scenes,dream,educational programs,corporate events,team building programs,international programs,domestic programs',
-      url: 'https://www.gowithgbi.com/about-us/our-story',
+      url: 'https://www.gowithgbi.com/about-us',
       type: 'website'
     }
     document.cookie = "GBIMeta =" + JSON.stringify(metaInfo) +"; path=/";

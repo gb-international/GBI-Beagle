@@ -38,8 +38,8 @@ const banquetCategoryView = () => import(/* webpackChunkName: "js/admin/banquetC
 
 export default[
     //Hotel
-    { meta: {permId: 60}, path: '/hotels', component: Hotels },
-    { meta: {permId: 60}, path: '/hotel-list/:state', component: HotelList },
+    { meta: {permId: 60}, path: '/hotels', component: HotelList },
+    //{ meta: {permId: 60}, path: '/hotel-list/:state', component: HotelList },
     { meta: {permId: 60}, path: '/add-hotel', component: HotelAdd },
     { meta: {permId: 60}, path: '/edit-hotel/:id', component: HotelEdit },
     { meta: {permId: 60}, path: '/hotel-view/:id', component: HotelView },

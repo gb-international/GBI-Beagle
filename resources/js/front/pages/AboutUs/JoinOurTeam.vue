@@ -117,7 +117,7 @@
             <sub-heading :text="sjob.title" style="margin-bottom: 10px !important; font-weight: 600 !important"/>
             <paragraph :text="sjob.description.slice(0, 100)"/>
           </div>
-           <button class="col-md-2 col-8 btn profile_button" @click.prevent="$router.push('/about-us/join-our-team/job/'+sjob.id)">
+           <button class="col-md-2 col-8 btn profile_button" @click.prevent="$router.push('/join-our-team/job/'+sjob.id)">
             View
           </button>
         </div>
@@ -139,12 +139,12 @@ import cardLoader from '@/front/components/loaders/cardLoaderJobs.vue';
 export default {
   name: "JoinOurTeam",
   metaInfo: {
-    title: "Careers | Join Our Team",
+    title: "Looking forward to work with GOwithGBI| Join our team",
     meta: [
       {
         name: "description",
         content:
-          "Explore the world with us. Be a part of our team.",
+          "Work with the best travel and tourism guide and agency| explore careers that will help you in growth only in GOwithGBI",
       },
       {
         name: "keywords",
@@ -153,7 +153,7 @@ export default {
       },
       {
         name: "url",
-        content: "https://www.gowithgbi.com/about-us/join-our-team",
+        content: "https://www.gowithgbi.com/join-our-team",
       },
     ],
   },
@@ -190,10 +190,10 @@ export default {
   },
   beforeCreate(){
     let metaInfo = {
-      title: 'Careers | Join Our Team',
-      description: 'Explore the world with us. Be a part of our team.',
+      title: 'Looking forward to work with GOwithGBI| Join our team',
+      description: 'Work with the best travel and tourism guide and agency| explore careers that will help you in growth only in GOwithGBI',
       keywords: '@GoWithGBI,join our team,explore Your career with GBI,exciting journey,research oriented process,challenges,explore your travel instinct,discover ,travel passion,learn,explore,discover',
-      url: 'https://www.gowithgbi.com/about-us/join-our-team',
+      url: 'https://www.gowithgbi.com/join-our-team',
       type: 'website'
     }
     document.cookie = "GBIMeta =" + JSON.stringify(metaInfo) +"; path=/";
@@ -218,7 +218,7 @@ export default {
       });
     },
     redirJob(page){
-      this.$router.push('/about-us/join-our-team/'+page)
+      this.$router.push('/join-our-team/'+page)
     },
     onFileChange(e) {
       var files = e.target.files || e.dataTransfer.files;

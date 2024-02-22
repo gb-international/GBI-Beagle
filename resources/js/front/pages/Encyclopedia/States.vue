@@ -89,11 +89,11 @@ import cardLoader from '@/front/components/loaders/CardLoaderEncy';
 export default {
   name: "States",
   metaInfo: {
-    title: 'Encyclopedia | Know Before You Go ',
+    title: 'Learn before you travel with GowithGBI',
     meta:[
-      { name: 'description', content: 'All the information you need to know about the countries or states you are visiting will be found here.' },
+      { name: 'description', content: 'Explore places on our encyclopedia pages and get in depth knowledge about culture. Itineraries and culinary of different places| only with GOwithGBI' },
       { name: 'keywords', content: '@GoWithGBI,explore desired destinations,tailored made itineraries ,custom built itineraries,itineraries of your choice and preferences,explore itineraries,explore educational programs' },
-      { name: 'url', content: 'https://www.gowithgbi.com/contact-us' },
+      { name: 'url', content: 'https://www.gowithgbi.com/travel-encyclopedia' },
     ]
   },
   components: {
@@ -110,10 +110,10 @@ export default {
   },
   beforeCreate(){
     var metaInfo = {
-      title: 'Encyclopedia | Know Before You Go',
-      description: 'All the information you need to know about the countries or states you are visiting will be found here.',
+      title: 'Learn before you travel with GowithGBI',
+      description: 'Explore places on our encyclopedia pages and get in depth knowledge about culture. Itineraries and culinary of different places| only with GOwithGBI',
       keywords: '@GoWithGBI,explore desired destinations,tailored made itineraries ,custom built itineraries,itineraries of your choice and preferences,explore itineraries,explore educational programs',
-      url: 'https://www.gowithgbi.com/resources/travel-encyclopedia',
+      url: 'https://www.gowithgbi.com/travel-encyclopedia',
       type: 'website'
     }
     document.cookie = "GBIMeta =" + JSON.stringify(metaInfo) +"; path=/";

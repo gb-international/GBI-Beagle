@@ -95,8 +95,8 @@ export default {
     return {
       fields: [
         {key:'school_name',label:'name',sortable:true,thClass: 'table-head'},
-        {key:'principal_email_id',label:'principle name',sortable:true,thClass: 'table-head'},
-        {key:'principal_name',label:'incharge name',sortable:true,thClass: 'table-head'},
+        {key:'principal_email_id',label:'principal email',sortable:true,thClass: 'table-head'},
+        {key:'principal_name',label:'principal name',sortable:true,thClass: 'table-head'},
         {key:'action',label:'action',thClass: 'table-head'}
       ],
       limit:2,

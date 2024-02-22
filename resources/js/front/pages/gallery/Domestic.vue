@@ -50,19 +50,19 @@ import ImageCard from '@/front/components/ImageCard.vue';
 import cardLoader from '@/front/components/loaders/cardImgLoader.vue';
 
 export default {
-  name: "HowWework",
+  name: "GBI Gallery",
   components:{
     ImageCard,
     Observer,
     cardLoader,
   },
   metaInfo: {
-    title: "GBI Image Gallery",
+    title: "Get virtual tour of India with GOwithGBI",
     meta: [
       {
         name: "description",
         content:
-          "@GoWithGBI takes you on a tour behind the scenes where you will get to learn about the process and hard work GBI team puts to make your educational travel program a successful one",
+          "Explore the gallery of surprises and India tourism photos that will take you to different adventures| build your tourism story with GOwithGBI",
       },
       {
         name: "keywords",
@@ -71,7 +71,7 @@ export default {
       },
       {
         name: "url",
-        content: "https://www.gowithgbi.com/about-us/how-we-work",
+        content: "https://www.gowithgbi.com/image-gallery",
       },
       { name: "type", content: "website" },
     ],
@@ -79,8 +79,8 @@ export default {
 
   beforeCreate(){
       let metaInfo = {
-        title: 'GBI Domestic Image Gallery',
-        description: '@GoWithGBI takes you on a tour behind the scenes where you will get to learn about the process and hard work GBI team puts to make your educational travel program a successful one',
+        title: 'Get virtual tour of India with GOwithGBI',
+        description: 'Explore the gallery of surprises and India tourism photos that will take you to different adventures| build your tourism story with GOwithGBI',
         keywords: '@GoWithGBI,GBI Process,Program Engineering Process ,GBI How we work,learn,explore,discover,dream travel journeys,behind the scenes,dream,educational programs,corporate events,team building programs,international programs,domestic programs',
         url: 'https://www.gowithgbi.com/image-gallery',
         type: 'website'

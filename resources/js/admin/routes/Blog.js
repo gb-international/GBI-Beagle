@@ -13,8 +13,11 @@ const PostView = () => import(/* webpackChunkName: "js/admin/PostView" */ '@/adm
 const Tag = () => import(/* webpackChunkName: "js/admin/Tag" */ '@/admin/pages/blog/tag/List.vue');
 const TagAdd = () => import(/* webpackChunkName: "js/admin/TagAdd" */ '@/admin/pages/blog/tag/New.vue');
 const TagEdit = () => import(/* webpackChunkName: "js/admin/TagEdit" */ '@/admin/pages/blog/tag/Edit.vue');
-
-
+// Article
+const Article = () => import(/* webpackChunkName: "js/admin/Article" */ '@/admin/pages/blog/article/List.vue');
+const ArticleAdd = () => import(/* webpackChunkName: "js/admin/ArticleAdd" */ '@/admin/pages/blog/article/New.vue');
+const ArticleEdit = () => import(/* webpackChunkName: "js/admin/ArticleEdit" */ '@/admin/pages/blog/article/Edit.vue');
+const ArticleView = () => import(/* webpackChunkName: "js/admin/ArticleView" */ '@/admin/pages/blog/article/View.vue');
 
 export default[
     // categories
@@ -27,6 +30,11 @@ export default[
     { meta: {permId: 77}, path: '/posts-add', component: PostAdd },
     { meta: {permId: 77}, path: '/posts/:id', component: PostEdit },
     { meta: {permId: 77}, path: '/posts-view/:id', component: PostView },
+    // Article
+    { meta: {permId: 77}, path: '/articles', component: Article },
+    { meta: {permId: 77}, path: '/articles-add', component: ArticleAdd },
+    { meta: {permId: 77}, path: '/articles/:id', component: ArticleEdit },
+    { meta: {permId: 77}, path: '/articles-view/:id', component: ArticleView },
     // Tags    
     { meta: {permId: 79}, path: '/tags', component: Tag },
     { meta: {permId: 79}, path: '/tags-add', component: TagAdd },

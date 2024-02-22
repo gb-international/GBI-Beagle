@@ -1,6 +1,6 @@
 <!--
-This Template is for listing for the Hotel profile using function to get the 
-data from the api to display the data about the Hotel from the backend .
+This Template is for listing for the Sights using function to get the 
+data from the api to display the data from the backend .
 -->
 <template>
   <form-layout>
@@ -106,6 +106,7 @@ export default {
                 tour_id: this.$route.params.id,
                 tour_code: this.$route.params.tour_code,
                 itineraryday_id: this.itineraryday_list[i].id,
+                itineraryday: this.itineraryday_list[i].day,
                 sightseeing_id: "",
               },
             ]);
@@ -118,6 +119,7 @@ export default {
         tour_id: this.$route.params.id,
         tour_code: this.$route.params.tour_code,
         itineraryday_id: this.itineraryday_list[index].id,
+        itineraryday: this.itineraryday_list[index].day,
         sightseeing_id: "",
       });
     },

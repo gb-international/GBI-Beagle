@@ -1,6 +1,6 @@
 <!--
-This Template is for listing for the Hotel profile using function to get the 
-data from the api to display the data about the Hotel from the backend .
+This Template is for listing for the Trains using function to get the 
+data from the api to display the data from the backend .
 -->
 <template>
   <form-layout>
@@ -159,7 +159,7 @@ export default {
         if (res) {
           for(let i = 0;i<res.data.length;i++){
             this.train_list.push({
-              name:res.data[i].name,
+              name:res.data[i].name+' ('+res.data[i].code+')',
               id:res.data[i].id
             });
           }

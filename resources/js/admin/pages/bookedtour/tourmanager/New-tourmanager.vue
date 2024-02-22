@@ -21,13 +21,18 @@ data from the api to display the data about the Hotel from the backend .
 
             </div>
           </div>
-          <div class="col-sm-4">
+          <div class="col-sm-5">
             <div class="form-group">
               <label>SALARY PER DAY(INR)</label>
-              <p>{{ manager_data.salaryPerday }}/-</p>
+              <input
+                      type="number"
+                      min="0"
+                      class="form-control"
+                      v-model="salary"
+                    />
             </div>
           </div>
-          <div class="col-sm-3">
+          <div class="col-sm-5">
             <label>CONTACT NUMBER</label>
             <p>{{ manager_data.phoneno }}</p>
           </div>
@@ -62,6 +67,7 @@ export default {
       manager_data: "",
       escort_id: "",
       tour: "",
+      salary: "",
       escort_list: [],
     };
   },
@@ -104,15 +110,25 @@ export default {
       if (this.escort_id == undefined) {
         this.$toast.fire({
           icon: "error",
-          title: "Please Select Tour Manager !!!",
+          title: "Please Select Tour Manager !!",
         });
+      
         return false;
       }
-
+      
+      else if (!this.salary) {
+        this.$toast.fire({
+          icon: "error",
+          title: "Please input salary !!",
+        });
+      
+        return false;
+      }
       var data = {
         escort_id: this.escort_id,
         tour_id: this.tour.id,
         tour_code: this.tour.tour_id,
+        salary: this.salary,
       };
       axios
         .post('/api/bookedescorts', data)
@@ -120,14 +136,14 @@ export default {
           if (response.data == 1) {
             this.$toast.fire({
               icon: "error",
-              title: "Tour Manager already going on this tour !!!",
+              title: "Tour Manager already going on this tour !!",
             });
             return false;
           }
 
           this.$toast.fire({
             icon: "success",
-            title: "Successfully Updated !!!",
+            title: "Successfully Updated !!",
           });
         })
         .catch((error) => {

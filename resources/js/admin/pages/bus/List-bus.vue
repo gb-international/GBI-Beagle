@@ -92,8 +92,8 @@ export default {
     return {
       fields: [
         {key:'company_name',label:'company name',sortable:true,thClass: 'table-head'},
-        {key:'seater',label:'address',sortable:true,thClass: 'table-head'},
-        {key:'seat_type',label:'person',sortable:true,thClass: 'table-head'},
+        {key:'seater',label:'seater',sortable:true,thClass: 'table-head'},
+        {key:'seat_type',label:'type',sortable:true,thClass: 'table-head'},
         {key:'price',label:'price',sortable:true,thClass: 'table-head'},
         {key:'action',label:'action',thClass: 'table-head'}
       ],

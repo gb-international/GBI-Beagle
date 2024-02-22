@@ -16,6 +16,7 @@ return [
     //  aws images path (folder)
     'category_image' => 'images/category/',
     'post_image' => 'images/post/',
+    'article_image' => 'images/article/',
     'tourprogram_image' => 'images/tourprogram/',
     'itinerary_image' => 'images/itinerary/',
     'event_image' => 'images/events/',

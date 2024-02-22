@@ -67,7 +67,7 @@ It takes id from the url and get the data from the api .
         >
           <h5>Tour ({{ index + 1 }})</h5>
           <p>
-            <router-link :to="`/booked-tour/10`">{{
+            <router-link :to="`/school/view-tour/${tour.id}`">{{
               tour.tour_id
             }}</router-link>
           </p>

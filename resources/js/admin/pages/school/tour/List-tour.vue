@@ -100,9 +100,10 @@ export default {
   },
   mounted() {
     this.getitems();
+    this.getAllData();
   },
   computed:{
-    ...mapState(['items']),
+    ...mapState(['items', 'alldata']),
   },
   watch:{
     perPage:function(){
@@ -114,6 +115,9 @@ export default {
   methods: {
     getitems(page=1,size= this.perPage) {
       this.$store.dispatch('getItems','/tour/school/'+size+'?page='+page);
+    },
+    getAllData() {
+      this.$store.dispatch('getAllData','/tour/school/'+size);
     },
     deleteItem(id,index=-1) {
       let payload = {'api':"/tour/"+id,index,'index':index};

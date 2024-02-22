@@ -20,7 +20,7 @@ This template helps us to create a new Tour.
                 readonly
                 v-model="form.tour_id"
                 :class="{ 'is-invalid': form.errors.has('tour_id') }"
-                placeholder="Enter School name"
+                placeholder="Tour Code"
               />
               <has-error :form="form" field="tour_id"></has-error>
             </div>
@@ -255,8 +255,8 @@ export default {
           if (this.tours.length >= 1) {
             var last_id = this.tours[this.tours.length - 1].id;
             last_id++;
-            var javaScriptRelease = "TOURCODE000" + last_id;
-            this.form.tour_id = javaScriptRelease;
+            var trCode = "GBI TOUR CODE 00" + last_id;
+            this.form.tour_id = trCode;
           }
         }
       });
